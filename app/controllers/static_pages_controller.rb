@@ -9,5 +9,6 @@ class StaticPagesController < ApplicationController
   end
 
   def data_portal
+    @countries = Country.all
   end
 end

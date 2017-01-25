@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   get 'data_portal' => 'static_pages#data_portal'
 
+  namespace :data_portal do
+    resources :countries, only: :show
+    resources :indicators, only: :show
+  end
+
   resources :libraries
   resources :news
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

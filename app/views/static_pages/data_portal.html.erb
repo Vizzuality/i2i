@@ -1,1 +1,5 @@
 Dataportal
+
+<% @countries.each do |country| %>
+  </br><%= link_to country.name, data_portal_country_path(country.id) %>
+<% end %>
