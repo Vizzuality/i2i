@@ -5,21 +5,36 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV.fetch("POSTGRES_USERNAME") { "postgres" } %>
+  host: <%= ENV.fetch("POSTGRES_PORT_5432_TCP_ADDR") { "localhost" } %>
+  port: <%= ENV.fetch("POSTGRES_PORT_5432_TCP_PORT") { 5432 } %>
+
+
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: i2i_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: i2i_test
+
+staging:
+  <<: *default
+  database: i2i_staging
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: i2i_prod
+  host: localhost
+  port: 5432
+  username: <%= ENV.fetch('I2I_DATABASE_USER') {} %>
+  password: <%= ENV.fetch("I2I_DATABASE_PASSWORD") {} %>
