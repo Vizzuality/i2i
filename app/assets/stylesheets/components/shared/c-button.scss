@@ -12,6 +12,12 @@
   font-size: $font-size-normal;
   line-height: 40px;
 
+  &.-filled {
+    border: 0;
+    background: $color-1;
+    color: $color-4;
+  }
+
   &.-black {
     border: 0;
     background: $color-4;

@@ -35,6 +35,15 @@ h6 {
     color: $color-5;
   }
 
+  &.-sea {
+    color: $color-1;
+  }
+
+  &.-small {
+    font-size: $font-size-small;
+    text-transform: uppercase;
+  }
+
   &.-medium {
     font-size: $font-size-medium;
     letter-spacing: -1px;
