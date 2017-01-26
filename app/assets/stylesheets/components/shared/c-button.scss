@@ -6,7 +6,7 @@
 
   border: 1px solid $color-1;
   border-radius: 100px;
-  background: $color-4;
+  background: transparent;
 
   color: $color-1;
   font-family: $font-family-2;
@@ -23,5 +23,9 @@
     border: 0;
     background: $color-4;
     color: $color-5;
+  }
+
+  &.-big {
+    padding: 0 85px;
   }
 }
