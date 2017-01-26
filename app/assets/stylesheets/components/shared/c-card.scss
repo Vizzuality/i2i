@@ -15,6 +15,7 @@
   }
 
   > .metadata {
+    flex-grow: 1;
     padding: 30px;
     background: $color-4;
     box-shadow: 0 2px 3px 0 rgba($color-6, .15);
@@ -36,6 +37,10 @@
   &.-big {
     width: 520px;
     height: 370px;
+
+    > .picture {
+      height: 140px;
+    }
   }
 
   &.-horizontal {
