@@ -1,0 +1,43 @@
+
+.l-library {
+  padding: 0 0 125px;
+
+  .library-content-selector {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 33px;
+    padding: 0 $wrapper-padding-desktop;
+
+    background: rgba($color-6, .1);
+
+    line-height: 33px;
+  }
+
+  .library-content-selector .content-selector {
+    outline: none;
+
+    color: $color-2;
+    font-family: $font-family-2;
+
+    cursor: pointer;
+
+    &:not(:first-child) {
+      margin: 0 0 0 40px;
+    }
+
+    &.-current {
+      @extend .c-button;
+      height: 48px;
+      padding: 0 35px;
+      border: 0;
+      color: $color-1;
+      box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    }
+  }
+
+  .l-card-grid {
+    justify-content: flex-start;
+    padding: 60px 0 0;
+  }
+}
