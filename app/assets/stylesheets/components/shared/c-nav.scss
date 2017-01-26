@@ -1,0 +1,15 @@
+
+.c-nav {
+  > .nav-list > .nav-item {
+
+    &:not(:first-child) {
+      margin: 0 0 0 60px;
+    }
+
+    > a {
+      color: $color-4;
+      font-family: $font-family-2;
+      font-size: $font-size-normal;
+    }
+  }
+}

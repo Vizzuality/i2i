@@ -8,8 +8,10 @@
   }
 
   .subtitle {
+    margin: 20px 0 0;
+
     color: $color-4;
-    font-size: $font-size-medium;
+    font-weight: $font-weight-medium;
 
     > a {
       color: $color-2;

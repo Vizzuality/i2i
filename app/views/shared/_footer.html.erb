@@ -1,5 +1,23 @@
-<br>
-<div id="footer">
-  This is the footer
-  It has links to the pages, the logo of insight2impact and says designed by vizzuality.
-</div>
+<footer class="c-footer">
+  <div class="wrapper">
+    <nav class="c-nav" role="navigation">
+      <ul class="nav-list">
+        <li class="nav-item"><%= link_to 'Homepage', home_path%></li>
+        <li class="nav-item"><%= link_to 'Data portal', data_portal_path %></li>
+    		<li class="nav-item"><%= link_to 'News', news_index_path %></li>
+    		<li class="nav-item"><%= link_to 'Library', libraries_path %></li>
+    		<li class="nav-item"><%= link_to 'Community', community_path %></li>
+    		<li class="nav-item"><%= link_to 'About', about_path %></li>
+      </ul>
+    </nav>
+    <div class="credits">
+      <div class="app-logo">
+        <%= link_to 'i2i logo', home_path%>
+      </div>
+      <div class="authorship">
+        <span class="designed-by">Designed by</span>
+        <div class="vizzuality-logo"></div>
+      </div>
+    </div>
+  </div>
+</footer>
