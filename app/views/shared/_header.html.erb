@@ -1,12 +1,14 @@
-<div id="header">
-  This is the header
-  It has a pretty image, the i2i logo, links for the stuff
-  <br>
-  <%= link_to 'I2I Logo', home_path%>
-  <%= link_to 'Data Portal', data_portal_path %>
-  <%= link_to 'News', news_index_path %>
-  <%= link_to 'Libraries', libraries_path %>
-  <%= link_to 'Community', community_path %>
-  <%= link_to 'About', about_path %>
+<div class="c-header">
+	<div class="app-logo">
+		<%= link_to 'I2I Logo', home_path%>
+	</div>
+  <nav class="c-nav" role="navigation">
+    <ul class="nav-list">
+  		<li class="nav-item -current"><%= link_to 'Data portal', data_portal_path %></li>
+  		<li class="nav-item"><%= link_to 'News', news_index_path %></li>
+  		<li class="nav-item"><%= link_to 'Library', libraries_path %></li>
+  		<li class="nav-item"><%= link_to 'Community', community_path %></li>
+  		<li class="nav-item"><%= link_to 'About', about_path %></li>
+    </ul>
+  </nav>
 </div>
-<br>

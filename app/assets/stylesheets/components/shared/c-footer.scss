@@ -1,0 +1,29 @@
+
+.c-footer {
+
+  .c-nav {
+    padding: 0 150px;
+    border-bottom: 1px solid $color-1;
+
+    > .nav-list {
+      padding: 45px 0 35px;
+    }
+  }
+
+  .credits {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 35px 0 45px;
+  }
+
+  .authorship {
+    > .designed-by {
+      color: $color-4;
+      font-family: $font-family-1;
+      font-size: $font-size-small;
+      font-weight: $font-weight-light;
+    }
+  }
+}

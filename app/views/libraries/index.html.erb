@@ -1,13 +1,125 @@
-<p id="notice"><%= notice %></p>
+<div class="l-library">
+  <div class="l-hero">
+    <div class="wrapper">
+      <div class="row">
+        <%= render partial: 'shared/header'%>
+        <div class="c-hero">
+          <h1 class="title -light -huge">i2i Library</h1>
+          <p class="subtitle">Description text. Lorem ipsum sit amet ornare
+            sem lacinia quam venenatis vestibulum.</p>
+        </div>
+      </div>
+    </div>
+    <div class="library-content-selector">
+      <button class="content-selector -current">Publications</button>
+      <button class="content-selector ">Journal</button>
+    </div>
+  </div>
 
-<h1>Libraries</h1>
+  <div class="wrapper">
+    <div class="row">
+      <div class="l-card-grid">
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+            </div>
+          </div>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-card -small">
+          <div class="picture"></div>
+          <div class="metadata">
+            <p>Publication title lorem ipsum id elit</p>
+            <div class="card-options">
+              <a href="#" class="title -sea -small">download</a>
+              <a href="#" class="title -sea -small">watch video</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   <tbody>
     <% @libraries.each do |library| %>
@@ -19,7 +131,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Library', new_library_path %>

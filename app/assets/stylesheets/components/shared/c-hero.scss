@@ -1,0 +1,21 @@
+
+.c-hero {
+  padding: 120px 0 110px;
+  background: $color-1;
+
+  .column {
+    padding: 0;
+  }
+
+  .subtitle {
+    max-width: 450px;
+    margin: 20px 0 0;
+
+    color: $color-4;
+    font-weight: $font-weight-medium;
+
+    > a {
+      color: $color-2;
+    }
+  }
+}

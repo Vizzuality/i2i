@@ -1,0 +1,44 @@
+
+// typography
+$font-family-1: 'Montserrat', sans-serif;
+$font-family-2: 'Chalet';
+
+$font-size-small: 13px;
+$font-size-normal: 16px;
+$font-size-medium: 35px;
+$font-size-big: 75px;
+$font-size-huge: 111px;
+
+$font-weight-light: 300;
+$font-weight-medium: 400;
+
+// colors
+$color-1: #2f939c;
+$color-2: #f9d031;
+$color-3: #f5f8f8;
+$color-4: #fff;
+$color-5: #001d22;
+$color-6: #000;
+
+// layout
+$body-max-width: 1280px;
+$content-max-width: 1060px;
+
+
+// wrap
+$wrapper-padding-mobile: 10px; // temporal value, check with responsive designs
+$wrapper-padding-tablet: 30px; // temporal value, check with responsive designs
+$wrapper-padding-desktop: 110px;
+
+// Breakpoints
+$breakpoint-mobile:  425px;
+$breakpoint-tablet:  768px;
+$breakpoint-laptop: 1024px;
+
+// Media queries
+$mq-mobile: 'screen and (min-width: #{$breakpoint-mobile})';
+$mq-tablet: 'screen and (min-width: #{$breakpoint-tablet})';
+$mq-laptop: 'screen and (min-width: #{$breakpoint-laptop})';
+
+$mq-body-width: 'screen and (min-width: #{$body-max-width})';
+$mq-content-width: 'screen and (min-width: #{$content-max-width})';

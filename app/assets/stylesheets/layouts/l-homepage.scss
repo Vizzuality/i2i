@@ -1,0 +1,17 @@
+
+.l-homepage {
+
+  > .contribute-section {
+    padding: 75px 0;
+    background: $color-2;
+
+    .title {
+      margin: 0 0 25px;
+    }
+
+    .c-button {
+      margin: 35px 0 0;
+      box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    }
+  }
+}

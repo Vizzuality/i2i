@@ -1,0 +1,98 @@
+
+.c-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 280px;
+
+  @media (screen and min-width: 597px) {
+    width: 340px;
+  }
+
+  > .picture {
+    display: inline-block;
+    width: 100%;
+    min-height: 145px;
+
+    background-image: image-url('credit-card.jpg'); // temporal image
+    background-size: cover;
+  }
+
+  > .metadata {
+    flex-grow: 1;
+    padding: 30px;
+    background: $color-4;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+    > * + p  {
+      margin: 10px 0 0;
+    }
+
+    > .c-button {
+      margin: 25px 0 0;
+    }
+
+    > .card-options {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0 0;
+    }
+  }
+
+  &.-small {
+    height: 285px;
+
+    @media (screen and min-width: 597px) {
+      width: 250px;
+    }
+  }
+
+  &.-big {
+    width: 520px;
+    height: 370px;
+
+    > .picture {
+      min-height: 140px;
+    }
+  }
+
+  &.-horizontal {
+    flex-direction: row;
+    width: 100%;
+    height: 190px;
+
+    > .picture {
+      width: 50%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    > .metadata {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+    }
+
+    &.-reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &.-important {
+    position: relative;
+    width: 700px;
+    height: 580px;
+
+    > .picture {
+      height: 100%;
+    }
+
+    > .metadata {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      max-width: 340px;
+    }
+  }
+}
