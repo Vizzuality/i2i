@@ -2,13 +2,13 @@
 @font-face {
   font-family: 'Chalet';
   font-weight: $font-weight-medium;
-  src: url('typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+  src: font-url('typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Montserrat';
   font-weight: $font-weight-light;
-  src: url('typography/Montserrat-Light.ttf') format('truetype');
+  src: font-url('typography/Montserrat-Light.ttf') format('truetype');
 }
 
 // titles

@@ -23,5 +23,8 @@
 # Ignore env
 .env
 
-# Ignore OSX files
-.DS_Store
+# Generated assets
+/vendor/bundle
+/public/assets
+/public/uploads
+/public/system

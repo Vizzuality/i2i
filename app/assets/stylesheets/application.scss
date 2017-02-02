@@ -3,9 +3,9 @@
 'settings',
 'helpers',
 'typography',
-'external/foundation.css',
 'base';
 
 @import
+'external/*',
 'components/**/*',
 'layouts/**/*';
