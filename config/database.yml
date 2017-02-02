@@ -31,6 +31,10 @@ test:
 staging:
   <<: *default
   database: i2i_staging
+  host: localhost
+  port: 5432
+  username: <%= ENV.fetch('I2I_DATABASE_USER') {} %>
+  password: <%= ENV.fetch("I2I_DATABASE_PASSWORD") {} %>
 
 production:
   <<: *default
