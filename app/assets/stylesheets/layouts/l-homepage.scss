@@ -1,6 +1,10 @@
 
 .l-homepage {
 
+  .c-hero > .title {
+    max-width: 50%;
+  }
+
   > .contribute-section {
     padding: 75px 0;
     background: $color-2;
