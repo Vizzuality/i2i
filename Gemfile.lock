@@ -44,6 +44,8 @@ GEM
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
     arel (7.1.4)
+    autoprefixer-rails (6.7.2)
+      execjs
     builder (3.2.3)
     byebug (9.0.6)
     capistrano (3.7.0)
@@ -188,6 +190,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  autoprefixer-rails (~> 6.7)
   byebug
   capistrano (= 3.7)
   capistrano-bundler
@@ -214,4 +217,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
