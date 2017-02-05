@@ -1,11 +1,11 @@
 
 @import
+'reset',
 'settings',
 'helpers',
 'typography',
 'base';
 
 @import
-'external/foundation',
 'components/**/*',
 'layouts/**/*';

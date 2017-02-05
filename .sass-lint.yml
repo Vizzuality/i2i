@@ -15,3 +15,7 @@ rules:
     -
       max-depth: 3
   no-vendor-prefixes: 0
+
+files:
+  ignore:
+    - 'app/assets/stylesheets/_reset.css'
