@@ -1,5 +1,8 @@
 
 .c-footer {
+  background-image: image-url('footer-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .c-nav {
     padding: 0 150px;
@@ -16,14 +19,40 @@
     align-items: flex-end;
     justify-content: space-between;
     padding: 35px 0 45px;
+
+    > .app-logo {
+      > a {
+        display: inline-flex;
+
+        > img {
+          width: 195px;
+          height: 83px;
+        }
+      }
+    }
   }
 
   .authorship {
+    position: relative;
+    bottom: 6px;
+
     > .designed-by {
+      position: relative;
+      bottom: 5px;
+
       color: $color-4;
       font-family: $font-family-1;
       font-size: $font-size-small;
       font-weight: $font-weight-light;
+    }
+
+    .vizzuality-logo {
+      display: inline-flex;
+
+      > img {
+        width: 100px;
+        height: 24px;
+      }
     }
   }
 }

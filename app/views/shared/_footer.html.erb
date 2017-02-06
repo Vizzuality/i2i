@@ -12,11 +12,14 @@
     </nav>
     <div class="credits">
       <div class="app-logo">
-        <%= link_to 'i2i logo', home_path%>
+        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), home_path %>
       </div>
       <div class="authorship">
         <span class="designed-by">Designed by</span>
-        <div class="vizzuality-logo"></div>
+        <%= link_to image_tag('/images/logos/vizzuality.png', :alt => 'Vizzuality'), 'http://www.vizzuality.com/',
+          :class => 'vizzuality-logo',
+          :target => '_blank'
+        %>
       </div>
     </div>
   </div>
