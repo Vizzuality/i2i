@@ -1,17 +1,19 @@
 
 .c-button {
   display: inline-block;
-  height: 40px;
-  padding: 0 25px;
+  padding: 12px 25px 9px;
 
   border: 1px solid $color-1;
   border-radius: 100px;
-  background: transparent;
+  background: $color-4;
 
   color: $color-1;
   font-family: $font-family-2;
   font-size: $font-size-normal;
-  line-height: 40px;
+
+  &.-no-border {
+    border-color: transparent;
+  }
 
   &.-filled {
     border: 0;
@@ -26,6 +28,6 @@
   }
 
   &.-big {
-    padding: 0 85px;
+    padding: 12px 85px 9px;
   }
 }
