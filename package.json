@@ -1,0 +1,32 @@
+{
+  "name": "insight-to-impact",
+  "version": "1.0.0",
+  "description": "Advancing financial inclusion",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vizzuality/i2i.git"
+  },
+  "keywords": [
+    "financial"
+  ],
+  "author": "Vizzuality <hello@vizzuality.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vizzuality/i2i/issues"
+  },
+  "homepage": "https://github.com/Vizzuality/i2i#readme",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-vizzuality": "^1.0.3"
+  }
+}
