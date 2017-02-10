@@ -1,0 +1,142 @@
+
+.l-about {
+  margin: 0 0 40px;
+
+  .about-section {
+    padding: 60px 0;
+
+    .title {
+      text-align: center;
+    }
+
+    > .section-description {
+      display: block;
+      max-width: 535px;
+      margin: 25px auto 0;
+
+      color: $color-1;
+      font-family: $font-family-2;
+      font-size: $font-size-normal;
+      text-align: center;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba($color-1, .2);
+    }
+
+    &.-insights {
+      transform: translate(0, -50px);
+
+      .card {
+
+        > .img-container {
+          max-width: 340px;
+        }
+      }
+    }
+
+    &.-team {
+      .team-grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 60px 0 0;
+
+        > .c-profile {
+          &:not(:first-child) {
+            margin: 0 0 0 20px;
+          }
+        }
+      }
+    }
+
+    &.-countries {
+      background-repeat: no-repeat;
+      background-position: right center;
+
+      // this should be a component...
+      > .card {
+        display: inline-block;
+        max-width: 429px;
+        padding: 85px;
+
+        background: $color-4;
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+      }
+
+      > .card > .country-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 25px 0 0 7px;
+
+        > .country-item {
+          width: 50%;
+
+          &:not(:last-child) {
+            margin: 0 0 20px;
+          }
+        }
+
+        > .country-item > a {
+          color: $color-1;
+          font-family: $font-family-2;
+          font-size: $font-size-small;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    &.-careers {
+
+      > .c-card {
+        height: auto;
+
+        > .picture {
+          max-width: 340px;
+        }
+
+        > .metadata {
+          padding: 85px 110px;
+
+          > .title {
+            text-align: left;
+          }
+
+          a {
+            color: $color-1;
+          }
+        }
+      }
+    }
+
+    &.-contact {
+      > .contact-container {
+        max-width: 700px;
+        margin: 60px auto 0;
+      }
+
+      .addresses {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .contact-form {
+        margin: 40px 0 0;
+
+        input {
+          display: block;
+          width: 100%;
+        }
+
+        textarea {
+          height: 165px;
+        }
+
+        > .footer-form {
+          display: flex;
+          justify-content: center;
+          margin: 50px 0 0;
+        }
+      }
+    }
+  }
+}

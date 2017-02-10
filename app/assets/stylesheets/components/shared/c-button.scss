@@ -11,6 +11,8 @@
   font-family: $font-family-2;
   font-size: $font-size-normal;
 
+  cursor: pointer;
+
   &.-no-border {
     border-color: transparent;
   }
@@ -28,6 +30,6 @@
   }
 
   &.-big {
-    padding: 12px 85px 9px;
+    padding: 14px 85px 11px;
   }
 }
