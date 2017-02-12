@@ -1,9 +1,8 @@
 
 .c-address {
+  @extend .c-card;
   width: 340px;
   padding: 25px 30px 30px;
-  background: $color-4;
-  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
   > .title {
     display: inline-block;

@@ -19,7 +19,7 @@
   > .info {
     width: 100%;
     padding: 25px;
-    background-color: $color-3;
+    background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
     > .name {
@@ -52,8 +52,8 @@
     }
 
     > .info {
-      box-shadow: none;
       background: none;
+      box-shadow: none;
     }
   }
 }
