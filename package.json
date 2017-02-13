@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/eslint --ext .js --ext .jsx ./app/assets/javascripts"
+    "test": "./node_modules/.bin/eslint --ext .js ./app/assets/javascripts"
   },
   "repository": {
     "type": "git",
