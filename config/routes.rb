@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  root 'static_pages#home'
-  get 'home' => 'static_pages#home'
+  root 'homepage#index'
+  get 'home' => 'homepage#index'
 
-  get 'about' => 'static_pages#about'
-
-  get 'community' => 'static_pages#community'
+  get 'community' => 'community#index'
 
   get 'data_portal' => 'static_pages#data_portal'
+
+  get 'about' => 'static_pages#about'
 
   namespace :data_portal do
     resources :countries, only: :show

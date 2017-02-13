@@ -1,3 +1,0 @@
-class DataPortalController < ApplicationController
-
-end
