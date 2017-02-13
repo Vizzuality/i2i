@@ -26,6 +26,9 @@
 # Ignore env
 .env
 
+# logs
+*.log
+
 # Generated assets
 /vendor/bundle
 /public/assets

@@ -9,6 +9,10 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require_self
+//= require templates/shared/modal
+//= require templates/shared/modals/modal-team
+//= require components/shared/modal
+//= require components/shared/modals/modal-team
 //= require_tree ./pages/static_pages
 //= require routers/static_pages
 
@@ -23,6 +27,7 @@
     Collection: {},
     Page: {},
     View: {},
+    Component: {},
     Router: {},
     helpers: {}
   };
