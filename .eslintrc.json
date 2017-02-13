@@ -1,30 +1,16 @@
 {
   "env": {
     "browser": true,
-    "node": true,
-    "mocha": true,
-    "es6": true
+    "jquery": true
   },
   "globals": {
-    "config": true,
-    "Stats": true
+    "ActionCable": true,
+    "App": true
   },
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "ecmaFeatures": {
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-    },
-    "sourceType": "module"
+    "ecmaVersion": 5
   },
   "extends": [
     "vizzuality"
-  ],
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "config/webpack.config.js"
-      }
-    }
-  }
+  ]
 }
