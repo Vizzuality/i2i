@@ -10,12 +10,14 @@ To install the required `ruby` version is recommended to use a ruby version mana
 
 Once `ruby` is installed, run `gem install bundler` if you don't have `bundler` already installed and `bundle install` to install the required dependencies.
 
+Finally, install node packages by running `npm install`.
+
 ### Database setup
 Having `postgresql` already installed, run `rails db:create` if you haven't created the database.
 
 Run `rails db:migrate` and `rails db:sample`.
 
-## Configuration :floppy_disk:	
+## Configuration :floppy_disk:
 Copy the file *.env.sample* as *.env* and change it according to your database configuration
 
 ## Code Quality :white_check_mark:
