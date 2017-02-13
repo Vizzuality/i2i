@@ -1,0 +1,26 @@
+
+.c-address {
+  @extend .c-card;
+  width: 340px;
+  padding: 25px 30px 30px;
+
+  > .title {
+    display: inline-block;
+    margin: 0 0 25px;
+  }
+
+  > .address-field {
+    display: block;
+
+    color: $color-5;
+    font-family: $font-family-1;
+    font-size: $font-size-normal;
+    font-weight: $font-weight-light;
+    line-height: 1.38;
+  }
+
+  > .address-link {
+    @extend .address-field;
+    color: $color-1;
+  }
+}
