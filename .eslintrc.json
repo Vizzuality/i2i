@@ -5,7 +5,9 @@
   },
   "globals": {
     "ActionCable": true,
-    "App": true
+    "App": true,
+    "Backbone": true,
+    "_": true
   },
   "parserOptions": {
     "ecmaVersion": 5
