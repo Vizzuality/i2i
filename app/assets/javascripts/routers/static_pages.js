@@ -12,4 +12,7 @@ App.Router.StaticPages = Backbone.Router.extend({
 });
 
 new App.Router.StaticPages();
-Backbone.history.start({ pushState: true });
+
+document.addEventListener('DOMContentLoaded', function () {
+  Backbone.history.start({ pushState: true });
+});

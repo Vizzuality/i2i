@@ -1,0 +1,37 @@
+
+.c-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 880px;
+  transform: translate(-50%, -50%);
+  background: $color-4;
+
+  .modal-content {
+
+    &.-team {
+      display: flex;
+      flex-wrap: wrap;
+
+      > .member-picture {
+        max-width: 340px;
+      }
+
+      > .member-picture > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: $color-1;
+  opacity: .9;
+}

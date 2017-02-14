@@ -13,7 +13,8 @@
     "ActionCable": true,
     "App": true,
     "Backbone": true,
-    "_": true
+    "_": true,
+    "JST": true
   },
   "parserOptions": {
     "ecmaVersion": 5
