@@ -6,14 +6,18 @@
   justify-content: space-between;
   width: 100%;
 
-  .app-logo {
-    > a {
-      display: inline-block;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-      > img {
-        width: 96px;
-        height: 38px;
-      }
+    .app-logo > a {
+      display: inline-block;
+    }
+
+    .app-logo > img {
+      width: 96px;
+      height: 38px;
     }
   }
 }
