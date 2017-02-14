@@ -17,7 +17,7 @@
     },
 
     _onCloseBtnModal: function () {
-      this.constructor.__super__._onCloseModal.apply(this);
+      this.constructor.__super__.onCloseModal.apply(this);
     },
 
     render: function () {

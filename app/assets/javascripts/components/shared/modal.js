@@ -12,7 +12,7 @@
     template: JST['templates/shared/modal'],
 
     events: {
-      'click .veil': '_onCloseModal'
+      'click .veil': 'onCloseModal'
     },
 
     initialize: function (options) {
@@ -43,10 +43,10 @@
     _onKeyDown: function (e) {
       // 27 is ESC key
       if (e.keyCode !== 27) return;
-      this._onCloseModal();
+      this.onCloseModal();
     },
 
-    _onCloseModal: function () {
+    onCloseModal: function () {
       this._removeEventListeners();
       this.remove();
       this.body.removeAttribute('class', '_no-scroll');
@@ -58,8 +58,6 @@
       })));
 
       this.body.setAttribute('class', '_no-scroll');
-
-      return this;
     }
 
   });
