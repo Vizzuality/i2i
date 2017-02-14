@@ -16,7 +16,6 @@
     },
 
     initialize: function (options) {
-      console.log(options);
       this.options = options;
 
       // Binded functions
@@ -41,6 +40,7 @@
     },
 
     _onKeyDown: function (e) {
+      e.preventDefault();
       // 27 is ESC key
       if (e.keyCode !== 27) return;
       this.onCloseModal();
@@ -49,7 +49,7 @@
     onCloseModal: function () {
       this._removeEventListeners();
       this.remove();
-      this.body.removeAttribute('class', '_no-scroll');
+      this.body.classList.remove('_no-scroll');
     },
 
     render: function () {
@@ -57,7 +57,7 @@
         content: this.content
       })));
 
-      this.body.setAttribute('class', '_no-scroll');
+      this.body.classList.add('_no-scroll');
     }
 
   });
