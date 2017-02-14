@@ -51,18 +51,3 @@ a {
   max-width: $body-max-width;
   margin: 0 auto;
 }
-
-.wrapper {
-  width: 100%;
-  max-width: $body-max-width;
-  margin: 0 auto;
-  padding: 0 $wrapper-padding-mobile;
-
-  @media #{$mq-mobile} {
-    padding: 0 $wrapper-padding-tablet;
-  }
-
-  @media #{$mq-tablet} {
-    padding: 0 $wrapper-padding-desktop;
-  }
-}

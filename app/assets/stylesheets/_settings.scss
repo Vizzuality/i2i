@@ -24,8 +24,12 @@ $color-6: #000;
 $body-max-width: 1280px;
 $content-max-width: 1060px;
 
+// grid
+$grid-columns: 12;
+$grid-max-width: 1080px;
+$grid-gutter-width: 1%;
 
-// wrap
+$grid-padding: 20px;
 $wrapper-padding-mobile: 10px; // temporal value, check with responsive designs
 $wrapper-padding-tablet: 30px; // temporal value, check with responsive designs
 $wrapper-padding-desktop: 110px;

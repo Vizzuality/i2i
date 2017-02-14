@@ -1,0 +1,16 @@
+// grid
+@mixin grid($column) {
+  width: grid-space($column);
+}
+
+@mixin offset($column) {
+  margin-left: offset-space($column);
+}
+
+@function grid-space($column) {
+  @return $column * (100 / $grid-columns) * 1%;
+}
+
+@function offset-space($column) {
+  @return $column * (100 / $grid-columns) * 1%;
+}
