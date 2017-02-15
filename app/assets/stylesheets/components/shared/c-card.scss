@@ -63,38 +63,55 @@
   }
 
   &.-horizontal {
-    display: flex;
-    height: 190px;
+    height: 280px;
 
     > .picture {
-      flex-basis: 50%;
-      height: 100%;
+      height: 140px;
     }
 
-    > .metadata {
-      flex-basis: 50%;
-    }
+    @media #{$mq-tablet} {
+      display: flex;
+      height: 190px;
 
-    &.-reverse {
-      flex-direction: row-reverse;
+      > .picture {
+        flex-basis: 50%;
+        height: 100%;
+      }
+
+      > .metadata {
+        flex-basis: 50%;
+        max-height: calc(190px - 60px);
+      }
+
+      &.-reverse {
+        flex-direction: row-reverse;
+      }
     }
   }
 
   &.-highlighted {
-    position: relative;
-    height: calc(280px * 2 + 20px);
+    height: 280px;
 
     > .picture {
-      height: 100%;
+      height: 140px;
     }
 
-    > .metadata {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      max-width: 340px;
+    @media #{$mq-laptop} {
+      position: relative;
+      height: calc(280px * 2 + 20px);
 
-      background-color: $color-4;
+      > .picture {
+        height: 100%;
+      }
+
+      > .metadata {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        max-width: 340px;
+
+        background-color: $color-4;
+      }
     }
   }
 }
