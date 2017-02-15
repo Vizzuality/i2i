@@ -11,6 +11,7 @@
 //= require_self
 //= require templates/shared/modal
 //= require templates/shared/modals/modal-team
+//= require helpers/accessibility
 //= require components/shared/modal
 //= require components/shared/modals/modal-team
 //= require_tree ./pages/static_pages
@@ -29,7 +30,7 @@
     View: {},
     Component: {},
     Router: {},
-    helpers: {}
+    Helper: {}
   };
 
 }).call(this);
