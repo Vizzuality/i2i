@@ -19,6 +19,8 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require_self
+//= require views/shared/mobile-menu
+//= require routers/static_pages
 
 (function() {
 
