@@ -50,14 +50,26 @@ h6 {
   }
 
   &.-big {
-    font-size: $font-size-xl;
-    letter-spacing: -2.1px;
+    font-size: $font-size-m;
+    letter-spacing: -1.7px;
+    line-height: 1.09;
+
+    @media #{$mq-tablet} {
+      font-size: $font-size-xl;
+      letter-spacing: -2.1px;
+    }
   }
 
   &.-huge {
-    font-size: $font-size-l;
-    letter-spacing: -4px;
-    line-height: .86;
+    font-size: $font-size-xxl;
+    letter-spacing: -1.8px;
+    line-height: 1;
+
+    @media #{$mq-tablet} {
+      font-size: $font-size-l;
+      letter-spacing: -4px;
+      line-height: .86;
+    }
   }
 
   &.-center {
