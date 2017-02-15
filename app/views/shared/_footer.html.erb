@@ -14,13 +14,40 @@
       <div class="app-logo">
         <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), home_path %>
       </div>
-      <div class="authorship">
-        <span class="designed-by">Designed by</span>
-        <%= link_to image_tag('/images/logos/vizzuality.png', :alt => 'Vizzuality'), 'http://www.vizzuality.com/',
-          :class => 'vizzuality-logo',
-          :target => '_blank'
-        %>
-      </div>
+      <ul class="partner-list">
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/mastercard.png', :alt => 'The Mastercard Foundation'), 'http://www.mastercardfdn.org/',
+            :class => 'mastercard-logo',
+            :target => '_blank'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/fmt.png', :alt => 'Finmark Trust'), 'http://www.finmark.org.za/',
+            :class => 'finmark-logo',
+            :target => '_blank'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/cenfri.png',
+            :alt => 'Cenfri'), 'http://cenfri.org/',
+            :class => 'cenfri-logo',
+            :target => '_blank'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/bill-and-melinda-gates.png',
+            :alt => 'Bill & Mellinda Foundation'), 'http://www.gatesfoundation.org/',
+            :class => 'bill-mellinda-logo',
+            :target => '_blank'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/vizzuality.png', :alt => 'Vizzuality'), 'http://www.vizzuality.com/',
+            :class => 'vizzuality-logo',
+            :target => '_blank'
+          %>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>

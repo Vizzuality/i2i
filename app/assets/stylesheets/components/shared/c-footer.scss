@@ -30,29 +30,13 @@
         }
       }
     }
-  }
 
-  .authorship {
-    position: relative;
-    bottom: 6px;
-
-    > .designed-by {
-      position: relative;
-      bottom: 5px;
-
-      color: $color-4;
-      font-family: $font-family-1;
-      font-size: $font-size-s;
-      font-weight: $font-weight-light;
-    }
-
-    .vizzuality-logo {
-      display: inline-flex;
-
-      > img {
-        width: 100px;
-        height: 24px;
-      }
+    > .partner-list {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 0 0 100px;
     }
   }
 }
