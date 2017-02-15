@@ -1,10 +1,8 @@
 # == Schema Information
 #
-# Table name: news
+# Table name: blogs
 #
 #  id                 :integer          not null, primary key
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
 #  title              :string
 #  summary            :text
 #  content            :text
@@ -12,11 +10,9 @@
 #  image_content_type :string
 #  image_file_size    :integer
 #  image_updated_at   :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
-class News < ApplicationRecord
-
-  # Validations for paperclip
-  has_attached_file :image
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+class Blog < ApplicationRecord
 end

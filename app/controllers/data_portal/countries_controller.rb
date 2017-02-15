@@ -1,4 +1,4 @@
-class DataPortal::CountriesController < DataPortalController
+class DataPortal::CountriesController < ApplicationController
   before_action :set_country, only: [:show, :edit, :update, :destroy]
 
   def show
