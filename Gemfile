@@ -39,7 +39,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
 # Deploy
-  gem 'capistrano', '3.7'
+  gem 'capistrano', '3.7.1'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
