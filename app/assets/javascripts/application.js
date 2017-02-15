@@ -31,7 +31,7 @@
     Page: {},
     View: {},
     Router: {},
-    helpers: {}
+    Helper: {}
   };
 
 }).call(this);
