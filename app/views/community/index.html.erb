@@ -1,6 +1,8 @@
 <div class="l-community">
   <div class="l-intro" style="background-image: url(images/headers/header-bg-comm.jpg)">
-    <%= render partial: 'shared/header'%>
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
 
     <div class="l-title">
       <div class="wrapper">

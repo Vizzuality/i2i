@@ -1,28 +1,33 @@
-<div class="c-header">
-  <div class="wrapper">
-    <div class="container">
-    	<div class="app-logo">
-    		<%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), home_path %>
-    	</div>
-      <nav class="c-nav" role="navigation">
-        <ul class="nav-list">
-      		<li class="nav-item <% if current_page?(data_portal_path) %> -current <% end%>">
-            <%= link_to 'Data portal', data_portal_path %>
-          </li>
-      		<li class="nav-item <% if current_page?(news_index_path) %> -current <% end%>">
-            <%= link_to 'News', news_index_path %>
-          </li>
-      		<li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>">
-            <%= link_to 'Library', libraries_path %>
-          </li>
-      		<li class="nav-item <% if current_page?(community_path) %> -current <% end%>">
-            <%= link_to 'Community', community_path %>
-          </li>
-      		<li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
-            <%= link_to 'About', about_path %>
-          </li>
-        </ul>
-      </nav>
-    </div>
+<div class="c-header <% if isCover.present? %>-cover<% end %>">
+  <div class="container">
+  	<div class="app-logo">
+  		<%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), home_path %>
+  	</div>
+    <nav class="c-nav" role="navigation">
+      <ul class="nav-list">
+    		<li class="nav-item <% if current_page?(data_portal_path) %> -current <% end%>">
+          <%= link_to 'Data portal', data_portal_path %>
+        </li>
+    		<li class="nav-item <% if current_page?(news_index_path) %> -current <% end%>">
+          <%= link_to 'News', news_index_path %>
+        </li>
+    		<li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>">
+          <%= link_to 'Library', libraries_path %>
+        </li>
+    		<li class="nav-item <% if current_page?(community_path) %> -current <% end%>">
+          <%= link_to 'Community', community_path %>
+        </li>
+    		<li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
+          <%= link_to 'About', about_path %>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="hamburguer js-btn-mobile-menu">
+      <span class="ingredient"></span>
+      <span class="ingredient"></span>
+      <span class="ingredient"></span>
+    </button>
+
   </div>
 </div>

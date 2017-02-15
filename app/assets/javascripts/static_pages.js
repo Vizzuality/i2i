@@ -15,6 +15,7 @@
 //= require components/shared/modal
 //= require components/shared/modals/modal-team
 //= require_tree ./pages/static_pages
+//= require views/shared/mobile-menu
 //= require routers/static_pages
 
 

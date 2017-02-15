@@ -1,6 +1,13 @@
 
 .c-nav {
+  display: none;
+
+  @media #{$mq-laptop} {
+    display: block;
+  }
+
   > .nav-list > .nav-item {
+
 
     &:not(:first-child) {
       margin: 0 0 0 60px;
