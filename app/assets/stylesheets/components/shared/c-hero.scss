@@ -1,0 +1,16 @@
+.c-hero {
+  padding: 120px 0 110px;
+  overflow: hidden;
+
+  .subtitle {
+    margin: 20px 0 0;
+
+    color: $color-4;
+    font-family: $font-family-2;
+    font-weight: $font-weight-medium;
+
+    > a {
+      color: $color-2;
+    }
+  }
+}

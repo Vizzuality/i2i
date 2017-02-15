@@ -1,0 +1,93 @@
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: $font-weight-light;
+  src: font-url('typography/Montserrat-Light.ttf') format('truetype');
+}
+
+// titles
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: $font-weight-medium;
+  line-height: normal;
+}
+
+.title {
+  font-family: $font-family-2;
+  font-weight: $font-weight-medium;
+
+  &.-light {
+    color: $color-4;
+  }
+
+  &.-dark {
+    color: $color-5;
+  }
+
+  &.-sea {
+    color: $color-1;
+  }
+
+  &.-small {
+    font-size: $font-size-s;
+    text-transform: uppercase;
+  }
+
+  &.-medium {
+    font-size: $font-size-xm;
+    letter-spacing: -1px;
+  }
+
+  &.-big {
+    font-size: $font-size-m;
+    letter-spacing: -1.7px;
+    line-height: 1.09;
+
+    @media #{$mq-tablet} {
+      font-size: $font-size-xl;
+      letter-spacing: -2.1px;
+    }
+  }
+
+  &.-huge {
+    font-size: $font-size-xxl;
+    letter-spacing: -1.8px;
+    line-height: 1;
+
+    @media #{$mq-tablet} {
+      font-size: $font-size-l;
+      letter-spacing: -4px;
+      line-height: .86;
+    }
+  }
+
+  &.-center {
+    text-align: center;
+  }
+}
+
+// paragraphs
+p {
+  margin: 0;
+
+  color: $color-5;
+  font-family: $font-family-1;
+  font-size: font-size-xs;
+  font-weight: $font-weight-light;
+  line-height: 1.38;
+
+  & + & {
+    margin: 15px 0 0;
+  }
+}

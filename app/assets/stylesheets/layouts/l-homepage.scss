@@ -1,0 +1,87 @@
+
+.l-homepage {
+
+  .c-hero > .title {
+    max-width: 556px;
+  }
+
+  > .homepage-section {
+    background-repeat: no-repeat;
+    background-position: center;
+
+    > .wrapper {
+      display: flex;
+      position: relative;
+      align-items: center;
+    }
+
+    &.-government {
+
+      > .wrapper {
+        justify-content: flex-end;
+      }
+
+      > .wrapper > img {
+        position: absolute;
+        top: 50%;
+        left: $wrapper-padding-desktop;
+        transform: translate(calc(-50% + 525px / 2), calc(-50% + 8px));
+      }
+
+      > .wrapper > .c-card {
+        transform: translate(0, -50px);
+      }
+    }
+
+    &.-researcher {
+      padding: 55px 0 85px;
+
+      > .wrapper {
+        justify-content: flex-start;
+      }
+
+      > .wrapper > img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+      }
+    }
+
+    &.-fsp-tech {
+      padding: 0 0 95px;
+
+      > .wrapper {
+        justify-content: flex-end;
+      }
+
+      > .wrapper > img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+        z-index: -1;
+      }
+    }
+  }
+
+  > .contribute-section {
+    padding: 75px 0;
+    background-image: image-url('photo_contact.png');
+    background-position: no-repeat;
+    background-size: cover;
+
+    .content {
+      max-width: 50%;
+
+      > .title {
+        margin: 0 0 25px;
+      }
+
+      > .c-button {
+        margin: 35px 0 0;
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+      }
+    }
+  }
+}

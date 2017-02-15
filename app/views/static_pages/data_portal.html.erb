@@ -1,0 +1,24 @@
+<div class="l-data-portal">
+  <div class="l-intro" style="background-image: url(images/headers/header-bg-about.jpg)">
+    <%= render partial: 'shared/header'%>
+
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row">
+          <div class="c-hero">
+            <div class="grid-l-8">
+              <h1 class="title -light -huge">i2i Data Portal</h1>
+              <p class="subtitle">Description text. Lorem ipsum sit amet ornare
+                sem lacinia quam venenatis vestibulum.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% @countries.each do |country| %>
+  </br><%= link_to country.name, data_portal_country_path(country.id) %>
+<% end %>

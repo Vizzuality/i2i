@@ -1,0 +1,59 @@
+
+.c-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 248px;
+
+  > .avatar {
+    display: inline-block;
+    width: 100%;
+    height: 115px;
+
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  > .info {
+    width: 100%;
+    padding: 25px;
+    background-color: $color-4;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+    > .name {
+      display: block;
+
+      color: $color-5;
+      font-family: $font-family-2;
+      font-size: font-size-xs;
+      text-align: center;
+    }
+
+    > .organization {
+      display: inline-block;
+      margin: 10px 0 0;
+
+      text-align: center;
+    }
+  }
+
+  &.-rounded {
+    max-width: 225px;
+
+    > .avatar {
+      width: 110px;
+      height: 110px;
+
+      > img {
+        border-radius: 50%;
+      }
+    }
+
+    > .info {
+      background: none;
+      box-shadow: none;
+    }
+  }
+}

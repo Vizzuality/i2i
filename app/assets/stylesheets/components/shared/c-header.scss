@@ -1,0 +1,23 @@
+
+.c-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .app-logo > a {
+      display: inline-block;
+    }
+
+    .app-logo > img {
+      width: 96px;
+      height: 38px;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "node": false,
+    "es6": false
+  },
+  "ecmaFeatures": {
+    "modules": false,
+    "experimentalObjectRestSpread": false
+  },
+  "globals": {
+    "ActionCable": true,
+    "App": true,
+    "Backbone": true,
+    "_": true,
+    "JST": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 5
+  },
+  "extends": [
+    "vizzuality"
+  ]
+}
