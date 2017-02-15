@@ -1,6 +1,7 @@
 
 .c-button {
   display: inline-block;
+  width: 100%;
   padding: 12px 25px 9px;
 
   border: 1px solid $color-1;
@@ -10,6 +11,7 @@
   color: $color-1;
   font-family: $font-family-2;
   font-size: $font-size-normal;
+  text-align: center;
 
   cursor: pointer;
 
