@@ -40,22 +40,22 @@ h6 {
   }
 
   &.-small {
-    font-size: $font-size-small;
+    font-size: $font-size-s;
     text-transform: uppercase;
   }
 
   &.-medium {
-    font-size: $font-size-medium;
+    font-size: $font-size-xm;
     letter-spacing: -1px;
   }
 
   &.-big {
-    font-size: $font-size-big;
+    font-size: $font-size-xl;
     letter-spacing: -2.1px;
   }
 
   &.-huge {
-    font-size: $font-size-huge;
+    font-size: $font-size-l;
     letter-spacing: -4px;
     line-height: .86;
   }
@@ -71,7 +71,7 @@ p {
 
   color: $color-5;
   font-family: $font-family-1;
-  font-size: $font-size-normal;
+  font-size: font-size-xs;
   font-weight: $font-weight-light;
   line-height: 1.38;
 
