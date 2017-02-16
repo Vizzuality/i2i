@@ -22,6 +22,16 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'dotenv-rails', '~> 2.1'
 
+# Active admin gems
+
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+
+# File upload gems
+gem 'paperclip'
+
+gem 'enumerate_it'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

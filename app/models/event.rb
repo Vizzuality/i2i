@@ -1,10 +1,8 @@
 # == Schema Information
 #
-# Table name: libraries
+# Table name: events
 #
 #  id                 :integer          not null, primary key
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
 #  title              :string
 #  summary            :text
 #  content            :text
@@ -12,15 +10,13 @@
 #  image_content_type :string
 #  image_file_size    :integer
 #  image_updated_at   :datetime
-#  content_type       :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
-class Library < ApplicationRecord
-  extend EnumerateIt
-
+class Event < ApplicationRecord
   has_attached_file :image
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
-  has_enumeration_for :content_type, with: LibraryType, skip_validation: true
 
-  validates_presence_of :title, :content_type
+  validates_presence_of :title
 end
