@@ -6,6 +6,10 @@
     display: block;
   }
 
+  &.-footer {
+    display: block;
+  }
+
   > .nav-list > .nav-item {
 
 
@@ -13,10 +17,11 @@
       margin: 0 0 0 60px;
     }
 
-    > a {
+    > a,
+    span {
       color: $color-4;
       font-family: $font-family-2;
-      font-size: font-size-xs;
+      font-size: $font-size-xs;
     }
 
     &.-current {
@@ -25,7 +30,7 @@
       &::before {
         display: inline-block;
         position: absolute;
-        top: -37px;
+        top: -54px;
         left: 0;
 
         width: 100%;

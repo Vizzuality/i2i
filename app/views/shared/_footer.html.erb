@@ -1,13 +1,18 @@
 <footer class="c-footer">
   <div class="wrapper">
-    <nav class="c-nav" role="navigation">
+    <div class="container-logo-mobile">
+      <div class="app-logo">
+        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), root_path %>
+      </div>
+    </div>
+    <nav class="c-nav -footer" role="navigation">
       <ul class="nav-list">
-        <li class="nav-item"><%= link_to 'Homepage', root_path%></li>
         <li class="nav-item"><%= link_to 'Data portal', data_portal_path %></li>
     		<li class="nav-item"><%= link_to 'News', news_index_path %></li>
     		<li class="nav-item"><%= link_to 'Library', libraries_path %></li>
     		<li class="nav-item"><%= link_to 'Community', community_path %></li>
     		<li class="nav-item"><%= link_to 'About', about_path %></li>
+        <li class="nav-item"><span>Follow us</span></li>
       </ul>
     </nav>
     <div class="credits">
