@@ -1,18 +1,29 @@
 
 .c-card {
+  position: relative;
   margin: 0 0 20px;
 
   background: $color-4;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
   > .picture {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    width: 100%;
+    height: 280px;
+
+    > a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
   }
 
-  > .metadata {
+  .metadata {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 30px;
+    background-color: $color-4;
 
     > * + p  {
       margin: 10px 0 0;
@@ -32,16 +43,11 @@
   &.-small {
     display: flex;
     flex-direction: column;
-
-    > .picture {
-      height: 140px;
-    }
   }
 
   &.-medium {
     display: flex;
     flex-direction: column;
-    height: 280px;
 
     > .picture {
       width: 100%;
@@ -60,7 +66,9 @@
   }
 
   &.-horizontal {
-    height: 280px;
+    @media #{$mq-tablet} {
+      height: 280px;
+    }
 
     > .picture {
       height: 140px;
@@ -102,12 +110,7 @@
       }
 
       > .metadata {
-        position: absolute;
-        bottom: 0;
-        left: 0;
         max-width: 340px;
-
-        background-color: $color-4;
       }
     }
   }
