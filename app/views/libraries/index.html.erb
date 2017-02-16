@@ -36,7 +36,7 @@
       <div class="row">
         <% @libraries.each do |library| %>
           <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-            <div class="c-card -small">
+            <article class="c-card -small">
               <div class="picture" style="background-image: url(<%= library.image %>)">
                 <%= link_to '', library  %>
               </div>
@@ -45,6 +45,7 @@
                 <% if library.has_attribute? 'date' %>
                   <h5 class="title -small -sea"><%= library.date %></h5>
                 <% end %>
+                <p><%= library.summary %></p>
                 <div class="card-options">
                   <a href="<%= library.summary %>" target="_blank" rel="noopener" class="title -sea -small">download</a>
                   <% if library.has_attribute? 'video_url' %>
@@ -52,7 +53,7 @@
                   <% end %>
                 </div>
               </div>
-            </div>
+            </article>
           </div>
         <% end %>
       </div>
