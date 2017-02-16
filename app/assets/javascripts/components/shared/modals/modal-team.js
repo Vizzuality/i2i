@@ -29,6 +29,8 @@
         url_photo: '/images/people/person_1.jpg'
       });
 
+      this.title = 'Jeremy Soul member';
+
       this.constructor.__super__.render.apply(this);
     }
 

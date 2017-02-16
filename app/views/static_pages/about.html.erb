@@ -1,6 +1,8 @@
 <div class="l-about">
   <div class="l-intro" style="background-image: url(images/headers/header-bg-about.jpg)">
-    <%= render partial: 'shared/header'%>
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
 
     <div class="l-title">
       <div class="wrapper">
@@ -16,6 +18,7 @@
       </div>
     </div>
   </div>
+  <!--
   <div class="wrapper">
     <div class="about-section -insights">
       <div class="insight-container">
@@ -92,7 +95,7 @@
         Description text. Lorem ipsum sit amet ornare sem lacinia quam venenatis vestibulum.
       </span>
       <div class="team-grid">
-        <div class="c-profile" data-modal="team" data-slug="Rihanna">
+        <div class="c-profile" data-modal="team" data-slug="Rihanna" tabindex="0" role="button" aria-label="Jeremy Soul, open modal">
           <div class="avatar">
             <img src="images/people/person_1.jpg" alt="Jeremy Soul">
           </div>
@@ -101,7 +104,7 @@
             <span class="organization">An Amazing Company</span>
           </div>
         </div>
-        <div class="c-profile" data-modal="team" data-slug="Jeremy Soul">
+        <div class="c-profile" data-modal="team" data-slug="Jeremy Soul" tabindex="0" aria-label="Jeremy Soul, open modal">
           <div class="avatar">
             <img src="images/people/person_2.jpg" alt="Jeremy Soul">
           </div>
@@ -212,5 +215,5 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

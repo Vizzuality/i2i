@@ -5,11 +5,17 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  background: $color-1;
+
+  &.-cover {
+    background: transparent;
+  }
 
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 
     .app-logo > a {
       display: inline-block;
@@ -18,6 +24,41 @@
     .app-logo > img {
       width: 96px;
       height: 38px;
+    }
+
+    .hamburguer {
+      position: relative;
+      min-width: 23px;
+      height: 16px;
+      padding: 0;
+
+      cursor: pointer;
+
+      @media #{$mq-laptop} {
+        display: none;
+      }
+
+      > .ingredient {
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+
+        background-color: $color-4;
+
+        &:first-child {
+          top: 0;
+        }
+
+        &:nth-child(2) {
+          top: 50%;
+        }
+
+        &:last-child {
+          top: 100%;
+        }
+      }
     }
   }
 }

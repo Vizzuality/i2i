@@ -1,7 +1,8 @@
 <div class="l-library">
   <div class="l-intro" style="background-image: url(images/headers/header-bg-library.jpg)">
-    <%= render partial: 'shared/header'%>
-
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
     <div class="l-title">
       <div class="wrapper">
         <div class="row">
@@ -19,10 +20,10 @@
     <div class="l-library-content-selector">
       <div class="wrapper">
         <div class="row">
-          <div class="grid-l-2">
+          <div class="grid-s-6 grid-m-4 grid-l-2">
             <button class="content-selector -current">Publications</button>
           </div>
-          <div class="grid-l-2">
+          <div class="grid-s-6 grid-m-4 grid-l-2">
             <button class="content-selector ">Journal</button>
           </div>
         </div>
@@ -33,7 +34,7 @@
   <div class="l-card-grid">
     <div class="wrapper">
       <div class="row">
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_1.jpg" alt="placeholder_1">
@@ -46,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_2.jpg" alt="placeholder_2">
@@ -60,7 +61,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_3.jpg" alt="placeholder_3">
@@ -74,10 +75,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
-
-        </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_4.jpg" alt="placeholder_4">
@@ -91,7 +89,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_5.jpg" alt="placeholder_5">
@@ -105,7 +103,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_6.jpg" alt="placeholder_6">
@@ -119,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_7.jpg" alt="placeholder_7">
@@ -133,7 +131,7 @@
             </div>
           </div>
         </div>
-        <div class="grid-l-3">
+        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
           <div class="c-card -small">
             <div class="picture">
               <img src="images/placeholders/placeholder_1.jpg" alt="placeholder_1">

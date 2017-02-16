@@ -19,6 +19,8 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require_self
+//= require views/shared/mobile-menu
+//= require routers/static_pages
 
 (function() {
 
@@ -31,7 +33,7 @@
     Page: {},
     View: {},
     Router: {},
-    helpers: {}
+    Helper: {}
   };
 
 }).call(this);

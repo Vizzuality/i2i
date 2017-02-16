@@ -47,10 +47,24 @@
   }
 }
 
+// Small devices (mobiles, < 540px)
+@for $column from 1 through $grid-columns {
+  @media #{$mq-mobile} {
+    .grid-s-#{$column} {
+      @include grid($column);
+    }
+
+    .offset-s-#{$column} {
+      @include offset($column);
+    }
+  }
+}
+
+
 
 // Medium devices (768px and up)
 @for $column from 1 through $grid-columns {
-  @media #{$mq-mobile} {
+  @media #{$mq-tablet} {
     .grid-m-#{$column} {
       @include grid($column);
     }
@@ -63,7 +77,7 @@
 
 // Large devices (desktops, 960px and up)
 @for $column from 1 through $grid-columns {
-  @media #{$mq-tablet} {
+  @media #{$mq-laptop} {
     .grid-l-#{$column} {
       @include grid($column);
     }
@@ -76,7 +90,7 @@
 
 // Extra large devices (desktops, 1200px and up)
 @for $column from 1 through $grid-columns {
-  @media #{$mq-laptop} {
+  @media #{$mq-desktop} {
     .grid-xl-#{$column} {
       @include grid($column);
     }

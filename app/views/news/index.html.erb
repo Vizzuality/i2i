@@ -1,6 +1,8 @@
 <div class="l-news">
   <div class="l-intro" style="background-image: url(images/headers/header-bg-news.jpg)">
-    <%= render partial: 'shared/header'%>
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
 
     <div class="l-title">
       <div class="wrapper">
@@ -21,7 +23,7 @@
     <div class="wrapper">
       <div class="card-grid -news">
         <div class="row">
-          <div class="grid-l-8">
+          <div class="grid-s-12 grid-m-6 grid-l-8">
             <div class="c-card -highlighted">
               <div class="picture">
                 <img src="images/placeholders/placeholder_1.jpg" alt="placeholder_1">
@@ -32,7 +34,7 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-4">
+          <div class="grid-s-12 grid-m-6 grid-l-4">
             <div class="c-card -medium">
               <div class="picture">
                 <img src="images/placeholders/placeholder_2.jpg" alt="placeholder_2">
@@ -43,7 +45,7 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-4">
+          <div class="grid-s-12 grid-m-6 grid-l-4">
             <div class="c-card -medium">
               <div class="picture">
                 <img src="images/placeholders/placeholder_3.jpg" alt="placeholder_3">
@@ -54,7 +56,7 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-4">
+          <div class="grid-s-12 grid-m-6 grid-l-4">
             <div class="c-card -medium">
               <div class="picture">
                 <img src="images/placeholders/placeholder_4.jpg" alt="placeholder_4">
@@ -65,7 +67,7 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-4">
+          <div class="grid-s-12 grid-m-6 grid-l-4">
             <div class="c-card -medium">
               <div class="picture">
                 <img src="images/placeholders/placeholder_5.jpg" alt="placeholder_5">
@@ -76,7 +78,7 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-4">
+          <div class="grid-s-12 grid-m-6 grid-l-4">
             <div class="c-card -medium">
               <div class="picture">
                 <img src="images/placeholders/placeholder_6.jpg" alt="placeholder_6">
@@ -87,9 +89,9 @@
               </div>
             </div>
           </div>
-          <div class="grid-l-12">
+          <div class="grid-s-12">
             <div class="grid-footer">
-              <div class="grid-l-3">
+              <div class="grid-s-12 grid-m-4 grid-l-3">
                 <a href="#" class="c-button btn-more">More news</a>
               </div>
             </div>
@@ -101,7 +103,7 @@
         <h2 class="title -dark -big">Events</h2>
         <div class="card-grid">
           <div class="row">
-            <div class="grid-l-3">
+            <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
               <div class="c-card -small">
                 <div class="picture">
                   <img src="images/placeholders/placeholder_1.jpg" alt="placeholder_1">
@@ -112,7 +114,7 @@
                 </div>
               </div>
             </div>
-            <div class="grid-l-3">
+            <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
               <div class="c-card -small">
                 <div class="picture">
                   <img src="images/placeholders/placeholder_2.jpg" alt="placeholder_2">
@@ -123,7 +125,7 @@
                 </div>
               </div>
             </div>
-            <div class="grid-l-3">
+            <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
               <div class="c-card -small">
                 <div class="picture">
                   <img src="images/placeholders/placeholder_3.jpg" alt="placeholder_3">
@@ -134,7 +136,7 @@
                 </div>
               </div>
             </div>
-            <div class="grid-l-3">
+            <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
               <div class="c-card -small">
                 <div class="picture">
                   <img src="images/placeholders/placeholder_4.jpg" alt="placeholder_4">
@@ -145,13 +147,13 @@
                 </div>
               </div>
             </div>
-            <div class="grid-l-12">
-            <div class="grid-footer">
-              <div class="grid-l-3">
-                <a href="#" class="c-button btn-more">More events</a>
+            <div class="grid-s-12">
+              <div class="grid-footer">
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <a href="#" class="c-button btn-more">More news</a>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
@@ -160,66 +162,55 @@
         <h2 class="title -dark -big">Blog</h2>
           <div class="card-grid">
             <div class="row">
-              <div class="grid-l-12">
+              <div class="grid-s-12">
                 <div class="c-card -horizontal">
                   <div class="picture">
                     <img src="images/placeholders/placeholder_3.jpg" alt="placeholder_3">
                   </div>
                   <div class="metadata">
                     <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Summary text lorem ipsum id elit non mi porta gravida at eget metus.
-                      Aenean lacinia bibendum nulla sed consectetur al mei. lorem ipsum id
-                      elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla
-                      sed consectetur al mei.</p>
+                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
                   </div>
                 </div>
               </div>
-              <div class="grid-l-12">
+              <div class="grid-s-12">
                 <div class="c-card -horizontal -reverse">
                   <div class="picture">
                     <img src="images/placeholders/placeholder_4.jpg" alt="placeholder_4">
                   </div>
                   <div class="metadata">
                     <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Summary text lorem ipsum id elit non mi porta gravida at eget metus.
-                      Aenean lacinia bibendum nulla sed consectetur al mei. lorem ipsum id
-                      elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla
-                      sed consectetur al mei.</p>
+                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
                   </div>
                 </div>
               </div>
-              <div class="grid-l-12">
+              <div class="grid-s-12">
                 <div class="c-card -horizontal">
                   <div class="picture">
                     <img src="images/placeholders/placeholder_5.jpg" alt="placeholder_5">
                   </div>
                   <div class="metadata">
                     <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Summary text lorem ipsum id elit non mi porta gravida at eget metus.
-                      Aenean lacinia bibendum nulla sed consectetur al mei. lorem ipsum id
-                      elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla
-                      sed consectetur al mei.</p>
+                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
                   </div>
                 </div>
               </div>
-              <div class="grid-l-12">
+              <div class="grid-s-12">
                 <div class="c-card -horizontal -reverse">
                   <div class="picture">
                     <img src="images/placeholders/placeholder_6.jpg" alt="placeholder_6">
                   </div>
                   <div class="metadata">
                     <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Summary text lorem ipsum id elit non mi porta gravida at eget metus.
-                      Aenean lacinia bibendum nulla sed consectetur al mei. lorem ipsum id
-                      elit non mi porta gravida at eget metus. Aenean lacinia bibendum nulla
-                      sed consectetur al mei.</p>
+                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
                   </div>
                 </div>
               </div>
-              <div class="grid-l-12">
-              <div class="grid-footer">
-                <div class="grid-l-3">
-                  <a href="#" class="c-button btn-more">More posts</a>
+              <div class="grid-s-12">
+                <div class="grid-footer">
+                  <div class="grid-s-12 grid-m-4 grid-l-3">
+                    <a href="#" class="c-button btn-more">More posts</a>
+                  </div>
                 </div>
               </div>
             </div>

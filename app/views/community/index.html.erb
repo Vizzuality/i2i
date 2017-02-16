@@ -1,6 +1,8 @@
 <div class="l-community">
   <div class="l-intro" style="background-image: url(images/headers/header-bg-comm.jpg)">
-    <%= render partial: 'shared/header'%>
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
 
     <div class="l-title">
       <div class="wrapper">
@@ -17,7 +19,7 @@
     </div>
   </div>
 
-  <div class="l-card-grid">
+<!--   <div class="l-card-grid">
     <div class="c-card -big">
       <div class="picture">
         <img src="images/placeholders/placeholder_1.jpg" alt="placeholder_1">
@@ -61,10 +63,10 @@
         <a class="c-button">Go to section</a>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- profile sample -->
-  <div class="c-profile -rounded">
+ <!--  <div class="c-profile -rounded">
     <div class="avatar">
       <img src="images/people/person_2.jpg" alt="Jeremy Soul">
     </div>
@@ -72,5 +74,5 @@
       <span class="name">Name Surname</span>
       <span class="organization">Organization name</span>
     </div>
-  </div>
+  </div> -->
 </div>
