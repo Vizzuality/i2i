@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
-  revision: 66b74fb9c08f5d6d11b0bf18dab33727f71e8ab1
+  revision: 9541d9a33679d247c084ea87e62b63504aa79fda
   specs:
     activeadmin (1.0.0.pre4)
       arbre (~> 1.0, >= 1.0.2)
@@ -62,7 +62,7 @@ GEM
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
-      arbre (1.1.1)
+    arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (7.1.4)
     autoprefixer-rails (6.7.3)
@@ -109,10 +109,10 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    dotenv (2.1.1)
-    dotenv-rails (2.1.1)
-      dotenv (= 2.1.1)
-      railties (>= 4.0, < 5.1)
+    dotenv (2.2.0)
+    dotenv-rails (2.2.0)
+      dotenv (= 2.2.0)
+      railties (>= 3.2, < 5.1)
     ejs (1.1.1)
     enumerate_it (1.4.1)
       activesupport (>= 3.0.0)
@@ -217,7 +217,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.0.0)
+    rake (11.3.0)
     ransack (1.8.2)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
