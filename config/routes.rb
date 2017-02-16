@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   root 'homepage#index'
-  get 'home' => 'homepage#index'
 
   get 'community' => 'community#index'
 
