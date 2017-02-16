@@ -1,0 +1,43 @@
+
+.c-social-tooltip {
+  position: relative;
+  padding: 25px;
+  background-color: $color-4;
+  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+  opacity: .9;
+
+  &::before {
+    @include arrow(12px, 1px, $color-4, 'up');
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: rotate(45deg) translate(-50%, 0);
+
+    background-color: $color-4;
+  }
+
+  .social-list > .social-item {
+    display: block;
+
+    &:not(:first-child) {
+      margin: 10px 0 0;
+    }
+
+    > a {
+      display: flex;
+    }
+
+    > a > span {
+      display: inline-block;
+      margin: 0 0 0 10px;
+      color: $color-5;
+      font-family: $font-family-1;
+      font-size: $font-size-s;
+      font-weight: $font-weight-light;
+    }
+
+    > a > img {
+      flex-basis: 20%;
+    }
+  }
+}

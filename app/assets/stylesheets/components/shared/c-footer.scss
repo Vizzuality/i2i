@@ -64,6 +64,16 @@
           color: $color-2;
           cursor: pointer;
 
+          // hack to keep tooltip open
+          &::before {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            content: '';
+          }
+
           &::after {
             @include arrow(8px, 2px, $color-2, 'down');
             position: absolute;
