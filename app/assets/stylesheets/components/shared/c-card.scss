@@ -17,6 +17,12 @@
   > .metadata {
     padding: 30px;
 
+    .title {
+      &:not(:first-child) {
+        margin: 10px 0 0;
+      }
+    }
+
     > * + p  {
       margin: 10px 0 0;
     }
