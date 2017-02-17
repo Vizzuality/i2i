@@ -11,9 +11,23 @@
   }
 
   &.-homepage {
-    display: inline-block;
+    display: block;
     max-width: 525px;
-    padding: 115px 60px;
+    margin: 0 auto;
+    padding: 20px 0 40px;
+    background: transparent;
+    box-shadow: none;
+
+    @media #{$mq-tablet} {
+      padding: 60px 0 50px;
+    }
+
+    @media #{$mq-laptop} {
+      margin: 0;
+      padding: 115px 60px;
+      background: $color-4;
+      box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    }
   }
 
   &.-about {
