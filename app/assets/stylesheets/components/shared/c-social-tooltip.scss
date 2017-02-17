@@ -25,6 +25,7 @@
 
     > a {
       display: flex;
+      align-items: center;
     }
 
     > a > span {
@@ -36,8 +37,10 @@
       font-weight: $font-weight-light;
     }
 
-    > a > img {
+    > a > svg {
       flex-basis: 20%;
+      fill: $color-5;
+      stroke: $color-5;
     }
   }
 }
