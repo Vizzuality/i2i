@@ -44,6 +44,10 @@ h6 {
     text-transform: uppercase;
   }
 
+  &.-xs {
+    font-size: $font-size-xs;
+  }
+
   &.-medium {
     font-size: $font-size-xm;
     letter-spacing: -1px;

@@ -25,6 +25,12 @@
     padding: 30px;
     background-color: $color-4;
 
+    .title {
+      &:not(:first-child) {
+        margin: 10px 0 0;
+      }
+    }
+
     > * + p  {
       margin: 10px 0 0;
     }
