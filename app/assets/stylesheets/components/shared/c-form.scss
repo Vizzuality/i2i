@@ -16,6 +16,7 @@
     color: $color-1;
     font-family: $font-family-2;
     font-size: $font-size-s;
+    font-weight: $font-weight-medium;
     text-transform: uppercase;
   }
 
@@ -24,6 +25,8 @@
     padding: 14px 15px;
     border: 0;
     border-radius: 0;
+
+    background: rgba($color-1, .1);
 
     font-family: $font-family-1;
     font-size: $font-size-xs;
@@ -39,17 +42,10 @@
   }
 
   input {
-    background: rgba($color-1, .1);
-
     color: $color-5;
-    font-family: $font-family-1;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-light;
   }
 
   textarea {
-    background: rgba($color-1, .1);
-
     resize: none;
   }
 }
