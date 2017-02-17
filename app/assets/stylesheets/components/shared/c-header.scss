@@ -8,10 +8,6 @@
   padding: 25px 0 0;
   background: $color-1;
 
-  &.-cover {
-    background: transparent;
-  }
-
   .container {
     display: flex;
     align-items: center;
@@ -22,7 +18,7 @@
       display: inline-block;
     }
 
-    .app-logo > img {
+    .app-logo > a > img {
       width: 96px;
       height: 38px;
     }
@@ -60,6 +56,15 @@
           top: 100%;
         }
       }
+    }
+  }
+
+  &.-cover {
+    background: transparent;
+
+    .app-logo > a > img {
+      width: auto;
+      height: auto;
     }
   }
 }
