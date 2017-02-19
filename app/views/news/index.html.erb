@@ -23,60 +23,39 @@
     <div class="wrapper">
       <div class="card-grid -news">
         <div class="row">
-          <div class="grid-s-12 grid-m-6 grid-l-8">
-            <div class="c-card -highlighted">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_1.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
+          <% @news.each do |news| %>
+            <% if news.has_attribute? 'highlighted' %>
+              <div class="grid-s-12 grid-m-6 grid-l-8">
+                <article class="c-card -highlighted">
+                  <div class="picture" style="background-image: url(<%= news.image %>)">
+                    <%= link_to '', news %>
+                  </div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= news.title %></h4>
+                    <% if news.has_attribute? 'date' %>
+                      <h4 class="title -sea -small"><%= news.date %></h4>
+                    <% end %>
+                    <p><%= news.summary %></p>
+                  </div>
+                </article>
               </div>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-4">
-            <div class="c-card -medium">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_2.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
+            <% else %>
+              <div class="grid-s-12 grid-m-6 grid-l-4">
+                <article class="c-card -medium">
+                  <div class="picture" style="background-image: url(<%= news.image %>)">
+                    <%= link_to '', news %>
+                  </div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= news.title %></h4>
+                    <% if news.has_attribute? 'date' %>
+                      <h4 class="title -sea -small"><%= news.date %></h4>
+                    <% end %>
+                    <p><%= news.summary %></p>
+                  </div>
+                </article>
               </div>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-4">
-            <div class="c-card -medium">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_3.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-4">
-            <div class="c-card -medium">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_4.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-4">
-            <div class="c-card -medium">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_5.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-4">
-            <div class="c-card -medium">
-              <div class="picture" style="background-image: url('images/placeholders/placeholder_6.jpg')"></div>
-              <div class="metadata">
-                <h4 class="title -sea -small">sept 23, 2014</h4>
-                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur</p>
-              </div>
-            </div>
-          </div>
+            <% end %>
+          <% end %>
           <div class="grid-s-12">
             <div class="grid-footer">
               <div class="grid-s-12 grid-m-4 grid-l-3">
@@ -194,12 +173,35 @@
   </div>
 </div>
 
-<tbody>
-  <% @news.each do |news| %>
-    <tr>
-      <td><%= link_to 'Show', news %></td>
-      <td><%= link_to 'Edit', edit_news_path(news) %></td>
-      <td><%= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+<%
+=begin %>
+
+ <% @events.each do |event| %>
+    <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
+      <article class="c-card -small">
+        <div class="picture" style="background: url(<%= event.image %>)">
+          <%= link_to '', news %>
+        </div>
+        <div class="metadata">
+          <h4 class="title -dark -xs"><%= event.title %></h4>
+          <h4 class="title -sea -small"><%= event.date %></h4>
+        </div>
+      </article>
+    </div>
+ <% end %>
+
+ <% @posts do |post| %>
+    <div class="grid-s-12">
+      <article class="c-card -horizontal">
+        <div class="picture" style="background: url(<%= post.image %>)">
+          <%= link_to '', post %>
+        </div>
+        <div class="metadata">
+          <h4 class="title -dark -xs"><%= post.title %></h4>
+          <h4 class="title -sea -small"><%= post.date %></h4>
+        </div>
+      </article>
+    </div>
   <% end %>
-</tbody>
+<%
+=end %>

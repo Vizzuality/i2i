@@ -10,6 +10,10 @@
     width: 100%;
     height: 280px;
 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
     > a {
       display: inline-block;
       width: 100%;
@@ -54,21 +58,11 @@
   &.-medium {
     display: flex;
     flex-direction: column;
-
-    > .picture {
-      width: 100%;
-      height: 140px;
-    }
   }
 
   &.-big {
     display: flex;
     flex-direction: column;
-
-    > .picture {
-      width: 100%;
-      height: 140px;
-    }
   }
 
   &.-horizontal {
@@ -76,8 +70,9 @@
       height: 280px;
     }
 
-    > .picture {
-      height: 140px;
+
+    > .metadata {
+      position: relative;
     }
 
     @media #{$mq-tablet} {
@@ -91,7 +86,6 @@
 
       > .metadata {
         flex-basis: 50%;
-        max-height: calc(190px - 60px);
       }
 
       &.-reverse {
@@ -101,11 +95,11 @@
   }
 
   &.-highlighted {
-    height: 280px;
-
-    > .picture {
-      height: 140px;
-    }
+    // height: 280px;
+    //
+    // > .picture {
+    //   height: 140px;
+    // }
 
     @media #{$mq-laptop} {
       position: relative;

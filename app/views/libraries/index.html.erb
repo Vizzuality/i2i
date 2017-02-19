@@ -34,113 +34,29 @@
   <div class="l-card-grid">
     <div class="wrapper">
       <div class="row">
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_1.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
+        <% @libraries.each do |library| %>
+          <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
+            <article class="c-card -small">
+              <div class="picture" style="background-image: url(<%= library.image %>)">
+                <%= link_to '', library  %>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_2.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
+              <div class="metadata">
+                <h4 class="title -xs -dark"><%= library.title %></h4>
+                <% if library.has_attribute? 'date' %>
+                  <h5 class="title -small -sea"><%= library.date %></h5>
+                <% end %>
+                <p><%= library.summary %></p>
+                <div class="card-options">
+                  <a href="<%= library.summary %>" target="_blank" rel="noopener" class="title -sea -small">download</a>
+                  <% if library.has_attribute? 'video_url' %>
+                    <a href="<%= library.video_url %>" class="title -sea -small" target="_blank" rel="noopener">watch video</a>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            </article>
           </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_3.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_4.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_5.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_6.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_7.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-          <div class="c-card -small">
-            <div class="picture" style="background-image: url('images/placeholders/placeholder_1.jpg')"></div>
-            <div class="metadata">
-              <p>Publication title lorem ipsum id elit</p>
-              <div class="card-options">
-                <a href="#" class="title -sea -small">download</a>
-                <a href="#" class="title -sea -small">watch video</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
-  <tbody>
-    <% @libraries.each do |library| %>
-      <tr>
-        <td><%= link_to 'Show', library %></td>
-        <td><%= link_to 'Edit', edit_library_path(library) %></td>
-        <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
