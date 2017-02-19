@@ -1,1 +1,55 @@
-<p>events index</p>
+<div class="l-keep-updated">
+
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false } %>
+    </div>
+  </div>
+
+  <div class="l-header-section">
+    <div class="wrapper">
+      <div class="row">
+        <div class="container">
+          <div class="grid-s-12 grid-m-6">
+            <h2 class="title -dark -big -center">Events</h2>
+            <p class="subtitle">Description text. Lorem ipsum sit amet ornare
+              sem lacinia quam venenatis vestibulum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row">
+          <% @events.each do |event| %>
+            <div class="grid-s-12">
+              <article class="c-card -horizontal">
+                <div class="picture" style="background-image: url(<%= event.image %>)">
+                  <%# Fix this! %>
+                  <%#= link_to '', event %>
+                </div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs"><%= event.title %></h4>
+                  <% if event.has_attribute? 'date' %>
+                    <h4 class="title -sea -small"><%= event.date %></h4>
+                  <% end %>
+                  <p><%= event.summary %></p>
+                </div>
+              </article>
+            </div>
+          <% end %>
+          <div class="grid-s-12">
+            <div class="grid-footer">
+              <div class="grid-s-12 grid-m-4 grid-l-3">
+                <a href="#" class="c-button -sea js-btn-more">Show more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
