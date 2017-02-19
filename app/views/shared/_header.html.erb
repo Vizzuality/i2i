@@ -1,4 +1,7 @@
-<div class="c-header <% if isCover.present? %>-cover<% end %>">
+<div class="c-header
+  <% if local_assigns.has_key? :isCover %> -cover <% end %>
+  <% if local_assigns.has_key? :isHomepage %> -homepage <% end %>"
+>
   <div class="container">
   	<div class="app-logo">
   		<%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), root_path %>

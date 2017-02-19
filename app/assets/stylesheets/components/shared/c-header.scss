@@ -1,26 +1,31 @@
 
 .c-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
   padding: 25px 0 0;
   background: $color-1;
 
   .container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 
+    @media #{$mq-laptop} {
+      align-items: flex-start;
+    }
+
     .app-logo > a {
-      display: inline-block;
+      display: inline-flex;
     }
 
     .app-logo > a > img {
       width: 96px;
       height: 38px;
+    }
+
+    .c-nav {
+      padding: 5px 0 0;
     }
 
     .hamburguer {
@@ -61,10 +66,17 @@
 
   &.-cover {
     background: transparent;
+  }
+
+  &.-homepage {
 
     .app-logo > a > img {
       width: auto;
       height: auto;
+    }
+
+    .c-nav {
+      padding: 10px 0 0;
     }
   }
 }

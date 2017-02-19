@@ -10,8 +10,8 @@
     display: block;
   }
 
-  > .nav-list > .nav-item {
 
+  > .nav-list > .nav-item {
 
     &:not(:first-child) {
       margin: 0 0 0 60px;
@@ -30,11 +30,12 @@
       &::before {
         display: inline-block;
         position: absolute;
-        top: -54px;
+        top: calc(-100% - 10px);
         left: 0;
-
         width: 100%;
         height: 6px;
+
+        transform: translate(0, -50%);
         background: $color-2;
         content: '';
       }
