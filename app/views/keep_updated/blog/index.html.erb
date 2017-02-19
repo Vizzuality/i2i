@@ -28,8 +28,7 @@
             <div class="grid-s-12">
               <article class="c-card -horizontal">
                 <div class="picture" style="background-image: url(<%= post.image %>)">
-                  <%# fix this! %>
-                  <%# <%= link_to '', post %>
+                  <%= link_to '', keep_updated_blog_path(post.id) %>
                 </div>
                 <div class="metadata">
                   <h4 class="title -dark -xs"><%= post.title %></h4>

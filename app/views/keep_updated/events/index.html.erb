@@ -28,8 +28,7 @@
             <div class="grid-s-12">
               <article class="c-card -horizontal">
                 <div class="picture" style="background-image: url(<%= event.image %>)">
-                  <%# Fix this! %>
-                  <%#= link_to '', event %>
+                  <%= link_to '', keep_updated_event_path(event.id) %>
                 </div>
                 <div class="metadata">
                   <h4 class="title -dark -xs"><%= event.title %></h4>
