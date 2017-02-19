@@ -1,0 +1,23 @@
+.l-blog {
+  margin: 0 0 50px;
+
+  @media #{mq-laptop} {
+    margin: 0 0 95px;
+  }
+
+  .l-card-grid {
+    margin: 40px 0 0;
+
+    @media #{$mq-laptop} {
+      margin: 85px 0 0;
+    }
+
+    .grid-footer {
+      margin: 25px 0 0;
+
+      @media #{$mq-laptop} {
+        margin: 100px 0 0;
+      }
+    }
+  }
+}
