@@ -1,0 +1,34 @@
+.l-data-portal {
+
+  .l-data-stats {
+    margin: 10px 0 0;
+
+
+    .data-stats-item {
+      display: flex;
+      flex-direction: column;
+
+      .data-stats-title {
+        color: $color-4;
+        font-family: $font-family-2;
+        font-size: $font-size-xs;
+      }
+
+      .data-stats-value {
+        color: $color-4;
+        font-family: $font-family-1;
+        font-size: $font-size-xm;
+        font-weight: $font-weight-bold;
+        letter-spacing: -1px;
+      }
+    }
+  }
+
+  .l-content {
+    transform: translate(0, -50px);
+
+    section {
+      margin: 85px 0 0;
+    }
+  }
+}
