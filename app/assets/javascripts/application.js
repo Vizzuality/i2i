@@ -19,7 +19,11 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require_self
+//= require templates/shared/social-tooltip
+//= require components/shared/tooltip
 //= require views/shared/mobile-menu
+//= require views/shared/social-tooltip
+//= require views/shared/footer
 //= require routers/static_pages
 
 (function() {
@@ -32,6 +36,7 @@
     Collection: {},
     Page: {},
     View: {},
+    Component: {},
     Router: {},
     Helper: {}
   };
