@@ -3,6 +3,10 @@
   .grid-footer {
     display: flex;
     justify-content: center;
-    margin: 40px 0 0;
+    margin: 20px 0 0;
+
+    @media #{$mq-tablet} {
+      margin: 40px 0 0;
+    }
   }
 }
