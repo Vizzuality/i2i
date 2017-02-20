@@ -1,5 +1,10 @@
 (function (App) {
 
+  /**
+   * This is a parent view to inherit the core functionialities
+   * of the tooltip. To use it, inherit a new tooltip based on this
+   * and override/extend functionalities to adapt them to your needs.
+   */
   App.Component.Tooltip = Backbone.View.extend({
 
     className: 'c-tooltip',
@@ -32,6 +37,10 @@
 
     hideTooltip: function () {
       this.el.classList.add('_is-hidden');
+    },
+
+    isHidden: function () {
+      return this.el.classList.contains('_is-hidden');
     },
 
     getPosition: function () {

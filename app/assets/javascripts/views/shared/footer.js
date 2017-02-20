@@ -17,7 +17,7 @@
     _setEventListeners: function () {
       this.refElem.addEventListener('mouseenter', function () {
         if (this.body.contains(this.socialTooltip.el)) {
-          if (this.socialTooltip.el.classList.contains('_is-hidden')) {
+          if (this.socialTooltip.isHidden()) {
             this.socialTooltip.showTooltip();
           } else {
             this.socialTooltip.hideTooltip();

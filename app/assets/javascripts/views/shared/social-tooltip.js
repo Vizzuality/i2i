@@ -7,15 +7,19 @@
     initialize: function (options) {
       this.refElem = options.refElem;
       this.constructor.__super__.initialize.call(this, options);
+
+      this._setVars();
     },
-    _showTooltip: function () {
-      this.constructor.__super__.showTooltip.apply(this);
+
+    _setVars: function () {
+      this.constructor.__super__._setVars();
+      this.parentView = this.constructor.__super__;
     },
 
     render: function () {
-      this.position = this.constructor.__super__.getPosition();
-      this.constructor.__super__.render.apply(this);
-      this._showTooltip();
+      this.position = this.parentView.getPosition();
+      this.parentView.render.apply(this);
+      this.parentView.showTooltip.apply(this);
     }
   });
 }).call(this, this.App);
