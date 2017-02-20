@@ -1,4 +1,3 @@
-
 App.Router.StaticPages = Backbone.Router.extend({
 
   routes: {
@@ -13,8 +12,10 @@ App.Router.StaticPages = Backbone.Router.extend({
 
 new App.Router.StaticPages();
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('turbolinks:load', function () {
+  Backbone.history.stop();
   Backbone.history.start({ pushState: true });
+  // this only intializes once. CHANGE
   new App.View.MobileMenu();
   new App.View.Footer();
 });

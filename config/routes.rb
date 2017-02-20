@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'community' => 'community#index'
 
-  get 'data_portal' => 'static_pages#data_portal'
+  get 'data_portal' => 'data_portal#index'
 
   get 'about' => 'static_pages#about'
 
