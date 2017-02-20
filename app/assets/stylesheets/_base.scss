@@ -48,6 +48,12 @@ a {
   text-decoration: none;
 }
 
+select {
+  border: 0;
+  background: none;
+  appearance: none;
+}
+
 .modal-container {
   position: fixed;
   top: 50%;

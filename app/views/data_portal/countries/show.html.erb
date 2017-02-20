@@ -1,1 +1,181 @@
-Info of the country <%= @country.name %>
+<div class="l-country">
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false }%>
+    </div>
+  </div>
+
+  <div class="l-country-intro">
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="container">
+                <div class="grid-l-7">
+                  <h1 class="title -light -big"><%= @country.name %></h1>
+                </div>
+                <div class="grid-l-3">
+                <button class="c-button -white">Customize indicators</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="grid-l-4">
+                <div class="l-data-range">
+                  <select class="c-select" name="jurisdiction">
+                    <option value="">All jurisdictions</option>
+                    <option value="">Jurisdiction A</option>
+                    <option value="">Jurisdiction B</option>
+                  </select>
+                  <span class="separator">in</span>
+                  <select class="c-select" name="year">
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-l-12">
+            <div class="l-data-definition">
+              <div class="row">
+                <div class="container">
+                  <div class="grid-l-7">
+                    <!-- <p class="country-data-description"><%#= @country.description %></p> -->
+                    <p class="country-data-description">
+                      The findings from the FinScope Country 2012 survey revealed that 72% of adults were financially included – 42% were formally served (23% served by commercial banks and 33% served by non-bank formal institutions) and 58% used informal financial mechanisms.
+                    </p>
+                  </div>
+                  <div class="grid-l-3">
+                    <div class="c-switcher">
+                      <span class="switcher-option -current">Graphics</span>
+                      <span class="switcher-option">Table</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="l-indicator-grid">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="grid-l-6">
+                <div class="c-widget">
+                  <h3 class="title -dark widget-title">Lorem distribution</h3>
+                  <div class="widget-options-container">
+                    <div class="grid-s-12">
+                      <div class="row">
+                        <div class="widget-options">
+                          <div class="row">
+                            <div class="grid-l-2">
+                              <button class="c-button">Save</button>
+                            </div>
+                            <div class="grid-l-2">
+                              <button class="c-button">Change</button>
+                            </div>
+                            <div class="grid-l-2">
+                              <button class="c-button">Compare</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-l-6">
+                <div class="c-widget">
+                  <h3 class="title -dark widget-title">Lorem distribution</h3>
+                  <div class="widget-options-container">
+                    <div class="grid-s-12">
+                      <div class="row">
+                        <div class="widget-options">
+                          <div class="row">
+                            <div class="grid-l-2">
+                              <button class="c-button">Save</button>
+                            </div>
+                            <div class="grid-l-2">
+                              <button class="c-button">Change</button>
+                            </div>
+                            <div class="grid-l-2">
+                              <button class="c-button">Compare</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid-l-12">
+            <div class="c-widget">
+              <h3 class="title -dark widget-title">Lorem distribution</h3>
+              <div class="widget-options-container">
+                <div class="grid-s-12 grid-l-6">
+                  <div class="row">
+                    <div class="widget-options">
+                      <div class="row">
+                        <div class="grid-l-2">
+                          <button class="c-button">Save</button>
+                        </div>
+                        <div class="grid-l-2">
+                          <button class="c-button">Change</button>
+                        </div>
+                        <div class="grid-l-2">
+                          <button class="c-button">Compare</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="footer-indicator-grid">
+                <div class="grid-l-8">
+                  <div class="indicator-options">
+                    <div class="row">
+                      <div class="grid-l-3">
+                        <button class="c-button -white">Add all to report</button>
+                      </div>
+                      <div class="grid-l-3">
+                        <button class="c-button -white">Downlaod all</button>
+                      </div>
+                      <div class="grid-l-4">
+                        <button class="c-button -white">Check FSPmaps data</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-l-3">
+                  <div class="container-custom-indicators">
+                    <button class="c-button -sea">Customize indicators</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
