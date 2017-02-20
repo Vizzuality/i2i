@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215153008) do
+ActiveRecord::Schema.define(version: 20170220152851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170215153008) do
     t.datetime "image_updated_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.datetime "date"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -74,12 +75,14 @@ ActiveRecord::Schema.define(version: 20170215153008) do
     t.datetime "image_updated_at"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.datetime "date"
   end
 
   create_table "indicators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.datetime "date"
   end
 
   create_table "libraries", force: :cascade do |t|
@@ -93,6 +96,9 @@ ActiveRecord::Schema.define(version: 20170215153008) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "content_type"
+    t.datetime "date"
+    t.string   "url_resource"
+    t.string   "video_url"
   end
 
   create_table "news", force: :cascade do |t|
@@ -105,6 +111,8 @@ ActiveRecord::Schema.define(version: 20170215153008) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.datetime "date"
+    t.boolean  "highlight"
   end
 
 end

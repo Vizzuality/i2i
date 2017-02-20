@@ -13,6 +13,9 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  content_type       :string
+#  date               :datetime
+#  url_resource       :string
+#  video_url          :string
 #
 
 class Library < ApplicationRecord
@@ -23,4 +26,7 @@ class Library < ApplicationRecord
   has_enumeration_for :content_type, with: LibraryType, skip_validation: true
 
   validates_presence_of :title, :content_type
+  validates :url_resource, url: true, if: 'url_resource.present?'
+  validates :video_url, url: true, if: 'video_url.present?'
+
 end

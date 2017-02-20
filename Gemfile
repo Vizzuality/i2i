@@ -31,6 +31,7 @@ gem 'devise'
 gem 'paperclip'
 
 gem 'enumerate_it'
+gem 'valid_url'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

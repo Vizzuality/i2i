@@ -7,7 +7,7 @@ ActiveAdmin.register Event do
 
   controller do
     def permitted_params
-      params.permit event: [:title, :summary, :content, :id, :image]
+      params.permit event: [:title, :summary, :content, :id, :image, :date]
     end
   end
 
@@ -28,6 +28,7 @@ ActiveAdmin.register Event do
       f.input :title
       f.input :summary
       f.input :content
+      f.input :date
       f.input :image, :as => :file, :hint => f.template.image_tag(f.object.image.url(:image))
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?

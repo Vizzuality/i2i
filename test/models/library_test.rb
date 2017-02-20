@@ -13,6 +13,9 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  content_type       :string
+#  date               :datetime
+#  url_resource       :string
+#  video_url          :string
 #
 
 require 'test_helper'

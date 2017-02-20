@@ -8,7 +8,7 @@ ActiveAdmin.register Library do
 
   controller do
     def permitted_params
-      params.permit library: [:title, :summary, :content, :id, :image, :content_type]
+      params.permit library: [:title, :summary, :content, :id, :image, :content_type, :date, :url_resource, :video_url]
     end
   end
 
@@ -31,6 +31,9 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :summary
       f.input :content
+      f.input :date
+      f.input :url_resource
+      f.input :video_url
       f.input :image, :as => :file, :hint => f.template.image_tag(f.object.image.url(:image))
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
