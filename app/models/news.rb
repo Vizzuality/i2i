@@ -24,4 +24,5 @@ class News < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates_presence_of :title
+
 end

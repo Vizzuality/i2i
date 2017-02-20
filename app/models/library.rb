@@ -28,5 +28,6 @@ class Library < ApplicationRecord
   validates_presence_of :title, :content_type
   validates :url_resource, url: true, if: 'url_resource.present?'
   validates :video_url, url: true, if: 'video_url.present?'
+  validates_length_of :summary, maximum: 150, allow_blank: true
 
 end
