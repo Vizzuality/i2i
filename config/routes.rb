@@ -10,6 +10,12 @@ Rails.application.routes.draw do
 
   get 'about' => 'static_pages#about'
 
+  namespace :keep_updated do
+    resources :news, only: [:index, :show]
+    resources :blog, only: [:index, :show]
+    resources :events, only: [:index, :show]
+  end
+
   namespace :data_portal do
     resources :countries, only: :show
     resources :indicators, only: :show
