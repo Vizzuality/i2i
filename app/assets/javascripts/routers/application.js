@@ -1,7 +1,12 @@
 App.Router.StaticPages = Backbone.Router.extend({
 
   routes: {
+    '': '_homePage',
     about: '_aboutPage'
+  },
+
+  _homePage: function () {
+    new App.Page.HomePage();
   },
 
   _aboutPage: function () {

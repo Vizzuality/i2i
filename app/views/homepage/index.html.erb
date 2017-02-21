@@ -4,14 +4,17 @@
       <%= render partial: 'shared/header', locals: { isCover: true } %>
       <div class="c-hero">
         <h1 class="title -light -huge">Advancing financial inclusion</h1>
-        <p class="subtitle">A platform for <a href="#">governments</a>,
-          <a href="#">researchers</a> and <a href="#">FSP Techs.</a>
+        <p class="subtitle">A platform for
+          <a class="js-anchor" data-anchor="#governments" href="#">governments</a>,
+          <a class="js-anchor" data-anchor="#researchers" href="#">researchers</a>
+          and
+          <a class="js-anchor" data-anchor="#fsp-tech" href="#">FSP Techs.</a>
         </p>
       </div>
     </div>
   </div>
 
-  <div class="homepage-section -government" style="background-image: url(images/homepage/home-bg-1b.png)">
+  <div id="governments" class="homepage-section -government" style="background-image: url(images/homepage/home-bg-1b.png)">
     <div class="wrapper">
       <img src="images/homepage/home-bg-1a.png" alt="">
       <div class="c-card-highlight -homepage">
@@ -26,7 +29,7 @@
     </div>
   </div>
 
-  <div class="homepage-section -researcher">
+  <div id="researchers" class="homepage-section -researcher">
     <div class="wrapper">
       <div class="c-card-highlight -homepage">
         <h3 class="title -dark -medium">Researcher</h3>
@@ -41,7 +44,7 @@
     </div>
   </div>
 
-  <div class="homepage-section -fsp-tech">
+  <div id="fsp-tech" class="homepage-section -fsp-tech">
     <div class="wrapper">
       <img src="images/homepage/home-bg-3.png" alt="">
       <div class="c-card-highlight -homepage">
