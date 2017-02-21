@@ -5,40 +5,96 @@
     background-color: $color-1;
   }
 
+  .l-mobile-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 15px 0;
+
+    background: $color-1;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    z-index: 10;
+
+    .country-name {
+      display: block;
+      position: relative;
+
+      color: $color-4;
+      font-family: $font-family-2;
+      font-size: $font-size-xs;
+
+      &::after {
+        @include arrow(8px, 2px, $color-4, 'down');
+        position: absolute;
+        top: calc(50% - 4px);
+        right: 0;
+        transform: rotate(45deg) translate(0, -50%);
+        cursor: pointer;
+      }
+    }
+  }
+
   .l-country-intro {
-    padding: 50px 0 75px;
+    padding: 50px 0 0;
     background-color: $color-1;
+
+    @media #{$mq-laptop} {
+      padding: 50px 0 75px;
+    }
 
     .l-title {
       .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @media #{$mq-tablet} {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
       }
     }
 
 
     .l-data-range {
-      > .separator {
+      margin: 25px 0 20px;
+
+      @media #{$mq-laptop} {
+        margin: 35px 0 40px;
+      }
+
+      color: $color-3;
+      font-family: $font-family-2;
+      font-size: $font-size-xs;
+      line-height: 1.8;
+
+      p {
         color: $color-3;
         font-family: $font-family-2;
-        font-size: $font-size-xs;
+
+        &:not(:first-child) {
+          margin: 5px 0 0;
+        }
       }
     }
 
     .l-data-definition {
-      margin: 25px 0 0;
+      margin: 25px 0;
 
       .container {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
+        @media #{$mq-tablet} {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+        }
+
+        .c-button {
+          margin: 40px 0 25px;
+        }
       }
 
       .country-data-description {
         color: $color-3;
         font-family: $font-family-1;
-        font-size: $font-weight-light;
+        font-weight: $font-weight-light;
       }
 
       .c-switcher {
@@ -46,18 +102,52 @@
         margin: 0 0 0 auto;
       }
     }
+
+    .l-switcher {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0 45px;
+      background: rgba($color-5, .1);
+
+      .c-switcher {
+        max-width: 175px;
+        margin: 0 auto;
+
+        @media #{$mq-tablet} {
+          max-width: none;
+        }
+      }
+    }
   }
 
   .l-content {
-    margin: 0 0 40px;
-    transform: translate(0, -50px);
+    margin: 0;
+    transform: translate(0, -20px);
+
+    .l-switcher {
+
+      .container {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0 0 20px;
+      }
+    }
+
+    @media #{$mq-laptop} {
+      margin: 0 0 40px;
+      transform: translate(0, -80px);
+    }
 
     .l-indicator-grid {
 
       .footer-indicator-grid {
         display: flex;
         justify-content: space-between;
-        margin: 20px 0 0;
+        margin: 10px 0 0;
+
+        .indicator-options .c-button {
+          margin: 0 0 25px;
+        }
 
         .container-custom-indicators > .c-button {
           box-shadow: 0 2px 3px 0 rgba($color-6, .15);
