@@ -5,7 +5,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "./data/db:/var/lib/postgresql"
+      - "/data/i2i/database:/var/lib/postgresql"
   web:
     build: .
     ports:
