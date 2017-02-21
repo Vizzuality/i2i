@@ -22,7 +22,7 @@ class Event < ApplicationRecord
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-  validates_presence_of :title
+  validates_presence_of :title, maximum: 75
   validates_length_of :summary, maximum: 150, allow_blank: true
 
   def set_date
