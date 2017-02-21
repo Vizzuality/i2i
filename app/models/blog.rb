@@ -22,7 +22,8 @@ class Blog < ApplicationRecord
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-  validates_presence_of :title, maximum: 125
+  validates_presence_of :title
+  validates_length_of :title, maximum: 125
   validates_length_of :summary, maximum: 150, allow_blank: true
 
   def set_date
