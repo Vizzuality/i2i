@@ -99,9 +99,9 @@
         <h2 class="title -dark -big">Blog</h2>
         <div class="card-grid">
           <div class="row">
-            <% @blogs.each do |post| %>
+            <% @blogs.each_with_index do |post, index| %>
               <div class="grid-s-12">
-                <article class="c-card -horizontal">
+                <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
                   <div class="picture" style="background-image: url(<%= post.image %>)">
                     <%= link_to '', updates_blog_path(post.id) %>
                   </div>
