@@ -8,6 +8,7 @@ RUN apk update && \
     apk upgrade && \
     apk add --update --no-cache \
       build-base \
+      imagemagick \
       bash \
       git \
       nodejs \
