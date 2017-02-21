@@ -10,6 +10,7 @@ class Updates::EventsController < ApplicationController
   # GET /event/1
   # GET /event/1.json
   def show
+    @event = Event.find(params[:id])
   end
 
   private
