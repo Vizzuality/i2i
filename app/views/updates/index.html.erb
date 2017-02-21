@@ -23,8 +23,8 @@
     <div class="wrapper">
       <div class="card-grid -news">
         <div class="row">
-          <% @news.each do |news| %>
-            <% if news.has_attribute? 'highlighted' %>
+          <% @news.each_with_index do |news, index| %>
+            <% if index == 0 %>
               <div class="grid-s-12 grid-m-6 grid-l-8">
                 <article class="c-card -highlighted">
                   <div class="picture" style="background-image: url(<%= news.image %>)">
