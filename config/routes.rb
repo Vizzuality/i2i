@@ -10,11 +10,17 @@ Rails.application.routes.draw do
 
   get 'about' => 'static_pages#about'
 
-  namespace :keep_updated do
+  concern :shared_actions do
     resources :news, only: [:index, :show]
-    resources :blog, only: [:index, :show]
+  end
+
+  namespace :updates do
+    concerns :shared_actions
+    resources :blogs, only: [:index, :show]
     resources :events, only: [:index, :show]
   end
+
+  concerns :shared_actions
 
   namespace :data_portal do
     resources :countries, only: :show
@@ -22,5 +28,5 @@ Rails.application.routes.draw do
   end
 
   resources :libraries
-  resources :news
+  resources :updates, only: :index
 end

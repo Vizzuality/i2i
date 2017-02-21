@@ -12,8 +12,8 @@
               <h1 class="title -light -huge">News</h1>
               <p class="subtitle">Description text. Lorem ipsum sit amet ornare
                 sem lacinia quam venenatis vestibulum.</p>
-              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
           <div class="grid-s-12">
             <div class="grid-footer">
               <div class="grid-s-12 grid-m-4 grid-l-3">
-                <a href="<%= keep_updated_news_index_path %>" class="c-button btn-more">More news</a>
+                <a href="<%= updates_news_index_path %>" class="c-button btn-more">More news</a>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@
             <div class="grid-s-12">
               <div class="grid-footer">
                 <div class="grid-s-12 grid-m-4 grid-l-3">
-                  <a href="<%= keep_updated_events_path %>" class="c-button btn-more">More events</a>
+                  <a href="<%= updates_events_path %>" class="c-button btn-more">More events</a>
                 </div>
               </div>
             </div>
@@ -119,89 +119,88 @@
 
       <section class="blog-section">
         <h2 class="title -dark -big">Blog</h2>
-          <div class="card-grid">
-            <div class="row">
-              <div class="grid-s-12">
-                <div class="c-card -horizontal">
-                  <div class="picture" style="background-image: url('images/placeholders/placeholder_3.jpg')"></div>
-                  <div class="metadata">
-                    <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12">
-                <div class="c-card -horizontal -reverse">
-                  <div class="picture" style="background-image: url('images/placeholders/placeholder_4.jpg')"></div>
-                  <div class="metadata">
-                    <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12">
-                <div class="c-card -horizontal">
-                  <div class="picture" style="background-image: url('images/placeholders/placeholder_5.jpg')"></div>
-                  <div class="metadata">
-                    <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12">
-                <div class="c-card -horizontal -reverse">
-                  <div class="picture" style="background-image: url('images/placeholders/placeholder_6.jpg')"></div>
-                  <div class="metadata">
-                    <h4 class="title -sea -small">sept 23, 2014</h4>
-                    <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12">
-                <div class="grid-footer">
-                  <div class="grid-s-12 grid-m-4 grid-l-3">
-                    <a href="<%= keep_updated_blog_index_path %>" class="c-button btn-more">More posts</a>
-                  </div>
+        <div class="card-grid">
+          <div class="row">
+            <div class="grid-s-12">
+              <div class="c-card -horizontal">
+                <div class="picture" style="background-image: url('images/placeholders/placeholder_3.jpg')"></div>
+                <div class="metadata">
+                  <h4 class="title -sea -small">sept 23, 2014</h4>
+                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
                 </div>
               </div>
             </div>
+            <div class="grid-s-12">
+              <div class="c-card -horizontal -reverse">
+                <div class="picture" style="background-image: url('images/placeholders/placeholder_4.jpg')"></div>
+                <div class="metadata">
+                  <h4 class="title -sea -small">sept 23, 2014</h4>
+                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-s-12">
+              <div class="c-card -horizontal">
+                <div class="picture" style="background-image: url('images/placeholders/placeholder_5.jpg')"></div>
+                <div class="metadata">
+                  <h4 class="title -sea -small">sept 23, 2014</h4>
+                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-s-12">
+              <div class="c-card -horizontal -reverse">
+                <div class="picture" style="background-image: url('images/placeholders/placeholder_6.jpg')"></div>
+                <div class="metadata">
+                  <h4 class="title -sea -small">sept 23, 2014</h4>
+                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet elent tur.</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid-s-12">
+              <div class="grid-footer">
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <a href="<%= updates_blogs_path %>" class="c-button btn-more">More posts</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
     </div>
   </div>
+  </section>
+</div>
+</div>
 </div>
 
-<%
-=begin %>
 
- <% @events.each do |event| %>
-    <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-      <article class="c-card -small">
-        <div class="picture" style="background: url(<%= event.image %>)">
-          <%= link_to '', news %>
-        </div>
-        <div class="metadata">
-          <h4 class="title -dark -xs"><%= event.title %></h4>
-          <h4 class="title -sea -small"><%= event.date %></h4>
-        </div>
-      </article>
-    </div>
- <% end %>
+<% @events.each do |event| %>
+  <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
+    <article class="c-card -small">
+      <div class="picture" style="background: url(<%= event.image %>)">
+        <%= link_to '', updates_events_path(event.id) %>
+      </div>
+      <div class="metadata">
+        <h4 class="title -dark -xs"><%= event.title %></h4>
+        <h4 class="title -sea -small"><%= event.date %></h4>
+      </div>
+    </article>
+  </div>
+<% end %>
 
- <% @posts do |post| %>
-    <div class="grid-s-12">
-      <article class="c-card -horizontal">
-        <div class="picture" style="background: url(<%= post.image %>)">
-          <%= link_to '', post %>
-        </div>
-        <div class="metadata">
-          <h4 class="title -dark -xs"><%= post.title %></h4>
-          <h4 class="title -sea -small"><%= post.date %></h4>
-        </div>
-      </article>
+<%# @posts do |post| %>
+<!--
+<div class="grid-s-12">
+  <article class="c-card -horizontal">
+    <div class="picture" style="background: url(<%#= post.image %>)">
+      <%#= link_to '', post %>
     </div>
-  <% end %>
-<%
-=end %>
+    <div class="metadata">
+      <h4 class="title -dark -xs"><%#= post.title %></h4>
+      <h4 class="title -sea -small"><%#= post.date %></h4>
+    </div>
+  </article>
+</div>
+-->
+<%# end %>
+
