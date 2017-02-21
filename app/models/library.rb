@@ -22,6 +22,9 @@ class Library < ApplicationRecord
   extend EnumerateIt
 
   has_attached_file :image
+
+  after_initialize :set_date
+
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   has_enumeration_for :content_type, with: LibraryType, skip_validation: true
 
@@ -30,4 +33,7 @@ class Library < ApplicationRecord
   validates :video_url, url: true, if: 'video_url.present?'
   validates_length_of :summary, maximum: 150, allow_blank: true
 
+  def set_date
+    self.date ||= DateTime.now
+  end
 end

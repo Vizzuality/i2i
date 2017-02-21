@@ -14,6 +14,14 @@ ActiveAdmin.register Library do
 
   index do
     selectable_column
+    column :content_type do |record|
+      if record.content_type
+        LibraryType.key_for(record.content_type.to_i)
+      else
+        '-'
+      end
+    end
+
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end

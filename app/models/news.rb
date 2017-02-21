@@ -19,10 +19,15 @@
 class News < ApplicationRecord
   self.table_name = 'news'
 
+  after_initialize :set_date
+
   # Validations for paperclip
   has_attached_file :image
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates_presence_of :title
 
+  def set_date
+    self.date ||= DateTime.now
+  end
 end
