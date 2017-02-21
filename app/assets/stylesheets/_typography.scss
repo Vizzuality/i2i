@@ -11,6 +11,12 @@
   src: font-url('typography/Montserrat-Light.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: $font-weight-bold;
+  src: font-url('typography/Montserrat-Bold.ttf') format('truetype');
+}
+
 // titles
 h1,
 h2,

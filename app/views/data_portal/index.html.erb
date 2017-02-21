@@ -9,18 +9,122 @@
         <div class="row">
           <div class="c-hero">
             <div class="grid-l-8">
-              <h1 class="title -light -huge">i2i Data Portal</h1>
-              <p class="subtitle">Description text. Lorem ipsum sit amet ornare
-                sem lacinia quam venenatis vestibulum.</p>
+              <div class="row">
+                <h1 class="title -light -huge">i2i Data Portal</h1>
               </div>
             </div>
+            <div class="grid-s-12 grid-l-8">
+              <div class="row">
+                <div class="l-data-stats">
+                  <div class="grid-s-4 grid-l-3">
+                    <div class="data-stats-item">
+                      <span class="data-stats-title">Datasets</span>
+                      <span class="data-stats-value">355</span>
+                    </div>
+                  </div>
+                  <div class="grid-s-4 grid-l-3">
+                    <div class="data-stats-item">
+                      <span class="data-stats-title">Household surveys</span>
+                      <span class="data-stats-value">84</span>
+                    </div>
+                  </div>
+                  <div class="grid-s-4 grid-l-3">
+                    <div class="data-stats-item">
+                      <span class="data-stats-title">Geospatial data</span>
+                      <span class="data-stats-value">615</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row">
+          <% @countries.each do |country| %>
+            <div class="grid-s-6 grid-m-6 grid-l-4">
+              <article class="c-flag">
+                <%= link_to '', data_portal_country_path(country.id) %>
+                <span class="country-name"><%= country.name%></span>
+              </article>
+            </div>
+          <% end %>
+        </div>
+      <div class="row">
+        <div class="grid-s-12">
+          <div class="grid-footer">
+            <div class="grid-s-12 grid-m-4 grid-l-3">
+              <a href="#" class="c-button -sea">Compare countries</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="recent-activity">
+      <h2 class="title -dark -big">Recent activity</h2>
+      <div class="l-card-grid">
+        <div class="row">
+          <div class="grid-s-12 grid-m-6 grid-l-3">
+            <article class="c-card -medium">
+              <div class="picture" style="background-image: url(images/placeholders/placeholder_1.jpg)">
+                <a href="#"></a>
+              </div>
+              <div class="metadata">
+                <h4 class="title -dark -xs">Event Recent 1</h4>
+                <h4 class="title -sea -small">Sept 23, 2014</h4>
+                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
+              </div>
+            </article>
+          </div>
+          <div class="grid-s-12 grid-m-6 grid-l-3">
+            <article class="c-card -medium">
+              <div class="picture" style="background-image: url(images/placeholders/placeholder_1.jpg)">
+                <a href="#"></a>
+              </div>
+              <div class="metadata">
+                <h4 class="title -dark -xs">Event Recent 1</h4>
+                <h4 class="title -sea -small">Sept 23, 2014</h4>
+                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
+              </div>
+            </article>
+          </div>
+          <div class="grid-s-12 grid-m-6 grid-l-3">
+            <article class="c-card -medium">
+              <div class="picture" style="background-image: url(images/placeholders/placeholder_1.jpg)">
+                <a href="#"></a>
+              </div>
+              <div class="metadata">
+                <h4 class="title -dark -xs">Event Recent 1</h4>
+                <h4 class="title -sea -small">Sept 23, 2014</h4>
+                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
+              </div>
+            </article>
+          </div>
+          <div class="grid-s-12 grid-m-6 grid-l-3">
+            <article class="c-card -medium">
+              <div class="picture" style="background-image: url(images/placeholders/placeholder_1.jpg)">
+                <a href="#"></a>
+              </div>
+              <div class="metadata">
+                <h4 class="title -dark -xs">Event Recent 1</h4>
+                <h4 class="title -sea -small">Sept 23, 2014</h4>
+                <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 
+  <%= render partial: 'shared/contribute' %>
 
-<% @countries.each do |country| %>
-  </br><%= link_to country.name, data_portal_country_path(country.id) %>
-<% end %>
+</div>

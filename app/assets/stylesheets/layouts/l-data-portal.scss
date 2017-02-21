@@ -1,0 +1,48 @@
+.l-data-portal {
+
+  .l-data-stats {
+    display: flex;
+    margin: 10px 0 0;
+
+    .data-stats-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+
+      .data-stats-title {
+        color: $color-4;
+        font-family: $font-family-2;
+        font-size: $font-size-xs;
+      }
+
+      .data-stats-value {
+        color: $color-4;
+        font-family: $font-family-1;
+        font-size: $font-size-xm;
+        font-weight: $font-weight-bold;
+        letter-spacing: -1px;
+      }
+    }
+  }
+
+  .l-content {
+    transform: translate(0, -50px);
+
+    @media #{$mq-laptop} {
+      margin: 0 0 45px;
+    }
+
+    section {
+      margin: 40px 0 0;
+
+      @media #{$mq-laptop} {
+        margin: 85px 0 0;
+      }
+
+      .l-card-grid {
+        margin: 40px 0 0;
+      }
+    }
+  }
+}
