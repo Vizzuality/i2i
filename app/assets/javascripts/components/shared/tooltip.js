@@ -24,14 +24,25 @@
     initialize: function (options) {
       this.config = _.extend(this.defaultConfig, options);
       this._setVars();
+      this._setEventListeners();
+
+      this.render();
+      this.hideTooltip();
     },
 
     _setVars: function () {
+      this.refElem = this.defaultConfig.refElem;
       this.body = document.querySelector('body');
       this.position = { top: 0, left: 0 };
     },
 
+    _setEventListeners: function () {
+      this.refElem.addEventListener('mouseover', this.showTooltip.bind(this))
+      this.refElem.addEventListener('mouseleave', this.hideTooltip.bind(this));
+    },
+
     showTooltip: function () {
+      if (!this.isHidden()) return;
       this.el.classList.remove('_is-hidden');
     },
 
