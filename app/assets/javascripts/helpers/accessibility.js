@@ -1,4 +1,3 @@
-
 App.Helper.Accessibility = {
   /**
    * Return the list of focusable elements

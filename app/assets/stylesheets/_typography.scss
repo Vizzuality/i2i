@@ -96,7 +96,7 @@ p {
   font-size: $font-size-xs;
   font-weight: $font-weight-light;
   line-height: 1.38;
-  word-break: break-word;
+  word-wrap: break-word;
 
   & + & {
     margin: 15px 0 0;

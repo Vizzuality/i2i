@@ -1,7 +1,7 @@
-<div class="l-country">
+<div class="l-data-portal-country">
   <div class="l-mobile-header _no-desktop">
     <div class="wrapper">
-      <span class="country-name"><%= @country.name %></span>
+      <span class="country-name js-country">–</span>
     </div>
   </div>
   <div class="l-header">
@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="l-country-intro">
+  <div class="l-intro">
     <div class="l-title">
       <div class="wrapper">
         <div class="row">
@@ -18,7 +18,7 @@
             <div class="row">
               <div class="container">
                 <div class="grid-s-12 grid-m-8 grid-l-7 -no-mobile">
-                  <h1 class="title -light -big"><%= @country.name %></h1>
+                  <h1 class="title -light -big js-country">–</h1>
                 </div>
                 <div class="grid-m-4 grid-l-3 _no-mobile">
                 <button class="c-button -white">Customize indicators</button>
@@ -32,7 +32,7 @@
                 <div class="l-data-range">
                   <span class="c-tag">All jurisdictions</span>
                   in
-                  <span class="c-tag">2015</span>
+                  <span class="c-tag js-year">–</span>
                   <!-- <p>Showing data about <span class="c-tag">individuals</span> and
                   their <span class="c-tag">gender, age, marital status</span> ...</p>
                   <p>Regarding <span class="c-tag">financial inclusion included</span></p> -->
@@ -45,7 +45,6 @@
               <div class="row">
                 <div class="container">
                   <div class="grid-s-12 grid-l-7">
-                    <p class="country-data-description"><%#= @country.description %></p>
                     <p class="country-data-description">
                       The findings from the FinScope Country 2012 survey revealed that 72% of adults were financially included – 42% were formally served (23% served by commercial banks and 33% served by non-bank formal institutions) and 58% used informal financial mechanisms.
                     </p>
@@ -95,38 +94,7 @@
       <div class="wrapper">
         <div class="row">
           <div class="grid-l-12">
-            <div class="row">
-              <div class="grid-s-12 grid-l-6">
-                <div class="c-widget">
-                  <h3 class="title -dark widget-title">Lorem distribution</h3>
-                  <div class="widget-options-container">
-                    <button class="c-button">Save</button>
-                    <button class="c-button">Change</button>
-                    <button class="c-button">Compare</button>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12 grid-l-6">
-                <div class="c-widget">
-                  <h3 class="title -dark widget-title">Lorem distribution</h3>
-                  <div class="widget-options-container">
-                    <button class="c-button">Save</button>
-                    <button class="c-button">Change</button>
-                    <button class="c-button">Compare</button>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12">
-            <div class="c-widget">
-              <h3 class="title -dark widget-title">Lorem distribution</h3>
-              <div class="widget-options-container">
-                <button class="c-button">Save</button>
-                <button class="c-button">Change</button>
-                <button class="c-button">Compare</button>
-              </div>
-            </div>
-          </div>
-            </div>
+            <div class="row js-widgets"></div>
           </div>
         </div>
         <div class="row">
@@ -160,7 +128,5 @@
       </div>
     </div>
   </div>
-
   <%= render partial: 'shared/contribute' %>
-
 </div>

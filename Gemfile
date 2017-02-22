@@ -19,6 +19,13 @@ gem 'rails-backbone', '~> 1.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'gon'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-d3', '~> 3.5.16'
+  gem 'rails-assets-vega', '~> 2.6.3'
+  gem 'rails-assets-datalib', '1.7.3'
+end
 
 gem 'dotenv-rails', '~> 2.1'
 

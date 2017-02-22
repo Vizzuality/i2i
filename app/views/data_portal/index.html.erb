@@ -46,15 +46,7 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="l-card-grid">
-        <div class="row">
-          <% @countries.each do |country| %>
-            <div class="grid-s-6 grid-m-6 grid-l-4">
-              <article class="c-flag">
-                <%= link_to '', data_portal_country_path(country.id) %>
-                <span class="country-name"><%= country.name%></span>
-              </article>
-            </div>
-          <% end %>
+        <div class="row js-countries">
         </div>
       <div class="row">
         <div class="grid-s-12">
@@ -125,6 +117,4 @@
   </div>
 </div>
 
-  <%= render partial: 'shared/contribute' %>
-
-</div>
+<%= render partial: 'shared/contribute' %>

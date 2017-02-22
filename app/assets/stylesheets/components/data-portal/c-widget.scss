@@ -1,0 +1,16 @@
+.c-widget {
+  position: relative;
+  min-height: 200px;  // to keep a nice look
+  margin: 0 0 30px;
+  padding: 30px;
+  background: $color-4;
+  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+  @media #{$mq-tablet} {
+    margin: 0 0 20px;
+  }
+
+  @media #{mq-laptop} {
+    height: 525px;
+  }
+}
