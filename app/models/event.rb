@@ -16,7 +16,7 @@
 #
 
 class Event < ApplicationRecord
-  has_attached_file :image
+  has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date
 

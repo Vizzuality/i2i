@@ -42,7 +42,8 @@ ActiveAdmin.register Library do
       f.input :date
       f.input :url_resource
       f.input :video_url
-      f.input :image, :as => :file, :hint => f.template.image_tag(f.object.image.url(:image))
+      f.input :image, as: :file, hint: f.object.image.present? ? \
+        image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
@@ -57,7 +58,7 @@ ActiveAdmin.register Library do
       row :summary
       row :content
       row :image do
-        image_tag(ad.image.url(:image))
+        image_tag(ad.image.url(:thumb))
       end
       # Will display the image on show object page
     end

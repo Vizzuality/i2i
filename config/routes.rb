@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   get 'community' => 'community#index'
 
-  get 'data_portal' => 'data_portal#index'
+  get 'data-portal' => 'data_portal#index'
+  get 'data-portal/:iso/:year' => 'data_portal#show'
 
   get 'about' => 'static_pages#about'
 
@@ -17,13 +18,8 @@ Rails.application.routes.draw do
     resources :events, only: [:index, :show]
   end
 
-  scope :news, controller: [:updates, :news] do
+  scope module: 'updates' do
     resources :news, only: [:index, :show]
-  end
-
-  namespace :data_portal do
-    resources :countries, only: :show
-    resources :indicators, only: :show
   end
 
   resources :libraries
