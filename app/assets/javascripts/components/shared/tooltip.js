@@ -4,6 +4,8 @@
 
     className: 'c-tooltip',
 
+    id: 'vizz-component',
+
     defaultConfig: {
       direction: 'bottom',
       offset: 25

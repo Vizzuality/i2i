@@ -1,0 +1,50 @@
+#vizz-component {
+
+  .c-nav {
+    display: none;
+
+    @media #{$mq-laptop} {
+      display: block;
+    }
+
+    &.-footer {
+      display: block;
+    }
+
+    > .nav-list > .nav-item {
+
+
+      &:not(:first-child) {
+        margin: 0 0 0 60px;
+      }
+
+      > a,
+      span {
+        color: $color-4;
+        font-family: $font-family-2;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-medium;
+      }
+
+      &.-current {
+        position: relative;
+
+        &::before {
+          display: inline-block;
+          position: absolute;
+          top: -37px;
+          left: 0;
+
+          width: 100%;
+          height: 6px;
+          background: $color-2;
+          content: '';
+        }
+
+        > a {
+          color: $color-2;
+        }
+      }
+    }
+  }
+}
