@@ -1,0 +1,93 @@
+{
+  "width": <%= width %>,
+  "height": <%= height %>,
+  "padding": "strict",
+  "data": [{
+    "name": "table",
+    "values": <%= data %>,
+    "transform": [{"type": "pie", "field": "count"}]
+  }],
+  "scales": [],
+  "marks": [{
+    "type": "arc",
+    "from": {
+      "data": "table"
+    },
+    "properties": {
+      "enter": {
+        "x": {
+          "field": {
+            "group": "width"
+          },
+          "mult": 0.5
+        },
+        "y": {
+          "field": {
+            "group": "height"
+          },
+          "mult": 0.5
+        },
+        "startAngle": {
+          "field": "layout_start"
+        },
+        "endAngle": {
+          "field": "layout_end"
+        },
+        "innerRadius": {
+          "value": 0
+        },
+        "outerRadius": {
+          "value": <%= height %>,
+          "mult": 0.5
+        },
+        "stroke": {
+          "value": "#fff"
+        }
+      },
+      "update": {
+        "fill": {
+          "value": "#ccc"
+        }
+      }
+    }
+  }, {
+    "type": "text",
+    "from": {
+      "data": "table"
+    },
+    "properties": {
+      "enter": {
+        "x": {
+          "field": {
+            "group": "width"
+          },
+          "mult": 0.5
+        },
+        "y": {
+          "field": {
+            "group": "height"
+          },
+          "mult": 0.5
+        },
+        "radius": {
+          "value": 80
+        },
+        "theta": {
+          "field": "layout_mid"
+        },
+        "fill": {
+          "value": "#000"
+        },
+        "align": {
+          "value": "center"
+        },
+        "baseline": {
+          "value": "middle"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  }]
+}

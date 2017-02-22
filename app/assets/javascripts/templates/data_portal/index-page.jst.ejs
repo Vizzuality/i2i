@@ -1,0 +1,8 @@
+<% countries.forEach(function (country) { %>
+  <div class="grid-s-6 grid-m-6 grid-l-4">
+    <article class="c-flag" style="background-image: url('data_portal/flags/<%= country.iso %>.svg');">
+      <a href="/data-portal/<%= country.iso %>/<%= country.latestYear %>">Go to the <%= country.name %> portal</a>
+      <span class="country-name"><%= country.name %></span>
+    </article>
+  </div>
+<% }); %>

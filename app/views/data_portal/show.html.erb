@@ -1,0 +1,132 @@
+<div class="l-data-portal-country">
+  <div class="l-mobile-header _no-desktop">
+    <div class="wrapper">
+      <span class="country-name js-country">–</span>
+    </div>
+  </div>
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false }%>
+    </div>
+  </div>
+
+  <div class="l-intro">
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="row">
+              <div class="container">
+                <div class="grid-s-12 grid-m-8 grid-l-7 -no-mobile">
+                  <h1 class="title -light -big js-country">–</h1>
+                </div>
+                <div class="grid-m-4 grid-l-3 _no-mobile">
+                <button class="c-button -white">Customize indicators</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-s-12">
+            <div class="row">
+              <div class="grid-s-12 grid-l-7">
+                <div class="l-data-range">
+                  <span class="c-tag">All jurisdictions</span>
+                  in
+                  <span class="c-tag js-year">–</span>
+                  <!-- <p>Showing data about <span class="c-tag">individuals</span> and
+                  their <span class="c-tag">gender, age, marital status</span> ...</p>
+                  <p>Regarding <span class="c-tag">financial inclusion included</span></p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-s-12">
+            <div class="l-data-definition">
+              <div class="row">
+                <div class="container">
+                  <div class="grid-s-12 grid-l-7">
+                    <p class="country-data-description">
+                      The findings from the FinScope Country 2012 survey revealed that 72% of adults were financially included – 42% were formally served (23% served by commercial banks and 33% served by non-bank formal institutions) and 58% used informal financial mechanisms.
+                    </p>
+                  </div>
+                  <div class="grid-s-12 _no-tablet">
+                    <button class="c-button -white">Customize indicators</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="l-switcher _no-desktop">
+        <div class="grid-s-8 grid-m-4 grid-l-3">
+          <div class="c-switcher">
+            <span class="switcher-option -current">Graphics</span>
+            <span class="switcher-option">Table</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-switcher _only-desktop">
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="container">
+                <div class="grid-l-3">
+                  <div class="c-switcher">
+                    <span class="switcher-option -current">Graphics</span>
+                    <span class="switcher-option">Table</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="l-indicator-grid">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row js-widgets"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="row">
+              <div class="footer-indicator-grid">
+                <div class="grid-s-12">
+                  <div class="indicator-options">
+                    <div class="row">
+                      <div class="grid-s-12 grid-m-4 grid-l-3">
+                        <button class="c-button -white">Add all to report</button>
+                      </div>
+                      <div class="grid-s-12 grid-m-4 grid-l-3">
+                        <button class="c-button -white">Download all</button>
+                      </div>
+                      <div class="grid-s-12 grid-m-4 grid-l-4">
+                        <button class="c-button -white">Check FSPmaps data</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-l-4 _only-desktop">
+                  <div class="container-custom-indicators">
+                    <button class="c-button -sea">Customize indicators</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'shared/contribute' %>
+</div>
