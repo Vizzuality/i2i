@@ -42,3 +42,9 @@ To check this, enter in a `postgresql` console and type `\du` you will see the l
 	createuser -sPE postgres
 
 Set a password for this role/user. Once you are done, you should be able to create the database with `postgres` role.
+
+## Shareable components
+
+Because we need to be able to share some components outside the project, there is a new Rails environment called `assets_compilation`. This environment is a duplicated of the `production` one with other rules added.
+
+In order to compile those assets, run `RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret rake assets:precompile`. This will place all precompiled asssets in `public` folder. Once done, run `rake non_digested RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret`. This task will create duplicate of current compiled files but removing its hash, making it easier to manage. For example: `exported_componentes#mfnhf21378kjashjads1234.js` would be `exported_componentes.js`
