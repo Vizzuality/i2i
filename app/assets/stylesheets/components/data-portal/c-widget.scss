@@ -1,0 +1,50 @@
+
+.c-widget {
+  position: relative;
+  min-height: 200px;  // to keep a nice look
+  margin: 0 0 30px;
+  padding: 30px;
+  background: $color-4;
+  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+  @media #{$mq-tablet} {
+    margin: 0 0 20px;
+  }
+
+  @media #{mq-laptop} {
+    height: 525px;
+  }
+
+  > .widget-title {
+    font-size: $font-size-xxm;
+  }
+
+  .widget-options-container {
+    display: flex;
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+    left: 15px;
+    justify-content: flex-start;
+
+    @media #{$mq-tablet} {
+      right: 30px;
+      bottom: 30px;
+      left: 30px;
+    }
+
+    // this is a temporary patch. Change component buttons
+    // to have its own width and not based on grid.
+    > .c-button {
+      width: auto;
+      padding: 3px 15px;
+      border-color: rgba($color-1, .3);
+
+      font-size: $font-size-s;
+
+      &:not(:last-child) {
+        margin: 0 5px 0 0;
+      }
+    }
+  }
+}
