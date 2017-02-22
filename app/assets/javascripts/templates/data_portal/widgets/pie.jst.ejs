@@ -7,87 +7,86 @@
     "values": <%= data %>,
     "transform": [{"type": "pie", "field": "count"}]
   }],
-  "scales": [],
-  "marks": [{
-    "type": "arc",
-    "from": {
-      "data": "table"
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table","field": "label"},
+      "range": ["#2f939c","#001d22","#f9d031","#f95e31"]
     },
-    "properties": {
-      "enter": {
-        "x": {
-          "field": {
-            "group": "width"
-          },
-          "mult": 0.5
-        },
-        "y": {
-          "field": {
-            "group": "height"
-          },
-          "mult": 0.5
-        },
-        "startAngle": {
-          "field": "layout_start"
-        },
-        "endAngle": {
-          "field": "layout_end"
-        },
-        "innerRadius": {
-          "value": 0
-        },
-        "outerRadius": {
-          "value": <%= height %>,
-          "mult": 0.5
-        },
-        "stroke": {
-          "value": "#fff"
+    {
+      "name": "legend",
+      "type": "ordinal",
+      "domain": [0, 1, 2],
+      "range": "height"
+    },
+    {
+      "name": "labels",
+      "type": "ordinal",
+      "domain": {"data": "table","field": "label"},
+      "rangeMin": 1,
+      "rangeMax": 90
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "properties": {
+        "enter": {
+          "x": {"value": 30 },
+          "y": {"value": 1, "scale": "legend"}
         }
       },
-      "update": {
-        "fill": {
-          "value": "#ccc"
+      "marks": [
+        {
+          "type": "rect",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 0 },
+              "y": { "field": "label", "scale": "labels" },
+              "width": { "value": 12 },
+              "height": { "value": 12 },
+              "fill": { "field": "label", "scale": "color" }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 20 },
+              "y": { "field": "label", "scale": "labels" },
+              "dy": { "value": 12 },
+              "fontSize": {"value": 16},
+              "fontWeight": {"value": 300},
+              "font": {"value": "inherit"},
+              "fill": { "value": "#001d22" },
+              "text": { "field": "label" }
+            }
+          }
         }
-      }
-    }
-  }, {
-    "type": "text",
-    "from": {
-      "data": "table"
+      ]
     },
-    "properties": {
-      "enter": {
-        "x": {
-          "field": {
-            "group": "width"
-          },
-          "mult": 0.5
-        },
-        "y": {
-          "field": {
-            "group": "height"
-          },
-          "mult": 0.5
-        },
-        "radius": {
-          "value": 80
-        },
-        "theta": {
-          "field": "layout_mid"
-        },
-        "fill": {
-          "value": "#000"
-        },
-        "align": {
-          "value": "center"
-        },
-        "baseline": {
-          "value": "middle"
-        },
-        "text": {
-          "field": "label"
+    {
+      "type": "arc",
+      "from": {
+        "data": "table"
+      },
+      "properties": {
+        "enter": {
+          "x": { "field": { "group": "width" }, "mult": 1, "offset": <%= isNaN(height) ? height : ((height * - 0.33) - 30) %> },
+          "y": { "field": { "group": "height" }, "mult": 0.5 },
+          "startAngle": { "field": "layout_start" },
+          "endAngle": { "field": "layout_end" },
+          "innerRadius": { "value": <%= height %>, "mult": 0.33, "offset": -35 },
+          "outerRadius": { "value": <%= height %>, "mult": 0.33 },
+          "stroke": { "value": "#fff" },
+          "strokeWidth": {"value": 2},
+          "fill": { "field": "label", "scale": "color" }
         }
       }
     }
-  }]
+  ]
 }

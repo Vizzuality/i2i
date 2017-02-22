@@ -181,7 +181,7 @@
 
       vg.parse
         .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
-          this.chart = chart({ el: this.chartContainer }).update();
+          this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
         }.bind(this));
     },
 
