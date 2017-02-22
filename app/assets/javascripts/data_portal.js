@@ -19,12 +19,18 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
+//= require datalib
+//= require jiminy
+//= require d3
+//= require vega
 //= require_self
-//= require templates/shared/social-tooltip
-//= require components/shared/tooltip
-//= require views/shared/mobile-menu
-//= require views/shared/social-tooltip
-//= require views/shared/footer
+//= require_tree ./helpers
+//= require_tree ./templates/shared
+//= require_tree ./templates/data_portal
+//= require_tree ./components/shared
+//= require_tree ./views/shared/
+//= require_tree ./views/data_portal/
+//= require_tree ./pages/data_portal
 //= require routers/data_portal
 
 

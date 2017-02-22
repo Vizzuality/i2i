@@ -1,5 +1,4 @@
-
-.l-country {
+.l-data-portal-country {
   .l-header {
     width: 100%;
     background-color: $color-1;
@@ -35,7 +34,7 @@
     }
   }
 
-  .l-country-intro {
+  .l-intro {
     padding: 50px 0 0;
     background-color: $color-1;
 
@@ -53,12 +52,11 @@
       }
     }
 
-
     .l-data-range {
       margin: 25px 0 20px;
 
       @media #{$mq-laptop} {
-        margin: 35px 0 40px;
+        margin: 20px 0 0;
       }
 
       color: $color-3;
@@ -121,21 +119,18 @@
   }
 
   .l-content {
-    margin: 0;
-    transform: translate(0, -20px);
+    margin: -20px 0 0;
+
+    @media #{$mq-laptop} {
+      margin: -100px 0 90px;
+    }
 
     .l-switcher {
-
       .container {
         display: flex;
         justify-content: flex-end;
         margin: 0 0 20px;
       }
-    }
-
-    @media #{$mq-laptop} {
-      margin: 0 0 40px;
-      transform: translate(0, -80px);
     }
 
     .l-indicator-grid {
