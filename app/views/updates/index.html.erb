@@ -28,7 +28,7 @@
               <div class="grid-s-12 grid-m-6 grid-l-8">
                 <article class="c-card -highlighted">
                   <div class="picture" style="background-image: url(<%= news.image %>)">
-                    <%= link_to '', updates_news_path(news.id) %>
+                    <%= link_to '', news_path(news.id) %>
                   </div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= news.title %></h4>
@@ -43,7 +43,7 @@
               <div class="grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card -medium">
                   <div class="picture" style="background-image: url(<%= news.image %>)">
-                    <%= link_to '', updates_news_path(news.id) %>
+                    <%= link_to '', news_path(news.id) %>
                   </div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= news.title %></h4>

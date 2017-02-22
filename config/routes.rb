@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :events, only: [:index, :show]
   end
 
-  scope :news, controller: [:updates, :news] do
+  scope module: 'updates' do
     resources :news, only: [:index, :show]
   end
 
