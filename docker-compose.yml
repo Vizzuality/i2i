@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/data/i2i/database:/var/lib/postgresql/data"
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - POSTGRES_PORT_5432_TCP_ADDR=db
+      - POSTGRES_PORT_5432_TCP_PORT=5432
+      - POSTGRES_USERNAME=postgres
+    container_name: i2i
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - "./public/uploads:/usr/src/i2i/public/uploads"
+      - "./public/system:/usr/src/i2i/public/system"

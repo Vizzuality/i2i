@@ -6,32 +6,24 @@
 
   border: 1px solid $color-1;
   border-radius: 100px;
-  background: transparent;
 
   color: $color-1;
   font-family: $font-family-2;
-  font-size: font-size-xs;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
   text-align: center;
 
   cursor: pointer;
 
-  &.-no-border {
-    border-color: transparent;
+  &.-white {
+    border: 0;
+    background-color: $color-4;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
   }
 
-  &.-filled {
+  &.-sea {
     border: 0;
-    background: $color-1;
+    background-color: $color-1;
     color: $color-4;
-  }
-
-  &.-black {
-    border: 0;
-    background: $color-4;
-    color: $color-5;
-  }
-
-  &.-big {
-    padding: 14px 85px 11px;
   }
 }

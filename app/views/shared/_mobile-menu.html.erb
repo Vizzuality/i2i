@@ -1,0 +1,22 @@
+
+<div class="c-mobile-menu">
+  <div class="wrapper">
+    <div class="container">
+      <button class="btn-close js-close-menu"></button>
+
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item <% if current_page?(data_portal_path) %> -current <% end%>"><a href="/data_portal">Data portal</a></li>
+          <li class="nav-item <% if current_page?(news_index_path) %> -current <% end%>"><a href="/news">News</a></li>
+          <li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>"><a href="/libraries">Library</a></li>
+          <li class="nav-item <% if current_page?(community_path) %> -current <% end%>"><a href="/community">Community</a></li>
+          <li class="nav-item <% if current_page?(about_path) %> -current <% end%>"><a href="/about">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="app-logo">
+        <a href="/"><img src="i2i-logo.svg" alt="i2i logo"></a>
+      </div>
+    </div>
+  </div>
+</div>

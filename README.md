@@ -15,7 +15,7 @@ Finally, install node packages by running `npm install`.
 ### Database setup
 Having `postgresql` already installed, run `rails db:create` if you haven't created the database.
 
-Run `rails db:migrate` and `rails db:sample`.
+Run `rails db:migrate`, `rails db:seed`, and `rails db:sample`.
 
 ## Configuration :floppy_disk:
 Copy the file *.env.sample* as *.env* and change it according to your database configuration

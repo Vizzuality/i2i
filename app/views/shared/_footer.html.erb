@@ -1,26 +1,63 @@
 <footer class="c-footer">
   <div class="wrapper">
-    <nav class="c-nav" role="navigation">
+    <div class="container-logo-mobile">
+      <div class="app-logo">
+        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), root_path %>
+      </div>
+    </div>
+    <nav class="c-nav -footer" role="navigation">
       <ul class="nav-list">
-        <li class="nav-item"><%= link_to 'Homepage', home_path%></li>
         <li class="nav-item"><%= link_to 'Data portal', data_portal_path %></li>
     		<li class="nav-item"><%= link_to 'News', news_index_path %></li>
     		<li class="nav-item"><%= link_to 'Library', libraries_path %></li>
     		<li class="nav-item"><%= link_to 'Community', community_path %></li>
     		<li class="nav-item"><%= link_to 'About', about_path %></li>
+        <li class="nav-item"><span class="js-toggle-tooltip">Follow us</span></li>
       </ul>
     </nav>
     <div class="credits">
       <div class="app-logo">
-        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), home_path %>
+        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), root_path %>
       </div>
-      <div class="authorship">
-        <span class="designed-by">Designed by</span>
-        <%= link_to image_tag('/images/logos/vizzuality.png', :alt => 'Vizzuality'), 'http://www.vizzuality.com/',
-          :class => 'vizzuality-logo',
-          :target => '_blank'
-        %>
-      </div>
+      <ul class="partner-list">
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/mastercard.png', :alt => 'The Mastercard Foundation'), 'http://www.mastercardfdn.org/',
+            :class => 'mastercard-logo',
+            :target => '_blank',
+            :rel => 'noopener'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/fmt.png', :alt => 'Finmark Trust'), 'http://www.finmark.org.za/',
+            :class => 'finmark-logo',
+            :target => '_blank',
+            :rel => 'noopener'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/cenfri.png',
+            :alt => 'Cenfri'), 'http://cenfri.org/',
+            :class => 'cenfri-logo',
+            :target => '_blank',
+            :rel => 'noopener'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/bill-and-melinda-gates.png',
+            :alt => 'Bill & Mellinda Foundation'), 'http://www.gatesfoundation.org/',
+            :class => 'bill-mellinda-logo',
+            :target => '_blank',
+            :rel => 'noopener'
+          %>
+        </li>
+        <li class="partner-item">
+          <%= link_to image_tag('/images/logos/vizzuality.png', :alt => 'Vizzuality'), 'http://www.vizzuality.com/',
+            :class => 'vizzuality-logo',
+            :target => '_blank',
+            :rel => 'noopener'
+          %>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>

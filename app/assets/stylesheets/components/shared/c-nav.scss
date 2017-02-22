@@ -1,15 +1,28 @@
 
 .c-nav {
+  display: none;
+
+  @media #{$mq-laptop} {
+    display: block;
+  }
+
+  &.-footer {
+    display: block;
+  }
+
   > .nav-list > .nav-item {
+
 
     &:not(:first-child) {
       margin: 0 0 0 60px;
     }
 
-    > a {
+    > a,
+    span {
       color: $color-4;
       font-family: $font-family-2;
-      font-size: font-size-xs;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-medium;
     }
 
     &.-current {

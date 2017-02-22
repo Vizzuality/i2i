@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'rails', '~> 5.0.1'
 gem 'pg'
@@ -21,6 +21,17 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem 'dotenv-rails', '~> 2.1'
+
+# Active admin gems
+
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+
+# File upload gems
+gem 'paperclip'
+
+gem 'enumerate_it'
+gem 'valid_url'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

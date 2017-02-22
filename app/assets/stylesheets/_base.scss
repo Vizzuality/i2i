@@ -21,8 +21,8 @@ body {
   background: $color-3;
   color: $color-5;
   font-family: $font-family-1;
-  font-size: font-size-xs;
-  font-weight: $font-weight-medium;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-light;
 
 
   -webkit-font-smoothing: antialiased;
@@ -46,6 +46,12 @@ ul {
 
 a {
   text-decoration: none;
+}
+
+select {
+  border: 0;
+  background: none;
+  appearance: none;
 }
 
 .modal-container {

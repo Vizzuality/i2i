@@ -1,0 +1,72 @@
+
+<div class="l-keep-updated">
+
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false } %>
+    </div>
+  </div>
+
+  <div class="l-header-section">
+    <div class="wrapper">
+      <div class="row">
+        <div class="container">
+          <div class="grid-s-12 grid-m-6">
+            <h2 class="title -dark -big -center">News</h2>
+            <p class="subtitle">Description text. Lorem ipsum sit amet ornare
+              sem lacinia quam venenatis vestibulum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row">
+          <% @news.each do |news| %>
+          <% if news.has_attribute? 'highlighted' %>
+            <div class="grid-s-12 grid-m-6 grid-l-8">
+              <article class="c-card -highlighted">
+                <div class="picture" style="background-image: url(<%= news.image %>)">
+                  <%= link_to '', news %>
+                </div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs"><%= news.title %></h4>
+                  <% if news.has_attribute? 'date' %>
+                    <h4 class="title -sea -small"><%= news.date %></h4>
+                  <% end %>
+                  <p><%= news.summary %></p>
+                </div>
+              </article>
+            </div>
+          <% else %>
+            <div class="grid-s-12 grid-m-6 grid-l-4">
+              <article class="c-card -medium">
+                <div class="picture" style="background-image: url(<%= news.image %>)">
+                  <%= link_to '', news %>
+                </div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs"><%= news.title %></h4>
+                  <% if news.has_attribute? 'date' %>
+                    <h4 class="title -sea -small"><%= news.date %></h4>
+                  <% end %>
+                  <p><%= news.summary %></p>
+                </div>
+              </article>
+            </div>
+          <% end %>
+        <% end %>
+          <div class="grid-s-12">
+            <div class="grid-footer">
+              <div class="grid-s-12 grid-m-4 grid-l-3">
+                <button class="c-button -sea js-btn-more">Show more</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
