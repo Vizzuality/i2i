@@ -1,20 +1,33 @@
 (function (App) {
   'use strict';
 
-  var Model = Backbone.Model.extend({
-    // TODO
-    parse: function (data) {
-      return data;
-    }
+  var IndicatorsCollection = Backbone.Collection.extend({
+    // initialize: function (iso, year) {
+    //   this.iso = iso;
+    //   this.year = year;
+    // },
+
+    // url: function() {
+    //   return API_URL + '/indicator/' + this.iso + '/' + this.year;
+    // },
+
+    // parse: function (data) {$
+    //   return _.uniq(data.data.map(function (o) { return o.indicatorId }))
+    //     .map(function (indicatorId) {
+    //       return {
+    //         indicator: indicatorId
+    //       };
+    //     });
+    // }
   });
 
-  // TODO: remove once API
-  var mockupData = {
-    iso: 'KEN',
-    country: 'Kenya',
-    years: [2010, 2011, 2012, 2014, 2015],
-    indicators: [1, 3, 5, 14]
-  };
+  var INDICATORS = [
+    { indicator: 'geographic_area' },
+    { indicator: 'gender' },
+    { indicator: 'i2i_Marital_Status' },
+    { indicator: 'i2i_Education' },
+    { indicator: 'i2i_Income_Sources' }
+  ];
 
   App.Page.DataPortalCountryPage = Backbone.View.extend({
 
@@ -29,7 +42,8 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(mockupData);
+      // this.indicatorsCollection = new IndicatorsCollection(this.options.iso, this.options.year);
+      this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
       this.widgetsContainer = document.querySelector('.js-widgets');
       this.fetchData()
         .done(this.render.bind(this))
@@ -41,23 +55,22 @@
      * @returns {object} $.Deferred
      */
     fetchData: function () {
-      // TODO: remove this code once the API is available
       var deferred = $.Deferred();
-      deferred.resolve({ toBe: 'removed' });
+      deferred.resolve(INDICATORS);
       return deferred;
 
-      // return this.model.fetch();
+      // return this.indicatorsCollection.fetch();
     },
 
     render: function () {
-      // We replace the placeholder by the name of the country
-      var countryContainers = document.querySelectorAll('.js-country');
-      Array.prototype.slice.call(countryContainers).forEach(function (container) {
-        container.textContent = this.model.toJSON().country;
-      }, this);
+      // // We replace the placeholder by the name of the country
+      // var countryContainers = document.querySelectorAll('.js-country');
+      // Array.prototype.slice.call(countryContainers).forEach(function (container) {
+      //   container.textContent = this.model.toJSON().country;
+      // }, this);
 
-      // We replace the placeholder by the year
-      document.querySelector('.js-year').textContent = this.options.year;
+      // // We replace the placeholder by the year
+      // document.querySelector('.js-year').textContent = this.options.year;
 
       this.renderWidgets();
     },
@@ -71,11 +84,11 @@
      * Render the widgets
      */
     renderWidgets: function () {
-      var model = this.model.toJSON();
+      var collection = this.indicatorsCollection.toJSON();
       var fragment = new DocumentFragment();
 
       // We create the containers for the widgets
-      model.indicators.forEach(function () {
+      collection.forEach(function () {
         var div = document.createElement('div');
         div.classList.add('grid-s-12', 'grid-l-6');
         var widget = document.createElement('div');
@@ -88,10 +101,12 @@
       this.widgetsContainer.appendChild(fragment);
 
       // We instantiate the widget views
-      model.indicators.forEach(function (indicator, index) {
+      collection.forEach(function (indicator, index) {
         new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
-          id: indicator
+          id: indicator.indicator,
+          iso: this.options.iso,
+          year: this.options.year
         });
       }, this);
     }

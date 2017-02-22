@@ -2,30 +2,38 @@
   "width": <%= width %>,
   "height": <%= height %>,
   "padding": "strict",
-  "data": [{
-    "name": "table",
-    "values": <%= data %>,
-    "transform": [{"type": "pie", "field": "count"}]
-  }],
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [
+        {"type": "sort","by": "-percentage"},
+        {"type": "pie", "field": "percentage"},
+        {"type": "rank", "field": "-column"}
+      ]
+    },
+    {
+      "name": "legend",
+      "source": "table",
+      "transform": [
+        {"type": "aggregate", "summarize": { "pos": "count"}},
+        {"type": "formula", "field": "offset", "expr": "(datum.count_pos - 0.5) * 12" }
+      ]
+    }
+  ],
   "scales": [
     {
       "name": "color",
       "type": "ordinal",
       "domain": {"data": "table","field": "label"},
-      "range": ["#2f939c","#001d22","#f9d031","#f95e31"]
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
     },
     {
       "name": "legend",
       "type": "ordinal",
-      "domain": [0, 1, 2],
-      "range": "height"
-    },
-    {
-      "name": "labels",
-      "type": "ordinal",
-      "domain": {"data": "table","field": "label"},
-      "rangeMin": 1,
-      "rangeMax": 90
+      "domain": [0],
+      "range": "height",
+      "points": true
     }
   ],
   "marks": [
@@ -34,38 +42,50 @@
       "properties": {
         "enter": {
           "x": {"value": 30 },
-          "y": {"value": 1, "scale": "legend"}
+          "y": {"value": 0, "scale": "legend"}
         }
       },
       "marks": [
         {
-          "type": "rect",
-          "from": { "data": "table" },
+          "type": "group",
+          "from": {"data": "legend"},
           "properties": {
             "enter": {
-              "x": { "value": 0 },
-              "y": { "field": "label", "scale": "labels" },
-              "width": { "value": 12 },
-              "height": { "value": 12 },
-              "fill": { "field": "label", "scale": "color" }
+              "x": {"value": 0},
+              "y": {"field": "offset", "mult": -1, "offset": -24}
             }
-          }
-        },
-        {
-          "type": "text",
-          "from": { "data": "table" },
-          "properties": {
-            "enter": {
-              "x": { "value": 20 },
-              "y": { "field": "label", "scale": "labels" },
-              "dy": { "value": 12 },
-              "fontSize": {"value": 16},
-              "fontWeight": {"value": 300},
-              "font": {"value": "inherit"},
-              "fill": { "value": "#001d22" },
-              "text": { "field": "label" }
+          },
+          "marks": [
+            {
+              "type": "rect",
+              "from": { "data": "table" },
+              "properties": {
+                "enter": {
+                  "x": { "value": 0 },
+                  "y": {"field": "rank","mult": 24},
+                  "width": { "value": 12 },
+                  "height": { "value": 12 },
+                  "fill": { "field": "label", "scale": "color" }
+                }
+              }
+            },
+            {
+              "type": "text",
+              "from": { "data": "table" },
+              "properties": {
+                "enter": {
+                  "x": { "value": 20 },
+                  "y": {"field": "rank", "mult": 24, "offset": 0},
+                  "dy": { "value": 12 },
+                  "fontSize": {"value": 13},
+                  "fontWeight": {"value": 300},
+                  "font": {"value": "inherit"},
+                  "fill": { "value": "#001d22" },
+                  "text": { "field": "label" }
+                }
+              }
             }
-          }
+          ]
         }
       ]
     },
