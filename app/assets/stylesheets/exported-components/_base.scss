@@ -1,0 +1,29 @@
+#vizz-component {
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  * {
+    box-sizing: border-box;
+
+    &::before,
+    &::after {
+      box-sizing: border-box;
+    }
+  }
+
+  ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+      list-style: none;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
