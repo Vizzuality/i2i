@@ -1,21 +1,22 @@
+// sass-lint:disable no-important
 
 ._is-hidden {
-  display: none;
+  display: none !important;
 }
 
 ._no-mobile {
-  display: none;
+  display: none !important;
 
   @media #{$mq-tablet} {
-    display: block;
+    display: block !important;
   }
 }
 
 ._no-tablet {
-  display: block;
+  display: block !important;
 
   @media #{$mq-tablet} {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -26,10 +27,10 @@
 }
 
 ._only-desktop {
-  display: none;
+  display: none !important;
 
   @media #{$mq-laptop} {
-    display: block;
+    display: block !important;
   }
 }
 

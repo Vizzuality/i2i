@@ -11,6 +11,7 @@ class Updates::BlogsController < ApplicationController
   # GET /blog/1.json
   def show
     @post = Blog.find(params[:id])
+    @RelatedPosts = Blog.all.where.not(id: params[:id]).limit(4)
   end
 
   private
