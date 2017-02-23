@@ -1,1 +1,88 @@
-<p>showing post <%= @post.title %></p>
+<div class="l-details-page">
+
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false } %>
+    </div>
+  </div>
+
+  <div class="l-content">
+
+    <div class="l-article">
+
+      <div class="wrapper">
+
+        <div class="row">
+
+          <div class="grid-s-12">
+
+            <article class="c-article">
+              <div class="row">
+                <header>
+                  <div class="container">
+                    <div class="grid-s-12 grid-l-8">
+                      <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
+                      <h1 class="title -xbig -dark "><%= @post.title %></h1>
+                      <span class="authorship">Written by <span class="author-name">Author</span>
+                      on <%=@post.date %></span>
+                    </div>
+                  </div>
+                </header>
+              </div>
+
+              <section class="article-content">
+                <%if @post.image.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= @post.image %>)"></div>
+                    </div>
+                  </div>
+                <% end %>
+
+                <div class="row">
+                  <div class="article-text">
+                    <div class="grid-s-12 grid-m-10 grid-l-8">
+                      <%= @post.content.html_safe %>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="l-related-section">
+      <div class="wrapper">
+        <h2 class="title -dark -big">Related posts</h2>
+        <div class="l-card-grid">
+          <div class="row">
+            <% @RelatedPosts.each_with_index do |post, index| %>
+              <div class="grid-s-12">
+                <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
+                  <div class="picture" style="background-image: url(<%= post.image %>)">
+                    <%= link_to '', updates_blog_path(post.id) %>
+                  </div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= post.title %></h4>
+                    <h4 class="title -sea -small"><%= post.date %></h4>
+                    <p><%= post.summary %></p>
+                  </div>
+                </article>
+              </div>
+            <% end %>
+            <div class="grid-s-12">
+              <div class="grid-footer">
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <%= link_to 'More posts', updates_blogs_path, :class => 'c-button -sea' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</div>

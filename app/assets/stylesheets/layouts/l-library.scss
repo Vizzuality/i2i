@@ -22,6 +22,11 @@
 
     cursor: pointer;
 
+    &:hover {
+      background-color: transparent;
+      color: $color-2;
+    }
+
     &:not(:first-child) {
       margin: 0 0 0 40px;
     }
@@ -35,5 +40,23 @@
 
   .l-card-grid {
     margin: 60px 0 0;
+
+    &.-only-journal  {
+      .js-card {
+
+        &[data-type='publication']  {
+          display: none;
+        }
+      }
+    }
+
+    &.-only-publications {
+      .js-card {
+
+        &[data-type='journal'] {
+          display: none;
+        }
+      }
+    }
   }
 }

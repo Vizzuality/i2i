@@ -4,13 +4,14 @@ class Updates::BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.all
+    @blogs = Blog.limit(8).order(created_at: :DESC)
   end
 
   # GET /blog/1
   # GET /blog/1.json
   def show
     @post = Blog.find(params[:id])
+    @RelatedPosts = Blog.all.where.not(id: params[:id]).limit(4)
   end
 
   private

@@ -4,11 +4,11 @@
   margin: 0 auto;
   padding: 0 $wrapper-padding-mobile;
 
-  @media #{$mq-mobile} {
+  @media #{$mq-tablet} {
     padding: 0 $wrapper-padding-tablet;
   }
 
-  @media #{$mq-tablet} {
+  @media #{$mq-laptop} {
     padding: 0 $wrapper-padding-desktop;
   }
 }

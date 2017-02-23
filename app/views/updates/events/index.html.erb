@@ -25,10 +25,10 @@
       <div class="l-card-grid">
         <div class="row">
           <% @events.each do |event| %>
-            <div class="grid-s-12">
-              <article class="c-card -horizontal">
+            <div class="grid-s-12 grid-m-6 grid-l-3">
+              <article class="c-card -medium">
                 <div class="picture" style="background-image: url(<%= event.image %>)">
-                  <%= link_to '', updates_events_path(event.id) %>
+                  <%= link_to '', updates_event_path(event.id) %>
                 </div>
                 <div class="metadata">
                   <h4 class="title -dark -xs"><%= event.title %></h4>

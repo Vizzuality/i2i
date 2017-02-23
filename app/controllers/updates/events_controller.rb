@@ -4,13 +4,14 @@ class Updates::EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.limit(16).order(created_at: :DESC)
   end
 
   # GET /event/1
   # GET /event/1.json
   def show
     @event = Event.find(params[:id])
+    @RelatedEvents = Event.all.where.not(id: params[:id]).limit(4)
   end
 
   private

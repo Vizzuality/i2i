@@ -1,0 +1,196 @@
+#vizz-component {
+
+  .c-footer {
+    padding: 30px 0 0;
+
+    @media #{$mq-tablet} {
+      padding: 0;
+    }
+
+    background-image: asset-url('footer-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .container-logo-mobile {
+      display: flex;
+      justify-content: center;
+
+      @media #{$mq-tablet} {
+        display: none;
+      }
+    }
+
+
+    .c-nav {
+
+      border-bottom: 1px solid rgba($color-1, .5);
+
+      @media #{$mq-tablet} {
+        padding: 0 10px;
+      }
+
+      @media #{$mq-laptop} {
+        padding: 0 125px;
+      }
+
+      > .nav-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 45px 0 35px;
+
+        @media #{$mq-tablet} {
+          flex-wrap: nowrap;
+          justify-content: space-between;
+        }
+      }
+
+      > .nav-list > .nav-item {
+        flex-basis: 50%;
+        text-align: center;
+
+        &:not(:first-child) {
+          margin: 0;
+        }
+
+        &:not(:last-child) {
+          margin: 0 0 25px;
+        }
+
+        &:last-child {
+          > span {
+            position: relative;
+            padding: 0 20px 0 0;
+
+            color: $color-2;
+            cursor: pointer;
+
+            // hack to keep tooltip open
+            &::before {
+              position: absolute;
+              top: 100%;
+              left: 0;
+              width: 100%;
+              height: 15px;
+              content: '';
+            }
+
+            &::after {
+              @include arrow(8px, 2px, $color-2, 'down');
+              position: absolute;
+              top: 50%;
+              transform: translate(10px, calc(-50% - 3px)) rotate(45deg);
+            }
+          }
+        }
+
+        @media #{$mq-tablet} {
+          flex-basis: auto;
+
+          &:not(:last-child) {
+            margin: 0;
+          }
+
+          &:not(:first-child) {
+            margin: 0 0 0 25px;
+          }
+        }
+      }
+    }
+
+    .credits {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 35px 0 45px;
+
+      @media #{$mq-tablet} {
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+
+      @media #{$mq-laptop} {
+        flex-direction: row;
+      }
+
+      > .app-logo {
+        display: none;
+
+        @media #{$mq-tablet} {
+          display: block;
+          margin: 30px 0 0;
+        }
+
+        @media #{$mq-laptop} {
+          margin: 0;
+        }
+
+        > a {
+          display: inline-flex;
+
+          > img {
+            width: 195px;
+            height: 83px;
+          }
+        }
+      }
+
+      > .partner-list {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        @media #{$mq-tablet} {
+          flex-wrap: nowrap;
+          width: 100%;
+        }
+
+        @media #{$mq-laptop} {
+          margin: 0 0 0 100px;
+        }
+      }
+
+      > .partner-list > .partner-item {
+        display: inline-flex;
+        flex-basis: 50%;
+        justify-content: center;
+
+        &:not(:last-child) {
+          margin: 0 0 30px;
+        }
+
+        @media #{$mq-tablet} {
+          flex-basis: auto;
+
+          &:not(:last-child) {
+            margin: 0;
+          }
+        }
+
+        > .mastercard-logo > img {
+          height: 45px;
+        }
+
+        > .finmark-logo > img {
+          height: 42px;
+        }
+
+        > .cenfri-logo > img {
+          height: 45px;
+          opacity: .8;
+        }
+
+        > .bill-mellinda-logo > img {
+          height: 27px;
+        }
+
+        > .vizzuality-logo > img {
+          height: 21px;
+        }
+      }
+    }
+  }
+}
