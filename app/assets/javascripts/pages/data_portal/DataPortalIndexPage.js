@@ -2,45 +2,17 @@
   'use strict';
 
   var Collection = Backbone.Collection.extend({
-    // TODO
+    url: API_URL + '/country',
     parse: function (data) {
-      return data;
+      return data.map(function (country) {
+        return {
+          iso: country.iso,
+          name: country.name,
+          latestYear: country.year.year
+        };
+      });
     }
   });
-
-  // TODO: remove once API
-  var mockupData = [
-    {
-      iso: 'TZA',
-      name: 'Tanzania',
-      latestYear: 2016
-    },
-    {
-      iso: 'KEN',
-      name: 'Kenya',
-      latestYear: 2015
-    },
-    {
-      iso: 'IND',
-      name: 'India',
-      latestYear: 2016
-    },
-    {
-      iso: 'BGD',
-      name: 'Bangladesh',
-      latestYear: 2014
-    },
-    {
-      iso: 'NGA',
-      name: 'Nigeria',
-      latestYear: 2015
-    },
-    {
-      iso: 'UGA',
-      name: 'Uganda',
-      latestYear: 2016
-    }
-  ];
 
   App.Page.DataPortalIndexPage = Backbone.View.extend({
 
@@ -49,7 +21,7 @@
     template: JST['templates/data_portal/index-page'],
 
     initialize: function () {
-      this.collection = new Collection(mockupData);
+      this.collection = new Collection();
       this.fetchData()
         .done(this.render.bind(this))
         .fail(this.renderError.bind(this));
@@ -60,12 +32,7 @@
      * @returns {object} $.Deferred
      */
     fetchData: function () {
-      // TODO: remove this code once the API is available
-      var deferred = $.Deferred();
-      deferred.resolve({ toBe: 'removed' });
-      return deferred;
-
-      // return this.collection.fetch();
+      return this.collection.fetch();
     },
 
     render: function () {

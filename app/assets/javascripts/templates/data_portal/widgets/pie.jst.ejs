@@ -2,92 +2,111 @@
   "width": <%= width %>,
   "height": <%= height %>,
   "padding": "strict",
-  "data": [{
-    "name": "table",
-    "values": <%= data %>,
-    "transform": [{"type": "pie", "field": "count"}]
-  }],
-  "scales": [],
-  "marks": [{
-    "type": "arc",
-    "from": {
-      "data": "table"
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [
+        {"type": "sort","by": "-percentage"},
+        {"type": "pie", "field": "percentage"},
+        {"type": "rank", "field": "-column"}
+      ]
     },
-    "properties": {
-      "enter": {
-        "x": {
-          "field": {
-            "group": "width"
-          },
-          "mult": 0.5
-        },
-        "y": {
-          "field": {
-            "group": "height"
-          },
-          "mult": 0.5
-        },
-        "startAngle": {
-          "field": "layout_start"
-        },
-        "endAngle": {
-          "field": "layout_end"
-        },
-        "innerRadius": {
-          "value": 0
-        },
-        "outerRadius": {
-          "value": <%= height %>,
-          "mult": 0.5
-        },
-        "stroke": {
-          "value": "#fff"
+    {
+      "name": "legend",
+      "source": "table",
+      "transform": [
+        {"type": "aggregate", "summarize": { "pos": "count"}},
+        {"type": "formula", "field": "offset", "expr": "(datum.count_pos - 0.5) * 12" }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table","field": "label"},
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
+    },
+    {
+      "name": "legend",
+      "type": "ordinal",
+      "domain": [0],
+      "range": "height",
+      "points": true
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "properties": {
+        "enter": {
+          "x": {"value": 30 },
+          "y": {"value": 0, "scale": "legend"}
         }
       },
-      "update": {
-        "fill": {
-          "value": "#ccc"
+      "marks": [
+        {
+          "type": "group",
+          "from": {"data": "legend"},
+          "properties": {
+            "enter": {
+              "x": {"value": 0},
+              "y": {"field": "offset", "mult": -1, "offset": -24}
+            }
+          },
+          "marks": [
+            {
+              "type": "rect",
+              "from": { "data": "table" },
+              "properties": {
+                "enter": {
+                  "x": { "value": 0 },
+                  "y": {"field": "rank","mult": 24},
+                  "width": { "value": 12 },
+                  "height": { "value": 12 },
+                  "fill": { "field": "label", "scale": "color" }
+                }
+              }
+            },
+            {
+              "type": "text",
+              "from": { "data": "table" },
+              "properties": {
+                "enter": {
+                  "x": { "value": 20 },
+                  "y": {"field": "rank", "mult": 24, "offset": 0},
+                  "dy": { "value": 12 },
+                  "fontSize": {"value": 13},
+                  "fontWeight": {"value": 300},
+                  "font": {"value": "inherit"},
+                  "fill": { "value": "#001d22" },
+                  "text": { "field": "label" }
+                }
+              }
+            }
+          ]
         }
-      }
-    }
-  }, {
-    "type": "text",
-    "from": {
-      "data": "table"
+      ]
     },
-    "properties": {
-      "enter": {
-        "x": {
-          "field": {
-            "group": "width"
-          },
-          "mult": 0.5
-        },
-        "y": {
-          "field": {
-            "group": "height"
-          },
-          "mult": 0.5
-        },
-        "radius": {
-          "value": 80
-        },
-        "theta": {
-          "field": "layout_mid"
-        },
-        "fill": {
-          "value": "#000"
-        },
-        "align": {
-          "value": "center"
-        },
-        "baseline": {
-          "value": "middle"
-        },
-        "text": {
-          "field": "label"
+    {
+      "type": "arc",
+      "from": {
+        "data": "table"
+      },
+      "properties": {
+        "enter": {
+          "x": { "field": { "group": "width" }, "mult": 1, "offset": <%= isNaN(height) ? height : ((height * - 0.33) - 30) %> },
+          "y": { "field": { "group": "height" }, "mult": 0.5 },
+          "startAngle": { "field": "layout_start" },
+          "endAngle": { "field": "layout_end" },
+          "innerRadius": { "value": <%= height %>, "mult": 0.33, "offset": -35 },
+          "outerRadius": { "value": <%= height %>, "mult": 0.33 },
+          "stroke": { "value": "#fff" },
+          "strokeWidth": {"value": 2},
+          "fill": { "field": "label", "scale": "color" }
         }
       }
     }
-  }]
+  ]
 }

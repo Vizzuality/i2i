@@ -23,7 +23,7 @@ gem 'gon'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'
-  gem 'rails-assets-vega', '~> 2.6.3'
+  gem 'rails-assets-vega', '~> 2.6.5'
   gem 'rails-assets-datalib', '1.7.3'
 end
 

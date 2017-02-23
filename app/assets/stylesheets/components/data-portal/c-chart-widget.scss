@@ -4,6 +4,12 @@
   > .title {
     margin-bottom: 30px;
     font-size: $font-size-xxm;
+
+    &:empty {
+      width: 160px;
+      height: 22px;
+      background: rgba($color-5, .4);
+    }
   }
 
   > .chart {
@@ -26,6 +32,7 @@
     // to have its own width and not based on grid.
     > .c-button {
       width: auto;
+      margin: 0;
       padding: 3px 15px;
       border-color: rgba($color-1, .3);
 
@@ -35,5 +42,13 @@
         margin: 0 5px 0 0;
       }
     }
+  }
+
+  &.-empty > .toolbar > .c-button {
+    width: 100px;
+    border: 0;
+    background: rgba($color-1, .4);
+    text-indent: -10000px;
+    pointer-events: none;
   }
 }

@@ -30,6 +30,8 @@
     padding: 30px;
     background-color: $color-4;
 
+    pointer-events: none;
+
     .title {
       &:not(:first-child) {
         margin: 10px 0 0;
@@ -69,12 +71,7 @@
 
   &.-horizontal {
     > .picture {
-      height: 140px;
-    }
-
-
-    > .metadata {
-      position: relative;
+      height: 100%px;
     }
 
     @media #{$mq-tablet} {
@@ -82,16 +79,22 @@
       height: 280px;
 
       > .picture {
-        flex-basis: 50%;
         height: 100%;
       }
 
       > .metadata {
-        flex-basis: 50%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: auto;
+        width: 50%;
       }
 
       &.-reverse {
-        flex-direction: row-reverse;
+        > .metadata {
+          right: auto;
+          left: 0;
+        }
       }
     }
 
@@ -101,11 +104,6 @@
   }
 
   &.-highlighted {
-    // height: 280px;
-    //
-    // > .picture {
-    //   height: 140px;
-    // }
 
     @media #{$mq-laptop} {
       position: relative;

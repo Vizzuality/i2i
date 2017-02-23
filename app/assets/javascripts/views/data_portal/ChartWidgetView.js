@@ -2,19 +2,28 @@
   'use strict';
 
   var Model = Backbone.Model.extend({
+    initialize: function (indicatorId, iso, year) {
+      this.indicatorId = indicatorId;
+      this.iso = iso;
+      this.year = year;
+    },
+
+    url: function() {
+      return API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
+    },
+
     parse: function (data) {
-      var res = { name: data.name };
-
-      res.data = data.data.map(function (answer) {
-        return {
-          label: answer.value,
-          count: answer.count,
-          total: answer.total,
-          percentage: answer.percentage
-        };
-      });
-
-      return res;
+      return {
+        title: data.title,
+        data: data.data.map(function (answer) {
+          return {
+            label: answer.value.slice(0, 22) + (answer.value.length > 21 ? '...' : ''),
+            count: answer.count,
+            total: answer.sum,
+            percentage: answer.percentage
+          };
+        })
+      };
     }
   });
 
@@ -40,21 +49,28 @@
       // Inner width of the chart, used internally
       _width: null,
       // Inner height of the chart, used internally
-      _height: null
+      _height: null,
+      // Indicator ID
+      id: null,
+      // ISO of the country
+      iso: null,
+      // Selected year
+      year: null
     },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(mockupData);
+      this.model = new Model(this.options.id, this.options.iso, this.options.year);
 
       this.fetchData()
         .done(function () {
           var data = this.model.toJSON().data;
-          this.widgetToolbox = new App.Helper.WidgetToolbox(data);
+          if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
           // We pre-render the component with its template
           this.el.innerHTML = this.template({
-            name: this.model.toJSON().name
+            name: this.model.toJSON().title,
+            noData: !data.length
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -93,12 +109,7 @@
      * @returns {object} $.Deferred
      */
     fetchData: function () {
-      // TODO: delete once API updated
-      var deferred = $.Deferred();
-      deferred.resolve({ toBe: 'deleted' });
-      return deferred;
-
-      // return this.model.fetch()
+      return this.model.fetch()
     },
 
     /**
@@ -153,13 +164,18 @@
      */
     _generateVegaSpec: function () {
       if (!this.options.chart) {
-        var availableCharts = this.widgetToolbox.getAvailableCharts();
-        if (availableCharts.length) {
-          this.options.chart = availableCharts[0];
+        // If no data, we render the dedicated chart
+        if (!this.model.toJSON().data.length) {
+          this.options.chart = 'empty';
         } else {
-          // eslint-disable-next-line no-console
-          console.warn('Unable to generate a chart out of the current dataset');
-          return {};
+          var availableCharts = this.widgetToolbox.getAvailableCharts();
+          if (availableCharts.length) {
+            this.options.chart = availableCharts[0];
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('Unable to generate a chart out of the current dataset');
+            return {};
+          }
         }
       }
 
@@ -167,7 +183,6 @@
 
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.toJSON().data),
-        label: JSON.stringify(this.model.toJSON().label),
         width: chartDimensions.width,
         height: chartDimensions.height
       });
@@ -181,7 +196,7 @@
 
       vg.parse
         .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
-          this.chart = chart({ el: this.chartContainer }).update();
+          this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
         }.bind(this));
     },
 

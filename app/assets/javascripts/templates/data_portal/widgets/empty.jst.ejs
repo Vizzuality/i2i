@@ -1,0 +1,97 @@
+{
+  "width": <%= width %>,
+  "height": <%= height %>,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {"percentage": 1}
+      ],
+      "transform": [
+        {"type": "sort","by": "-percentage"},
+        {"type": "pie", "field": "percentage"},
+        {"type": "rank", "field": "-column"}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "legend",
+      "type": "ordinal",
+      "range": "height",
+      "domain": [0],
+      "points": true
+    }
+  ],
+  "marks": [
+    {
+      "type": "arc",
+      "from": {
+        "data": "table"
+      },
+      "properties": {
+        "enter": {
+          "x": { "field": { "group": "width" }, "mult": 1, "offset": <%= isNaN(height) ? height : ((height * - 0.33) - 30) %> },
+          "y": { "field": { "group": "height" }, "mult": 0.5 },
+          "startAngle": { "field": "layout_start" },
+          "endAngle": { "field": "layout_end" },
+          "innerRadius": { "value": <%= height %>, "mult": 0.33, "offset": -35 },
+          "outerRadius": { "value": <%= height %>, "mult": 0.33 },
+          "stroke": { "value": "#fff" },
+          "strokeWidth": {"value": 2},
+          "fill": { "value": "#ccd2d3" }
+        }
+      }
+    },
+    {
+      "type": "group",
+      "properties": {
+        "enter": {
+          "x": {"field": { "group": "width" }, "mult": 0.5},
+          "y": {"value": 0, "scale": "legend"}
+        }
+      },
+      "marks": [
+        {
+          "type": "group",
+          "properties": {
+            "enter": {
+              "x": {"value": 0},
+              "y": {"value": 0}
+            }
+          },
+          "marks": [
+            {
+              "type": "rect",
+              "properties": {
+                "enter": {
+                  "x": {"value": -98},
+                  "y": {"value": -25},
+                  "width": {"value": 196},
+                  "height": {"value": 50},
+                  "fill": { "value": "#2f939c" }
+                }
+              }
+            },
+            {
+              "type": "text",
+              "properties": {
+                "enter": {
+                  "x": {"value": 0},
+                  "y": {"value": 0},
+                  "text": { "value": "No data available"},
+                  "fontSize": {"value": 16},
+                  "font": {"value": "Chalet"},
+                  "fill": { "value": "#fff" },
+                  "align": {"value": "center"},
+                  "baseline": {"value": "middle"}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
