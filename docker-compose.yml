@@ -1,8 +1,6 @@
 version: '3'
 services:
   web:
-    restart_policy:
-      condition: any
     build: .
 		env_file:
       - prod.env
