@@ -15,15 +15,30 @@
 
   cursor: pointer;
 
+  &:hover {
+    background-color: $color-1;
+    color: $color-4;
+  }
+
   &.-white {
     border: 0;
     background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+    &:hover {
+      background-color: $color-1;
+      color: $color-4;
+    }
   }
 
   &.-sea {
     border: 0;
     background-color: $color-1;
     color: $color-4;
+
+    &:hover {
+      background-color: $color-4;
+      color: $color-1;
+    }
   }
 }
