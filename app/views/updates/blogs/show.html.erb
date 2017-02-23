@@ -31,7 +31,7 @@
               </div>
 
               <section class="article-content">
-                <%if @post.has_attribute? 'image' %>
+                <%if @post.image.blank? != true %>
                   <div class="row">
                     <div class="grid-s-12">
                         <div class="article-image" style="background-image: url(<%= @post.image %>)"></div>
