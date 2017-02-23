@@ -32,6 +32,7 @@
 //= require views/shared/footer
 //= require_tree ./pages/static_pages
 //= require routers/application
+//= require ckeditor/init
 
 
 (function () {

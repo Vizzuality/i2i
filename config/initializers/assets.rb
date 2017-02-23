@@ -11,3 +11,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( data_portal.js )
 Rails.application.config.assets.precompile += %w( exported_components.js )
 Rails.application.config.assets.precompile += %w( exported_components.css )
+
+# Precompile the assets for CKeditor
+Rails.application.config.assets.precompile += %w( ckeditor/* )

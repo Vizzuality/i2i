@@ -27,7 +27,7 @@ ActiveAdmin.register Blog do
     f.inputs 'Blog details' do
       f.input :title
       f.input :summary
-      f.input :content
+      f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
