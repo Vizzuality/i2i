@@ -17,7 +17,7 @@
       this.anchors.forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
-          var target = e.currentTarget.getAttribute('data-anchor');
+          var target = e.currentTarget.getAttribute('href');
 
           $('html, body').animate({
             scrollTop: $(target).offset().top
