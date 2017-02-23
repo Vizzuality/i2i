@@ -4,12 +4,14 @@ class Updates::NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = News.all
+    @news = News.limit(15).order(created_at: :DESC)
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
+    @news = News.find(params[:id])
+    @RelatedNews = News.all.where.not(id: params[:id]).limit(3)
   end
 
   # GET /news/new

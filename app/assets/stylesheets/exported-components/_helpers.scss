@@ -1,0 +1,52 @@
+
+  ._is-hidden {
+    display: none;
+  }
+
+  ._no-mobile {
+    display: none;
+
+    @media #{$mq-tablet} {
+      display: block;
+    }
+  }
+
+  ._no-tablet {
+    display: block;
+
+    @media #{$mq-tablet} {
+      display: none;
+    }
+  }
+
+  ._no-desktop {
+    @media #{$mq-laptop} {
+      display: none !important;
+    }
+  }
+
+  ._only-desktop {
+    display: none;
+
+    @media #{$mq-laptop} {
+      display: block;
+    }
+  }
+
+
+
+  %clearfix {
+    &::before,
+    &::after {
+      display: table;
+      content: '';
+    }
+
+    &::after {
+      clear: both;
+    }
+  }
+
+  ._no-scroll {
+    overflow-y: hidden;
+  }

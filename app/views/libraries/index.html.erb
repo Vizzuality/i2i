@@ -21,10 +21,10 @@
       <div class="wrapper">
         <div class="row">
           <div class="grid-s-6 grid-m-4 grid-l-2">
-            <button class="content-selector -current">Publications</button>
+            <button class="content-selector -current" data-type="publications">Publications</button>
           </div>
           <div class="grid-s-6 grid-m-4 grid-l-2">
-            <button class="content-selector ">Journal</button>
+            <button class="content-selector" data-type="journal">Journal</button>
           </div>
         </div>
       </div>
@@ -35,11 +35,11 @@
     <div class="wrapper">
       <div class="row">
         <% @libraries.each do |library| %>
-          <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
+          <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3 js-card"
+            data-type="<%= LibraryType.key_for(library.content_type.to_i) if library.content_type.is_a? String %>"
+          >
             <article class="c-card -small">
-              <div class="picture" style="background-image: url(<%= library.image %>)">
-                <%= link_to '', library  %>
-              </div>
+              <div class="picture" style="background-image: url(<%= library.image %>)"></div>
               <div class="metadata">
                 <h4 class="title -xs -dark"><%= library.title %></h4>
                 <h5 class="title -small -sea"><%= library.date %></h5>

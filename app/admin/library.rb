@@ -38,7 +38,7 @@ ActiveAdmin.register Library do
       f.input :content_type, as: :select, collection: LibraryType.to_a
       f.input :title
       f.input :summary
-      f.input :content
+      f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date
       f.input :url_resource
       f.input :video_url
