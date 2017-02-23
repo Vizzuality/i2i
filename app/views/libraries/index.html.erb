@@ -37,7 +37,7 @@
         <% @libraries.each do |library| %>
           <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
             <article class="c-card -small">
-              <div class="picture" style="background-image: url(<%= library.image %>)">
+              <div data-type="<%= LibraryType.key_for(library.content_type) %>" class="picture" style="background-image: url(<%= library.image %>)">
                 <%= link_to '', library  %>
               </div>
               <div class="metadata">
