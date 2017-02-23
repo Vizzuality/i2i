@@ -11,6 +11,7 @@ class Updates::EventsController < ApplicationController
   # GET /event/1.json
   def show
     @event = Event.find(params[:id])
+    @RelatedEvents = Event.all.where.not(id: params[:id]).limit(4)
   end
 
   private

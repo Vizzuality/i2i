@@ -21,7 +21,7 @@
                 <header>
                   <div class="container">
                     <div class="grid-s-12 grid-l-8">
-                      <%= link_to 'News', updates_news_index_path, :class => 'news-link _no-mobile' %>
+                      <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @news.title %></h1>
                       <span class="authorship">Written by <span class="author-name">Author</span>
                       on <%=@news.date %></span>
@@ -31,11 +31,13 @@
               </div>
 
               <section class="article-content">
-                <div class="row">
-                  <div class="grid-s-12">
-                      <div class="article-image" style="background-image: url(<%= @news.image %>)"></div>
+                <%if @news.has_attribute? 'image' %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= @news.image %>)"></div>
+                    </div>
                   </div>
-                </div>
+                <% end %>
 
                 <div class="row">
                   <div class="article-text">
