@@ -10,6 +10,8 @@ class Updates::NewsController < ApplicationController
   # GET /news/1
   # GET /news/1.json
   def show
+    @news = News.find(params[:id])
+    @RelatedNews = News.all.where.not(id: params[:id]).limit(3)
   end
 
   # GET /news/new
