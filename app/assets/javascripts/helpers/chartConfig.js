@@ -6,7 +6,8 @@
       name: 'pie',
       acceptedStatTypes: [
         ['nominal'],
-        ['ordinal']
+        ['ordinal'],
+        ['quantitative']
       ]
     }
   ];
