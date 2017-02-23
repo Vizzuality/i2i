@@ -37,6 +37,9 @@ gem 'devise'
 # File upload gems
 gem 'paperclip'
 
+# WYSIWYG
+gem 'ckeditor', github: 'galetahub/ckeditor'
+
 gem 'enumerate_it'
 gem 'valid_url'
 
