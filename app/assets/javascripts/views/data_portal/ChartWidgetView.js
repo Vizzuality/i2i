@@ -58,26 +58,18 @@
       year: null
     },
 
+    events: {
+      'click .js-retry-indicator': '_fetchData'
+    },
+
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
       this.model = new Model(this.options.id, this.options.iso, this.options.year);
 
-      this.fetchData()
-        .done(function () {
-          var data = this.model.toJSON().data;
-          if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
+      // We show the spinning loader
+      this._showLoader();
 
-          // We pre-render the component with its template
-          this.el.innerHTML = this.template({
-            name: this.model.toJSON().title,
-            noData: !data.length
-          });
-          this.chartContainer = this.el.querySelector('.js-chart');
-
-          this.render();
-          this._setListeners();
-        }.bind(this))
-        .fail(this.renderError.bind(this));
+      this._fetchData();
     },
 
     /**
@@ -106,10 +98,39 @@
 
     /**
      * Fetch the data for the widget
-     * @returns {object} $.Deferred
      */
-    fetchData: function () {
-      return this.model.fetch()
+    _fetchData: function () {
+      this.model.fetch()
+        .done(function () {
+          var data = this.model.toJSON().data;
+          if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
+
+          // We pre-render the component with its template
+          this.el.innerHTML = this.template({
+            name: this.model.toJSON().title,
+            noData: !data.length
+          });
+          this.chartContainer = this.el.querySelector('.js-chart');
+
+          this.render();
+          this._setListeners();
+        }.bind(this))
+        .fail(this.renderError.bind(this))
+        .always(this._hideLoader.bind(this));
+    },
+
+    /**
+     * Show the spinning loader
+     */
+    _showLoader: function () {
+      this.el.classList.add('c-spinning-loader');
+    },
+
+    /**
+     * Hide the spinning loader
+     */
+    _hideLoader: function () {
+      this.el.classList.remove('c-spinning-loader');
     },
 
     /**
@@ -206,7 +227,12 @@
     },
 
     renderError: function () {
-      console.error('unable to fetch the indicator');
+      this.el.innerHTML = '<p class="loading-error">' +
+        'Unable to load the indicator' +
+        '<button type="button" class="c-button -retry js-retry-indicator">Retry</button>' +
+        '</p>';
+
+      this.setElement(this.el);
     }
 
   });

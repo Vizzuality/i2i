@@ -6,7 +6,7 @@
     <nav class="c-nav" role="navigation">
       <ul class="nav-list">
     		<li class="nav-item
-          <% if current_page?(data_portal_path) %>
+          <% if current_page?(data_portal_path) || current_page?(data_portal_country_path) %>
             -current <% end%>
         ">
           <%= link_to 'Data portal', data_portal_path %>

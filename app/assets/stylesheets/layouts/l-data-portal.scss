@@ -17,11 +17,20 @@
       }
 
       .data-stats-value {
-        color: $color-4;
-        font-family: $font-family-1;
-        font-size: $font-size-xm;
-        font-weight: $font-weight-bold;
-        letter-spacing: -1px;
+        // Placeholder styles
+        // Do not remove them, just trigger them with JS once the
+        // data has loaded
+        width: 60px;
+        height: 26px;
+        margin-top: 12px;
+        background-color: rgba($color-3, .4);
+
+        // Until we don't have data, those styles are useless
+        // color: $color-4;
+        // font-family: $font-family-1;
+        // font-size: $font-size-xm;
+        // font-weight: $font-weight-bold;
+        // letter-spacing: -1px;
       }
     }
   }
@@ -43,6 +52,18 @@
       .l-card-grid {
         margin: 40px 0 0;
       }
+    }
+  }
+
+  .loading-error {
+    padding: 150px 0 200px;
+    color: $color-1;
+    font-family: $font-family-2;
+    text-align: center;
+
+    .c-button {
+      display: block;
+      margin: 30px auto 0;
     }
   }
 }
