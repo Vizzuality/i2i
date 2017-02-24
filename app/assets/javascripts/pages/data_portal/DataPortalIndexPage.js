@@ -20,28 +20,39 @@
 
     template: JST['templates/data_portal/index-page'],
 
+    events: {
+      'click .js-retry': '_fetchData'
+    },
+
     initialize: function () {
       this.collection = new Collection();
-      this.fetchData()
-        .done(this.render.bind(this))
-        .fail(this.renderError.bind(this));
+      this._fetchData();
     },
 
     /**
      * Fetch the Collection
-     * @returns {object} $.Deferred
      */
-    fetchData: function () {
-      return this.collection.fetch();
+    _fetchData: function () {
+      // The first time we render to have the placeholder flags
+      this.render();
+
+      this.collection.fetch()
+        .done(function () {
+          this._loadingError = false;
+        }.bind(this))
+        .fail(function () {
+          this._loadingError = true;
+        }.bind(this))
+        .always(this.render.bind(this));
     },
 
     render: function () {
-      this.el.innerHTML = this.template({ countries: this.collection.toJSON() });
-    },
+      this.el.innerHTML = this.template({
+        error: this._loadingError,
+        countries: this.collection.toJSON()
+      });
 
-    renderError: function () {
-      // TODO
-      console.error('Error loading country list');
+      this.setElement(this.el);
     }
 
   });
