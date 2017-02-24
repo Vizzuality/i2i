@@ -9,6 +9,14 @@
         ['ordinal'],
         ['quantitative']
       ]
+    },
+    {
+      name: 'line',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ]
     }
   ];
 })(this.App));
