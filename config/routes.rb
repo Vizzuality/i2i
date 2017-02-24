@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'community' => 'community#index'
 
   get 'data-portal' => 'data_portal#index'
-  get 'data-portal/:iso/:year' => 'data_portal#show'
+  get 'data-portal/:iso/:year', to: 'data_portal#show', as: 'data_portal_country'
 
   get 'about' => 'static_pages#about'
 
