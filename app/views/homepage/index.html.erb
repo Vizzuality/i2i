@@ -1,5 +1,5 @@
 <div class="l-homepage">
-  <div class="l-intro" style="background-image: url(images/headers/header-bg-home.jpg)">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
     <div class="wrapper">
       <%= render partial: 'shared/header', locals: { isCover: true } %>
       <div class="c-hero">
@@ -14,9 +14,11 @@
     </div>
   </div>
 
-  <div class="homepage-section -government" style="background-image: url(images/homepage/home-bg-1b.png)">
+  <div class="homepage-section -government"
+    style="background-image: url(<%= asset_path('homepage/home-bg-1b.png') %>)"
+  >
     <div class="wrapper">
-      <img src="images/homepage/home-bg-1a.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-1a.png') %>" alt="graphics">
       <div id="governments" class="c-card-highlight -homepage">
         <h3 class="title -dark -medium">Governments</h3>
         <p>Generic introduction text lorem ipsum id elit non mi
@@ -40,13 +42,13 @@
         </p>
         <a href="<%= data_portal_path %>" class="c-button">Customize indicators</a>
       </div>
-      <img src="images/homepage/home-bg-2.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-2.png') %>" alt="country-map">
     </div>
   </div>
 
   <div class="homepage-section -fsp-tech">
     <div class="wrapper">
-      <img src="images/homepage/home-bg-3.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-3.png') %>" alt="indicators">
       <div id="fsp-tech" class="c-card-highlight -homepage">
         <h3 class="title -dark -medium">FSP Tech.</h3>
         <p>Generic introduction text lorem ipsum id elit non mi
