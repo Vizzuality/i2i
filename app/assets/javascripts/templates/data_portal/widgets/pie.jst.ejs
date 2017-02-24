@@ -25,7 +25,14 @@
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "table","field": "label"},
+      "domain": {
+        "data": "table",
+        "field": "label",
+        "sort": {
+          "field": "rank",
+          "op": "mean"
+        }
+      },
       "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
     },
     {
