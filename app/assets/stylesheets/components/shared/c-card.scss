@@ -33,6 +33,8 @@
     pointer-events: none;
 
     .title {
+      line-height: 20px;
+
       &:not(:first-child) {
         margin: 10px 0 0;
       }
