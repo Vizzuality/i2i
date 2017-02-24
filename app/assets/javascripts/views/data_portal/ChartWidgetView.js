@@ -62,6 +62,9 @@
       this.options = _.extend({}, this.defaults, settings);
       this.model = new Model(this.options.id, this.options.iso, this.options.year);
 
+      // We show the spinning loader
+      this._showLoader();
+
       this.fetchData()
         .done(function () {
           var data = this.model.toJSON().data;
@@ -77,7 +80,8 @@
           this.render();
           this._setListeners();
         }.bind(this))
-        .fail(this.renderError.bind(this));
+        .fail(this.renderError.bind(this))
+        .always(this._hideLoader.bind(this));
     },
 
     /**
@@ -110,6 +114,20 @@
      */
     fetchData: function () {
       return this.model.fetch()
+    },
+
+    /**
+     * Show the spinning loader
+     */
+    _showLoader: function () {
+      this.el.classList.add('c-spinning-loader');
+    },
+
+    /**
+     * Hide the spinning loader
+     */
+    _hideLoader: function () {
+      this.el.classList.remove('c-spinning-loader');
     },
 
     /**

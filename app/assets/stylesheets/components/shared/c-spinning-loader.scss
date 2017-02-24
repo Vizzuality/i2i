@@ -1,0 +1,27 @@
+.c-spinning-loader {
+  position: relative;
+
+  &::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%);
+    background: asset-url('spinning-loader.svg') center center no-repeat;
+    background-size: contain;
+    content: '';
+    animation: 1s linear 0s infinite rotate;
+
+    @keyframes rotate {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+  }
+}
