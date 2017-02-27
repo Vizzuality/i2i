@@ -59,7 +59,8 @@
     },
 
     events: {
-      'click .js-retry-indicator': '_fetchData'
+      'click .js-retry-indicator': '_fetchData',
+      'click .js-change': '_onChange'
     },
 
     initialize: function (settings) {
@@ -94,6 +95,45 @@
       if (newDimensions.width !== previousWidth || newDimensions.height !== previousHeight) {
         this._renderChart();
       }
+    },
+
+    /**
+     * Event handler for when the user clicks the change button
+     */
+    _onChange: function () {
+      // We retrieve the list of all the charts that can be built with vega
+      var charts = App.Helper.ChartConfig.map(function(chart) {
+        return {
+          name: chart.name,
+          available: false
+        };
+      });
+
+      // We update the object to tell which ones are available with the current
+      // dataset
+      this.widgetToolbox.getAvailableCharts().forEach(function (availableChart) {
+        var chart = _.findWhere(charts, { name: availableChart });
+        if (chart) chart.available = true;
+      });
+
+      // We instantiate the modal
+      // TODO
+
+      // Temporary code
+      var currentChart = this.options.chart;
+      var availableCharts = this.widgetToolbox.getAvailableCharts();
+      var index = availableCharts.indexOf(currentChart);
+      var nextIndex = (index + 1) % availableCharts.length;
+      this._onChangeChart(availableCharts[nextIndex]);
+    },
+
+    /**
+     * Event handler fow when the chart is changed
+     * @param {string} chart - chosen chart
+     */
+    _onChangeChart: function (chart) {
+      this.options.chart = chart;
+      this.render();
     },
 
     /**
