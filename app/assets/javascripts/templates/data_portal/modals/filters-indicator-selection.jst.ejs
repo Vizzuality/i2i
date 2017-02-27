@@ -1,3 +1,5 @@
-<% indicators.forEach(function (ind) { %>
-  <%= ind.indicator %>
-<% }); %>
+<form action="" name="indicator-form">
+  <% indicators.forEach(function (ind) { %>
+    <input type="checkbox" name="indicators" value="<%= ind.indicator %>"> <%= ind.indicator %>
+  <% }); %>
+</form>

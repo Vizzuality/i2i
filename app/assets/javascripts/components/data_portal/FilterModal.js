@@ -22,14 +22,15 @@
     _setVars: function () {
       this.parentView = this.constructor.__super__;
       this.parentView._setVars.call(this);
+      this.indicatorsCollection = this.options.indicatorsCollection;
 
       // Pages used in the modal
       this.pages = [
         new App.View.IndicatorSelection({
-          indicatorsCollection: this.options.indicatorsCollection
+          indicatorsCollection: this.indicatorsCollection
         }),
         new App.View.IndicatorOptions({
-          indicatorsCollection: this.options.indicatorsCollection
+          indicatorsCollection: this.indicatorsCollection
         })
       ];
 
@@ -44,8 +45,16 @@
     _onNextPage: function () {
       if (this.pages[this.currentIndexPage + 1] === undefined) return;
 
+      this._retrieveDataForm();
+
       this.currentIndexPage++;
       this._renderNextPage();
+    },
+
+    _retrieveDataForm: function () {
+      var formData = App.Helper.SerializeForm(document.querySelector('form'));
+
+      this.indicatorsCollection.setFilteredIndicators(formData.indicators);
     },
 
     _renderNextPage: function () {
@@ -64,9 +73,6 @@
     },
 
     render: function () {
-      this.title = 'Modal indicator';
-
-      this.content = this.contentTemplate();
 
       this.parentView.render.apply(this);
 

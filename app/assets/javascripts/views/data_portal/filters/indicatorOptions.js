@@ -4,8 +4,17 @@
 
     template: JST['templates/data_portal/modals/filters-indicator-options'],
 
+    initialize: function (options) {
+      this.indicatorsCollection = options.indicatorsCollection;
+    },
+
     render: function () {
-      this.el.innerHTML = this.template({});
+      var filteredIndicators = _.filter(this.indicatorsCollection.toJSON(),
+        function (indicator) { return indicator.filtered; });
+
+      this.el.innerHTML = this.template({
+        indicators: filteredIndicators
+      });
 
       return this.$el.html();
     }

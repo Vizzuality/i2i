@@ -14,6 +14,14 @@
         { indicator: 'i2i_Education' },
         { indicator: 'i2i_Income_Sources' }
       ]);
+    },
+
+    setFilteredIndicators: function (filteredIndicators) {
+      _.each(filteredIndicators, function (_indicator) {
+        this.find(function (i) {
+          return i.get('indicator') === _indicator;
+        }).set('filtered', true);
+      }.bind(this));
     }
 
     // url: function() {
@@ -102,7 +110,11 @@
 
     _openFilterModal: function () {
       new App.Component.FilterModal({
-        indicatorsCollection: this.indicatorsCollection
+        showTitle: true,
+        title: 'Select indicators',
+        content: JST['templates/data_portal/modals/filters'](),
+        indicatorsCollection: this.indicatorsCollection,
+        footer: '<div class="footer-container"><button type="button" class="c-button -padding -white -outline js-done-btn-modal">Done</button><button type="button" class="c-button -padding -no-hover -white js-add-indicators-btn">Add indicators</button></div>'
       });
     },
 
