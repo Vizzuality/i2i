@@ -56,7 +56,8 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData'
+      'click .js-retry': '_fetchData',
+      'click .js-customize-indicators': '_openFilterModal'
     },
 
     initialize: function (settings) {
@@ -87,6 +88,10 @@
           this._loadingError = true;
         }.bind(this))
         .always(this.render.bind(this));
+    },
+
+    _openFilterModal: function () {
+      new App.Component.FilterModal();
     },
 
     render: function () {
