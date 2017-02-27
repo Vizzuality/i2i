@@ -1,3 +1,11 @@
+<form action="" name="indicator-filters-form">
 <% indicators.forEach(function (ind) { %>
-  <%= ind.indicator %>
+  <%= ind.name %>
+  <% ind.options.forEach(function (option) { %>
+    <div class="c-radio-button">
+      <input type="radio" class="js-filter" name="<%= ind.name %>" id="<%= option %>" value="<%= option %>">
+      <label for="<%= option %>"><%= option %></label>
+    </div>
+  <% }); %>
 <% }); %>
+</form>

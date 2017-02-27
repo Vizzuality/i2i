@@ -13,9 +13,13 @@
       if (element.type === 'checkbox') {
         if (element.checked) {
           if (!obj.hasOwnProperty(name)) {
-            obj[name] = [value];
+            obj[name] = [{
+              name: value
+            }];
           } else {
-            obj[name].push(value);
+            obj[name].push({
+              name: value
+            });
           }
         }
       } else {
@@ -24,6 +28,24 @@
         }
       }
     }
+
+    if (element.type === 'radio') {
+      if (element.classList.contains('js-filter')) {
+        if (obj[name] !== unefined && !obj[name].hasOwnProperty('options')) {
+          obj[name].push(_.extend(obj[name]), {
+            options: [value]
+          });
+        } else {
+          //  WIP
+          var options = obj[name];
+          obj[name].push(_.extend(obj[name]), {
+            options: [value]
+          });
+        }
+      }
+    }
+
+    console.log(obj);
 
     return obj;
   };

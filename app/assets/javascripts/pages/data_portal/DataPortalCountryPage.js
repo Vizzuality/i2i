@@ -8,20 +8,12 @@
 
       // temporary data
       this.set([
-        { indicator: 'geographic_area' },
-        { indicator: 'gender' },
-        { indicator: 'i2i_Marital_Status' },
-        { indicator: 'i2i_Education' },
-        { indicator: 'i2i_Income_Sources' }
+        { name: 'geographic_area' },
+        { name: 'gender' },
+        { name: 'i2i_Marital_Status' },
+        { name: 'i2i_Education' },
+        { name: 'i2i_Income_Sources' }
       ]);
-    },
-
-    setFilteredIndicators: function (filteredIndicators) {
-      _.each(filteredIndicators, function (_indicator) {
-        this.find(function (i) {
-          return i.get('indicator') === _indicator;
-        }).set('filtered', true);
-      }.bind(this));
     }
 
     // url: function() {
@@ -37,6 +29,17 @@
     //     });
     // }
   });
+
+  var FILTERS = [
+    {
+      name: 'geographic_area',
+      options: ['Rural', 'Urban']
+    },
+    {
+      name: 'gender',
+      options: ['Female', 'Male']
+    }
+  ];
 
   // var INDICATORS = [
   //   { indicator: 'geographic_area' },
@@ -114,8 +117,15 @@
         title: 'Select indicators',
         content: JST['templates/data_portal/modals/filters'](),
         indicatorsCollection: this.indicatorsCollection,
-        footer: '<div class="footer-container"><button type="button" class="c-button -padding -white -outline js-done-btn-modal">Done</button><button type="button" class="c-button -padding -no-hover -white js-add-indicators-btn">Add indicators</button></div>'
+        filters: FILTERS,
+        footer: '<div class="footer-container"><button type="button" class="c-button -padding -white -outline js-done-btn-modal">Done</button><button type="button" class="c-button -padding -no-hover -white js-add-indicators-btn">Add indicators</button></div>',
+        onDone: this.updateFilters.bind(this)
       });
+    },
+
+    updateFilters: function (newFilters) {
+      console.log(newFilters);
+      this.filters = newFilters;
     },
 
     render: function () {

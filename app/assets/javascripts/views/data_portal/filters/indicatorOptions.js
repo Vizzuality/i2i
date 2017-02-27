@@ -5,15 +5,12 @@
     template: JST['templates/data_portal/modals/filters-indicator-options'],
 
     initialize: function (options) {
-      this.indicatorsCollection = options.indicatorsCollection;
+      this.filters = options.filters;
     },
 
     render: function () {
-      var filteredIndicators = _.filter(this.indicatorsCollection.toJSON(),
-        function (indicator) { return indicator.filtered; });
-
       this.el.innerHTML = this.template({
-        indicators: filteredIndicators
+        indicators: this.filters
       });
 
       return this.$el.html();

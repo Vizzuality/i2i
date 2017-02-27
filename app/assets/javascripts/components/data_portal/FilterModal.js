@@ -3,7 +3,6 @@
   App.Component.FilterModal = App.Component.Modal.extend({
 
     contentTemplate: JST['templates/data_portal/modals/filters'],
-    defaults: {},
 
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
@@ -23,14 +22,17 @@
       this.parentView = this.constructor.__super__;
       this.parentView._setVars.call(this);
       this.indicatorsCollection = this.options.indicatorsCollection;
+      this.filters = this.options.filters;
+      this.onDone = this.options.onDone;
 
       // Pages used in the modal
       this.pages = [
         new App.View.IndicatorSelection({
-          indicatorsCollection: this.indicatorsCollection
+          indicatorsCollection: this.indicatorsCollection,
+          filters: this.filters
         }),
         new App.View.IndicatorOptions({
-          indicatorsCollection: this.indicatorsCollection
+          filters: this.filters
         })
       ];
 
@@ -52,9 +54,7 @@
     },
 
     _retrieveDataForm: function () {
-      var formData = App.Helper.SerializeForm(document.querySelector('form'));
-
-      this.indicatorsCollection.setFilteredIndicators(formData.indicators);
+      return App.Helper.SerializeForm(document.querySelector('form'));
     },
 
     _renderNextPage: function () {
@@ -67,7 +67,10 @@
     },
 
     _onDoneBtnModal: function () {
-      // put here whatever need to be done before close modal.
+      console.log('_onDoneBtnModal');
+      var formData = this._retrieveDataForm();
+
+      this.onDone(formData.indicators);
 
       this.parentView.onCloseModal.call(this);
     },
