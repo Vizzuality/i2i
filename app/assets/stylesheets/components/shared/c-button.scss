@@ -28,6 +28,18 @@
       background-color: $color-1;
       color: $color-4;
     }
+
+    &.-outline {
+      border: 1px solid $color-4;
+      background-color: transparent;
+      color: $color-4;
+      box-shadow: none;
+
+      &:hover {
+        background-color: transparent;
+        color: $color-4;
+      }
+    }
   }
 
   &.-sea {
@@ -38,6 +50,40 @@
     &:hover {
       background-color: $color-4;
       color: $color-1;
+    }
+
+    &.-outline {
+      border: 1px solid $color-1;
+      background-color: transparent;
+      color: $color-1;
+
+      &:hover {
+        background-color: transparent;
+        color: $color-1;
+      }
+    }
+  }
+
+  &.-padding {
+    width: auto;
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+
+  &.-no-hover:not(.-outline) {
+    &:hover {
+      background-color: transparent;
+      color: $color-1;
+    }
+
+    &.-white:hover {
+      background-color: $color-4;
+      color: $color-1;
+    }
+
+    &.-sea {
+      background-color: $color-1;
+      color: $color-4;
     }
   }
 

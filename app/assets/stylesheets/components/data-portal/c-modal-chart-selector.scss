@@ -1,0 +1,15 @@
+.c-modal-chart-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 40px;
+
+  > .c-radio-button {
+    flex-basis: calc(100% / 3);
+
+    img {
+      display: block;
+      margin: 25px auto 0;
+    }
+  }
+}
