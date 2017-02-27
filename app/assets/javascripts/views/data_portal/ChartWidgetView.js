@@ -105,9 +105,10 @@
       var charts = App.Helper.ChartConfig.map(function(chart) {
         return {
           name: chart.name,
-          available: false
+          available: false,
+          selected: this.options.chart === chart.name
         };
-      });
+      }, this);
 
       // We update the object to tell which ones are available with the current
       // dataset
@@ -117,14 +118,10 @@
       });
 
       // We instantiate the modal
-      // TODO
-
-      // Temporary code
-      var currentChart = this.options.chart;
-      var availableCharts = this.widgetToolbox.getAvailableCharts();
-      var index = availableCharts.indexOf(currentChart);
-      var nextIndex = (index + 1) % availableCharts.length;
-      this._onChangeChart(availableCharts[nextIndex]);
+      new App.Component.ModalChartSelector({
+        charts: charts,
+        continueCallback: this._onChangeChart.bind(this)
+      });
     },
 
     /**
@@ -132,6 +129,8 @@
      * @param {string} chart - chosen chart
      */
     _onChangeChart: function (chart) {
+      if (this.options.chart === chart) return;
+
       this.options.chart = chart;
       this.render();
     },

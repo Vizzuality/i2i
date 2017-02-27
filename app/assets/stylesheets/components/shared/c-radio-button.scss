@@ -1,0 +1,43 @@
+$radio-button-padding: 25px;
+
+.c-radio-button {
+  display: flex;
+  position: relative;
+
+  &:hover {
+    background-color: $color-3;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    top: 0;
+    left: -10000px;
+
+    &:checked + label {
+      &::before {
+        background-color: $color-1;
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+      }
+    }
+  }
+
+  label {
+    display: inline-block;
+    flex-basis: 100%;
+    padding: $radio-button-padding $radio-button-padding $radio-button-padding #{ 2 * $radio-button-padding};
+    font-family: $font-family-2;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+
+    &::before {
+      display: inline-block;
+      position: absolute;
+      top: $radio-button-padding;
+      left: $radio-button-padding;
+      width: 14px;
+      height: 14px;
+      border: 1px solid $color-1;
+      content: '';
+    }
+  }
+}

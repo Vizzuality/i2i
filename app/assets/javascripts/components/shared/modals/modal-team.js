@@ -4,6 +4,10 @@
 
     contentTemplate: JST['templates/shared/modals/modal-team'],
 
+    defaults: {
+      title: 'Jeremy Soul member'
+    },
+
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
         'click .js-close-btn-modal': '_onCloseBtnModal'
@@ -22,14 +26,12 @@
 
     render: function () {
       // sample data. TO-DO: retrieve data.
-      this.content = this.contentTemplate({
+      this.options.content = this.contentTemplate({
         name: 'Jeremy Soul',
         role: 'Advisor',
         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
         url_photo: '/images/people/person_1.jpg'
       });
-
-      this.title = 'Jeremy Soul member';
 
       this.constructor.__super__.render.apply(this);
     }
