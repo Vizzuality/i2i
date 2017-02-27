@@ -7,7 +7,6 @@
     render: function () {
       this.el.innerHTML = this.template({});
 
-
       return this.$el.html();
     }
 

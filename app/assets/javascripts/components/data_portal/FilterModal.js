@@ -25,8 +25,12 @@
 
       // Pages used in the modal
       this.pages = [
-        new App.View.IndicatorSelection(),
-        new App.View.IndicatorOptions()
+        new App.View.IndicatorSelection({
+          indicatorsCollection: this.options.indicatorsCollection
+        }),
+        new App.View.IndicatorOptions({
+          indicatorsCollection: this.options.indicatorsCollection
+        })
       ];
 
       this.currentIndexPage = 0;

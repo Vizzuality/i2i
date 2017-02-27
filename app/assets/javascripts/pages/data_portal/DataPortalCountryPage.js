@@ -1,11 +1,20 @@
 (function (App) {
   'use strict';
 
-  var IndicatorsCollection = Backbone.Collection.extend({
-    // initialize: function (iso, year) {
-    //   this.iso = iso;
-    //   this.year = year;
-    // },
+  App.Collection.Indicators = Backbone.Collection.extend({
+    initialize: function (iso, year) {
+      // this.iso = iso;
+      // this.year = year;
+
+      // temporary data
+      this.set([
+        { indicator: 'geographic_area' },
+        { indicator: 'gender' },
+        { indicator: 'i2i_Marital_Status' },
+        { indicator: 'i2i_Education' },
+        { indicator: 'i2i_Income_Sources' }
+      ]);
+    }
 
     // url: function() {
     //   return API_URL + '/indicator/' + this.iso + '/' + this.year;
@@ -21,13 +30,13 @@
     // }
   });
 
-  var INDICATORS = [
-    { indicator: 'geographic_area' },
-    { indicator: 'gender' },
-    { indicator: 'i2i_Marital_Status' },
-    { indicator: 'i2i_Education' },
-    { indicator: 'i2i_Income_Sources' }
-  ];
+  // var INDICATORS = [
+  //   { indicator: 'geographic_area' },
+  //   { indicator: 'gender' },
+  //   { indicator: 'i2i_Marital_Status' },
+  //   { indicator: 'i2i_Education' },
+  //   { indicator: 'i2i_Income_Sources' }
+  // ];
 
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
@@ -62,10 +71,11 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      // this.indicatorsCollection = new IndicatorsCollection(this.options.iso, this.options.year);
-      this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
+      // this.indicatorsCollection = new App.Collection.Indicators(this.options.iso, this.options.year);
+      this.indicatorsCollection = new App.Collection.Indicators();
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
+
       this._fetchData();
     },
 
@@ -77,7 +87,7 @@
       this.render();
 
       var deferred = $.Deferred();
-      deferred.resolve(INDICATORS);
+      deferred.resolve(this.indicatorsCollection.toJSON());
 
       // this.indicatorsCollection.fetch()
       deferred
@@ -91,7 +101,9 @@
     },
 
     _openFilterModal: function () {
-      new App.Component.FilterModal();
+      new App.Component.FilterModal({
+        indicatorsCollection: this.indicatorsCollection
+      });
     },
 
     render: function () {

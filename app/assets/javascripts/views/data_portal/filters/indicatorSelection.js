@@ -1,27 +1,16 @@
 (function (App) {
 
-  var indicators = [
-    {
-      id: 0,
-      name: 'gender'
-    },
-    {
-      id: 2,
-      name: 'age'
-    },
-    {
-      id: 0,
-      name: 'marital status'
-    }
-  ];
-
   App.View.IndicatorSelection = Backbone.View.extend({
 
     template: JST['templates/data_portal/modals/filters-indicator-selection'],
 
+    initialize: function (options) {
+      this.indicatorsCollection = options.indicatorsCollection;
+    },
+
     render: function () {
       this.el.innerHTML = this.template({
-        indicators: indicators
+        indicators: this.indicatorsCollection.toJSON()
       });
 
       return this.$el.html();
