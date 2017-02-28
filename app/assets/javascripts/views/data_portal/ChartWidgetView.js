@@ -2,14 +2,27 @@
   'use strict';
 
   var Model = Backbone.Model.extend({
-    initialize: function (indicatorId, iso, year) {
+    initialize: function (indicatorId, iso, year, filters) {
       this.indicatorId = indicatorId;
       this.iso = iso;
       this.year = year;
+      this.filters = filters;
     },
 
     url: function() {
-      return API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
+      var url =  API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
+
+      if (this.filters.length) {
+        var filters = this.filters.map(function (filter) {
+          return {
+            indicatorId: filter.name,
+            value: filter.options
+          };
+        });
+        url += '&filters=' + JSON.stringify(filters);
+      }
+
+      return url;
     },
 
     parse: function (data) {
@@ -55,7 +68,10 @@
       // ISO of the country
       iso: null,
       // Selected year
-      year: null
+      year: null,
+      // Filters on the data
+      // See _filters in App.Page.DataPortalCountryPage to see their format
+      filters: []
     },
 
     events: {
@@ -65,7 +81,7 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(this.options.id, this.options.iso, this.options.year);
+      this.model = new Model(this.options.id, this.options.iso, this.options.year, this.options.filters);
 
       // We show the spinning loader
       this._showLoader();
@@ -143,6 +159,13 @@
         .done(function () {
           var data = this.model.toJSON().data;
           if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
+
+          // If the indicator doesn't have any data, we also want to send an event
+          // to notify the parent view about it
+          this.trigger('data:sync', {
+            name: this.model.toJSON().title,
+            data: data
+          });
 
           // We pre-render the component with its template
           this.el.innerHTML = this.template({

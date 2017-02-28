@@ -52,7 +52,19 @@
       // ISO of the country
       iso: null,
       // Current year
-      year: null
+      year: null,
+      // List of the indicators with their associated data
+      // NOTE: Do not set this property at instantiation time
+      // The structure is:
+      // [
+      //   { name: 'My indicator', options: ['Option 1', 'Option 2'] }
+      // ]
+      // NOTE: There isn't any order guaranteed
+      _indicatorsData: [],
+      // List of active filters
+      // Follow the same structure as _indicatorsData
+      // NOTE: Do not set this property at instantiation time
+      _filters: []
     },
 
     events: {
@@ -66,6 +78,50 @@
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this._fetchData();
+    },
+
+    /**
+     * Event listener executed when a widget has successfully fetched its data
+     * @param {{ name: string, data: object[] }} event
+     */
+    _onWidgetSync: function (event) {
+      this._updateIndicatorsData(event.name, event.data);
+    },
+
+    /**
+     * Event listener executed when the filter are updated
+     * @param { { name: string, options: string[] }[] } filters
+     */
+    _onFiltersUpdate: function (filters) {
+      this._updateFilters(filters);
+      this._renderWidgets();
+    },
+
+    /**
+     * Update this.options._indicatorsData with the data passed as argument
+     * @param {string} indicatorName
+     * @param {object[]} data
+     */
+    _updateIndicatorsData: function (indicatorName, data) {
+      var indicator = {
+        name: indicatorName,
+        options: data.map(function (option) { return option.label; })
+      };
+
+      var previousIndicator = _.findWhere(this.options._indicatorsData, { name: indicatorName });
+      if (previousIndicator) {
+        previousIndicator = indicator;
+      } else {
+        this.options._indicatorsData.push(indicator);
+      }
+    },
+
+    /**
+     * Replace this.options._filters by the new filters
+     * @param { { name: string, options: string[] }[] } activeFiltersOptions
+     */
+    _updateFilters: function (filters) {
+      this.options._filters = filters;
     },
 
     /**
@@ -166,12 +222,15 @@
 
       // We instantiate the widget views
       collection.forEach(function (indicator, index) {
-        new App.View.ChartWidgetView({
+        var chart = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
           id: indicator.indicator,
           iso: this.options.iso,
-          year: this.options.year
+          year: this.options.year,
+          filters: this.options._filters
         });
+
+        this.listenTo(chart, 'data:sync', this._onWidgetSync);
       }, this);
     }
 
