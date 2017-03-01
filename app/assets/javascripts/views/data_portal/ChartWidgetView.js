@@ -157,19 +157,19 @@
     _fetchData: function () {
       this.model.fetch()
         .done(function () {
-          var data = this.model.toJSON().data;
+          var data = this.model.get('data');
           if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
           // If the indicator doesn't have any data, we also want to send an event
           // to notify the parent view about it
           this.trigger('data:sync', {
-            name: this.model.toJSON().title,
+            name: this.model.get('title'),
             data: data
           });
 
           // We pre-render the component with its template
           this.el.innerHTML = this.template({
-            name: this.model.toJSON().title,
+            name: this.model.get('title'),
             noData: !data.length
           });
           this.chartContainer = this.el.querySelector('.js-chart');
@@ -248,7 +248,7 @@
     _generateVegaSpec: function () {
       if (!this.options.chart) {
         // If no data, we render the dedicated chart
-        if (!this.model.toJSON().data.length) {
+        if (!this.model.get('data').length) {
           this.options.chart = 'empty';
         } else {
           var availableCharts = this.widgetToolbox.getAvailableCharts();
@@ -265,7 +265,7 @@
       var chartDimensions = this._computeChartDimensions();
 
       return this._getChartTemplate()({
-        data: JSON.stringify(this.model.toJSON().data),
+        data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
         height: chartDimensions.height
       });
