@@ -12,13 +12,13 @@
     url: function() {
       var url =  API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
 
-      if (this.filters.length) {
+      if (this.filters.length >= 1 && !_.isEmpty(this.filters[0])) {
         var filters = this.filters.map(function (filter) {
           return {
-            indicatorId: filter.name,
+            indicatorId: this.indicatorId,
             value: filter.options
           };
-        });
+        }.bind(this));
         url += '&filters=' + JSON.stringify(filters);
       }
 

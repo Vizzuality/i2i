@@ -65,11 +65,12 @@
       // List of active filters
       // Follow the same structure as _indicatorsData
       // NOTE: Do not set this property at instantiation time
-      _filters: []
+      _filters: [{}]
     },
 
     events: {
-      'click .js-retry': '_fetchData'
+      'click .js-retry': '_fetchData',
+      'click .js-customize-indicators': '_openFilterModal'
     },
 
     initialize: function (settings) {
@@ -78,7 +79,14 @@
       this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
+      this._setEventListeners();
       this._fetchData();
+    },
+
+    _setEventListeners() {
+      Backbone.Events.on('filters:updated', function (newFilters) {
+        this._onFiltersUpdate(newFilters);
+      }.bind(this));
     },
 
     /**
@@ -147,6 +155,14 @@
           this._loadingError = true;
         }.bind(this))
         .always(this.render.bind(this));
+    },
+
+    _openFilterModal: function () {
+      console.log(this.options._indicatorsData);
+      new App.View.FilterIndicatorsModal({
+        indicators: this.options._indicatorsData,
+        filters: this.options.filters
+      });
     },
 
     render: function () {

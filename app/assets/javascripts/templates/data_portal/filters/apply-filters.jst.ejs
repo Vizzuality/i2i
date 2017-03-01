@@ -1,0 +1,21 @@
+<div class="c-apply-filters">
+  <form action="" name="apply-filter-form">
+    <ul>
+      <% indicators.forEach(function(ind) { %>
+        <li><%= ind.name %></li>
+        <ul class="indicator-filters">
+          <% ind.options.forEach(function(opt) { %>
+            <li>
+              <div class="c-checkbox">
+                <input type="checkbox" name="<%= ind.name %>"
+                  value="<%= opt %>" id="<%= opt %>"
+                >
+                <label for="<%= opt %>"><%= opt %></label>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      <% }); %>
+    </ul>
+  </form>
+</div>

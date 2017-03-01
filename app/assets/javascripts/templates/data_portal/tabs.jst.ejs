@@ -1,0 +1,11 @@
+<ul class="c-tabs">
+  <% tabs.forEach(function(tab) { %>
+    <li class="tab" role="tab"
+      <% if (<%= tab.id %>) { %>
+        aria-controls="<%= tab.id %>"
+      <% } %>
+    >
+      <%= tab.name %>
+    </li>
+  <% }); %>
+</ul>
