@@ -153,7 +153,7 @@
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
         indicators: this.options._indicatorsData,
-        filters: this.options.filters,
+        filters: this.options._filters,
         continueCallback: this._onFiltersUpdate.bind(this)
       });
     },

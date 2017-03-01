@@ -7,10 +7,10 @@
           <% ind.options.forEach(function(opt) { %>
             <li>
               <div class="c-checkbox">
-                <input type="checkbox" name="<%= ind.id %>"
-                  value="<%= opt %>" id="<%= opt %>"
+                <input type="checkbox" <% if(opt.filtered) { %> checked <% } %> name="<%= ind.id %>"
+                  value="<%= opt.name %>" id="<%= opt.name %>"
                 >
-                <label for="<%= opt %>"><%= opt %></label>
+                <label for="<%= opt.name %>"><%= opt.name %></label>
               </div>
             </li>
           <% }); %>
