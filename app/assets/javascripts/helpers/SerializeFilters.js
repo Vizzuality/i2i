@@ -17,11 +17,11 @@
 
       if (element.type === 'checkbox') {
         if (element.checked) {
-          var entry = _.findWhere(filters, { name: name });
+          var entry = _.findWhere(filters, { id: name });
 
           if (entry === undefined) {
             entry = {
-              name: name,
+              id: name,
               options: [value]
             };
             filters.push(entry);

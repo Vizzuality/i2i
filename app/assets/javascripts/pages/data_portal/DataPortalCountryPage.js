@@ -284,5 +284,4 @@
     }
 
   });
-
 }).call(this, this.App);

@@ -15,7 +15,7 @@
       if (this.filters.length >= 1 && !_.isEmpty(this.filters[0])) {
         var filters = this.filters.map(function (filter) {
           return {
-            indicatorId: this.indicatorId,
+            indicatorId: filter.id,
             value: filter.options
           };
         }.bind(this));
