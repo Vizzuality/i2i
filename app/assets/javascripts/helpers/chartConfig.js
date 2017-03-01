@@ -11,7 +11,7 @@
       ]
     },
     {
-      name: 'line',
+      name: 'bar',
       acceptedStatTypes: [
         ['nominal'],
         ['ordinal'],

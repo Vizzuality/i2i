@@ -51,6 +51,15 @@
       "type": "linear",
       "range": "height",
       "domain": [0, 100]
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "table",
+        "field": "a.label"
+      },
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
     }
   ],
   "marks": [
@@ -114,26 +123,15 @@
       }
     },
     {
-      "type": "line",
+      "type": "rect",
       "from": {"data": "table"},
       "properties": {
         "enter": {
-          "x": {"scale": "x", "field": "a.label"},
+          "x": {"scale": "x", "field": "a.label", "offset": -10},
+          "width": {"value": 20},
           "y": {"scale": "y", "field": "a.percentage"},
-          "stroke": {"value": "#2f939c"},
-          "strokeWidth": {"value": 2}
-        }
-      }
-    },
-    {
-      "type": "symbol",
-      "from": {"data": "table"},
-      "properties": {
-        "enter": {
-          "x": {"scale": "x", "field": "a.label"},
-          "y": {"scale": "y", "field": "a.percentage"},
-          "fill": {"value": "#2f939c"},
-          "size": {"value": 40}
+          "y2": {"scale": "y", "value": 0},
+          "fill": {"field": "a.label", "scale": "color"}
         }
       }
     },
