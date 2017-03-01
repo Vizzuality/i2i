@@ -9,17 +9,14 @@
       showTitle: true,
       // See App.Component.Modal for details about this option
       footer: '<button class="c-button -outline -padding js-cancel">Cancel</button><button class="c-button -white -padding js-done">Done</button>',
-      // List of charts to display in the modal
-      // The structure of each chart is:
-      // {
-      //   string name,
-      //   boolean available,
-      //   boolean selected
-      // }
+      // settings for default tab to show
       tab: {
         name: 'apply-filters',
         index: 1
-      }
+      },
+      // Callback executed when the user presses the "Done" button
+      // The callback gets passed the name of the selected chart
+      continueCallback: function () {}
     },
 
     events: function () {
@@ -75,7 +72,7 @@
       var form = document.querySelector('form');
       var newFilters = App.Helper.SerializeFilters(form);
 
-      Backbone.Events.trigger('filters:updated', newFilters);
+      this.options.continueCallback(newFilters);
 
       this.constructor.__super__.onCloseModal.apply(this);
     },

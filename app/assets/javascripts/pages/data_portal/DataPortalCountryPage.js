@@ -79,14 +79,7 @@
       this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
-      this._setEventListeners();
       this._fetchData();
-    },
-
-    _setEventListeners() {
-      Backbone.Events.on('filters:updated', function (newFilters) {
-        this._onFiltersUpdate(newFilters);
-      }.bind(this));
     },
 
     /**
@@ -160,7 +153,8 @@
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
         indicators: this.options._indicatorsData,
-        filters: this.options.filters
+        filters: this.options.filters,
+        continueCallback: this._onFiltersUpdate.bind(this)
       });
     },
 
