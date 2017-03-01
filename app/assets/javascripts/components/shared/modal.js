@@ -81,7 +81,9 @@
 
     onCloseModal: function () {
       // We restore the focus
-      this.prevFocusedEl.focus();
+      if (this.prevFocusedEl !== undefined) {
+        this.prevFocusedEl.focus();
+      }
 
       this._removeEventListeners();
       this.remove();

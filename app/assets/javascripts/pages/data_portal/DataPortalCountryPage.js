@@ -1,11 +1,20 @@
 (function (App) {
   'use strict';
 
-  var IndicatorsCollection = Backbone.Collection.extend({
-    // initialize: function (iso, year) {
-    //   this.iso = iso;
-    //   this.year = year;
-    // },
+  App.Collection.Indicators = Backbone.Collection.extend({
+    initialize: function (iso, year) {
+      // this.iso = iso;
+      // this.year = year;
+
+      // temporary data
+      this.set([
+        { name: 'geographic_area' },
+        { name: 'gender' },
+        { name: 'i2i_Marital_Status' },
+        { name: 'i2i_Education' },
+        { name: 'i2i_Income_Sources' }
+      ]);
+    }
 
     // url: function() {
     //   return API_URL + '/indicator/' + this.iso + '/' + this.year;
@@ -21,13 +30,24 @@
     // }
   });
 
-  var INDICATORS = [
-    { indicator: 'geographic_area' },
-    { indicator: 'gender' },
-    { indicator: 'i2i_Marital_Status' },
-    { indicator: 'i2i_Education' },
-    { indicator: 'i2i_Income_Sources' }
+  var FILTERS = [
+    {
+      name: 'geographic_area',
+      options: ['Rural', 'Urban']
+    },
+    {
+      name: 'gender',
+      options: ['Female', 'Male']
+    }
   ];
+
+  // var INDICATORS = [
+  //   { indicator: 'geographic_area' },
+  //   { indicator: 'gender' },
+  //   { indicator: 'i2i_Marital_Status' },
+  //   { indicator: 'i2i_Education' },
+  //   { indicator: 'i2i_Income_Sources' }
+  // ];
 
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
@@ -68,15 +88,17 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData'
+      'click .js-retry': '_fetchData',
+      'click .js-customize-indicators': '_openFilterModal'
     },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      // this.indicatorsCollection = new IndicatorsCollection(this.options.iso, this.options.year);
-      this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
+      // this.indicatorsCollection = new App.Collection.Indicators(this.options.iso, this.options.year);
+      this.indicatorsCollection = new App.Collection.Indicators();
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
+
       this._fetchData();
     },
 
@@ -132,7 +154,7 @@
       this.render();
 
       var deferred = $.Deferred();
-      deferred.resolve(INDICATORS);
+      deferred.resolve(this.indicatorsCollection.toJSON());
 
       // this.indicatorsCollection.fetch()
       deferred
@@ -143,6 +165,23 @@
           this._loadingError = true;
         }.bind(this))
         .always(this.render.bind(this));
+    },
+
+    _openFilterModal: function () {
+      new App.Component.FilterModal({
+        showTitle: true,
+        title: 'Select indicators',
+        content: JST['templates/data_portal/modals/filters'](),
+        indicatorsCollection: this.indicatorsCollection,
+        filters: FILTERS,
+        footer: '<div class="footer-container"><button type="button" class="c-button -padding -white -outline js-done-btn-modal">Done</button><button type="button" class="c-button -padding -no-hover -white js-add-indicators-btn">Add indicators</button></div>',
+        onDone: this.updateFilters.bind(this)
+      });
+    },
+
+    updateFilters: function (newFilters) {
+      console.log(newFilters);
+      this.filters = newFilters;
     },
 
     render: function () {

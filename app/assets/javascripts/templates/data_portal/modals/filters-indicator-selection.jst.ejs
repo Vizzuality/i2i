@@ -1,0 +1,11 @@
+<form action="" name="indicator-form">
+  <% indicators.forEach(function (ind) { %>
+    <div class="c-checkbox">
+      <input type="checkbox" name="indicators"
+        <%if (ind.filtered) {%> checked <% } %>
+        value="<%= ind.name %>" id="<%= ind.name %>"
+      >
+      <label for="<%= ind.name %>"><%= ind.name %></label>
+    </div>
+  <% }); %>
+</form>
