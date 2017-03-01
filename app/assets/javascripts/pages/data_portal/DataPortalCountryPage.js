@@ -220,9 +220,20 @@
       this.widgetsContainer.innerHTML = ''; // We ensure it's empty first
       this.widgetsContainer.appendChild(fragment);
 
+      // If the widget instances already exist, we remove the listeners
+      // and reset their pointer
+      if (this.widgets) {
+        this.widgets.forEach(function (widget) {
+          this.stopListening(widget);
+        }, this);
+        this.widgets = [];
+      } else {
+        this.widgets = [];
+      }
+
       // We instantiate the widget views
       collection.forEach(function (indicator, index) {
-        var chart = new App.View.ChartWidgetView({
+        var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
           id: indicator.indicator,
           iso: this.options.iso,
@@ -230,7 +241,9 @@
           filters: this.options._filters
         });
 
-        this.listenTo(chart, 'data:sync', this._onWidgetSync);
+        this.widgets.push(widget);
+
+        this.listenTo(widget, 'data:sync', this._onWidgetSync);
       }, this);
     }
 
