@@ -158,7 +158,6 @@
     },
 
     _openFilterModal: function () {
-      console.log(this.options._indicatorsData);
       new App.View.FilterIndicatorsModal({
         indicators: this.options._indicatorsData,
         filters: this.options.filters

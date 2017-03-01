@@ -10,6 +10,7 @@
     },
 
     render: function () {
+      console.log(this.filters);
       this.$el.html(this.template({
         indicators: this.indicators
       }));
