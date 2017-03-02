@@ -31,7 +31,14 @@
    * @returns {string[]}
    */
   App.Helper.WidgetToolbox.prototype.getAvailableCharts = function () {
-    return this.jiminy.recommendation();
+    var isComplexIndicator = !!this.dataset[0].id;
+    var availableCharts = this.jiminy.recommendation();
+
+    return availableCharts.filter(function (chartName) {
+      var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
+      var isComplexChart = chart.complex;
+      return (isComplexIndicator && isComplexChart) || (!isComplexIndicator && !isComplexChart);
+    });
   };
 
   /**

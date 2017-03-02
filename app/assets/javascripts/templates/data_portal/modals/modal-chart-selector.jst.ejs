@@ -2,7 +2,7 @@
   <% charts.forEach(function (chart) { %>
 
     <div class="c-radio-button">
-      <input type="radio" value="<%= chart.name %>" name="chart" <%= chart.selected ? 'checked' : '' %> id="radio-<%= chart.name %>" class="js-option" />
+      <input type="radio" value="<%= chart.name %>" name="chart" <%= chart.selected ? 'checked' : '' %> <%= !chart.available ? 'disabled' : '' %> id="radio-<%= chart.name %>" class="js-option" />
       <label for="radio-<%= chart.name %>">
         <%= chart.name.slice(0, 1).toUpperCase() + chart.name.slice(1, chart.name.length) %>
         <img src="/images/charts/<%= chart.name %>-chart-icon.svg" alt="<%= chart.name %> chart" />
