@@ -22,6 +22,7 @@
   });
 
   var INDICATORS = [
+    { indicator: 'savings_strand' },
     { indicator: 'geographic_area' },
     { indicator: 'gender' },
     { indicator: 'i2i_Marital_Status' },
@@ -57,7 +58,7 @@
       // NOTE: Do not set this property at instantiation time
       // The structure is:
       // [
-      //   { name: 'My indicator', options: ['Option 1', 'Option 2'] }
+      //   { id: 'my-indicator', name: 'My indicator', options: ['Option 1', 'Option 2'] }
       // ]
       // NOTE: There isn't any order guaranteed
       _indicatorsData: [],
@@ -82,10 +83,11 @@
 
     /**
      * Event listener executed when a widget has successfully fetched its data
-     * @param {{ name: string, data: object[] }} event
+     * @param {{ id: string, name: string, data: object[] }} event
      */
     _onWidgetSync: function (event) {
-      this._updateIndicatorsData(event.name, event.data);
+      this._updateIndicatorsData(event.id, event.name, event.data);
+      this._updateWidgetContainer(event.id, event.data);
     },
 
     /**
@@ -99,16 +101,18 @@
 
     /**
      * Update this.options._indicatorsData with the data passed as argument
+     * @param {string} indicatorId
      * @param {string} indicatorName
      * @param {object[]} data
      */
-    _updateIndicatorsData: function (indicatorName, data) {
+    _updateIndicatorsData: function (indicatorId, indicatorName, data) {
       var indicator = {
+        id: indicatorId,
         name: indicatorName,
         options: data.map(function (option) { return option.label; })
       };
 
-      var previousIndicator = _.findWhere(this.options._indicatorsData, { name: indicatorName });
+      var previousIndicator = _.findWhere(this.options._indicatorsData, { id: indicatorId });
       if (previousIndicator) {
         previousIndicator = indicator;
       } else {
@@ -191,6 +195,23 @@
       }
 
       return fragment;
+    },
+
+    /**
+     * Update the size of the widget container depending on
+     * if it's a complex indicator or not
+     * @param {string} indicatorId
+     * @param {object[]} data
+     */
+    _updateWidgetContainer: function (indicatorId, data) {
+      if (!data.length) return;
+
+      var widgetToolbox = new App.Helper.WidgetToolbox(data);
+      var isComplexWidget = widgetToolbox.isComplexWidget();
+      if (isComplexWidget) {
+        var index = _.findIndex(this.indicatorsCollection.toJSON(), { indicator: indicatorId });
+        this.widgetsContainer.children[index].classList.remove('grid-l-6');
+      }
     },
 
     /**
