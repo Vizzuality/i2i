@@ -5,7 +5,7 @@
     initialize: function () {},
 
     render: function () {
-      this.el.innerHTML = '<h1>hi</h1>';
+      this.el.innerHTML = '';
 
       return this;
     }
