@@ -105,7 +105,10 @@
     _onClickDone: function () {
       var form = document.querySelector('form');
 
-      if (form === null) return;
+      if (form === null) {
+        this.constructor.__super__.onCloseModal.apply(this);
+        return;
+      }
 
       var newFilters = this._serializeForm(form);
 
