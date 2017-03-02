@@ -92,7 +92,7 @@
         // Triggers a Backbone event with the name of the tab selected to
         // communicate other views that tab has been selected
         var tabIndex = this.options.tabs[index].id;
-        Backbone.Events.trigger('tab:selected', { id: tabIndex });
+        this.trigger('tab:selected', { id: tabIndex });
       }
     },
 

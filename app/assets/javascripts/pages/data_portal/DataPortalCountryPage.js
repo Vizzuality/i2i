@@ -65,7 +65,7 @@
       // List of active filters
       // Follow the same structure as _indicatorsData
       // NOTE: Do not set this property at instantiation time
-      _filters: [{}]
+      _filters: []
     },
 
     events: {

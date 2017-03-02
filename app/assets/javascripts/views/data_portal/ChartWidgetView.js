@@ -12,7 +12,7 @@
     url: function() {
       var url =  API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
 
-      if (this.filters.length >= 1 && !_.isEmpty(this.filters[0])) {
+      if (this.filters.length) {
         var filters = this.filters.map(function (filter) {
           return {
             indicatorId: filter.id,

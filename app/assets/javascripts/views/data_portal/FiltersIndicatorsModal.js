@@ -55,22 +55,59 @@
     _setEventListeners: function () {
       this.constructor.__super__._setEventListeners.apply(this);
 
-      Backbone.Events.on('tab:selected', function (tab) {
+      this.listenTo(this.tabView, 'tab:selected', function (tab) {
         this._onTabSelected(tab.id);
       }.bind(this));
     },
 
     _onTabSelected(tabId) {
-      var FilterView = _.find(this.pages, function (page) { return page.id === tabId; }).view;
-      $('#filterContainer').html(new FilterView({
+      this.FilterView = _.find(this.pages, function (page) { return page.id === tabId; }).view;
+      $('#filterContainer').html(new this.FilterView({
         indicators: this.indicators,
         filters: this.filters
       }).render().$el);
     },
 
+    _serializeForm(form) {
+      var filters = [],
+        elements = form.querySelectorAll('input, select, textarea'),
+        element,
+        name,
+        value;
+
+      if (elements.length === 0) return null;
+
+      for(var i = 0; i < elements.length; i += 1) {
+        element = elements[i];
+        name = element.name;
+        value = element.value;
+
+        if (element.type === 'checkbox') {
+          if (element.checked) {
+            var entry = _.findWhere(filters, { id: name });
+
+            if (entry === undefined) {
+              entry = {
+                id: name,
+                options: [value]
+              };
+              filters.push(entry);
+            } else {
+              entry.options.push(value);
+            }
+          }
+        }
+      }
+
+      return filters;
+    },
+
     _onClickDone: function () {
       var form = document.querySelector('form');
-      var newFilters = App.Helper.SerializeFilters(form);
+
+      if (form === null) return;
+
+      var newFilters = this._serializeForm(form);
 
       this.options.continueCallback(newFilters);
 
@@ -83,7 +120,7 @@
       requestIdleCallback(function () {
         this.constructor.__super__.render.apply(this);
 
-        new App.View.TabView({
+        this.tabView = new App.View.TabView({
           el: '#tabContainer',
           tabs: [
             { name: 'Select indicators', id: 'select-indicators' },
