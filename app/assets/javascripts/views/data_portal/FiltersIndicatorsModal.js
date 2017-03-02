@@ -117,21 +117,19 @@
     render: function () {
       this.options.content = this.contentTemplate();
 
-      requestIdleCallback(function () {
-        this.constructor.__super__.render.apply(this);
+      this.constructor.__super__.render.apply(this);
 
-        this.tabView = new App.View.TabView({
-          el: '#tabContainer',
-          tabs: [
-            { name: 'Select indicators', id: 'select-indicators' },
-            { name: 'Apply filters', id: 'apply-filters' }
-          ],
-          currentTab: this.defaults.tab.index
-        });
+      this.tabView = new App.View.TabView({
+        el: '#tabContainer',
+        tabs: [
+          { name: 'Select indicators', id: 'select-indicators' },
+          { name: 'Apply filters', id: 'apply-filters' }
+        ],
+        currentTab: this.defaults.tab.index
+      });
 
-        this._setEventListeners();
-        this._onTabSelected(this.defaults.tab.name);
-      }.bind(this));
+      this._setEventListeners();
+      this._onTabSelected(this.defaults.tab.name);
     }
 
   });
