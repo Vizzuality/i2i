@@ -2,7 +2,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
+  width: calc(100% - 40px);
   max-width: 880px;
   transform: translate(-50%, -50%);
   background: $color-4;
@@ -18,23 +18,6 @@
     font-weight: $font-weight-medium;
     line-height: 1.5;
     text-shadow: 0 2px 3px rgba($color-6, .15);
-  }
-
-  .modal-content {
-
-    &.-team {
-      display: flex;
-      flex-wrap: wrap;
-
-      > .member-picture {
-        max-width: 340px;
-      }
-
-      > .member-picture > img {
-        width: 100%;
-        height: 100%;
-      }
-    }
   }
 
   .modal-footer {

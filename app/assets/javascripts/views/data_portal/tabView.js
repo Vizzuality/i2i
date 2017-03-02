@@ -126,7 +126,8 @@
       if (tabs.length === 0) return this;
 
       this.$el.html(this.template({
-        tabs: this.options.tabs
+        tabs: this.options.tabs,
+        cssClass: this.options.cssClass
       }));
 
       this._setVars();

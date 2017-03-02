@@ -5,7 +5,7 @@ $checkbox-radio-button: 10px;
   position: relative;
 
   &:hover {
-    background-color: $color-3;
+    background-color: rgba($color-1, .1);
   }
 
   input[type='checkbox'] {
@@ -25,7 +25,7 @@ $checkbox-radio-button: 10px;
     display: inline-block;
     flex-basis: 100%;
     padding: $checkbox-radio-button $checkbox-radio-button $checkbox-radio-button #{ 4 * $checkbox-radio-button};
-    font-family: $font-family-2;
+    font-family: $font-family-1;
     font-weight: $font-weight-medium;
     cursor: pointer;
 

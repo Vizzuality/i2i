@@ -1,4 +1,4 @@
-<ul class="c-tabs">
+<ul class="c-tabs <% if(cssClass) { %> <%= cssClass %> <% } %> ">
   <% tabs.forEach(function(tab) { %>
     <li class="tab" role="tab"
       <% if (<%= tab.id %>) { %>

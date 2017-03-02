@@ -8,7 +8,7 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button class="c-button -outline -padding js-cancel">Cancel</button><button class="c-button -white -padding js-done">Done</button>',
+      footer: '<button class="c-button -white -outline -padding js-cancel">Cancel</button><button class="c-button -white -padding js-done">Done</button>',
       // settings for default tab to show
       tab: {
         name: 'apply-filters',

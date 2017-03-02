@@ -1,0 +1,73 @@
+
+.c-modal-filters {
+
+  > .filters-tabs {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+
+
+    background-color: rgba($color-1, .1);
+  }
+
+  > .filters-tabs .tab {
+    color: $color-1;
+    font-family: $font-family-1;
+    font-size: $font-size-xs;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin: 0 30px 0 0;
+    }
+
+    &[aria-selected='true'] {
+      position: relative;
+      color: $color-5;
+
+      &::after {
+        display: inline-block;
+        position: absolute;
+        bottom: -15px;
+        width: 100%;
+        height: 6px;
+
+        outline: none;
+        background-color: $color-1;
+        content: '';
+      }
+    }
+  }
+
+  .filter-selection {
+    max-height: 450px;
+    padding: 25px 30px;
+    overflow-y: auto;
+
+    .filter-list > .filter-item {
+      width: 100%;
+
+      &:not(:last-child) {
+        margin: 0 0 15px;
+      }
+
+      > .indicator-name {
+        display: inline-block;
+        margin: 0 0 10px;
+
+        color: $color-5;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    .filter-list > .filter-item > .indicator-filters-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      > .indicator-filters-item {
+        flex-basis: calc(100% / 3);
+      }
+    }
+  }
+}
