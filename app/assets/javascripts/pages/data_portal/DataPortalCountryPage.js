@@ -22,6 +22,7 @@
   });
 
   var INDICATORS = [
+    { indicator: 'savings_strand' },
     { indicator: 'geographic_area' },
     { indicator: 'gender' },
     { indicator: 'i2i_Marital_Status' },
@@ -183,7 +184,8 @@
 
       for (var i = 0, j = count; i < j; i++) {
         var div = document.createElement('div');
-        div.classList.add('grid-s-12', 'grid-l-6');
+        // div.classList.add('grid-s-12', 'grid-l-6');
+        div.classList.add('grid-s-12');
         var widget = document.createElement('div');
         widget.classList.add('c-widget');
         div.appendChild(widget);
