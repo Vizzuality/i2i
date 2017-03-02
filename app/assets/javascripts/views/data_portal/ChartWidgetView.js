@@ -15,10 +15,10 @@
       if (this.filters.length) {
         var filters = this.filters.map(function (filter) {
           return {
-            indicatorId: filter.name,
+            indicatorId: filter.id,
             value: filter.options
           };
-        });
+        }.bind(this));
         url += '&filters=' + JSON.stringify(filters);
       }
 

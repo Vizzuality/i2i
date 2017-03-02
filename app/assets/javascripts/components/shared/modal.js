@@ -113,7 +113,7 @@
       this._setEventListeners();
 
       // We focus the first focusable element of the modal
-      if (this.focusableElements.length) {
+      if (this.focusableElements !== undefined && this.focusableElements.length) {
         this.focusableElements[0].focus();
       }
 
