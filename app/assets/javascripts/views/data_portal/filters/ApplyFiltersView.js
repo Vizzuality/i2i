@@ -5,30 +5,43 @@
     template: JST['templates/data_portal/filters/apply-filters'],
 
     initialize: function (options) {
-      this.indicators = options.indicators;
+      // clones array with an object array inside
+      this._indicators = options.indicators.map(function (indicator) {
+        return {
+          name: indicator.name,
+          id: indicator.id,
+          options: Array.prototype.slice.call(indicator.options, 0)
+        };
+      });
+
       this.filters = options.filters;
     },
 
     _getFilteredIndicators: function () {
-      var filteredIndicators = this.indicators;
+      var filteredIndicators = this._indicators;
 
       filteredIndicators.forEach(function (indicator) {
-        var filteredIndicator = _.findWhere(this.filters, { id: indicator.id });
+        var isFiltered = _.findWhere(this.filters, { id: indicator.id });
         var filters = [];
 
-        console.log(indicator.options);
-
-        indicator.options.forEach(function (option) {
-          filters.push({
-            name: option,
-            filtered: filteredIndicator !== undefined
+        if (isFiltered === undefined) {
+          indicator.options.forEach(function (option) {
+            filters.push({
+              name: option,
+              filtered: false
+            });
           });
-        });
+        } else {
+          indicator.options.forEach(function (option, index) {
+            filters.push({
+              name: option,
+              filtered: isFiltered.options.indexOf(option) !== -1
+            });
+          });
+        }
 
         indicator.options = filters;
-      });
-
-      console.log(filteredIndicators);
+      }.bind(this));
 
       return filteredIndicators;
     },
