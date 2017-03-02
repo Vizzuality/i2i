@@ -30,6 +30,7 @@
         title: data.title,
         data: data.data.map(function (answer) {
           return {
+            id: answer.answerId,
             label: answer.value.slice(0, 22) + (answer.value.length > 21 ? '...' : ''),
             count: answer.count,
             total: answer.sum,
@@ -56,6 +57,7 @@
 
     defaults: {
       // Ratio between the height and the width (i.e. height = chartRatio * width)
+      // This ratio can be updated according to the chart config App.Helper.ChartConfig
       chartRatio: 0.5,
       // Name of the default chart type
       chart: null,
@@ -163,6 +165,7 @@
           // If the indicator doesn't have any data, we also want to send an event
           // to notify the parent view about it
           this.trigger('data:sync', {
+            id: this.options.id,
             name: this.model.get('title'),
             data: data
           });
@@ -218,7 +221,7 @@
       });
 
       var width = Math.round(containerDimensions.width - padding.left - padding.right);
-      var height = Math.round(width * this.options.chartRatio);
+      var height = Math.round(width * this._getChartRatio());
 
       // We save the current dimensions of the chart to diff them whenever the window is resized in order to minimize
       // the number of re-renders
@@ -239,6 +242,15 @@
      */
     _getChartTemplate: function () {
       return JST['templates/data_portal/widgets/' + this.options.chart];
+    },
+
+    /**
+     * Get the chart ratio
+     * @returns {number}
+     */
+    _getChartRatio: function () {
+      var chartConfig = _.findWhere(App.Helper.ChartConfig, { name: this.options.chart });
+      return chartConfig.ratio || this.options.chartRatio;
     },
 
     /**

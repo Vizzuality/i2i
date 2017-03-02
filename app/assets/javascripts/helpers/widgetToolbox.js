@@ -27,11 +27,19 @@
   };
 
   /**
+   * Return whether the widget is complex
+   * @return {boolean}
+   */
+  App.Helper.WidgetToolbox.prototype.isComplexWidget = function () {
+    return !!this.dataset[0].id;
+  };
+
+  /**
    * Return the list of charts that can be generated with the dataset
    * @returns {string[]}
    */
   App.Helper.WidgetToolbox.prototype.getAvailableCharts = function () {
-    var isComplexIndicator = !!this.dataset[0].id;
+    var isComplexIndicator = this.isComplexWidget();
     var availableCharts = this.jiminy.recommendation();
 
     return availableCharts.filter(function (chartName) {
