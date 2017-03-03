@@ -60,7 +60,7 @@
       }.bind(this));
     },
 
-    _onTabSelected(tabId) {
+    _onTabSelected: function (tabId) {
       this.FilterView = _.find(this.pages, function (page) { return page.id === tabId; }).view;
       $('#filterContainer').html(new this.FilterView({
         indicators: this.indicators,
