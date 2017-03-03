@@ -68,7 +68,7 @@
       }).render().$el);
     },
 
-    _serializeForm(form) {
+    _serializeForm: function(form) {
       var filters = [],
         elements = form.querySelectorAll('input, select, textarea'),
         element,
