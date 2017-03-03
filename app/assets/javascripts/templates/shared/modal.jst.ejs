@@ -1,6 +1,10 @@
 <div class="veil"></div>
 <div class="c-modal">
   <div id="modal-content" class="js-modal-content">
+    <% if (showTitle) { %>
+      <h1 class="modal-title"><%= title %></h1>
+    <% } %>
     <%= content %>
+    <footer class="modal-footer"><%= footer %></footer>
   </div>
 </div>

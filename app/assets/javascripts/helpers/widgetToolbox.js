@@ -27,11 +27,26 @@
   };
 
   /**
+   * Return whether the widget is complex
+   * @return {boolean}
+   */
+  App.Helper.WidgetToolbox.prototype.isComplexWidget = function () {
+    return !!this.dataset[0].id;
+  };
+
+  /**
    * Return the list of charts that can be generated with the dataset
    * @returns {string[]}
    */
   App.Helper.WidgetToolbox.prototype.getAvailableCharts = function () {
-    return this.jiminy.recommendation();
+    var isComplexIndicator = this.isComplexWidget();
+    var availableCharts = this.jiminy.recommendation();
+
+    return availableCharts.filter(function (chartName) {
+      var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
+      var isComplexChart = chart.complex;
+      return (isComplexIndicator && isComplexChart) || (!isComplexIndicator && !isComplexChart);
+    });
   };
 
   /**

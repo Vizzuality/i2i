@@ -1,5 +1,7 @@
+<% title 'i2i' %>
+
 <div class="l-homepage">
-  <div class="l-intro" style="background-image: url(images/headers/header-bg-home.jpg)">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
     <div class="wrapper">
       <%= render partial: 'shared/header', locals: { isCover: true } %>
       <div class="c-hero">
@@ -14,15 +16,14 @@
     </div>
   </div>
 
-  <div class="homepage-section -government" style="background-image: url(images/homepage/home-bg-1b.png)">
+  <div class="homepage-section -government"
+    style="background-image: url(<%= asset_path('homepage/home-bg-1b.png') %>)"
+  >
     <div class="wrapper">
-      <img src="images/homepage/home-bg-1a.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-1a.png') %>" alt="graphics">
       <div id="governments" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">Governments</h3>
-        <p>Generic introduction text lorem ipsum id elit non mi
-          porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.
-          lorem ipsum id elit non mi porta gravida at eget metus. Aenean lacinia
-          bibendum nulla sed consectetur.
+        <h3 class="title -dark -medium">Financial services providers.</h3>
+        <p>Data is increasingly important for all types of markets players including banks, Fintech, payment providers, credit providers, insurance companies, MFIs, cooperatives, and others. This data portal makes new tools and data sets available to help market players deepen their understanding of client behaviour and needs, and identify new market opportunities.
         </p>
         <a href="<%= data_portal_path %>" class="c-button">Select a country</a>
       </div>
@@ -32,27 +33,21 @@
   <div class="homepage-section -researcher">
     <div class="wrapper">
       <div id="researchers" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">Researcher</h3>
-        <p>Generic introduction text lorem ipsum id elit non mi
-          porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.
-          lorem ipsum id elit non mi porta gravida at eget metus. Aenean lacinia
-          bibendum nulla sed consectetur.
+        <h3 class="title -dark -medium">Policymakers and regulators.</h3>
+        <p>Data is increasingly used to inform, measure and evaluate financial inclusion policies. The data portal offers data and indicators for policymakers and regulators to compare their jurisdiction with their peers, identify under- and un-served populations that require interventions, and understand the state of financial inclusion.
         </p>
         <a href="<%= data_portal_path %>" class="c-button">Customize indicators</a>
       </div>
-      <img src="images/homepage/home-bg-2.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-2.png') %>" alt="country-map">
     </div>
   </div>
 
   <div class="homepage-section -fsp-tech">
     <div class="wrapper">
-      <img src="images/homepage/home-bg-3.png" alt="">
+      <img src="<%= asset_path('homepage/home-bg-3.png') %>" alt="indicators">
       <div id="fsp-tech" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">FSP Tech.</h3>
-        <p>Generic introduction text lorem ipsum id elit non mi
-          porta gravida at eget metus. Aenean lacinia bibendum nulla sed consectetur.
-          lorem ipsum id elit non mi porta gravida at eget metus. Aenean lacinia
-          bibendum nulla sed consectetur.
+        <h3 class="title -dark -medium">Researchers</h3>
+        <p>Data is a critical input for researchers looking to deepen our understanding of financial inclusion and its ultimate impact on communities and households. The data portal provides a one-stop- shop for your financial inclusion data needs by gathering, cleaning, and making previously inaccessible datasets available to download and interact with.
         </p>
         <a href="<%= data_portal_path %>" class="c-button">Draw up reports</a>
       </div>

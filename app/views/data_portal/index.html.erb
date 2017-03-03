@@ -1,5 +1,7 @@
+<% title 'Data Portal' %>
+
 <div class="l-data-portal">
-  <div class="l-intro" style="background-image: url(images/headers/header-bg-about.jpg)">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
     <div class="wrapper">
       <%= render partial: 'shared/header', locals: { isCover: true }%>
     </div>
@@ -11,6 +13,7 @@
             <div class="grid-l-8">
               <div class="row">
                 <h1 class="title -light -huge">i2i Data Portal</h1>
+                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world. Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
               </div>
             </div>
             <div class="grid-s-12 grid-l-8">
@@ -19,19 +22,19 @@
                   <div class="grid-s-4 grid-l-3">
                     <div class="data-stats-item">
                       <span class="data-stats-title">Datasets</span>
-                      <span class="data-stats-value">355</span>
+                      <span class="data-stats-value"></span>
                     </div>
                   </div>
                   <div class="grid-s-4 grid-l-3">
                     <div class="data-stats-item">
                       <span class="data-stats-title">Household surveys</span>
-                      <span class="data-stats-value">84</span>
+                      <span class="data-stats-value"></span>
                     </div>
                   </div>
                   <div class="grid-s-4 grid-l-3">
                     <div class="data-stats-item">
                       <span class="data-stats-title">Geospatial data</span>
-                      <span class="data-stats-value">615</span>
+                      <span class="data-stats-value"></span>
                     </div>
                   </div>
                 </div>
@@ -46,8 +49,7 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="l-card-grid">
-        <div class="row js-countries">
-        </div>
+        <div class="row js-countries"></div>
       <div class="row">
         <div class="grid-s-12">
           <div class="grid-footer">

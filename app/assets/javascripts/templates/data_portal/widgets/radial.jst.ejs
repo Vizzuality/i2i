@@ -1,0 +1,206 @@
+{
+  "width": <%= width %>,
+  "height": <%= height %>,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [{"type": "filter","test": "datum.label.length"}]
+    },
+    {
+      "name": "count",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": {"label": "count"}
+        }
+      ]
+    },
+    {
+      "name": "final",
+      "source": "table",
+      "transform": [
+        {"type": "cross","with": "count"},
+        {
+          "type": "formula",
+          "field": "outerRadius",
+          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (datum.b.count_label - 1) * 50) / datum.b.count_label"
+        },
+        {
+          "type": "formula",
+          "field": "innerRadius",
+          "expr": "datum.outerRadius - 7"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapDiameter",
+          "expr": "(datum.outerRadius - datum.innerRadius)"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapRadiusPos",
+          "expr": "datum.innerRadius + datum.lineCapDiameter / 2"
+        },
+        {
+          "type": "formula",
+          "field": "labelPos",
+          "expr": "(<%= isNaN(height) ? '0' : height %> - datum.outerRadius * 2) / 4"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "ordinal",
+      "range": "width",
+      "domain": {"data": "table","field": "label"},
+      "points": true,
+      "padding": 1
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "table",
+        "field": "label"
+      },
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
+    },
+    {
+      "name": "radius",
+      "type": "linear",
+      "domain": [0, 100],
+      "range": [0, 6.2831853072]
+    }
+  ],
+  "marks": [
+    {
+      "type": "arc",
+      "from": {"data": "final"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.label"},
+          "y": {"field": {"group": "height"},"mult": 0.5},
+          "innerRadius": {"field": "innerRadius"},
+          "outerRadius": {"field": "outerRadius"},
+          "startAngle": {"value": 0},
+          "endAngle": {"value": 6.2831853072},
+          "fill": {"field": "a.label", "scale": "color"},
+          "opacity": {"value": 0.2}
+        }
+      }
+    },
+    {
+      "type": "arc",
+      "from": {"data": "final"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.label"},
+          "y": {"field": {"group": "height"},"mult": 0.5},
+          "innerRadius": {"field": "innerRadius"},
+          "outerRadius": {"field": "outerRadius"},
+          "startAngle": {"value": 0},
+          "endAngle": {"field": "a.percentage", "scale": "radius"},
+          "fill": {"field": "a.label", "scale": "color"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "final" },
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.label"},
+          "y": {"field": {"group": "height"},"mult": 0.5},
+          "font": {"value": "Chalet"},
+          "fontWeight": {"value": "400"},
+          "fontSize": {"value": 24},
+          "fill": { "value": "#001d22" },
+          "text": { "template": "{{datum.a.percentage|number:'.2f'}}%" },
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "final" },
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.label"},
+          "y": {"field": "labelPos"},
+          "font": {"value": "inherit"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 16},
+          "fill": { "value": "#001d22" },
+          "text": { "field": "a.label" },
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": "final",
+        "transform": [
+          {
+            "type": "formula",
+            "field": "size",
+            "expr": "datum.lineCapDiameter * datum.lineCapDiameter - 10"
+          },
+          {
+            "type": "formula",
+            "field": "endCapAngle",
+            "expr": "scale('radius', datum.a.percentage)"
+          },
+          {
+            "type": "formula",
+            "field": "endCapX",
+            "expr": "cos(datum.endCapAngle - 1.5707963268) * datum.lineCapRadiusPos"
+          },
+          {
+            "type": "formula",
+            "field": "endCapY",
+            "expr": "sin(datum.endCapAngle - 1.5707963268) * datum.lineCapRadiusPos"
+          }
+        ]
+      },
+      "properties": {
+        "enter": {
+          "x": {"scale": "x", "field": "a.label"},
+          "y": {"field": {"group": "height"}, "mult": 0.5}
+        }
+      },
+      "marks": [
+        {
+          "type": "symbol",
+          "properties": {
+            "enter": {
+              "x": {"value": 0},
+              "y": {"field": {"parent": "lineCapRadiusPos"}, "mult": -1},
+              "shape": "circle",
+              "size": {"field": {"parent": "size"}},
+              "fill": {"field": {"parent": "a.label"}, "scale": "color"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "properties": {
+            "enter": {
+              "x": {"field": {"parent": "endCapX"}},
+              "y": {"field": {"parent": "endCapY"}},
+              "shape": "circle",
+              "size": {"field": {"parent": "size"}},
+              "fill": {"field": {"parent": "a.label"}, "scale": "color"}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

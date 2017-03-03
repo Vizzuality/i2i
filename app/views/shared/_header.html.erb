@@ -6,7 +6,7 @@
     <nav class="c-nav" role="navigation">
       <ul class="nav-list">
     		<li class="nav-item
-          <% if current_page?(data_portal_path) %>
+          <% if controller.controller_name == 'data_portal' %>
             -current <% end%>
         ">
           <%= link_to 'Data portal', data_portal_path %>

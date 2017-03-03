@@ -1,5 +1,7 @@
+<% title 'News' %>
+
 <div class="l-news">
-  <div class="l-intro" style="background-image: url(images/headers/header-bg-news.jpg)">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-news.jpg') %>)">
     <div class="wrapper">
       <%= render partial: 'shared/header', locals: { isCover: true }%>
     </div>
@@ -10,8 +12,7 @@
           <div class="c-hero">
             <div class="grid-l-6">
               <h1 class="title -light -huge">News</h1>
-              <p class="subtitle">Description text. Lorem ipsum sit amet ornare
-                sem lacinia quam venenatis vestibulum.</p>
+              <p class="subtitle">Stay up-to- date with the latest news, events, and blogs from us and our partners.</p>
             </div>
           </div>
         </div>

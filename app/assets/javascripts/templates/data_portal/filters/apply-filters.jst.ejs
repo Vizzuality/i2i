@@ -1,0 +1,23 @@
+<div class="filter-selection">
+  <form action="#" name="apply-filter-form">
+    <ul class="filter-list">
+      <% indicators.forEach(function(ind) { %>
+        <li class="filter-item">
+          <span class="indicator-name"><%= ind.name %></span>
+          <ul class="indicator-filters-list">
+            <% ind.options.forEach(function(opt) { %>
+              <li class="indicator-filters-item">
+                <div class="c-checkbox">
+                  <input type="checkbox" <% if(opt.filtered) { %> checked <% } %> name="<%= ind.id %>"
+                    value="<%= opt.name %>" id="<%= opt.name %>"
+                  >
+                  <label for="<%= opt.name %>"><%= opt.name %></label>
+                </div>
+              </li>
+            <% }); %>
+          </ul>
+        </li>
+      <% }); %>
+    </ul>
+  </form>
+</div>

@@ -2,13 +2,13 @@
 <html lang="<%= I18n.locale %>">
   <head>
     <meta charset="utf-8">
-    <title>I2i</title>
+    <title><%= yield :title %> - Insight to Impact</title>
     <%= csrf_meta_tags %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'data_portal', 'data-turbolinks-track': 'reload' %>
+    <%= yield :head %>
   </head>
   <body>
     <%= render partial: 'shared/icons' %>

@@ -15,8 +15,20 @@
       'click .veil': 'onCloseModal'
     },
 
+    // Do not add a defaults object here because it will be overriden
+    // by the inherited view without possibility to merge the two of them
+
     initialize: function (options) {
-      this.options = options;
+      this.options = _.extend({
+        // Show the title of the modal to the user
+        showTitle: false,
+        // Title of the modal – mandatory for accessibility
+        title: 'Untitled modal',
+        // Content of the modal
+        content: '',
+        // Modal footer
+        footer: ''
+      }, this.defaults, options);
 
       // Binded functions
       this.onKeyDownBinded = this._onKeyDown.bind(this);
@@ -25,9 +37,6 @@
     },
 
     _setVars: function () {
-      // children inherit this var and use it to render the content
-      this.content = {};
-      this.title = 'Untitled modal';
       this.body = document.querySelector('body');
     },
 
@@ -86,7 +95,10 @@
 
     render: function () {
       $(this.body).append(this.$el.html(this.template({
-        content: this.content
+        showTitle: this.options.showTitle,
+        title: this.options.title,
+        content: this.options.content,
+        footer: this.options.footer
       })));
 
       // Element that had the focus when the modal opened
@@ -94,14 +106,14 @@
 
       // We add some attributes for the accessibility
       this.el.setAttribute('role', 'dialog');
-      this.el.setAttribute('aria-label', this.title);
+      this.el.setAttribute('aria-label', this.options.title);
       this.el.setAttribute('tabindex', '0');
 
       // We attach the event listeners
       this._setEventListeners();
 
       // We focus the first focusable element of the modal
-      if (this.focusableElements.length) {
+      if (this.focusableElements !== undefined && this.focusableElements.length) {
         this.focusableElements[0].focus();
       }
 
