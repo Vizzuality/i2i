@@ -8,7 +8,7 @@ ActiveAdmin.register News do
   controller do
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit news: [:title, :summary, :content, :id, :image, :date, :highlight]
+      params.permit news: [:title, :author, :summary, :content, :id, :image, :date, :highlight]
     end
   end
 
@@ -27,6 +27,7 @@ ActiveAdmin.register News do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
       f.input :highlight
+      f.input :author
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -44,6 +45,7 @@ ActiveAdmin.register News do
   show do |ad|
     attributes_table do
       row :title
+      row :author
       row :summary
       row :content
       row :image do

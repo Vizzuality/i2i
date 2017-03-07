@@ -7,7 +7,7 @@ ActiveAdmin.register Event do
 
   controller do
     def permitted_params
-      params.permit event: [:title, :summary, :content, :id, :image, :date]
+      params.permit event: [:title, :author, :summary, :content, :id, :image, :date]
     end
   end
 
@@ -26,6 +26,7 @@ ActiveAdmin.register Event do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Event details' do
       f.input :title
+      f.input :author
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date
@@ -42,6 +43,7 @@ ActiveAdmin.register Event do
   show do |ad|
     attributes_table do
       row :title
+      row :author
       row :summary
       row :content
       row :image do

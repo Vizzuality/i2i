@@ -14,6 +14,7 @@
 #  image_updated_at   :datetime
 #  date               :datetime
 #  highlight          :boolean
+#  author             :string
 #
 
 require 'test_helper'
