@@ -39,7 +39,7 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
-      f.input :date
+      f.input :date, as: :date_picker
       f.input :url_resource
       f.input :video_url
       f.input :image, as: :file, hint: f.object.image.present? ? \

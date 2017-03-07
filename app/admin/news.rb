@@ -31,7 +31,7 @@ ActiveAdmin.register News do
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
-      f.input :date
+      f.input :date, as: :date_picker
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
@@ -54,7 +54,4 @@ ActiveAdmin.register News do
       # Will display the image on show object page
     end
   end
-
-
-
 end
