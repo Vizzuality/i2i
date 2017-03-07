@@ -29,32 +29,25 @@
     },
 
     _getFilteredIndicators: function () {
-      var filteredIndicators = this._indicators;
-
-      filteredIndicators.forEach(function (indicator) {
+      this._indicators.forEach(function (indicator) {
         var isFiltered = _.findWhere(this.filters, { id: indicator.id });
-        var filters = [];
 
-        if (isFiltered === undefined) {
-          indicator.options.forEach(function (option) {
-            filters.push({
-              name: option,
-              filtered: false
-            });
-          });
-        } else {
-          indicator.options.forEach(function (option, index) {
-            filters.push({
-              name: option,
-              filtered: isFiltered.options.indexOf(option) !== -1
-            });
-          });
-        }
-
-        indicator.options = filters;
+        // We filter to remove the options that don't have a label
+        // Here we assume that all the options that don't are options of a strand
+        // indicator
+        // Strand indicators have each answer duplicated, but with different values:
+        // one for the people who selected the answer, the other for the people who didn't
+        indicator.options = indicator.options.filter(function (option) {
+          return option.length;
+        }).map(function (option, index) {
+          return {
+            name: option,
+            filtered: isFiltered && isFiltered.options.indexOf(option) !== -1
+          };
+        });
       }.bind(this));
 
-      return filteredIndicators;
+      return this._indicators;
     },
 
     render: function () {
