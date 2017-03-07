@@ -14,6 +14,7 @@
 #  updated_at         :datetime         not null
 #  date               :datetime
 #  author             :string
+#  workstream         :string
 #
 
 class Blog < ApplicationRecord

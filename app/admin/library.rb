@@ -58,7 +58,7 @@ ActiveAdmin.register Library do
       row :summary
       row :content
       row :image do
-        image_tag(ad.image.url(:thumb))
+        image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
       # Will display the image on show object page
     end

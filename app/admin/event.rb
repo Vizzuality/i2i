@@ -7,7 +7,7 @@ ActiveAdmin.register Event do
 
   controller do
     def permitted_params
-      params.permit event: [:title, :author, :summary, :content, :id, :image, :date]
+      params.permit event: [:title, :author, :url, :summary, :content, :id, :image, :date]
     end
   end
 
@@ -27,6 +27,7 @@ ActiveAdmin.register Event do
     f.inputs 'Event details' do
       f.input :title
       f.input :author
+      f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date
@@ -44,10 +45,11 @@ ActiveAdmin.register Event do
     attributes_table do
       row :title
       row :author
+      row :url
       row :summary
       row :content
       row :image do
-        image_tag(ad.image.url(:thumb))
+        image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
       # Will display the image on show object page
     end

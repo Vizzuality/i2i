@@ -14,6 +14,7 @@
 #  updated_at         :datetime         not null
 #  date               :datetime
 #  author             :string
+#  url                :string
 #
 
 class Event < ApplicationRecord
@@ -25,6 +26,7 @@ class Event < ApplicationRecord
 
   validates_presence_of :title, maximum: 75
   validates_length_of :summary, maximum: 150, allow_blank: true
+  validates :url, url: true, if: 'url.present?'
 
   def set_date
     self.date ||= DateTime.now
