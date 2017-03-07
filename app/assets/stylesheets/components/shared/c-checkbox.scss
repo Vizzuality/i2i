@@ -27,12 +27,13 @@ $checkbox-radio-button: 10px;
     padding: $checkbox-radio-button $checkbox-radio-button $checkbox-radio-button #{ 4 * $checkbox-radio-button};
     font-family: $font-family-1;
     font-weight: $font-weight-medium;
+    line-height: 1.5;
     cursor: pointer;
 
     &::before {
       display: inline-block;
       position: absolute;
-      top: $checkbox-radio-button;
+      top: ($checkbox-radio-button + 3px); // The 3px compensate the line-height
       left: $checkbox-radio-button;
       width: 14px;
       height: 14px;

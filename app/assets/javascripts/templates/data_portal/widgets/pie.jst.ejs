@@ -9,7 +9,8 @@
       "transform": [
         {"type": "sort","by": "-percentage"},
         {"type": "pie", "field": "percentage"},
-        {"type": "rank", "field": "-column"}
+        {"type": "rank", "field": "-column"},
+        {"type": "formula", "field": "label", "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"}
       ]
     },
     {

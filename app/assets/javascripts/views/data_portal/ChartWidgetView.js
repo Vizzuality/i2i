@@ -31,7 +31,7 @@
         data: data.data.map(function (answer) {
           return {
             id: answer.answerId,
-            label: answer.value.slice(0, 22) + (answer.value.length > 21 ? '...' : ''),
+            label: answer.value,
             count: answer.count,
             total: answer.sum,
             percentage: answer.percentage

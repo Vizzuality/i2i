@@ -6,7 +6,10 @@
     {
       "name": "table",
       "values": <%= data %>,
-      "transform": [{"type": "filter","test": "datum.label.length"}]
+      "transform": [
+        {"type": "filter","test": "datum.label.length"},
+        {"type": "formula", "field": "label", "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"}
+      ]
     },
     {
       "name": "count",
