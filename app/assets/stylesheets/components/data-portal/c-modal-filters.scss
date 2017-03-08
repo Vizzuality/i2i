@@ -1,6 +1,4 @@
-
 .c-modal-filters {
-
   > .filters-tabs {
     display: flex;
     align-items: center;
@@ -40,7 +38,7 @@
   }
 
   .filter-selection {
-    max-height: 450px;
+    height: 450px;
     padding: 25px 30px;
     overflow-y: auto;
 
@@ -67,6 +65,30 @@
       align-items: center;
 
       > .indicator-filters-item {
+        flex-basis: calc(100% / 3);
+      }
+    }
+  }
+
+  .select-indicators {
+    height: 450px;
+    padding: 25px 30px;
+    overflow-y: auto;
+
+    h3 {
+      margin: 0 0 10px;
+      color: $color-5;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-bold;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      margin-bottom: 15px;
+
+      > li {
         flex-basis: calc(100% / 3);
       }
     }

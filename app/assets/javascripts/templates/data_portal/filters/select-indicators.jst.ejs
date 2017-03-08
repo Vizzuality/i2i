@@ -1,0 +1,15 @@
+<div class="select-indicators">
+  <% indicatorsbyCategories.forEach(function(group) { %>
+    <h3><%= group.name %></h3>
+    <ul>
+      <% group.indicators.forEach(function (indicator) { %>
+        <li>
+          <div class="c-checkbox">
+            <input type="checkbox" id="indicator-<%= indicator.id %>" value="<%= indicator.id %>" class="js-indicator" <%= indicator.visible ? 'checked' : '' %> />
+            <label for="indicator-<%= indicator.id %>"><%= indicator.name %></label>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  <% }); %>
+</div>

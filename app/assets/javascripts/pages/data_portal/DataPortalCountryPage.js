@@ -22,19 +22,19 @@
   });
 
   var INDICATORS = [
-    { id: 'geographic_area', category: 'Common Indicators', visible: false },
-    { id: 'gender', category: 'Common Indicators', visible: false },
-    { id: 'age', category: 'Common Indicators', visible: false },
-    { id: 'access_to_resources', category: 'Common Indicators', visible: false },
-    { id: 'dwelling_type', category: 'Common Indicators', visible: false },
-    { id: 'i2i_Marital_Status', category: 'i2i Standards', visible: false },
-    { id: 'i2i_Education', category: 'i2i Standards', visible: true },
-    { id: 'i2i_Income_Sources', category: 'i2i Standards', visible: true },
-    { id: 'fas_strand', category: 'Strands', visible: true },
-    { id: 'savings_strand', category: 'Strands', visible: true },
-    { id: 'credit_strand', category: 'Strands', visible: true },
-    { id: 'remittances_strand', category: 'Strands', visible: false },
-    { id: 'insurance_strand', category: 'Strands', visible: false }
+    { id: 'geographic_area', name: 'Geographic Area', category: 'Common Indicators', visible: false },
+    { id: 'gender', name: 'Gender', category: 'Common Indicators', visible: false },
+    { id: 'age',name: 'Age', category: 'Common Indicators', visible: false },
+    { id: 'access_to_resources', name: 'Access to Resources', category: 'Common Indicators', visible: false },
+    { id: 'dwelling_type', name: 'Dwelling type: roof/dwelling', category: 'Common Indicators', visible: false },
+    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'i2i Standards', visible: false },
+    { id: 'i2i_Education', name: 'Level of education', category: 'i2i Standards', visible: true },
+    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'i2i Standards', visible: true },
+    { id: 'fas_strand', name: 'FAS - Financial Access Strand', category: 'Strands', visible: true },
+    { id: 'savings_strand', name: 'Savings Strand', category: 'Strands', visible: true },
+    { id: 'credit_strand', name: 'Credit Strand', category: 'Strands', visible: true },
+    { id: 'remittances_strand', name: 'Remittances Strand', category: 'Strands', visible: false },
+    { id: 'insurance_strand', name: 'Insurance Strand', category: 'Strands', visible: false }
   ];
 
   // This object is used to detect the category of the indicators without having to repeat
@@ -70,16 +70,11 @@
       iso: null,
       // Current year
       year: null,
-      // List of the indicators with their associated data
-      // NOTE: Do not set this property at instantiation time
+      // List of active filters
       // The structure is:
       // [
       //   { id: 'my-indicator', name: 'My indicator', options: ['Option 1', 'Option 2'] }
       // ]
-      // NOTE: There isn't any order guaranteed
-      _indicatorsData: [],
-      // List of active filters
-      // Follow the same structure as _indicatorsData
       // NOTE: Do not set this property at instantiation time
       _filters: []
     },
@@ -108,32 +103,24 @@
 
     /**
      * Event listener executed when the filter are updated
+     * @param {string[]} visibleIndicators ids of the visible indicators
      * @param { { name: string, options: string[] }[] } filters
      */
-    _onFiltersUpdate: function (filters) {
-      this._updateFilters(filters);
+    _onFiltersUpdate: function (visibleIndicators, filters) {
+      if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
+      if (filters) this._updateFilters(filters);
       this._renderWidgets();
     },
 
     /**
-     * Update this.options._indicatorsData with the data passed as argument
+     * Update the indicators collection with the data passed as argument
      * @param {string} indicatorId
      * @param {string} indicatorName
      * @param {object[]} data
      */
     _updateIndicatorsData: function (indicatorId, indicatorName, data) {
-      var indicator = {
-        id: indicatorId,
-        name: indicatorName,
-        options: data.map(function (option) { return option.label; })
-      };
-
-      var previousIndicator = _.findWhere(this.options._indicatorsData, { id: indicatorId });
-      if (previousIndicator) {
-        previousIndicator = indicator;
-      } else {
-        this.options._indicatorsData.push(indicator);
-      }
+      var indicator = this.indicatorsCollection.find({ id: indicatorId });
+      indicator.set({ options: data.map(function (option) { return option.label; }) });
     },
 
     /**
@@ -142,6 +129,17 @@
      */
     _updateFilters: function (filters) {
       this.options._filters = filters;
+    },
+
+    /**
+     * Update the visible indicators in this.indicatorsCollection
+     * @param {string[]} visibleIndicators ids of the visible indicators
+     */
+    _updateVisibleIndicators: function(visibleIndicators) {
+      this.indicatorsCollection.forEach(function (model) {
+        var indicatorId = model.get('id');
+        model.set({ visible: visibleIndicators.indexOf(indicatorId) !== -1 });
+      });
     },
 
     /**
@@ -167,7 +165,7 @@
 
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
-        indicators: this.options._indicatorsData,
+        indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
         continueCallback: this._onFiltersUpdate.bind(this)
       });
