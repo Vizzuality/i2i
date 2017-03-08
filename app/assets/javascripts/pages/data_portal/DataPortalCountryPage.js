@@ -237,12 +237,17 @@
     },
 
     /**
-     * Return the list of visible indicators
+     * Return the sorted list of visible indicators
+     * NOTE: the strand indicators are always displayed first
      * @returns {object[]} widgets
      */
     _getVisibleIndicators: function () {
       return this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.visible;
+      }).sort(function (a, b) {
+        if (a.category === CATEGORIES.STRAND && b.category !== CATEGORIES.STRAND) return -1;
+        if (a.category !== CATEGORIES.STRAND && b.category === CATEGORIES.STRAND) return 1;
+        return 0;
       });
     },
 
