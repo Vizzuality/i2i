@@ -39,7 +39,7 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
-      f.input :date
+      f.input :date, as: :date_picker
       f.input :url_resource
       f.input :video_url
       f.input :image, as: :file, hint: f.object.image.present? ? \
@@ -54,11 +54,12 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
+      row :date
       row :title
       row :summary
       row :content
       row :image do
-        image_tag(ad.image.url(:thumb))
+        image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
       # Will display the image on show object page
     end

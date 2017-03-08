@@ -7,7 +7,7 @@ ActiveAdmin.register Blog do
 
   controller do
     def permitted_params
-      params.permit blog: [:title, :summary, :content, :id, :image, :date]
+      params.permit blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date]
     end
   end
 
@@ -26,9 +26,11 @@ ActiveAdmin.register Blog do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Blog details' do
       f.input :title
+      f.input :author
+      f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
-      f.input :date
+      f.input :date, as: :date_picker
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
@@ -41,12 +43,15 @@ ActiveAdmin.register Blog do
 
   show do |ad|
     attributes_table do
+      row :date
       row :title
+      row :author
+      row :workstream
       row :summary
       row :content
       row :date
       row :image do
-        image_tag(ad.image.url(:thumb))
+        image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
       # Will display the image on show object page
     end
