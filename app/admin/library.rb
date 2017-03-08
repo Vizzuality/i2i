@@ -54,6 +54,7 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
+      row :date
       row :title
       row :summary
       row :content
