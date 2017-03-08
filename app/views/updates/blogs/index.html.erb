@@ -34,9 +34,7 @@
                 </div>
                 <div class="metadata">
                   <h4 class="title -dark -xs"><%= blog.title %></h4>
-                  <% if blog.has_attribute? 'date' %>
-                    <h4 class="title -sea -small"><%= blog.date %></h4>
-                  <% end %>
+                  <h4 class="title -sea -small"><%= DateHelper.beautify blog.date %></h4>
                   <p><%= blog.summary %></p>
                 </div>
               </article>

@@ -34,9 +34,7 @@
                 </div>
                 <div class="metadata">
                   <h4 class="title -dark -xs"><%= event.title %></h4>
-                  <% if event.has_attribute? 'date' %>
-                    <h4 class="title -sea -small"><%= event.date %></h4>
-                  <% end %>
+                  <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
                   <p><%= event.summary %></p>
                 </div>
               </article>

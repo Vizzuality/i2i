@@ -43,7 +43,7 @@
               <div class="picture" style="background-image: url(<%= library.image %>)"></div>
               <div class="metadata">
                 <h4 class="title -xs -dark"><%= library.title %></h4>
-                <h5 class="title -small -sea"><%= library.date %></h5>
+                <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>
                 <p><%= library.summary %></p>
                 <div class="card-options">
                   <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small">download</a>
