@@ -25,8 +25,12 @@
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @event.title %></h1>
-                      <span class="authorship">Written by <span class="author-name">Author</span>
-                      on <%= DateHelper.beautify @event.date %></span>
+                      <span class="authorship">Written
+                        <% unless @event.author.blank? %>
+                          by <span class="author-name"><%= @event.author %></span>
+                        <% end %>
+                        on <%= DateHelper.beautify @event.date %>
+                      </span>
                     </div>
                   </div>
                 </header>
