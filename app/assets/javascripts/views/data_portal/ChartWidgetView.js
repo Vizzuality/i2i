@@ -304,6 +304,14 @@
 
       var chartDimensions = this._computeChartDimensions();
 
+      if (this.options.indicator.id === 'access_to_resources') {
+        console.log(this._getChartTemplate()({
+          data: JSON.stringify(this.model.get('data')),
+          width: chartDimensions.width,
+          height: chartDimensions.height
+        }));
+      }
+
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
