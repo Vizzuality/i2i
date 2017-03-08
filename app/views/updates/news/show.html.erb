@@ -26,7 +26,7 @@
                       <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @news.title %></h1>
                       <span class="authorship">Written by <span class="author-name">Author</span>
-                      on <%=@news.date %></span>
+                      on <%= DateHelper.beautify @news.date %></span>
                     </div>
                   </div>
                 </header>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= news.title %></h4>
-                    <h4 class="title -sea -small"><%= news.date %></h4>
+                    <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
                     <p><%= news.summary %></p>
                   </div>
                 </article>
