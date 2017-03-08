@@ -22,20 +22,29 @@
   });
 
   var INDICATORS = [
-    { indicator: 'geographic_area', category: 'Common Indicators', visible: false },
-    { indicator: 'gender', category: 'Common Indicators', visible: false },
-    { indicator: 'age', category: 'Common Indicators', visible: false },
-    { indicator: 'access_to_resources', category: 'Common Indicators', visible: false },
-    { indicator: 'dwelling_type', category: 'Common Indicators', visible: false },
-    { indicator: 'i2i_Marital_Status', category: 'i2i Standards', visible: false },
-    { indicator: 'i2i_Education', category: 'i2i Standards', visible: true },
-    { indicator: 'i2i_Income_Sources', category: 'i2i Standards', visible: true },
-    { indicator: 'fas_strand', category: 'Strands', visible: true },
-    { indicator: 'savings_strand', category: 'Strands', visible: true },
-    { indicator: 'credit_strand', category: 'Strands', visible: true },
-    { indicator: 'remittances_strand', category: 'Strands', visible: false },
-    { indicator: 'insurance_strand', category: 'Strands', visible: false }
+    { id: 'geographic_area', category: 'Common Indicators', visible: false },
+    { id: 'gender', category: 'Common Indicators', visible: false },
+    { id: 'age', category: 'Common Indicators', visible: false },
+    { id: 'access_to_resources', category: 'Common Indicators', visible: false },
+    { id: 'dwelling_type', category: 'Common Indicators', visible: false },
+    { id: 'i2i_Marital_Status', category: 'i2i Standards', visible: false },
+    { id: 'i2i_Education', category: 'i2i Standards', visible: true },
+    { id: 'i2i_Income_Sources', category: 'i2i Standards', visible: true },
+    { id: 'fas_strand', category: 'Strands', visible: true },
+    { id: 'savings_strand', category: 'Strands', visible: true },
+    { id: 'credit_strand', category: 'Strands', visible: true },
+    { id: 'remittances_strand', category: 'Strands', visible: false },
+    { id: 'insurance_strand', category: 'Strands', visible: false }
   ];
+
+  // This object is used to detect the category of the indicators without having to repeat
+  // the exact name
+  // NOTE: this object is duplicated in ChartWidgetView; make sure to update both of them
+  var CATEGORIES = {
+    COMMON: 'Common Indicators',
+    STANDARD: 'i2i Standards',
+    STRAND: 'Strands'
+  };
 
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
@@ -82,7 +91,6 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      // this.indicatorsCollection = new IndicatorsCollection(this.options.iso, this.options.year);
       this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -215,17 +223,17 @@
 
     /**
      * Update the size of the widget container depending on
-     * if it's a complex indicator or not
+     * if the category of the indicator
      * @param {string} indicatorId
      * @param {object[]} data
      */
     _updateWidgetContainer: function (indicatorId, data) {
-      if (!data.length) return;
+      var visibleIndicators = this._getVisibleIndicators();
+      var index = _.findIndex(visibleIndicators, { id: indicatorId });
+      var indicator = visibleIndicators[index];
+      var isStrand = indicator.category === CATEGORIES.STRAND;
 
-      var widgetToolbox = new App.Helper.WidgetToolbox(data);
-      var isComplexWidget = widgetToolbox.isComplexWidget();
-      if (isComplexWidget) {
-        var index = _.findIndex(this._getVisibleIndicators(), { indicator: indicatorId });
+      if (isStrand) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
     },
@@ -282,7 +290,7 @@
       visibleIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
-          id: indicator.indicator,
+          indicator: indicator,
           iso: this.options.iso,
           year: this.options.year,
           filters: this.options._filters
