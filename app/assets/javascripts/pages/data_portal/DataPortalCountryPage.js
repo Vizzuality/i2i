@@ -22,12 +22,19 @@
   });
 
   var INDICATORS = [
-    { indicator: 'savings_strand' },
-    { indicator: 'geographic_area' },
-    { indicator: 'gender' },
-    { indicator: 'i2i_Marital_Status' },
-    { indicator: 'i2i_Education' },
-    { indicator: 'i2i_Income_Sources' }
+    { indicator: 'geographic_area', category: 'Common Indicators', visible: false },
+    { indicator: 'gender', category: 'Common Indicators', visible: false },
+    { indicator: 'age', category: 'Common Indicators', visible: false },
+    { indicator: 'access_to_resources', category: 'Common Indicators', visible: false },
+    { indicator: 'dwelling_type', category: 'Common Indicators', visible: false },
+    { indicator: 'i2i_Marital_Status', category: 'i2i Standards', visible: false },
+    { indicator: 'i2i_Education', category: 'i2i Standards', visible: true },
+    { indicator: 'i2i_Income_Sources', category: 'i2i Standards', visible: true },
+    { indicator: 'fas_strand', category: 'Strands', visible: true },
+    { indicator: 'savings_strand', category: 'Strands', visible: true },
+    { indicator: 'credit_strand', category: 'Strands', visible: true },
+    { indicator: 'remittances_strand', category: 'Strands', visible: false },
+    { indicator: 'insurance_strand', category: 'Strands', visible: false }
   ];
 
   // This will be removed when we have a way to get the country name from the API
@@ -218,9 +225,19 @@
       var widgetToolbox = new App.Helper.WidgetToolbox(data);
       var isComplexWidget = widgetToolbox.isComplexWidget();
       if (isComplexWidget) {
-        var index = _.findIndex(this.indicatorsCollection.toJSON(), { indicator: indicatorId });
+        var index = _.findIndex(this._getVisibleIndicators(), { indicator: indicatorId });
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
+    },
+
+    /**
+     * Return the list of visible indicators
+     * @returns {object[]} widgets
+     */
+    _getVisibleIndicators: function () {
+      return this.indicatorsCollection.toJSON().filter(function (indicator) {
+        return indicator.visible;
+      });
     },
 
     /**
@@ -235,9 +252,9 @@
         return;
       }
 
-      var collection = this.indicatorsCollection.toJSON();
+      var visibleIndicators = this._getVisibleIndicators();
 
-      if (!collection.length) {
+      if (!visibleIndicators.length) {
         this.widgetsContainer.innerHTML = '';
         var fragment = this._createWidgetsContainer(4);
         this.widgetsContainer.appendChild(fragment);
@@ -245,7 +262,7 @@
       }
 
       // We create the containers for the widgets
-      var fragment = this._createWidgetsContainer(collection.length);
+      var fragment = this._createWidgetsContainer(visibleIndicators.length);
 
       this.widgetsContainer.innerHTML = ''; // We ensure it's empty first
       this.widgetsContainer.appendChild(fragment);
@@ -262,7 +279,7 @@
       }
 
       // We instantiate the widget views
-      collection.forEach(function (indicator, index) {
+      visibleIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
           id: indicator.indicator,
