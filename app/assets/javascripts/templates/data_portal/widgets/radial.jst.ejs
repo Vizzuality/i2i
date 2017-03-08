@@ -28,8 +28,14 @@
         {"type": "cross","with": "count"},
         {
           "type": "formula",
+          "field": "label",
+          "expr": "datum.b.count_label === 5 ? (slice(datum.a.label, 0, 19) + (datum.a.label.length > 18 ? '...' : '')) : (slice(datum.a.label, 0, 26) + (datum.a.label.length > 25 ? '...' : ''))"
+        },
+        {
+          "type": "formula",
           "field": "outerRadius",
-          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (datum.b.count_label - 1) * 50) / datum.b.count_label"
+          <%/* Replace the value 5 by datum.b.count_label here to have a dynamic circle size */%>
+          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (5 - 1) * 50) / 5"
         },
         {
           "type": "formula",
@@ -139,7 +145,7 @@
           "fontWeight": {"value": "300"},
           "fontSize": {"value": 16},
           "fill": { "value": "#001d22" },
-          "text": { "field": "a.label" },
+          "text": { "field": "label" },
           "align": {"value": "center"},
           "baseline": {"value": "middle"}
         }
