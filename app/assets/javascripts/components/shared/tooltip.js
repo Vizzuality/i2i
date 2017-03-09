@@ -43,6 +43,8 @@
 
     showTooltip: function () {
       if (!this.isHidden()) return;
+      this._calculatePosition();
+      this._setPosition();
       this.el.classList.remove('_is-hidden');
     },
 
@@ -54,7 +56,7 @@
       return this.el.classList.contains('_is-hidden');
     },
 
-    getPosition: function () {
+    _calculatePosition: function () {
       var offsets = $(this.defaultConfig.refElem).offset();
 
       if (this.defaultConfig.direction === 'bottom') {
@@ -65,7 +67,10 @@
         offsets.top -= this.defaultConfig.offset;
       }
 
-      return offsets;
+      this.position = {
+        top: offsets.top,
+        left: offsets.left
+      };
     },
 
     _setPosition: function () {
@@ -79,7 +84,8 @@
     render: function () {
       $(this.body).append(this.el);
       $(this.el).html(this.content());
-      this._setPosition();
+
+      this.showTooltip();
     }
 
   });

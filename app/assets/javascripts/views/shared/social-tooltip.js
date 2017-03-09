@@ -1,5 +1,4 @@
 (function (App) {
-
   App.View.SocialTooltip = App.Component.Tooltip.extend({
 
     content: JST['templates/shared/social-tooltip'],
@@ -17,9 +16,7 @@
     },
 
     render: function () {
-      this.position = this.parentView.getPosition();
       this.parentView.render.apply(this);
-      this.parentView.showTooltip.apply(this);
     }
   });
 }).call(this, this.App);
