@@ -1,0 +1,11 @@
+.c-modal-chart-analysis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 40px;
+  list-style: none;
+
+  > li {
+    flex-basis: 50%;
+  }
+}

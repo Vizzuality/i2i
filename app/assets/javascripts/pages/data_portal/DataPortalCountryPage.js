@@ -293,6 +293,7 @@
       visibleIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
+          indicators: this.indicatorsCollection.toJSON(),
           indicator: indicator,
           iso: this.options.iso,
           year: this.options.year,

@@ -50,16 +50,6 @@
     }
   });
 
-  // TODO: to be removed
-  var mockupData = {
-    name: 'Settlement',
-    data: [
-      { label: 'Rural', count: 18943, total: 36441, percentage: 0.519 },
-      { label: 'Urban', count: 11046, total: 36441, percentage: 0.303 },
-      { label: 'Other', count: 6450, total: 36441, percentage: 0.178 }
-    ]
-  };
-
   App.View.ChartWidgetView = Backbone.View.extend({
 
     template: JST['templates/data_portal/chart-widget'],
@@ -76,18 +66,23 @@
       _height: null,
       // Indicator information
       indicator: null,
+      // List of all the indicators
+      indicators: [],
       // ISO of the country
       iso: null,
       // Selected year
       year: null,
       // Filters on the data
       // See _filters in App.Page.DataPortalCountryPage to see their format
-      filters: []
+      filters: [],
+      // Id of the indicator used for the analysis
+      analysisIndicator: null
     },
 
     events: {
       'click .js-retry-indicator': '_fetchData',
-      'click .js-change': '_onChange'
+      'click .js-change': '_onChange',
+      'click .js-analyze': '_onAnalyze'
     },
 
     initialize: function (settings) {
@@ -152,6 +147,24 @@
     },
 
     /**
+     * Event handler for when the user clicks the analyze button
+     */
+    _onAnalyze: function () {
+      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
+        return indicator.category !== CATEGORIES.STRAND;
+      });
+
+      new App.Component.ModalChartAnalysis({
+        indicators: nonStrandIndicators,
+        selectedIndicatorId: this.options.analysisIndicator,
+        continueCallback: function (indicatorId) {
+          this.options.analysisIndicator = indicatorId;
+          // this._fetchData();
+        }.bind(this)
+      });
+    },
+
+    /**
      * Event handler fow when the chart is changed
      * @param {string} chart - chosen chart
      */
@@ -182,7 +195,8 @@
           // We pre-render the component with its template
           this.el.innerHTML = this.template({
             name: this.model.get('title'),
-            noData: !data.length
+            noData: !data.length,
+            canAnalyze: this.options.indicator.category === CATEGORIES.STRAND
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -304,14 +318,6 @@
 
       var chartDimensions = this._computeChartDimensions();
 
-      if (this.options.indicator.id === 'access_to_resources') {
-        console.log(this._getChartTemplate()({
-          data: JSON.stringify(this.model.get('data')),
-          width: chartDimensions.width,
-          height: chartDimensions.height
-        }));
-      }
-
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
@@ -323,8 +329,6 @@
      * Create the chart and append it to the DOM
      */
     _renderChart: function () {
-      // TODO: If no data, we render an empty chart
-
       vg.parse
         .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
           this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
@@ -333,6 +337,7 @@
 
     render: function () {
       this._renderChart();
+      this.setElement(this.el);
       return this.el;
     },
 
