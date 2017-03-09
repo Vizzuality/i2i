@@ -10,46 +10,6 @@
     STRAND: 'Strands'
   };
 
-  var Model = Backbone.Model.extend({
-    initialize: function (indicatorId, iso, year, filters) {
-      this.indicatorId = indicatorId;
-      this.iso = iso;
-      this.year = year;
-      this.filters = filters;
-    },
-
-    url: function() {
-      var url =  API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
-
-      if (this.filters.length) {
-        var filters = this.filters.map(function (filter) {
-          return {
-            indicatorId: filter.id,
-            value: filter.options
-          };
-        }.bind(this));
-        url += '&filters=' + JSON.stringify(filters);
-      }
-
-      return url;
-    },
-
-    parse: function (data) {
-      return {
-        title: data.title,
-        data: data.data.map(function (answer) {
-          return {
-            id: answer.answerId,
-            label: answer.value,
-            count: answer.count,
-            total: answer.sum,
-            percentage: answer.percentage
-          };
-        })
-      };
-    }
-  });
-
   App.View.ChartWidgetView = Backbone.View.extend({
 
     template: JST['templates/data_portal/chart-widget'],
@@ -87,11 +47,6 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(this.options.indicator.id, this.options.iso, this.options.year, this.options.filters);
-
-      // We show the spinning loader
-      this._showLoader();
-
       this._fetchData();
     },
 
@@ -159,7 +114,7 @@
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
           this.options.analysisIndicator = indicatorId;
-          // this._fetchData();
+          this._fetchData();
         }.bind(this)
       });
     },
@@ -179,6 +134,19 @@
      * Fetch the data for the widget
      */
     _fetchData: function () {
+      // We show the spinning loader
+      this._showLoader();
+
+      // We create a new model each time we request the data because the
+      // model options eventually changed
+      this.model = new App.Model.ChartWidgetModel({
+        id: this.options.indicator.id,
+        iso: this.options.iso,
+        year: this.options.year,
+        filters: this.options.filters,
+        analysisIndicatorId: this.options.analysisIndicator
+      });
+
       this.model.fetch()
         .done(function () {
           var data = this.model.get('data');
@@ -218,18 +186,14 @@
         var isStrandOnlyChart = !!chart.strandOnly;
         return isStrandIndicator === isStrandOnlyChart;
       }, this);
-
-      // return availableCharts.filter(function (chartName) {
-      //   var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-      //   var isComplexChart = chart.complex;
-      //   return (isComplexIndicator && isComplexChart) || (!isComplexIndicator && !isComplexChart);
-      // })
     },
 
     /**
      * Show the spinning loader
+     * NOTE: also empties the container
      */
     _showLoader: function () {
+      this.el.innerHTML = '';
       this.el.classList.add('c-spinning-loader');
     },
 
