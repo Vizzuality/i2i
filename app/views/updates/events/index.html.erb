@@ -28,7 +28,7 @@
         <div class="row">
           <% @events.each do |event| %>
             <div class="grid-s-12 grid-m-6 grid-l-3">
-              <article class="c-card -medium">
+              <article class="c-card">
                 <div class="picture" style="background-image: url(<%= event.image %>)">
                   <%= link_to '', updates_event_path(event.id) %>
                 </div>
