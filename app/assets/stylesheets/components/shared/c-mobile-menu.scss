@@ -105,4 +105,15 @@
       }
     }
   }
+
+  &.-homepage {
+    nav {
+      top: 70px;
+    }
+
+    .btn-close {
+      // 74px is the height of the container has the logo and mobile menu button
+      top: calc(74px / 2);
+    }
+  }
 }

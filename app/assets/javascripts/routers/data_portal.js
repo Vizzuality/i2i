@@ -23,4 +23,6 @@ new App.Router.DataPortal();
 document.addEventListener('turbolinks:load', function () {
   Backbone.history.stop();
   Backbone.history.start({ pushState: true });
+
+  new App.View.MobileMenu();
 });
