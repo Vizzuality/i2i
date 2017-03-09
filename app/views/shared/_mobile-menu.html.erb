@@ -6,11 +6,21 @@
 
       <nav>
         <ul class="nav-list">
-          <li class="nav-item <% if current_page?(data_portal_path) %> -current <% end%>"><a href="/data_portal">Data portal</a></li>
-          <li class="nav-item <% if current_page?(news_index_path) %> -current <% end%>"><a href="/news">News</a></li>
-          <li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>"><a href="/libraries">Library</a></li>
-          <li class="nav-item <% if current_page?(community_path) %> -current <% end%>"><a href="/community">Community</a></li>
-          <li class="nav-item <% if current_page?(about_path) %> -current <% end%>"><a href="/about">About</a></li>
+          <li class="nav-item <% if current_page?(data_portal_path) %> -current <% end%>">
+            <%= link_to 'Data portal', data_portal_path %>
+          </li>
+          <li class="nav-item <% if current_page?(news_index_path) %> -current <% end%>">
+            <%= link_to 'News', news_index_path %>
+          </li>
+          <li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>">
+            <%= link_to 'Library', libraries_path %>
+          </li>
+          <li class="nav-item <% if current_page?(community_path) %> -current <% end%>">
+            <%= link_to 'Community', community_path %>
+          </li>
+          <li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
+            <%= link_to 'About', about_path %>
+          </li>
         </ul>
       </nav>
 
