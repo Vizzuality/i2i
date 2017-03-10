@@ -40,11 +40,6 @@
       this.refElem = this.defaultConfig.refElem;
       this.body = document.querySelector('body');
       this.position = { top: 0, left: 0 };
-
-      this.refElemSize = {
-        width: this.defaultConfig.refElem.offsetWidth,
-        height: this.defaultConfig.refElem.offsetHeight
-      };
     },
 
     _setEventListeners: function () {
@@ -93,6 +88,11 @@
     _calculatePosition: function () {
       var offsets = $(this.defaultConfig.refElem).offset();
 
+      this.refElemSize = {
+        width: this.defaultConfig.refElem.offsetWidth,
+        height: this.defaultConfig.refElem.offsetHeight
+      };
+
       if (this.defaultConfig.direction === 'bottom') {
         offsets.top += this.refElemSize.height + this.defaultConfig.offset;
       }
@@ -127,6 +127,7 @@
 
       this.el.setAttribute('role', 'tooltip');
 
+      this._calculatePosition();
       this._setDirection();
       this.showTooltip();
     }
