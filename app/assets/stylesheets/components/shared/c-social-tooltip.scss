@@ -45,4 +45,21 @@
       stroke: $color-5;
     }
   }
+
+
+  &.-top {
+    &::before {
+      content: none;
+    }
+
+    &::after {
+      @include arrow(12px, 1px, $color-4, 'down');
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: rotate(-45deg) translate(-50%, 0);
+
+      background-color: $color-4;
+    }
+  }
 }

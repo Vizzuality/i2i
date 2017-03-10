@@ -21,6 +21,7 @@
 //= require backbone_datalink
 //= require_self
 //= require helpers/accessibility
+//= //= require helpers/responsive
 //= require templates/shared/modal
 //= require templates/shared/modals/modal-team
 //= require templates/shared/social-tooltip
