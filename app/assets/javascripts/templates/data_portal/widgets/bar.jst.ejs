@@ -19,6 +19,8 @@
       "source": "original",
       "transform": [
         {"type": "cross", "with": "count"},
+        {"type": "sort", "by": "-a.percentage"},
+        {"type": "rank", "field": "-column"},
         {
           "type": "formula",
           "field": "tickLimit",
@@ -32,7 +34,7 @@
         {
           "type": "formula",
           "field": "tickPos",
-          "expr": "(datum.b.count_label < 4 || datum._id % 2 === 0) ? 20 : 40"
+          "expr": "(datum.b.count_label < 4 || datum.rank % 2 === 0) ? 20 : 40"
         }
       ]
     }
@@ -42,7 +44,14 @@
       "name": "x",
       "type": "ordinal",
       "range": "width",
-      "domain": {"data": "table", "field": "a.label"},
+      "domain": {
+        "data": "table",
+        "field": "a.label",
+        "sort": {
+          "field": "rank",
+          "op": "mean"
+        }
+      },
       "points": true,
       "padding": 1
     },
@@ -57,7 +66,11 @@
       "type": "ordinal",
       "domain": {
         "data": "table",
-        "field": "a.label"
+        "field": "rank",
+        "sort": {
+          "field": "rank",
+          "op": "mean"
+        }
       },
       "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
     }
@@ -131,7 +144,7 @@
           "width": {"value": 20},
           "y": {"scale": "y", "field": "a.percentage"},
           "y2": {"scale": "y", "value": 0},
-          "fill": {"field": "a.label", "scale": "color"}
+          "fill": {"field": "rank", "scale": "color"}
         }
       }
     },

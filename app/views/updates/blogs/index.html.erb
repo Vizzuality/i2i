@@ -26,19 +26,17 @@
     <div class="wrapper">
       <div class="l-card-grid">
         <div class="row">
-          <% @blogs.each do |blog| %>
+          <% @blogs.each do |post| %>
             <div class="grid-s-12">
               <article class="c-card -horizontal">
-                <div class="picture" style="background-image: url(<%= blog.image %>)">
-                  <%= link_to '', updates_blog_path(blog.id) %>
-                </div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs"><%= blog.title %></h4>
-                  <% if blog.has_attribute? 'date' %>
-                    <h4 class="title -sea -small"><%= blog.date %></h4>
-                  <% end %>
-                  <p><%= blog.summary %></p>
-                </div>
+                <a href="<%= updates_blog_path(post.id) %>" alt="<%= post.title %>">
+                  <div class="picture" style="background-image: url(<%= post.image %>)"></div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= post.title %></h4>
+                    <h4 class="title -sea -small"><%= DateHelper.beautify post.date %></h4>
+                    <p><%= post.summary %></p>
+                  </div>
+                </a>
               </article>
             </div>
           <% end %>

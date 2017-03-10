@@ -25,8 +25,12 @@
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @news.title %></h1>
-                      <span class="authorship">Written by <span class="author-name">Author</span>
-                      on <%=@news.date %></span>
+                      <span class="authorship">Written
+                        <% unless @news.author.blank? %>
+                          by <span class="author-name"><%= @news.author %></span>
+                        <% end %>
+                        on <%= DateHelper.beautify @news.date %>
+                      </span>
                     </div>
                   </div>
                 </header>
@@ -62,15 +66,15 @@
           <div class="row">
             <% @RelatedNews.each do |news| %>
               <div class="grid-s-12 grid-m-6 grid-l-4">
-                <article class="c-card -small">
-                  <div class="picture" style="background-image: url(<%= news.image %>)">
-                    <%= link_to '', updates_news_path(news.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= news.title %></h4>
-                    <h4 class="title -sea -small"><%= news.date %></h4>
-                    <p><%= news.summary %></p>
-                  </div>
+                <article class="c-card">
+                  <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
+                    <div class="picture" style="background-image: url(<%= news.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= news.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
+                      <p><%= news.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>

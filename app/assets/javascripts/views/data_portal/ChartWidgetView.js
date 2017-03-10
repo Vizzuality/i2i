@@ -1,6 +1,15 @@
 (function (App) {
   'use strict';
 
+  // This object is used to detect the category of the indicator without having to repeat
+  // the exact name
+  // NOTE: this object is duplicated in DataPortalCountryPage; make sure to update both of them
+  var CATEGORIES = {
+    COMMON: 'Common Indicators',
+    STANDARD: 'i2i Standards',
+    STRAND: 'Strands'
+  };
+
   var Model = Backbone.Model.extend({
     initialize: function (indicatorId, iso, year, filters) {
       this.indicatorId = indicatorId;
@@ -31,7 +40,7 @@
         data: data.data.map(function (answer) {
           return {
             id: answer.answerId,
-            label: answer.value.slice(0, 22) + (answer.value.length > 21 ? '...' : ''),
+            label: answer.value,
             count: answer.count,
             total: answer.sum,
             percentage: answer.percentage
@@ -65,8 +74,8 @@
       _width: null,
       // Inner height of the chart, used internally
       _height: null,
-      // Indicator ID
-      id: null,
+      // Indicator information
+      indicator: null,
       // ISO of the country
       iso: null,
       // Selected year
@@ -83,7 +92,7 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(this.options.id, this.options.iso, this.options.year, this.options.filters);
+      this.model = new Model(this.options.indicator.id, this.options.iso, this.options.year, this.options.filters);
 
       // We show the spinning loader
       this._showLoader();
@@ -130,7 +139,7 @@
 
       // We update the object to tell which ones are available with the current
       // dataset
-      this.widgetToolbox.getAvailableCharts().forEach(function (availableChart) {
+      this._getAvailableCharts().forEach(function (availableChart) {
         var chart = _.findWhere(charts, { name: availableChart });
         if (chart) chart.available = true;
       });
@@ -165,7 +174,7 @@
           // If the indicator doesn't have any data, we also want to send an event
           // to notify the parent view about it
           this.trigger('data:sync', {
-            id: this.options.id,
+            id: this.options.indicator.id,
             name: this.model.get('title'),
             data: data
           });
@@ -182,6 +191,25 @@
         }.bind(this))
         .fail(this.renderError.bind(this))
         .always(this._hideLoader.bind(this));
+    },
+
+    /**
+     * Get the list of available charts for the current widget
+     * @returns {string[]}
+     */
+    _getAvailableCharts: function () {
+      return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
+        var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
+        var isStrandIndicator = this.options.indicator.category === CATEGORIES.STRAND;
+        var isStrandOnlyChart = !!chart.strandOnly;
+        return isStrandIndicator === isStrandOnlyChart;
+      }, this);
+
+      // return availableCharts.filter(function (chartName) {
+      //   var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
+      //   var isComplexChart = chart.complex;
+      //   return (isComplexIndicator && isComplexChart) || (!isComplexIndicator && !isComplexChart);
+      // })
     },
 
     /**
@@ -263,7 +291,7 @@
         if (!this.model.get('data').length) {
           this.options.chart = 'empty';
         } else {
-          var availableCharts = this.widgetToolbox.getAvailableCharts();
+          var availableCharts = this._getAvailableCharts();
           if (availableCharts.length) {
             this.options.chart = availableCharts[0];
           } else {
@@ -275,6 +303,14 @@
       }
 
       var chartDimensions = this._computeChartDimensions();
+
+      if (this.options.indicator.id === 'access_to_resources') {
+        console.log(this._getChartTemplate()({
+          data: JSON.stringify(this.model.get('data')),
+          width: chartDimensions.width,
+          height: chartDimensions.height
+        }));
+      }
 
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),

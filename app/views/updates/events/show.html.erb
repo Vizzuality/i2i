@@ -25,8 +25,12 @@
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @event.title %></h1>
-                      <span class="authorship">Written by <span class="author-name">Author</span>
-                      on <%=@event.date %></span>
+                      <span class="authorship">Written
+                        <% unless @event.author.blank? %>
+                          by <span class="author-name"><%= @event.author %></span>
+                        <% end %>
+                        on <%= DateHelper.beautify @event.date %>
+                      </span>
                     </div>
                   </div>
                 </header>
@@ -44,9 +48,16 @@
                 <div class="row">
                   <div class="article-text">
                     <div class="grid-s-12 grid-m-10 grid-l-8">
-                      <p><%= @event.content %></p>
+                      <%= @event.content.html_safe %>
                     </div>
                   </div>
+                  <% if @event.url.blank? != true %>
+                    <div class="grid-s-12 grid-m-10 grid-l-12">
+                      <div class="footer-article">
+                        <a class="c-button -sea" href="<%= @event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </section>
             </article>
@@ -62,15 +73,15 @@
           <div class="row">
             <% @RelatedEvents.each do |event| %>
               <div class="grid-s-12 grid-m-6 grid-l-3">
-                <article class="c-card -small">
-                  <div class="picture" style="background-image: url(<%= event.image %>)">
-                    <%= link_to '', updates_event_path(event.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= event.title %></h4>
-                    <h4 class="title -sea -small"><%= event.date %></h4>
-                    <p><%= event.summary %></p>
-                  </div>
+                <article class="c-card">
+                  <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
+                    <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= event.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                      <p><%= event.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>

@@ -39,11 +39,11 @@
           <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3 js-card"
             data-type="<%= LibraryType.key_for(library.content_type.to_i) if library.content_type.is_a? String %>"
           >
-            <article class="c-card -small">
+            <article class="c-card">
               <div class="picture" style="background-image: url(<%= library.image %>)"></div>
               <div class="metadata">
                 <h4 class="title -xs -dark"><%= library.title %></h4>
-                <h5 class="title -small -sea"><%= library.date %></h5>
+                <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>
                 <p><%= library.summary %></p>
                 <div class="card-options">
                   <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small">download</a>

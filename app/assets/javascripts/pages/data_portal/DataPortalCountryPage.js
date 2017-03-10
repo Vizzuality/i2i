@@ -22,13 +22,29 @@
   });
 
   var INDICATORS = [
-    { indicator: 'savings_strand' },
-    { indicator: 'geographic_area' },
-    { indicator: 'gender' },
-    { indicator: 'i2i_Marital_Status' },
-    { indicator: 'i2i_Education' },
-    { indicator: 'i2i_Income_Sources' }
+    { id: 'geographic_area', name: 'Geographic Area', category: 'Common Indicators', visible: false },
+    { id: 'gender', name: 'Gender', category: 'Common Indicators', visible: false },
+    { id: 'age',name: 'Age', category: 'Common Indicators', visible: false },
+    // { id: 'access_to_resources', name: 'Access to Resources', category: 'Common Indicators', visible: false },
+    // { id: 'dwelling_type', name: 'Dwelling type: roof/dwelling', category: 'Common Indicators', visible: false },
+    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'i2i Standards', visible: false },
+    { id: 'i2i_Education', name: 'Level of education', category: 'i2i Standards', visible: true },
+    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'i2i Standards', visible: true },
+    { id: 'fas_strand', name: 'FAS - Financial Access Strand', category: 'Strands', visible: true },
+    { id: 'savings_strand', name: 'Savings Strand', category: 'Strands', visible: true },
+    { id: 'credit_strand', name: 'Credit Strand', category: 'Strands', visible: true },
+    { id: 'remittances_strand', name: 'Remittances Strand', category: 'Strands', visible: false },
+    { id: 'insurance_strand', name: 'Insurance Strand', category: 'Strands', visible: false }
   ];
+
+  // This object is used to detect the category of the indicators without having to repeat
+  // the exact name
+  // NOTE: this object is duplicated in ChartWidgetView; make sure to update both of them
+  var CATEGORIES = {
+    COMMON: 'Common Indicators',
+    STANDARD: 'i2i Standards',
+    STRAND: 'Strands'
+  };
 
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
@@ -54,16 +70,11 @@
       iso: null,
       // Current year
       year: null,
-      // List of the indicators with their associated data
-      // NOTE: Do not set this property at instantiation time
+      // List of active filters
       // The structure is:
       // [
       //   { id: 'my-indicator', name: 'My indicator', options: ['Option 1', 'Option 2'] }
       // ]
-      // NOTE: There isn't any order guaranteed
-      _indicatorsData: [],
-      // List of active filters
-      // Follow the same structure as _indicatorsData
       // NOTE: Do not set this property at instantiation time
       _filters: []
     },
@@ -75,7 +86,6 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      // this.indicatorsCollection = new IndicatorsCollection(this.options.iso, this.options.year);
       this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -93,32 +103,24 @@
 
     /**
      * Event listener executed when the filter are updated
+     * @param {string[]} visibleIndicators ids of the visible indicators
      * @param { { name: string, options: string[] }[] } filters
      */
-    _onFiltersUpdate: function (filters) {
-      this._updateFilters(filters);
+    _onFiltersUpdate: function (visibleIndicators, filters) {
+      if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
+      if (filters) this._updateFilters(filters);
       this._renderWidgets();
     },
 
     /**
-     * Update this.options._indicatorsData with the data passed as argument
+     * Update the indicators collection with the data passed as argument
      * @param {string} indicatorId
      * @param {string} indicatorName
      * @param {object[]} data
      */
     _updateIndicatorsData: function (indicatorId, indicatorName, data) {
-      var indicator = {
-        id: indicatorId,
-        name: indicatorName,
-        options: data.map(function (option) { return option.label; })
-      };
-
-      var previousIndicator = _.findWhere(this.options._indicatorsData, { id: indicatorId });
-      if (previousIndicator) {
-        previousIndicator = indicator;
-      } else {
-        this.options._indicatorsData.push(indicator);
-      }
+      var indicator = this.indicatorsCollection.find({ id: indicatorId });
+      indicator.set({ options: data.map(function (option) { return option.label; }) });
     },
 
     /**
@@ -127,6 +129,17 @@
      */
     _updateFilters: function (filters) {
       this.options._filters = filters;
+    },
+
+    /**
+     * Update the visible indicators in this.indicatorsCollection
+     * @param {string[]} visibleIndicators ids of the visible indicators
+     */
+    _updateVisibleIndicators: function(visibleIndicators) {
+      this.indicatorsCollection.forEach(function (model) {
+        var indicatorId = model.get('id');
+        model.set({ visible: visibleIndicators.indexOf(indicatorId) !== -1 });
+      });
     },
 
     /**
@@ -152,7 +165,7 @@
 
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
-        indicators: this.options._indicatorsData,
+        indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
         continueCallback: this._onFiltersUpdate.bind(this)
       });
@@ -208,19 +221,34 @@
 
     /**
      * Update the size of the widget container depending on
-     * if it's a complex indicator or not
+     * if the category of the indicator
      * @param {string} indicatorId
      * @param {object[]} data
      */
     _updateWidgetContainer: function (indicatorId, data) {
-      if (!data.length) return;
+      var visibleIndicators = this._getVisibleIndicators();
+      var index = _.findIndex(visibleIndicators, { id: indicatorId });
+      var indicator = visibleIndicators[index];
+      var isStrand = indicator.category === CATEGORIES.STRAND;
 
-      var widgetToolbox = new App.Helper.WidgetToolbox(data);
-      var isComplexWidget = widgetToolbox.isComplexWidget();
-      if (isComplexWidget) {
-        var index = _.findIndex(this.indicatorsCollection.toJSON(), { indicator: indicatorId });
+      if (isStrand) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
+    },
+
+    /**
+     * Return the sorted list of visible indicators
+     * NOTE: the strand indicators are always displayed first
+     * @returns {object[]} widgets
+     */
+    _getVisibleIndicators: function () {
+      return this.indicatorsCollection.toJSON().filter(function (indicator) {
+        return indicator.visible;
+      }).sort(function (a, b) {
+        if (a.category === CATEGORIES.STRAND && b.category !== CATEGORIES.STRAND) return -1;
+        if (a.category !== CATEGORIES.STRAND && b.category === CATEGORIES.STRAND) return 1;
+        return 0;
+      });
     },
 
     /**
@@ -235,9 +263,9 @@
         return;
       }
 
-      var collection = this.indicatorsCollection.toJSON();
+      var visibleIndicators = this._getVisibleIndicators();
 
-      if (!collection.length) {
+      if (!visibleIndicators.length) {
         this.widgetsContainer.innerHTML = '';
         var fragment = this._createWidgetsContainer(4);
         this.widgetsContainer.appendChild(fragment);
@@ -245,7 +273,7 @@
       }
 
       // We create the containers for the widgets
-      var fragment = this._createWidgetsContainer(collection.length);
+      var fragment = this._createWidgetsContainer(visibleIndicators.length);
 
       this.widgetsContainer.innerHTML = ''; // We ensure it's empty first
       this.widgetsContainer.appendChild(fragment);
@@ -262,10 +290,10 @@
       }
 
       // We instantiate the widget views
-      collection.forEach(function (indicator, index) {
+      visibleIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
-          id: indicator.indicator,
+          indicator: indicator,
           iso: this.options.iso,
           year: this.options.year,
           filters: this.options._filters

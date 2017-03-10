@@ -25,8 +25,12 @@
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark "><%= @post.title %></h1>
-                      <span class="authorship">Written by <span class="author-name">Author</span>
-                      on <%=@post.date %></span>
+                      <span class="authorship">Written
+                        <% unless @post.author.blank? %>
+                          by <span class="author-name"><%= @post.author %></span>
+                        <% end %>
+                        on <%= DateHelper.beautify @post.date %>
+                      </span>
                     </div>
                   </div>
                 </header>
@@ -63,14 +67,14 @@
             <% @RelatedPosts.each_with_index do |post, index| %>
               <div class="grid-s-12">
                 <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
-                  <div class="picture" style="background-image: url(<%= post.image %>)">
-                    <%= link_to '', updates_blog_path(post.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= post.title %></h4>
-                    <h4 class="title -sea -small"><%= post.date %></h4>
-                    <p><%= post.summary %></p>
-                  </div>
+                  <a href="<%= updates_blog_path(post.id) %>" alt="<%= post.title %>">
+                    <div class="picture" style="background-image: url(<%= post.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= post.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify post.date %></h4>
+                      <p><%= post.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>

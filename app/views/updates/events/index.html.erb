@@ -28,17 +28,15 @@
         <div class="row">
           <% @events.each do |event| %>
             <div class="grid-s-12 grid-m-6 grid-l-3">
-              <article class="c-card -medium">
-                <div class="picture" style="background-image: url(<%= event.image %>)">
-                  <%= link_to '', updates_event_path(event.id) %>
-                </div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs"><%= event.title %></h4>
-                  <% if event.has_attribute? 'date' %>
-                    <h4 class="title -sea -small"><%= event.date %></h4>
-                  <% end %>
-                  <p><%= event.summary %></p>
-                </div>
+              <article class="c-card">
+                <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
+                  <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= event.title %></h4>
+                    <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                    <p><%= event.summary %></p>
+                  </div>
+                </a>
               </article>
             </div>
           <% end %>

@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div class="content">
+  <div class="l-content">
     <div class="wrapper">
       <div class="card-grid -news">
         <div class="row">
@@ -28,31 +28,27 @@
             <% if index == 0 %>
               <div class="grid-s-12 grid-m-6 grid-l-8">
                 <article class="c-card -highlighted">
-                  <div class="picture" style="background-image: url(<%= news.image %>)">
-                    <%= link_to '', news_path(news.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= news.title %></h4>
-                    <% if news.has_attribute? 'date' %>
-                      <h4 class="title -sea -small"><%= news.date %></h4>
-                    <% end %>
-                    <p><%= news.summary %></p>
-                  </div>
+                  <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
+                    <div class="picture" style="background-image: url(<%= news.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= news.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
+                      <p><%= news.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% else %>
               <div class="grid-s-12 grid-m-6 grid-l-4">
-                <article class="c-card -medium">
-                  <div class="picture" style="background-image: url(<%= news.image %>)">
-                    <%= link_to '', news_path(news.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= news.title %></h4>
-                    <% if news.has_attribute? 'date' %>
-                      <h4 class="title -sea -small"><%= news.date %></h4>
-                    <% end %>
-                    <p><%= news.summary %></p>
-                  </div>
+                <article class="c-card">
+                  <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
+                    <div class="picture" style="background-image: url(<%= news.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= news.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
+                      <p><%= news.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>
@@ -73,15 +69,15 @@
           <div class="row">
             <% @events.each do |event| %>
               <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
-                <article class="c-card -small">
-                  <div class="picture" style="background-image: url(<%= event.image %>)">
-                    <%= link_to '', updates_events_path(event.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= event.title %></h4>
-                    <h4 class="title -sea -small"><%= event.date %></h4>
-                    <p><%= event.summary %></p>
-                  </div>
+                <article class="c-card">
+                  <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
+                    <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= event.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                      <p><%= event.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>
@@ -103,29 +99,27 @@
             <% @posts.each_with_index do |post, index| %>
               <div class="grid-s-12">
                 <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
-                  <div class="picture" style="background-image: url(<%= post.image %>)">
-                    <%= link_to '', updates_blog_path(post.id) %>
-                  </div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= post.title %></h4>
-                    <h4 class="title -sea -small"><%= post.date %></h4>
-                    <p><%= post.summary %></p>
-                  </div>
+                  <a href="<%= updates_blog_path(post.id) %>" alt="<%= post.title %>">
+                    <div class="picture" style="background-image: url(<%= post.image %>)"></div>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs"><%= post.title %></h4>
+                      <h4 class="title -sea -small"><%= DateHelper.beautify post.date %></h4>
+                      <p><%= post.summary %></p>
+                    </div>
+                  </a>
                 </article>
               </div>
             <% end %>
             <div class="grid-s-12">
-            <div class="grid-footer">
-              <div class="grid-s-12 grid-m-4 grid-l-3">
-                <a href="<%= updates_blogs_path %>" class="c-button btn-more">More posts</a>
+              <div class="grid-footer">
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <a href="<%= updates_blogs_path %>" class="c-button btn-more">More posts</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
-  </section>
-</div>
-</div>
 </div>
