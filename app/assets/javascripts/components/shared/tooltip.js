@@ -67,6 +67,7 @@
     toggleVisibility: function () {
       this._calculatePosition();
       this._setPosition();
+      this.refElem.focus();
       this.el.classList.toggle('_is-hidden', !this.isHidden());
     },
 
@@ -74,11 +75,15 @@
       if (!this.isHidden()) return;
       this._calculatePosition();
       this._setPosition();
+      this.refElem.focus();
       this.el.classList.remove('_is-hidden');
+      this.el.setAttribute('aria-hidden', false);
     },
 
     hideTooltip: function () {
       this.el.classList.add('_is-hidden');
+      this.refElem.blur();
+      this.el.setAttribute('aria-hidden', true);
     },
 
     isHidden: function () {
@@ -119,6 +124,8 @@
       $(this.el).html(this.content({
         direction: '-' + this.defaultConfig.direction
       }));
+
+      this.el.setAttribute('role', 'tooltip');
 
       this._setDirection();
       this.showTooltip();

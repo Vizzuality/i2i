@@ -17,6 +17,9 @@
 
     render: function () {
       this.parentView.render.apply(this);
+      var tooltipContent = this.el.querySelector('.c-social-tooltip');
+      tooltipContent.setAttribute('role', 'dialog');
+      tooltipContent.setAttribute('aria-label', 'social links');
     }
   });
 }).call(this, this.App);
