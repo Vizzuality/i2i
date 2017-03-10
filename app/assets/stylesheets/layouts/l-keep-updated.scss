@@ -5,6 +5,10 @@
     margin: 0 0 95px;
   }
 
+  .l-event-filters {
+    margin: 40px 0 0;
+  }
+
   .l-card-grid {
     margin: 40px 0 0;
 
@@ -17,6 +21,24 @@
 
       @media #{$mq-laptop} {
         margin: 100px 0 0;
+      }
+    }
+
+    &.-only-past {
+      .js-event {
+        &[data-time='present'],
+        &[data-time='upcoming'] {
+          display: none;
+        }
+      }
+    }
+
+    &.-only-upcoming {
+      .js-event {
+        &[data-time='present'],
+        &[data-time='past'] {
+          display: none;
+        }
       }
     }
   }
