@@ -1,0 +1,11 @@
+.c-country-list {
+
+  .country-item {
+
+    > a {
+      color: $color-1;
+      font-family: $font-family-2;
+      font-size: $font-size-s;
+    }
+  }
+}
