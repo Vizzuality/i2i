@@ -28,15 +28,11 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="row">
-              <div class="grid-s-12 grid-m-2">
-                <button class="c-button js-event-filter-btn" data-filter="all">All Events</button>
-              </div>
-              <div class="grid-s-12 grid-m-2">
-                <button class="c-button js-event-filter-btn" data-filter="upcoming">Upcoming Events</button>
-              </div>
-              <div class="grid-s-12 grid-m-2">
-                <button class="c-button js-event-filter-btn" data-filter="past">Past Events</button>
-              </div>
+              <button class="time-filter js-event-filter-btn" data-filter="all">All</button>
+              <span>/</span>
+              <button class="time-filter js-event-filter-btn" data-filter="upcoming">Upcoming</button>
+              <span>/</span>
+              <button class="time-filter js-event-filter-btn" data-filter="past">Past</button>
             </div>
           </div>
         </div>
@@ -51,7 +47,7 @@
                   <div class="picture" style="background-image: url(<%= event.image %>)"></div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= event.title %></h4>
-                    <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                    <h4 class="title -sea -small date"><%= DateHelper.beautify event.date %></h4>
                     <p><%= event.summary %></p>
                   </div>
                 </a>
