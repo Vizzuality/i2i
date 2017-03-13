@@ -3,17 +3,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 248px;
+  height: 210px;
+  margin: 0 0 $card-bottom-margin;
+
+  cursor: pointer;
 
   > .avatar {
     display: inline-block;
     width: 100%;
-    height: 115px;
+    height: 100%;
 
-    > img {
-      width: 100%;
-      height: 100%;
-    }
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
   > .info {
@@ -40,21 +42,21 @@
     }
   }
 
-  &.-rounded {
-    max-width: 225px;
-
-    > .avatar {
-      width: 110px;
-      height: 110px;
-
-      > img {
-        border-radius: 50%;
-      }
-    }
-
-    > .info {
-      background: none;
-      box-shadow: none;
-    }
-  }
+  // &.-rounded {
+  //   max-width: 225px;
+  //
+  //   > .avatar {
+  //     width: 110px;
+  //     height: 110px;
+  //
+  //     > img {
+  //       border-radius: 50%;
+  //     }
+  //   }
+  //
+  //   > .info {
+  //     background: none;
+  //     box-shadow: none;
+  //   }
+  // }
 }
