@@ -4,7 +4,7 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.json
   def index
-    @libraries = Library.all
+    @libraries = Library.all.order(updated_at: :DESC)
   end
 
   # GET /libraries/1
