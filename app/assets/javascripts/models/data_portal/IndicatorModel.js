@@ -3,20 +3,23 @@
 
   App.Model.IndicatorModel = Backbone.Model.extend({
 
-    defaults: {
-      // Indicator id
-      id: null,
-      // Country ISO
-      iso: null,
-      // Year
-      year: null,
-      // List of filters
-      // See _filters in App.Page.DataPortalCountryPage to see their format
-      filters: [],
-    },
+    // Check the default values in the initialize method
+    // The values can't be placed here because Backbone.Model
+    // will interprate them as the default model data
+    defaults: {},
 
-    initialize: function (options) {
-      this.options = _.extend({}, this.defaults, options);
+    initialize: function (attributes, options) {
+      this.options = _.extend({}, {
+        // Indicator id
+        id: null,
+        // Country ISO
+        iso: null,
+        // Year
+        year: null,
+        // List of filters
+        // See _filters in App.Page.DataPortalCountryPage to see their format
+        filters: []
+      }, options);
     },
 
     url: function() {
