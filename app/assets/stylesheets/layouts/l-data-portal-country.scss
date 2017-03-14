@@ -49,6 +49,12 @@
           align-items: center;
           justify-content: space-between;
         }
+
+        .c-button {
+          @media #{$mq-tablet} {
+            float: right;
+          }
+        }
       }
 
       .title-placeholder {
@@ -171,8 +177,10 @@
         justify-content: space-between;
         margin: 10px 0 0;
 
-        .indicator-options .c-button {
-          margin: 0 0 25px;
+        .indicator-options > .c-button {
+          &:not(:first-child) {
+            margin: 0 0 0 10px;
+          }
         }
 
         .container-custom-indicators > .c-button {

@@ -8,7 +8,7 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button class="c-button -white -outline -padding js-cancel">Cancel</button><button class="c-button -white -padding js-done">Done</button>',
+      footer: '<button class="c-button -white -outline -medium js-cancel">Cancel</button><button class="c-button -white -medium js-done">Done</button>',
       // Callback executed when the user presses the "Done" button
       // The callback gets passed the name of the selected chart
       continueCallback: function () {},
