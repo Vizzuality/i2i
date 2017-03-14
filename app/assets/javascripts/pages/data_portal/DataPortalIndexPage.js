@@ -2,13 +2,13 @@
   'use strict';
 
   var Collection = Backbone.Collection.extend({
-    url: API_URL + '/country',
+    url: API_URL + '/country?lastyear=true',
     parse: function (data) {
       return data.map(function (country) {
         return {
           iso: country.iso,
           name: country.name,
-          latestYear: country.year.year
+          latestYear: country.year[0].year
         };
       });
     }
