@@ -33,6 +33,9 @@ ADD . $APP_PATH
 ENV RAILS_ENV production
 ENV RACK_ENV production
 
+# Run rake tasks
+RUN bundle exec rake db:migrate
+
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
 
