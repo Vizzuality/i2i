@@ -35,6 +35,21 @@
       > .author-name {
         color: $color-1;
       }
+
+      &.-has-workstream {
+        margin: 30px 0 0;
+      }
+    }
+
+    .workstream {
+      display: block;
+      margin: 15px 0 40px;
+
+
+      color: $color-5;
+      font-family: $font-family-2;
+      font-size: $font-size-s;
+      text-transform: uppercase;
     }
   }
 
