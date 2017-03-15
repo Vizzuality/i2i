@@ -63,6 +63,13 @@
     .article-text {
       display: flex;
       justify-content: center;
+
+      ul {
+        li {
+          display: list-item;
+          list-style: disc;
+        }
+      }
     }
 
     .footer-article {
