@@ -1,7 +1,7 @@
 ActiveAdmin.register Blog do
 
   config.per_page = 20
-  config.sort_order = 'id_asc'
+  config.sort_order = 'date_desc'
 
   filter :title
 
@@ -18,6 +18,7 @@ ActiveAdmin.register Blog do
     end
     column :summary
     column :updated_at
+    column :date
     actions
   end
 
