@@ -1,0 +1,236 @@
+{
+  "width": <%= width %>,
+  "height": 0,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [{"type": "filter","test": "datum.label.length"}]
+    },
+    {
+      "name": "groupsStats",
+      "source": "table",
+      "transform": [
+        {
+          "type": "facet",
+          "groupby": "group",
+          "transform": [
+            {
+              "type": "aggregate",
+              "summarize": [{ "field": "percentage", "ops": ["sum"] }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "groupsNames",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["group"],
+          "summarize": [{"field": "group", "ops": ["values"]}]
+        },
+        {"type": "rank"},
+        {
+          "type": "formula",
+          "field": "pos",
+          "expr": "(datum.rank - 1) * 40"
+        }
+      ]
+    },
+    {
+      "name": "ungrouped",
+      "source": "table",
+      "transform": [
+        {
+          "type": "lookup",
+          "on": "groupsStats",
+          "onKey": "key",
+          "keys": ["group"],
+          "as": "stats"
+        },
+        {
+          "type": "formula",
+          "field": "sumPercentage",
+          "expr": "datum.stats.values[0].sum_percentage"
+        }
+      ]
+    },
+    {
+      "name": "stats",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["group"],
+          "summarize": [{"field": "percentage","ops": ["sum"]}]
+        }
+      ]
+    },
+    {
+      "name": "groupsCount",
+      "source": "stats",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": [{ "field": "group", "ops": ["count"] }]
+        }
+      ]
+    },
+    {
+      "name": "groupValues",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["label"],
+          "summarize": [
+            {"field": "percentage", "ops": ["values"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "source": "groupValues",
+      "transform": [
+        {
+          "type": "cross",
+          "with": "groupsCount"
+        },
+        {"type": "rank"},
+        {
+          "type": "formula",
+          "field": "yPos",
+          "expr": "10 + datum.b.count_group * 40 + floor((datum.rank - 1) / 2) * 30"
+        },
+        {
+          "type": "formula",
+          "field": "xPos",
+          "expr": "((datum.rank - 1) % 2) * <%= isNaN(width) ? 0 : width / 2 %>"
+        }
+      ]
+    },
+    {
+      "name": "grouped",
+      "source": "ungrouped",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["group"],
+          "field": "percentage"
+        },
+        {
+          "type": "facet",
+          "groupby": "group"
+        },
+        {"type": "rank"},
+        {
+          "type": "formula",
+          "field": "pos",
+          "expr": "(datum.rank - 1) * 40"
+        }
+      ]
+    }
+
+
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "groupValues","field": "label"},
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31"]
+    },
+    {
+      "name": "outerGroup",
+      "type": "linear",
+      "range": "width",
+      "domain": [0,100]
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {"data": "grouped"},
+      "properties": {
+        "enter": {
+          "x": {"value": 0},
+          "y": {"field": "pos"},
+          "width": {"field": {"group": "width"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "scales": [
+        {
+          "name": "innerGroup",
+          "type": "linear",
+          "range": "width",
+          "domain": {"field": "sumPercentage"}
+        }
+      ],
+      "marks": [
+        {
+          "type": "rect",
+          "properties": {
+            "enter": {
+              "x": {
+                "scale": "innerGroup",
+                "field": "layout_start"
+              },
+              "x2": {"scale": "innerGroup","field": "layout_end"},
+              "y": {"value": 7},
+              "height": {"value": 10},
+              "fill": {"scale": "color","field": "label"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "from": {"data": "groupsNames"},
+      "properties": {
+        "enter": {
+          "x": {"value": 0},
+          "y": {"field": "pos"},
+          "text": {"field": "group"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": { "data": "legend" },
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "offset": 6},
+          "y": {"field": "yPos"},
+          "size": {"value": 100},
+          "fill": {"scale": "color", "field": "a.label"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "legend" },
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "offset": 20},
+          "y": {"field": "yPos", "offset": 5},
+          "text": {"field": "a.label"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"}
+        }
+      }
+    }
+  ]
+}

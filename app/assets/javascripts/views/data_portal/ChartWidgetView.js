@@ -10,56 +10,6 @@
     STRAND: 'Strands'
   };
 
-  var Model = Backbone.Model.extend({
-    initialize: function (indicatorId, iso, year, filters) {
-      this.indicatorId = indicatorId;
-      this.iso = iso;
-      this.year = year;
-      this.filters = filters;
-    },
-
-    url: function() {
-      var url =  API_URL + '/indicator/' + this.indicatorId + '?' + this.iso + '=' + this.year;
-
-      if (this.filters.length) {
-        var filters = this.filters.map(function (filter) {
-          return {
-            indicatorId: filter.id,
-            value: filter.options
-          };
-        }.bind(this));
-        url += '&filters=' + JSON.stringify(filters);
-      }
-
-      return url;
-    },
-
-    parse: function (data) {
-      return {
-        title: data.title,
-        data: data.data.map(function (answer) {
-          return {
-            id: answer.answerId,
-            label: answer.value,
-            count: answer.count,
-            total: answer.sum,
-            percentage: answer.percentage
-          };
-        })
-      };
-    }
-  });
-
-  // TODO: to be removed
-  var mockupData = {
-    name: 'Settlement',
-    data: [
-      { label: 'Rural', count: 18943, total: 36441, percentage: 0.519 },
-      { label: 'Urban', count: 11046, total: 36441, percentage: 0.303 },
-      { label: 'Other', count: 6450, total: 36441, percentage: 0.178 }
-    ]
-  };
-
   App.View.ChartWidgetView = Backbone.View.extend({
 
     template: JST['templates/data_portal/chart-widget'],
@@ -76,27 +26,29 @@
       _height: null,
       // Indicator information
       indicator: null,
+      // List of all the indicators
+      indicators: [],
       // ISO of the country
       iso: null,
       // Selected year
       year: null,
       // Filters on the data
       // See _filters in App.Page.DataPortalCountryPage to see their format
-      filters: []
+      filters: [],
+      // Id of the indicator used for the analysis
+      analysisIndicator: null
     },
 
     events: {
       'click .js-retry-indicator': '_fetchData',
-      'click .js-change': '_onChange'
+      'click .js-change': '_onChange',
+      'click .js-compare': '_onCompare',
+      'click .js-analyze': '_onAnalyze',
+      'click .js-stop-analyze': '_onStopAnalyze'
     },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.model = new Model(this.options.indicator.id, this.options.iso, this.options.year, this.options.filters);
-
-      // We show the spinning loader
-      this._showLoader();
-
       this._fetchData();
     },
 
@@ -152,6 +104,41 @@
     },
 
     /**
+     * Event handler for when the user clicks the analyze button
+     */
+    _onAnalyze: function () {
+      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
+        return indicator.category !== CATEGORIES.STRAND;
+      });
+
+      new App.Component.ModalChartAnalysis({
+        indicators: nonStrandIndicators,
+        selectedIndicatorId: this.options.analysisIndicator,
+        continueCallback: function (indicatorId) {
+          this.options.analysisIndicator = indicatorId;
+          this._fetchData();
+        }.bind(this)
+      });
+    },
+
+    /**
+     * Event handler for when the user clicks the "clear analysis" button
+     */
+    _onStopAnalyze: function () {
+      this.options.chart = null;
+      this.options.analysisIndicator = null;
+      this._fetchData();
+    },
+
+    /**
+     * Event handler for when the user clicks the compare button
+     */
+    _onCompare: function () {
+      // Don't forget to stop the analysis, is enabled
+      // Check _onStopAnalyze to see what to do
+    },
+
+    /**
      * Event handler fow when the chart is changed
      * @param {string} chart - chosen chart
      */
@@ -159,13 +146,33 @@
       if (this.options.chart === chart) return;
 
       this.options.chart = chart;
-      this.render();
+
+      // We stop the analysis
+      if (this.options.analysisIndicator) {
+        this.options.analysisIndicator = null;
+        this._fetchData();
+      } else {
+        this.render();
+      }
     },
 
     /**
      * Fetch the data for the widget
      */
     _fetchData: function () {
+      // We show the spinning loader
+      this._showLoader();
+
+      // We create a new model each time we request the data because the
+      // model options eventually changed
+      this.model = new App.Model.ChartWidgetModel({
+        id: this.options.indicator.id,
+        iso: this.options.iso,
+        year: this.options.year,
+        filters: this.options.filters,
+        analysisIndicatorId: this.options.analysisIndicator
+      });
+
       this.model.fetch()
         .done(function () {
           var data = this.model.get('data');
@@ -182,7 +189,9 @@
           // We pre-render the component with its template
           this.el.innerHTML = this.template({
             name: this.model.get('title'),
-            noData: !data.length
+            noData: !data.length,
+            canAnalyze: this.options.indicator.category === CATEGORIES.STRAND,
+            isAnalyzing: !!this.options.analysisIndicator
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -204,18 +213,14 @@
         var isStrandOnlyChart = !!chart.strandOnly;
         return isStrandIndicator === isStrandOnlyChart;
       }, this);
-
-      // return availableCharts.filter(function (chartName) {
-      //   var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-      //   var isComplexChart = chart.complex;
-      //   return (isComplexIndicator && isComplexChart) || (!isComplexIndicator && !isComplexChart);
-      // })
     },
 
     /**
      * Show the spinning loader
+     * NOTE: also empties the container
      */
     _showLoader: function () {
+      this.el.innerHTML = '';
       this.el.classList.add('c-spinning-loader');
     },
 
@@ -278,7 +283,7 @@
      */
     _getChartRatio: function () {
       var chartConfig = _.findWhere(App.Helper.ChartConfig, { name: this.options.chart });
-      return chartConfig.ratio || this.options.chartRatio;
+      return (chartConfig && chartConfig.ratio) || this.options.chartRatio;
     },
 
     /**
@@ -302,16 +307,12 @@
         }
       }
 
-      var chartDimensions = this._computeChartDimensions();
-
-      if (this.options.indicator.id === 'access_to_resources') {
-        console.log(this._getChartTemplate()({
-          data: JSON.stringify(this.model.get('data')),
-          width: chartDimensions.width,
-          height: chartDimensions.height
-        }));
+      // If the analysis mode is active, then the chart is always the same
+      if (this.options.analysisIndicator) {
+        this.options.chart = 'analysis';
       }
 
+      var chartDimensions = this._computeChartDimensions();
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
@@ -323,8 +324,6 @@
      * Create the chart and append it to the DOM
      */
     _renderChart: function () {
-      // TODO: If no data, we render an empty chart
-
       vg.parse
         .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
           this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
@@ -333,6 +332,7 @@
 
     render: function () {
       this._renderChart();
+      this.setElement(this.el);
       return this.el;
     },
 
