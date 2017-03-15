@@ -8,7 +8,7 @@ ActiveAdmin.register News do
   controller do
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit news: [:title, :author, :summary, :content, :id, :image, :date, :highlight]
+      params.permit news: [:title, :author, :summary, :content, :id, :image, :date]
     end
   end
 
@@ -26,7 +26,6 @@ ActiveAdmin.register News do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
-      f.input :highlight
       f.input :author
       f.input :title
       f.input :summary
