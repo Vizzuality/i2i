@@ -31,6 +31,10 @@
                         <% end %>
                         on <%= DateHelper.beautify @post.date %>
                       </span>
+
+                      <% unless @post.workstream.blank? %>
+                        <span class="workstream"><%= @post.workstream %></span>
+                      <% end %>
                     </div>
                   </div>
                 </header>
