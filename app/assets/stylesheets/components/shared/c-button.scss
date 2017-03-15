@@ -14,6 +14,7 @@
 
   cursor: pointer;
 
+  &.-active,
   &:hover {
     background-color: $color-1;
     color: $color-4;
@@ -24,6 +25,7 @@
     background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
+    &.-active,
     &:hover {
       background-color: $color-1;
       color: $color-4;
@@ -35,6 +37,7 @@
       color: $color-4;
       box-shadow: none;
 
+      &.-active,
       &:hover {
         background-color: transparent;
         color: $color-4;
@@ -47,6 +50,7 @@
     background-color: $color-1;
     color: $color-4;
 
+    &.-active,
     &:hover {
       background-color: $color-4;
       color: $color-1;
@@ -57,6 +61,7 @@
       background-color: transparent;
       color: $color-1;
 
+      &.-active,
       &:hover {
         background-color: transparent;
         color: $color-1;

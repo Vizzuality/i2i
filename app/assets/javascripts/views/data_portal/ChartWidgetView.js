@@ -42,7 +42,9 @@
     events: {
       'click .js-retry-indicator': '_fetchData',
       'click .js-change': '_onChange',
-      'click .js-analyze': '_onAnalyze'
+      'click .js-compare': '_onCompare',
+      'click .js-analyze': '_onAnalyze',
+      'click .js-stop-analyze': '_onStopAnalyze'
     },
 
     initialize: function (settings) {
@@ -120,6 +122,23 @@
     },
 
     /**
+     * Event handler for when the user clicks the "clear analysis" button
+     */
+    _onStopAnalyze: function () {
+      this.options.chart = null;
+      this.options.analysisIndicator = null;
+      this._fetchData();
+    },
+
+    /**
+     * Event handler for when the user clicks the compare button
+     */
+    _onCompare: function () {
+      // Don't forget to stop the analysis, is enabled
+      // Check _onStopAnalyze to see what to do
+    },
+
+    /**
      * Event handler fow when the chart is changed
      * @param {string} chart - chosen chart
      */
@@ -127,7 +146,14 @@
       if (this.options.chart === chart) return;
 
       this.options.chart = chart;
-      this.render();
+
+      // We stop the analysis
+      if (this.options.analysisIndicator) {
+        this.options.analysisIndicator = null;
+        this._fetchData();
+      } else {
+        this.render();
+      }
     },
 
     /**
@@ -164,7 +190,8 @@
           this.el.innerHTML = this.template({
             name: this.model.get('title'),
             noData: !data.length,
-            canAnalyze: this.options.indicator.category === CATEGORIES.STRAND
+            canAnalyze: this.options.indicator.category === CATEGORIES.STRAND,
+            isAnalyzing: !!this.options.analysisIndicator
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -256,7 +283,7 @@
      */
     _getChartRatio: function () {
       var chartConfig = _.findWhere(App.Helper.ChartConfig, { name: this.options.chart });
-      return chartConfig.ratio || this.options.chartRatio;
+      return (chartConfig && chartConfig.ratio) || this.options.chartRatio;
     },
 
     /**
@@ -280,8 +307,12 @@
         }
       }
 
-      var chartDimensions = this._computeChartDimensions();
+      // If the analysis mode is active, then the chart is always the same
+      if (this.options.analysisIndicator) {
+        this.options.chart = 'analysis';
+      }
 
+      var chartDimensions = this._computeChartDimensions();
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,

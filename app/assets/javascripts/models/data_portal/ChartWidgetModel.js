@@ -103,9 +103,10 @@
         // The method below mutates the original dataset
         return partialIndicators[index].data.map(function (row) {
           row.group = columnName;
+          row.groupPercentage = _.findWhere(this.analysisIndicatorModel.get('data'), { label: columnName }).percentage;
           return row;
-        });
-      }).reduce(function (res, data) {
+        },this);
+      }, this).reduce(function (res, data) {
         return res.concat(data);
       }, []);
 
