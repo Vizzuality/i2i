@@ -165,6 +165,8 @@
 
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
+        iso: this.options.iso,
+        year: this.options.year,
         indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
         continueCallback: this._onFiltersUpdate.bind(this)

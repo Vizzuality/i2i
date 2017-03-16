@@ -14,10 +14,18 @@
     template: JST['templates/data_portal/filters/apply-filters'],
 
     defaults: {
+      // ISO of the country
+      iso: null,
+      // Selected year
+      year: null,
       // List of indicators
       indicators: [],
       // List of the filters
       filters: []
+    },
+
+    events: {
+      'click .js-retry': '_fetchData',
     },
 
     initialize: function (options) {
@@ -25,12 +33,12 @@
       // Filter out the non visible and the strand indicators and copy the entire object to
       // avoid mutations of the original one
       this.options.indicators = this.options.indicators
-        .filter(function (indicator) { return indicator.visible && indicator.category !== CATEGORIES.STRAND && indicator.options && indicator.options.length; })
+        .filter(function (indicator) { return indicator.visible && indicator.category !== CATEGORIES.STRAND; })
         .map(function (indicator) {
           return {
             name: indicator.name,
             id: indicator.id,
-            options: Array.prototype.slice.call(indicator.options, 0)
+            options: indicator.options && Array.prototype.slice.call(indicator.options)
           };
         })
         .sort(function (a, b) {
@@ -38,6 +46,78 @@
           if (a.name > b.name) return 1;
           return 0;
         });
+
+      this._fetchData();
+    },
+
+    /**
+     * Fetch the data necessary for the view and render it
+     */
+    _fetchData: function () {
+      this._showLoader();
+
+      var deferred = $.Deferred();
+
+      var missingIndicators = this.options.indicators.filter(function (indicator) {
+        return !indicator.options || !indicator.options.length;
+      });
+
+      if (missingIndicators.length) {
+        var missingIndicatorsModels = missingIndicators.map(function (missingIndicator) {
+          return new App.Model.IndicatorModel({},
+            {
+              id: missingIndicator.id,
+              iso: this.options.iso,
+              year: this.options.year
+            }
+          );
+        }, this);
+
+        $.when.apply($,
+          missingIndicatorsModels.map(function (missingIndicatorModel) {
+            return missingIndicatorModel.fetch();
+          })
+        ).done(function () {
+          // We copy the options in this.options.indicators
+          missingIndicatorsModels.forEach(function (missingIndicatorModel) {
+            var indicator = _.findWhere(this.options.indicators, { id: missingIndicatorModel.options.id });
+            indicator.options = missingIndicatorModel.get('data').map(function (row) {
+              return row.label;
+            });
+          }, this);
+
+          deferred.resolve();
+        }.bind(this))
+        .fail(deferred.reject);
+      } else {
+        deferred.resolve();
+      }
+
+      deferred
+        .done(function() {
+          this._hideLoader();
+          this.render();
+        }.bind(this))
+        .fail(function () {
+          this.renderError();
+          this._hideLoader();
+        }.bind(this));
+    },
+
+    /**
+     * Show the spinning loader
+     * NOTE: also empties the container
+     */
+    _showLoader: function () {
+      this.el.innerHTML = '';
+      this.el.classList.add('c-spinning-loader');
+    },
+
+    /**
+     * Hide the spinning loader
+     */
+    _hideLoader: function () {
+      this.el.classList.remove('c-spinning-loader');
     },
 
     _getFilteredIndicators: function () {
@@ -84,6 +164,15 @@
       }));
 
       return this;
+    },
+
+    renderError: function () {
+      this.el.innerHTML = '<p class="loading-error">' +
+        'Unable to load the filters' +
+        '<button type="button" class="c-button -retry js-retry">Retry</button>' +
+        '</p>';
+
+      this.setElement(this.el);
     }
 
   });

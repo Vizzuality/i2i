@@ -12,6 +12,10 @@
       // Callback executed when the user presses the "Done" button
       // The callback gets passed the name of the selected chart
       continueCallback: function () {},
+      // ISO of the country
+      iso: null,
+      // Current year
+      year: null,
       // List of all the possible indicators
       indicators: [],
       // List of filters currently applied
@@ -89,11 +93,12 @@
 
       var View = this.options._tabs[tabIndex].view;
       this.filterView = new View({
+        el: this.$el.find('.js-filters-container'),
+        iso: this.options.iso,
+        year: this.options.year,
         indicators: indicators,
         filters: filters
       });
-
-      this.$el.find('.js-filters-container').html(this.filterView.render().$el);
     },
 
     /**
