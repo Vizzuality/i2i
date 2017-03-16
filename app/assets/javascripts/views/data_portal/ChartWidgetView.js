@@ -1,9 +1,10 @@
 (function (App) {
   'use strict';
 
-  // This object is used to detect the category of the indicator without having to repeat
+  // This object is used to detect the category of the indicators without having to repeat
   // the exact name
-  // NOTE: this object is duplicated in DataPortalCountryPage; make sure to update both of them
+  // NOTE: this object is duplicated in ChartWidgetView and ApplyFiltersView; make sure to
+  // update both of them
   var CATEGORIES = {
     COMMON: 'Common Indicators',
     STRAND: 'Financial Access'

@@ -62,10 +62,12 @@
     .filter-list > .filter-item > .indicator-filters-list {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: stretch;
 
       > .indicator-filters-item {
         flex-basis: calc(100% / 3);
+
+        > .c-checkbox { height: 100%; }
       }
     }
   }

@@ -45,11 +45,11 @@
           name: 'Select indicators',
           view: App.View.SelectIndicatorsView
         },
-        // {
-        //   id: 'apply-filters',
-        //   name: 'Apply filters',
-        //   view: App.View.ApplyFiltersView
-        // }
+        {
+          id: 'apply-filters',
+          name: 'Apply filters',
+          view: App.View.ApplyFiltersView
+        }
       ];
 
       this.render();
@@ -83,10 +83,14 @@
         });
       }, this);
 
+      var filters = this.options._selectedFilters
+        ? this.options._selectedFilters
+        : this.options.filters;
+
       var View = this.options._tabs[tabIndex].view;
       this.filterView = new View({
         indicators: indicators,
-        filters: this.options.filters
+        filters: filters
       });
 
       this.$el.find('.js-filters-container').html(this.filterView.render().$el);
@@ -101,54 +105,11 @@
       this.options[attribute] = this.filterView.getData();
     },
 
-    _serializeForm: function(form) {
-      var filters = [],
-        elements = form.querySelectorAll('input, select, textarea'),
-        element,
-        name,
-        value;
-
-      if (elements.length === 0) return null;
-
-      for(var i = 0; i < elements.length; i += 1) {
-        element = elements[i];
-        name = element.name;
-        value = element.value;
-
-        if (element.type === 'checkbox') {
-          if (element.checked) {
-            var entry = _.findWhere(filters, { id: name });
-
-            if (entry === undefined) {
-              entry = {
-                id: name,
-                options: [value]
-              };
-              filters.push(entry);
-            } else {
-              entry.options.push(value);
-            }
-          }
-        }
-      }
-
-      return filters;
-    },
-
     _onClickDone: function () {
-      // var form = document.querySelector('form');
-
-      // if (form === null) {
-      //   this.constructor.__super__.onCloseModal.apply(this);
-      //   return;
-      // }
-
-      // var newFilters = this._serializeForm(form);
-
       // We save the data of the current tab
       this._saveCurrentTabData();
 
-      this.options.continueCallback(this.options._selectedIndicators, []);
+      this.options.continueCallback(this.options._selectedIndicators, this.options._selectedFilters);
       this.onCloseModal();
     },
 

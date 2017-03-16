@@ -8,9 +8,7 @@
             <% ind.options.forEach(function(opt) { %>
               <li class="indicator-filters-item">
                 <div class="c-checkbox">
-                  <input type="checkbox" <% if(opt.filtered) { %> checked <% } %> name="<%= ind.id %>"
-                    value="<%= opt.name %>" id="<%= opt.name %>"
-                  >
+                  <input type="checkbox" <% if(opt.filtered) { %> checked <% } %> value="<%= opt.name %>" id="<%= opt.name %>" class="js-option" data-indicator="<%= ind.id %>">
                   <label for="<%= opt.name %>"><%= opt.name %></label>
                 </div>
               </li>
