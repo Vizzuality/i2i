@@ -19,7 +19,7 @@
     onClick: function (e) {
       var slug = e.currentTarget.getAttribute('data-slug'),
         role = e.currentTarget.getAttribute('data-role'),
-        members = gon[role];
+        members = JSON.parse(gon[role]).members;
 
       if (members === undefined) return;
 
