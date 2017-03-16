@@ -30,11 +30,11 @@
     { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'i2i Standards', visible: false },
     { id: 'i2i_Education', name: 'Level of education', category: 'i2i Standards', visible: true },
     { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'i2i Standards', visible: true },
-    { id: 'fas_strand', name: 'Financial Access', category: 'Strands', visible: true },
-    { id: 'savings_strand', name: 'Access to savings', category: 'Strands', visible: true },
-    { id: 'credit_strand', name: 'Access to credit', category: 'Strands', visible: true },
-    { id: 'remittances_strand', name: 'Send and receive money', category: 'Strands', visible: false },
-    { id: 'insurance_strand', name: 'Access to insurance', category: 'Strands', visible: false }
+    { id: 'fas_strand', name: 'Financial Access', category: 'Financial Access', visible: true },
+    { id: 'savings_strand', name: 'Access to savings', category: 'Financial Access', visible: true },
+    { id: 'credit_strand', name: 'Access to credit', category: 'Financial Access', visible: true },
+    { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
+    { id: 'insurance_strand', name: 'Access to insurance', category: 'Financial Access', visible: false }
   ];
 
   // This object is used to detect the category of the indicators without having to repeat
@@ -43,7 +43,7 @@
   var CATEGORIES = {
     COMMON: 'Common Indicators',
     STANDARD: 'i2i Standards',
-    STRAND: 'Strands'
+    STRAND: 'Financial Access'
   };
 
   // This will be removed when we have a way to get the country name from the API

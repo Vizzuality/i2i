@@ -7,7 +7,7 @@
   var CATEGORIES = {
     COMMON: 'Common Indicators',
     STANDARD: 'i2i Standards',
-    STRAND: 'Strands'
+    STRAND: 'Financial Access'
   };
 
   App.View.ChartWidgetView = Backbone.View.extend({
