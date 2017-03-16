@@ -1,8 +1,12 @@
 <div class="c-modal-profile">
-  <div class="member-picture" style="background-image: url(<%= photo %>)"></div>
+  <div class="member-picture" style="background-image: url(<%= image %>)"></div>
   <div class="member-info">
     <h3 class="title -dark -medium member-name"><%= name %></h3>
     <h4 class="title -sea -small member-position"><%= position %></h4>
-    <%= biography %>
+    <div class="scroll-container">
+      <div class="content">
+        <%= biography %>
+      </div>
+    </div>
   </div>
 </div>

@@ -18,8 +18,8 @@
       this.constructor.__super__.initialize.call(this, options);
       this.data = options.data;
 
-      this._setOptions();
 
+      this._setOptions();
       this.render();
     },
 
@@ -28,12 +28,11 @@
     },
 
     _setOptions: function () {
-      console.log(this.data);
       this.options.content = this.contentTemplate({
         name: this.data.name,
         position: this.data.position,
         biography: this.data.biography,
-        photo: this.data.image_file_name
+        image: this.data.image
       });
     },
 
