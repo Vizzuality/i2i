@@ -6,7 +6,6 @@
   // NOTE: this object is duplicated in DataPortalCountryPage; make sure to update both of them
   var CATEGORIES = {
     COMMON: 'Common Indicators',
-    STANDARD: 'i2i Standards',
     STRAND: 'Financial Access'
   };
 

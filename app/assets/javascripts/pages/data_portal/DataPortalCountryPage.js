@@ -27,9 +27,9 @@
     { id: 'age',name: 'Age', category: 'Common Indicators', visible: false },
     // { id: 'access_to_resources', name: 'Access to Resources', category: 'Common Indicators', visible: false },
     // { id: 'dwelling_type', name: 'Dwelling type: roof/dwelling', category: 'Common Indicators', visible: false },
-    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'i2i Standards', visible: false },
-    { id: 'i2i_Education', name: 'Level of education', category: 'i2i Standards', visible: true },
-    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'i2i Standards', visible: true },
+    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'Common Indicators', visible: false },
+    { id: 'i2i_Education', name: 'Level of education', category: 'Common Indicators', visible: true },
+    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common Indicators', visible: true },
     { id: 'fas_strand', name: 'Financial services uptake', category: 'Financial Access', visible: true },
     { id: 'savings_strand', name: 'Savings', category: 'Financial Access', visible: true },
     { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
@@ -42,7 +42,6 @@
   // NOTE: this object is duplicated in ChartWidgetView; make sure to update both of them
   var CATEGORIES = {
     COMMON: 'Common Indicators',
-    STANDARD: 'i2i Standards',
     STRAND: 'Financial Access'
   };
 
