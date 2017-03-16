@@ -97,39 +97,19 @@
           </div>
           <div class="l-staff-grid">
             <div class="row">
-              <% if false %>
-                <% @teamMembers.each do |member| %>
-                  <div class="grid-s-12 grid-m-4 grid-l-3">
-                    <div class="c-profile" data-modal="team" data-slug="<%= member.name%>" tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
-                      <div class="avatar" style="background-image: url(<%= asset_path('member.image') %>)"></div>
-                      <div class="info">
-                        <span class="name"><%= member.name %></span>
-                        <% unless member.organization_name.blank? %>
-                          <span class="organization"><%= member.organization_name %></span>
-                        <% end %>
-                      </div>
+              <% @teamMembers.each do |member| %>
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <div class="c-profile" data-modal="team" data-slug="<%= member.slug %>" tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
+                    <div class="avatar" style="background-image: url(<%= member.image %>)"></div>
+                    <div class="info">
+                      <span class="name"><%= member.name %></span>
+                      <% unless member.organization_name.blank? %>
+                        <span class="organization"><%= member.organization_name %></span>
+                      <% end %>
                     </div>
                   </div>
-                <% end %>
+                </div>
               <% end %>
-              <div class="grid-s-12 grid-m-4 grid-l-3">
-                <div class="c-profile" data-modal="team" data-slug="Jeremy Soul" tabindex="0" role="button" aria-label="Jeremy Soul, open modal">
-                  <div class="avatar" style="background-image: url(<%= asset_path('team-members/person_1.jpg') %>)"></div>
-                  <div class="info">
-                    <span class="name">Jeremy Soul</span>
-                    <span class="organization">An Amazing Company</span>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12 grid-m-4 grid-l-3">
-                <div class="c-profile" data-modal="team" data-slug="Jeremy Soul 2" tabindex="0" role="button" aria-label="Jeremy Soul 2, open modal">
-                  <div class="avatar" style="background-image: url(<%= asset_path('team-members/person_2.jpg') %>)"></div>
-                  <div class="info">
-                    <span class="name">Jeremy Soul 2</span>
-                    <span class="organization">An Amazing Company 2</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -174,39 +154,19 @@
           </div>
           <div class="l-staff-grid">
             <div class="row">
-              <% if false %>
-                <% @advisoryMembers.each do |member| %>
-                  <div class="grid-s-12 grid-m-4 grid-l-3">
-                    <div class="c-profile" data-modal="team" data-slug="<%= member.name%>" tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
-                      <div class="avatar" style="background-image: url(<%= asset_path('member.image') %>)"></div>
-                      <div class="info">
-                        <span class="name"><%= member.name %></span>
-                        <% unless member.organization_name.blank? %>
-                          <span class="organization"><%= member.organization_name %></span>
-                        <% end %>
-                      </div>
+              <% @advisoryMembers.each do |member| %>
+                <div class="grid-s-12 grid-m-4 grid-l-3">
+                  <div class="c-profile" data-modal="team" data-slug="<%= member.slug %>" tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
+                    <div class="avatar" style="background-image: url(<%= member.image %>)"></div>
+                    <div class="info">
+                      <span class="name"><%= member.name %></span>
+                      <% unless member.organization_name.blank? %>
+                        <span class="organization"><%= member.organization_name %></span>
+                      <% end %>
                     </div>
                   </div>
-                <% end %>
+                </div>
               <% end %>
-              <div class="grid-s-12 grid-m-4 grid-l-3">
-                <div class="c-profile" data-modal="team" data-slug="Jeremy Soul" tabindex="0" role="button" aria-label="Jeremy Soul, open modal">
-                  <div class="avatar" style="background-image: url(<%= asset_path('team-members/person_1.jpg') %>)"></div>
-                  <div class="info">
-                    <span class="name">Jeremy Soul</span>
-                    <span class="organization">An Amazing Company</span>
-                  </div>
-                </div>
-              </div>
-              <div class="grid-s-12 grid-m-4 grid-l-3">
-                <div class="c-profile" data-modal="team" data-slug="Jeremy Soul 2" tabindex="0" role="button" aria-label="Jeremy Soul 2, open modal">
-                  <div class="avatar" style="background-image: url(<%= asset_path('team-members/person_2.jpg') %>)"></div>
-                  <div class="info">
-                    <span class="name">Jeremy Soul 2</span>
-                    <span class="organization">An Amazing Company 2</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -223,7 +183,6 @@
           </p>
         </div>
       </div>
-
         <div class="row">
           <div class="grid-s-12">
             <div class="l-addresses">
