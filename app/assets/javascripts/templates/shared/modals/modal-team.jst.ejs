@@ -1,13 +1,8 @@
-<div class="modal-content -team">
-  <div class="member-picture">
-    <img src="<%= url_photo %>" alt="<%= name %>">
+<div class="c-modal-profile">
+  <div class="member-picture" style="background-image: url(<%= photo %>)"></div>
+  <div class="member-info">
+    <h3 class="title -dark -medium member-name"><%= name %></h3>
+    <h4 class="title -sea -small member-position"><%= position %></h4>
+    <%= biography %>
   </div>
-  <div class="modal-wrapper">
-    <h3 class="title -dark -medium"><%= name %></h3>
-    <h4 class="title -sea -small"><%= role %></h4>
-    <p><%= description %></p>
-  </div>
-</div>
-<div class="modal-footer -team">
-  <button class="c-button js-close-btn-modal">close</button>
 </div>

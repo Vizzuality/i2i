@@ -17,9 +17,19 @@
     },
 
     onClick: function (e) {
-      var slug = e.currentTarget.getAttribute('data-slug');
+      var slug = e.currentTarget.getAttribute('data-slug'),
+        role = e.currentTarget.getAttribute('data-role'),
+        members = gon[role];
 
-      this.openModal(slug);
+      if (members === undefined) return;
+
+      var currentMember = members.find(function (member) {
+        return member.slug === slug;
+      });
+
+      if (currentMember) {
+        this.openModal(currentMember);
+      }
     },
 
     onKeydown: function (e) {
@@ -32,9 +42,12 @@
       }
     },
 
-    openModal: function (slug) {
+    openModal: function (data) {
+      console.log(data);
       new App.Component.ModalTeam({
-        slug: slug
+        showTitle: false,
+        title: data.name,
+        data: data
       });
     },
 
