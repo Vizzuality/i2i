@@ -98,12 +98,13 @@
           <div class="l-staff-grid">
             <div class="row">
               <% @teamMembers.each do |member| %>
+                = member
                 <div class="grid-s-12 grid-m-4 grid-l-3">
                   <div class="c-profile"
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
                   data-slug="<%= member.slug %>"  tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
-                    <div class="avatar" style="background-image: url(<%= member.image %>)"></div>
+                    <div class="avatar" style="background-image: url(<%= member.image.url(:thumb) %>)"></div>
                     <div class="info">
                       <span class="name"><%= member.name %></span>
                       <% unless member.organization_name.blank? %>
