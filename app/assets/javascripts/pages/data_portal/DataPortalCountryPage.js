@@ -97,8 +97,7 @@
      * @param {{ id: string, name: string, data: object[] }} event
      */
     _onWidgetSync: function (event) {
-      this._updateIndicatorsData(event.id, event.name, event.data);
-      this._updateWidgetContainer(event.id, event.data);
+      this._updateWidgetContainer(event.id);
     },
 
     /**
@@ -110,17 +109,6 @@
       if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
       if (filters) this._updateFilters(filters);
       this._renderWidgets();
-    },
-
-    /**
-     * Update the indicators collection with the data passed as argument
-     * @param {string} indicatorId
-     * @param {string} indicatorName
-     * @param {object[]} data
-     */
-    _updateIndicatorsData: function (indicatorId, indicatorName, data) {
-      var indicator = this.indicatorsCollection.find({ id: indicatorId });
-      indicator.set({ options: data.map(function (option) { return option.label; }) });
     },
 
     /**
@@ -225,9 +213,8 @@
      * Update the size of the widget container depending on
      * if the category of the indicator
      * @param {string} indicatorId
-     * @param {object[]} data
      */
-    _updateWidgetContainer: function (indicatorId, data) {
+    _updateWidgetContainer: function (indicatorId) {
       var visibleIndicators = this._getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];

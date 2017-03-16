@@ -51,57 +51,42 @@
     },
 
     /**
-     * Fetch the data necessary for the view and render it
+     * Fetch the data for each indicator and render it
      */
     _fetchData: function () {
       this._showLoader();
 
-      var deferred = $.Deferred();
+      var indicatorsModels = this.options.indicators.map(function (indicator) {
+        return new App.Model.IndicatorModel({},
+          {
+            id: indicator.id,
+            iso: this.options.iso,
+            year: this.options.year
+          }
+        );
+      }, this);
 
-      var missingIndicators = this.options.indicators.filter(function (indicator) {
-        return !indicator.options || !indicator.options.length;
-      });
-
-      if (missingIndicators.length) {
-        var missingIndicatorsModels = missingIndicators.map(function (missingIndicator) {
-          return new App.Model.IndicatorModel({},
-            {
-              id: missingIndicator.id,
-              iso: this.options.iso,
-              year: this.options.year
-            }
-          );
+      $.when.apply($,
+        indicatorsModels.map(function (indicatorsModel) {
+          return indicatorsModel.fetch();
+        })
+      ).done(function () {
+        // We copy the options in this.options.indicators
+        indicatorsModels.forEach(function (indicatorsModel) {
+          var indicator = _.findWhere(this.options.indicators, { id: indicatorsModel.options.id });
+          indicator.options = indicatorsModel.get('data').map(function (row) {
+            return row.label;
+          });
         }, this);
-
-        $.when.apply($,
-          missingIndicatorsModels.map(function (missingIndicatorModel) {
-            return missingIndicatorModel.fetch();
-          })
-        ).done(function () {
-          // We copy the options in this.options.indicators
-          missingIndicatorsModels.forEach(function (missingIndicatorModel) {
-            var indicator = _.findWhere(this.options.indicators, { id: missingIndicatorModel.options.id });
-            indicator.options = missingIndicatorModel.get('data').map(function (row) {
-              return row.label;
-            });
-          }, this);
-
-          deferred.resolve();
-        }.bind(this))
-        .fail(deferred.reject);
-      } else {
-        deferred.resolve();
-      }
-
-      deferred
-        .done(function() {
-          this._hideLoader();
-          this.render();
-        }.bind(this))
-        .fail(function () {
-          this.renderError();
-          this._hideLoader();
-        }.bind(this));
+      }.bind(this))
+      .then(function () {
+        this._hideLoader();
+        this.render();
+      }.bind(this))
+      .fail(function () {
+        this.renderError();
+        this._hideLoader();
+      }.bind(this));
     },
 
     /**
