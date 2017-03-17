@@ -5,7 +5,10 @@
     contentTemplate: JST['templates/shared/modals/modal-team'],
 
     defaults: {
-      footer: '<button type="button" class="c-button -padding -white js-close-btn-modal">Close</button>'
+      showTitle: false,
+      footer: '<button type="button" class="c-button -padding -white js-close-btn-modal">Close</button>',
+      // Contains an object with the info of the member to be displayed
+      memberInfo: {}
     },
 
     events: function () {
@@ -16,8 +19,7 @@
 
     initialize: function (options) {
       this.constructor.__super__.initialize.call(this, options);
-      this.data = options.data;
-
+      this._options = _.extend({}, this.defaults, options);
 
       this._setOptions();
       this.render();
@@ -28,11 +30,12 @@
     },
 
     _setOptions: function () {
+      var memberInfo = this._options.memberInfo;
       this.options.content = this.contentTemplate({
-        name: this.data.name,
-        position: this.data.position,
-        biography: this.data.biography,
-        image: this.data.image
+        name: memberInfo.name,
+        position: memberInfo.position,
+        biography: memberInfo.biography,
+        image: memberInfo.image
       });
     },
 

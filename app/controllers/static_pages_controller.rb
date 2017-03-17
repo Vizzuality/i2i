@@ -4,8 +4,8 @@ class StaticPagesController < ApplicationController
     @teamMembers = Member.where(role: 1)
     @advisoryMembers = Member.where(role: 2)
 
-    gon.team = serialized(@teamMembers).to_json
-    gon.advisor = serialized(@advisoryMembers).to_json
+    gon.team = JSON.parse serialized(@teamMembers).to_json
+    gon.advisor = JSON.parse serialized(@advisoryMembers).to_json
   end
 
   private
