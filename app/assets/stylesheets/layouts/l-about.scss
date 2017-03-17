@@ -25,6 +25,16 @@
     &.-what-we-do {
       position: relative;
 
+      .c-card-highlight {
+        &:first-child {
+          padding: 85px 110px 25px 85px;
+        }
+
+        &:nth-child(2) {
+          padding: 25px 110px 85px 85px;
+        }
+      }
+
       .image-container {
         position: absolute;
         top: 0;

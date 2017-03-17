@@ -2,7 +2,7 @@ class MemberSerializer < ActiveModel::Serializer
   attributes :id, :name, :image, :position, :organization_name, :biography, :role, :slug
 
   def image
-    object.image.url(:thumb) if object.image.file?
+    object.image.url(:thumb)
   end
 
   def role
