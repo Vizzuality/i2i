@@ -21,15 +21,33 @@
         filters: [],
         // Id of the indicator used for the analysis
         // NOTE: can't be modified after instantiation
-        analysisIndicatorId: null
+        analysisIndicatorId: null,
+        // List of the indicators used for the comparison
+        // Check the property in App.View.ChartWidgetView to see the format
+        compareIndicators: null
       }, options);
 
       this.indicatorModel = new App.Model.IndicatorModel({}, this.options);
+
       if (this.options.analysisIndicatorId) {
         this.analysisIndicatorModel = new App.Model.IndicatorModel(
           {},
           _.extend({}, this.options, { id: this.options.analysisIndicatorId })
         );
+      }
+
+      if (this.options.compareIndicators) {
+        this.compareIndicatorsModels = this.options.compareIndicators.map(function (compareIndicator) {
+          return new App.Model.IndicatorModel(
+            {},
+            {
+              id: compareIndicator.id,
+              iso: compareIndicator.iso,
+              year: compareIndicator.year,
+              filters: compareIndicator.filters || []
+            }
+          )
+        });
       }
     },
 
@@ -85,7 +103,7 @@
     },
 
     /**
-     * Join the partial indicators to form the complete datasets
+     * Join the partial indicators to form the complete dataset
      * Each row will get a "group" attribute with the name of the column used to retrieve the data
      * @returns {object[]}
      */
@@ -93,9 +111,7 @@
       var analysisColumns = this._getAnalysisColumns();
 
       // List of all the partial indicators
-      var partialIndicators = Array.prototype.slice.call(arguments).map(function (arg) {
-        return arg;
-      });
+      var partialIndicators = Array.prototype.slice.call(arguments);
 
       var res = _.extend({}, partialIndicators[0], { data: [] });
 
@@ -114,20 +130,69 @@
     },
 
     /**
+     * Return the name of the compare group
+     * @param {object} model Model of the partial indicator
+     * @returns {string}
+     */
+    _getCompareGroupName: function (model) {
+      if (model.options.filters && model.options.filters.length) {
+        return model.options.filters[0].options[0] + ' ' + model.options.year;
+      } else {
+        return App.Helper.Indicators.COUNTRIES[model.options.iso] + ' ' + model.options.year;
+      }
+    },
+
+    /**
+     * Fetch the partial indicators for the comparison
+     * A partial indicator represent the data of an indicator used for the comparison
+     * @returns {object} $.Deferred
+     */
+    _fetchComparePartials: function () {
+      return $.when.apply($,
+        this.compareIndicatorsModels.map(function (compareIndicatorsModel) {
+          // We can't directly return compareIndicatorsModel.fetch() here because we need the
+          // data to be parsed
+          var deferred = $.Deferred();
+          compareIndicatorsModel.fetch()
+            .done(function () { deferred.resolve(compareIndicatorsModel.toJSON()); })
+            .fail(deferred.reject);
+          return deferred;
+        })
+      );
+    },
+
+    /**
+     * Join the partial indicators to form the complete dataset
+     * Each row will get a "group" attribute with the name of the data represented
+     * @returns {object[]}
+     */
+    _joinComparePartials: function () {
+      var res = this.indicatorModel.toJSON();
+      res.data = res.data.map(function (row) {
+        return _.extend({}, row, { group: this._getCompareGroupName(this.indicatorModel) });
+      }, this);
+
+      // We append the data of each partial indicator, changing the name of the group each time
+      this.compareIndicatorsModels.forEach(function (compareIndicatorModel) {
+        var data = compareIndicatorModel.get('data');
+        data = data.map(function (row) {
+          return _.extend({}, row, { group: this._getCompareGroupName(compareIndicatorModel) });
+        }, this);
+
+        res.data = res.data.concat(data);
+      }, this);
+
+      return res;
+    },
+
+    /**
      * Fetch the model's data
      * @returns {object} $.Deferred
      */
     fetch: function () {
       var deferred = $.Deferred();
 
-      if (!this.analysisIndicatorModel) {
-        this.indicatorModel.fetch()
-          .done(function() {
-            this.set(this.indicatorModel.toJSON());
-            deferred.resolve.apply(this, arguments);
-          }.bind(this))
-          .fail(deferred.reject);
-      } else {
+      if (this.analysisIndicatorModel) {
         // We first need to fetch the data of the indicator used for the
         // analysis in order to get its columns
         this.analysisIndicatorModel.fetch()
@@ -139,6 +204,25 @@
           .then(this._joinAnalysisPartials.bind(this))
           .done(function(data) {
             this.set(data);
+            deferred.resolve.apply(this, arguments);
+          }.bind(this))
+          .fail(deferred.reject);
+      } else if (this.compareIndicatorsModels) {
+        // We first fetch the data of the indicator
+        this.indicatorModel.fetch()
+          // We then fetch the data of all the indicators used for the comparison
+          .then(this._fetchComparePartials.bind(this))
+          // We finally join the data
+          .then(this._joinComparePartials.bind(this))
+          .done(function (data) {
+            this.set(data)
+            deferred.resolve.apply(this, arguments);
+          }.bind(this))
+          .fail(deferred.reject);
+      } else {
+        this.indicatorModel.fetch()
+          .done(function() {
+            this.set(this.indicatorModel.toJSON());
             deferred.resolve.apply(this, arguments);
           }.bind(this))
           .fail(deferred.reject);

@@ -27,7 +27,11 @@
       // See _filters in App.Page.DataPortalCountryPage to see their format
       filters: [],
       // Id of the indicator used for the analysis
-      analysisIndicator: null
+      analysisIndicator: null,
+      // List of the indicators used for the comparison
+      // The format of each of them is:
+      // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
+      compareIndicators: null
     },
 
     events: {
@@ -71,13 +75,17 @@
      */
     _onChange: function () {
       // We retrieve the list of all the charts that can be built with vega
-      var charts = App.Helper.ChartConfig.map(function(chart) {
-        return {
-          name: chart.name,
-          available: false,
-          selected: this.options.chart === chart.name
-        };
-      }, this);
+      var charts = App.Helper.ChartConfig
+        .filter(function (chart) {
+          return chart.visible !== false;
+        })
+        .map(function(chart) {
+          return {
+            name: chart.name,
+            available: false,
+            selected: this.options.chart === chart.name
+          };
+        }, this);
 
       // We update the object to tell which ones are available with the current
       // dataset
@@ -105,6 +113,12 @@
         indicators: nonStrandIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
+          // If the comparison is active, we stop it
+          if (this.options.compareIndicators) {
+            this.options.chart = null;
+            this.options.compareIndicators = null;
+          }
+
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
         }.bind(this),
@@ -125,8 +139,41 @@
      * Event handler for when the user clicks the compare button
      */
     _onCompare: function () {
-      // Don't forget to stop the analysis, is enabled
-      // Check _onStopAnalyze to see what to do
+      // TODO: move the next block in the continue callback
+      // If the analysis is active, we stop it
+      if (this.options.analysisIndicator) {
+        this.options.chart = null;
+        this.options.analysisIndicator = null;
+      }
+
+      // TODO: add the real logic
+      if (!this.options.compareIndicators) {
+        this.options.compareIndicators = [];
+      }
+
+      this.options.compareIndicators.push({
+        id: this.options.indicator.id,
+        year: 2006,
+        iso: 'UGA',
+        filters: []
+      },
+      {
+        id: this.options.indicator.id,
+        year: 2010,
+        iso: 'GHA',
+        filters: []
+      });
+
+      this._fetchData();
+    },
+
+    /**
+     * Event handler for when the user clicks the "clear comparison" button
+     */
+    _onStopCompare: function () {
+      this.options.chart = null;
+      this.options.compareIndicators = null;
+      this._fetchData();
     },
 
     /**
@@ -141,6 +188,11 @@
       // We stop the analysis
       if (this.options.analysisIndicator) {
         this.options.analysisIndicator = null;
+        this._fetchData();
+      }
+      // We stop the comparison
+      else if (this.options.compareIndicators) {
+        this.options.compareIndicators = null;
         this._fetchData();
       } else {
         this.render();
@@ -188,7 +240,8 @@
         iso: this.options.iso,
         year: this.options.year,
         filters: this.options.filters,
-        analysisIndicatorId: this.options.analysisIndicator
+        analysisIndicatorId: this.options.analysisIndicator,
+        compareIndicators: this.options.compareIndicators
       });
 
       this.model.fetch()
@@ -209,7 +262,9 @@
             name: this.model.get('title'),
             noData: !data.length,
             canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
-            isAnalyzing: !!this.options.analysisIndicator
+            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
+            isAnalyzing: !!this.options.analysisIndicator,
+            isComparing: !!this.options.compareIndicators
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -325,9 +380,11 @@
         }
       }
 
-      // If the analysis mode is active, then the chart is always the same
+      // If the analysis or compare mode is active, then the chart is always the same
       if (this.options.analysisIndicator) {
         this.options.chart = 'analysis';
+      } else if (this.options.compareIndicators) {
+        this.options.chart = 'compare';
       }
 
       var chartDimensions = this._computeChartDimensions();
