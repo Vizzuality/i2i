@@ -1,7 +1,6 @@
 .c-button {
   display: inline-block;
-  width: 100%;
-  padding: 12px 0 9px;
+  padding: 14px 25px 11px;
 
   border: 1px solid $color-1;
   border-radius: 100px;
@@ -18,6 +17,16 @@
   &:hover {
     background-color: $color-1;
     color: $color-4;
+  }
+
+  &.-medium {
+    padding-right: 45px;
+    padding-left: 45px;
+  }
+
+  &.-big {
+    padding-right: 85px;
+    padding-left: 85px;
   }
 
   &.-white {
@@ -67,12 +76,6 @@
         color: $color-1;
       }
     }
-  }
-
-  &.-padding {
-    width: auto;
-    padding-right: 50px;
-    padding-left: 50px;
   }
 
   &.-no-hover:not(.-outline) {
