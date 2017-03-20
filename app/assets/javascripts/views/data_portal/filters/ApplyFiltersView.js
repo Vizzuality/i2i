@@ -1,14 +1,5 @@
 (function (App) {
 
-   // This object is used to detect the category of the indicators without having to repeat
-  // the exact name
-  // NOTE: this object is duplicated in ChartWidgetView and ApplyFiltersView; make sure to
-  // update both of them
-  var CATEGORIES = {
-    COMMON: 'Common Indicators',
-    STRAND: 'Financial Access'
-  };
-
   App.View.ApplyFiltersView = Backbone.View.extend({
 
     template: JST['templates/data_portal/filters/apply-filters'],
@@ -33,7 +24,9 @@
       // Filter out the non visible and the strand indicators and copy the entire object to
       // avoid mutations of the original one
       this.options.indicators = this.options.indicators
-        .filter(function (indicator) { return indicator.visible && indicator.category !== CATEGORIES.STRAND; })
+        .filter(function (indicator) {
+          return indicator.visible && indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+        })
         .map(function (indicator) {
           return {
             name: indicator.name,

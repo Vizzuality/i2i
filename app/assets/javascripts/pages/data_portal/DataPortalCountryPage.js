@@ -37,15 +37,6 @@
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
   ];
 
-  // This object is used to detect the category of the indicators without having to repeat
-  // the exact name
-  // NOTE: this object is duplicated in ChartWidgetView and ApplyFiltersView; make sure to
-  // update both of them
-  var CATEGORIES = {
-    COMMON: 'Common Indicators',
-    STRAND: 'Financial Access'
-  };
-
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
     UGA: 'Uganda',
@@ -218,7 +209,7 @@
       var visibleIndicators = this._getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
-      var isStrand = indicator.category === CATEGORIES.STRAND;
+      var isStrand = indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
 
       if (isStrand) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
@@ -234,8 +225,10 @@
       return this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.visible;
       }).sort(function (a, b) {
-        if (a.category === CATEGORIES.STRAND && b.category !== CATEGORIES.STRAND) return -1;
-        if (a.category !== CATEGORIES.STRAND && b.category === CATEGORIES.STRAND) return 1;
+        var aIsStrand = a.category === App.Helper.Indicators.CATEGORIES.STRAND;
+        var bIsStrand = b.category === App.Helper.Indicators.CATEGORIES.STRAND;
+        if (aIsStrand && !bIsStrand) return -1;
+        if (!aIsStrand && bIsStrand) return 1;
         return 0;
       });
     },
