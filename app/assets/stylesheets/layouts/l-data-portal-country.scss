@@ -49,6 +49,12 @@
           align-items: center;
           justify-content: space-between;
         }
+
+        .c-button {
+          @media #{$mq-tablet} {
+            float: right;
+          }
+        }
       }
 
       .title-placeholder {
@@ -168,15 +174,48 @@
 
       .footer-indicator-grid {
         display: flex;
-        justify-content: space-between;
-        margin: 10px 0 0;
+        flex-direction: column;
 
-        .indicator-options .c-button {
-          margin: 0 0 25px;
+        @media #{$mq-laptop} {
+          flex-direction: row;
+          justify-content: space-between;
+          margin: 10px 0 0;
+        }
+
+        > .indicator-options {
+          display: flex;
+          flex-direction: column;
+
+          @media #{$mq-laptop} {
+            flex-direction: row;
+          }
+        }
+
+        .indicator-options > .c-button {
+          width: 100%;
+
+          &:not(:first-child) {
+            margin: 10px 0 0;
+          }
+
+          @media #{$mq-laptop} {
+            width: auto;
+
+            &:not(:first-child) {
+              margin: 0 0 0 10px;
+            }
+          }
         }
 
         .container-custom-indicators > .c-button {
+          width: 100%;
+          margin: 10px 0;
           box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+          @media #{$mq-laptop} {
+            width: auto;
+            margin: 0;
+          }
         }
       }
     }

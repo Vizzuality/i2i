@@ -14,12 +14,12 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'autoprefixer-rails', '~> 6.7'
-
 gem 'rails-backbone', '~> 1.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'gon'
+gem 'active_model_serializers', '~> 0.10.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'

@@ -17,9 +17,23 @@
     },
 
     onClick: function (e) {
-      var slug = e.currentTarget.getAttribute('data-slug');
+      var currentMember = this._getModalData(e);
 
-      this.openModal(slug);
+      if (currentMember) {
+        this.openModal(currentMember);
+      }
+    },
+
+    _getModalData(e) {
+      var slug = e.currentTarget.getAttribute('data-slug'),
+        role = e.currentTarget.getAttribute('data-role'),
+        members = gon[role].members;
+
+      if (members === undefined) return;
+
+      return members.find(function (member) {
+        return member.slug === slug;
+      });
     },
 
     onKeydown: function (e) {
@@ -27,14 +41,18 @@
       // 13: enter, 32: space
       if (code === 13 || code === 32) {
         e.preventDefault();
-        var slug = e.currentTarget.getAttribute('data-slug');
-        this.openModal(slug);
+        var currentMember = this._getModalData(e);
+
+        if (currentMember) {
+          this.openModal(currentMember);
+        }
       }
     },
 
-    openModal: function (slug) {
+    openModal: function (data) {
       new App.Component.ModalTeam({
-        slug: slug
+        title: data.name,
+        memberInfo: data
       });
     },
 
