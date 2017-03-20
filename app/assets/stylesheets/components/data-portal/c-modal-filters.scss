@@ -37,10 +37,29 @@
     }
   }
 
-  .filter-selection {
+  > .filters-container {
     height: 450px;
-    padding: 25px 30px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .loading-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $color-1;
+      font-family: $font-family-2;
+      text-align: center;
+
+      .c-button {
+        display: block;
+        margin: 30px auto 0;
+      }
+    }
+  }
+
+  .filter-selection {
+    padding: 25px 30px;
 
     .filter-list > .filter-item {
       width: 100%;
@@ -62,18 +81,18 @@
     .filter-list > .filter-item > .indicator-filters-list {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: stretch;
 
       > .indicator-filters-item {
         flex-basis: calc(100% / 3);
+
+        > .c-checkbox { height: 100%; }
       }
     }
   }
 
   .select-indicators {
-    height: 450px;
     padding: 25px 30px;
-    overflow-y: auto;
 
     h3 {
       margin: 0 0 10px;
