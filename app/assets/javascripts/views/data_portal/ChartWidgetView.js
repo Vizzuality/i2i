@@ -31,6 +31,8 @@
       // List of the indicators used for the comparison
       // The format of each of them is:
       // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
+      // NOTE: the filters attribute do not contain the filters set for the whole portal but instead, only
+      // the filters used for the comparation
       compareIndicators: null
     },
 
@@ -146,25 +148,17 @@
         this.options.analysisIndicator = null;
       }
 
-      // TODO: add the real logic
-      if (!this.options.compareIndicators) {
-        this.options.compareIndicators = [];
-      }
-
-      this.options.compareIndicators.push({
-        id: this.options.indicator.id,
-        year: 2006,
-        iso: 'UGA',
-        filters: []
-      },
-      {
-        id: this.options.indicator.id,
-        year: 2010,
-        iso: 'GHA',
-        filters: []
+      new App.Component.ModalChartCompare({
+        indicator: this.options.indicator,
+        iso: this.options.iso,
+        year: this.options.year,
+        compareIndicators: this.options.compareIndicators,
+        continueCallback: function (compareIndicators) {
+          this.options.compareIndicators = compareIndicators;
+          this._fetchData();
+        }.bind(this),
+        stopCompareCallback: this._onStopCompare.bind(this)
       });
-
-      this._fetchData();
     },
 
     /**

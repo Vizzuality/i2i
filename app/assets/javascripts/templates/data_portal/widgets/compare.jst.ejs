@@ -8,6 +8,7 @@
       "values": <%= data %>,
       "transform": [
         {"type": "filter","test": "datum.label.length"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
         {
           "type": "formula",
           "field": "label",
@@ -155,6 +156,8 @@
           "field": "group",
           "expr": "datum.a.group"
         },
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.a.tooltipTitle"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.a.percentage) + '%'"},
         {
           "type": "facet",
           "groupby": ["group"]
@@ -266,6 +269,7 @@
           }
         },
         {
+          "name": "hasTooltip",
           "type": "arc",
           "properties": {
             "enter": {
@@ -276,75 +280,6 @@
               "startAngle": {"value": 0},
               "endAngle": {"field": "a.percentage","scale": "radius"},
               "fill": {"field": "a.label","scale": "color"}
-            }
-          }
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "from": {
-        "data": "ungrouped",
-        "transform": [
-          {
-            "type": "formula",
-            "field": "size",
-            "expr": "datum.lineCapDiameter * datum.lineCapDiameter - 10"
-          },
-          {
-            "type": "formula",
-            "field": "endCapAngle",
-            "expr": "scale('radius', datum.a.percentage)"
-          },
-          {
-            "type": "formula",
-            "field": "endCapX",
-            "expr": "cos(datum.endCapAngle - 1.5707963268) * datum.lineCapRadiusPos"
-          },
-          {
-            "type": "formula",
-            "field": "endCapY",
-            "expr": "sin(datum.endCapAngle - 1.5707963268) * datum.lineCapRadiusPos"
-          }
-        ]
-      },
-      "properties": {
-        "enter": {
-          "x": {"scale": "x","field": "a.label"},
-          "y": {"field": {"group": "height"},"mult": 0.5}
-        }
-      },
-      "marks": [
-        {
-          "type": "symbol",
-          "properties": {
-            "enter": {
-              "x": {"value": 0},
-              "y": {
-                "field": {"parent": "lineCapRadiusPos"},
-                "mult": -1
-              },
-              "shape": "circle",
-              "size": {"field": {"parent": "size"}},
-              "fill": {
-                "field": {"parent": "a.label"},
-                "scale": "color"
-              }
-            }
-          }
-        },
-        {
-          "type": "symbol",
-          "properties": {
-            "enter": {
-              "x": {"field": {"parent": "endCapX"}},
-              "y": {"field": {"parent": "endCapY"}},
-              "shape": "circle",
-              "size": {"field": {"parent": "size"}},
-              "fill": {
-                "field": {"parent": "a.label"},
-                "scale": "color"
-              }
             }
           }
         }

@@ -1,0 +1,20 @@
+<div class="country-year">
+  <button class="c-button -mini js-clear-comparison">Clear comparison</button>
+  <div class="countries-list">
+    <% countries.forEach(function (country) { %>
+      <div>
+        <%= country.name %>
+        <ul class="years-list">
+          <% country.years.forEach(function (year) { %>
+            <li>
+              <div class="c-checkbox">
+                <input type="checkbox" id="<%= country.name %>-<%= year.value %>" value="<%= year.value %>" class="js-year" data-iso="<%= country.iso %>" <%= year.active ? 'checked' : '' %> <%= year.disabled ? 'disabled' : '' %> />
+                <label for="<%= country.name %>-<%= year.value %>"><%= year.value %></label>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    <% }) %>
+  </div>
+</div>

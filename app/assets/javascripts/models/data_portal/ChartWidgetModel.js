@@ -44,10 +44,10 @@
               id: compareIndicator.id,
               iso: compareIndicator.iso,
               year: compareIndicator.year,
-              filters: compareIndicator.filters || []
+              filters: (this.options.filters || []).concat(compareIndicator.filters)
             }
           )
-        });
+        }, this);
       }
     },
 
