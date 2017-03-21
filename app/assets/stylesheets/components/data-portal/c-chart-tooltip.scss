@@ -1,0 +1,42 @@
+.c-chart-tooltip {
+  display: none;
+  position: absolute;
+  top: -16px; // Offset between the tip and the cursor
+  left: 0;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid rgba($color-6, .15);
+  border-radius: 4px;
+  background-color: $color-4;
+  font-size: $font-size-s;
+  text-align: center;
+  box-shadow: 0 1px 2px 0 rgba($color-6, .09);
+
+  &::after {
+    display: block;
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    width: 13px;
+    height: 13px;
+    transform: translateX(-50%) rotate(-45deg);
+    border-bottom: 1px solid rgba($color-6, .15);
+    border-left: 1px solid rgba($color-6, .15);
+    background-color: $color-4;
+    box-shadow: -1px 1px 2px 0 rgba($color-6, .09);
+    content: '';
+  }
+
+  > h1,
+  > h2 {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  > .value {
+    font-family: $font-family-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+  }
+}

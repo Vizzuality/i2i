@@ -123,6 +123,8 @@
           "groupby": ["group"],
           "field": "percentage"
         },
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.percentage) + '%'"},
         {
           "type": "facet",
           "groupby": "group"
@@ -174,6 +176,7 @@
       ],
       "marks": [
         {
+          "name": "hasTooltip",
           "type": "rect",
           "properties": {
             "enter": {

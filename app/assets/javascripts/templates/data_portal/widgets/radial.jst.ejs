@@ -8,6 +8,7 @@
       "values": <%= data %>,
       "transform": [
         {"type": "filter","test": "datum.label.length"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
         {"type": "formula", "field": "label", "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"}
       ]
     },
@@ -26,6 +27,8 @@
       "source": "table",
       "transform": [
         {"type": "cross","with": "count"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.a.tooltipTitle"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.a.percentage) + '%'"},
         {
           "type": "formula",
           "field": "label",
@@ -103,6 +106,7 @@
       }
     },
     {
+      "name": "hasTooltip",
       "type": "arc",
       "from": {"data": "final"},
       "properties": {
