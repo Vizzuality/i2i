@@ -148,6 +148,33 @@
     },
 
     /**
+     * Event handler for when an element with tooltip is hovered
+     * in a chart
+     * @param {object} e vega event
+     * @param {object} item vega item
+     */
+    _onMouseoverChart: function (e, item) {
+      if (!item || !item.mark || item.mark.name !== 'hasTooltip') return;
+
+      this.tooltip = new App.View.ChartTooltipView({
+        title: item.datum.tooltipTitle,
+        subtitle: item.datum.tooltipSubtitle || null,
+        value: item.datum.tooltipValue,
+        reference: this.el
+      });
+    },
+
+    /**
+     * Event handler for when an element with tooltip looses its hover
+     * state in a chart
+     */
+    _onMouseoutChart: function () {
+      if (!this.tooltip) return;
+      this.tooltip.remove();
+      this.tooltip = null;
+    },
+
+    /**
      * Fetch the data for the widget
      */
     _fetchData: function () {
@@ -318,6 +345,8 @@
       vg.parse
         .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
           this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+          this.chart.on('mouseover', this._onMouseoverChart.bind(this));
+          this.chart.on('mouseout', this._onMouseoutChart.bind(this));
         }.bind(this));
     },
 

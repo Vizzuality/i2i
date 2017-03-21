@@ -21,6 +21,8 @@
         {"type": "cross", "with": "count"},
         {"type": "sort", "by": "-a.percentage"},
         {"type": "rank", "field": "-column"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.a.label"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.a.percentage) + '%'"},
         {
           "type": "formula",
           "field": "tickLimit",
@@ -136,6 +138,7 @@
       }
     },
     {
+      "name": "hasTooltip",
       "type": "rect",
       "from": {"data": "table"},
       "properties": {
