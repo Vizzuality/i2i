@@ -10,6 +10,8 @@
         {"type": "sort","by": "-percentage"},
         {"type": "pie", "field": "percentage"},
         {"type": "rank", "field": "-column"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.percentage) + '%'"},
         {"type": "formula", "field": "label", "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"}
       ]
     },
@@ -98,6 +100,7 @@
       ]
     },
     {
+      "name": "hasTooltip",
       "type": "arc",
       "from": {
         "data": "table"
