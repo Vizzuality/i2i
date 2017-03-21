@@ -8,10 +8,14 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button class="c-button -white -outline -padding js-cancel">Cancel</button><button class="c-button -white -padding js-done">Done</button>',
+      footer: '<button class="c-button -white -outline -medium js-cancel">Cancel</button><button class="c-button -white -medium js-done">Done</button>',
       // Callback executed when the user presses the "Done" button
       // The callback gets passed the name of the selected chart
       continueCallback: function () {},
+      // ISO of the country
+      iso: null,
+      // Current year
+      year: null,
       // List of all the possible indicators
       indicators: [],
       // List of filters currently applied
@@ -45,11 +49,11 @@
           name: 'Select indicators',
           view: App.View.SelectIndicatorsView
         },
-        // {
-        //   id: 'apply-filters',
-        //   name: 'Apply filters',
-        //   view: App.View.ApplyFiltersView
-        // }
+        {
+          id: 'apply-filters',
+          name: 'Apply filters',
+          view: App.View.ApplyFiltersView
+        }
       ];
 
       this.render();
@@ -83,13 +87,18 @@
         });
       }, this);
 
+      var filters = this.options._selectedFilters
+        ? this.options._selectedFilters
+        : this.options.filters;
+
       var View = this.options._tabs[tabIndex].view;
       this.filterView = new View({
+        el: this.$el.find('.js-filters-container'),
+        iso: this.options.iso,
+        year: this.options.year,
         indicators: indicators,
-        filters: this.options.filters
+        filters: filters
       });
-
-      this.$el.find('.js-filters-container').html(this.filterView.render().$el);
     },
 
     /**
@@ -98,57 +107,23 @@
     _saveCurrentTabData: function () {
       var tab = this.options._tabs[this.options._currentTab];
       var attribute = tab.id === 'select-indicators' ? '_selectedIndicators' : '_selectedFilters';
-      this.options[attribute] = this.filterView.getData();
-    },
+      var data = this.filterView.getData();
 
-    _serializeForm: function(form) {
-      var filters = [],
-        elements = form.querySelectorAll('input, select, textarea'),
-        element,
-        name,
-        value;
-
-      if (elements.length === 0) return null;
-
-      for(var i = 0; i < elements.length; i += 1) {
-        element = elements[i];
-        name = element.name;
-        value = element.value;
-
-        if (element.type === 'checkbox') {
-          if (element.checked) {
-            var entry = _.findWhere(filters, { id: name });
-
-            if (entry === undefined) {
-              entry = {
-                id: name,
-                options: [value]
-              };
-              filters.push(entry);
-            } else {
-              entry.options.push(value);
-            }
-          }
-        }
+      if (tab.id === 'select-indicators' && this.options._selectedFilters) {
+        // We need to make sure we don't filter with an invisible indicator
+        this.options._selectedFilters = this.options._selectedFilters.filter(function (selectedFilter) {
+          return _.findWhere(data, { id: selectedFilter });
+        }, this);
       }
 
-      return filters;
+      this.options[attribute] = data;
     },
 
     _onClickDone: function () {
-      // var form = document.querySelector('form');
-
-      // if (form === null) {
-      //   this.constructor.__super__.onCloseModal.apply(this);
-      //   return;
-      // }
-
-      // var newFilters = this._serializeForm(form);
-
       // We save the data of the current tab
       this._saveCurrentTabData();
 
-      this.options.continueCallback(this.options._selectedIndicators, []);
+      this.options.continueCallback(this.options._selectedIndicators, this.options._selectedFilters);
       this.onCloseModal();
     },
 

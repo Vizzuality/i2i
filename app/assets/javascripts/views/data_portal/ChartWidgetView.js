@@ -1,15 +1,6 @@
 (function (App) {
   'use strict';
 
-  // This object is used to detect the category of the indicator without having to repeat
-  // the exact name
-  // NOTE: this object is duplicated in DataPortalCountryPage; make sure to update both of them
-  var CATEGORIES = {
-    COMMON: 'Common Indicators',
-    STANDARD: 'i2i Standards',
-    STRAND: 'Strands'
-  };
-
   App.View.ChartWidgetView = Backbone.View.extend({
 
     template: JST['templates/data_portal/chart-widget'],
@@ -108,7 +99,7 @@
      */
     _onAnalyze: function () {
       var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
-        return indicator.category !== CATEGORIES.STRAND;
+        return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
       });
 
       new App.Component.ModalChartAnalysis({
@@ -190,7 +181,7 @@
           this.el.innerHTML = this.template({
             name: this.model.get('title'),
             noData: !data.length,
-            canAnalyze: this.options.indicator.category === CATEGORIES.STRAND,
+            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
             isAnalyzing: !!this.options.analysisIndicator
           });
           this.chartContainer = this.el.querySelector('.js-chart');
@@ -209,7 +200,7 @@
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
         var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-        var isStrandIndicator = this.options.indicator.category === CATEGORIES.STRAND;
+        var isStrandIndicator = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
         var isStrandOnlyChart = !!chart.strandOnly;
         return isStrandIndicator === isStrandOnlyChart;
       }, this);

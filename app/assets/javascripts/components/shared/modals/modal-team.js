@@ -5,7 +5,10 @@
     contentTemplate: JST['templates/shared/modals/modal-team'],
 
     defaults: {
-      title: 'Jeremy Soul member'
+      showTitle: false,
+      footer: '<button type="button" class="c-button -padding -white js-close-btn-modal">Close</button>',
+      // Contains an object with the info of the member to be displayed
+      memberInfo: {}
     },
 
     events: function () {
@@ -16,7 +19,9 @@
 
     initialize: function (options) {
       this.constructor.__super__.initialize.call(this, options);
+      this._options = _.extend({}, this.defaults, options);
 
+      this._setOptions();
       this.render();
     },
 
@@ -24,15 +29,17 @@
       this.constructor.__super__.onCloseModal.apply(this);
     },
 
-    render: function () {
-      // sample data. TO-DO: retrieve data.
+    _setOptions: function () {
+      var memberInfo = this._options.memberInfo;
       this.options.content = this.contentTemplate({
-        name: 'Jeremy Soul',
-        role: 'Advisor',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-        url_photo: '/images/people/person_1.jpg'
+        name: memberInfo.name,
+        position: memberInfo.position,
+        biography: memberInfo.biography,
+        image: memberInfo.image
       });
+    },
 
+    render: function () {
       this.constructor.__super__.render.apply(this);
     }
 

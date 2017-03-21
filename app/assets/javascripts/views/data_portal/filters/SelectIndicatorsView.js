@@ -12,6 +12,7 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
+      this.render();
     },
 
     /**

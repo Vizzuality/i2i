@@ -54,7 +54,7 @@
                   <% if @event.url.blank? != true %>
                     <div class="grid-s-12 grid-m-10 grid-l-12">
                       <div class="footer-article">
-                        <a class="c-button -sea" href="<%= @event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
+                        <a class="c-button -medium -sea" href="<%= @event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
                       </div>
                     </div>
                   <% end %>
@@ -87,9 +87,7 @@
             <% end %>
             <div class="grid-s-12">
               <div class="grid-footer">
-                <div class="grid-s-12 grid-m-4 grid-l-3">
-                  <%= link_to 'More events', updates_events_path, :class => 'c-button -sea' %>
-                </div>
+                <%= link_to 'More events', updates_events_path, :class => 'c-button -big -sea' %>
               </div>
             </div>
           </div>

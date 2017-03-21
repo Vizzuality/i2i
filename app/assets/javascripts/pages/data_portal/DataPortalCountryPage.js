@@ -27,24 +27,15 @@
     { id: 'age',name: 'Age', category: 'Common Indicators', visible: false },
     // { id: 'access_to_resources', name: 'Access to Resources', category: 'Common Indicators', visible: false },
     // { id: 'dwelling_type', name: 'Dwelling type: roof/dwelling', category: 'Common Indicators', visible: false },
-    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'i2i Standards', visible: false },
-    { id: 'i2i_Education', name: 'Level of education', category: 'i2i Standards', visible: true },
-    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'i2i Standards', visible: true },
-    { id: 'fas_strand', name: 'Financial Access', category: 'Strands', visible: true },
-    { id: 'savings_strand', name: 'Access to savings', category: 'Strands', visible: true },
-    { id: 'credit_strand', name: 'Access to credit', category: 'Strands', visible: true },
-    { id: 'remittances_strand', name: 'Send and receive money', category: 'Strands', visible: false },
-    { id: 'insurance_strand', name: 'Access to insurance', category: 'Strands', visible: false }
+    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'Common Indicators', visible: false },
+    { id: 'i2i_Education', name: 'Level of education', category: 'Common Indicators', visible: true },
+    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common Indicators', visible: true },
+    { id: 'fas_strand', name: 'Financial services uptake', category: 'Financial Access', visible: true },
+    { id: 'savings_strand', name: 'Savings', category: 'Financial Access', visible: true },
+    { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
+    { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
+    { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
   ];
-
-  // This object is used to detect the category of the indicators without having to repeat
-  // the exact name
-  // NOTE: this object is duplicated in ChartWidgetView; make sure to update both of them
-  var CATEGORIES = {
-    COMMON: 'Common Indicators',
-    STANDARD: 'i2i Standards',
-    STRAND: 'Strands'
-  };
 
   // This will be removed when we have a way to get the country name from the API
   var COUNTRIES = {
@@ -97,8 +88,7 @@
      * @param {{ id: string, name: string, data: object[] }} event
      */
     _onWidgetSync: function (event) {
-      this._updateIndicatorsData(event.id, event.name, event.data);
-      this._updateWidgetContainer(event.id, event.data);
+      this._updateWidgetContainer(event.id);
     },
 
     /**
@@ -110,17 +100,6 @@
       if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
       if (filters) this._updateFilters(filters);
       this._renderWidgets();
-    },
-
-    /**
-     * Update the indicators collection with the data passed as argument
-     * @param {string} indicatorId
-     * @param {string} indicatorName
-     * @param {object[]} data
-     */
-    _updateIndicatorsData: function (indicatorId, indicatorName, data) {
-      var indicator = this.indicatorsCollection.find({ id: indicatorId });
-      indicator.set({ options: data.map(function (option) { return option.label; }) });
     },
 
     /**
@@ -165,6 +144,8 @@
 
     _openFilterModal: function () {
       new App.View.FilterIndicatorsModal({
+        iso: this.options.iso,
+        year: this.options.year,
         indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
         continueCallback: this._onFiltersUpdate.bind(this)
@@ -223,13 +204,12 @@
      * Update the size of the widget container depending on
      * if the category of the indicator
      * @param {string} indicatorId
-     * @param {object[]} data
      */
-    _updateWidgetContainer: function (indicatorId, data) {
+    _updateWidgetContainer: function (indicatorId) {
       var visibleIndicators = this._getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
-      var isStrand = indicator.category === CATEGORIES.STRAND;
+      var isStrand = indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
 
       if (isStrand) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
@@ -245,8 +225,10 @@
       return this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.visible;
       }).sort(function (a, b) {
-        if (a.category === CATEGORIES.STRAND && b.category !== CATEGORIES.STRAND) return -1;
-        if (a.category !== CATEGORIES.STRAND && b.category === CATEGORIES.STRAND) return 1;
+        var aIsStrand = a.category === App.Helper.Indicators.CATEGORIES.STRAND;
+        var bIsStrand = b.category === App.Helper.Indicators.CATEGORIES.STRAND;
+        if (aIsStrand && !bIsStrand) return -1;
+        if (!aIsStrand && bIsStrand) return 1;
         return 0;
       });
     },
