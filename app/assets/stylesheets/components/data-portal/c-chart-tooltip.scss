@@ -5,21 +5,25 @@
   left: 0;
   width: 200px;
   padding: 10px;
-  border-radius: 2px;
-  background-color: $color-7;
+  border: 1px solid rgba($color-6, .15);
+  border-radius: 4px;
+  background-color: $color-4;
   font-size: $font-size-s;
   text-align: center;
-  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+  box-shadow: 0 1px 2px 0 rgba($color-6, .09);
 
   &::after {
     display: block;
     position: absolute;
-    bottom: -6px;
+    bottom: -7px;
     left: 50%;
+    width: 13px;
+    height: 13px;
     transform: translateX(-50%) rotate(-45deg);
-    border-bottom: 12px solid $color-7;
-    border-left: 12px solid $color-7;
-    box-shadow: -2px 2px 3px 0 rgba($color-6, .15);
+    border-bottom: 1px solid rgba($color-6, .15);
+    border-left: 1px solid rgba($color-6, .15);
+    background-color: $color-4;
+    box-shadow: -1px 1px 2px 0 rgba($color-6, .09);
     content: '';
   }
 
