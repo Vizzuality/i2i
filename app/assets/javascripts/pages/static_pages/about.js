@@ -24,7 +24,7 @@
       }
     },
 
-    _getModalData(e) {
+    _getModalData: function (e) {
       var slug = e.currentTarget.getAttribute('data-slug'),
         role = e.currentTarget.getAttribute('data-role'),
         members = gon[role].members;
