@@ -21,11 +21,11 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      // Filter out the non visible and the strand indicators and copy the entire object to
+      // Filter out the the strand indicators and copy the entire object to
       // avoid mutations of the original one
       this.options.indicators = this.options.indicators
         .filter(function (indicator) {
-          return indicator.visible && indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+          return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
         })
         .map(function (indicator) {
           return {

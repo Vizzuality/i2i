@@ -109,13 +109,6 @@
       var attribute = tab.id === 'select-indicators' ? '_selectedIndicators' : '_selectedFilters';
       var data = this.filterView.getData();
 
-      if (tab.id === 'select-indicators' && this.options._selectedFilters) {
-        // We need to make sure we don't filter with an invisible indicator
-        this.options._selectedFilters = this.options._selectedFilters.filter(function (selectedFilter) {
-          return _.findWhere(data, { id: selectedFilter });
-        }, this);
-      }
-
       this.options[attribute] = data;
     },
 
