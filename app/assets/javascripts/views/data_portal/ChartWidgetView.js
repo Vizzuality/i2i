@@ -34,8 +34,7 @@
       'click .js-retry-indicator': '_fetchData',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
-      'click .js-analyze': '_onAnalyze',
-      'click .js-stop-analyze': '_onStopAnalyze'
+      'click .js-analyze': '_onAnalyze'
     },
 
     initialize: function (settings) {
@@ -108,7 +107,8 @@
         continueCallback: function (indicatorId) {
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
-        }.bind(this)
+        }.bind(this),
+        stopAnalysisCallback: this._onStopAnalyze.bind(this)
       });
     },
 

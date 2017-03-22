@@ -1,8 +1,11 @@
-<ul class="c-modal-chart-analysis">
-  <% indicators.forEach(function (indicator) { %>
-    <li class="c-radio-button">
-      <input type="radio" name="indicator" value="<%= indicator.id %>" id="indicator-<%= indicator.id %>" <%= indicator.id === selectedIndicatorId ? 'checked' : '' %> class="js-indicator" />
-      <label for="indicator-<%= indicator.id %>"><%= indicator.name %></label>
-    </li>
-  <% }) %>
-</ul>
+<div class="c-modal-chart-analysis">
+  <button class="c-button -mini js-clear-analysis">Clear analysis</button>
+  <ul class="indicators-list">
+    <% indicators.forEach(function (indicator) { %>
+      <li class="c-radio-button">
+        <input type="radio" name="indicator" value="<%= indicator.id %>" id="indicator-<%= indicator.id %>" <%= indicator.id === selectedIndicatorId ? 'checked' : '' %> class="js-indicator" />
+        <label for="indicator-<%= indicator.id %>"><%= indicator.name %></label>
+      </li>
+    <% }) %>
+  </ul>
+</div>
