@@ -16,7 +16,7 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData',
+      'click .js-retry-filters': '_fetchData',
     },
 
     initialize: function (options) {
@@ -147,7 +147,7 @@
     renderError: function () {
       this.el.innerHTML = '<p class="loading-error">' +
         'Unable to load the filters' +
-        '<button type="button" class="c-button -retry js-retry">Retry</button>' +
+        '<button type="button" class="c-button -retry js-retry-filters">Retry</button>' +
         '</p>';
 
       this.setElement(this.el);
