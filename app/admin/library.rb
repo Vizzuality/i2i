@@ -25,6 +25,7 @@ ActiveAdmin.register Library do
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end
+    column :subcategory
     column :summary
     column :content_type
     column :updated_at
@@ -36,6 +37,7 @@ ActiveAdmin.register Library do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Library details' do
       f.input :content_type, as: :select, collection: LibraryType.to_a
+      f.input :subcategory_id
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -54,6 +56,8 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
+      row :content_type
+      row :subcategory_id
       row :date
       row :title
       row :summary
@@ -61,7 +65,6 @@ ActiveAdmin.register Library do
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
-      # Will display the image on show object page
     end
   end
 

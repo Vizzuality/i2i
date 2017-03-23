@@ -21,6 +21,8 @@
 class Library < ApplicationRecord
   extend EnumerateIt
 
+  has_one :subcategory
+
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date
