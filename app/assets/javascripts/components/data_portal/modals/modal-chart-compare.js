@@ -27,6 +27,7 @@
       // The callback doesn't receive any parameter
       stopCompareCallback: function () {},
       // Index of the current tab
+      // NOTE: the value is updated at instantiation
       _currentTab: 0,
       // List of the tabs
       // This attribute is modified at instantiation time
@@ -49,8 +50,19 @@
           id: 'country-year',
           name: 'Country and year',
           view: App.View.CountryYearView
+        },
+        {
+          id: 'jurisdiction',
+          name: 'Jurisdiction in ' + App.Helper.Indicators.COUNTRIES[this.options.iso] + ' in ' + this.options.year,
+          view: App.View.JurisdictionView
         }
       ];
+
+      // If the compare indicators the view gets passed are jurisdiction indicators
+      // then the default tab is the second
+      if (this._isJurisdictionsCompareIndicators()) {
+        this.options._currentTab = 1;
+      }
 
       this.render();
     },
@@ -59,6 +71,10 @@
       this.constructor.__super__._setEventListeners.apply(this);
 
       this.listenTo(this.tabView, 'tab:selected', function (tab) {
+        // We delete the previous data when the tab is changed
+        // to avoid leaks between tabs
+        this.options.compareIndicators = null;
+
         this._onTabSelected(tab.id);
       }.bind(this));
     },
@@ -98,6 +114,21 @@
       });
 
       this.setElement(this.el);
+    },
+
+    /**
+     * Return whether the compare indicators passed to the view correspond
+     * to data of the Jurisdiction tab
+     * @return {boolean}
+     */
+    _isJurisdictionsCompareIndicators: function () {
+      return !!this.options.compareIndicators
+        && this.options.compareIndicators.reduce(function (res, compareIndicator) {
+          return compareIndicator.filters
+            && compareIndicator.filters.length
+            && !!_.findWhere(compareIndicator.filters, { id: 'jurisdiction' })
+            || res;
+        }, false);
     },
 
     /**

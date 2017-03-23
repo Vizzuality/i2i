@@ -93,4 +93,15 @@
       }
     }
   }
+
+  .jurisdiction {
+    .jurisdications-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      > li {
+        flex-basis: 33.33%;
+      }
+    }
+  }
 }

@@ -1,0 +1,13 @@
+<div class="jurisdiction">
+  <button class="c-button -mini js-clear-comparison">Clear comparison</button>
+  <ul class="jurisdications-list">
+    <% jurisdictions.forEach(function (jurisdiction) { %>
+      <li>
+        <div class="c-checkbox">
+          <input type="checkbox" id="<%= jurisdiction.name %>" value="<%= jurisdiction.name %>" class="js-jurisdiction" <%= jurisdiction.active ? 'checked' : '' %> <%= jurisdiction.disabled ? 'disabled' : '' %> />
+          <label for="<%= jurisdiction.name %>"><%= jurisdiction.name %></label>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</div>

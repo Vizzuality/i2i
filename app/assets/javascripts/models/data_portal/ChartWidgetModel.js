@@ -130,13 +130,36 @@
     },
 
     /**
+     * Return whether the comparison is being made between jurisdictions
+     * @return {boolean}
+     */
+    _isJurisdictionCompare: function () {
+      return this.compareIndicatorsModels.reduce(function (res, comparePartialModel) {
+        return comparePartialModel.options.filters
+          && comparePartialModel.options.filters.length
+          && !!_.findWhere(comparePartialModel.options.filters, { id: 'jurisdiction' })
+          || res;
+      }, false);
+    },
+
+    /**
+     * Return the name of the jurisdiction
+     * @param {object} comparePartialModel Partial compare model
+     * @return {string}
+     */
+    _getJurisdictionName: function (comparePartialModel) {
+      var jurisdictionFilter = _.findWhere(comparePartialModel.options.filters, { id: 'jurisdiction' });
+      return jurisdictionFilter.options[0];
+    },
+
+    /**
      * Return the name of the compare group
      * @param {object} model Model of the partial indicator
      * @returns {string}
      */
     _getCompareGroupName: function (model) {
-      if (model.options.filters && model.options.filters.length) {
-        return model.options.filters[0].options[0] + ' ' + model.options.year;
+      if (this._isJurisdictionCompare()) {
+        return this._getJurisdictionName(model);
       } else {
         return App.Helper.Indicators.COUNTRIES[model.options.iso] + ' ' + model.options.year;
       }
@@ -167,9 +190,15 @@
      * @returns {object[]}
      */
     _joinComparePartials: function () {
+      var isJurisdictionCompare = this._isJurisdictionCompare();
+
       var res = this.indicatorModel.toJSON();
       res.data = res.data.map(function (row) {
-        return _.extend({}, row, { group: this._getCompareGroupName(this.indicatorModel) });
+        return _.extend({}, row, {
+          group: isJurisdictionCompare
+            ? 'All jurisdictions'
+            : this._getCompareGroupName(this.indicatorModel)
+        });
       }, this);
 
       // We append the data of each partial indicator, changing the name of the group each time
