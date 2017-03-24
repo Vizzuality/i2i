@@ -159,7 +159,7 @@
      */
     _getCompareGroupName: function (model) {
       if (this._isJurisdictionCompare()) {
-        return this._getJurisdictionName(model);
+        return model !== this.indicatorModel ? this._getJurisdictionName(model) : 'All jurisdictions';
       } else {
         return App.Helper.Indicators.COUNTRIES[model.options.iso] + ' ' + model.options.year;
       }
@@ -190,26 +190,29 @@
      * @returns {object[]}
      */
     _joinComparePartials: function () {
-      var isJurisdictionCompare = this._isJurisdictionCompare();
+      var res = { title: this.indicatorModel.get('title') };
 
-      var res = this.indicatorModel.toJSON();
-      res.data = res.data.map(function (row) {
-        return _.extend({}, row, {
-          group: isJurisdictionCompare
-            ? 'All jurisdictions'
-            : this._getCompareGroupName(this.indicatorModel)
+      var partialModels = [this.indicatorModel].concat(this.compareIndicatorsModels);
+
+      // We sort the partial models if the comparison is not made between jurisdictions
+      // The idea is to have the most recent year as the first value
+      if (!this._isJurisdictionCompare()) {
+        partialModels.sort(function (partialModalA, partialModelB) {
+          if (partialModalA.options.year > partialModelB.options.year) return -1;
+          if (partialModalA.options.year < partialModelB.options.year) return 1;
+          return 0;
         });
-      }, this);
+      }
 
-      // We append the data of each partial indicator, changing the name of the group each time
-      this.compareIndicatorsModels.forEach(function (compareIndicatorModel) {
-        var data = compareIndicatorModel.get('data');
-        data = data.map(function (row) {
-          return _.extend({}, row, { group: this._getCompareGroupName(compareIndicatorModel) });
-        }, this);
-
-        res.data = res.data.concat(data);
-      }, this);
+      res.data = partialModels
+        .map(function (partialModel) {
+          return partialModel.get('data').map(function (row) {
+            return _.extend({}, row, { group: this._getCompareGroupName(partialModel) });
+          }, this);
+        }, this)
+        .reduce(function (res, data) {
+          return res.concat(data);
+        }, []);
 
       return res;
     },
