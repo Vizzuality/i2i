@@ -1,0 +1,13 @@
+<div class="select-context">
+  <h3>Select year</h3>
+  <ul>
+    <% years.forEach(function (year) { %>
+      <li>
+        <div class="c-radio-button">
+          <input type="radio" id="year-<%= year.value %>" name="year" value="<%= year.value %>" class="js-year" <%= year.active ? 'checked' : '' %> />
+          <label for="year-<%= year.value %>"><%= year.value %></label>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</div>

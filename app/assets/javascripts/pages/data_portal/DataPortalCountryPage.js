@@ -37,18 +37,6 @@
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
   ];
 
-  // This will be removed when we have a way to get the country name from the API
-  var COUNTRIES = {
-    UGA: 'Uganda',
-    TZA: 'Tanzania',
-    ZMB: 'Zambia',
-    RWA: 'Rwanda',
-    GHA: 'Ghana',
-    KEN: 'Kenya',
-    MOZ: 'Mozambique',
-    PAK: 'Pakistan'
-  };
-
   App.Page.DataPortalCountryPage = Backbone.View.extend({
 
     el: 'body',
@@ -95,10 +83,13 @@
      * Event listener executed when the filter are updated
      * @param {string[]} visibleIndicators ids of the visible indicators
      * @param { { name: string, options: string[] }[] } filters
+     * @param {number} year
      */
-    _onFiltersUpdate: function (visibleIndicators, filters) {
+    _onFiltersUpdate: function (visibleIndicators, filters, year) {
       if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
       if (filters) this._updateFilters(filters);
+      if (year) this._updatedYear(year);
+      this._renderHeader();
       this._renderWidgets();
     },
 
@@ -108,6 +99,29 @@
      */
     _updateFilters: function (filters) {
       this.options._filters = filters;
+    },
+
+    /**
+     * Replace this.options.year and updates the URL
+     * @param {number} year
+     */
+    _updatedYear: function (year) {
+      if (this.options.year === year) return;
+
+      this.options.year = year;
+      this._updateURL();
+    },
+
+    /**
+     * Update the URL according to the state of the application
+     */
+    _updateURL: function () {
+      var url = '/data-portal/' + this.options.iso + '/' + this.options.year;
+
+      // Adding { turbolinks: {} } is mandatory to avoid breaking the browser's back button
+      // because Turbolinks doesn't handle well the URL changes
+      // Check here: https://github.com/turbolinks/turbolinks/issues/219
+      history.replaceState({ turbolinks: {} }, '', url);
     },
 
     /**
@@ -176,7 +190,7 @@
         error: this._loadingError,
         indicators: this.indicatorsCollection.toJSON(),
         year: this.options.year,
-        country: COUNTRIES[this.options.iso]
+        country: App.Helper.Indicators.COUNTRIES[this.options.iso]
       });
     },
 

@@ -2,10 +2,9 @@
   <h3 class="title -dark"><%= name %></h3>
   <div class="chart js-chart"></div>
   <div class="toolbar">
-    <button type="button" class="c-button js-save">Save</button>
-    <button type="button" class="c-button js-change">Change</button>
-    <button type="button" class="c-button js-compare">Compare</button>
-    <% if (!isAnalyzing && canAnalyze) { %><button type="button" class="c-button js-analyze">Analyse</button><% } %>
-    <% if (isAnalyzing) { %><button type="button" class="c-button -active js-stop-analyze">Clear analysis</button><% } %>
+    <button type="button" class="c-button -mini js-save">Save</button>
+    <button type="button" class="c-button -mini js-change">Change</button>
+    <% if (canCompare) { %><button type="button" class="c-button -mini js-compare" aria-pressed="<%= isComparing %>">Compare</button><% } %>
+    <% if (canAnalyze) { %><button type="button" class="c-button -mini js-analyze" aria-pressed="<%= isAnalyzing %>">Analyse</button><% } %>
   </div>
 </div>

@@ -16,16 +16,16 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData',
+      'click .js-retry-filters': '_fetchData',
     },
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      // Filter out the non visible and the strand indicators and copy the entire object to
+      // Filter out the the strand indicators and copy the entire object to
       // avoid mutations of the original one
       this.options.indicators = this.options.indicators
         .filter(function (indicator) {
-          return indicator.visible && indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+          return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
         })
         .map(function (indicator) {
           return {
@@ -147,7 +147,7 @@
     renderError: function () {
       this.el.innerHTML = '<p class="loading-error">' +
         'Unable to load the filters' +
-        '<button type="button" class="c-button -retry js-retry">Retry</button>' +
+        '<button type="button" class="c-button -retry js-retry-filters">Retry</button>' +
         '</p>';
 
       this.setElement(this.el);

@@ -17,13 +17,17 @@
       selectedIndicatorId: null,
       // Callback executed when the user presses the "Done" button
       // The callback gets passed the name of the selected chart
-      continueCallback: function () {}
+      continueCallback: function () {},
+      // Callback executed when the user presses the "Clear analysis" button
+      // The callback doesn't receive any parameter
+      stopAnalysisCallback: function () {}
     },
 
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
         'click .js-cancel': 'onCloseModal',
-        'click .js-done': '_onClickDone'
+        'click .js-done': '_onClickDone',
+        'click .js-clear-analysis': '_onClickClearAnalysis'
       });
     },
 
@@ -38,6 +42,14 @@
     _onClickDone: function () {
       var selectedOption = this.el.querySelector('.js-indicator:checked');
       this.options.continueCallback(selectedOption.value);
+      this.onCloseModal();
+    },
+
+    /**
+     * Event handler for when the "Clear analysis" button is clicked
+     */
+    _onClickClearAnalysis: function () {
+      this.options.stopAnalysisCallback();
       this.onCloseModal();
     },
 

@@ -1,11 +1,18 @@
 .c-modal-chart-analysis {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
   padding: 40px;
-  list-style: none;
 
-  > li {
-    flex-basis: 50%;
+  > button {
+    margin-bottom: 25px;
+  }
+
+  > .indicators-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    list-style: none;
+
+    > li {
+      flex-basis: 50%;
+    }
   }
 }

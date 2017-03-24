@@ -27,15 +27,20 @@
       // See _filters in App.Page.DataPortalCountryPage to see their format
       filters: [],
       // Id of the indicator used for the analysis
-      analysisIndicator: null
+      analysisIndicator: null,
+      // List of the indicators used for the comparison
+      // The format of each of them is:
+      // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
+      // NOTE: the filters attribute do not contain the filters set for the whole portal but instead, only
+      // the filters used for the comparation
+      compareIndicators: null
     },
 
     events: {
       'click .js-retry-indicator': '_fetchData',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
-      'click .js-analyze': '_onAnalyze',
-      'click .js-stop-analyze': '_onStopAnalyze'
+      'click .js-analyze': '_onAnalyze'
     },
 
     initialize: function (settings) {
@@ -72,13 +77,17 @@
      */
     _onChange: function () {
       // We retrieve the list of all the charts that can be built with vega
-      var charts = App.Helper.ChartConfig.map(function(chart) {
-        return {
-          name: chart.name,
-          available: false,
-          selected: this.options.chart === chart.name
-        };
-      }, this);
+      var charts = App.Helper.ChartConfig
+        .filter(function (chart) {
+          return chart.visible !== false;
+        })
+        .map(function(chart) {
+          return {
+            name: chart.name,
+            available: false,
+            selected: this.options.chart === chart.name
+          };
+        }, this);
 
       // We update the object to tell which ones are available with the current
       // dataset
@@ -106,9 +115,16 @@
         indicators: nonStrandIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
+          // If the comparison is active, we stop it
+          if (this.options.compareIndicators) {
+            this.options.chart = null;
+            this.options.compareIndicators = null;
+          }
+
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
-        }.bind(this)
+        }.bind(this),
+        stopAnalysisCallback: this._onStopAnalyze.bind(this)
       });
     },
 
@@ -125,8 +141,33 @@
      * Event handler for when the user clicks the compare button
      */
     _onCompare: function () {
-      // Don't forget to stop the analysis, is enabled
-      // Check _onStopAnalyze to see what to do
+      // TODO: move the next block in the continue callback
+      // If the analysis is active, we stop it
+      if (this.options.analysisIndicator) {
+        this.options.chart = null;
+        this.options.analysisIndicator = null;
+      }
+
+      new App.Component.ModalChartCompare({
+        indicator: this.options.indicator,
+        iso: this.options.iso,
+        year: this.options.year,
+        compareIndicators: this.options.compareIndicators,
+        continueCallback: function (compareIndicators) {
+          this.options.compareIndicators = compareIndicators;
+          this._fetchData();
+        }.bind(this),
+        stopCompareCallback: this._onStopCompare.bind(this)
+      });
+    },
+
+    /**
+     * Event handler for when the user clicks the "clear comparison" button
+     */
+    _onStopCompare: function () {
+      this.options.chart = null;
+      this.options.compareIndicators = null;
+      this._fetchData();
     },
 
     /**
@@ -141,6 +182,11 @@
       // We stop the analysis
       if (this.options.analysisIndicator) {
         this.options.analysisIndicator = null;
+        this._fetchData();
+      }
+      // We stop the comparison
+      else if (this.options.compareIndicators) {
+        this.options.compareIndicators = null;
         this._fetchData();
       } else {
         this.render();
@@ -188,7 +234,8 @@
         iso: this.options.iso,
         year: this.options.year,
         filters: this.options.filters,
-        analysisIndicatorId: this.options.analysisIndicator
+        analysisIndicatorId: this.options.analysisIndicator,
+        compareIndicators: this.options.compareIndicators
       });
 
       this.model.fetch()
@@ -209,7 +256,9 @@
             name: this.model.get('title'),
             noData: !data.length,
             canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
-            isAnalyzing: !!this.options.analysisIndicator
+            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
+            isAnalyzing: !!this.options.analysisIndicator,
+            isComparing: !!this.options.compareIndicators
           });
           this.chartContainer = this.el.querySelector('.js-chart');
 
@@ -325,9 +374,11 @@
         }
       }
 
-      // If the analysis mode is active, then the chart is always the same
+      // If the analysis or compare mode is active, then the chart is always the same
       if (this.options.analysisIndicator) {
         this.options.chart = 'analysis';
+      } else if (this.options.compareIndicators) {
+        this.options.chart = 'compare';
       }
 
       var chartDimensions = this._computeChartDimensions();

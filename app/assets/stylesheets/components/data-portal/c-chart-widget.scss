@@ -28,19 +28,8 @@
       left: 30px;
     }
 
-    // this is a temporary patch. Change component buttons
-    // to have its own width and not based on grid.
-    > .c-button {
-      width: auto;
-      margin: 0;
-      padding: 3px 15px;
-      border-color: rgba($color-1, .3);
-
-      font-size: $font-size-s;
-
-      &:not(:last-child) {
-        margin: 0 5px 0 0;
-      }
+    > .c-button:not(:last-child) {
+      margin: 0 5px 0 0;
     }
   }
 

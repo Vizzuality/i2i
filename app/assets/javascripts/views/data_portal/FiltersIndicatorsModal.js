@@ -4,7 +4,7 @@
 
     defaults: {
       // See App.Component.Modal for details about this option
-      title: 'Select indicators',
+      title: 'Customize indicators',
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
@@ -28,7 +28,9 @@
       // List of the selected indicators in the modal
       _selectedIndicators: null,
       // List of selected filters in the modal
-      _selectedFilters: null
+      _selectedFilters: null,
+      // Selected year in the modal
+      _selectedYear: null
     },
 
     events: function () {
@@ -53,6 +55,11 @@
           id: 'apply-filters',
           name: 'Apply filters',
           view: App.View.ApplyFiltersView
+        },
+        {
+          id: 'select-context',
+          name: 'Select context',
+          view: App.View.SelectContextView
         }
       ];
 
@@ -91,11 +98,15 @@
         ? this.options._selectedFilters
         : this.options.filters;
 
+      var year = this.options._selectedYear
+        ? this.options._selectedYear
+        : this.options.year;
+
       var View = this.options._tabs[tabIndex].view;
       this.filterView = new View({
         el: this.$el.find('.js-filters-container'),
         iso: this.options.iso,
-        year: this.options.year,
+        year: year,
         indicators: indicators,
         filters: filters
       });
@@ -106,16 +117,22 @@
      */
     _saveCurrentTabData: function () {
       var tab = this.options._tabs[this.options._currentTab];
-      var attribute = tab.id === 'select-indicators' ? '_selectedIndicators' : '_selectedFilters';
-      var data = this.filterView.getData();
 
-      if (tab.id === 'select-indicators' && this.options._selectedFilters) {
-        // We need to make sure we don't filter with an invisible indicator
-        this.options._selectedFilters = this.options._selectedFilters.filter(function (selectedFilter) {
-          return _.findWhere(data, { id: selectedFilter });
-        }, this);
+      var attribute;
+      switch (tab.id) {
+        case 'apply-filters':
+          attribute = '_selectedFilters';
+          break;
+
+        case 'select-context':
+          attribute = '_selectedYear';
+          break;
+
+        default:
+          attribute = '_selectedIndicators';
       }
 
+      var data = this.filterView.getData();
       this.options[attribute] = data;
     },
 
@@ -123,7 +140,7 @@
       // We save the data of the current tab
       this._saveCurrentTabData();
 
-      this.options.continueCallback(this.options._selectedIndicators, this.options._selectedFilters);
+      this.options.continueCallback(this.options._selectedIndicators, this.options._selectedFilters, this.options._selectedYear);
       this.onCloseModal();
     },
 
