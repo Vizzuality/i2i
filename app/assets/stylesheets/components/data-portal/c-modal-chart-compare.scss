@@ -1,59 +1,27 @@
 .c-modal-chart-compare {
-  // padding: 40px;
+  height: 450px;
+  padding: 30px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   > .header {
-    padding: 30px 30px 0;
-    background-color: rgba($color-1, .1);
-
     span {
       color: $color-1;
     }
   }
 
-  > .compare-tabs {
-    display: flex;
-    align-items: center;
-    padding: 30px 30px 15px;
-    background-color: rgba($color-1, .1);
-
-    .tab {
-      color: $color-1;
-      font-family: $font-family-1;
-      font-size: $font-size-xs;
-      cursor: pointer;
-
-      &:not(:last-child) {
-        margin: 0 30px 0 0;
-      }
-
-      &[aria-selected='true'] {
-        position: relative;
-        color: $color-5;
-
-        &::after {
-          display: inline-block;
-          position: absolute;
-          bottom: -15px;
-          left: 0;
-          width: 100%;
-          height: 6px;
-
-          outline: none;
-          background-color: $color-1;
-          content: '';
-        }
-      }
-    }
+  > button {
+    margin: 25px 0;
   }
 
   > .compare-container {
-    height: 450px;
-    padding: 30px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 
-    button {
-      margin-bottom: 25px;
+    &:not(:empty) {
+      margin-top: 15px;
+    }
+
+    &.c-spinning-loader {
+      min-height: 100px;
     }
 
     .loading-error {

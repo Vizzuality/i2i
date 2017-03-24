@@ -28,7 +28,7 @@
       stopCompareCallback: function () {},
       // Index of the current tab
       // NOTE: the value is updated at instantiation
-      _currentTab: 0,
+      _currentTab: -1,
       // List of the tabs
       // This attribute is modified at instantiation time
       _tabs: [],
@@ -38,7 +38,8 @@
       return _.extend({}, App.Component.Modal.prototype.events, {
         'click .js-cancel': 'onCloseModal',
         'click .js-done': '_onClickDone',
-        'click .js-clear-comparison': '_onClickClearCompare'
+        'click .js-clear-comparison': '_onClickClearCompare',
+        'click .js-compare': '_onClickTab'
       });
     },
 
@@ -62,21 +63,24 @@
       // then the default tab is the second
       if (this._isJurisdictionsCompareIndicators()) {
         this.options._currentTab = 1;
+      } else if (this.options.compareIndicators && this.options.compareIndicators.length) {
+        this.options._currentTab = 0;
       }
 
       this.render();
     },
 
-    _setEventListeners: function () {
-      this.constructor.__super__._setEventListeners.apply(this);
+    /**
+     * Event handler for when the user selects one of the tabs
+     * @param {event} e
+     */
+    _onClickTab: function (e) {
+      // We delete the previous data when the tab is changed
+      // to avoid leaks between tabs
+      this.options.compareIndicators = null;
 
-      this.listenTo(this.tabView, 'tab:selected', function (tab) {
-        // We delete the previous data when the tab is changed
-        // to avoid leaks between tabs
-        this.options.compareIndicators = null;
-
-        this._onTabSelected(tab.id);
-      }.bind(this));
+      var tabId = e.target.value;
+      this._onTabSelected(tabId);
     },
 
     /**
@@ -104,16 +108,21 @@
       var tabIndex = _.findIndex(this.options._tabs, { id: tabId });
       this.options._currentTab = tabIndex;
 
-      var View = this.options._tabs[tabIndex].view;
+      // We empty all the containers before rendering the new tab
+      var containers = this.el.querySelectorAll('.js-container');
+      Array.prototype.slice.call(containers).forEach(function (container) {
+        container.innerHTML = '';
+      });
+
+      var tab = this.options._tabs[tabIndex];
+      var View = tab.view;
       this.compareView = new View({
-        el: this.$el.find('.js-container'),
+        el: this.$el.find('.js-container-' + tab.id),
         iso: this.options.iso,
         year: this.options.year,
         indicator: this.options.indicator,
         compareIndicators: this.options.compareIndicators
       });
-
-      this.setElement(this.el);
     },
 
     /**
@@ -141,6 +150,8 @@
 
     render: function () {
       this.options.content = this.contentTemplate({
+        tabs: this.options._tabs,
+        currentTab: this.options._currentTab,
         indicator: this.options.indicator.name,
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         year: this.options.year
@@ -148,14 +159,11 @@
 
       this.constructor.__super__.render.apply(this);
 
-      this.tabView = new App.View.TabView({
-        el: this.el.querySelector('.js-tabs'),
-        tabs: this.options._tabs,
-        currentTab: this.options._currentTab
-      });
-
       this._setEventListeners();
-      this._onTabSelected(this.options._tabs[this.options._currentTab].id);
+
+      if (this.options._currentTab !== -1) {
+        this._onTabSelected(this.options._tabs[this.options._currentTab].id);
+      }
     }
 
   });
