@@ -2,6 +2,7 @@ ActiveAdmin.register Member do
   menu parent: 'Users', priority: 1
 
   config.per_page = 20
+  config.sort_order = 'date_desc'
 
   filter :name
 
@@ -15,7 +16,8 @@ ActiveAdmin.register Member do
 
   controller do
     def permitted_params
-      params.permit member: [:name, :position, :organization_name, :image, :id, :biography, :role]
+      params.permit member: [:name, :position, :organization_name,
+                             :image, :id, :biography, :role, :date]
     end
   end
 
@@ -29,6 +31,10 @@ ActiveAdmin.register Member do
         'Role: ' + RoleType.key_for(member.role.to_i).to_s
       end
     end
+    div do
+      'Date: ' + member.date.to_s
+    end
+
 
     div do
       a :href => admin_member_path(member) do
@@ -42,6 +48,7 @@ ActiveAdmin.register Member do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Member details' do
       f.input :name
+      f.input :date, as: :date_picker
       f.input :position
       f.input :organization_name
       f.input :role, as: :select, collection: RoleType.to_a
@@ -59,6 +66,7 @@ ActiveAdmin.register Member do
   show do |ad|
     attributes_table do
       row :name
+      row :date
       row :position
       row :organization_name
       row :role
