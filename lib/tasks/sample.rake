@@ -1,5 +1,5 @@
 def create_countries
-  %w[Tanzania Kenya India Bangladesh Nigeria Uganda].each do |country|
+  %w(Tanzania Kenya India Bangladesh Nigeria Uganda).each do |country|
     Country.create! name: country
   end
   puts 'Created the countries'

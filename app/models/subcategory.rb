@@ -12,6 +12,7 @@
 
 class Subcategory < ApplicationRecord
   belongs_to :category
-  has_many :libraries
+  has_many :libraries, dependent: :nullify
   validates_presence_of :name
+  validates_uniqueness_of :name, scope: :category_id
 end

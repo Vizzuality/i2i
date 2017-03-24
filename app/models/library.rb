@@ -22,7 +22,7 @@
 class Library < ApplicationRecord
   extend EnumerateIt
 
-  has_one :subcategory
+  belongs_to :subcategory
   accepts_nested_attributes_for :subcategory
 
   has_attached_file :image, styles: {thumb: '300x300>'}
