@@ -1,0 +1,13 @@
+<div class="c-modal-chart-compare">
+  <div class="header">
+    Select up to three elements to compare <span><%= indicator %></span> in <span><%= country %></span> in <span><%= year %></span> with...
+  </div>
+  <button class="c-button -mini js-clear-comparison">Clear comparison</button>
+  <% tabs.forEach(function (tab, index) { %>
+    <div class="c-radio-button">
+      <input type="radio" name="compare" id="compare-<%= tab.id %>" class="js-compare" value="<%= tab.id %>" <%= index === currentTab ? 'checked' : '' %>>
+      <label for="compare-<%= tab.id %>"><%= tab.name %></label>
+    </div>
+    <div class="compare-container js-container js-container-<%= tab.id %>"></div>
+  <% }) %>
+</div>

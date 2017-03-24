@@ -37,5 +37,21 @@
       // If not set, use the default one in App.View.ChartWidgetView
       ratio: 0.3
     },
+    {
+      name: 'analysis',
+      // The following attribute is not part of the Jiminy requirements
+      // It's used to hide the chart from the chart selector
+      visible: false
+    },
+    {
+      name: 'compare',
+      // The following attribute is not part of the Jiminy requirements
+      // It's used to hide the chart from the chart selector
+      visible: false,
+      // The following attribute is not part of the Jiminy requirements
+      // Ratio between the width and the height
+      // If not set, use the default one in App.View.ChartWidgetView
+      ratio: 0.3
+    }
   ];
 })(this.App));

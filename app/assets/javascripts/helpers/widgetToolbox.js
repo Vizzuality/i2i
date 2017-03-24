@@ -23,7 +23,11 @@
    * @returns {object} instance
    */
   App.Helper.WidgetToolbox.prototype._getJiminyInstance = function () {
-    return new Jiminy(this.dataset, App.Helper.ChartConfig);
+    var chartConfig = App.Helper.ChartConfig.filter(function (chart) {
+      return chart.visible !== false;
+    });
+
+    return new Jiminy(this.dataset, chartConfig);
   };
 
   /**

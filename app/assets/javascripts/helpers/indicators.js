@@ -4,6 +4,18 @@
     CATEGORIES: {
       COMMON: 'Common Indicators',
       STRAND: 'Financial Access'
+    },
+
+    // Map for the ISO and country names
+    COUNTRIES: {
+      UGA: 'Uganda',
+      TZA: 'Tanzania',
+      ZMB: 'Zambia',
+      RWA: 'Rwanda',
+      GHA: 'Ghana',
+      KEN: 'Kenya',
+      MOZ: 'Mozambique',
+      PAK: 'Pakistan'
     }
   };
 })(this.App));

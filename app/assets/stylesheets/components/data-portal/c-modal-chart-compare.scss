@@ -1,0 +1,75 @@
+.c-modal-chart-compare {
+  height: 450px;
+  padding: 30px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  > .header {
+    span {
+      color: $color-1;
+    }
+  }
+
+  > button {
+    margin: 25px 0;
+  }
+
+  > .compare-container {
+
+    &:not(:empty) {
+      margin-top: 15px;
+    }
+
+    &.c-spinning-loader {
+      min-height: 100px;
+    }
+
+    .loading-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $color-1;
+      font-family: $font-family-2;
+      text-align: center;
+
+      .c-button {
+        display: block;
+        margin: 30px auto 0;
+      }
+    }
+  }
+
+  .country-year {
+    .countries-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      > div {
+        flex-basis: calc(50% - 15px);
+
+        > .years-list {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 10px 0 20px;
+
+          > li {
+            flex-basis: 33.33%;
+          }
+        }
+      }
+    }
+  }
+
+  .jurisdiction {
+    .jurisdications-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      > li {
+        flex-basis: 33.33%;
+      }
+    }
+  }
+}

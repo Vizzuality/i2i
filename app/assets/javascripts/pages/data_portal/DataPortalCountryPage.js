@@ -37,18 +37,6 @@
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
   ];
 
-  // This will be removed when we have a way to get the country name from the API
-  var COUNTRIES = {
-    UGA: 'Uganda',
-    TZA: 'Tanzania',
-    ZMB: 'Zambia',
-    RWA: 'Rwanda',
-    GHA: 'Ghana',
-    KEN: 'Kenya',
-    MOZ: 'Mozambique',
-    PAK: 'Pakistan'
-  };
-
   App.Page.DataPortalCountryPage = Backbone.View.extend({
 
     el: 'body',
@@ -202,7 +190,7 @@
         error: this._loadingError,
         indicators: this.indicatorsCollection.toJSON(),
         year: this.options.year,
-        country: COUNTRIES[this.options.iso]
+        country: App.Helper.Indicators.COUNTRIES[this.options.iso]
       });
     },
 

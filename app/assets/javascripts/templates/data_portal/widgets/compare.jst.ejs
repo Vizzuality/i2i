@@ -1,0 +1,415 @@
+{
+  "width": <%= width %>,
+  "height": <%= height %>,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [
+        {"type": "filter","test": "datum.label.length"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
+        {
+          "type": "formula",
+          "field": "label",
+          "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"
+        }
+      ]
+    },
+    {
+      "name": "countCircles",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": {"label": "distinct"}
+        },
+        {
+          "type": "formula",
+          "field": "count_label",
+          "expr": "datum.distinct_label"
+        }
+      ]
+    },
+    {
+      "name": "groups",
+      "source": "table",
+      "transform": [
+        {
+          "type": "facet",
+          "groupby": ["group"]
+        },
+        {
+          "type": "rank"
+        },
+        {
+          "type": "formula",
+          "field": "rank",
+          "expr": "datum.rank - 1"
+        }
+      ]
+    },
+    {
+      "name": "countGroups",
+      "source": "groups",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": {"group": "count"}
+        }
+      ]
+    },
+    {
+      "name": "final",
+      "source": "table",
+      "transform": [
+        {"type": "cross","with": "countCircles"},
+        {
+          "type": "formula",
+          "field": "label",
+          "expr": "datum.b.count_label === 5 ? (slice(datum.a.label, 0, 19) + (datum.a.label.length > 18 ? '...' : '')) : (slice(datum.a.label, 0, 26) + (datum.a.label.length > 25 ? '...' : ''))"
+        },
+        {
+          "type": "formula",
+          "field": "outerRadius",
+          <%/* Replace the value 5 by datum.b.count_label here to have a dynamic circle size */%>
+          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (5 - 1) * 50) / 5"
+        },
+        {
+          "type": "formula",
+          "field": "innerRadius",
+          "expr": "datum.outerRadius - 7"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapDiameter",
+          "expr": "(datum.outerRadius - datum.innerRadius)"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapRadiusPos",
+          "expr": "datum.innerRadius + datum.lineCapDiameter / 2"
+        },
+        {
+          "type": "formula",
+          "field": "labelPos",
+          "expr": "(<%= isNaN(height) ? '0' : height %> - datum.outerRadius * 2) / 4"
+        }
+      ]
+    },
+    {
+      "name": "ungrouped",
+      "source": "table",
+      "transform": [
+        {
+          "type": "lookup",
+          "on": "groups",
+          "keys": ["group"],
+          "onKey": "group",
+          "as": "groupDetail"
+        },
+        {
+          "type": "formula",
+          "field": "pos",
+          "expr": "datum.groupDetail.rank"
+        },
+        {"type": "cross","with": "countCircles"},
+        {
+          "type": "formula",
+          "field": "label",
+          "expr": "datum.b.count_label === 5 ? (slice(datum.a.label, 0, 19) + (datum.a.label.length > 18 ? '...' : '')) : (slice(datum.a.label, 0, 26) + (datum.a.label.length > 25 ? '...' : ''))"
+        },
+        {
+          "type": "formula",
+          "field": "outerRadius",
+          <%/* Replace the value 5 by datum.b.count_label here to have a dynamic circle size */%>
+          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (5 - 1) * 50) / 5 - 10 * datum.a.pos"
+        },
+        {
+          "type": "formula",
+          "field": "innerRadius",
+          "expr": "datum.outerRadius - 5"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapDiameter",
+          "expr": "(datum.outerRadius - datum.innerRadius)"
+        },
+        {
+          "type": "formula",
+          "field": "lineCapRadiusPos",
+          "expr": "datum.innerRadius + datum.lineCapDiameter / 2"
+        },
+        {
+          "type": "formula",
+          "field": "labelPos",
+          "expr": "(<%= isNaN(height) ? '0' : height %> - datum.outerRadius * 2) / 4"
+        }
+      ]
+    },
+    {
+      "name": "grouped",
+      "source": "ungrouped",
+      "transform": [
+        {
+          "type": "formula",
+          "field": "group",
+          "expr": "datum.a.group"
+        },
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.a.tooltipTitle"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.a.percentage) + '%'"},
+        {
+          "type": "facet",
+          "groupby": ["group"]
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "source": "groups",
+      "transform": [
+        {
+          "type": "cross",
+          "with": "countGroups"
+        },
+        {
+          "type": "formula",
+          "field": "posX",
+          "expr": "(<%= isNaN(width) ? '0' : width %> / 3) * datum.a.rank + 11"
+        },
+        {
+          "type": "formula",
+          "field": "posY",
+          "expr": "<%= isNaN(height) ? '0' : height %> - 11"
+        },
+        {
+          "type": "formula",
+          "field": "opacityOuter",
+          "expr": "datum.a.rank === 0 ? 1 : 0.2"
+        },
+        {
+          "type": "formula",
+          "field": "opacityMiddle",
+          "expr": "datum.b.count_group < 2 ? 0 : (datum.a.rank === 1 ? 1 : 0.2)"
+        },
+        {
+          "type": "formula",
+          "field": "opacityInner",
+          "expr": "datum.b.count_group < 3 ? 0 : (datum.a.rank === 2 ? 1 : 0.2)"
+        },
+        {
+          "type": "formula",
+          "field": "label",
+          "expr": "(datum.a.rank === 2 ? 'Inner ring:' : (datum.a.rank === 1 ? (datum.b.count_group === 2 ? 'Inner ring:' : 'Middle ring:') : 'Outer ring:')) + ' ' + datum.a.group"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "ordinal",
+      "range": "width",
+      "domain": {"data": "table","field": "label"},
+      "points": true,
+      "padding": 1
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table","field": "label"},
+      "range": [
+        "#2f939c",
+        "#97c9ce",
+        "#001d22",
+        "#f9d031",
+        "#f95e31",
+        "#FCAE98",
+        "#633AE8",
+        "#E4D081",
+        "#00D9C6",
+        "#B9A86C",
+        "#7B0051",
+        "#B685C9",
+        "#076270",
+        "#8ADF70"
+      ]
+    },
+    {
+      "name": "radius",
+      "type": "linear",
+      "domain": [0,100],
+      "range": [0,6.2831853072]
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {"data": "grouped"},
+      "properties": {
+        "enter": {
+          "width": {"field": {"group": "height"}},
+          "height": {"field": {"group": "height"}}
+        }
+      },
+      "marks": [
+        {
+          "type": "arc",
+          "properties": {
+            "enter": {
+              "x": {"scale": "x","field": "a.label"},
+              "y": {"field": {"group": "height"},"mult": 0.5},
+              "innerRadius": {"field": "innerRadius"},
+              "outerRadius": {"field": "outerRadius"},
+              "startAngle": {"value": 0},
+              "endAngle": {"value": 6.2831853072},
+              "fill": {"field": "a.label","scale": "color"},
+              "opacity": {"value": 0.2}
+            }
+          }
+        },
+        {
+          "name": "hasTooltip",
+          "type": "arc",
+          "properties": {
+            "enter": {
+              "x": {"scale": "x","field": "a.label"},
+              "y": {"field": {"group": "height"},"mult": 0.5},
+              "innerRadius": {"field": "innerRadius"},
+              "outerRadius": {"field": "outerRadius"},
+              "startAngle": {"value": 0},
+              "endAngle": {"field": "a.percentage","scale": "radius"},
+              "fill": {"field": "a.label","scale": "color"}
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "ungrouped",
+        "transform": [
+          {
+            "type": "cross",
+            "with": "countGroups"
+          },
+          {
+            "type": "formula",
+            "field": "percentagePos",
+            "expr": "300 / 2 + (datum.b.count_group === 2 ? (datum.a.a.pos * 24) : (((datum.a.a.pos - 1) * 24) + 7 + (datum.a.a.pos === 0 ? -2 : 0)))"
+          },
+          {
+            "type": "formula",
+            "field": "percentageSize",
+            "expr": "datum.b.count_group === 2 ? (datum.a.a.pos === 0 ? 24 : 16) : (datum.a.a.pos === 0 ? 24 : (datum.a.a.pos === 1 ? 20 : 16))"
+          }
+        ]
+      },
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.a.label"},
+          "y": {"field": "percentagePos"},
+          "font": {"value": "Chalet"},
+          "fontWeight": {"value": "400"},
+          "fontSize": {"field": "percentageSize"},
+          "fill": {"value": "#001d22"},
+          "text": {
+            "template": "{{datum.a.a.percentage|number:'.2f'}}%"
+          },
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "ungrouped",
+        "transform": [
+          {
+            "type": "filter",
+            "test": "datum.a.pos === 0"
+          }
+        ]
+      },
+      "properties": {
+        "enter": {
+          "x": {"scale": "x","field": "a.label"},
+          "y": {"field": "labelPos"},
+          "font": {"value": "inherit"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 16},
+          "fill": {"value": "#001d22"},
+          "text": {"field": "label"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "arc",
+      "from": {"data": "legend"},
+      "properties": {
+        "enter": {
+          "x": {"field": "posX"},
+          "y": {"field": "posY"},
+          "innerRadius": {"value": 10},
+          "outerRadius": {"value": 8},
+          "startAngle": {"value": 0},
+          "endAngle": {"value": 6.2831853072},
+          "fill": {"value": "#2f939c"},
+          "opacity": {"field": "opacityOuter"}
+        }
+      }
+    },
+    {
+      "type": "arc",
+      "from": {"data": "legend"},
+      "properties": {
+        "enter": {
+          "x": {"field": "posX"},
+          "y": {"field": "posY"},
+          "innerRadius": {"value": 6},
+          "outerRadius": {"value": 4},
+          "startAngle": {"value": 0},
+          "endAngle": {"value": 6.2831853072},
+          "fill": {"value": "#2f939c"},
+          "opacity": {"field": "opacityMiddle"}
+        }
+      }
+    },
+    {
+      "type": "arc",
+      "from": {"data": "legend"},
+      "properties": {
+        "enter": {
+          "x": {"field": "posX"},
+          "y": {"field": "posY"},
+          "innerRadius": {"value": 2},
+          "outerRadius": {"value": 0},
+          "startAngle": {"value": 0},
+          "endAngle": {"value": 6.2831853072},
+          "fill": {"value": "#2f939c"},
+          "opacity": {"field": "opacityInner"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "legend"},
+      "properties": {
+        "enter": {
+          "x": {"field": "posX", "offset": 15},
+          "y": {"field": "posY", "offset": 0},
+          "text": {"field": "label"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    }
+  ]
+}
