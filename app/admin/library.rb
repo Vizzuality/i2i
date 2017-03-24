@@ -8,11 +8,19 @@ ActiveAdmin.register Library do
   filter :title
   filter :content_type, as: :select, collection: proc { LibraryType.to_a }
 
+  scope :all, default: true
+  Category.find_each do |c|
+    scope c.name do |s|
+      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+    end
+  end
+
+
   controller do
     def permitted_params
-      params.permit library: [:title, :summary, :content, :id, :image, :content_type,
-                              :date, :url_resource, :video_url, :subcategory_id,
-                              subcategory_attributes: [:id, :name]]
+      params.permit library: [:title, :summary, :content, :id,
+                              :image, :content_type,
+                              :date, :url_resource, :video_url, :subcategory_id]
     end
   end
 
@@ -25,12 +33,12 @@ ActiveAdmin.register Library do
         '-'
       end
     end
+    column :subcategory
 
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end
     column :summary
-    column :content_type
     column :updated_at
     actions
   end
@@ -67,6 +75,7 @@ ActiveAdmin.register Library do
   show do |ad|
     attributes_table do
       row :content_type
+      row :subcategory
       row :date
       row :title
       row :summary
