@@ -141,19 +141,22 @@
      * Event handler for when the user clicks the compare button
      */
     _onCompare: function () {
-      // TODO: move the next block in the continue callback
-      // If the analysis is active, we stop it
-      if (this.options.analysisIndicator) {
-        this.options.chart = null;
-        this.options.analysisIndicator = null;
-      }
+      var jurisdictionFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
 
       new App.Component.ModalChartCompare({
         indicator: this.options.indicator,
         iso: this.options.iso,
         year: this.options.year,
+        filters: this.options.filters,
         compareIndicators: this.options.compareIndicators,
+        canCompareCountries: !jurisdictionFilter,
         continueCallback: function (compareIndicators) {
+          // If the analysis is active, we stop it
+          if (this.options.analysisIndicator) {
+            this.options.chart = null;
+            this.options.analysisIndicator = null;
+          }
+
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),

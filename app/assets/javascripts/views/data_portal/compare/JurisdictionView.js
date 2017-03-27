@@ -9,6 +9,8 @@
       iso: null,
       // Current year of the portal
       year: null,
+      // Current filters of the portal
+      filters: [],
       // The indicator being compared
       indicator: null,
       // Number of options the user can select at max
@@ -141,6 +143,8 @@
       // We copy the array to avoid mutations
       res = Array.prototype.slice.call(res);
 
+      var jurisdicationFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
+
       var activeJuridictions = this.options.compareIndicators
         .map(function (compareIndicator) {
           return compareIndicator.filters.length
@@ -152,19 +156,18 @@
       res = res.map(function (row) {
         return {
           name: row.label,
-          active: activeJuridictions.indexOf(row.label) !== -1
+          active: jurisdicationFilter && row.label === jurisdicationFilter.options[0]
+            || activeJuridictions.indexOf(row.label) !== -1,
+          disabled: jurisdicationFilter
+            ? row.label === jurisdicationFilter.options[0]
+            : false
         };
       });
-
-      var isAllOptionActive = !!this.options.compareIndicators
-        .filter(function (compareIndicator) {
-          return !compareIndicator.filters.length;
-        }).length;
 
       // We add the "All" option, by default active
       res.unshift({
         name: 'All',
-        active: true,
+        active: !jurisdicationFilter,
         disabled: true
       });
 
