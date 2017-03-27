@@ -6,7 +6,6 @@ ActiveAdmin.register Library do
   belongs_to :subcategory, optional: true
 
   filter :title
-  filter :content_type, as: :select, collection: proc { LibraryType.to_a }
 
   scope :all, default: true
   Category.find_each do |c|
@@ -19,20 +18,13 @@ ActiveAdmin.register Library do
   controller do
     def permitted_params
       params.permit library: [:title, :summary, :content, :id,
-                              :image, :content_type,
-                              :date, :url_resource, :video_url, :subcategory_id]
+                              :image, :date, :url_resource,
+                              :video_url, :subcategory_id]
     end
   end
 
   index do
     selectable_column
-    column :content_type do |record|
-      if record.content_type
-        LibraryType.key_for(record.content_type.to_i)
-      else
-        '-'
-      end
-    end
     column :subcategory
 
     column :title do |library|
@@ -48,7 +40,6 @@ ActiveAdmin.register Library do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs 'Library details' do
-      f.input :content_type, as: :select, collection: LibraryType.to_a, include_blank: false
       f.input :subcategory_id,
               as: :select,
               collection:
@@ -74,7 +65,6 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
-      row :content_type
       row :subcategory
       row :date
       row :title

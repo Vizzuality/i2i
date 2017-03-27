@@ -30,9 +30,8 @@ class Library < ApplicationRecord
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
-  has_enumeration_for :content_type, with: LibraryType, skip_validation: true
 
-  validates_presence_of :title, :content_type
+  validates_presence_of :title
   validates :url_resource, url: true, if: 'url_resource.present?'
   validates :video_url, url: true, if: 'video_url.present?'
   validates_length_of :title, maximum: 70
