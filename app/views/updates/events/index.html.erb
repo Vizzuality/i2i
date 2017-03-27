@@ -41,7 +41,7 @@
       <div class="l-card-grid">
         <div class="row">
           <% @events.each do |event| %>
-            <div class="grid-s-12 grid-m-6 grid-l-3 js-event" data-time="<%= DateHelper.setCronology event.date %>">
+            <div class="grid-s-12 grid-m-6 grid-l-3 event" data-time="<%= DateHelper.setCronology event.date %>">
               <article class="c-card">
                 <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
                   <div class="picture" style="background-image: url(<%= event.image %>)"></div>

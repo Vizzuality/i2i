@@ -63,7 +63,7 @@
       }
     }
 
-    .js-event {
+    .event {
       &[data-time='past'] {
         .date {
           color: rgba($color-5, .5);
@@ -72,7 +72,7 @@
     }
 
     &.-only-past {
-      .js-event {
+      .event {
         &[data-time='present'],
         &[data-time='upcoming'] {
           display: none;
@@ -81,7 +81,7 @@
     }
 
     &.-only-upcoming {
-      .js-event {
+      .event {
         &[data-time='present'],
         &[data-time='past'] {
           display: none;
