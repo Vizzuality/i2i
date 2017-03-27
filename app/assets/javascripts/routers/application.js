@@ -10,6 +10,7 @@ var Router = Backbone.Router.extend({
     'about': '_aboutPage'
   },
 
+  // *** PAGES ***
   _homePage: function () {
     // Don't forget to stop the router on each route
     // otherwise you'll break the browser's back button because

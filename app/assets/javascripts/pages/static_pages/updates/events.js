@@ -16,7 +16,7 @@
     _setVars: function () {
       this.filters = Array.prototype.slice.call(document.querySelectorAll('.js-event-filter-btn'));
       this.eventGrid = document.querySelector('.l-card-grid');
-      this.eventGridClassName = this.eventGrid.classList.toString();
+      this.eventGridClassName = this.eventGrid.classList.item(0);
     },
 
     _setListeners: function () {
@@ -30,13 +30,13 @@
     /**
      * Filters grid based on CSS match selection
      */
-    _applyFilter: function(filter) {
+    _applyFilter: function (filter) {
       this.eventGrid.className = '';
 
       if (filter === 'all') {
         this.eventGrid.classList.add(this.eventGridClassName);
       } else {
-        this.eventGrid.classList.add(this.eventGridClassName, '-only-' + filter);
+        this.eventGrid.className = this.eventGridClassName + ' -only-' + filter;
       }
     },
 
