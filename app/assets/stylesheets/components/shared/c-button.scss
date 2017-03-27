@@ -16,8 +16,7 @@
   &[aria-pressed='true'],
   &.-active,
   &:hover {
-    background-color: $color-1;
-    color: $color-4;
+    opacity: .7;
   }
 
   &.-medium {
@@ -38,8 +37,8 @@
     &[aria-pressed='true'],
     &.-active,
     &:hover {
-      background-color: $color-1;
-      color: $color-4;
+      background-color: $color-8;
+      opacity: 1;
     }
 
     &.-outline {
@@ -65,8 +64,7 @@
     &[aria-pressed='true'],
     &.-active,
     &:hover {
-      background-color: $color-4;
-      color: $color-1;
+      opacity: .8;
     }
 
     &.-outline {
