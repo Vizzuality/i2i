@@ -35,6 +35,8 @@ CKEDITOR.editorConfig = function( config )
 
   config.format_tags = 'p;h1;h2';
 
+  config.extraPlugins = 'youtube';
+
   // Toolbar groups configuration.
   config.toolbar = [
     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
@@ -46,7 +48,10 @@ CKEDITOR.editorConfig = function( config )
     { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ], items: [ 'NumberedList', 'BulletedList', '-', 'Blockquote' ] },
     '/',
     { name: 'styles', items: [ 'Format'] },
-    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] }
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+    '/',
+    { name: 'others', items: [ 'Youtube' ] }
+
   ];
 
   config.toolbar_mini = [
