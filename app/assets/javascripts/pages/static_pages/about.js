@@ -13,6 +13,7 @@
     },
 
     _setVars: function () {
+      this.anchors = Array.prototype.slice.call(document.querySelectorAll('.js-anchor'));
       this.profiles = Array.prototype.slice.call(document.querySelectorAll('.c-profile'));
     },
 
@@ -61,6 +62,17 @@
         elem.addEventListener('click', this.onClick);
         elem.addEventListener('keydown', this.onKeydown);
       }.bind(this));
+
+      this.anchors.forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          var target = e.currentTarget.getAttribute('href');
+
+          $('html, body').animate({
+            scrollTop: $(target).offset().top
+          });
+        });
+      });
     },
 
     _removeEventListerners: function() {
