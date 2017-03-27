@@ -85,6 +85,14 @@
           list-style: disc;
         }
       }
+
+      .youtube-embed-wrapper {
+        margin: 25px 0;
+
+        @media #{$mq-tablet} {
+          margin: 35px 0;
+        }
+      }
     }
 
     .footer-article {
