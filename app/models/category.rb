@@ -13,4 +13,10 @@ class Category < ApplicationRecord
   has_many :subcategories
   validates_presence_of :name
   validates_uniqueness_of :name
+  before_validation :generate_slug
+
+  private
+    def generate_slug
+      write_attribute(:slug, self.name.parameterize)
+    end
 end

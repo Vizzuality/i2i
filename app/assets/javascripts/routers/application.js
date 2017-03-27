@@ -35,7 +35,9 @@ var Router = Backbone.Router.extend({
     // otherwise you'll break the browser's back button
     Backbone.history.stop();
 
-    new App.Page.LibraryPage();
+    new App.Page.LibraryPage({
+      categories: gon.categories.categories
+    });
   },
 
   _aboutPage: function () {

@@ -1,0 +1,6 @@
+<% filters.forEach(function(filter, index) { %>
+  <button class="filter <%= filter.name === selectedFilter.name ? '-applied' : '' %> js-filter" data-filter="<%= filter.name%>">
+    <%= filter.name %>
+  </button>
+  <% if (index < filters.length - 1) { %><span>/</span><% } %>
+<% }) %>
