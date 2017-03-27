@@ -106,4 +106,9 @@ p {
   & + & {
     margin: 15px 0 0;
   }
+
+  > a {
+    color: $color-1;
+    font-weight: $font-weight-light;
+  }
 }
