@@ -1,6 +1,6 @@
-(function (App) {
+ (function (App) {
 
-  var Collection = Backbone.Collection.extend({
+  var YearsCollection = Backbone.Collection.extend({
 
     initialize: function (attributes, options) {
       this.options = _.extend({}, options);
@@ -28,7 +28,9 @@
       // Current ISO
       iso: null,
       // Current year
-      year: null
+      year: null,
+      // Current selected jurisdiction
+      jurisdiction: null
     },
 
     events: {
@@ -37,7 +39,15 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      this.collection = new Collection({}, { iso: this.options.iso });
+
+      this.yearsCollection = new YearsCollection({}, { iso: this.options.iso });
+      this.jurisdictionsModel = new App.Model.IndicatorModel({}, {
+        id: 'jurisdiction',
+        iso: this.options.iso,
+        year: this.options.year,
+        filters: [] // The filters shouldn't be needed to retrieve the juridications
+      });
+
       this._fetchData();
     },
 
@@ -45,18 +55,47 @@
      * Fetch the list of years and render the View
      */
     _fetchData: function () {
-      this.collection.fetch()
+      this._showLoader();
+
+      $.when.apply($, [
+        this.jurisdictionsModel.fetch(),
+        this.yearsCollection.fetch()
+      ])
         .done(this.render.bind(this))
-        .fail(this.renderError.bind(this));
+        .fail(this.renderError.bind(this))
+        .always(this._hideLoader.bind(this));
+    },
+
+    /**
+     * Show the spinning loader
+     * NOTE: also empties the container
+     */
+    _showLoader: function () {
+      this.el.innerHTML = '';
+      this.el.classList.add('c-spinning-loader');
+    },
+
+    /**
+     * Hide the spinning loader
+     */
+    _hideLoader: function () {
+      this.el.classList.remove('c-spinning-loader');
     },
 
     /**
      * Return the data associated with the tab
-     * @returns {number}
+     * @returns {{ year: number, jurisdiction: string }}
      */
     getData: function () {
-      var selectedRadio = document.querySelector('.js-year:checked');
-      return +selectedRadio.value;
+      var selectedYearRadio = document.querySelector('.js-year:checked');
+      var selectedJurisdictionRadio = document.querySelector('.js-jurisdiction:checked');
+
+      return {
+        year: +selectedYearRadio.value,
+        jurisdiction: selectedJurisdictionRadio.value === 'All'
+          ? null
+          : selectedJurisdictionRadio.value
+      };
     },
 
     /**
@@ -64,7 +103,7 @@
      * @returns {{ value: number, active: boolean }[]}
      */
     _getYears: function () {
-      return this.collection.toJSON()
+      return this.yearsCollection.toJSON()
         .map(function (year) {
           return {
             value: year.value,
@@ -73,9 +112,31 @@
         }, this);
     },
 
+    /**
+     * Return the list of jurisdictions to be rendered
+     * @returns {{ value: string, active: boolean }[]}
+     */
+    _getJurisdictions: function () {
+      var res = this.jurisdictionsModel.get('data')
+        .map(function (jurisdiction) {
+          return {
+            value: jurisdiction.label,
+            active: jurisdiction.label === this.options.jurisdiction
+          };
+        }, this);
+
+      res.unshift({
+        value: 'All',
+        active: !this.options.jurisdiction
+      });
+
+      return res;
+    },
+
     render: function () {
       this.el.innerHTML = this.template({
-        years: this._getYears()
+        years: this._getYears(),
+        jurisdictions: this._getJurisdictions()
       });
 
       return this;

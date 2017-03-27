@@ -84,11 +84,16 @@
      * @param {string[]} visibleIndicators ids of the visible indicators
      * @param { { name: string, options: string[] }[] } filters
      * @param {number} year
+     * @param {string} jurisdiction
      */
-    _onFiltersUpdate: function (visibleIndicators, filters, year) {
+    _onFiltersUpdate: function (visibleIndicators, filters, year, jurisdiction) {
       if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
       if (filters) this._updateFilters(filters);
-      if (year) this._updatedYear(year);
+      if (year) this._updateYear(year);
+
+      // We need to ensure we remove the filter if we don't need it anymore
+      this._updateJurisdiction(jurisdiction);
+
       this._renderHeader();
       this._renderWidgets();
     },
@@ -105,11 +110,42 @@
      * Replace this.options.year and updates the URL
      * @param {number} year
      */
-    _updatedYear: function (year) {
+    _updateYear: function (year) {
       if (this.options.year === year) return;
 
       this.options.year = year;
       this._updateURL();
+    },
+
+    /**
+     * Return the jurisdiction filter if exist
+     * @return {{ id: 'jurisdiction', name?: string, options: string[]}}
+     */
+    _getJurisdictionFilter: function() {
+      return _.findWhere(this.options._filters, { id: 'jurisdiction' });
+    },
+
+    /**
+     * Add a filter for the jurisdiction
+     * @param {string} jurisdiction
+     */
+    _updateJurisdiction: function (jurisdiction) {
+      var jurisdictionFilterIndex = _.findIndex(this.options._filters, { id: 'jurisdiction' });
+
+      if (!jurisdiction) {
+        if (jurisdictionFilterIndex !== -1) {
+          this.options._filters.splice(jurisdictionFilterIndex, 1);
+        }
+      } else {
+        if (jurisdictionFilterIndex !== -1) {
+          this.options._filters[jurisdictionFilterIndex].options = [jurisdiction];
+        } else {
+          this.options._filters.push({
+            id: 'jurisdiction',
+            options: [jurisdiction]
+          });
+        }
+      }
     },
 
     /**
@@ -162,8 +198,19 @@
         year: this.options.year,
         indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
+        jurisdiction: !!this._getJurisdictionFilter()
+          ? this._getJurisdictionFilter().options[0]
+          : null,
         continueCallback: this._onFiltersUpdate.bind(this)
       });
+    },
+
+    /**
+     * Return the jurisdiction filter if exists
+     * @return {{ id: 'jurisdiction', name?: string, options: string[] }}
+     */
+    _getJurisdictionFilter: function () {
+      return _.findWhere(this.options._filters, { id: 'jurisdiction' });
     },
 
     render: function () {
@@ -190,6 +237,9 @@
         error: this._loadingError,
         indicators: this.indicatorsCollection.toJSON(),
         year: this.options.year,
+        jurisdiction: this._getJurisdictionFilter()
+          ? this._getJurisdictionFilter().options[0]
+          : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso]
       });
     },
