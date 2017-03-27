@@ -3,12 +3,24 @@ ActiveAdmin.register Library do
   config.per_page = 20
   config.sort_order = 'id_asc'
 
+  belongs_to :subcategory, optional: true
+
   filter :title
   filter :content_type, as: :select, collection: proc { LibraryType.to_a }
 
+  scope :all, default: true
+  Category.find_each do |c|
+    scope c.name do |s|
+      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+    end
+  end
+
+
   controller do
     def permitted_params
-      params.permit library: [:title, :summary, :content, :id, :image, :content_type, :date, :url_resource, :video_url]
+      params.permit library: [:title, :summary, :content, :id,
+                              :image, :content_type,
+                              :date, :url_resource, :video_url, :subcategory_id]
     end
   end
 
@@ -21,12 +33,12 @@ ActiveAdmin.register Library do
         '-'
       end
     end
+    column :subcategory
 
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end
     column :summary
-    column :content_type
     column :updated_at
     actions
   end
@@ -34,8 +46,16 @@ ActiveAdmin.register Library do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
+
     f.inputs 'Library details' do
-      f.input :content_type, as: :select, collection: LibraryType.to_a
+      f.input :content_type, as: :select, collection: LibraryType.to_a, include_blank: false
+      f.input :subcategory_id,
+              as: :select,
+              collection:
+                option_groups_from_collection_for_select(Category.all,
+                                                         :subcategories, :name,
+                                                         :id, :name, :id),
+              include_blank: false
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -54,6 +74,8 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
+      row :content_type
+      row :subcategory
       row :date
       row :title
       row :summary
@@ -61,7 +83,6 @@ ActiveAdmin.register Library do
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
-      # Will display the image on show object page
     end
   end
 
