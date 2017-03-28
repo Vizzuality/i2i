@@ -10,9 +10,13 @@
 
     id: 'vizz-component',
 
-    // direction property has the following values: 'top', 'bottom'
-    defaultConfig: {
+    defaults: {
+      // Reference element for the tooltip
+      refElem: null,
+      // Direction of the tooltip
+      // Either "top" or "bottom"
       direction: 'bottom',
+      // Offset between the tip of the tooltip and the reference element
       offset: 10
     },
 
@@ -28,7 +32,7 @@
     },
 
     initialize: function (options) {
-      this.config = _.extend(this.defaultConfig, options);
+      this.options = _.extend({}, this.defaults, options);
       this._setVars();
       this._setEventListeners();
 
@@ -37,7 +41,6 @@
     },
 
     _setVars: function () {
-      this.refElem = this.defaultConfig.refElem;
       this.body = document.querySelector('body');
       this.position = { top: 0, left: 0 };
     },
@@ -45,24 +48,24 @@
     _setEventListeners: function () {
       if (!App.Helper.Responsive.isDesktop) {
         this.body.addEventListener('touchstart', this._onTouchStartBody.bind(this));
-        this.refElem.addEventListener('touchstart', this.toggleVisibility.bind(this));
+        this.options.refElem.addEventListener('touchstart', this.toggleVisibility.bind(this));
       }
 
       if (App.Helper.Responsive.isDesktop) {
-        this.refElem.addEventListener('mouseover', this.showTooltip.bind(this))
-        this.refElem.addEventListener('mouseleave', this.hideTooltip.bind(this));
+        this.options.refElem.addEventListener('mouseover', this.showTooltip.bind(this))
+        this.options.refElem.addEventListener('mouseleave', this.hideTooltip.bind(this));
       }
     },
 
     _onTouchStartBody: function (e) {
-      if(e.target === this.refElem || e.target === this.el || this.el.contains(e.target)) return;
+      if(e.target === this.options.refElem || e.target === this.el || this.el.contains(e.target)) return;
       this.hideTooltip();
     },
 
     toggleVisibility: function () {
       this._calculatePosition();
       this._setPosition();
-      this.refElem.focus();
+      this.options.refElem.focus();
       this.el.classList.toggle('_is-hidden', !this.isHidden());
     },
 
@@ -70,14 +73,14 @@
       if (!this.isHidden()) return;
       this._calculatePosition();
       this._setPosition();
-      this.refElem.focus();
+      this.options.refElem.focus();
       this.el.classList.remove('_is-hidden');
       this.el.setAttribute('aria-hidden', false);
     },
 
     hideTooltip: function () {
       this.el.classList.add('_is-hidden');
-      this.refElem.blur();
+      this.options.refElem.blur();
       this.el.setAttribute('aria-hidden', true);
     },
 
@@ -86,19 +89,19 @@
     },
 
     _calculatePosition: function () {
-      var offsets = $(this.defaultConfig.refElem).offset();
+      var offsets = $(this.options.refElem).offset();
 
-      this.refElemSize = {
-        width: this.defaultConfig.refElem.offsetWidth,
-        height: this.defaultConfig.refElem.offsetHeight
+      this.options.refElemSize = {
+        width: this.options.refElem.offsetWidth,
+        height: this.options.refElem.offsetHeight
       };
 
-      if (this.defaultConfig.direction === 'bottom') {
-        offsets.top += this.refElemSize.height + this.defaultConfig.offset;
+      if (this.options.direction === 'bottom') {
+        offsets.top += this.options.refElemSize.height + this.options.offset;
       }
 
-      if (this.defaultConfig.direction === 'top') {
-        offsets.top -= this.refElemSize.height;
+      if (this.options.direction === 'top') {
+        offsets.top -= this.options.offset;
       }
 
       this.position = {
@@ -113,19 +116,28 @@
     },
 
     _setDirection: function () {
-      var directionTranslate = this.defaultConfig.direction === 'top' ?
+      var directionTranslate = this.options.direction === 'top' ?
         '-100%' : 0;
 
-      this.el.style.transform = 'translate(calc(-50% + ' + (this.refElemSize.width / 2) + 'px), ' + directionTranslate +')';
+      this.el.style.transform = 'translate(calc(-50% + ' + (this.options.refElemSize.width / 2) + 'px), ' + directionTranslate +')';
+    },
+
+    /**
+     * Return the content of the tooltip
+     * @return {string}
+     */
+    _getContent: function() {
+      return this.content({
+        direction: '-' + this.options.direction
+      })
     },
 
     render: function () {
-      $(this.body).append(this.el);
-      $(this.el).html(this.content({
-        direction: '-' + this.defaultConfig.direction
-      }));
+      this.el.innerHTML = this._getContent();
 
       this.el.setAttribute('role', 'tooltip');
+
+      this.body.appendChild(this.el);
 
       this._calculatePosition();
       this._setDirection();
