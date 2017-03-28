@@ -23,7 +23,7 @@
       // Jurisdiction currently used as a filter
       jurisdiction: null,
       // Index of the current tab
-      _currentTab: 0,
+      currentTab: 0,
       // List of the tabs
       // This attribute is modified at instantiation time
       _tabs: [],
@@ -86,7 +86,7 @@
       if (this.filterView) this._saveCurrentTabData();
 
       var tabIndex = _.findIndex(this.options._tabs, { id: tabId });
-      this.options._currentTab = tabIndex;
+      this.options.currentTab = tabIndex;
 
       // We merge the list of indicators with the list of selected indicators
       // from the first tab so both of the tab always have the most updated data
@@ -125,7 +125,7 @@
      * Save the data of the current tab
      */
     _saveCurrentTabData: function () {
-      var tab = this.options._tabs[this.options._currentTab];
+      var tab = this.options._tabs[this.options.currentTab];
       var data = this.filterView.getData();
 
       switch (tab.id) {
@@ -165,11 +165,11 @@
       this.tabView = new App.View.TabView({
         el: this.el.querySelector('.js-tabs'),
         tabs: this.options._tabs,
-        currentTab: this.options._currentTab
+        currentTab: this.options.currentTab
       });
 
       this._setEventListeners();
-      this._onTabSelected(this.options._tabs[this.options._currentTab].id);
+      this._onTabSelected(this.options._tabs[this.options.currentTab].id);
     }
 
   });

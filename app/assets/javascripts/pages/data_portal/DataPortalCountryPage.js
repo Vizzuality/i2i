@@ -60,7 +60,8 @@
 
     events: {
       'click .js-retry': '_fetchData',
-      'click .js-customize-indicators': '_openFilterModal'
+      'click .js-customize-indicators': '_openFilterModal',
+      'click .js-filter-tag': '_openFilterModal',
     },
 
     initialize: function (settings) {
@@ -192,8 +193,14 @@
         .always(this.render.bind(this));
     },
 
-    _openFilterModal: function () {
+    _openFilterModal: function (e) {
+      var isTag = e.target.classList.contains('js-filter-tag');
+      var tab = isTag
+        ? ['indicator', 'filter', 'context'].indexOf(e.target.dataset.tab)
+        : 0;
+
       new App.View.FilterIndicatorsModal({
+        currentTab: tab,
         iso: this.options.iso,
         year: this.options.year,
         indicators: this.indicatorsCollection.toJSON(),
@@ -214,15 +221,6 @@
     },
 
     render: function () {
-      // // We replace the placeholder by the name of the country
-      // var countryContainers = document.querySelectorAll('.js-country');
-      // Array.prototype.slice.call(countryContainers).forEach(function (container) {
-      //   container.textContent = this.model.toJSON().country;
-      // }, this);
-
-      // // We replace the placeholder by the year
-      // document.querySelector('.js-year').textContent = this.options.year;
-
       this._renderHeader();
       this._renderWidgets();
 
@@ -235,7 +233,9 @@
     _renderHeader: function () {
       this.headerContainer.innerHTML = this.headerTemplate({
         error: this._loadingError,
-        indicators: this.indicatorsCollection.toJSON(),
+        indicators: this._getVisibleIndicators(),
+        filters: this.options._filters
+          .filter(function (filter) { return filter.id !== 'jurisdiction'; }),
         year: this.options.year,
         jurisdiction: this._getJurisdictionFilter()
           ? this._getJurisdictionFilter().options[0]
