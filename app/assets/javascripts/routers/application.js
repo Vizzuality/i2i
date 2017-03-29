@@ -47,7 +47,6 @@ var init = function () {
   Backbone.history.stop();
   Backbone.history.start({ pushState: true });
 
-  // this only intializes once. CHANGE
   new App.View.MobileMenu();
   new App.View.Footer();
 };

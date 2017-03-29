@@ -41,6 +41,7 @@
     Backbone.history.start({ pushState: true });
 
     new App.View.MobileMenu();
+    new App.View.Footer();
   };
 
   document.addEventListener('turbolinks:load', init);
