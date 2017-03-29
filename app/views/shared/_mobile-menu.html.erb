@@ -1,4 +1,3 @@
-
 <div class="c-mobile-menu <% if current_page?(root_path) %> -homepage <% end %>">
   <div class="wrapper">
     <div class="container">
@@ -25,7 +24,7 @@
       </nav>
 
       <div class="app-logo">
-        <a href="/"><img src="i2i-logo.svg" alt="i2i logo"></a>
+        <%= link_to image_tag('/i2i-logo.svg', :alt => 'Insight to Impact'), root_path %>
       </div>
     </div>
   </div>
