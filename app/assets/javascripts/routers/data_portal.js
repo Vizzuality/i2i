@@ -1,28 +1,48 @@
-App.Router.DataPortal = Backbone.Router.extend({
+(function (App) {
+  'use strict';
 
-  routes: {
-    'data-portal': 'index',
-    'data-portal/:iso/:year': 'country',
-  },
+  var Router = Backbone.Router.extend({
 
-  index: function () {
-    new App.Page.DataPortalIndexPage();
-  },
+    routes: {
+      'data-portal': 'index',
+      'data-portal/:iso/:year': 'country',
+    },
 
-  country: function (iso, year) {
-    new App.Page.DataPortalCountryPage({
-      iso: iso,
-      year: +year
-    });
-  }
+    index: function () {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button because
+      // the router will still be listening to the route and when
+      // Turbolinks triggers its load event, the DOM won't be
+      // loaded yet
+      Backbone.history.stop();
 
-});
+      new App.Page.DataPortalIndexPage();
+    },
 
-new App.Router.DataPortal();
+    country: function (iso, year) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
 
-document.addEventListener('turbolinks:load', function () {
-  Backbone.history.stop();
-  Backbone.history.start({ pushState: true });
+      new App.Page.DataPortalCountryPage({
+        iso: iso,
+        year: +year
+      });
+    }
 
-  new App.View.MobileMenu();
-});
+  });
+
+  var init = function () {
+    var router = new Router();
+
+    // Don't touch these two lines without testing if the
+    // browser's back and forward buttons aren't broken
+    Backbone.history.stop();
+    Backbone.history.start({ pushState: true });
+
+    new App.View.MobileMenu();
+  };
+
+  document.addEventListener('turbolinks:load', init);
+
+}).call(this, this.App);
