@@ -92,9 +92,7 @@
 
       return {
         year: +selectedYearRadio.value,
-        jurisdiction: selectedJurisdictionRadio.value === 'All'
-          ? null
-          : selectedJurisdictionRadio.value
+        jurisdiction: selectedJurisdictionRadio.value
       };
     },
 
@@ -127,7 +125,7 @@
 
       res.unshift({
         value: 'All',
-        active: !this.options.jurisdiction
+        active: !this.options.jurisdiction || this.options.jurisdiction === 'All'
       });
 
       return res;
