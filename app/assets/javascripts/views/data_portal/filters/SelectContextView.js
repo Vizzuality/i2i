@@ -35,6 +35,7 @@
 
     events: {
       'click .js-retry-context': '_fetchData',
+      'click .js-year': '_onClickYear'
     },
 
     initialize: function (options) {
@@ -52,18 +53,69 @@
     },
 
     /**
-     * Fetch the list of years and render the View
+     * Event handler executed when the user selects a year
+     * @param {Event} e event
      */
-    _fetchData: function () {
+    _onClickYear: function (e) {
+      var selectedYear = +e.target.value;
+
+      // We update the year of the jurisdictionsModel
+      this.jurisdictionsModel.options.year = selectedYear;
+
+      // We fetch the data again to get the new jurisdiction, and we impose a
+      // delay so the user understands some changes have occured
+      // NOTE: if the fetch fails and the user clicks the button to try to fetch the
+      // data again, the code executed in the done callback won't be executed. This
+      // does not break the state of the app because nothing would have been changed
+      // in the UI (e.g. the previous year would be still selected)
+      this._fetchData(1000)
+        .done(function () {
+          // We set the year as the user wanted
+          this.el.querySelector('.js-year[value="' + selectedYear + '"]').checked = true;
+
+          // We set the "All" option as the selected
+          // The reason is that the jurisdictions depend on years, so it might
+          // happen that for another year, the jurisdiction doesn't exist anymore
+          this.el.querySelector('.js-jurisdiction[value="All"]').checked = true;
+        }.bind(this));
+    },
+
+    /**
+     * Fetch the list of years and render the View
+     * Return a deferred to know the result (after the changes in the DOM)
+     * @param {number} delay Minimum time for the promises to resolve before rendering (ms)
+     * @return {object} $.Deferred
+     */
+    _fetchData: function (delay) {
       this._showLoader();
 
-      $.when.apply($, [
+      var deferreds = [
         this.jurisdictionsModel.fetch(),
         this.yearsCollection.fetch()
-      ])
-        .done(this.render.bind(this))
-        .fail(this.renderError.bind(this))
+      ];
+
+      if (delay) {
+        deferreds.push((function () {
+          var deferred = $.Deferred();
+          setTimeout(deferred.resolve, delay);
+          return deferred;
+        })());
+      }
+
+      var deferred = $.Deferred();
+
+      $.when.apply($, deferreds)
+        .done(function () {
+          this.render();
+          deferred.resolve();
+        }.bind(this))
+        .fail(function () {
+          this.renderError();
+          deferred.reject();
+        }.bind(this))
         .always(this._hideLoader.bind(this));
+
+      return deferred;
     },
 
     /**
