@@ -23,16 +23,31 @@
 
   <div class="content">
     <div class="wrapper">
+
+      <div class="l-event-filters">
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="row">
+              <button class="time-filter js-event-filter-btn" data-filter="all">All</button>
+              <span>/</span>
+              <button class="time-filter js-event-filter-btn" data-filter="upcoming">Upcoming</button>
+              <span>/</span>
+              <button class="time-filter js-event-filter-btn" data-filter="past">Past</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="l-card-grid">
         <div class="row">
           <% @events.each do |event| %>
-            <div class="grid-s-12 grid-m-6 grid-l-3">
+            <div class="grid-s-12 grid-m-6 grid-l-3 event" data-time="<%= DateHelper.setCronology event.date %>">
               <article class="c-card">
                 <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
                   <div class="picture" style="background-image: url(<%= event.image %>)"></div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= event.title %></h4>
-                    <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                    <h4 class="title -sea -small date"><%= DateHelper.beautify event.date %></h4>
                     <p><%= event.summary %></p>
                   </div>
                 </a>

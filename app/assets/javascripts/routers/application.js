@@ -5,10 +5,12 @@ var Router = Backbone.Router.extend({
 
   routes: {
     '': '_homePage',
+    'updates/events': '_eventsPage',
     'libraries': '_libraryPage',
     'about': '_aboutPage'
   },
 
+  // *** PAGES ***
   _homePage: function () {
     // Don't forget to stop the router on each route
     // otherwise you'll break the browser's back button because
@@ -18,6 +20,14 @@ var Router = Backbone.Router.extend({
     Backbone.history.stop();
 
     new App.Page.HomePage();
+  },
+
+  _eventsPage: function () {
+    // Don't forget to stop the router on each route
+    // otherwise you'll break the browser's back button
+    Backbone.history.stop();
+
+    new App.Page.EventsPage();
   },
 
   _libraryPage: function () {

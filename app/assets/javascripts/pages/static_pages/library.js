@@ -18,12 +18,11 @@
     _setVars: function () {
       this.selectors = Array.prototype.slice.call(document.querySelectorAll('.content-selector'));
       this.library = document.querySelector('.l-card-grid');
-      this.libraryClassName = this.library.classList.toString();
+      this.libraryClassName = this.library.classList.item(0);
     },
 
     _filterLibrary: function (type) {
-      this.library.className = '';
-      this.library.classList.add(this.libraryClassName, '-only-' + type);
+      this.library.className = this.libraryClassName + ' -only-' + type;
     },
 
     _toggleButtons: function (type) {
