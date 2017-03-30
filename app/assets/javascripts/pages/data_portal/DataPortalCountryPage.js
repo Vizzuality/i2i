@@ -132,7 +132,7 @@
     _updateJurisdiction: function (jurisdiction) {
       var jurisdictionFilterIndex = _.findIndex(this.options._filters, { id: 'jurisdiction' });
 
-      if (jurisdiction === 'All') {
+      if (!jurisdiction || jurisdiction === 'All') {
         if (jurisdictionFilterIndex !== -1) {
           this.options._filters.splice(jurisdictionFilterIndex, 1);
         }
