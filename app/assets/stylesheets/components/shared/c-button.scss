@@ -16,8 +16,7 @@
   &[aria-pressed='true'],
   &.-active,
   &:hover {
-    background-color: $color-1;
-    color: $color-4;
+    opacity: .7;
   }
 
   &.-medium {
@@ -38,8 +37,8 @@
     &[aria-pressed='true'],
     &.-active,
     &:hover {
-      background-color: $color-1;
-      color: $color-4;
+      background-color: $color-8;
+      opacity: 1;
     }
 
     &.-outline {
@@ -51,8 +50,8 @@
       &[aria-pressed='true'],
       &.-active,
       &:hover {
+        border-color: $color-8;
         background-color: transparent;
-        color: $color-4;
       }
     }
   }
@@ -65,8 +64,7 @@
     &[aria-pressed='true'],
     &.-active,
     &:hover {
-      background-color: $color-4;
-      color: $color-1;
+      opacity: .8;
     }
 
     &.-outline {
@@ -89,33 +87,12 @@
     border-color: rgba($color-1, .3);
     font-size: $font-size-s;
     line-height: 24px;
-  }
 
-  &.-no-hover:not(.-outline) {
-    &:hover {
-      background-color: transparent;
-      color: $color-1;
-    }
-
-    &.-white:hover {
-      background-color: $color-4;
-      color: $color-1;
-    }
-
-    &.-sea {
+    &[aria-pressed='true'] {
+      border-color: $color-1;
       background-color: $color-1;
       color: $color-4;
+      opacity: 1;
     }
-  }
-
-  &.-retry {
-    width: 48px;
-    height: 48px;
-    border: 0;
-    background: asset-url('retry-icon.svg') center center no-repeat;
-    background-color: $color-4;
-    background-size: auto 27px;
-    text-indent: -10000px;
-    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
   }
 }

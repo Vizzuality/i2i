@@ -104,6 +104,7 @@
       p {
         color: $color-3;
         font-family: $font-family-2;
+        line-height: 1.8;
 
         &:not(:first-child) {
           margin: 5px 0 0;
@@ -159,7 +160,7 @@
     margin: -20px 0 0;
 
     @media #{$mq-laptop} {
-      margin: -100px 0 90px;
+      margin: -125px 0 90px;
     }
 
     .l-switcher {
@@ -171,6 +172,10 @@
     }
 
     .l-indicator-grid {
+
+      .widgets-list {
+        min-height: 500px;
+      }
 
       .footer-indicator-grid {
         display: flex;
@@ -218,18 +223,6 @@
           }
         }
       }
-    }
-  }
-
-  .row.loading-error {
-    padding: 150px 0 200px;
-    color: $color-1;
-    font-family: $font-family-2;
-    text-align: center;
-
-    .c-button {
-      display: block;
-      margin: 30px auto 0;
     }
   }
 }

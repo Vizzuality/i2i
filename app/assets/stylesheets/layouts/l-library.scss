@@ -25,6 +25,7 @@
     &:hover {
       background-color: transparent;
       color: $color-2;
+      opacity: 1;
     }
 
     &:not(:first-child) {

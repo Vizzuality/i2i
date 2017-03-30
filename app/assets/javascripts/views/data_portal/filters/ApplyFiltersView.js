@@ -15,10 +15,6 @@
       filters: []
     },
 
-    events: {
-      'click .js-retry-filters': '_fetchData',
-    },
-
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
       // Filter out the the strand indicators and copy the entire object to
@@ -145,12 +141,11 @@
     },
 
     renderError: function () {
-      this.el.innerHTML = '<p class="loading-error">' +
-        'Unable to load the filters' +
-        '<button type="button" class="c-button -retry js-retry-filters">Retry</button>' +
-        '</p>';
-
-      this.setElement(this.el);
+      new App.View.RetryMessageView({
+        el: this.el,
+        label: 'Unable to load the filters',
+        callback: this._fetchData.bind(this)
+      });
     }
 
   });

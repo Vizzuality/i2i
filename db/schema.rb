@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315105017) do
+ActiveRecord::Schema.define(version: 20170327154443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 20170315105017) do
     t.datetime "date"
     t.string   "author"
     t.string   "workstream"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -112,10 +119,11 @@ ActiveRecord::Schema.define(version: 20170315105017) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "content_type"
     t.datetime "date"
     t.string   "url_resource"
     t.string   "video_url"
+    t.integer  "subcategory_id"
+    t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
   end
 
   create_table "members", force: :cascade do |t|
@@ -131,6 +139,7 @@ ActiveRecord::Schema.define(version: 20170315105017) do
     t.string   "slug"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.date     "date"
   end
 
   create_table "news", force: :cascade do |t|
@@ -147,4 +156,15 @@ ActiveRecord::Schema.define(version: 20170315105017) do
     t.string   "author"
   end
 
+  create_table "subcategories", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_subcategories_on_category_id", using: :btree
+  end
+
+  add_foreign_key "libraries", "subcategories"
+  add_foreign_key "subcategories", "categories"
 end

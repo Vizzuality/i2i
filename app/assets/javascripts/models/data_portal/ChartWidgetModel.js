@@ -44,7 +44,12 @@
               id: compareIndicator.id,
               iso: compareIndicator.iso,
               year: compareIndicator.year,
-              filters: (this.options.filters || []).concat(compareIndicator.filters)
+              filters: (this.options.filters || [])
+                // The partial indicators can't be filtered twice by jurisdiction
+                .filter(function (filter) {
+                  return filter.id !== 'jurisdiction';
+                })
+                .concat(compareIndicator.filters)
             }
           )
         }, this);
@@ -159,7 +164,11 @@
      */
     _getCompareGroupName: function (model) {
       if (this._isJurisdictionCompare()) {
-        return model !== this.indicatorModel ? this._getJurisdictionName(model) : 'All jurisdictions';
+        var jurisdictionFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
+
+        return model !== this.indicatorModel
+          ? this._getJurisdictionName(model)
+          : (jurisdictionFilter ? jurisdictionFilter.options[0] : 'All jurisdictions');
       } else {
         return App.Helper.Indicators.COUNTRIES[model.options.iso] + ' ' + model.options.year;
       }

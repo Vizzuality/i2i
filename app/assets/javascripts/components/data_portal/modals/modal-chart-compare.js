@@ -10,16 +10,20 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button type="button" class="c-button -padding -white -outline js-cancel">Cancel</button><button type="button" class="c-button -padding -no-hover -white js-done">Done</button>',
+      footer: '<button type="button" class="c-button -padding -white -outline js-cancel">Cancel</button><button type="button" class="c-button -padding -white js-done">Done</button>',
       // Indicator being compared
       indicator: null,
       // Current ISO of the portal
       iso: null,
       // Current year of the portal
       year: null,
+      // Current filters of the portal
+      filters: [],
       // List of the indicators used for the comparison
       // See "compareIndicators" in App.View.ChartWidgetView for the format
       compareIndicators: [],
+      // Whether the user can compare the indicator with a different country/year
+      canCompareCountries: true,
       // Callback executed when the user presses the "Done" button
       // The callback gets passed the name of the selected chart
       continueCallback: function () {},
@@ -50,18 +54,20 @@
         {
           id: 'country-year',
           name: 'Country and year',
-          view: App.View.CountryYearView
+          view: App.View.CountryYearView,
+          available: this.options.canCompareCountries
         },
         {
           id: 'jurisdiction',
           name: 'Jurisdiction in ' + App.Helper.Indicators.COUNTRIES[this.options.iso] + ' in ' + this.options.year,
-          view: App.View.JurisdictionView
+          view: App.View.JurisdictionView,
+          available: true
         }
       ];
 
-      // If the compare indicators the view gets passed are jurisdiction indicators
-      // then the default tab is the second
-      if (this._isJurisdictionsCompareIndicators()) {
+      // If the compare indicators the view gets passed are jurisdiction indicators or
+      // the first tab is unavailable, then the default tab is the second
+      if (this._isJurisdictionsCompareIndicators() || !this.options.canCompareCountries) {
         this.options._currentTab = 1;
       } else if (this.options.compareIndicators && this.options.compareIndicators.length) {
         this.options._currentTab = 0;
@@ -120,6 +126,7 @@
         el: this.$el.find('.js-container-' + tab.id),
         iso: this.options.iso,
         year: this.options.year,
+        filters: this.options.filters,
         indicator: this.options.indicator,
         compareIndicators: this.options.compareIndicators
       });

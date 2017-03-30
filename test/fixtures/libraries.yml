@@ -16,6 +16,7 @@
 #  date               :datetime
 #  url_resource       :string
 #  video_url          :string
+#  subcategory_id     :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

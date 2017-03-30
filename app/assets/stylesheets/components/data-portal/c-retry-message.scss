@@ -1,0 +1,19 @@
+.c-retry-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $color-1;
+  font-family: $font-family-2;
+  text-align: center;
+
+  .c-button {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin: 30px auto 0;
+    background: asset-url('retry-icon.svg') center center no-repeat;
+    background-size: auto 27px;
+    text-indent: -10000px;
+  }
+}

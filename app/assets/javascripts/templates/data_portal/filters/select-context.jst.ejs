@@ -10,4 +10,15 @@
       </li>
     <% }) %>
   </ul>
+  <h3>Select jurisdiction</h3>
+  <ul>
+    <% jurisdictions.forEach(function (jurisdiction) { %>
+      <li>
+        <div class="c-radio-button">
+          <input type="radio" id="jurisdiction-<%= jurisdiction.value %>" name="jurisdiction" value="<%= jurisdiction.value %>" class="js-jurisdiction" <%= jurisdiction.active ? 'checked' : '' %> />
+          <label for="jurisdiction-<%= jurisdiction.value %>"><%= jurisdiction.value %></label>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
 </div>

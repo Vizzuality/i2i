@@ -37,7 +37,7 @@
       <div class="row">
         <% @libraries.each do |library| %>
           <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3 js-card"
-            data-type="<%= LibraryType.key_for(library.content_type.to_i) if library.content_type.is_a? String %>"
+            data-type=""
           >
             <article class="c-card">
               <div class="picture" style="background-image: url(<%= library.image %>)"></div>

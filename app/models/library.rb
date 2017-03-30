@@ -16,19 +16,22 @@
 #  date               :datetime
 #  url_resource       :string
 #  video_url          :string
+#  subcategory_id     :integer
 #
 
 class Library < ApplicationRecord
   extend EnumerateIt
+
+  belongs_to :subcategory
+  accepts_nested_attributes_for :subcategory
 
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
-  has_enumeration_for :content_type, with: LibraryType, skip_validation: true
 
-  validates_presence_of :title, :content_type
+  validates_presence_of :title
   validates :url_resource, url: true, if: 'url_resource.present?'
   validates :video_url, url: true, if: 'video_url.present?'
   validates_length_of :title, maximum: 70

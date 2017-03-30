@@ -20,8 +20,10 @@
       indicators: [],
       // List of filters currently applied
       filters: [],
+      // Jurisdiction currently used as a filter
+      jurisdiction: null,
       // Index of the current tab
-      _currentTab: 0,
+      currentTab: 0,
       // List of the tabs
       // This attribute is modified at instantiation time
       _tabs: [],
@@ -30,7 +32,9 @@
       // List of selected filters in the modal
       _selectedFilters: null,
       // Selected year in the modal
-      _selectedYear: null
+      _selectedYear: null,
+      // Selected jurisdiction in the modal
+      _selectedJurisdiction: null
     },
 
     events: function () {
@@ -82,7 +86,7 @@
       if (this.filterView) this._saveCurrentTabData();
 
       var tabIndex = _.findIndex(this.options._tabs, { id: tabId });
-      this.options._currentTab = tabIndex;
+      this.options.currentTab = tabIndex;
 
       // We merge the list of indicators with the list of selected indicators
       // from the first tab so both of the tab always have the most updated data
@@ -102,13 +106,18 @@
         ? this.options._selectedYear
         : this.options.year;
 
+      var jurisdiction = this.options._selectedJurisdiction
+        ? this.options._selectedJurisdiction
+        : this.options.jurisdiction;
+
       var View = this.options._tabs[tabIndex].view;
       this.filterView = new View({
         el: this.$el.find('.js-filters-container'),
         iso: this.options.iso,
         year: year,
         indicators: indicators,
-        filters: filters
+        filters: filters,
+        jurisdiction: jurisdiction
       });
     },
 
@@ -116,31 +125,35 @@
      * Save the data of the current tab
      */
     _saveCurrentTabData: function () {
-      var tab = this.options._tabs[this.options._currentTab];
+      var tab = this.options._tabs[this.options.currentTab];
+      var data = this.filterView.getData();
 
-      var attribute;
       switch (tab.id) {
         case 'apply-filters':
-          attribute = '_selectedFilters';
+          this.options._selectedFilters = data;
           break;
 
         case 'select-context':
-          attribute = '_selectedYear';
+          this.options._selectedYear = data.year;
+          this.options._selectedJurisdiction = data.jurisdiction;
           break;
 
         default:
-          attribute = '_selectedIndicators';
+          this.options._selectedIndicators = data;
       }
-
-      var data = this.filterView.getData();
-      this.options[attribute] = data;
     },
 
     _onClickDone: function () {
       // We save the data of the current tab
       this._saveCurrentTabData();
 
-      this.options.continueCallback(this.options._selectedIndicators, this.options._selectedFilters, this.options._selectedYear);
+      this.options.continueCallback(
+        this.options._selectedIndicators,
+        this.options._selectedFilters,
+        this.options._selectedYear,
+        this.options._selectedJurisdiction
+      );
+
       this.onCloseModal();
     },
 
@@ -152,11 +165,11 @@
       this.tabView = new App.View.TabView({
         el: this.el.querySelector('.js-tabs'),
         tabs: this.options._tabs,
-        currentTab: this.options._currentTab
+        currentTab: this.options.currentTab
       });
 
       this._setEventListeners();
-      this._onTabSelected(this.options._tabs[this.options._currentTab].id);
+      this._onTabSelected(this.options._tabs[this.options.currentTab].id);
     }
 
   });

@@ -59,13 +59,13 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData',
-      'click .js-customize-indicators': '_openFilterModal'
+      'click .js-customize-indicators': '_openFilterModal',
+      'click .js-filter-tag': '_openFilterModal',
     },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
+      this.indicatorsCollection = new IndicatorsCollection();
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this._fetchData();
@@ -84,11 +84,16 @@
      * @param {string[]} visibleIndicators ids of the visible indicators
      * @param { { name: string, options: string[] }[] } filters
      * @param {number} year
+     * @param {string} jurisdiction
      */
-    _onFiltersUpdate: function (visibleIndicators, filters, year) {
+    _onFiltersUpdate: function (visibleIndicators, filters, year, jurisdiction) {
       if (visibleIndicators) this._updateVisibleIndicators(visibleIndicators);
       if (filters) this._updateFilters(filters);
-      if (year) this._updatedYear(year);
+      if (year) this._updateYear(year);
+
+      // We need to ensure we remove the filter if we don't need it anymore
+      this._updateJurisdiction(jurisdiction);
+
       this._renderHeader();
       this._renderWidgets();
     },
@@ -105,11 +110,42 @@
      * Replace this.options.year and updates the URL
      * @param {number} year
      */
-    _updatedYear: function (year) {
+    _updateYear: function (year) {
       if (this.options.year === year) return;
 
       this.options.year = year;
       this._updateURL();
+    },
+
+    /**
+     * Return the jurisdiction filter if exist
+     * @return {{ id: 'jurisdiction', name?: string, options: string[]}}
+     */
+    _getJurisdictionFilter: function() {
+      return _.findWhere(this.options._filters, { id: 'jurisdiction' });
+    },
+
+    /**
+     * Add a filter for the jurisdiction
+     * @param {string} jurisdiction
+     */
+    _updateJurisdiction: function (jurisdiction) {
+      var jurisdictionFilterIndex = _.findIndex(this.options._filters, { id: 'jurisdiction' });
+
+      if (jurisdiction === 'All') {
+        if (jurisdictionFilterIndex !== -1) {
+          this.options._filters.splice(jurisdictionFilterIndex, 1);
+        }
+      } else {
+        if (jurisdictionFilterIndex !== -1) {
+          this.options._filters[jurisdictionFilterIndex].options = [jurisdiction];
+        } else {
+          this.options._filters.push({
+            id: 'jurisdiction',
+            options: [jurisdiction]
+          });
+        }
+      }
     },
 
     /**
@@ -143,6 +179,7 @@
       this.render();
 
       var deferred = $.Deferred();
+      this.indicatorsCollection.set(INDICATORS);
       deferred.resolve(INDICATORS);
 
       // this.indicatorsCollection.fetch()
@@ -156,26 +193,34 @@
         .always(this.render.bind(this));
     },
 
-    _openFilterModal: function () {
+    _openFilterModal: function (e) {
+      var isTag = e.target.classList.contains('js-filter-tag');
+      var tab = isTag
+        ? ['indicator', 'filter', 'context'].indexOf(e.target.dataset.tab)
+        : 0;
+
       new App.View.FilterIndicatorsModal({
+        currentTab: tab,
         iso: this.options.iso,
         year: this.options.year,
         indicators: this.indicatorsCollection.toJSON(),
         filters: this.options._filters,
+        jurisdiction: !!this._getJurisdictionFilter()
+          ? this._getJurisdictionFilter().options[0]
+          : null,
         continueCallback: this._onFiltersUpdate.bind(this)
       });
     },
 
+    /**
+     * Return the jurisdiction filter if exists
+     * @return {{ id: 'jurisdiction', name?: string, options: string[] }}
+     */
+    _getJurisdictionFilter: function () {
+      return _.findWhere(this.options._filters, { id: 'jurisdiction' });
+    },
+
     render: function () {
-      // // We replace the placeholder by the name of the country
-      // var countryContainers = document.querySelectorAll('.js-country');
-      // Array.prototype.slice.call(countryContainers).forEach(function (container) {
-      //   container.textContent = this.model.toJSON().country;
-      // }, this);
-
-      // // We replace the placeholder by the year
-      // document.querySelector('.js-year').textContent = this.options.year;
-
       this._renderHeader();
       this._renderWidgets();
 
@@ -188,8 +233,13 @@
     _renderHeader: function () {
       this.headerContainer.innerHTML = this.headerTemplate({
         error: this._loadingError,
-        indicators: this.indicatorsCollection.toJSON(),
+        indicators: this._getVisibleIndicators(),
+        filters: this.options._filters
+          .filter(function (filter) { return filter.id !== 'jurisdiction'; }),
         year: this.options.year,
+        jurisdiction: this._getJurisdictionFilter()
+          ? this._getJurisdictionFilter().options[0]
+          : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso]
       });
     },
@@ -252,10 +302,11 @@
      */
     _renderWidgets: function () {
       if (this._loadingError) {
-        this.widgetsContainer.innerHTML = '<p class="loading-error">' +
-          'Unable to load the indicators' +
-          '<button type="button" class="c-button -retry js-retry">Retry</button>' +
-          '</p>';
+        new App.View.RetryMessageView({
+          el: this.widgetsContainer,
+          label: 'Unable to load the indicators',
+          callback: this._fetchData.bind(this)
+        });
         return;
       }
 

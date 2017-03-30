@@ -9,18 +9,38 @@
       "transform": [{"type": "filter","test": "datum.label.length"}]
     },
     {
-      "name": "groupsStats",
+      "name": "scaleValues",
       "source": "table",
       "transform": [
         {
-          "type": "facet",
-          "groupby": "group",
-          "transform": [
-            {
-              "type": "aggregate",
-              "summarize": [{ "field": "percentage", "ops": ["sum"] }]
-            }
-          ]
+          "type": "aggregate",
+          "summarize": [{"field": "percentage", "ops": ["max"]}]
+        },
+        {
+          "type": "formula",
+          "field": "max",
+          "expr": "min(datum.max_percentage + 20, 100)"
+        }
+      ]
+    },
+    {
+      "name": "groupValues",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["label"],
+          "summarize": [{"field": "percentage","ops": ["values"]}]
+        }
+      ]
+    },
+    {
+      "name": "valuesCount",
+      "source": "groupValues",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": [{"field": "label","ops": ["count"]}]
         }
       ]
     },
@@ -31,31 +51,17 @@
         {
           "type": "aggregate",
           "groupby": ["group"],
-          "summarize": [{"field": "group", "ops": ["values"]}]
+          "summarize": [{"field": "group","ops": ["values"]}]
+        },
+        {
+          "type": "cross",
+          "with": "valuesCount"
         },
         {"type": "rank"},
         {
           "type": "formula",
           "field": "pos",
-          "expr": "(datum.rank - 1) * 40"
-        }
-      ]
-    },
-    {
-      "name": "ungrouped",
-      "source": "table",
-      "transform": [
-        {
-          "type": "lookup",
-          "on": "groupsStats",
-          "onKey": "key",
-          "keys": ["group"],
-          "as": "stats"
-        },
-        {
-          "type": "formula",
-          "field": "sumPercentage",
-          "expr": "datum.stats.values[0].sum_percentage"
+          "expr": "(datum.rank - 1) * (40 + 14 * datum.b.count_label)"
         }
       ]
     },
@@ -76,20 +82,7 @@
       "transform": [
         {
           "type": "aggregate",
-          "summarize": [{ "field": "group", "ops": ["count"] }]
-        }
-      ]
-    },
-    {
-      "name": "groupValues",
-      "source": "table",
-      "transform": [
-        {
-          "type": "aggregate",
-          "groupby": ["label"],
-          "summarize": [
-            {"field": "percentage", "ops": ["values"]}
-          ]
+          "summarize": [{"field": "group","ops": ["count"]}]
         }
       ]
     },
@@ -97,15 +90,13 @@
       "name": "legend",
       "source": "groupValues",
       "transform": [
-        {
-          "type": "cross",
-          "with": "groupsCount"
-        },
+        {"type": "cross","with": "groupsCount"},
+        {"type": "cross", "with": "valuesCount"},
         {"type": "rank"},
         {
           "type": "formula",
           "field": "yPos",
-          "expr": "10 + datum.b.count_group * 40 + floor((datum.rank - 1) / 2) * 30"
+          "expr": "20 + datum.a.b.count_group * (40 + 14 * datum.b.count_label) + floor((datum.rank - 1) / 2) * 30"
         },
         {
           "type": "formula",
@@ -115,46 +106,137 @@
       ]
     },
     {
+      "name": "rules",
+      "values": [
+        { "x": 10 },
+        { "x": 20 },
+        { "x": 30 },
+        { "x": 40 },
+        { "x": 50 },
+        { "x": 60 },
+        { "x": 70 },
+        { "x": 80 },
+        { "x": 90 }
+      ],
+      "transform": [
+        {"type": "cross", "with": "scaleValues"},
+        {
+          "type": "filter",
+          "test": "datum.a.x < datum.b.max"
+        },
+        {"type": "cross", "with": "groupsCount"},
+        {"type": "cross", "with": "valuesCount"},
+        {
+          "type": "formula",
+          "field": "xPos",
+          "expr": "datum.a.a.a.x"
+        },
+        {
+          "type": "formula",
+          "field": "yPos",
+          "expr": "datum.a.b.count_group * (40 + 14 * datum.b.count_label) - 10"
+        }
+      ]
+    },
+    {
       "name": "grouped",
-      "source": "ungrouped",
+      "source": "table",
       "transform": [
         {
-          "type": "stack",
-          "groupby": ["group"],
-          "field": "percentage"
-        },
-        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
-        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.percentage) + '%'"},
-        {
           "type": "facet",
-          "groupby": "group"
+          "groupby": "group",
+          "transform": [
+            {
+              "type": "cross",
+              "with": "valuesCount"
+            },
+            {"type": "rank"},
+            {
+              "type": "formula",
+              "field": "pos",
+              "expr": "(datum.rank - 1) * 14"
+            },
+            {
+              "type": "formula",
+              "field": "tooltipTitle",
+              "expr": "datum.a.label"
+            },
+            {
+              "type": "formula",
+              "field": "tooltipValue",
+              "expr": "format('.2f', datum.a.percentage) + '%'"
+            }
+          ]
         },
         {"type": "rank"},
         {
           "type": "formula",
           "field": "pos",
-          "expr": "(datum.rank - 1) * 40"
+          "expr": "(datum.rank - 1) * (40 + 14 * datum.values[0].b.count_label)"
         }
       ]
     }
-
-
   ],
   "scales": [
     {
       "name": "color",
       "type": "ordinal",
       "domain": {"data": "groupValues","field": "label"},
-      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31", "#FCAE98", "#633AE8", "#E4D081", "#00D9C6", "#B9A86C", "#7B0051", "#B685C9", "#076270", "#8ADF70"]
+      "range": [
+        "#2f939c",
+        "#97c9ce",
+        "#001d22",
+        "#f9d031",
+        "#f95e31",
+        "#FCAE98",
+        "#633AE8",
+        "#E4D081",
+        "#00D9C6",
+        "#B9A86C",
+        "#7B0051",
+        "#B685C9",
+        "#076270",
+        "#8ADF70"
+      ]
     },
     {
       "name": "outerGroup",
       "type": "linear",
       "range": "width",
-      "domain": [0,100]
+      "domainMin": 0,
+      "domainMax": {"data": "scaleValues", "field": "max"}
     }
   ],
   "marks": [
+    {
+      "type": "rule",
+      "from": {"data": "rules"},
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "scale": "outerGroup"},
+          "y": {"value": 0, "offset": -10},
+          "y2": {"field": "yPos"},
+          "stroke": {"value": "#ccd2d3"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "rules"},
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "scale": "outerGroup", "offset": -5},
+          "y": {"field": "yPos"},
+          "text": {"field": "xPos"},
+          "align": {"value": "right"},
+          "baseline": {"value": "bottom"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"}
+        }
+      }
+    },
     {
       "type": "group",
       "from": {"data": "grouped"},
@@ -166,28 +248,17 @@
           "height": {"field": {"group": "height"}}
         }
       },
-      "scales": [
-        {
-          "name": "innerGroup",
-          "type": "linear",
-          "range": "width",
-          "domain": {"field": "sumPercentage"}
-        }
-      ],
       "marks": [
         {
           "name": "hasTooltip",
           "type": "rect",
           "properties": {
             "enter": {
-              "x": {
-                "scale": "innerGroup",
-                "field": "layout_start"
-              },
-              "x2": {"scale": "innerGroup","field": "layout_end"},
-              "y": {"value": 7},
+              "x": {"value": 0},
+              "x2": {"scale": "outerGroup", "field": "a.percentage"},
+              "y": {"field": "pos", "offset": 7},
               "height": {"value": 10},
-              "fill": {"scale": "color","field": "label"}
+              "fill": {"scale": "color","field": "a.label"}
             }
           }
         }
@@ -200,7 +271,7 @@
         "enter": {
           "x": {"value": 0},
           "y": {"field": "pos"},
-          "text": {"field": "group"},
+          "text": {"field": "a.group"},
           "font": {"value": "Montserrat"},
           "fontWeight": {"value": "300"},
           "fontSize": {"value": 13},
@@ -210,24 +281,24 @@
     },
     {
       "type": "symbol",
-      "from": { "data": "legend" },
+      "from": {"data": "legend"},
       "properties": {
         "enter": {
-          "x": {"field": "xPos", "offset": 6},
+          "x": {"field": "xPos","offset": 6},
           "y": {"field": "yPos"},
           "size": {"value": 100},
-          "fill": {"scale": "color", "field": "a.label"}
+          "fill": {"scale": "color","field": "a.a.label"}
         }
       }
     },
     {
       "type": "text",
-      "from": { "data": "legend" },
+      "from": {"data": "legend"},
       "properties": {
         "enter": {
-          "x": {"field": "xPos", "offset": 20},
-          "y": {"field": "yPos", "offset": 5},
-          "text": {"field": "a.label"},
+          "x": {"field": "xPos","offset": 20},
+          "y": {"field": "yPos","offset": 5},
+          "text": {"field": "a.a.label"},
           "font": {"value": "Montserrat"},
           "fontWeight": {"value": "300"},
           "fontSize": {"value": 13},

@@ -37,7 +37,6 @@
     },
 
     events: {
-      'click .js-retry-indicator': '_fetchData',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
       'click .js-analyze': '_onAnalyze'
@@ -76,56 +75,55 @@
      * Event handler for when the user clicks the change button
      */
     _onChange: function () {
-      // We retrieve the list of all the charts that can be built with vega
-      var charts = App.Helper.ChartConfig
-        .filter(function (chart) {
-          return chart.visible !== false;
-        })
-        .map(function(chart) {
-          return {
-            name: chart.name,
-            available: false,
-            selected: this.options.chart === chart.name
-          };
-        }, this);
+      var deferred = $.Deferred();
 
-      // We update the object to tell which ones are available with the current
-      // dataset
-      this._getAvailableCharts().forEach(function (availableChart) {
-        var chart = _.findWhere(charts, { name: availableChart });
-        if (chart) chart.available = true;
-      });
+      // If the analysis or comparison is active, we display ask the user to confirm
+      // their choice
+      if (this.options.compareIndicators || this.options.analysisIndicator) {
+        new App.View.WidgetWarningTooltipView({
+          refElem: this.el.querySelector('.js-change'),
+          direction: 'top',
+          description: 'The chart selection isn\'t compatible with the '
+            + (this.options.compareIndicators ? 'compare' : 'analysis')
+            + ' mode. You will loose the current configuration.',
+          continueCallback: function () {
+            this.remove();
+            deferred.resolve();
+          },
+          cancelCallback: function () { this.remove(); }
+        });
+      } else {
+        deferred.resolve();
+      }
 
-      // We instantiate the modal
-      new App.Component.ModalChartSelector({
-        charts: charts,
-        continueCallback: this._onChangeChart.bind(this)
-      });
+
+      deferred.done(this._openModalChartSelector.bind(this));
     },
 
     /**
      * Event handler for when the user clicks the analyze button
      */
     _onAnalyze: function () {
-      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
-        return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
-      });
+      var deferred = $.Deferred();
 
-      new App.Component.ModalChartAnalysis({
-        indicators: nonStrandIndicators,
-        selectedIndicatorId: this.options.analysisIndicator,
-        continueCallback: function (indicatorId) {
-          // If the comparison is active, we stop it
-          if (this.options.compareIndicators) {
-            this.options.chart = null;
-            this.options.compareIndicators = null;
-          }
+      // If the comparison is active, we display ask the user to confirm
+      // their choice
+      if (this.options.compareIndicators) {
+        new App.View.WidgetWarningTooltipView({
+          refElem: this.el.querySelector('.js-analyze'),
+          direction: 'top',
+          description: 'The analysis mode isn\'t compatible with the compare one. You will loose the current configuration.',
+          continueCallback: function () {
+            this.remove();
+            deferred.resolve();
+          },
+          cancelCallback: function () { this.remove(); }
+        });
+      } else {
+        deferred.resolve();
+      }
 
-          this.options.analysisIndicator = indicatorId;
-          this._fetchData();
-        }.bind(this),
-        stopAnalysisCallback: this._onStopAnalyze.bind(this)
-      });
+      deferred.done(this._openModalChartAnalysis.bind(this));
     },
 
     /**
@@ -141,24 +139,26 @@
      * Event handler for when the user clicks the compare button
      */
     _onCompare: function () {
-      // TODO: move the next block in the continue callback
-      // If the analysis is active, we stop it
+      var deferred = $.Deferred();
+
+      // If the analysis is active, we display ask the user to confirm
+      // their choice
       if (this.options.analysisIndicator) {
-        this.options.chart = null;
-        this.options.analysisIndicator = null;
+        new App.View.WidgetWarningTooltipView({
+          refElem: this.el.querySelector('.js-compare'),
+          direction: 'top',
+          description: 'The compare mode isn\'t compatible with the analysis one. You will loose the current configuration.',
+          continueCallback: function () {
+            this.remove();
+            deferred.resolve();
+          },
+          cancelCallback: function () { this.remove(); }
+        });
+      } else {
+        deferred.resolve();
       }
 
-      new App.Component.ModalChartCompare({
-        indicator: this.options.indicator,
-        iso: this.options.iso,
-        year: this.options.year,
-        compareIndicators: this.options.compareIndicators,
-        continueCallback: function (compareIndicators) {
-          this.options.compareIndicators = compareIndicators;
-          this._fetchData();
-        }.bind(this),
-        stopCompareCallback: this._onStopCompare.bind(this)
-      });
+      deferred.done(this._openModalChartCompare.bind(this));
     },
 
     /**
@@ -218,6 +218,89 @@
       if (!this.tooltip) return;
       this.tooltip.remove();
       this.tooltip = null;
+    },
+
+    /**
+     * Open the modal for the chart comparison
+     */
+    _openModalChartCompare: function () {
+      var jurisdictionFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
+
+      new App.Component.ModalChartCompare({
+        indicator: this.options.indicator,
+        iso: this.options.iso,
+        year: this.options.year,
+        filters: this.options.filters,
+        compareIndicators: this.options.compareIndicators,
+        canCompareCountries: !jurisdictionFilter,
+        continueCallback: function (compareIndicators) {
+          // If the analysis is active, we stop it
+          if (this.options.analysisIndicator) {
+            this.options.chart = null;
+            this.options.analysisIndicator = null;
+          }
+
+          this.options.compareIndicators = compareIndicators;
+          this._fetchData();
+        }.bind(this),
+        stopCompareCallback: this._onStopCompare.bind(this)
+      });
+    },
+
+    /**
+     * Open the modal for the chart analysis
+     */
+    _openModalChartAnalysis: function () {
+      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
+        return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+      });
+
+      new App.Component.ModalChartAnalysis({
+        indicators: nonStrandIndicators,
+        selectedIndicatorId: this.options.analysisIndicator,
+        continueCallback: function (indicatorId) {
+          // If the comparison is active, we stop it
+          if (this.options.compareIndicators) {
+            this.options.chart = null;
+            this.options.compareIndicators = null;
+          }
+
+          this.options.analysisIndicator = indicatorId;
+          this._fetchData();
+        }.bind(this),
+        stopAnalysisCallback: this._onStopAnalyze.bind(this)
+      });
+    },
+
+    /**
+     * Opent the modal for the chart selection
+     */
+    _openModalChartSelector: function () {
+      // We retrieve the list of all the charts that can be built with vega
+      var charts = App.Helper.ChartConfig
+        .filter(function (chart) {
+          return chart.visible !== false;
+        })
+        .map(function(chart) {
+          return {
+            name: chart.name,
+            available: false,
+            selected: this.options.chart === chart.name
+          };
+        }, this);
+
+      // We update the object to tell which ones are available with the current
+      // dataset
+      this._getAvailableCharts().forEach(function (availableChart) {
+        var chart = _.findWhere(charts, { name: availableChart });
+        if (chart) chart.available = true;
+      });
+
+      // We instantiate the modal
+      new App.Component.ModalChartSelector({
+        charts: charts,
+        continueCallback: this._onChangeChart.bind(this)
+      });
     },
 
     /**
@@ -408,12 +491,11 @@
     },
 
     renderError: function () {
-      this.el.innerHTML = '<p class="loading-error">' +
-        'Unable to load the indicator' +
-        '<button type="button" class="c-button -retry js-retry-indicator">Retry</button>' +
-        '</p>';
-
-      this.setElement(this.el);
+      new App.View.RetryMessageView({
+        el: this.el,
+        label: 'Unable to load the indicator',
+        callback: this._fetchData.bind(this)
+      });
     }
 
   });
