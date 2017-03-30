@@ -10,7 +10,7 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button type="button" class="c-button -padding -white -outline js-cancel">Cancel</button><button type="button" class="c-button -padding -no-hover -white js-done">Done</button>',
+      footer: '<button type="button" class="c-button -padding -white -outline js-cancel">Cancel</button><button type="button" class="c-button -padding -white js-done">Done</button>',
       // Indicator being compared
       indicator: null,
       // Current ISO of the portal

@@ -10,7 +10,7 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<button type="button" class="c-button -medium -white -outline js-cancel">Cancel</button><button type="button" class="c-button -medium -no-hover -white js-done">Done</button>',
+      footer: '<button type="button" class="c-button -medium -white -outline js-cancel">Cancel</button><button type="button" class="c-button -medium -white js-done">Done</button>',
       // List of charts to display in the modal
       // The structure of each chart is:
       // {
