@@ -95,15 +95,4 @@
       opacity: 1;
     }
   }
-
-  &.-retry {
-    width: 48px;
-    height: 48px;
-    border: 0;
-    background: asset-url('retry-icon.svg') center center no-repeat;
-    background-color: $color-4;
-    background-size: auto 27px;
-    text-indent: -10000px;
-    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
-  }
 }

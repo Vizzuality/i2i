@@ -53,17 +53,9 @@
         margin: 40px 0 0;
       }
     }
-  }
 
-  .loading-error {
-    padding: 150px 0 200px;
-    color: $color-1;
-    font-family: $font-family-2;
-    text-align: center;
-
-    .c-button {
-      display: block;
-      margin: 30px auto 0;
+    .countries-list {
+      min-height: 500px;
     }
   }
 }

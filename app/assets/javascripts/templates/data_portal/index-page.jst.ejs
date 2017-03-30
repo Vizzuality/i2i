@@ -1,31 +1,20 @@
-<% if (error) { %>
+<% if (!countries.length) { %>
 
-  <p class="loading-error">
-    Unable to load the countries
-    <button type="button" class="c-button -retry js-retry">Retry</button>
-  </p>
+  <% for (var i = 0; i < 9; i++) { %>
+    <div class="grid-s-6 grid-m-6 grid-l-4">
+      <article class="c-flag -placeholder"></article>
+    </div>
+  <% } %>
 
 <% } else { %>
 
-  <% if (!countries.length) { %>
-
-    <% for (var i = 0; i < 9; i++) { %>
-      <div class="grid-s-6 grid-m-6 grid-l-4">
-        <article class="c-flag -placeholder"></article>
-      </div>
-    <% } %>
-
-  <% } else { %>
-
-    <% countries.forEach(function (country) { %>
-      <div class="grid-s-6 grid-m-6 grid-l-4">
-        <article class="c-flag" style="background-image: url('/images/flags/<%= country.iso %>.svg');">
-          <a href="/data-portal/<%= country.iso %>/<%= country.latestYear %>">Go to the <%= country.name %> portal</a>
-          <span class="country-name"><%= country.name %></span>
-        </article>
-      </div>
-    <% }); %>
-
-  <% } %>
+  <% countries.forEach(function (country) { %>
+    <div class="grid-s-6 grid-m-6 grid-l-4">
+      <article class="c-flag" style="background-image: url('/images/flags/<%= country.iso %>.svg');">
+        <a href="/data-portal/<%= country.iso %>/<%= country.latestYear %>">Go to the <%= country.name %> portal</a>
+        <span class="country-name"><%= country.name %></span>
+      </article>
+    </div>
+  <% }); %>
 
 <% } %>

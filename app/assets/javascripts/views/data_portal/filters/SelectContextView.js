@@ -34,7 +34,6 @@
     },
 
     events: {
-      'click .js-retry-context': '_fetchData',
       'click .js-year': '_onClickYear'
     },
 
@@ -193,12 +192,11 @@
     },
 
     renderError: function () {
-      this.el.innerHTML = '<p class="loading-error">' +
-        'Unable to load the context options' +
-        '<button type="button" class="c-button -retry js-retry-context">Retry</button>' +
-        '</p>';
-
-      this.setElement(this.el);
+      new App.View.RetryMessageView({
+        el: this.el,
+        label: 'Unable to load the context options',
+        callback: this._fetchData.bind(this)
+      });
     }
 
   });

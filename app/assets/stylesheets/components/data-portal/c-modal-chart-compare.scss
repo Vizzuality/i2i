@@ -15,28 +15,12 @@
   }
 
   > .compare-container {
+    position: relative;
 
-    &:not(:empty) {
-      margin-top: 15px;
-    }
-
+    &:not(:empty),
     &.c-spinning-loader {
-      min-height: 100px;
-    }
-
-    .loading-error {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: $color-1;
-      font-family: $font-family-2;
-      text-align: center;
-
-      .c-button {
-        display: block;
-        margin: 30px auto 0;
-      }
+      min-height: 150px;
+      margin-top: 15px;
     }
   }
 

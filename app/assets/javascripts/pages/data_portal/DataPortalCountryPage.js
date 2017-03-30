@@ -59,14 +59,13 @@
     },
 
     events: {
-      'click .js-retry': '_fetchData',
       'click .js-customize-indicators': '_openFilterModal',
       'click .js-filter-tag': '_openFilterModal',
     },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new IndicatorsCollection(INDICATORS);
+      this.indicatorsCollection = new IndicatorsCollection();
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this._fetchData();
@@ -180,6 +179,7 @@
       this.render();
 
       var deferred = $.Deferred();
+      this.indicatorsCollection.set(INDICATORS);
       deferred.resolve(INDICATORS);
 
       // this.indicatorsCollection.fetch()
@@ -302,10 +302,11 @@
      */
     _renderWidgets: function () {
       if (this._loadingError) {
-        this.widgetsContainer.innerHTML = '<p class="loading-error">' +
-          'Unable to load the indicators' +
-          '<button type="button" class="c-button -retry js-retry">Retry</button>' +
-          '</p>';
+        new App.View.RetryMessageView({
+          el: this.widgetsContainer,
+          label: 'Unable to load the indicators',
+          callback: this._fetchData.bind(this)
+        });
         return;
       }
 

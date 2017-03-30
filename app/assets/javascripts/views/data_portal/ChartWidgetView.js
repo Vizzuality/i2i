@@ -37,7 +37,6 @@
     },
 
     events: {
-      'click .js-retry-indicator': '_fetchData',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
       'click .js-analyze': '_onAnalyze'
@@ -492,12 +491,11 @@
     },
 
     renderError: function () {
-      this.el.innerHTML = '<p class="loading-error">' +
-        'Unable to load the indicator' +
-        '<button type="button" class="c-button -retry js-retry-indicator">Retry</button>' +
-        '</p>';
-
-      this.setElement(this.el);
+      new App.View.RetryMessageView({
+        el: this.el,
+        label: 'Unable to load the indicator',
+        callback: this._fetchData.bind(this)
+      });
     }
 
   });

@@ -22,7 +22,6 @@
     },
 
     events: {
-      'click .js-retry-compare': '_fetchData',
       'click .js-jurisdiction': '_onClickJurisdiction'
     },
 
@@ -185,10 +184,11 @@
     },
 
     renderError: function () {
-      this.el.innerHTML = '<p class="loading-error">' +
-        'Unable to load the compare options' +
-        '<button type="button" class="c-button -retry js-retry-compare">Retry</button>' +
-        '</p>';
+      new App.View.RetryMessageView({
+        el: this.el,
+        label: 'Unable to load the compare options',
+        callback: this._fetchData.bind(this)
+      });
 
       this.setElement(this.el);
     }

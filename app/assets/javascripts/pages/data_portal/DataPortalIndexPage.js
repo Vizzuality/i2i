@@ -20,10 +20,6 @@
 
     template: JST['templates/data_portal/index-page'],
 
-    events: {
-      'click .js-retry': '_fetchData'
-    },
-
     initialize: function () {
       this.collection = new Collection();
       this._fetchData();
@@ -47,12 +43,18 @@
     },
 
     render: function () {
+      if (this._loadingError) {
+        new App.View.RetryMessageView({
+          el: this.el,
+          label: 'Unable to load the countries',
+          callback: this._fetchData.bind(this)
+        });
+        return;
+      }
+
       this.el.innerHTML = this.template({
-        error: this._loadingError,
         countries: this.collection.toJSON()
       });
-
-      this.setElement(this.el);
     }
 
   });
