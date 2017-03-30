@@ -12,8 +12,9 @@
           <div class="c-hero">
             <div class="grid-l-6">
               <h1 class="title -light -huge">About i2i</h1>
-              <p class="subtitle">Learn more about the team and values that drive our work. <a href="#background">Background</a>, <a href="#about-us">about us</a>,
-              <a href="#vision-mission">i2i vision and mission</a>, <a href="#our-work">our work</a>, <a href="#team-members">team members</a>, <a href="#focus-countries">focus countries</a>, <a href="#careers">careers</a>, and <a href="#contact">contact</a>.</p>
+              <p class="subtitle">Learn more about the team and values that drive our work. <a href="#background" class="js-anchor">Background</a>, <a href="#about-us" class="js-anchor">about us</a>,
+              <a href="#vision-mission" class="js-anchor">i2i vision and mission</a>, <a href="#our-work" class="js-anchor">our work</a>, <a href="#team-members" class="js-anchor">team members</a>, <a href="#focus-countries" class="js-anchor">focus countries</a>, <a href="#advisory-board" class="js-anchor">advisory board</a> and
+              <a href="#contact" class="js-anchor">contact</a>.</p>
             </div>
           </div>
         </div>
@@ -24,14 +25,14 @@
     <div class="wrapper">
     <div class="l-section -insights">
       <div class="insight-container">
-        <div class="c-card-highlight -about">
+        <div id="background" class="c-card-highlight -about">
           <h3 class="title -dark -medium">Background</h3>
           <p>The availability of data in financial inclusion has grown tremendously in recent years. Data initiatives such as the World Bank’s Findex, FinMark Trust’s Finscope, IMF’s Financial Access Surveys, AFI’s Core Set, GPFI’s Basic Set, MIX Market’s Finclusion Lab, as well as countless studies driven at a national level have played a critical role in deepening our understanding of financial inclusion.</p>
           <a href="#" class="c-button">Read more</a>
         </div>
         <div class="image-container" style="background-image: url(<%= asset_path('placeholders/placeholder_5.jpg') %>)"></div>
       </div>
-      <div class="insight-container -reverse">
+      <div id="about-us" class="insight-container -reverse">
         <div class="c-card-highlight -about">
           <h3 class="title -dark -medium">About us</h3>
           <p>We are in the business of liberating data. Whether you are a financial service provider,
@@ -44,8 +45,7 @@
         <div class="image-container" style="background-image: url(<%= asset_path('placeholders/placeholder_6.jpg') %>)"></div>
       </div>
 
-      <div class="insight-container -what-we-do">
-
+      <div id="vision-mission" class="insight-container -what-we-do">
         <div class="c-card-highlight -about">
           <h3 class="title -dark -medium">i2i vision</h3>
           <p>Policymakers, financial service providers, and financial inclusion development partners
@@ -68,7 +68,7 @@
         <div class="image-container" style="background-image: url(<%= asset_path('placeholders/placeholder_6.jpg') %>)"></div>
       </div>
 
-      <div class="insight-container -reverse">
+      <div id="our-work" class="insight-container -reverse">
         <div class="c-card-highlight -about">
           <h3 class="title -dark -medium">Our work</h3>
           <p>The work of the i2i facility is structured along five focus areas. In partnership with a
@@ -82,7 +82,7 @@
         <div class="image-container" style="background-image: url(<%= asset_path('placeholders/placeholder_4.jpg') %>)"></div>
       </div>
     </div>
-    <div class="l-section -team">
+    <div id="team-members" class="l-section -team">
       <div class="row">
         <div class="grid-s-12">
           <div class="l-section-description">
@@ -118,7 +118,7 @@
         </div>
       </div>
     </div>
-    <div class="l-section -countries" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
+    <div id="focus-countries" class="l-section -countries" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
       <div class="row">
         <div class="grid-s-12 grid-m-6 grid-l-5">
           <div class="c-card-highlight -countries-about">
@@ -142,7 +142,7 @@
         </div>
       </div>
     </div>
-    <div class="l-section -advisory">
+    <div id="advisory-board" class="l-section -advisory">
       <div class="row">
         <div class="grid-s-12">
           <div class="l-section-description">
@@ -178,7 +178,7 @@
         </div>
       </div>
     </div>
-    <div class="l-section -contact">
+    <div id="contact" class="l-section -contact">
       <div class="l-section-description">
         <div class="grid-m-8">
           <h2 class="title -dark -big -center">Contact</h2>
