@@ -6,9 +6,8 @@
   }
 
   .l-event-filters {
-    display: flex;
-    justify-content: flex-end;
     margin: 40px 0 28px;
+    text-align: right;
 
     & + .l-card-grid {
       margin: 0;
