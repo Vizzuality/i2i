@@ -5,6 +5,9 @@ class LibrariesController < ApplicationController
   # GET /libraries.json
   def index
     @libraries = Library.all.order(date: :DESC)
+    @categories = Category.all
+
+    gon.categories = JSON.parse serialized(@categories).to_json
   end
 
   # GET /libraries/1
@@ -70,5 +73,9 @@ class LibrariesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def library_params
       params.fetch(:library, {})
+    end
+
+    def serialized(model)
+      ActiveModelSerializers::SerializableResource.new(model, adapter: :json)
     end
 end

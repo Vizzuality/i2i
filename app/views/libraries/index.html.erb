@@ -21,12 +21,21 @@
     <div class="l-library-content-selector">
       <div class="wrapper">
         <div class="row">
-          <div class="grid-s-6 grid-m-4 grid-l-2">
-            <button class="content-selector -current" data-type="publications">Publications</button>
+          <div class="grid-12">
+            <% @categories.each do |category| %>
+              <button class="content-selector js-category-button"><%= category.name %></button>
+            <% end %>
           </div>
-          <div class="grid-s-6 grid-m-4 grid-l-2">
-            <button class="content-selector" data-type="journal">Journal</button>
-          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-subcategory-filter">
+    <div class="wrapper">
+      <div class="row">
+        <div class="grid-s-12">
+          <div class="subcategory-filters js-subcategory-filters"></div>
         </div>
       </div>
     </div>
@@ -35,9 +44,11 @@
   <div class="l-card-grid">
     <div class="wrapper">
       <div class="row">
+
         <% @libraries.each do |library| %>
-          <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3 js-card"
-            data-type=""
+          <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3 library js-item"
+            data-category="<%= library.category.name %>"
+            data-subcategory="<%= library.subcategory.name %>"
           >
             <article class="c-card">
               <div class="picture" style="background-image: url(<%= library.image %>)"></div>
