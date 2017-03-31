@@ -28,7 +28,7 @@
      * Event handler executed when the user selects one of the filters
      * @param {Event} e
      */
-    _onFilter(e) {
+    _onFilter: function (e) {
       this.options.selectedFilter = _.findWhere(this.options.filters, {
         name: e.currentTarget.getAttribute('data-filter')
       });
