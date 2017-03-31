@@ -22,12 +22,14 @@
 //= require_self
 //= require helpers/accessibility
 //= //= require helpers/responsive
+//= require_tree ./templates/updates
 //= require templates/shared/modal
 //= require templates/shared/modals/modal-team
 //= require templates/shared/social-tooltip
 //= require components/shared/tooltip
 //= require components/shared/modal
 //= require components/shared/modals/modal-team
+//= require components/updates/filters
 //= require views/shared/mobile-menu
 //= require views/shared/social-tooltip
 //= require views/shared/footer

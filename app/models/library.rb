@@ -22,7 +22,8 @@
 class Library < ApplicationRecord
   extend EnumerateIt
 
-  belongs_to :subcategory
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
   accepts_nested_attributes_for :subcategory
 
   has_attached_file :image, styles: {thumb: '300x300>'}
