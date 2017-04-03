@@ -125,6 +125,9 @@
       this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
       this.el.classList.toggle('-absolute', this.options.isAbsolute);
 
+      this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
+      this.el.classList.toggle('-absolute', this.options.isAbsolute);
+
       // We attach the event listeners
       this._setEventListeners();
 

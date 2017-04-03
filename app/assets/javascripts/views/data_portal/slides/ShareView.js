@@ -6,7 +6,7 @@
     className: 'slide',
 
     events: {
-      'click .js-back': 'onCallback',
+      'click .js-back': '_onBack',
       'click .js-copy': '_onCopy',
       'blur  .js-copy': '_onBlur'
     },
@@ -33,7 +33,7 @@
      * { String service}
      */
     _generateShareURL: function (service) {
-      const urls = {
+      var urls = {
         embed_link: 'Not available',
         facebook: 'http://www.facebook.com/sharer.php?u=' + window.location.href,
         page_link: window.location.href,
