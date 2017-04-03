@@ -29,6 +29,18 @@
     justify-content: space-between;
     width: 100%;
     transform: translateY(100%);
+
+    > .group-button > .c-button {
+      &:not(:last-child) {
+        margin: 0 15px 0 0;
+      }
+    }
+  }
+
+  &.-save-widget {
+    width: auto;
+    max-width: none;
+    transform: none;
   }
 }
 

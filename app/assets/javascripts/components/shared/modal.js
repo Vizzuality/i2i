@@ -24,6 +24,11 @@
         showTitle: false,
         // Title of the modal – mandatory for accessibility
         title: 'Untitled modal',
+        // Allows the modal container have scroll
+        allowScroll: false,
+        // Allows the modal container be positioned absolutely. By default
+        // it's positioned fixed.
+        isAbsolute: false,
         // Content of the modal
         content: '',
         // Modal footer
@@ -109,15 +114,17 @@
       this.el.setAttribute('aria-label', this.options.title);
       this.el.setAttribute('tabindex', '0');
 
+      this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
+      this.el.classList.toggle('-absolute', this.options.isAbsolute);
+
       // We attach the event listeners
       this._setEventListeners();
 
       // We focus the first focusable element of the modal
-      if (this.focusableElements !== undefined && this.focusableElements.length) {
-        this.focusableElements[0].focus();
-      }
-
-      this.body.classList.add('_no-scroll');
+      // We are having some troubles because of this. It will be disabled until we find a solution
+      // if (this.focusableElements !== undefined && this.focusableElements.length) {
+      //   this.focusableElements[0].focus();
+      // }
     }
 
   });

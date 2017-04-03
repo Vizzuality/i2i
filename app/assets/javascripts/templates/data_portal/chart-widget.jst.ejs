@@ -1,10 +1,13 @@
 <div class="c-chart-widget <%= noData ? '-empty': '' %>">
   <h3 class="title -dark"><%= name %></h3>
   <div class="chart js-chart"></div>
-  <div class="toolbar">
-    <button type="button" class="c-button -mini js-save">Save</button>
-    <button type="button" class="c-button -mini js-change">Change</button>
-    <% if (canCompare) { %><button type="button" class="c-button -mini js-compare" aria-pressed="<%= isComparing %>">Compare</button><% } %>
-    <% if (canAnalyze) { %><button type="button" class="c-button -mini js-analyze" aria-pressed="<%= isAnalyzing %>">Analyse</button><% } %>
-  </div>
+
+  <% if (showToolbar) { %>
+    <div class="toolbar">
+      <button type="button" class="c-button -mini js-save">Save</button>
+      <button type="button" class="c-button -mini js-change">Change</button>
+      <% if (canCompare) { %><button type="button" class="c-button -mini js-compare" aria-pressed="<%= isComparing %>">Compare</button><% } %>
+      <% if (canAnalyze) { %><button type="button" class="c-button -mini js-analyze" aria-pressed="<%= isAnalyzing %>">Analyse</button><% } %>
+    </div>
+  <% } %>
 </div>

@@ -13,6 +13,10 @@
 
   cursor: pointer;
 
+  &.-disabled {
+    pointer-events: none;
+  }
+
   &[aria-pressed='true'],
   &.-active,
   &:hover {
