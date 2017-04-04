@@ -17,7 +17,7 @@ ActiveAdmin.register Library do
 
   controller do
     def permitted_params
-      params.permit library: [:title, :summary, :content, :id,
+      params.permit library: [:title, :summary, :id,
                               :image, :date, :url_resource,
                               :video_url, :subcategory_id]
     end
@@ -49,7 +49,6 @@ ActiveAdmin.register Library do
               include_blank: false
       f.input :title
       f.input :summary
-      f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
       f.input :url_resource
       f.input :video_url
@@ -69,7 +68,6 @@ ActiveAdmin.register Library do
       row :date
       row :title
       row :summary
-      row :content
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
