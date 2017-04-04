@@ -17,6 +17,20 @@
   src: font-url('typography/Montserrat-Bold.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: $font-weight-light;
+  src: font-url('typography/Montserrat-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: $font-weight-bold;
+  src: font-url('typography/Montserrat-BoldItalic.ttf') format('truetype');
+}
+
 // titles
 h1,
 h2,
@@ -107,7 +121,7 @@ p {
     margin: 15px 0 0;
   }
 
-  > a {
+  a {
     color: $color-1;
     font-weight: $font-weight-light;
   }

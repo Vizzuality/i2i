@@ -4,6 +4,60 @@
   .l-content {
     margin: 40px 0 50px;
 
+    ul,
+    ol {
+      margin: 1em 0;
+      padding-left: 2em;
+
+      li + li {
+        margin-top: .5em;
+      }
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    blockquote {
+      margin-bottom: 15px; // Compensate the lack of space before the next paragraph
+      font-style: italic;
+    }
+
+    table {
+      margin: 15px 0;  // Compensate the lack of space before and after
+      border: 1px solid $color-5;
+
+      tr {
+        td {
+          padding: 10px;
+          border-bottom: 1px dashed rgba($color-5, .1);
+        }
+
+        th {
+          padding: 10px;
+          border-bottom: 1px solid $color-5;
+          background-color: rgba($color-5, .1);
+          text-align: left;
+        }
+
+        &:last-of-type td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    h1 {
+      margin: 1.2em 0 .8em;
+      font-family: $font-family-2;
+      font-size: $font-size-xm;
+    }
+
+    h2 {
+      margin: 1.2em 0 .8em;
+      font-family: $font-family-2;
+      font-size: $font-size-xxm;
+    }
+
     .l-related-section {
       margin: 65px 0 50px;
 
