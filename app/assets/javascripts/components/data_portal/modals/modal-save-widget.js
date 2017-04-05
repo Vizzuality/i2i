@@ -24,6 +24,7 @@
 
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
+        'click .js-add-report': '_onAddReport',
         'click .js-slide-button': '_onSelectSlide',
         'click .js-print': '_onPrint'
       });
@@ -69,14 +70,70 @@
           this._renderWidget();
           this._renderSlides();
 
+          // disables 'Add to Report' button once the modal is rendered if the widget is already added.
+          if (this._isWidgetAdded()) {
+            this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
+          }
+
           this.constructor.__super__.afterRender.apply(this);
         }.bind(this));
       } else {
         this._renderWidget();
         this._renderSlides();
 
+        // disables 'Add to Report' button once the modal is rendered if the widget is already added.
+        if (this._isWidgetAdded()) {
+          this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
+        }
+
         this.constructor.__super__.afterRender.apply(this);
       }
+    },
+
+    _addWidgetToReport: function (widget) {
+      var widgetArray = localStorage.getItem('widgets') ?
+        JSON.parse(localStorage.getItem('widgets')) : [];
+
+      widgetArray.push(widget);
+      localStorage.setItem('widgets', JSON.stringify(widgetArray));
+    },
+
+    /**
+     * Check if the widget is already added in the localStorage object.
+     * @return boolean - It's added or not
+     */
+    _isWidgetAdded: function () {
+      var widgetArray = localStorage.getItem('widgets') ?
+        JSON.parse(localStorage.getItem('widgets')) : [];
+      var widgetConfig = _.extend({}, this.options.widgetConfig);
+
+      // Check this... Try to avoid
+      // removes unnecessary attributes
+      delete widgetConfig.el;
+      delete widgetConfig.showToolbar;
+
+      if (!widgetArray.length) {
+        return false;
+      }
+
+      var isEqual = widgetArray.find(function (w) {
+        return _.isEqual(widgetConfig, w);
+      });
+
+      return !!isEqual;
+    },
+
+    _onAddReport: function () {
+      var widgetConfig = _.extend({}, this.options.widgetConfig);
+      // removes unnecessary attributes
+      delete widgetConfig.el;
+      delete widgetConfig.showToolbar;
+
+      // adds widget to localStorage
+      this._addWidgetToReport(widgetConfig);
+
+      // disables 'Add to report' button once the widget is added
+      this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
     },
 
     _onSelectSlide: function (event) {
@@ -121,6 +178,5 @@
       this.options.content = this.contentTemplate();
       this.constructor.__super__.render.apply(this);
     }
-
   });
 }).call(this, this.App);
