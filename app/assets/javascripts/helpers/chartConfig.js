@@ -59,6 +59,15 @@
       categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
       visible: false,
       ratio: 0.3
+    },
+    {
+      name: 'table',
+      // We don't really care about the types here
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ]
     }
   ];
 })(this.App));

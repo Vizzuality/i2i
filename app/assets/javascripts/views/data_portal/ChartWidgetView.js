@@ -201,7 +201,7 @@
         this.options.compareIndicators = null;
         this._fetchData();
       } else {
-        this.render();
+        this._fetchData();
       }
     },
 
@@ -252,6 +252,7 @@
             this.options.analysisIndicator = null;
           }
 
+          this.options.chart = 'compare';
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),
@@ -277,6 +278,7 @@
             this.options.compareIndicators = null;
           }
 
+          this.options.chart = 'analysis';
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
         }.bind(this),
@@ -328,9 +330,11 @@
         id: this.options.indicator.id,
         iso: this.options.iso,
         year: this.options.year,
+        indicator: this.options.indicator,
         filters: this.options.filters,
         analysisIndicatorId: this.options.analysisIndicator,
-        compareIndicators: this.options.compareIndicators
+        compareIndicators: this.options.compareIndicators,
+        expanded: this.options.chart === 'table'
       });
 
       this.model.fetch()
@@ -468,13 +472,6 @@
         }
       }
 
-      // If the analysis or compare mode is active, then the chart is always the same
-      if (this.options.analysisIndicator) {
-        this.options.chart = 'analysis';
-      } else if (this.options.compareIndicators) {
-        this.options.chart = 'compare';
-      }
-
       var chartDimensions = this._computeChartDimensions();
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
@@ -487,12 +484,20 @@
      * Create the chart and append it to the DOM
      */
     _renderChart: function () {
-      vg.parse
-        .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
-          this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
-          this.chart.on('mouseover', this._onMouseoverChart.bind(this));
-          this.chart.on('mouseout', this._onMouseoutChart.bind(this));
-        }.bind(this));
+      if (this.options.chart === 'table') {
+        new App.View.TableView({
+          el: this.chartContainer,
+          collection: new Backbone.Collection(this.model.get('data')),
+          tableName: this.model.get('title') + ' data'
+        });
+      } else {
+        vg.parse
+          .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
+            this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+            this.chart.on('mouseover', this._onMouseoverChart.bind(this));
+            this.chart.on('mouseout', this._onMouseoutChart.bind(this));
+          }.bind(this));
+      }
     },
 
     render: function () {

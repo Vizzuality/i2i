@@ -229,6 +229,7 @@ GEM
       sprockets-rails (>= 2.0.0)
     rails-assets-d3 (3.5.17)
     rails-assets-datalib (1.7.3)
+    rails-assets-fuse (2.6.2)
     rails-assets-vega (2.6.5)
       rails-assets-d3 (>= 3.5.6, < 4)
     rails-backbone (1.2.0)
@@ -335,6 +336,7 @@ DEPENDENCIES
   rails (~> 5.0.1)
   rails-assets-d3 (~> 3.5.16)!
   rails-assets-datalib (= 1.7.3)!
+  rails-assets-fuse!
   rails-assets-vega (~> 2.6.5)!
   rails-backbone (~> 1.2)
   sass-rails (~> 5.0)
