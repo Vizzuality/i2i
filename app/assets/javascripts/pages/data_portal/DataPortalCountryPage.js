@@ -11,7 +11,7 @@
     //   return API_URL + '/indicator/' + this.iso + '/' + this.year;
     // },
 
-    // parse: function (data) {$
+    // parse: function (data) {
     //   return _.uniq(data.data.map(function (o) { return o.indicatorId }))
     //     .map(function (indicatorId) {
     //       return {
@@ -37,12 +37,31 @@
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
   ];
 
+  var MapUrlModel = Backbone.Model.extend({
+
+    initialize: function (iso) {
+      this.iso = iso;
+    },
+
+    url: function() {
+      return API_URL + '/country/' + this.iso;
+    },
+
+    parse: function (data) {
+      return {
+        url: data && data.length && data[0].mapUrl || null
+      };
+    }
+
+  });
+
   App.Page.DataPortalCountryPage = Backbone.View.extend({
 
     el: 'body',
 
     headerTemplate: JST['templates/data_portal/header'],
     widgetsTemplate: JST['templates/data_portal/widgets'],
+    footerTemplate: JST['templates/data_portal/footer'],
 
     defaults: {
       // ISO of the country
@@ -66,8 +85,10 @@
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
       this.indicatorsCollection = new IndicatorsCollection();
+      this.mapUrlModel = new MapUrlModel(this.options.iso);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
+      this.footerContainer = this.el.querySelector('.js-footer');
       this._fetchData();
     },
 
@@ -178,12 +199,17 @@
       // The first time we render to have the placeholder flags
       this.render();
 
-      var deferred = $.Deferred();
-      this.indicatorsCollection.set(INDICATORS);
-      deferred.resolve(INDICATORS);
+      $.when.apply($, [
+        (function () {
+          var deferred = $.Deferred();
+          this.indicatorsCollection.set(INDICATORS);
+          deferred.resolve(INDICATORS);
 
-      // this.indicatorsCollection.fetch()
-      deferred
+          // return this.indicatorsCollection.fetch()
+          return deferred;
+        }.bind(this))(),
+        this.mapUrlModel.fetch()
+      ])
         .done(function (){
           this._loadingError = false;
         }.bind(this))
@@ -223,6 +249,7 @@
     render: function () {
       this._renderHeader();
       this._renderWidgets();
+      this._renderFooter();
 
       this.setElement(this.el);
     },
@@ -241,6 +268,17 @@
           ? this._getJurisdictionFilter().options[0]
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso]
+      });
+    },
+
+    /**
+     * Render the footer
+     */
+    _renderFooter: function () {
+      this.footerContainer.innerHTML = this.footerTemplate({
+        error: this._loadingError,
+        indicators: this._getVisibleIndicators(),
+        mapUrl: this.mapUrlModel.get('url')
       });
     },
 
