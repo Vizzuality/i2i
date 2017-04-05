@@ -1,6 +1,25 @@
 ((function (App) {
   'use strict';
 
+  // This is the configuration of all the charts used in the App
+  // The format of each of them must be like:
+  // {
+  //   name: string,
+  //   acceptedStatTypes: string[][],
+  //   categories?: string[],
+  //   ratio?: number,
+  //   visible?: boolean
+  // }
+  //
+  // Here is the description of each of the attributes:
+  // - name: name of the chart
+  // - acceptedStatTypes: refer to Jiminy's documentation
+  // - categories: categories of widgets for which the chart can be used, check the
+  // list in App.Helper.Indicators.CATEGORIES; if omitted, the chart is available for
+  // all the categories
+  // - ratio: ratio between the width and the height, if not set, use the
+  // default one in App.View.ChartWidgetView
+  // - visible: hide the chart from the chart selector; default to true
   App.Helper.ChartConfig = [
     {
       name: 'pie',
@@ -8,7 +27,8 @@
         ['nominal'],
         ['ordinal'],
         ['quantitative']
-      ]
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON]
     },
     {
       name: 'bar',
@@ -16,7 +36,8 @@
         ['nominal'],
         ['ordinal'],
         ['quantitative']
-      ]
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON]
     },
     {
       name: 'radial',
@@ -25,32 +46,18 @@
         ['ordinal'],
         ['quantitative']
       ],
-      // The following attribute is not part of the Jiminy requirements
-      // It's used to bypass it to have custom rules
-      // strandOnly charts are the only charts a strand indicator can be rendered
-      // into
-      // Indicators which category is different from strand can't be rendered using
-      // a strandOnly chart
-      strandOnly: true,
-      // The following attribute is not part of the Jiminy requirements
-      // Ratio between the width and the height
-      // If not set, use the default one in App.View.ChartWidgetView
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
       ratio: 0.3
     },
     {
       name: 'analysis',
-      // The following attribute is not part of the Jiminy requirements
-      // It's used to hide the chart from the chart selector
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
       visible: false
     },
     {
       name: 'compare',
-      // The following attribute is not part of the Jiminy requirements
-      // It's used to hide the chart from the chart selector
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
       visible: false,
-      // The following attribute is not part of the Jiminy requirements
-      // Ratio between the width and the height
-      // If not set, use the default one in App.View.ChartWidgetView
       ratio: 0.3
     }
   ];

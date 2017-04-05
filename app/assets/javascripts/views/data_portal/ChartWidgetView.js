@@ -263,12 +263,12 @@
      * Open the modal for the chart analysis
      */
     _openModalChartAnalysis: function () {
-      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
-        return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+      var nonAccessIndicators = this.options.indicators.filter(function (indicator) {
+        return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS;
       });
 
       new App.Component.ModalChartAnalysis({
-        indicators: nonStrandIndicators,
+        indicators: nonAccessIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
           // If the comparison is active, we stop it
@@ -351,8 +351,8 @@
             name: this.model.get('title'),
             noData: !data.length,
             showToolbar: this.options.showToolbar,
-            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
-            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
+            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
+            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
             isAnalyzing: !!this.options.analysisIndicator,
             isComparing: !!this.options.compareIndicators
           });
@@ -372,9 +372,7 @@
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
         var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-        var isStrandIndicator = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
-        var isStrandOnlyChart = !!chart.strandOnly;
-        return isStrandIndicator === isStrandOnlyChart;
+        return !chart.categories || chart.categories.indexOf(this.options.indicator.category) !== -1;
       }, this);
     },
 
