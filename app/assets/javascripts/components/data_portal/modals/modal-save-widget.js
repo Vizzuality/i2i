@@ -65,7 +65,17 @@
         $('body').animate({
           // 52px is the height of the modal title
           scrollTop: offsets.top - 52
-        });
+        }, 400, function () {
+          this._renderWidget();
+          this._renderSlides();
+
+          this.constructor.__super__.afterRender.apply(this);
+        }.bind(this));
+      } else {
+        this._renderWidget();
+        this._renderSlides();
+
+        this.constructor.__super__.afterRender.apply(this);
       }
     },
 
@@ -80,9 +90,8 @@
     },
 
     _renderWidget: function () {
-      var widgetConfig = _.extend({}, this.options.widgetConfig, {
-        el: $(this.el).find('.js-widget-container'),
-        showToolbar: this.defaults.widgetConfig.showToolbar
+      var widgetConfig = _.extend({}, this.options.widgetConfig, this.defaults.widgetConfig, {
+        el: $(this.el).find('.js-widget-container')
       });
 
       new App.View.ChartWidgetView(widgetConfig);
@@ -100,22 +109,17 @@
 
     setSlide: function (slideIndex) {
       this.slides.forEach(function (slide) {
-        slide.view.toggleVisibility(this.slides.indexOf(slide) === slideIndex)
+        slide.view.toggleVisibility(this.slides.indexOf(slide) === slideIndex);
       }.bind(this));
     },
 
     afterRender: function () {
       this._setPosition();
-      this._renderWidget();
-      this._renderSlides();
-
-      this.constructor.__super__.afterRender.apply(this);
     },
 
     render: function () {
       this.options.content = this.contentTemplate();
       this.constructor.__super__.render.apply(this);
-      this.afterRender()
     }
 
   });

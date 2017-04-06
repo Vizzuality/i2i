@@ -127,6 +127,8 @@
 
       // We attach the event listeners
       this._setEventListeners();
+
+      this.afterRender();
     }
 
   });
