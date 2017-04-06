@@ -33,10 +33,13 @@
       // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
       // NOTE: the filters attribute do not contain the filters set for the whole portal but instead, only
       // the filters used for the comparation
-      compareIndicators: null
+      compareIndicators: null,
+      // Displays widget toolbar
+      showToolbar: true
     },
 
     events: {
+      'click .js-save': '_onSave',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
       'click .js-analyze': '_onAnalyze'
@@ -69,6 +72,15 @@
       if (newDimensions.width !== previousWidth || newDimensions.height !== previousHeight) {
         this._renderChart();
       }
+    },
+
+    /**
+     * Event handler for when the user clicks the save button
+     */
+    _onSave: function () {
+      new App.Component.ModalSaveWidget({
+        widgetConfig: this.options
+      });
     },
 
     /**
@@ -338,6 +350,7 @@
           this.el.innerHTML = this.template({
             name: this.model.get('title'),
             noData: !data.length,
+            showToolbar: this.options.showToolbar,
             canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
             canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
             isAnalyzing: !!this.options.analysisIndicator,
