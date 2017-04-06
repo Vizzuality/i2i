@@ -6,17 +6,9 @@
     className: 'slide',
 
     events: {
-      'click .js-back': '_onBack',
+      'click .js-back': 'onCallback',
       'click .js-copy': '_onCopy',
       'blur  .js-copy': '_onBlur'
-    },
-
-    initialize: function (settings) {
-      this.constructor.__super__.initialize.call(this, settings);
-    },
-
-    _onBack: function () {
-      this.constructor.__super__.onCallback.call(this);
     },
 
     _onCopy: function (e) {
@@ -52,7 +44,7 @@
     },
 
     render: function () {
-      this.content = this.template({
+      this.options.content = this.template({
         embed_link: this._generateShareURL('embed_link'),
         facebook: this._generateShareURL('facebook'),
         page_link: this._generateShareURL('page_link'),

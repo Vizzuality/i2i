@@ -1,7 +1,12 @@
 (function (App) {
   App.Component.Slide = Backbone.View.extend({
 
-    defaults: {},
+    defaults: {
+      // Callback to be executed after an action (show or close)
+      callback: function () {},
+      // content to render in the modal
+      content: ''
+    },
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
@@ -26,13 +31,11 @@
     },
 
     onCallback: function () {
-      if (this.options.callback && typeof this.options.callback === 'function') {
-        this.options.callback();
-      }
+      this.options.callback();
     },
 
     render: function () {
-      this.el.innerHTML = this.content;
+      this.el.innerHTML = this.options.content;
     }
   });
 }).call(this, this.App);

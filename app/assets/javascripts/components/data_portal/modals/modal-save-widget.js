@@ -14,8 +14,8 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<button type="button" class="c-button -medium -white -outline js-button">Add to report</button><div class="group-button"><button type="button" class="c-button -medium -white -disabled js-print">Print</button><button type="button" class="c-button -medium -white -disabled">Download</button><button type="button" data-slide-index="0" class="c-button -medium -white js-slide-button">Share</button></div>',
-      // TO-DO: add description
+      footer: '<button type="button" class="c-button -white js-button">Add to report</button><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button disabled type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
         showToolbar: false
@@ -59,6 +59,14 @@
 
       modalContent.style.width = bounds.width + 'px';
       modalContent.style.height = bounds.height + 'px';
+
+      // we assure the modal is completely displayed. This way focus won't center it
+      if (offsets.top < document.body.scrollTop) {
+        $('body').animate({
+          // 52px is the height of the modal title
+          scrollTop: offsets.top - 52
+        });
+      }
     },
 
     _onSelectSlide: function (event) {
@@ -96,13 +104,18 @@
       }.bind(this));
     },
 
-    render: function () {
-      this.options.content = this.contentTemplate();
-      this.constructor.__super__.render.apply(this);
-
+    afterRender: function () {
       this._setPosition();
       this._renderWidget();
       this._renderSlides();
+
+      this.constructor.__super__.afterRender.apply(this);
+    },
+
+    render: function () {
+      this.options.content = this.contentTemplate();
+      this.constructor.__super__.render.apply(this);
+      this.afterRender()
     }
 
   });
