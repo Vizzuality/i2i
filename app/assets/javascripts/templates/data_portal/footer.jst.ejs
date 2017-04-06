@@ -2,7 +2,7 @@
 
   <div class="indicator-options">
       <button class="c-button -white">Add all to report</button>
-      <button class="c-button -white">Download all</button>
+      <a href="<%= downloadUrl %>" class="c-button -white" download>Download all</a>
       <% if (mapUrl) { %><a class="c-button -white" href="<%= mapUrl %>" rel="noopener" target="_blank">Check FSPmaps data</a><% } %>
     </div>
     <div class="container-custom-indicators">

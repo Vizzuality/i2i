@@ -115,8 +115,7 @@
       // We need to ensure we remove the filter if we don't need it anymore
       this._updateJurisdiction(jurisdiction);
 
-      this._renderHeader();
-      this._renderWidgets();
+      this.render();
     },
 
     /**
@@ -136,14 +135,6 @@
 
       this.options.year = year;
       this._updateURL();
-    },
-
-    /**
-     * Return the jurisdiction filter if exist
-     * @return {{ id: 'jurisdiction', name?: string, options: string[]}}
-     */
-    _getJurisdictionFilter: function() {
-      return _.findWhere(this.options._filters, { id: 'jurisdiction' });
     },
 
     /**
@@ -278,7 +269,8 @@
       this.footerContainer.innerHTML = this.footerTemplate({
         error: this._loadingError,
         indicators: this._getVisibleIndicators(),
-        mapUrl: this.mapUrlModel.get('url')
+        mapUrl: this.mapUrlModel.get('url'),
+        downloadUrl: API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
       });
     },
 
