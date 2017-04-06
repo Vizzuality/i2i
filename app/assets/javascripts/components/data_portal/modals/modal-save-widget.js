@@ -53,6 +53,7 @@
         top: bounds.top + document.body.scrollTop,
         left: bounds.left + document.body.scrollLeft
       };
+      var isAdded = this._isWidgetAdded();
 
       var modal = this.el.querySelector('.c-modal');
       var modalContent = modal.querySelector('.js-modal-content');
@@ -89,6 +90,7 @@
     _addWidgetToReport: function (widget) {
       this.reportWidgets.push(widget);
       localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
+      Backbone.Events.trigger('localStorage:setItem');
     },
 
     _removeWidgetFromReport: function (widget) {
@@ -97,6 +99,7 @@
       });
 
       localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
+      Backbone.Events.trigger('localStorage:setItem');
     },
 
     /**

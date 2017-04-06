@@ -54,6 +54,8 @@
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this.footerContainer = this.el.querySelector('.js-footer');
       this._fetchData();
+
+      new App.View.ReportFixedBar();
     },
 
     /**

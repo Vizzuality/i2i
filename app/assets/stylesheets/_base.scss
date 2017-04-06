@@ -62,6 +62,8 @@ select {
   height: 100%;
   transform: translate(-50%, -50%);
 
+  z-index: 2;
+
   &.-absolute {
     position: absolute;
     top: 0;
