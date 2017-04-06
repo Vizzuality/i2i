@@ -1,5 +1,4 @@
 (function (App) {
-
   App.Component.ModalSaveWidget = App.Component.Modal.extend({
 
     contentTemplate: JST['templates/data_portal/modals/modal-save-widget'],
@@ -14,7 +13,7 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<button type="button" class="c-button -white js-add-report">Add to report</button><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button disabled type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button disabled type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -25,6 +24,7 @@
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
         'click .js-add-report': '_onAddReport',
+        'click .js-remove-report': '_onRemoveReport',
         'click .js-slide-button': '_onSelectSlide',
         'click .js-print': '_onPrint'
       });
@@ -42,6 +42,9 @@
           callback: this._returnWidget.bind(this)
         })
       }];
+
+      this.reportWidgets = localStorage.getItem('widgets') ?
+        JSON.parse(localStorage.getItem('widgets')) : [];
     },
 
     _setPosition: function () {
@@ -70,32 +73,30 @@
           this._renderWidget();
           this._renderSlides();
 
-          // disables 'Add to Report' button once the modal is rendered if the widget is already added.
-          if (this._isWidgetAdded()) {
-            this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
-          }
-
           this.constructor.__super__.afterRender.apply(this);
         }.bind(this));
       } else {
         this._renderWidget();
         this._renderSlides();
 
-        // disables 'Add to Report' button once the modal is rendered if the widget is already added.
-        if (this._isWidgetAdded()) {
-          this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
-        }
-
         this.constructor.__super__.afterRender.apply(this);
       }
+
+      this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isAdded);
+      this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isAdded);
     },
 
     _addWidgetToReport: function (widget) {
-      var widgetArray = localStorage.getItem('widgets') ?
-        JSON.parse(localStorage.getItem('widgets')) : [];
+      this.reportWidgets.push(widget);
+      localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
+    },
 
-      widgetArray.push(widget);
-      localStorage.setItem('widgets', JSON.stringify(widgetArray));
+    _removeWidgetFromReport: function (widget) {
+      this.reportWidgets = this.reportWidgets.filter(function (w) {
+        return !_.isEqual(w, widget);
+      });
+
+      localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
     },
 
     /**
@@ -103,8 +104,6 @@
      * @return boolean - It's added or not
      */
     _isWidgetAdded: function () {
-      var widgetArray = localStorage.getItem('widgets') ?
-        JSON.parse(localStorage.getItem('widgets')) : [];
       var widgetConfig = _.extend({}, this.options.widgetConfig);
 
       // Check this... Try to avoid
@@ -112,11 +111,11 @@
       delete widgetConfig.el;
       delete widgetConfig.showToolbar;
 
-      if (!widgetArray.length) {
+      if (!this.reportWidgets.length) {
         return false;
       }
 
-      var isEqual = widgetArray.find(function (w) {
+      var isEqual = this.reportWidgets.find(function (w) {
         return _.isEqual(widgetConfig, w);
       });
 
@@ -133,7 +132,20 @@
       this._addWidgetToReport(widgetConfig);
 
       // disables 'Add to report' button once the widget is added
-      this.el.querySelector('.js-add-report').setAttribute('disabled', 'disabled');
+      this.el.querySelector('.js-add-report').classList.add('_is-hidden');
+      this.el.querySelector('.js-remove-report').classList.remove('_is-hidden');
+    },
+
+    _onRemoveReport: function () {
+      var widgetConfig = _.extend({}, this.options.widgetConfig);
+      // removes unnecessary attributes
+      delete widgetConfig.el;
+      delete widgetConfig.showToolbar;
+
+      this._removeWidgetFromReport(widgetConfig);
+
+      this.el.querySelector('.js-add-report').classList.remove('_is-hidden');
+      this.el.querySelector('.js-remove-report').classList.add('_is-hidden');
     },
 
     _onSelectSlide: function (event) {
