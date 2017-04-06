@@ -6,7 +6,7 @@
     className: 'slide',
 
     events: {
-      'click .js-back': '_onBack',
+      'click .js-back': 'onCallback',
       'click .js-copy': '_onCopy',
       'blur  .js-copy': '_onBlur'
     },

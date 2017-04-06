@@ -120,6 +120,7 @@
     render: function () {
       this.options.content = this.contentTemplate();
       this.constructor.__super__.render.apply(this);
+      this.afterRender()
     }
 
   });
