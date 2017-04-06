@@ -75,19 +75,21 @@
 </table>
 
 <div class="action-bar">
-  <div class="rows-per-page">
-    <label for="<%= tableId %>-rows-per-page">Rows per page</label>
-    <div class="c-select -mini">
-      <select id="<%= tableId %>-rows-per-page" class="js-results-per-page">
-        <% resultsPerPageOptions.forEach(function (resultsPerPageOption) { %>
-          <option value="<%= resultsPerPageOption %>" <%= resultsPerPageOption === resultsPerPage ? 'selected="selected"' : '' %>><%= resultsPerPageOption %></option>
-        <% }) %>
-      </select>
+  <% if (resultsPerPageOptions && resultsPerPageOptions.length) { %>
+    <div class="rows-per-page">
+      <label for="<%= tableId %>-rows-per-page">Rows per page</label>
+      <div class="c-select -mini">
+        <select id="<%= tableId %>-rows-per-page" class="js-results-per-page">
+          <% resultsPerPageOptions.forEach(function (resultsPerPageOption) { %>
+            <option value="<%= resultsPerPageOption %>" <%= resultsPerPageOption === resultsPerPage ? 'selected="selected"' : '' %>><%= resultsPerPageOption %></option>
+          <% }) %>
+        </select>
+      </div>
     </div>
-  </div>
+  <% } %>
   <div class="paginator">
-    <button type="button" class="c-button -mini -arrow-left js-prev-page" <%= firstResultIndex === 1 ? 'disabled' : '' %>>Previous page</button>
+    <button type="button" class="c-button -mini -arrow-left js-prev-page" <%= firstResultIndex === 1 ? 'disabled' : '' %>><span>Previous page</span></button>
     <%= firstResultIndex %>-<%= lastResultIndex %> of <%= totalResults %>
-    <button type="button" class="c-button -mini -arrow-right js-next-page" <%= lastResultIndex === totalResults ? 'disabled' : '' %>>Next page</button>
+    <button type="button" class="c-button -mini -arrow-right js-next-page" <%= lastResultIndex === totalResults ? 'disabled' : '' %>><span>Next page</span></button>
   </div>
 </div>

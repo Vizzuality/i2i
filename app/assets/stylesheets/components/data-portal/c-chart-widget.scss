@@ -15,6 +15,17 @@
   > .chart {
     width: 100%;
     overflow: hidden;
+
+    &.c-table {
+      font-size: $font-size-s;
+
+      table {
+        position: relative;
+        left: 4px;
+        width: calc(100% - 8px);
+        box-shadow: 0 2px 4px 0 rgba($color-6, .15);
+      }
+    }
   }
 
   > .toolbar {

@@ -46,6 +46,7 @@
       // Number of results per page
       resultsPerPage: 10,
       // Options for the results per page
+      // If the value is null or the array is empty, the selector is not shown
       resultsPerPageOptions: [10, 25, 50, 100],
       // Current pagination index
       paginationIndex: 0,

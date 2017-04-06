@@ -26,16 +26,12 @@
     flex-direction: column;
     align-items: stretch;
 
-    &:nth-of-type(2n+1) {
+    &:nth-of-type(2n) {
       background-color: $color-3;
     }
 
     @media #{$mq-tablet} {
       display: table-row;
-
-      &:nth-of-type(2n+1) {
-        background-color: transparent;
-      }
     }
 
     &.no-data,
@@ -52,10 +48,9 @@
 
       @media #{$mq-tablet} {
         display: table-cell;
-        border-bottom: 1px dashed rgba($color-6, .1);
 
-        &:first-of-type { padding-top: 18px; }
-        &:last-of-type { padding-bottom: 18px; }
+        &:first-of-type { padding-top: 15px; }
+        &:last-of-type { padding-bottom: 15px; }
       }
 
       .row-name {
@@ -79,14 +74,6 @@
         }
       }
     }
-
-    &:not(.no-data):not(.no-result):hover {
-      @media #{$mq-tablet} {
-        td {
-          background-color: $color-3;
-        }
-      }
-    }
   }
 
   .header {
@@ -98,10 +85,9 @@
     }
 
     & > th {
-      border-bottom: 1px solid rgba($color-6, .1);
-      font-weight: $font-weight-medium;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-bold;
       text-align: left;
-      text-transform: uppercase;
       cursor: pointer;
 
       &.-order-ascending {
@@ -145,17 +131,18 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
-    padding-top: 20px;
+    padding-top: 18px;
     font-size: $font-size-s;
 
     @media #{$mq-tablet} {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-      padding-top: 30px;
+      justify-content: center;
     }
 
     .rows-per-page {
+      flex-grow: 1;
+
       .c-select {
         display: inline-block;
         margin-left: 5px;
@@ -170,12 +157,16 @@
         margin-bottom: 0;
       }
 
-      .c-button.-arrow-left {
-        margin-right: 5px;
-      }
+      .c-button {
+        vertical-align: middle;
 
-      .c-button.-arrow-right {
-        margin-left: 5px;
+        &.-arrow-left {
+          margin-right: 5px;
+        }
+
+        &.-arrow-right {
+          margin-left: 5px;
+        }
       }
     }
   }

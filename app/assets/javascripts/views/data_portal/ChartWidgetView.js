@@ -485,10 +485,14 @@
      */
     _renderChart: function () {
       if (this.options.chart === 'table') {
+        var isAccess = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+
         new App.View.TableView({
           el: this.chartContainer,
           collection: new Backbone.Collection(this.model.get('data')),
-          tableName: this.model.get('title') + ' data'
+          tableName: this.model.get('title') + ' data',
+          resultsPerPage: isAccess ? 5 : 3,
+          resultsPerPageOptions: isAccess ? [5, 10, 20] : null
         });
       } else {
         vg.parse
