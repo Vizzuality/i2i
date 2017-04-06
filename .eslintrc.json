@@ -14,12 +14,10 @@
     "App": true,
     "Backbone": true,
     "_": true,
-    "JST": true
+    "JST": true,
+    "Jiminy": true
   },
   "parserOptions": {
     "ecmaVersion": 5
-  },
-  "extends": [
-    "vizzuality"
-  ]
+  }
 }

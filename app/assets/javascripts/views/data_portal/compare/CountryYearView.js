@@ -17,13 +17,19 @@
         return {
           name: row.name,
           iso: row.iso,
-          years: row.year.map(function (years) {
-            return {
-              value: years.year,
-              active: this.options.iso === row.iso && this.options.year === years.year,
-              disabled: this.options.iso === row.iso && this.options.year === years.year
-            };
-          }, this)
+          years: row.year
+            .map(function (years) {
+              return {
+                value: years.year,
+                active: this.options.iso === row.iso && this.options.year === years.year,
+                disabled: this.options.iso === row.iso && this.options.year === years.year
+              };
+            }, this)
+            .sort(function (yearA, yearB) {
+              if (yearA.value < yearB.value) return -1;
+              if (yearA.value > yearB.value) return 1;
+              return 0;
+            })
         };
       }, this);
     }
@@ -63,6 +69,7 @@
         iso: this.options.iso,
         year: this.options.year
       });
+
       this._fetchData();
     },
 

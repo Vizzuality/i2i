@@ -1,0 +1,37 @@
+<div class="c-share-widget">
+  <div class="back js-back">Share</div>
+  <ul class="social-links-list">
+    <li class="social-links-item -twitter">
+      <a href="<%= twitter %>" alt="share-twitter" target="_blank" ref="noopener noreferrer">
+        <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
+      </a>
+    </li>
+    <li class="social-links-item -facebook">
+      <a href="<%= facebook %>" alt="share-facebook" target="_blank" ref="noopener noreferrer">
+        <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="page-links-list">
+    <li class="page-links-item">
+      <span class="title">Copy the link below to share it</span>
+      <div class="copy-container">
+        <div class="copy-field">
+          <%= page_link %>
+        </div>
+        <button class="c-button -sea copy-button js-copy">Copy</button>
+      </div>
+    </li>
+    <li class="page-links-item">
+      <span class="title">Embed widget</span>
+      <div class="copy-container">
+        <div class="copy-field">
+          <%= embed_link %>
+        </div>
+        <button class="c-button -sea -disabled copy-button js-copy">Copy</button>
+      </div>
+    </li>
+  </ul>
+
+</div>

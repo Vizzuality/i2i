@@ -2,6 +2,7 @@
   'use strict';
 
   var Collection = Backbone.Collection.extend({
+    comparator: 'name',
     url: API_URL + '/country?lastyear=true',
     parse: function (data) {
       return data.map(function (country) {

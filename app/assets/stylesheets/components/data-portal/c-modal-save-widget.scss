@@ -1,0 +1,10 @@
+.c-modal-save-widget {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  > .c-widget {
+    height: 100%;
+    margin: 0;
+  }
+}

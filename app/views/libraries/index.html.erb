@@ -57,9 +57,11 @@
                 <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>
                 <p><%= library.summary %></p>
                 <div class="card-options">
-                  <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small">download</a>
+                  <% if library.url_resource.present?%>
+                    <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small">Download</a>
+                  <% end %>
                   <% if library.video_url.present?%>
-                    <a href="<%= library.video_url %>" class="title -sea -small" target="_blank" rel="noopener">watch video</a>
+                    <a href="<%= library.video_url %>" class="title -sea -small" target="_blank" rel="noopener">Watch video</a>
                   <% end %>
                 </div>
               </div>
