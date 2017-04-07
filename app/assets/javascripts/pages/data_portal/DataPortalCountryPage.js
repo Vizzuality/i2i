@@ -34,7 +34,8 @@
     { id: 'savings_strand', name: 'Savings', category: 'Financial Access', visible: true },
     { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
     { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
-    { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
+    { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false },
+    { id: 'total_strands', name: 'Strands', category: 'Financial Access', visible: false }
   ];
 
   var MapUrlModel = Backbone.Model.extend({
