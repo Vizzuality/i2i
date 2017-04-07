@@ -1,0 +1,80 @@
+<% content_for :head do %>
+  <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
+<% end %>
+
+<% title 'Report | Data Portal ' %>
+
+<div class="l-data-portal-country">
+  <div class="l-mobile-header _no-desktop">
+    <div class="wrapper">
+      <span class="country-name js-country">–</span>
+    </div>
+  </div>
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false }%>
+    </div>
+  </div>
+
+  <div class="l-intro">
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row js-header">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="l-switcher _no-desktop">
+        <div class="grid-s-8 grid-m-4 grid-l-3">
+          <div class="c-switcher">
+            <span class="switcher-option -current">Graphics</span>
+            <span class="switcher-option">Table</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-switcher _only-desktop">
+        <div class="row">
+          <div class="grid-l-12">
+            <div class="row">
+              <div class="container">
+                <div class="grid-l-3">
+                  <div class="c-switcher">
+                    <span class="switcher-option -current">Graphics</span>
+                    <span class="switcher-option">Table</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="l-indicator-grid">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="row widgets-list js-widgets"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="footer-indicator-grid">
+              <div class="indicator-options">
+                <button class="c-button -big -white js-print">Print</button>
+              </div>
+              <div class="container-custom-indicators">
+                <button class="c-button -big -sea js-download">Download</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'shared/contribute' %>
+</div>
