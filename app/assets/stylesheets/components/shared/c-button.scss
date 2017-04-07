@@ -45,6 +45,11 @@
       opacity: 1;
     }
 
+    &[disabled] {
+      background-color: mix($color-1, $color-4, 10%);
+      color: rgba($color-1, .5);
+    }
+
     &.-outline {
       border: 1px solid $color-4;
       background-color: transparent;
@@ -56,6 +61,11 @@
       &:hover {
         border-color: $color-8;
         background-color: transparent;
+      }
+
+      &[disabled] {
+        background-color: rgba($color-4, .1);
+        color: rgba($color-4, .5);
       }
     }
   }
@@ -71,16 +81,26 @@
       opacity: .8;
     }
 
+    &[disabled] {
+      color: rgba($color-4, .5);
+    }
+
     &.-outline {
       border: 1px solid $color-1;
       background-color: transparent;
       color: $color-1;
+      box-shadow: none;
 
       &[aria-pressed='true'],
       &.-active,
       &:hover {
         background-color: transparent;
         color: $color-1;
+      }
+
+      &[disabled] {
+        background-color: rgba($color-1, .1);
+        color: rgba($color-1, .5);
       }
     }
   }
@@ -97,6 +117,11 @@
       background-color: $color-1;
       color: $color-4;
       opacity: 1;
+    }
+
+    &[disabled] {
+      background-color: rgba($color-1, .1);
+      color: rgba($color-1, .5);
     }
   }
 }
