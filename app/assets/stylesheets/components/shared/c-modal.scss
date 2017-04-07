@@ -7,6 +7,10 @@
   transform: translate(-50%, -50%);
   background: $color-4;
 
+  > div {
+    outline: 0;
+  }
+
   .modal-title {
     position: absolute;
     top: 0;

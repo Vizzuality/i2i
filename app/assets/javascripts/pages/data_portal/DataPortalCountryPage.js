@@ -35,6 +35,7 @@
     { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
     { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
+    // { id: 'total_strands', name: 'Strands', category: 'Financial Access', visible: false }
   ];
 
   var MapUrlModel = Backbone.Model.extend({
@@ -142,6 +143,9 @@
      * @param {string} jurisdiction
      */
     _updateJurisdiction: function (jurisdiction) {
+      // We copy the filters to avoid mutations of this.defaults
+      this.options._filters = Array.prototype.slice.call(this.options._filters);
+
       var jurisdictionFilterIndex = _.findIndex(this.options._filters, { id: 'jurisdiction' });
 
       if (!jurisdiction || jurisdiction === 'All') {
@@ -303,26 +307,26 @@
       var visibleIndicators = this._getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
-      var isStrand = indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
+      var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
 
-      if (isStrand) {
+      if (isAccess) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
     },
 
     /**
      * Return the sorted list of visible indicators
-     * NOTE: the strand indicators are always displayed first
+     * NOTE: the access indicators are always displayed first
      * @returns {object[]} widgets
      */
     _getVisibleIndicators: function () {
       return this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.visible;
       }).sort(function (a, b) {
-        var aIsStrand = a.category === App.Helper.Indicators.CATEGORIES.STRAND;
-        var bIsStrand = b.category === App.Helper.Indicators.CATEGORIES.STRAND;
-        if (aIsStrand && !bIsStrand) return -1;
-        if (!aIsStrand && bIsStrand) return 1;
+        var aIsAccess = a.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+        var bIsAccess = b.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+        if (aIsAccess && !bIsAccess) return -1;
+        if (!aIsAccess && bIsAccess) return 1;
         return 0;
       });
     },

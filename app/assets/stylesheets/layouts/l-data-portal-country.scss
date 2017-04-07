@@ -215,7 +215,10 @@
         .container-custom-indicators > .c-button {
           width: 100%;
           margin: 10px 0;
-          box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+          &:not([disabled]) {
+            box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+          }
 
           @media #{$mq-laptop} {
             width: auto;

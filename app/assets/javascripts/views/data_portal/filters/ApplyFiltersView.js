@@ -17,11 +17,11 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      // Filter out the the strand indicators and copy the entire object to
+      // Filter out the the access indicators and copy the entire object to
       // avoid mutations of the original one
       this.options.indicators = this.options.indicators
         .filter(function (indicator) {
-          return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+          return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS;
         })
         .map(function (indicator) {
           return {
