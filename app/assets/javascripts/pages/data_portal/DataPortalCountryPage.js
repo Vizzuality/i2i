@@ -143,6 +143,9 @@
      * @param {string} jurisdiction
      */
     _updateJurisdiction: function (jurisdiction) {
+      // We copy the filters to avoid mutations of this.defaults
+      this.options._filters = Array.prototype.slice.call(this.options._filters);
+
       var jurisdictionFilterIndex = _.findIndex(this.options._filters, { id: 'jurisdiction' });
 
       if (!jurisdiction || jurisdiction === 'All') {
