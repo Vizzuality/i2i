@@ -61,7 +61,7 @@
      * Event handler for when the window is resized
      */
     _onResize: function () {
-      if (!this.options.chart) return;
+      if (!this.options.chart || this.options.chart === 'table') return;
 
       /* eslint-disable no-underscore-dangle */
       var previousWidth = this.options._width;
