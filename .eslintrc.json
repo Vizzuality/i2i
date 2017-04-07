@@ -15,7 +15,8 @@
     "Backbone": true,
     "_": true,
     "JST": true,
-    "Jiminy": true
+    "Jiminy": true,
+    "Fuse": true
   },
   "parserOptions": {
     "ecmaVersion": 5

@@ -16,6 +16,8 @@
         iso: null,
         // Year
         year: null,
+        // Information about the indicator
+        indicator: null,
         // List of filters
         // See _filters in App.Page.DataPortalCountryPage to see their format
         filters: [],
@@ -24,7 +26,10 @@
         analysisIndicatorId: null,
         // List of the indicators used for the comparison
         // Check the property in App.View.ChartWidgetView to see the format
-        compareIndicators: null
+        compareIndicators: null,
+        // Whether or not the detailed data must be fetch
+        // NOTE: not compatible with the analysis or compare mode
+        expanded: false
       }, options);
 
       this.indicatorModel = new App.Model.IndicatorModel({}, this.options);
@@ -49,7 +54,8 @@
                 .filter(function (filter) {
                   return filter.id !== 'jurisdiction';
                 })
-                .concat(compareIndicator.filters)
+                .concat(compareIndicator.filters),
+              expanded: this.options.expanded
             }
           )
         }, this);

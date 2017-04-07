@@ -1,0 +1,95 @@
+<table role="grid" aria-readonly="true" aria-rowcount="<%= totalResults %>">
+  <caption>
+    <%= tableName %>, sorted by <%= sortColumn %>: <%= sortOrder %>
+  </caption>
+  <% if (error) { %>
+    <tr class="error">
+      <td><%= error %></td>
+    </tr>
+  <% } else { %>
+    <% if (headers) { %>
+      <tr class="header js-header" role="row" aria-rowindex="1">
+        <% headers.forEach(function (header) { %>
+          <th class="-order-<%= header.sort %>" aria-sort="<%= header.sort ? header.sort : 'none' %>" tabindex="<%= header.sort ? 0 : -1 %>" role="columnheader"><%= header.name %></th>
+        <% }) %>
+      </tr>
+    <% } else { %>
+      <tr class="no-data" role="row">
+        <td role="gridcell">No data</td>
+      </tr>
+    <% } %>
+    <% if (!rows || !rows.length) { %>
+      <% if (isSearchResult) { %>
+        <tr class="no-result" role="row">
+          <td role="gridcell" colspan="<%= columnCount %>">No result</td>
+        </tr>
+      <% } else { %>
+        <tr class="no-data" role="row">
+          <td role="gridcell" colspan="<%= columnCount %>">No data</td>
+        </tr>
+      <% } %>
+    <% } %>
+    <% rows.forEach(function (row) { %>
+      <tr role="row" aria-rowindex="<%= row.rowIndex %>">
+        <% Object.keys(row).forEach(function (key) { %>
+          <% if (key !== 'rowIndex') { %>
+            <td role="gridcell" aria-rowindex="<%= row.rowIndex %>">
+              <% if (row[key].html) { %>
+                <span class="row-name"><%= row[key].name %></span><span class="row-content"> {<%= row[key].html %>} </span>
+              <% } else { %>
+                <% if (Array.isArray(row[key].value)) { %>
+                  <span class="row-name"><%= row[key].name %></span>
+                  <span class="row-content">
+                    <% if (!row[key].value || !row[key].value.length) { %>
+                      –
+                    <% } %>
+                    <% row[key].value.slice(0, valuesPerCell).forEach(function (value, index) { %>
+                      <% if (index === valuesPerCell - 1) { %>
+                        <%= value %> <button type="button" class="more-button js-more" data-column="<%= row[key].name %>" data-values="<%= row[key].value %>">and more</button>
+                      <% } else { %>
+                        <%= value + ((index === row[key].value - 1) ? '' : ',') %>
+                      <% } %>
+                    <% }) %>
+                  </span>
+                <% } else { %>
+                  <span class="row-name"><%= row[key].name %></span>
+                  <span class="row-content">
+                    <% if (row[key].value) { %>
+                      <% if (row[key].link) { %>
+                        <a href="<%= row[key].link.url %>" <%= row[key].link.external ? 'target="_blank"' : '' %> rel="noopener"><%= row[key].value %></a>
+                      <% } else { %>
+                        <%= row[key].value %>
+                      <% } %>
+                    <% } else { %>
+                      –
+                    <% } %>
+                  </span>
+                <% } %>
+              <% } %>
+            </td>
+          <% } %>
+        <% }) %>
+      </tr>
+    <% }) %>
+  <% } %>
+</table>
+
+<div class="action-bar">
+  <% if (resultsPerPageOptions && resultsPerPageOptions.length) { %>
+    <div class="rows-per-page">
+      <label for="<%= tableId %>-rows-per-page">Rows per page</label>
+      <div class="c-select -mini">
+        <select id="<%= tableId %>-rows-per-page" class="js-results-per-page">
+          <% resultsPerPageOptions.forEach(function (resultsPerPageOption) { %>
+            <option value="<%= resultsPerPageOption %>" <%= resultsPerPageOption === resultsPerPage ? 'selected="selected"' : '' %>><%= resultsPerPageOption %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+  <% } %>
+  <div class="paginator">
+    <button type="button" class="c-button -mini -arrow-left js-prev-page" <%= firstResultIndex === 1 ? 'disabled' : '' %>><span>Previous page</span></button>
+    <%= firstResultIndex %>-<%= lastResultIndex %> of <%= totalResults %>
+    <button type="button" class="c-button -mini -arrow-right js-next-page" <%= lastResultIndex === totalResults ? 'disabled' : '' %>><span>Next page</span></button>
+  </div>
+</div>

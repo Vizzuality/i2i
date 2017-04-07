@@ -61,7 +61,7 @@
      * Event handler for when the window is resized
      */
     _onResize: function () {
-      if (!this.options.chart) return;
+      if (!this.options.chart || this.options.chart === 'table') return;
 
       /* eslint-disable no-underscore-dangle */
       var previousWidth = this.options._width;
@@ -201,7 +201,7 @@
         this.options.compareIndicators = null;
         this._fetchData();
       } else {
-        this.render();
+        this._fetchData();
       }
     },
 
@@ -252,6 +252,7 @@
             this.options.analysisIndicator = null;
           }
 
+          this.options.chart = 'compare';
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),
@@ -263,12 +264,12 @@
      * Open the modal for the chart analysis
      */
     _openModalChartAnalysis: function () {
-      var nonStrandIndicators = this.options.indicators.filter(function (indicator) {
-        return indicator.category !== App.Helper.Indicators.CATEGORIES.STRAND;
+      var nonAccessIndicators = this.options.indicators.filter(function (indicator) {
+        return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS;
       });
 
       new App.Component.ModalChartAnalysis({
-        indicators: nonStrandIndicators,
+        indicators: nonAccessIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
           // If the comparison is active, we stop it
@@ -277,6 +278,7 @@
             this.options.compareIndicators = null;
           }
 
+          this.options.chart = 'analysis';
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
         }.bind(this),
@@ -328,9 +330,11 @@
         id: this.options.indicator.id,
         iso: this.options.iso,
         year: this.options.year,
+        indicator: this.options.indicator,
         filters: this.options.filters,
         analysisIndicatorId: this.options.analysisIndicator,
-        compareIndicators: this.options.compareIndicators
+        compareIndicators: this.options.compareIndicators,
+        expanded: this.options.chart === 'table'
       });
 
       this.model.fetch()
@@ -351,8 +355,8 @@
             name: this.model.get('title'),
             noData: !data.length,
             showToolbar: this.options.showToolbar,
-            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
-            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND,
+            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
+            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
             isAnalyzing: !!this.options.analysisIndicator,
             isComparing: !!this.options.compareIndicators
           });
@@ -372,9 +376,7 @@
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
         var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-        var isStrandIndicator = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRAND;
-        var isStrandOnlyChart = !!chart.strandOnly;
-        return isStrandIndicator === isStrandOnlyChart;
+        return !chart.categories || chart.categories.indexOf(this.options.indicator.category) !== -1;
       }, this);
     },
 
@@ -470,13 +472,6 @@
         }
       }
 
-      // If the analysis or compare mode is active, then the chart is always the same
-      if (this.options.analysisIndicator) {
-        this.options.chart = 'analysis';
-      } else if (this.options.compareIndicators) {
-        this.options.chart = 'compare';
-      }
-
       var chartDimensions = this._computeChartDimensions();
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
@@ -489,12 +484,24 @@
      * Create the chart and append it to the DOM
      */
     _renderChart: function () {
-      vg.parse
-        .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
-          this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
-          this.chart.on('mouseover', this._onMouseoverChart.bind(this));
-          this.chart.on('mouseout', this._onMouseoutChart.bind(this));
-        }.bind(this));
+      if (this.options.chart === 'table') {
+        var isAccess = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+
+        new App.View.TableView({
+          el: this.chartContainer,
+          collection: new Backbone.Collection(this.model.get('data')),
+          tableName: this.model.get('title') + ' data',
+          resultsPerPage: isAccess ? 5 : 3,
+          resultsPerPageOptions: isAccess ? [5, 10, 20] : null
+        });
+      } else {
+        vg.parse
+          .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
+            this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+            this.chart.on('mouseover', this._onMouseoverChart.bind(this));
+            this.chart.on('mouseout', this._onMouseoutChart.bind(this));
+          }.bind(this));
+      }
     },
 
     render: function () {

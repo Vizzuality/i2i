@@ -124,4 +124,54 @@
       color: rgba($color-1, .5);
     }
   }
+
+  &.-arrow-left {
+    position: relative;
+
+    > span {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -10000px;
+    }
+
+    &::before {
+      @include arrow(8px, 2px, $color-1, left);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(calc(-50% + 2px), -50%) rotate(45deg);
+    }
+
+    &[disabled] {
+      &::before {
+        border-color: rgba($color-1, .5);
+      }
+    }
+  }
+
+  &.-arrow-right {
+    position: relative;
+
+    > span {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: -10000px;
+    }
+
+    &::before {
+      @include arrow(8px, 2px, $color-1, right);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(calc(-50% - 2px), -50%) rotate(45deg);
+    }
+
+    &[disabled] {
+      &::before {
+        border-color: rgba($color-1, .5);
+      }
+    }
+  }
 }
