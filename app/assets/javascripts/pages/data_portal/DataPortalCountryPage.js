@@ -1,43 +1,6 @@
 (function (App) {
   'use strict';
 
-  var IndicatorsCollection = Backbone.Collection.extend({
-    // initialize: function (iso, year) {
-    //   this.iso = iso;
-    //   this.year = year;
-    // },
-
-    // url: function() {
-    //   return API_URL + '/indicator/' + this.iso + '/' + this.year;
-    // },
-
-    // parse: function (data) {
-    //   return _.uniq(data.data.map(function (o) { return o.indicatorId }))
-    //     .map(function (indicatorId) {
-    //       return {
-    //         indicator: indicatorId
-    //       };
-    //     });
-    // }
-  });
-
-  var INDICATORS = [
-    { id: 'geographic_area', name: 'Geographic Area', category: 'Common Indicators', visible: false },
-    { id: 'gender', name: 'Gender', category: 'Common Indicators', visible: false },
-    { id: 'age',name: 'Age', category: 'Common Indicators', visible: false },
-    // { id: 'access_to_resources', name: 'Access to Resources', category: 'Common Indicators', visible: false },
-    // { id: 'dwelling_type', name: 'Dwelling type: roof/dwelling', category: 'Common Indicators', visible: false },
-    { id: 'i2i_Marital_Status', name: 'Marital Status', category: 'Common Indicators', visible: false },
-    { id: 'i2i_Education', name: 'Level of education', category: 'Common Indicators', visible: true },
-    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common Indicators', visible: true },
-    { id: 'fas_strand', name: 'Financial services uptake', category: 'Financial Access', visible: true },
-    { id: 'savings_strand', name: 'Savings', category: 'Financial Access', visible: true },
-    { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
-    { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
-    { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false }
-    // { id: 'total_strands', name: 'Strands', category: 'Financial Access', visible: false }
-  ];
-
   var MapUrlModel = Backbone.Model.extend({
 
     initialize: function (iso) {
@@ -85,7 +48,7 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new IndicatorsCollection();
+      this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       this.mapUrlModel = new MapUrlModel(this.options.iso);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -195,14 +158,7 @@
       this.render();
 
       $.when.apply($, [
-        (function () {
-          var deferred = $.Deferred();
-          this.indicatorsCollection.set(INDICATORS);
-          deferred.resolve(INDICATORS);
-
-          // return this.indicatorsCollection.fetch()
-          return deferred;
-        }.bind(this))(),
+        this.indicatorsCollection.fetch(),
         this.mapUrlModel.fetch()
       ])
         .done(function (){
@@ -374,8 +330,7 @@
       visibleIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView({
           el: this.widgetsContainer.children[index].children[0],
-          indicators: this.indicatorsCollection.toJSON(),
-          indicator: indicator,
+          id: indicator.id,
           iso: this.options.iso,
           year: this.options.year,
           filters: this.options._filters
