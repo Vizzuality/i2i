@@ -47,7 +47,8 @@
     //  *** localStorage private methods ***
 
     /**
-     * @return array - Returns an array of indicators or an empty array
+     * Returns an array of indicators or an empty array
+     * @return object[] - Array of indicators
      */
     _getSavedIndicators: function() {
       return localStorage.getItem('indicators') ?
@@ -56,7 +57,7 @@
 
     /**
      * Serializes indicator's properties
-     * @params indicator - indicator to be serialiazed
+     * @param {object} indicator - indicator to be serialiazed
      */
     _serializeIndicator: function(indicator) {
       return App.Helper.Indicators.serialize(indicator);
@@ -64,7 +65,7 @@
 
     /**
      * Adds the given indicator to localStorage collection
-     * @params indicator (object) - indicator to be added
+     * @param {object} indicator - indicator to be added
      */
     _saveIndicator: function(indicator) {
       var savedIndicators = this._getSavedIndicators();
@@ -78,7 +79,7 @@
 
     /**
      * Removes the given indicator from localStorage collection
-     * @params indicatorToRemove (object) - indicator to be removed
+     * @param {object} indicatorToRemove - indicator to be removed
      */
     _removeIndicator: function(indicatorToRemove) {
       var serializedIndicator = this._serializeIndicator(indicatorToRemove);
@@ -93,8 +94,8 @@
 
     /**
      * Check if the indicator is already saved in the localStorage object.
-     * @params indicator - checked indicator
-     * @return boolean - It's saved or not
+     * @param {object} indicator - checked indicator
+     * @return {boolean} isEqual - It's saved or not
      */
     _isIndicatorSaved: function (indicator) {
       var serializedIndicator = this._serializeIndicator(indicator);
@@ -104,17 +105,17 @@
         return false;
       }
 
-      var isEqual = savedIndicators.find(function (savedIndicator) {
+      var isSaved = savedIndicators.find(function (savedIndicator) {
         return _.isEqual(serializedIndicator, savedIndicator);
       });
 
-      return !!isEqual;
+      return !!isSaved;
     },
 
     //  *** END localStorage private methods ***
 
     /**
-     * @return object - object with bounds and offsets properties of the modal
+     * @return {object} - object with bounds and offsets properties of the modal
      */
     _getModalDimensions: function() {
       var bounds = this.options.widgetConfig.el.getBoundingClientRect();
@@ -185,9 +186,7 @@
       // adds indicator to localStorage
       this._saveIndicator(indicator);
 
-      // disables 'Add to report' button once the widget is added
-      this.el.querySelector('.js-add-report').classList.add('_is-hidden');
-      this.el.querySelector('.js-remove-report').classList.remove('_is-hidden');
+      this._toggleButtons();
     },
 
     _onRemoveReport: function () {
@@ -196,8 +195,7 @@
       // removes indicator from localStorage
       this._removeIndicator(indicator);
 
-      this.el.querySelector('.js-add-report').classList.remove('_is-hidden');
-      this.el.querySelector('.js-remove-report').classList.add('_is-hidden');
+      this._toggleButtons();
     },
 
     _onSelectSlide: function (event) {
