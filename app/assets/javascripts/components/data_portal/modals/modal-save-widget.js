@@ -81,9 +81,10 @@
      * @params indicatorToRemove (object) - indicator to be removed
      */
     _removeIndicator: function(indicatorToRemove) {
+      var serializedIndicator = this._serializeIndicator(indicatorToRemove);
       var savedIndicators = this._getSavedIndicators();
       savedIndicators = savedIndicators.filter(function (savedIndicator) {
-        return !_.isEqual(savedIndicator, indicatorToRemove);
+        return !_.isEqual(savedIndicator, serializedIndicator);
       });
 
       localStorage.setItem('indicators', JSON.stringify(savedIndicators));
@@ -96,19 +97,15 @@
      * @return boolean - It's saved or not
      */
     _isIndicatorSaved: function (indicator) {
-      // var indicator = _.extend({}, this.options.widgetConfig);
+      var serializedIndicator = this._serializeIndicator(indicator);
       var savedIndicators = this._getSavedIndicators();
-
-      // removes unnecessary attributes
-      delete indicator.el;
-      delete indicator.showToolbar;
 
       if (!savedIndicators.length) {
         return false;
       }
 
       var isEqual = savedIndicators.find(function (savedIndicator) {
-        return _.isEqual(indicator, savedIndicator);
+        return _.isEqual(serializedIndicator, savedIndicator);
       });
 
       return !!isEqual;
@@ -184,9 +181,6 @@
 
     _onAddReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-      // removes unnecessary attributes
-      delete indicator.el;
-      delete indicator.showToolbar;
 
       // adds indicator to localStorage
       this._saveIndicator(indicator);
@@ -198,9 +192,6 @@
 
     _onRemoveReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-      // removes unnecessary attributes
-      delete indicator.el;
-      delete indicator.showToolbar;
 
       // removes indicator from localStorage
       this._removeIndicator(indicator);
