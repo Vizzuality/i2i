@@ -20,12 +20,12 @@
 
     /**
      * Serialize an indicator
-     * @param {{ indicator: string, iso: string, year: number, chart: string, analysisIndicator: {}, compareIndicators: {}[] }} indicator
+     * @param {{ id: string, iso: string, year: number, chart: string, analysisIndicator: {}, compareIndicators: {}[] }} indicator
      * @return {{ id: string, i: string, y: number, c: string, an: {}, cp: {}[] }}
      */
     serialize: function (indicator) {
       return {
-        id: indicator.indicator,
+        id: indicator.id,
         i: indicator.iso,
         y: indicator.year,
         c: indicator.chart,
@@ -37,11 +37,11 @@
     /**
      * Serialize an indicator
      * @param {{ id: string, i: string, y: number, c: string, an: {}, cp: {}[] }} serializedIndicator
-     * @return {{ indicator: string, iso: string, year: number, chart: string, analysisIndicator: {}, compareIndicators: {}[] }}
+     * @return {{ id: string, iso: string, year: number, chart: string, analysisIndicator: {}, compareIndicators: {}[] }}
      */
     deserialize: function (serializedIndicator) {
       return {
-        indicator: serializedIndicator.id,
+        id: serializedIndicator.id,
         iso: serializedIndicator.i,
         year: serializedIndicator.y,
         chart: serializedIndicator.c,
