@@ -35,7 +35,7 @@
     },
 
     /**
-     * Serialize an indicator
+     * Deserialize an indicator
      * @param {{ id: string, i: string, y: number, c: string, an: {}, cp: {}[] }} serializedIndicator
      * @return {{ id: string, iso: string, year: number, chart: string, analysisIndicator: {}, compareIndicators: {}[] }}
      */
