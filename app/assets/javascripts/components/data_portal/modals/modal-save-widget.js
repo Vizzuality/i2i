@@ -55,13 +55,31 @@
     },
 
     /**
+     * Serializes indicator's properties
+     * @params indicator - indicator to be serialiazed
+     */
+    _serializeIndicator: function(indicator) {
+      // serializes filters
+      var serializedFilters = indicator.filters.map(function(f) {
+        return App.Helper.Filters.serialize(f);
+      });
+
+      // serializes indicator params and extends the already serialized filters
+      return _.extend({}, App.Helper.Indicators.serialize(indicator),
+        { f: serializedFilters });
+    },
+
+    /**
      * Adds the given indicator to localStorage collection
      * @params indicator (object) - indicator to be added
      */
     _saveIndicator: function(indicator) {
       var savedIndicators = this._getSavedIndicators();
-      savedIndicators.push(indicator);
+      var serializedIndicator = this._serializeIndicator(indicator);
+
+      savedIndicators.push(serializedIndicator);
       localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+
       Backbone.Events.trigger('indicator:saved');
     },
 

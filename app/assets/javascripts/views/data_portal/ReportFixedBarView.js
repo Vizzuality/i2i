@@ -4,7 +4,7 @@
     className: 'c-report-fixed-bar',
 
     template: function (params) {
-      return '<a href="/data-portal/report"> \
+      return '<a href="/data-portal/report?p=' + params.encondedIndicators + '"> \
         <span class="go-to-report">Go to report</span> \
         <span class="widgets-total">(' + params.widgetsOnReport
           + ' ' + params.literal + ')</span> </a>';
@@ -19,6 +19,14 @@
       Backbone.Events.on('indicator:saved', this.render.bind(this));
     },
 
+    /**
+     * Encondes saved indicators array to b64. More info in helpers/url
+     * @return base64 string of saved indicator array
+     */
+    _encodeIndicators: function () {
+      return App.Helper.URL.encode({ indicators: localStorage.getItem('indicators') });
+    },
+
     render: function () {
       var widgetsOnReport = localStorage.getItem('indicators') ? JSON.parse(localStorage.getItem('indicators')).length : null;
 
@@ -26,6 +34,7 @@
 
       $('body').append($(this.el).html(
         this.template({
+          encondedIndicators: this._encodeIndicators(),
           widgetsOnReport: widgetsOnReport,
           literal: widgetsOnReport > 1 ? 'widgets' : 'widget'
         })
