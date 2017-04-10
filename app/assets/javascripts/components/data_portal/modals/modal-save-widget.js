@@ -42,10 +42,68 @@
           callback: this._returnWidget.bind(this)
         })
       }];
-
-      this.reportWidgets = localStorage.getItem('widgets') ?
-        JSON.parse(localStorage.getItem('widgets')) : [];
     },
+
+    //  *** localStorage private methods ***
+
+    /**
+     * @return array - Returns an array of indicators or an empty array
+     */
+    _getSavedIndicators: function() {
+      return localStorage.getItem('indicators') ?
+        JSON.parse(localStorage.getItem('indicators')) : [];
+    },
+
+    /**
+     * Adds the given indicator to localStorage collection
+     * @params indicator (object) - indicator to be added
+     */
+    _saveIndicator: function(indicator) {
+      var savedIndicators = this._getSavedIndicators();
+      savedIndicators.push(indicator);
+      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+      Backbone.Events.trigger('indicator:saved');
+    },
+
+    /**
+     * Removes the given indicator from localStorage collection
+     * @params indicatorToRemove (object) - indicator to be removed
+     */
+    _removeIndicator: function(indicatorToRemove) {
+      var savedIndicators = this._getSavedIndicators();
+      savedIndicators = savedIndicators.filter(function (savedIndicator) {
+        return !_.isEqual(savedIndicator, indicatorToRemove);
+      });
+
+      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+      Backbone.Events.trigger('indicator:saved');
+    },
+
+    /**
+     * Check if the indicator is already saved in the localStorage object.
+     * @params indicator - checked indicator
+     * @return boolean - It's saved or not
+     */
+    _isIndicatorSaved: function (indicator) {
+      // var indicator = _.extend({}, this.options.widgetConfig);
+      var savedIndicators = this._getSavedIndicators();
+
+      // removes unnecessary attributes
+      delete indicator.el;
+      delete indicator.showToolbar;
+
+      if (!savedIndicators.length) {
+        return false;
+      }
+
+      var isEqual = savedIndicators.find(function (savedIndicator) {
+        return _.isEqual(indicator, savedIndicator);
+      });
+
+      return !!isEqual;
+    },
+
+    //  *** END localStorage private methods ***
 
     /**
      * @return object - object with bounds and offsets properties of the modal
@@ -106,58 +164,21 @@
      * Toggle button classes based on widget saved status
      */
     _toggleButtons: function () {
-      var isAdded = this._isWidgetAdded();
+      var currentIndicator = _.extend({}, this.options.widgetConfig);
+      var isSaved = this._isIndicatorSaved(currentIndicator);
 
-      this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isAdded);
-      this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isAdded);
-    },
-
-    _addWidgetToReport: function (widget) {
-      this.reportWidgets.push(widget);
-      localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
-      Backbone.Events.trigger('localStorage:setItem');
-    },
-
-    _removeWidgetFromReport: function (widget) {
-      this.reportWidgets = this.reportWidgets.filter(function (w) {
-        return !_.isEqual(w, widget);
-      });
-
-      localStorage.setItem('widgets', JSON.stringify(this.reportWidgets));
-      Backbone.Events.trigger('localStorage:setItem');
-    },
-
-    /**
-     * Check if the widget is already added in the localStorage object.
-     * @return boolean - It's added or not
-     */
-    _isWidgetAdded: function () {
-      var widgetConfig = _.extend({}, this.options.widgetConfig);
-
-      // Check this... Try to avoid
-      // removes unnecessary attributes
-      delete widgetConfig.el;
-      delete widgetConfig.showToolbar;
-
-      if (!this.reportWidgets.length) {
-        return false;
-      }
-
-      var isEqual = this.reportWidgets.find(function (w) {
-        return _.isEqual(widgetConfig, w);
-      });
-
-      return !!isEqual;
+      this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isSaved);
+      this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isSaved);
     },
 
     _onAddReport: function () {
-      var widgetConfig = _.extend({}, this.options.widgetConfig);
+      var indicator = _.extend({}, this.options.widgetConfig);
       // removes unnecessary attributes
-      delete widgetConfig.el;
-      delete widgetConfig.showToolbar;
+      delete indicator.el;
+      delete indicator.showToolbar;
 
-      // adds widget to localStorage
-      this._addWidgetToReport(widgetConfig);
+      // adds indicator to localStorage
+      this._saveIndicator(indicator);
 
       // disables 'Add to report' button once the widget is added
       this.el.querySelector('.js-add-report').classList.add('_is-hidden');
@@ -165,12 +186,13 @@
     },
 
     _onRemoveReport: function () {
-      var widgetConfig = _.extend({}, this.options.widgetConfig);
+      var indicator = _.extend({}, this.options.widgetConfig);
       // removes unnecessary attributes
-      delete widgetConfig.el;
-      delete widgetConfig.showToolbar;
+      delete indicator.el;
+      delete indicator.showToolbar;
 
-      this._removeWidgetFromReport(widgetConfig);
+      // removes indicator from localStorage
+      this._removeIndicator(indicator);
 
       this.el.querySelector('.js-add-report').classList.remove('_is-hidden');
       this.el.querySelector('.js-remove-report').classList.add('_is-hidden');

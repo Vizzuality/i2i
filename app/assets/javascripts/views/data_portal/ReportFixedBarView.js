@@ -16,11 +16,11 @@
     },
 
     _setEventListeners: function () {
-      Backbone.Events.on('localStorage:setItem', this.render.bind(this));
+      Backbone.Events.on('indicator:saved', this.render.bind(this));
     },
 
     render: function () {
-      var widgetsOnReport = localStorage.getItem('widgets') ? JSON.parse(localStorage.getItem('widgets')).length : null;
+      var widgetsOnReport = localStorage.getItem('indicators') ? JSON.parse(localStorage.getItem('indicators')).length : null;
 
       this.el.classList.toggle('_is-hidden', !widgetsOnReport);
 
