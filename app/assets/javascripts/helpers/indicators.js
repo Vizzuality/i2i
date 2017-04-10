@@ -30,7 +30,7 @@
         y: indicator.year,
         c: indicator.chart,
         an: indicator.analysisIndicator,
-        cp: compareIndicators
+        cp: indicator.compareIndicators
       };
     },
 
