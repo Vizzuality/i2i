@@ -47,29 +47,47 @@
         JSON.parse(localStorage.getItem('widgets')) : [];
     },
 
-    _setPosition: function () {
+    /**
+     * @return object - object with bounds and offsets properties of the modal
+     */
+    _getModalDimensions: function() {
       var bounds = this.options.widgetConfig.el.getBoundingClientRect();
-      var offsets = {
-        top: bounds.top + document.body.scrollTop,
-        left: bounds.left + document.body.scrollLeft
+      return {
+        bounds: bounds,
+        offsets: {
+          top: bounds.top + document.body.scrollTop,
+          left: bounds.left + document.body.scrollLeft
+        }
       };
-      var isAdded = this._isWidgetAdded();
+    },
 
+    /**
+     * Sets dimensions of the modal before render its content
+     */
+    _setDimensions: function () {
+      var modalDimension = this._getModalDimensions();
       var modal = this.el.querySelector('.c-modal');
       var modalContent = modal.querySelector('.js-modal-content');
 
       modal.classList.add('-save-widget');
-      modal.style.top = offsets.top + 'px';
-      modal.style.left = offsets.left + 'px';
+      modal.style.top = modalDimension.offsets.top + 'px';
+      modal.style.left = modalDimension.offsets.left + 'px';
 
-      modalContent.style.width = bounds.width + 'px';
-      modalContent.style.height = bounds.height + 'px';
+      modalContent.style.width = modalDimension.bounds.width + 'px';
+      modalContent.style.height = modalDimension.bounds.height + 'px';
+    },
+
+    /**
+     * Renders modal content and performs a scroll animation if needed.
+     */
+    _renderContent: function () {
+      var modalDimension = this._getModalDimensions();
 
       // we assure the modal is completely displayed. This way focus won't center it
-      if (offsets.top < document.body.scrollTop) {
+      if (modalDimension.offsets.top < document.body.scrollTop) {
         $('body').animate({
           // 52px is the height of the modal title
-          scrollTop: offsets.top - 52
+          scrollTop: modalDimension.offsets.top - 52
         }, 400, function () {
           this._renderWidget();
           this._renderSlides();
@@ -82,6 +100,13 @@
 
         this.constructor.__super__.afterRender.apply(this);
       }
+    },
+
+    /**
+     * Toggle button classes based on widget saved status
+     */
+    _toggleButtons: function () {
+      var isAdded = this._isWidgetAdded();
 
       this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isAdded);
       this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isAdded);
@@ -186,7 +211,9 @@
     },
 
     afterRender: function () {
-      this._setPosition();
+      this._setDimensions();
+      this._renderContent();
+      this._toggleButtons();
     },
 
     render: function () {
