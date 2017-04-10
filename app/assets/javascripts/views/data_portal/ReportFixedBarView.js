@@ -20,8 +20,8 @@
     },
 
     /**
-     * Encondes saved indicators array to b64. More info in helpers/url
-     * @return base64 string of saved indicator array
+     * Encodes saved indicators array to b64. More info in helpers/url
+     * @return {string} - string of saved indicator array
      */
     _encodeIndicators: function () {
       return App.Helper.URL.encode({ indicators: localStorage.getItem('indicators') });

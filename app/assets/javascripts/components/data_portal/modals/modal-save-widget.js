@@ -48,7 +48,7 @@
 
     /**
      * Returns an array of indicators or an empty array
-     * @return object[] - Array of indicators
+     * @return {object[]} - Array of indicators
      */
     _getSavedIndicators: function() {
       return localStorage.getItem('indicators') ?
