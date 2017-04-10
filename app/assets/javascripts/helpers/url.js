@@ -4,7 +4,7 @@ App.Helper.URL = {
    * @param {object} state state to be saved in the URL
    * @returns {string} encodedState
    */
-  _encode: function (state) {
+  encode: function (state) {
     return encodeURIComponent(btoa(JSON.stringify(state)));
   },
 
@@ -14,7 +14,7 @@ App.Helper.URL = {
    * @param {object} encodedState
    * @returns {object|null} state
    */
-  _decode: function (encodedState) {
+  decode: function (encodedState) {
     try {
       return JSON.parse(atob(decodeURIComponent(encodedState)));
     } catch (err) {
