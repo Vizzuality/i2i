@@ -59,14 +59,7 @@
      * @params indicator - indicator to be serialiazed
      */
     _serializeIndicator: function(indicator) {
-      // serializes filters
-      var serializedFilters = indicator.filters.map(function(f) {
-        return App.Helper.Filters.serialize(f);
-      });
-
-      // serializes indicator params and extends the already serialized filters
-      return _.extend({}, App.Helper.Indicators.serialize(indicator),
-        { f: serializedFilters });
+      return App.Helper.Indicators.serialize(indicator);
     },
 
     /**
