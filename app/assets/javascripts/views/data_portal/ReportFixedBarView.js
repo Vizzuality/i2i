@@ -3,7 +3,12 @@
 
     className: 'c-report-fixed-bar',
 
-    template: JST['templates/data_portal/report-fixed-bar'],
+    template: function (params) {
+      return '<a href="/data-portal/report"> \
+        <span class="go-to-report">Go to report</span> \
+        <span class="widgets-total">(' + params.widgetsOnReport
+          + ' ' + params.literal + ')</span> </a>';
+    },
 
     initialize: function () {
       this._setEventListeners();
