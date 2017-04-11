@@ -44,6 +44,7 @@
     events: {
       'click .js-customize-indicators': '_openFilterModal',
       'click .js-filter-tag': '_openFilterModal',
+      'click .js-download-all': '_openDownloadAllModal'
     },
 
     initialize: function (settings) {
@@ -188,6 +189,13 @@
           ? this._getJurisdictionFilter().options[0]
           : null,
         continueCallback: this._onFiltersUpdate.bind(this)
+      });
+    },
+
+    _openDownloadAllModal: function () {
+      new App.Component.ModalDownloadAll({
+        iso: this.options.iso,
+        year: this.options.year
       });
     },
 
