@@ -522,8 +522,8 @@
           el: this.chartContainer,
           collection: new Backbone.Collection(this.model.get('data')),
           tableName: this.model.get('title') + ' data',
-          resultsPerPage: isAccess ? 5 : 3,
-          resultsPerPageOptions: isAccess ? [5, 10, 20] : null
+          resultsPerPage: isAccess ? 10 : 3,
+          resultsPerPageOptions: null
         });
       } else {
         vg.parse
