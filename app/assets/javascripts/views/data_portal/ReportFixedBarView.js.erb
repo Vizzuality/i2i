@@ -1,3 +1,4 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
 
 (function (App) {
   App.View.ReportFixedBar = Backbone.View.extend({
@@ -5,7 +6,7 @@
     className: 'c-report-fixed-bar',
 
     template: function (params) {
-      return '<a href="/data-portal/report?p=' + params.encodedIndicators + '"> \
+      return '<a href="<%= data_portal_report_path %>?p=' + params.encodedIndicators + '"> \
         <span class="go-to-report">Go to report</span> \
         <span class="widgets-total">(' + params.widgetsOnReport
           + ' ' + params.literal + ')</span> </a>';
