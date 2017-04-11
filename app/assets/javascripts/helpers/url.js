@@ -11,7 +11,7 @@ App.Helper.URL = {
   /**
    * Return the state encoded as an URL
    * NOTE: return null if the state couldn't be decoded properly
-   * @param {object} encodedState
+   * @param {string} encodedState
    * @returns {object|null} state
    */
   decode: function (encodedState) {

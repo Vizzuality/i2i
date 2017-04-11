@@ -13,7 +13,7 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button disabled type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -39,6 +39,7 @@
       this.constructor.__super__._setVars.call(this);
       this.slides = [{
         view: new App.View.ShareView({
+          widgetConfig: this.options.widgetConfig,
           callback: this._returnWidget.bind(this)
         })
       }];
