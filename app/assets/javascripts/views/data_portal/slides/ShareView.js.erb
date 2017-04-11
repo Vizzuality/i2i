@@ -19,6 +19,14 @@
       'blur  .js-copy': '_onBlur'
     },
 
+    initialize: function (options) {
+      this.defaults = _.extend({}, this.defaults, {
+        title: 'Sharing options'
+      });
+
+      App.Component.Slide.prototype.initialize.call(this, options);
+    },
+
     _onCopy: function (e) {
       var copyButton = e.currentTarget;
 

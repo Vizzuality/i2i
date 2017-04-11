@@ -218,8 +218,9 @@
     },
 
     _renderSlides: function () {
+      var slidesContainer = this.$el.find('.js-slider-container');
       this.slides.forEach(function (slide) {
-        $(this.el.querySelector('.js-slider-container')).append(slide.view.render());
+        slidesContainer.append(slide.view.render());
       }.bind(this));
     },
 
