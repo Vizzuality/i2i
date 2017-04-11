@@ -2,12 +2,12 @@
   <button class="back js-back" aria-label="Close sharing options">Share</button>
   <ul class="social-links-list">
     <li class="social-links-item -twitter">
-      <a href="<%= twitter %>" alt="share-twitter" target="_blank" ref="noopener noreferrer">
+      <a href="<%= twitter %>" aria-label="Share on Twitter" target="_blank" ref="noopener noreferrer">
         <svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>
       </a>
     </li>
     <li class="social-links-item -facebook">
-      <a href="<%= facebook %>" alt="share-facebook" target="_blank" ref="noopener noreferrer">
+      <a href="<%= facebook %>" aria-label="Share on Facebook" target="_blank" ref="noopener noreferrer">
         <svg class="icon icon-facebook"><use xlink:href="#icon-facebook"></use></svg>
       </a>
     </li>
@@ -20,7 +20,7 @@
         <div class="copy-field">
           <%= page_link %>
         </div>
-        <button class="c-button -sea copy-button js-copy">Copy</button>
+        <button class="c-button -sea copy-button js-copy" aria-label="Copy URL">Copy</button>
       </div>
     </li>
     <li class="page-links-item">
@@ -29,7 +29,7 @@
         <div class="copy-field">
           <%= _.escape(embed_link) %>
         </div>
-        <button class="c-button -sea -disabled copy-button js-copy">Copy</button>
+        <button class="c-button -sea -disabled copy-button js-copy" aria-label="Copy embed code">Copy</button>
       </div>
     </li>
   </ul>
