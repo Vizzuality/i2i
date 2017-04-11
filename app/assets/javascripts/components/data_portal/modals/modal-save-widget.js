@@ -141,8 +141,10 @@
       modal.style.top = modalDimension.offsets.top + 'px';
       modal.style.left = modalDimension.offsets.left + 'px';
 
+      var modalHeight = Math.min(modalDimension.bounds.height, 550);
+
       modalContent.style.width = modalDimension.bounds.width + 'px';
-      modalContent.style.height = modalDimension.bounds.height + 'px';
+      modalContent.style.height = modalHeight + 'px';
     },
 
     /**
