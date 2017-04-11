@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get 'about' => 'static_pages#about'
 
+  get 'terms-of-use' => 'static_pages#terms_of_use'
+
 
   namespace :updates do
     resources :news, only: [:index, :show]
