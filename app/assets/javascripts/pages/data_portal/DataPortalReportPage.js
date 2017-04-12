@@ -24,12 +24,8 @@
      * Fetch the model for the selected country and year
      */
     _fetchData: function () {
-      // The first time we render to have the placeholder flags
-      this.render();
-
-      $.when.apply($,
-        this.indicatorsCollection.fetch()
-      ).done(function () {
+      this.indicatorsCollection.fetch()
+        .done(function() {
           this._loadingError = false;
         }.bind(this))
         .fail(function () {
@@ -39,14 +35,23 @@
     },
 
     /**
-     * Return the sorted list of visible indicators
+     * Return the sorted list of indicators
      * NOTE: the access indicators are always displayed first
      * @returns {object[]} widgets
      */
-    _getVisibleIndicators: function () {
-      return this.indicatorsCollection.toJSON().filter(function (indicator) {
-        return indicator.visible;
-      }).sort(function (a, b) {
+    _sortIndicators: function () {
+      // links category with indicators
+      this.options.indicators.forEach(function(ind) {
+        var index = this.indicatorsCollection.toJSON().findIndex(function(i) {
+          return i.id === ind.id
+        });
+
+        if (index === -1) return;
+
+        ind.category = this.indicatorsCollection.toJSON()[index].category;
+      }.bind(this));
+
+      return this.options.indicators.sort(function (a, b) {
         var aIsAccess = a.category === App.Helper.Indicators.CATEGORIES.ACCESS;
         var bIsAccess = b.category === App.Helper.Indicators.CATEGORIES.ACCESS;
         if (aIsAccess && !bIsAccess) return -1;
@@ -78,13 +83,13 @@
     /**
      * Update the size of the widget container depending on
      * if the category of the indicator
-     * @param {object} indicator
+     * @param {object} customIndicator
      * @param {object} widgetContainer
      */
-    _updateWidgetContainer: function (indicator, widgetContainer) {
-      var visibleIndicators = this._getVisibleIndicators();
-      var index = _.findIndex(visibleIndicators, { id: indicator.id });
-      var indicator = visibleIndicators[index];
+    _updateWidgetContainer: function (customIndicator, widgetContainer) {
+      var indicators = this.indicatorsCollection.toJSON();
+      var index = _.findIndex(indicators, { id: customIndicator.id });
+      var indicator = indicators[index];
       var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
 
       if (isAccess) {
@@ -117,21 +122,18 @@
         this.widgets.forEach(function (widget) {
           this.stopListening(widget);
         }, this);
-        this.widgets = [];
-      } else {
-        this.widgets = [];
       }
 
+      this.widgets = [];
+
+      var sortedIndicators = this._sortIndicators();
+
       // We instantiate the widget views
-      this.options.indicators.forEach(function (indicator, index) {
-        var widget = new App.View.ChartWidgetView({
-          el: this.widgetsContainer.children[index].children[0],
-          id: indicator.id,
-          iso: indicator.iso,
-          year: indicator.year,
-          filters: indicator.filters,
-          showToolbar: false
-        });
+      sortedIndicators.forEach(function (indicator, index) {
+        var widget = new App.View.ChartWidgetView(_.extend({},
+          { el: this.widgetsContainer.children[index].children[0], showToolbar: false },
+          indicator
+        ));
 
         this.widgets.push(widget);
 

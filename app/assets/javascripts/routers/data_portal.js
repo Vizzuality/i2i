@@ -49,16 +49,16 @@
       // otherwise you'll break the browser's back button
       Backbone.history.stop();
       var indicators = [],
-        serializedIndicators;
+        deserializedIndicators;
 
       if (params) {
         var indicatorsb64 = params.split('=')[1] ? params.split('=')[1] : null;
         if (indicatorsb64) {
-          // decodes b64 string to object
-          indicators = JSON.parse(App.Helper.URL.decode(indicatorsb64).indicators);
+          // decodes b64 object to object
+          indicators = App.Helper.URL.decode(indicatorsb64).indicators;
 
           // deserializes incoming indicators
-          serializedIndicators = indicators.map(function(ind) {
+          deserializedIndicators = indicators.map(function(ind) {
             return App.Helper.Indicators.deserialize(ind);
           });
         }
@@ -71,7 +71,7 @@
       }
 
       new App.Page.DataPortalReportPage({
-        indicators: serializedIndicators
+        indicators: deserializedIndicators
       });
     }
 
