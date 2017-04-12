@@ -237,6 +237,7 @@
      */
     _renderFooter: function () {
       this.footerContainer.innerHTML = this.footerTemplate({
+        isZambia: this.options.iso === 'ZMB', // remove this in the future
         error: this._loadingError,
         indicators: this._getVisibleIndicators(),
         mapUrl: this.mapUrlModel.get('url'),
