@@ -32,7 +32,14 @@
       display: flex;
       margin: 25px 0 0;
 
-      span {
+      label {
+        margin: 0;
+
+        color: $color-5;
+        font-family: $font-family-1;
+        font-size: $font-size-xs;
+        text-transform: none;
+
         > a {
           position: relative;
           color: $color-1;

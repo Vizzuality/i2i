@@ -9,7 +9,7 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button class="c-button -white js-close">Close</button></div><div class="group-button"><a disabled href="#" download class="c-button -sea js-continue">Continue</a></div>'
+      footer: '<div class="group-button"><button class="c-button -white js-close">Close</button></div><div class="group-button"><button class="c-button -sea js-continue">Continue</button></div>'
     },
 
     events: function () {
@@ -38,8 +38,16 @@
       this.termsCheckbox.addEventListener('change', this._validationForm.bind(this));
     },
 
+    _generateDownload: function() {
+      var link = document.createElement('a');
+      link.setAttribute('href', this._generateLink());
+      link.click();
+      link.remove();
+    },
+
     _onContinue: function () {
-      // whatever needed to do after click on the 'continue' button
+      this._generateDownload();
+      this.constructor.__super__.onCloseModal.apply(this);
     },
 
     /**
@@ -72,6 +80,7 @@
       this.constructor.__super__.afterRender.apply(this);
       this._setFormVars();
       this._setFormEventListeners();
+      this._validationForm();
       this._setDownloadLink();
     },
 
