@@ -221,7 +221,7 @@
     _renderHeader: function () {
       this.headerContainer.innerHTML = this.headerTemplate({
         error: this._loadingError,
-        indicators: this._getVisibleIndicators(),
+        indicators: this.indicatorsCollection.getVisibleIndicators(),
         filters: this.options._filters
           .filter(function (filter) { return filter.id !== 'jurisdiction'; }),
         year: this.options.year,
@@ -239,7 +239,7 @@
       this.footerContainer.innerHTML = this.footerTemplate({
         isZambia: this.options.iso === 'ZMB', // remove this in the future
         error: this._loadingError,
-        indicators: this._getVisibleIndicators(),
+        indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.mapUrlModel.get('url'),
         downloadUrl: API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
       });
@@ -271,7 +271,7 @@
      * @param {string} indicatorId
      */
     _updateWidgetContainer: function (indicatorId) {
-      var visibleIndicators = this._getVisibleIndicators();
+      var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
       var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
@@ -279,23 +279,6 @@
       if (isAccess) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
-    },
-
-    /**
-     * Return the sorted list of visible indicators
-     * NOTE: the access indicators are always displayed first
-     * @returns {object[]} widgets
-     */
-    _getVisibleIndicators: function () {
-      return this.indicatorsCollection.toJSON().filter(function (indicator) {
-        return indicator.visible;
-      }).sort(function (a, b) {
-        var aIsAccess = a.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        var bIsAccess = b.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        if (aIsAccess && !bIsAccess) return -1;
-        if (!aIsAccess && bIsAccess) return 1;
-        return 0;
-      });
     },
 
     /**
@@ -311,7 +294,7 @@
         return;
       }
 
-      var visibleIndicators = this._getVisibleIndicators();
+      var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
 
       if (!visibleIndicators.length) {
         this.widgetsContainer.innerHTML = '';

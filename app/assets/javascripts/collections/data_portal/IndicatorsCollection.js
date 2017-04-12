@@ -24,6 +24,14 @@
 
   App.Collection.IndicatorsCollection = Backbone.Collection.extend({
 
+    comparator: function (a, b) {
+      var aIsAccess = a.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var bIsAccess = b.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS;
+      if (aIsAccess && !bIsAccess) return -1;
+      if (!aIsAccess && bIsAccess) return 1;
+      return 0;
+    },
+
     fetch: function () {
       var deferred = $.Deferred();
       this.set(INDICATORS);
@@ -31,6 +39,10 @@
       return deferred;
     },
 
+    getVisibleIndicators: function () {
+      return this.toJSON().filter(function (indicator) {
+        return indicator.visible;
+      });
+    }
   });
-
 }).call(this, this.App);
