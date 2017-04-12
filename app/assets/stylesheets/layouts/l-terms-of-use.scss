@@ -1,0 +1,77 @@
+.l-terms-of-use {
+
+  > .l-intro {
+    padding: 0 0 25px;
+  }
+
+  .l-content {
+    margin: 75px 0;
+
+    .terms {
+      margin: 85px 0 0;
+    }
+  }
+
+  .subtitle {
+    margin-top: 32px;
+
+    text-align: center;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .term-title {
+    margin-top: 35px;
+    margin-bottom: 15px;
+
+    color: $color-5;
+    font-family: $font-family-2;
+    font-size: $font-size-s;
+    text-transform: uppercase;
+  }
+
+  .term-list {
+    margin: 35px 0 20px;
+  }
+
+  .disclaimer {
+    font-weight: $font-weight-bold;
+  }
+
+  .term-list > .term-item {
+    display: block;
+
+    &:not(:first-child) {
+      margin: 25px 0 0;
+    }
+
+    > .item-title,
+    > .item-description {
+      display: block;
+
+      color: $color-5;
+      font-family: $font-family-1;
+      font-size: $font-size-xs;
+    }
+
+    > .item-title {
+      font-weight: $font-weight-bold;
+    }
+
+    > .item-description {
+      margin: 5px 0 0;
+      font-weight: $font-weight-light;
+    }
+
+    > a {
+      display: inline-block;
+      margin: 5px 0 0;
+
+      color: $color-1;
+      font-weight: $font-weight-light;
+    }
+  }
+}

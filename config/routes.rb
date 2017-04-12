@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'data-portal/indicator', to: 'data_portal/indicator#show', as: 'data_portal_indicator'
 
   get 'about' => 'static_pages#about'
+  get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
 
 
   namespace :updates do

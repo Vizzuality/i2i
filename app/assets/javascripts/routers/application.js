@@ -7,7 +7,8 @@ var Router = Backbone.Router.extend({
     '': '_homePage',
     'updates/events': '_eventsPage',
     'libraries': '_libraryPage',
-    'about': '_aboutPage'
+    'about': '_aboutPage',
+    'terms-of-use': '_termsOfUsePage'
   },
 
   // *** PAGES ***
@@ -46,6 +47,12 @@ var Router = Backbone.Router.extend({
     Backbone.history.stop();
 
     new App.Page.AboutPage();
+  },
+
+  _termsOfUsePage: function () {
+    // Don't forget to stop the router on each route
+    // otherwise you'll break the browser's back button
+    Backbone.history.stop();
   }
 
 });
