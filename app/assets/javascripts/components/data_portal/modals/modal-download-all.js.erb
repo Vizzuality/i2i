@@ -1,3 +1,5 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
 (function (App) {
   App.Component.ModalDownloadAll = App.Component.Modal.extend({
 
@@ -85,7 +87,9 @@
     },
 
     render: function () {
-      this.options.content = this.contentTemplate();
+      this.options.content = this.contentTemplate({
+        termsLink: '<%= terms_of_use_path %>'
+      });
 
       this.constructor.__super__.render.apply(this);
     }
