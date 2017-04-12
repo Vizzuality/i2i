@@ -1,0 +1,28 @@
+.l-embed {
+  max-width: 1090px;
+  margin: 0 auto;
+  padding: 30px 15px;
+
+  .grid {
+    margin: 0 auto;
+    float: none;
+  }
+
+  .c-widget {
+    display: flex;
+    margin-bottom: 0;
+
+    > div {
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  .logo {
+    margin-top: 15px;
+
+    img {
+      max-width: 100px;
+    }
+  }
+}

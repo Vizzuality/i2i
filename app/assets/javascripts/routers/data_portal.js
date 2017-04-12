@@ -6,6 +6,7 @@
     routes: {
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
+      'data-portal/indicator': 'indicator'
     },
 
     index: function () {
@@ -27,6 +28,18 @@
       new App.Page.DataPortalCountryPage({
         iso: iso,
         year: +year
+      });
+    },
+
+    indicator: function (p) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      var state = p && p.slice(2, p.length + 1);
+
+      new App.Page.DataPortalIndicatorPage({
+        encodedState: state
       });
     }
 

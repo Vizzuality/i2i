@@ -1,0 +1,81 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+(function (App) {
+  App.View.ShareView = App.Component.Slide.extend({
+
+    template: JST['templates/data_portal/slides/shareWidget'],
+
+    className: 'slide',
+
+    defaults: {
+      // State of the widget
+      // Correspond to ChartWidgetView.options
+      widgetConfig: {}
+    },
+
+    events: {
+      'click .js-back': 'onCallback',
+      'click .js-copy': '_onCopy',
+      'blur  .js-copy': '_onBlur'
+    },
+
+    _onCopy: function (e) {
+      var copyButton = e.currentTarget;
+
+      window.getSelection().removeAllRanges();
+      var rangeSelection = document.createRange();
+      rangeSelection.selectNode(copyButton.previousElementSibling);
+      window.getSelection().addRange(rangeSelection)
+
+      var confirmation = document.execCommand('copy');
+
+      copyButton.innerText = confirmation ? 'Copied!' : 'Ops! Something went wrong!';
+    },
+
+    _onBlur: function (e) {
+      e.currentTarget.innerText = 'Copy';
+    },
+
+    /**
+     * Return the encoded state of the widget
+     * @return {string}
+     */
+    _getEncodedWidget: function () {
+      var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
+      return App.Helper.URL.encode(serializedWidget);
+    },
+
+    /**
+     * Return the URL or code of a service
+     * @param {string} service
+     * @return {string}
+     */
+    _generateURL: function (service) {
+      var widgetURL = location.origin +
+        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget();
+      var embedHeight = this.options.widgetConfig.el.offsetHeight + 65;
+
+      var urls = {
+        embed_link: '<iframe height="' + embedHeight + '" width="1090" src="' + widgetURL + '" style="border:0;"></iframe>',
+        facebook: 'http://www.facebook.com/sharer.php?u=' + widgetURL,
+        page_link: widgetURL,
+        twitter: 'https://twitter.com/intent/tweet?url=' + widgetURL
+      };
+
+      return urls[service] || '';
+    },
+
+    render: function () {
+      this.options.content = this.template({
+        embed_link: this._generateURL('embed_link'),
+        facebook: this._generateURL('facebook'),
+        page_link: this._generateURL('page_link'),
+        twitter: this._generateURL('twitter')
+      });
+      this.constructor.__super__.render.call(this);
+
+      return this.el;
+    }
+
+  });
+}).call(this, this.App);

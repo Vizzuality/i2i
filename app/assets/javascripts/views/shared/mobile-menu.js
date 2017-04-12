@@ -1,4 +1,3 @@
-
 (function (App) {
 
   App.View.MobileMenu = Backbone.View.extend({
@@ -20,7 +19,10 @@
     },
 
     _setEventListeners: function () {
-      document.querySelector('.js-btn-mobile-menu').addEventListener('click', this._toggleMenu.bind(this));
+      var button = document.querySelector('.js-btn-mobile-menu');
+      if (button) {
+        button.addEventListener('click', this._toggleMenu.bind(this));
+      }
     },
 
     _toggleMenu: function (e) {
