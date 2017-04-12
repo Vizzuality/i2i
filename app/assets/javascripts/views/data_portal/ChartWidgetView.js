@@ -39,7 +39,10 @@
       // Whether the widget is rendered in a report
       report: false,
       // Callback executed when the delete button is clicked
-      onDelete: function () {}
+      onDelete: function () {},
+      // Automatically resize the chart when the size of the window changes
+      // If false, then the chart is made "responsive" using the preserveAspectRatio attribute
+      autoResize: true
     },
 
     events: {
@@ -60,7 +63,9 @@
      * Set the listeners that doesn't depend on a DOM node
      */
     _setListeners: function () {
-      window.addEventListener('resize', _.debounce(this._onResize.bind(this), 150));
+      if (this.options.autoResize) {
+        window.addEventListener('resize', _.debounce(this._onResize.bind(this), 150));
+      }
     },
 
     /**
@@ -585,6 +590,17 @@
         vg.parse
           .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
             this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+
+            // If the chart is not auto resized, then we make it "responsive"
+            if (!this.options.autoResize) {
+              var svg = this.chartContainer.querySelector('svg');
+              svg.setAttribute('viewBox', '0,0,' + svg.getAttribute('width') + ',' + svg.getAttribute('height'));
+              svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+            }
+
+            // We trigger an event to let the parent view know the graph has been rendered
+            this.trigger('chart:render');
+
             this.chart.on('mouseover', this._onMouseoverChart.bind(this));
             this.chart.on('mouseout', this._onMouseoutChart.bind(this));
           }.bind(this));

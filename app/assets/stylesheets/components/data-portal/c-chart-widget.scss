@@ -38,6 +38,10 @@
         box-shadow: 0 2px 4px 0 rgba($color-6, .15);
       }
     }
+
+    svg {
+      width: 100%;
+    }
   }
 
   > .toolbar {

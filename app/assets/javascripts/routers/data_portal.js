@@ -37,10 +37,22 @@
       // otherwise you'll break the browser's back button
       Backbone.history.stop();
 
-      var state = p && p.slice(2, p.length + 1);
+      var params = p
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {});
 
       new App.Page.DataPortalIndicatorPage({
-        encodedState: state
+        encodedState: params.p || null,
+        print: params.print || false
       });
     },
 

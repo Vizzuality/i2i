@@ -1,3 +1,5 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
 (function (App) {
   App.Component.ModalSaveWidget = App.Component.Modal.extend({
 
@@ -13,7 +15,7 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -136,9 +138,22 @@
       this.setSlide(slideIndex);
     },
 
-    // TO-DO: take a screenshot of the embed
+    /**
+     * Return the encoded state of the widget
+     * @return {string}
+     */
+    _getEncodedWidget: function () {
+      var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
+      return App.Helper.URL.encode(serializedWidget);
+    },
+
+    /**
+     * Event handler executed when the user clicks the "Print" button
+     */
     _onPrint: function () {
-      console.warn('WIP!')
+      var printURL = location.origin +
+        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
+      window.open(printURL, '_blank');
     },
 
     /**
