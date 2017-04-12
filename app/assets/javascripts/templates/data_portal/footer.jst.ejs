@@ -3,7 +3,7 @@
   <div class="indicator-options">
       <button class="c-button -white" disabled>Add all to report</button>
       <% if (!isZambia) { %>
-        <a href="<%= downloadUrl %>" class="c-button -white" download>Download all</a>
+        <button class="c-button -white js-download-all">Download all</button>
       <% } %>
       <% if (mapUrl) { %><a class="c-button -white" href="<%= mapUrl %>" rel="noopener" target="_blank">Check FSPmaps data</a><% } %>
     </div>
