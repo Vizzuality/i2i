@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'data-portal' => 'data_portal#index'
   get 'data-portal/:iso/:year', to: 'data_portal#show', as: 'data_portal_country'
   get 'data-portal/indicator', to: 'data_portal/indicator#show', as: 'data_portal_indicator'
+  get 'data-portal/report', to: 'data_portal/report#show', as: 'data_portal_report'
+
 
   get 'about' => 'static_pages#about'
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
