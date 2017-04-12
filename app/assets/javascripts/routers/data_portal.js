@@ -6,6 +6,8 @@
     routes: {
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
+      'data-portal/indicator': 'indicator',
+      'data-portal/report': 'report'
     },
 
     index: function () {
@@ -27,6 +29,49 @@
       new App.Page.DataPortalCountryPage({
         iso: iso,
         year: +year
+      });
+    },
+
+    indicator: function (p) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      var state = p && p.slice(2, p.length + 1);
+
+      new App.Page.DataPortalIndicatorPage({
+        encodedState: state
+      });
+    },
+
+    report: function (params) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+      var indicators = [],
+        deserializedIndicators;
+
+      if (params) {
+        var indicatorsb64 = params.split('=')[1] ? params.split('=')[1] : null;
+        if (indicatorsb64) {
+          // decodes b64 object to object
+          indicators = App.Helper.URL.decode(indicatorsb64).indicators;
+
+          // deserializes incoming indicators
+          deserializedIndicators = indicators.map(function(ind) {
+            return App.Helper.Indicators.deserialize(ind);
+          });
+        }
+      }
+
+      // redirect to data-portal if there is no indicators to display
+      if (!indicators.length) {
+        Turbolinks.visit("/data-portal", { action: "replace" });
+        return;
+      }
+
+      new App.Page.DataPortalReportPage({
+        indicators: deserializedIndicators
       });
     }
 

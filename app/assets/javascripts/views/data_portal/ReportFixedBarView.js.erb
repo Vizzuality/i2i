@@ -1,0 +1,47 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+(function (App) {
+  App.View.ReportFixedBar = Backbone.View.extend({
+
+    className: 'c-report-fixed-bar',
+
+    template: function (params) {
+      return '<a href="<%= data_portal_report_path %>?p=' + params.encodedIndicators + '"> \
+        <span class="go-to-report">Go to report</span> \
+        <span class="widgets-total">(' + params.widgetsOnReport
+          + ' ' + params.literal + ')</span> </a>';
+    },
+
+    initialize: function () {
+      this._setEventListeners();
+      this.render();
+    },
+
+    _setEventListeners: function () {
+      Backbone.Events.on('indicator:saved', this.render.bind(this));
+    },
+
+    /**
+     * Encodes saved indicators array to b64. More info in helpers/url
+     * @return {string} - string of saved indicator array
+     */
+    _encodeIndicators: function () {
+      return App.Helper.URL.encode({ indicators: JSON.parse(localStorage.getItem('indicators')) });
+    },
+
+    render: function () {
+      var widgetsOnReport = localStorage.getItem('indicators') ? JSON.parse(localStorage.getItem('indicators')).length : null;
+
+      this.el.classList.toggle('_is-hidden', !widgetsOnReport);
+
+      $('body').append($(this.el).html(
+        this.template({
+          encodedIndicators: this._encodeIndicators(),
+          widgetsOnReport: widgetsOnReport,
+          literal: widgetsOnReport > 1 ? 'widgets' : 'widget'
+        })
+      ));
+    }
+
+  });
+}.call(this, this.App));

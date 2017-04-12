@@ -15,10 +15,8 @@
       _width: null,
       // Inner height of the chart, used internally
       _height: null,
-      // Indicator information
-      indicator: null,
-      // List of all the indicators
-      indicators: [],
+      // Indicator id
+      id: null,
       // ISO of the country
       iso: null,
       // Selected year
@@ -47,6 +45,7 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
+      this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       this._fetchData();
     },
 
@@ -55,6 +54,37 @@
      */
     _setListeners: function () {
       window.addEventListener('resize', _.debounce(this._onResize.bind(this), 150));
+    },
+
+    /**
+     * Event handler executed when the data is fetched
+     */
+    _onFetch: function () {
+      var data = this.model.get('data');
+      if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
+
+      // If the indicator doesn't have any data, we also want to send an event
+      // to notify the parent view about it
+      this.trigger('data:sync', {
+        id: this.options.id,
+        name: this.model.get('title'),
+        data: data
+      });
+
+      // We pre-render the component with its template
+      this.el.innerHTML = this.template({
+        name: this.model.get('title'),
+        noData: !data.length,
+        showToolbar: this.options.showToolbar,
+        canAnalyze: this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS,
+        canCompare: this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS,
+        isAnalyzing: !!this.options.analysisIndicator,
+        isComparing: !!this.options.compareIndicators
+      });
+      this.chartContainer = this.el.querySelector('.js-chart');
+
+      this.render();
+      this._setListeners();
     },
 
     /**
@@ -239,7 +269,7 @@
       var jurisdictionFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
 
       new App.Component.ModalChartCompare({
-        indicator: this.options.indicator,
+        indicator: this._getIndicator(),
         iso: this.options.iso,
         year: this.options.year,
         filters: this.options.filters,
@@ -264,7 +294,7 @@
      * Open the modal for the chart analysis
      */
     _openModalChartAnalysis: function () {
-      var nonAccessIndicators = this.options.indicators.filter(function (indicator) {
+      var nonAccessIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS;
       });
 
@@ -324,49 +354,50 @@
       // We show the spinning loader
       this._showLoader();
 
-      // We create a new model each time we request the data because the
-      // model options eventually changed
-      this.model = new App.Model.ChartWidgetModel({
-        id: this.options.indicator.id,
-        iso: this.options.iso,
-        year: this.options.year,
-        indicator: this.options.indicator,
-        filters: this.options.filters,
-        analysisIndicatorId: this.options.analysisIndicator,
-        compareIndicators: this.options.compareIndicators,
-        expanded: this.options.chart === 'table'
-      });
+      // We fetch the indicators only once
+      var deferred = $.Deferred();
+      if (!this.indicatorsCollection.length) {
+        this.indicatorsCollection.fetch()
+          .done(deferred.resolve)
+          .fail(deferred.reject);
+      } else {
+        deferred.resolve();
+      }
 
-      this.model.fetch()
-        .done(function () {
-          var data = this.model.get('data');
-          if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
-
-          // If the indicator doesn't have any data, we also want to send an event
-          // to notify the parent view about it
-          this.trigger('data:sync', {
-            id: this.options.indicator.id,
-            name: this.model.get('title'),
-            data: data
+      deferred
+        .then(function () {
+          // We create a new model each time we request the data because the
+          // model options eventually changed
+          this.model = new App.Model.ChartWidgetModel({
+            id: this.options.id,
+            iso: this.options.iso,
+            year: this.options.year,
+            indicator: this._getIndicator(),
+            filters: this.options.filters,
+            analysisIndicatorId: this.options.analysisIndicator,
+            compareIndicators: this.options.compareIndicators,
+            expanded: this.options.chart === 'table'
           });
 
-          // We pre-render the component with its template
-          this.el.innerHTML = this.template({
-            name: this.model.get('title'),
-            noData: !data.length,
-            showToolbar: this.options.showToolbar,
-            canAnalyze: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
-            canCompare: this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS,
-            isAnalyzing: !!this.options.analysisIndicator,
-            isComparing: !!this.options.compareIndicators
-          });
-          this.chartContainer = this.el.querySelector('.js-chart');
-
-          this.render();
-          this._setListeners();
+          this.model.fetch()
+            .done(this._onFetch.bind(this))
+            .fail(this.renderError.bind(this))
+            .always(this._hideLoader.bind(this));
         }.bind(this))
-        .fail(this.renderError.bind(this))
-        .always(this._hideLoader.bind(this));
+        .fail(function () {
+          this.renderError();
+          this._hideLoader();
+        }.bind(this));
+    },
+
+    /**
+     * Return the detailed information about the indicator
+     * @return {{ id: string, name: string, category: string, visible: boolean }}
+     */
+    _getIndicator: function () {
+      var indicator = this.indicatorsCollection.findWhere({ id: this.options.id });
+      if (indicator) return indicator.toJSON()
+      return null;
     },
 
     /**
@@ -376,7 +407,7 @@
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
         var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
-        return !chart.categories || chart.categories.indexOf(this.options.indicator.category) !== -1;
+        return !chart.categories || chart.categories.indexOf(this._getIndicator().category) !== -1;
       }, this);
     },
 
@@ -485,14 +516,14 @@
      */
     _renderChart: function () {
       if (this.options.chart === 'table') {
-        var isAccess = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+        var isAccess = this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS;
 
         new App.View.TableView({
           el: this.chartContainer,
           collection: new Backbone.Collection(this.model.get('data')),
           tableName: this.model.get('title') + ' data',
-          resultsPerPage: isAccess ? 5 : 3,
-          resultsPerPageOptions: isAccess ? [5, 10, 20] : null
+          resultsPerPage: isAccess ? 10 : 3,
+          resultsPerPageOptions: null
         });
       } else {
         vg.parse

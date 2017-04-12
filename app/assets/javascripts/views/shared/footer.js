@@ -4,6 +4,7 @@
     el: '.c-footer',
 
     initialize: function () {
+      if (!this.el) return;
       var refElem = this.el.querySelector('.js-toggle-tooltip');
       new App.View.SocialTooltip({ refElem: refElem });
     }

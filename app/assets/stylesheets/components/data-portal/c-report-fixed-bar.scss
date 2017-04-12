@@ -1,0 +1,35 @@
+
+.c-report-fixed-bar {
+  display: flex;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  justify-content: center;
+
+  z-index: 1;
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    background-color: $color-1;
+  }
+
+  > a > .go-to-report {
+    color: $color-4;
+    font-family: $font-family-2;
+    font-size: $font-size-xs;
+  }
+
+  > a > .widgets-total {
+    margin: 0 0 0 20px;
+
+    color: $color-2;
+    font-family: $font-family-2;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+}

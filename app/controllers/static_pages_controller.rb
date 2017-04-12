@@ -8,6 +8,10 @@ class StaticPagesController < ApplicationController
     gon.advisor = JSON.parse serialized(@advisoryMembers).to_json
   end
 
+  def terms_of_use
+
+  end
+
   private
 
     def serialized(model)

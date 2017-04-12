@@ -1,0 +1,61 @@
+.c-modal-download-all {
+  padding: 30px;
+
+  > .title {
+    font-size: $font-size-xxm;
+  }
+
+  > .description {
+    margin: 25px 0;
+  }
+
+  > .c-form {
+
+    input {
+      &:not(:first-child) {
+        margin: 15px 0 0;
+      }
+    }
+
+    input[type="email"] {
+      display: block;
+      width: 100%;
+    }
+
+    input[type="checkbox"] {
+      margin: 0 5px 0 0;
+
+      border: 1px solid $color-1;
+    }
+
+    .terms-container {
+      display: flex;
+      margin: 25px 0 0;
+
+      label {
+        margin: 0;
+
+        color: $color-5;
+        font-family: $font-family-1;
+        font-size: $font-size-xs;
+        text-transform: none;
+
+        > a {
+          position: relative;
+          color: $color-1;
+          font-weight: $font-weight-light;
+
+          > .icon-external-open {
+            position: absolute;
+            top: -8px;
+            right: -17px;
+            width: 15px;
+            height: 24px;
+
+            fill: $color-6;
+          }
+        }
+      }
+    }
+  }
+}
