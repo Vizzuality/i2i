@@ -37,3 +37,6 @@
 
 # NPM
 node_modules/
+
+# Sidekiq
+dump.rdb

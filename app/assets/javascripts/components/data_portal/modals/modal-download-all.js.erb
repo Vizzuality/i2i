@@ -42,7 +42,15 @@
 
     _generateDownload: function() {
       var link = document.createElement('a');
-      link.setAttribute('href', this._generateLink());
+      var oReq = new XMLHttpRequest(),
+          params = new FormData();
+      params.append('email', 'santos.tiago@gmail.com');
+      params.append('country', 'UGA');
+      params.append('year', '2017');
+
+      oReq.open("POST", "<%= contacts_path %>", true);
+      oReq.send(params);
+
       link.click();
       link.remove();
     },
