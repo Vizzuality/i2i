@@ -87,6 +87,11 @@
       font-weight: $font-weight-bold;
     }
 
+    p {
+      margin-bottom: 15px;
+      font-size: $font-size-s;
+    }
+
     ul {
       display: flex;
       flex-wrap: wrap;

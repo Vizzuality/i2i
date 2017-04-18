@@ -16,7 +16,7 @@
     },
 
     /**
-     * Return the list of indicators grouped by category
+     * Return the list of indicators grouped by category and with their description
      * The groups are ordered: Common indicators first, then the Access
      * and finally the Strands ones
      * @returns {{ category: string, indicators: object[]}[]}
@@ -28,8 +28,14 @@
 
       return Object.keys(categories)
         .map(function (category) {
+          var categorySlug = _.pairs(App.Helper.Indicators.CATEGORIES)
+            .filter(function (group) {
+              return group[1] === category;
+            })[0][0];
+
           return {
             name: category,
+            description: App.Helper.Indicators.CATEGORIES_DESC[categorySlug],
             indicators: categories[category]
           };
         }, this)
