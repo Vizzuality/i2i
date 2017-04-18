@@ -7,25 +7,27 @@ end
 
 ruby '2.3.3'
 
-gem 'rails', '~> 5.0.1'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'autoprefixer-rails', '~> 6.7'
+gem 'coffee-rails', '~> 4.2'
+gem 'gon'
+gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
 gem 'pg'
 gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'autoprefixer-rails', '~> 6.7'
+gem 'rails', '~> 5.0.1'
 gem 'rails-backbone', '~> 1.2'
-gem 'jquery-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'sidekiq'
+gem 'sidekiq-status'
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
-gem 'jbuilder', '~> 2.5'
-gem 'gon'
-gem 'active_model_serializers', '~> 0.10.0'
+gem 'uglifier', '>= 1.3.0'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'
-  gem 'rails-assets-vega', '~> 2.6.5'
   gem 'rails-assets-datalib', '1.7.3'
   gem 'rails-assets-fuse'
+  gem 'rails-assets-vega', '~> 2.6.5'
 end
 
 gem 'dotenv-rails', '~> 2.1'
@@ -55,17 +57,17 @@ end
 
 group :development do
   gem 'annotate'
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 
 # Deploy
   gem 'capistrano', '3.7.1'
-  gem 'capistrano-rails'
   gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
   gem 'capistrano-passenger'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
