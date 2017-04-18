@@ -17,6 +17,8 @@
 
     /**
      * Return the list of indicators grouped by category
+     * The groups are ordered: Common indicators first, then the Access
+     * and finally the Strands ones
      * @returns {{ category: string, indicators: object[]}[]}
      */
     _getGroupedIndicators: function () {
@@ -24,12 +26,20 @@
         return indicator.category;
       });
 
-      return Object.keys(categories).map(function (category) {
-        return {
-          name: category,
-          indicators: categories[category]
-        };
-      }, this);
+      return Object.keys(categories)
+        .map(function (category) {
+          return {
+            name: category,
+            indicators: categories[category]
+          };
+        }, this)
+        .sort(function (groupA, groupB) {
+          // We can sort alphabetically for now because it is the same result as
+          // what we want
+          if (groupA.name < groupB.name) return -1;
+          if (groupA.name > groupB.name) return 1;
+          return 0;
+        });
     },
 
     /**
