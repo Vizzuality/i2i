@@ -15,11 +15,11 @@
     { id: 'credit_strand', name: 'Credit', category: 'Financial Access', visible: true },
     { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial Access', visible: false },
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial Access', visible: false },
-    { id: 'total_fas_strand', name: 'Financial Acces Strands', category: 'Financial Access', visible: false },
-    { id: 'total_saving_strand', name: 'Saving Strands', category: 'Financial Access', visible: false },
-    { id: 'total_remittances_strand', name: 'Remittances Strands', category: 'Financial Access', visible: false },
-    { id: 'total_insurance_strand', name: 'Insurance Strands', category: 'Financial Access', visible: false },
-    { id: 'total_credit_strand', name: 'Credit Strands', category: 'Financial Access', visible: false }
+    { id: 'total_fas_strand', name: 'Financial Acces Strands', category: 'Strands', visible: false },
+    { id: 'total_saving_strand', name: 'Saving Strands', category: 'Strands', visible: false },
+    { id: 'total_remittances_strand', name: 'Remittances Strands', category: 'Strands', visible: false },
+    { id: 'total_insurance_strand', name: 'Insurance Strands', category: 'Strands', visible: false },
+    { id: 'total_credit_strand', name: 'Credit Strands', category: 'Strands', visible: false }
   ];
 
   App.Collection.IndicatorsCollection = Backbone.Collection.extend({
