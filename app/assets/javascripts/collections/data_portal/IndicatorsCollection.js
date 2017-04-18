@@ -25,10 +25,12 @@
   App.Collection.IndicatorsCollection = Backbone.Collection.extend({
 
     comparator: function (a, b) {
-      var aIsAccess = a.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS;
-      var bIsAccess = b.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS;
-      if (aIsAccess && !bIsAccess) return -1;
-      if (!aIsAccess && bIsAccess) return 1;
+      var aIsAComplex = a.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS
+        || a.get('category') === App.Helper.Indicators.CATEGORIES.STRANDS;
+      var bIsComplex = b.get('category') === App.Helper.Indicators.CATEGORIES.ACCESS
+        || b.get('category') === App.Helper.Indicators.CATEGORIES.STRANDS;
+      if (aIsAComplex && !bIsComplex) return -1;
+      if (!aIsAComplex && bIsComplex) return 1;
       return 0;
     },
 

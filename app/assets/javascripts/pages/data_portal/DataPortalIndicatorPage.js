@@ -72,9 +72,10 @@
     _updateWidgetContainer: function () {
       var index = _.findIndex(this.indicatorsCollection.toJSON(), { id: this.options._state.id });
       var indicator = this.indicatorsCollection.toJSON()[index];
-      var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
-      if (isAccess) {
+      if (isComplex) {
         this.gridContainer.classList.remove('grid-m-6');
       }
     },

@@ -3,7 +3,8 @@
     // List of the categories of indicators
     CATEGORIES: {
       COMMON: 'Common Indicators',
-      ACCESS: 'Financial Access'
+      ACCESS: 'Financial Access',
+      STRANDS: 'Strands'
     },
 
     // Map for the ISO and country names
