@@ -15,5 +15,6 @@
     <%= render partial: 'shared/mobile-menu' %>
     <%= yield %>
     <%= render partial: 'shared/footer' %>
+    <%= render partial: 'shared/analytics' if Rails.env.production? %>
   </body>
 </html>

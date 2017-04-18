@@ -37,7 +37,6 @@
 //= require routers/application
 //= require ckeditor/init
 
-
 (function () {
   this.App = {
     Core: {},
