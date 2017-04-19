@@ -475,7 +475,8 @@
      * @returns {function}
      */
     _getChartTemplate: function () {
-      return JST['templates/data_portal/widgets/' + this.options.chart];
+      var chartName = this.options.chart.replace(' ', '-');
+      return JST['templates/data_portal/widgets/' + chartName];
     },
 
     /**

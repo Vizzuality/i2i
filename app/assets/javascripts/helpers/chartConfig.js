@@ -40,7 +40,7 @@
       categories: [App.Helper.Indicators.CATEGORIES.COMMON]
     },
     {
-      name: 'stack-bar',
+      name: 'stacked bar',
       acceptedStatTypes: [
         ['nominal'],
         ['ordinal'],
