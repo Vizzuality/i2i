@@ -71,13 +71,17 @@
         data: data
       });
 
+      var indicatorCategory = this._getIndicator().category;
+
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
         name: this.model.get('title'),
         noData: !data.length,
         showToolbar: this.options.showToolbar,
-        canAnalyze: this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS,
-        canCompare: this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS,
+        canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
+        canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
@@ -294,12 +298,13 @@
      * Open the modal for the chart analysis
      */
     _openModalChartAnalysis: function () {
-      var nonAccessIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
-        return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS;
+      var nonComplexIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
+        return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS
+          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS;
       });
 
       new App.Component.ModalChartAnalysis({
-        indicators: nonAccessIndicators,
+        indicators: nonComplexIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
           // If the comparison is active, we stop it
@@ -516,13 +521,14 @@
      */
     _renderChart: function () {
       if (this.options.chart === 'table') {
-        var isAccess = this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS;
+        var isComplex = this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS
+          || this._getIndicator().category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
         new App.View.TableView({
           el: this.chartContainer,
           collection: new Backbone.Collection(this.model.get('data')),
           tableName: this.model.get('title') + ' data',
-          resultsPerPage: isAccess ? 10 : 3,
+          resultsPerPage: isComplex ? 10 : 3,
           resultsPerPageOptions: null
         });
       } else {

@@ -274,9 +274,10 @@
       var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
-      var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
-      if (isAccess) {
+      if (isComplex) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
     },

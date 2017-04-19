@@ -50,10 +50,11 @@
      * @return {object}
      */
     _parseExpandedData: function (data) {
-      var isAccess = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var isComplex = this.options.indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
+        || this.options.indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
       var parsedData;
 
-      if (isAccess) {
+      if (isComplex) {
         var rows = _.groupBy(data.data, function (row) { return row.row_id; });
         var rowsKeys = Object.keys(rows);
         var headersCount = rowsKeys[0].length;
