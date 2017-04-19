@@ -3,7 +3,7 @@ ActiveAdmin.register Contact do
 
   actions :index
   config.per_page = 20
-  config.sort_order = 'date_desc'
+  config.sort_order = 'created_at_desc'
 
   index do
     selectable_column
