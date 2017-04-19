@@ -2,8 +2,8 @@
   App.Helper.Indicators = {
     // List of the categories of indicators
     CATEGORIES: {
-      COMMON: 'Common Indicators',
-      ACCESS: 'Financial Access',
+      COMMON: 'Common indicators',
+      ACCESS: 'Financial access',
       STRANDS: 'Strands'
     },
 
