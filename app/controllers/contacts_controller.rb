@@ -5,7 +5,12 @@ class ContactsController < ApplicationController
   def create
     contact = Contact.new(contact_params)
     if contact.save
-      ContactMailer.data_mail(contact).deliver_later
+      begin
+        ContactMailer.data_mail(contact).deliver!
+      rescue SparkPostRails::DeliveryException => e
+        Rails.logger.error "Error sending the email: #{e}"
+      end
+
 
       render json: contact.to_json, status: :created
     else

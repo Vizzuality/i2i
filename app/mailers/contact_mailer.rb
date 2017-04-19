@@ -1,9 +1,15 @@
 class ContactMailer < ApplicationMailer
-  default from: 'data@i2i.com'
 
   def data_mail(contact)
     @contact = contact
+
+    sub_data = { country: @contact.country,
+                 year: @contact.year }
+
+    data = { template_id: 'test',
+             substitution_data: sub_data }
+
     mail(to: @contact.email,
-         subject: "Data for #{@contact.country} in #{@contact.year}")
+         sparkpost_data: data)
   end
 end

@@ -8,6 +8,6 @@ Bundler.require(*Rails.groups)
 
 module I2i
   class Application < Rails::Application
-    config.active_job.queue_adapter = :sidekiq
+    #config.active_job.queue_adapter = :sidekiq
   end
 end
