@@ -1,6 +1,15 @@
 def create_countries
-  %w(Tanzania Kenya India Bangladesh Nigeria Uganda).each do |country|
-    Country.create! name: country
+  [
+    {name: 'Ghana', iso: 'GHA'},
+    {name: 'Kenya', iso: 'KEN'},
+    {name: 'Mozambique', iso: 'MOZ'},
+    {name: 'Pakistan', iso: 'PAK'},
+    {name: 'Tanzania', iso: 'TZA'},
+    {name: 'Rwanda', iso: 'RWA'},
+    {name: 'Uganda', iso: 'UGA'},
+    {name: 'Zambia', iso: 'ZMB'}
+  ].each do |country|
+    Country.create! name: country[:name], iso: country[:iso]
   end
   puts 'Created the countries'
 end
