@@ -17,7 +17,7 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      // Filter out the the complex indicators (acces or strands) and copy the
+      // Filter out the the complex indicators (access or strands) and copy the
       // entire object to avoid mutations of the original one
       this.options.indicators = this.options.indicators
         .filter(function (indicator) {
