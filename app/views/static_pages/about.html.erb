@@ -124,19 +124,9 @@
           <div class="c-card-highlight -countries-about">
             <h3 class="title -dark -medium">Focus countries</h3>
             <ul class="c-country-list">
-              <li class="country-item"><a href="#">Bangladesh</a></li>
-              <li class="country-item"><a href="#">Ghana</a></li>
-              <li class="country-item"><a href="#">India</a></li>
-              <li class="country-item"><a href="#">Indonesia</a></li>
-              <li class="country-item"><a href="#">Kenya</a></li>
-              <li class="country-item"><a href="#">Mozambique</a></li>
-              <li class="country-item"><a href="#">Nigeria</a></li>
-              <li class="country-item"><a href="#">Pakistan</a></li>
-              <li class="country-item"><a href="#">Rwanda</a></li>
-              <li class="country-item"><a href="#">Senegal</a></li>
-              <li class="country-item"><a href="#">Tanzania</a></li>
-              <li class="country-item"><a href="#">Uganda</a></li>
-              <li class="country-item"><a href="#">Zambia</a></li>
+              <% @countries.each do |country| %>
+                <li class="country-item"><a href="#"><%= country.name %></a></li>
+              <% end %>
             </ul>
           </div>
         </div>

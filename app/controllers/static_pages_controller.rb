@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   def about
     @teamMembers = sort_members_by_surname(Member.where(role: 1))
     @advisoryMembers = sort_members_by_surname(Member.where(role: 2))
+    @countries = Country.all.order('name')
 
     gon.team = JSON.parse serialized(@teamMembers).to_json
     gon.advisor = JSON.parse serialized(@advisoryMembers).to_json
