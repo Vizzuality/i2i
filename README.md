@@ -5,28 +5,12 @@
 * `ruby 2.3.3`
 * `postgresql 9.6`
 
-### For using the email server
-* `redis 3.2.8`
-
 ## Installation
 To install the required `ruby` version is recommended to use a ruby version manager like [RVM](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv).
 
 Once `ruby` is installed, run `gem install bundler` if you don't have `bundler` already installed and `bundle install` to install the required dependencies.
 
 Finally, install node packages by running `npm install`.
-
-### For using the email server
-
-Install `redis` by executing:
- * In MacOS: `brew install redis`
- * In *nix `wget http://download.redis.io/redis-stable.tar.gz  &&
-            tar xvzf redis-stable.tar.gz  &&
-            cd redis-stable  &&
-            sudo make install`
-
- You might need to start the `redis` server by executing `redis-server`
- 
- Run the `sidekiq worker` by executing `bundle exec sidekiq -q default -q mailers`
 
 ### Database setup
 Having `postgresql` already installed, run `rails db:create` if you haven't created the database.
