@@ -40,23 +40,33 @@
       categories: [App.Helper.Indicators.CATEGORIES.COMMON]
     },
     {
+      name: 'stacked bar',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.STRANDS],
+      ratio: 0.2
+    },
+    {
       name: 'radial',
       acceptedStatTypes: [
         ['nominal'],
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
       ratio: 0.3
     },
     {
       name: 'analysis',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
       visible: false
     },
     {
       name: 'compare',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS],
+      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
       visible: false,
       ratio: 0.3
     },

@@ -2,8 +2,16 @@
   App.Helper.Indicators = {
     // List of the categories of indicators
     CATEGORIES: {
-      COMMON: 'Common Indicators',
-      ACCESS: 'Financial Access'
+      COMMON: 'Common indicators',
+      ACCESS: 'Financial access',
+      STRANDS: 'Strands'
+    },
+
+    // Description for the categories
+    CATEGORIES_DESC: {
+      COMMON: null,
+      ACCESS: 'Based on total % of adults who have financial products independent of other products.',
+      STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.'
     },
 
     // Map for the ISO and country names

@@ -57,20 +57,6 @@
     },
 
     /**
-     * Return the list of indicators
-     * @returns {object[]} widgets
-     */
-    _getIndicators: function () {
-      return this.indicatorsCollection.toJSON().sort(function (a, b) {
-        var aIsAccess = a.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        var bIsAccess = b.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        if (aIsAccess && !bIsAccess) return -1;
-        if (!aIsAccess && bIsAccess) return 1;
-        return 0;
-      });
-    },
-
-    /**
      * Render the widget
      */
     _renderWidget: function () {
@@ -84,12 +70,12 @@
      * if the category of the indicator
      */
     _updateWidgetContainer: function () {
-      var indicators = this._getIndicators();
-      var index = _.findIndex(indicators, { id: this.options._state.id });
-      var indicator = indicators[index];
-      var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var index = _.findIndex(this.indicatorsCollection.toJSON(), { id: this.options._state.id });
+      var indicator = this.indicatorsCollection.toJSON()[index];
+      var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
-      if (isAccess) {
+      if (isComplex) {
         this.gridContainer.classList.remove('grid-m-6');
       }
     },

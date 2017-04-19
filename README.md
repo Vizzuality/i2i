@@ -30,7 +30,7 @@ To install `sass-lint` run `npm install -g sass-lint`. This is a **editor-based*
 ## Development
 Start `postgresql` server.
 
-Run `rail s` to start the server.
+Run `rails s` to start the server.
 
 Go to [localhost](http://localhost:3000) and have fun :collision: :tada:
 

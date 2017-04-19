@@ -52,10 +52,12 @@
       }.bind(this));
 
       return this.options.indicators.sort(function (a, b) {
-        var aIsAccess = a.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        var bIsAccess = b.category === App.Helper.Indicators.CATEGORIES.ACCESS;
-        if (aIsAccess && !bIsAccess) return -1;
-        if (!aIsAccess && bIsAccess) return 1;
+        var aIsComplex = a.category === App.Helper.Indicators.CATEGORIES.ACCESS
+          || a.category === App.Helper.Indicators.CATEGORIES.STRANDS;
+        var bIsComplex = b.category === App.Helper.Indicators.CATEGORIES.ACCESS
+          || b.category === App.Helper.Indicators.CATEGORIES.STRANDS;
+        if (aIsComplex && !bIsComplex) return -1;
+        if (!aIsComplex && bIsComplex) return 1;
         return 0;
       });
     },
@@ -90,9 +92,10 @@
       var indicators = this.indicatorsCollection.toJSON();
       var index = _.findIndex(indicators, { id: customIndicator.id });
       var indicator = indicators[index];
-      var isAccess = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS;
+      var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
+        || indidcator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
-      if (isAccess) {
+      if (isComplex) {
         widgetContainer.classList.remove('grid-l-6');
       }
     },

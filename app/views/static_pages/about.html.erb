@@ -124,19 +124,9 @@
           <div class="c-card-highlight -countries-about">
             <h3 class="title -dark -medium">Focus countries</h3>
             <ul class="c-country-list">
-              <li class="country-item"><a href="#">Bangladesh</a></li>
-              <li class="country-item"><a href="#">Ghana</a></li>
-              <li class="country-item"><a href="#">India</a></li>
-              <li class="country-item"><a href="#">Indonesia</a></li>
-              <li class="country-item"><a href="#">Kenya</a></li>
-              <li class="country-item"><a href="#">Mozambique</a></li>
-              <li class="country-item"><a href="#">Nigeria</a></li>
-              <li class="country-item"><a href="#">Pakistan</a></li>
-              <li class="country-item"><a href="#">Rwanda</a></li>
-              <li class="country-item"><a href="#">Senegal</a></li>
-              <li class="country-item"><a href="#">Tanzania</a></li>
-              <li class="country-item"><a href="#">Uganda</a></li>
-              <li class="country-item"><a href="#">Zambia</a></li>
+              <% @countries.each do |country| %>
+                <li class="country-item"><a href="#"><%= country.name %></a></li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -200,7 +190,7 @@
                         <div class="map" style="background-image: url(<%= asset_path('about/map-finmark.png')%>)"></div>
                       </a>
                       <div class="info">
-                        <h3 class="title -dark -medium">Fin Mark</h3>
+                        <h3 class="title -dark -medium">FinMark Trust</h3>
                         <span class="address-field">First Floor</span>
                         <span class="address-field">Block J East</span>
                         <span class="address-field">Central Park</span>

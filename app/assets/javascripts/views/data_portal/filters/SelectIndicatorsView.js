@@ -16,7 +16,9 @@
     },
 
     /**
-     * Return the list of indicators grouped by category
+     * Return the list of indicators grouped by category and with their description
+     * The groups are ordered: Common indicators first, then the Access
+     * and finally the Strands ones
      * @returns {{ category: string, indicators: object[]}[]}
      */
     _getGroupedIndicators: function () {
@@ -24,12 +26,26 @@
         return indicator.category;
       });
 
-      return Object.keys(categories).map(function (category) {
-        return {
-          name: category,
-          indicators: categories[category]
-        };
-      }, this);
+      return Object.keys(categories)
+        .map(function (category) {
+          var categorySlug = _.pairs(App.Helper.Indicators.CATEGORIES)
+            .filter(function (group) {
+              return group[1] === category;
+            })[0][0];
+
+          return {
+            name: category,
+            description: App.Helper.Indicators.CATEGORIES_DESC[categorySlug],
+            indicators: categories[category]
+          };
+        }, this)
+        .sort(function (groupA, groupB) {
+          // We can sort alphabetically for now because it is the same result as
+          // what we want
+          if (groupA.name < groupB.name) return -1;
+          if (groupA.name > groupB.name) return 1;
+          return 0;
+        });
     },
 
     /**

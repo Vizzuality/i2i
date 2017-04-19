@@ -11,3 +11,27 @@ services:
     volumes:
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
+#    external_links:
+#      - redis
+#    environment:
+#      - REDIS_HOST=redis
+#      - REDIS_PORT=6379
+#  sidekiq:
+#    restart: always
+#    build: .
+#    env_file:
+#      - .env
+#    container_name: i2i_sidekiq
+#    command: bundle exec sidekiq -q default -q mailers
+#    external_links:
+#      - redis
+#    environment:
+#      - REDIS_HOST=redis
+#      - REDIS_PORT=6379
+#  redis:
+#    restart: always
+#    image: redis
+#    container_name: i2i_redis
+#    ports:
+#      - 6379:6379
+
