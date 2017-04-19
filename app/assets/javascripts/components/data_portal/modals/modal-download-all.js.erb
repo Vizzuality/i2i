@@ -40,23 +40,23 @@
       this.termsCheckbox.addEventListener('change', this._validationForm.bind(this));
     },
 
-    _generateDownload: function() {
-      var link = document.createElement('a');
+    /**
+     * Sends email request
+     */
+    _sendRequest: function() {
       var oReq = new XMLHttpRequest(),
-          params = new FormData();
-      params.append('email', 'santos.tiago@gmail.com');
-      params.append('country', 'UGA');
-      params.append('year', '2017');
+        params = new FormData();
+
+      params.append('email', this.emailField.value);
+      params.append('country', this.options.iso);
+      params.append('year', this.options.year);
 
       oReq.open("POST", "<%= contacts_path %>", true);
       oReq.send(params);
-
-      link.click();
-      link.remove();
     },
 
     _onContinue: function () {
-      this._generateDownload();
+      this._sendRequest();
       this.constructor.__super__.onCloseModal.apply(this);
     },
 
@@ -71,27 +71,11 @@
       }
     },
 
-    /**
-     * Generates url link based on iso and year params
-     * @return { string } - generated link
-     */
-    _generateLink: function () {
-      return 'https://s3-us-west-1.amazonaws.com/i2i-bucket/files/' + this.options.iso +'-' + this.options.year + '.zip';
-    },
-
-    /**
-     * Sets the href attribute of the link
-     */
-    _setDownloadLink: function () {
-      this.continueButton.setAttribute('href', this._generateLink());
-    },
-
     afterRender: function () {
       this.constructor.__super__.afterRender.apply(this);
       this._setFormVars();
       this._setFormEventListeners();
       this._validationForm();
-      this._setDownloadLink();
     },
 
     render: function () {
