@@ -40,6 +40,16 @@
       categories: [App.Helper.Indicators.CATEGORIES.COMMON]
     },
     {
+      name: 'stacked bar',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.STRANDS],
+      ratio: 0.2
+    },
+    {
       name: 'radial',
       acceptedStatTypes: [
         ['nominal'],
