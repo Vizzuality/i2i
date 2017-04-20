@@ -1,85 +1,80 @@
-
 (function (App) {
 
   'use strict';
 
   App.Page.AboutPage = Backbone.View.extend({
 
-    initialize: function () {
-      this.onClick = this.onClick.bind(this);
-      this.onKeydown = this.onKeydown.bind(this);
-      this._setVars();
-      this._setEventListeners();
+    el: 'body',
+
+    events: {
+      'click .js-anchor': '_onClickAnchor',
+      'click .js-profile': '_onClickProfile',
+      'keydown .js-profile': '_onKeydownProfile'
     },
 
-    _setVars: function () {
-      this.anchors = Array.prototype.slice.call(document.querySelectorAll('.js-anchor'));
-      this.profiles = Array.prototype.slice.call(document.querySelectorAll('.c-profile'));
+    /**
+     * Event handler executed when the user clicks on an anchor
+     * @param {Event} e
+     */
+    _onClickAnchor: function (e) {
+      e.preventDefault();
+      var target = e.currentTarget.getAttribute('href');
+
+      $('html, body').animate({
+        scrollTop: $(target).offset().top
+      });
     },
 
-    onClick: function (e) {
-      var currentMember = this._getModalData(e);
+    /**
+     * Event handler executed when the user clicks a profile
+     * @param {Event} e
+     */
+    _onClickProfile: function (e) {
+      var currentMember = this._getProfileData(e.currentTarget);
+      if (currentMember) this._openProfileModal(currentMember);
+    },
 
-      if (currentMember) {
-        this.openModal(currentMember);
+    /**
+     * Event handler executed when the user press a key while the focus
+     * is on a profile
+     * @param {Event} e
+     */
+    _onKeydownProfile: function (e) {
+      var code = e.keyCode;
+      // 13: enter, 32: space
+      if (code === 13 || code === 32) {
+        e.preventDefault();
+        var currentMember = this._getProfileData(e.currentTarget);
+        if (currentMember) this._openProfileModal(currentMember);
       }
     },
 
-    _getModalData: function (e) {
-      var slug = e.currentTarget.getAttribute('data-slug'),
-        role = e.currentTarget.getAttribute('data-role'),
-        members = gon[role].members;
+    /**
+     * Get the data of a profile
+     * @param {HTMLElement} profileNode
+     * @return {object} profile
+     */
+    _getProfileData: function (profileNode) {
+      var slug = profileNode.dataset.slug,
+        role = profileNode.dataset.role,
+        members = window.gon && gon[role].members;
 
-      if (members === undefined) return;
+      if (!members) return;
 
       return members.find(function (member) {
         return member.slug === slug;
       });
     },
 
-    onKeydown: function (e) {
-      var code = e.keyCode;
-      // 13: enter, 32: space
-      if (code === 13 || code === 32) {
-        e.preventDefault();
-        var currentMember = this._getModalData(e);
-
-        if (currentMember) {
-          this.openModal(currentMember);
-        }
-      }
-    },
-
-    openModal: function (data) {
+    /**
+     * Open the profile modal
+     * @param {object} profile
+     */
+    _openProfileModal: function (profile) {
       new App.Component.ModalTeam({
-        title: data.name,
-        memberInfo: data
+        title: profile.name,
+        memberInfo: profile
       });
-    },
-
-    _setEventListeners: function() {
-      this.profiles.forEach(function (elem) {
-        elem.addEventListener('click', this.onClick);
-        elem.addEventListener('keydown', this.onKeydown);
-      }.bind(this));
-
-      this.anchors.forEach(function (anchor) {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          var target = e.currentTarget.getAttribute('href');
-
-          $('html, body').animate({
-            scrollTop: $(target).offset().top
-          });
-        });
-      });
-    },
-
-    _removeEventListerners: function() {
-      this.profiles.forEach(function (elem) {
-        elem.removeEventListener('click', this.onClick);
-        elem.removeEventListener('keydown', this.onKeydown);
-      }.bind(this));
     }
 
   });
