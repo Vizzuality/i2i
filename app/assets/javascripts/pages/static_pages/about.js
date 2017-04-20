@@ -9,7 +9,8 @@
     events: {
       'click .js-anchor': '_onClickAnchor',
       'click .js-profile': '_onClickProfile',
-      'keydown .js-profile': '_onKeydownProfile'
+      'keydown .js-profile': '_onKeydownProfile',
+      'click .js-read-more': '_onClickReadMore'
     },
 
     /**
@@ -47,6 +48,20 @@
         var currentMember = this._getProfileData(e.currentTarget);
         if (currentMember) this._openProfileModal(currentMember);
       }
+    },
+
+    /**
+     * Event handler executed when the user clicks on of the read more buttons
+     * @param {Event} e
+     */
+    _onClickReadMore: function (e) {
+      var title = e.target.dataset.title;
+      var content = e.target.nextElementSibling.innerHTML;
+
+      new App.Component.ModalAboutReadMore({
+        title: title,
+        content: content
+      });
     },
 
     /**
