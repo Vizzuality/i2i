@@ -1,10 +1,5 @@
 (function (App) {
 
-  var templates = {
-    default: '',
-    team: 'templates/shared/modal-team'
-  };
-
   App.Component.Modal = Backbone.View.extend({
 
     className: 'modal-container',
