@@ -93,7 +93,7 @@
       var index = _.findIndex(indicators, { id: customIndicator.id });
       var indicator = indicators[index];
       var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
-        || indidcator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
 
       if (isComplex) {
         widgetContainer.classList.remove('grid-l-6');
