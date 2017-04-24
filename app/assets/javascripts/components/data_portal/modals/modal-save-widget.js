@@ -45,76 +45,6 @@
       }];
     },
 
-    //  *** localStorage private methods ***
-
-    /**
-     * Returns an array of indicators or an empty array
-     * @return {object[]} - Array of indicators
-     */
-    _getSavedIndicators: function() {
-      return localStorage.getItem('indicators') ?
-        JSON.parse(localStorage.getItem('indicators')) : [];
-    },
-
-    /**
-     * Serializes indicator's properties
-     * @param {object} indicator - indicator to be serialiazed
-     */
-    _serializeIndicator: function(indicator) {
-      return App.Helper.Indicators.serialize(indicator);
-    },
-
-    /**
-     * Adds the given indicator to localStorage collection
-     * @param {object} indicator - indicator to be added
-     */
-    _saveIndicator: function(indicator) {
-      var savedIndicators = this._getSavedIndicators();
-      var serializedIndicator = this._serializeIndicator(indicator);
-
-      savedIndicators.push(serializedIndicator);
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
-
-      Backbone.Events.trigger('indicator:saved');
-    },
-
-    /**
-     * Removes the given indicator from localStorage collection
-     * @param {object} indicatorToRemove - indicator to be removed
-     */
-    _removeIndicator: function(indicatorToRemove) {
-      var serializedIndicator = this._serializeIndicator(indicatorToRemove);
-      var savedIndicators = this._getSavedIndicators();
-      savedIndicators = savedIndicators.filter(function (savedIndicator) {
-        return !_.isEqual(savedIndicator, serializedIndicator);
-      });
-
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
-      Backbone.Events.trigger('indicator:saved');
-    },
-
-    /**
-     * Check if the indicator is already saved in the localStorage object.
-     * @param {object} indicator - checked indicator
-     * @return {boolean} isEqual - It's saved or not
-     */
-    _isIndicatorSaved: function (indicator) {
-      var serializedIndicator = this._serializeIndicator(indicator);
-      var savedIndicators = this._getSavedIndicators();
-
-      if (!savedIndicators.length) {
-        return false;
-      }
-
-      var isSaved = savedIndicators.find(function (savedIndicator) {
-        return _.isEqual(serializedIndicator, savedIndicator);
-      });
-
-      return !!isSaved;
-    },
-
-    //  *** END localStorage private methods ***
-
     /**
      * @return {object} - object with bounds and offsets properties of the modal
      */
@@ -177,7 +107,7 @@
      */
     _toggleButtons: function () {
       var currentIndicator = _.extend({}, this.options.widgetConfig);
-      var isSaved = this._isIndicatorSaved(currentIndicator);
+      var isSaved = App.Helper.Indicators.isIndicatorSaved(currentIndicator);
 
       this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isSaved);
       this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isSaved);
@@ -187,7 +117,7 @@
       var indicator = _.extend({}, this.options.widgetConfig);
 
       // adds indicator to localStorage
-      this._saveIndicator(indicator);
+      App.Helper.Indicators.saveIndicator(indicator);
 
       this._toggleButtons();
     },
@@ -196,7 +126,7 @@
       var indicator = _.extend({}, this.options.widgetConfig);
 
       // removes indicator from localStorage
-      this._removeIndicator(indicator);
+      App.Helper.Indicators.removeIndicator(indicator);
 
       this._toggleButtons();
     },

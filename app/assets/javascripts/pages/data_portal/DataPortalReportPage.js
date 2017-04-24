@@ -21,6 +21,44 @@
     },
 
     /**
+     * Event handler executed when the user deletes a widget
+     * @param {object} indicator
+     */
+    _onDelete: function (indicator) {
+      // List of the *serialized* indicators without the one to delete
+      var indicators = this.options.indicators.filter(function (ind) {
+        return !_.isEqual(ind, indicator);
+      }).map(function (ind) {
+        return App.Helper.Indicators.serialize(ind);
+      });
+
+      // We update the URL
+      var encodedState = App.Helper.URL.encode({ indicators: indicators });
+      var url = window.location.pathname + '?p=' + encodedState;
+
+      // Adding { turbolinks: {} } is mandatory to avoid breaking the browser's back button
+      // because Turbolinks doesn't handle well the URL changes
+      // Check here: https://github.com/turbolinks/turbolinks/issues/219
+      history.replaceState({ turbolinks: {} }, '', url);
+
+      // We delete the indicator from the localStorage, if stored there
+      if (App.Helper.Indicators.isIndicatorSaved(indicator)) {
+        App.Helper.Indicators.removeIndicator(indicator);
+      }
+
+      // We delete the indicator from the page
+      var indicatorIndex = _.findIndex(this.options.indicators, indicator);
+      this.options.indicators.splice(indicatorIndex, 1);
+
+      // If the last indicator of the report has just been removed, we redirect the user
+      if (!this.options.indicators.length) {
+        Turbolinks.visit('/data-portal', { action: 'replace' });
+      } else {
+        this.render();
+      }
+    },
+
+    /**
      * Fetch the model for the selected country and year
      */
     _fetchData: function () {
@@ -134,7 +172,11 @@
       // We instantiate the widget views
       sortedIndicators.forEach(function (indicator, index) {
         var widget = new App.View.ChartWidgetView(_.extend({},
-          { el: this.widgetsContainer.children[index].children[0], showToolbar: false },
+          {
+            el: this.widgetsContainer.children[index].children[0],
+            report: true,
+            onDelete: function () { this._onDelete(indicator); }.bind(this)
+          },
           indicator
         ));
 
