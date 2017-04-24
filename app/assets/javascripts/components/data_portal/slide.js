@@ -1,6 +1,8 @@
 (function (App) {
   App.Component.Slide = Backbone.View.extend({
 
+    className: 'slide',
+
     defaults: {
       // Callback to be executed after an action (show or close)
       callback: function () {},
@@ -38,6 +40,8 @@
       this.el.innerHTML = this.options.content;
       this.el.setAttribute('aria-label', this.options.title);
       this.el.setAttribute('tabindex', 0);
+
+      return this.el;
     }
   });
 }).call(this, this.App);

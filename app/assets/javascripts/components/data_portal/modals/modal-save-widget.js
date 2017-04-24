@@ -13,7 +13,7 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -132,13 +132,40 @@
     },
 
     _onSelectSlide: function (event) {
-      var slideIndex = parseInt(event.currentTarget.getAttribute('data-slide-index'), 10);
+      var slideIndex = +event.currentTarget.dataset['slide-index'];
       this.setSlide(slideIndex);
     },
 
     // TO-DO: take a screenshot of the embed
     _onPrint: function () {
       console.warn('WIP!')
+    },
+
+    /**
+     * Return the link to download the data of the widget
+     * @return {string}
+     */
+    _generateDownloadLink: function () {
+      var res = API_URL
+        + '/indicator/'
+        + this.options.widgetConfig.id
+        + '/expanded/download?'
+        + this.options.widgetConfig.iso
+        + '='
+        + this.options.widgetConfig.year;
+
+      if (this.options.widgetConfig.filters.length) {
+        var filters = this.options.widgetConfig.filters.map(function (filter) {
+          return {
+            indicatorId: filter.id,
+            value: filter.options
+          };
+        });
+
+        res += '&filters=' + encodeURIComponent(JSON.stringify(filters));
+      }
+
+      return res;
     },
 
     _renderWidget: function () {
@@ -150,10 +177,14 @@
     },
 
     _renderSlides: function () {
-      var slidesContainer = this.$el.find('.js-slider-container');
+      var slidesContainer = this.el.querySelector('.js-slider-container');
+      var fragment = new DocumentFragment();
+
       this.slides.forEach(function (slide) {
-        slidesContainer.append(slide.view.render());
+        fragment.appendChild($(slide.view.render())[0]);
       }.bind(this));
+
+      slidesContainer.appendChild(fragment);
     },
 
     _returnWidget: function () {
@@ -161,8 +192,8 @@
     },
 
     setSlide: function (slideIndex) {
-      this.slides.forEach(function (slide) {
-        slide.view.toggleVisibility(this.slides.indexOf(slide) === slideIndex);
+      this.slides.forEach(function (slide, index) {
+        slide.view.toggleVisibility(index === slideIndex);
       }.bind(this));
     },
 
@@ -175,6 +206,9 @@
     render: function () {
       this.options.content = this.contentTemplate();
       this.constructor.__super__.render.apply(this);
+
+      // We update the link to download the data of the widget
+      this.el.querySelector('.js-download').href = this._generateDownloadLink();
     }
   });
 }).call(this, this.App);

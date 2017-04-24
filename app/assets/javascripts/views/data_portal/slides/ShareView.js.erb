@@ -5,8 +5,6 @@
 
     template: JST['templates/data_portal/slides/shareWidget'],
 
-    className: 'slide',
-
     defaults: {
       // State of the widget
       // Correspond to ChartWidgetView.options
@@ -80,9 +78,8 @@
         page_link: this._generateURL('page_link'),
         twitter: this._generateURL('twitter')
       });
-      this.constructor.__super__.render.call(this);
 
-      return this.el;
+      return this.constructor.__super__.render.call(this);
     }
 
   });
