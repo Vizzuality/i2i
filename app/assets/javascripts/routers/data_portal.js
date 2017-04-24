@@ -66,7 +66,7 @@
 
       // redirect to data-portal if there is no indicators to display
       if (!indicators.length) {
-        Turbolinks.visit("/data-portal", { action: "replace" });
+        Turbolinks.visit('/data-portal', { action: 'replace' });
         return;
       }
 

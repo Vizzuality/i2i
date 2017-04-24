@@ -33,14 +33,19 @@
       // the filters used for the comparation
       compareIndicators: null,
       // Displays widget toolbar
-      showToolbar: true
+      showToolbar: true,
+      // Whether the widget is rendered in a report
+      report: false,
+      // Callback executed when the delete button is clicked
+      onDelete: function () {}
     },
 
     events: {
       'click .js-save': '_onSave',
       'click .js-change': '_onChange',
       'click .js-compare': '_onCompare',
-      'click .js-analyze': '_onAnalyze'
+      'click .js-analyze': '_onAnalyze',
+      'click .js-delete': '_onDelete'
     },
 
     initialize: function (settings) {
@@ -78,6 +83,7 @@
         name: this.model.get('title'),
         noData: !data.length,
         showToolbar: this.options.showToolbar,
+        report: this.options.report,
         canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
@@ -264,6 +270,13 @@
       if (!this.tooltip) return;
       this.tooltip.remove();
       this.tooltip = null;
+    },
+
+    /**
+     * Event handler executed when the delete button is clicked
+     */
+    _onDelete: function () {
+      this.options.onDelete();
     },
 
     /**

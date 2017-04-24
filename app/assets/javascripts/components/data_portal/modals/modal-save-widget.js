@@ -13,7 +13,7 @@
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><button disabled type="button" class="c-button -white -outline">Download</button><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button disabled type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -44,76 +44,6 @@
         })
       }];
     },
-
-    //  *** localStorage private methods ***
-
-    /**
-     * Returns an array of indicators or an empty array
-     * @return {object[]} - Array of indicators
-     */
-    _getSavedIndicators: function() {
-      return localStorage.getItem('indicators') ?
-        JSON.parse(localStorage.getItem('indicators')) : [];
-    },
-
-    /**
-     * Serializes indicator's properties
-     * @param {object} indicator - indicator to be serialiazed
-     */
-    _serializeIndicator: function(indicator) {
-      return App.Helper.Indicators.serialize(indicator);
-    },
-
-    /**
-     * Adds the given indicator to localStorage collection
-     * @param {object} indicator - indicator to be added
-     */
-    _saveIndicator: function(indicator) {
-      var savedIndicators = this._getSavedIndicators();
-      var serializedIndicator = this._serializeIndicator(indicator);
-
-      savedIndicators.push(serializedIndicator);
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
-
-      Backbone.Events.trigger('indicator:saved');
-    },
-
-    /**
-     * Removes the given indicator from localStorage collection
-     * @param {object} indicatorToRemove - indicator to be removed
-     */
-    _removeIndicator: function(indicatorToRemove) {
-      var serializedIndicator = this._serializeIndicator(indicatorToRemove);
-      var savedIndicators = this._getSavedIndicators();
-      savedIndicators = savedIndicators.filter(function (savedIndicator) {
-        return !_.isEqual(savedIndicator, serializedIndicator);
-      });
-
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
-      Backbone.Events.trigger('indicator:saved');
-    },
-
-    /**
-     * Check if the indicator is already saved in the localStorage object.
-     * @param {object} indicator - checked indicator
-     * @return {boolean} isEqual - It's saved or not
-     */
-    _isIndicatorSaved: function (indicator) {
-      var serializedIndicator = this._serializeIndicator(indicator);
-      var savedIndicators = this._getSavedIndicators();
-
-      if (!savedIndicators.length) {
-        return false;
-      }
-
-      var isSaved = savedIndicators.find(function (savedIndicator) {
-        return _.isEqual(serializedIndicator, savedIndicator);
-      });
-
-      return !!isSaved;
-    },
-
-    //  *** END localStorage private methods ***
 
     /**
      * @return {object} - object with bounds and offsets properties of the modal
@@ -177,7 +107,7 @@
      */
     _toggleButtons: function () {
       var currentIndicator = _.extend({}, this.options.widgetConfig);
-      var isSaved = this._isIndicatorSaved(currentIndicator);
+      var isSaved = App.Helper.Indicators.isIndicatorSaved(currentIndicator);
 
       this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isSaved);
       this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isSaved);
@@ -187,7 +117,7 @@
       var indicator = _.extend({}, this.options.widgetConfig);
 
       // adds indicator to localStorage
-      this._saveIndicator(indicator);
+      App.Helper.Indicators.saveIndicator(indicator);
 
       this._toggleButtons();
     },
@@ -196,19 +126,46 @@
       var indicator = _.extend({}, this.options.widgetConfig);
 
       // removes indicator from localStorage
-      this._removeIndicator(indicator);
+      App.Helper.Indicators.removeIndicator(indicator);
 
       this._toggleButtons();
     },
 
     _onSelectSlide: function (event) {
-      var slideIndex = parseInt(event.currentTarget.getAttribute('data-slide-index'), 10);
+      var slideIndex = +event.currentTarget.dataset['slide-index'];
       this.setSlide(slideIndex);
     },
 
     // TO-DO: take a screenshot of the embed
     _onPrint: function () {
       console.warn('WIP!')
+    },
+
+    /**
+     * Return the link to download the data of the widget
+     * @return {string}
+     */
+    _generateDownloadLink: function () {
+      var res = API_URL
+        + '/indicator/'
+        + this.options.widgetConfig.id
+        + '/expanded/download?'
+        + this.options.widgetConfig.iso
+        + '='
+        + this.options.widgetConfig.year;
+
+      if (this.options.widgetConfig.filters.length) {
+        var filters = this.options.widgetConfig.filters.map(function (filter) {
+          return {
+            indicatorId: filter.id,
+            value: filter.options
+          };
+        });
+
+        res += '&filters=' + encodeURIComponent(JSON.stringify(filters));
+      }
+
+      return res;
     },
 
     _renderWidget: function () {
@@ -220,10 +177,14 @@
     },
 
     _renderSlides: function () {
-      var slidesContainer = this.$el.find('.js-slider-container');
+      var slidesContainer = this.el.querySelector('.js-slider-container');
+      var fragment = new DocumentFragment();
+
       this.slides.forEach(function (slide) {
-        slidesContainer.append(slide.view.render());
+        fragment.appendChild($(slide.view.render())[0]);
       }.bind(this));
+
+      slidesContainer.appendChild(fragment);
     },
 
     _returnWidget: function () {
@@ -231,8 +192,8 @@
     },
 
     setSlide: function (slideIndex) {
-      this.slides.forEach(function (slide) {
-        slide.view.toggleVisibility(this.slides.indexOf(slide) === slideIndex);
+      this.slides.forEach(function (slide, index) {
+        slide.view.toggleVisibility(index === slideIndex);
       }.bind(this));
     },
 
@@ -245,6 +206,9 @@
     render: function () {
       this.options.content = this.contentTemplate();
       this.constructor.__super__.render.apply(this);
+
+      // We update the link to download the data of the widget
+      this.el.querySelector('.js-download').href = this._generateDownloadLink();
     }
   });
 }).call(this, this.App);

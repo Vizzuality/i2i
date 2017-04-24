@@ -88,6 +88,64 @@
           })
           : null
       };
+    },
+
+    /**
+     * Return the list of saved indicators from the local storage
+     * @return {{ id: string, i: string, y: number, c: string, f: {}[], an: string, cp: {}[] }[]}
+     */
+    getSavedIndicators: function () {
+      var indicators = localStorage.getItem('indicators');
+      try {
+        return indicators ? JSON.parse(indicators) : [];
+      } catch(e) {
+        return [];
+      }
+    },
+
+    /**
+     * Save an indicator in the local storage
+     * @param {{ id: string, iso: string, year: number, chart: string, filters: {}[], analysisIndicator: string, compareIndicators: {}[] }} indicator
+     */
+    saveIndicator: function (indicator) {
+      var savedIndicators = this.getSavedIndicators();
+      var serializedIndicator = App.Helper.Indicators.serialize(indicator);
+
+      savedIndicators.push(serializedIndicator);
+      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+
+      Backbone.Events.trigger('indicator:saved');
+    },
+
+    /**
+     * Remove an indicator from the local storage
+     * @param {{ id: string, iso: string, year: number, chart: string, filters: {}[], analysisIndicator: string, compareIndicators: {}[] }} indicator
+     */
+    removeIndicator: function (indicator) {
+      var savedIndicators = this.getSavedIndicators();
+      var serializedIndicator = App.Helper.Indicators.serialize(indicator);
+
+      savedIndicators = savedIndicators.filter(function (ind) {
+        return !_.isEqual(ind, serializedIndicator);
+      });
+      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+
+      Backbone.Events.trigger('indicator:saved');
+    },
+
+    /**
+     * Return whether an indicator has been saved in the local storage
+     * @param {{ id: string, iso: string, year: number, chart: string, filters: {}[], analysisIndicator: string, compareIndicators: {}[] }} indicator
+     */
+    isIndicatorSaved: function (indicator) {
+      var savedIndicators = this.getSavedIndicators();
+      var serializedIndicator = App.Helper.Indicators.serialize(indicator);
+
+      if (!savedIndicators.length) return false;
+
+      return !!savedIndicators.find(function (ind) {
+        return _.isEqual(ind, serializedIndicator);
+      });
     }
   };
 })(this.App));
