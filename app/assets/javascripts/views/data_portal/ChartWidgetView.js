@@ -34,6 +34,8 @@
       compareIndicators: null,
       // Displays widget toolbar
       showToolbar: true,
+      // Display the country, the year and the filters in the widget
+      showDetails: false,
       // Whether the widget is rendered in a report
       report: false,
       // Callback executed when the delete button is clicked
@@ -81,7 +83,14 @@
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
         name: this.model.get('title'),
+        country: App.Helper.Indicators.COUNTRIES[this.options.iso],
+        year: this.options.year,
+        filters: this.options.filters.filter(function (filter) {
+          return filter.id !== 'jurisdiction';
+        }),
+        jurisdiction: this._getJurisdiction(),
         noData: !data.length,
+        showDetails: this.options.showDetails,
         showToolbar: this.options.showToolbar,
         report: this.options.report,
         canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
@@ -277,6 +286,18 @@
      */
     _onDelete: function () {
       this.options.onDelete();
+    },
+
+    /**
+     * Return the name of the jurisdiction if there's one, null otherwise
+     * @return {string|null}
+     */
+    _getJurisdiction: function () {
+      var jurisdictionFilter = this.options.filters.find(function (filter) {
+        return filter.id === 'jurisdiction';
+      });
+
+      return jurisdictionFilter ? jurisdictionFilter.options[0] : null;
     },
 
     /**
@@ -531,6 +552,21 @@
     },
 
     /**
+     * Render the tooltip for the filters in the detail header
+     */
+    _renderFiltersTooltip: function () {
+      var filtersDetailNode = this.el.querySelector('.js-filters-detail');
+      if (!filtersDetailNode) return;
+
+      new App.View.FiltersTooltipView({
+        refElem: filtersDetailNode,
+        filters: this.options.filters.filter(function (filter) {
+          return filter.id !== 'jurisdiction';
+        })
+      });
+    },
+
+    /**
      * Create the chart and append it to the DOM
      */
     _renderChart: function () {
@@ -556,6 +592,7 @@
     },
 
     render: function () {
+      this._renderFiltersTooltip();
       this._renderChart();
       this.setElement(this.el);
       return this.el;

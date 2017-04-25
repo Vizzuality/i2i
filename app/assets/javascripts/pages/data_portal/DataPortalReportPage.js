@@ -175,7 +175,8 @@
           {
             el: this.widgetsContainer.children[index].children[0],
             report: true,
-            onDelete: function () { this._onDelete(indicator); }.bind(this)
+            onDelete: function () { this._onDelete(indicator); }.bind(this),
+            showDetails: true
           },
           indicator
         ));

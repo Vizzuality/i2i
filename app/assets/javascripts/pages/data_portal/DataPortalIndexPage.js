@@ -1,20 +1,6 @@
 (function (App) {
   'use strict';
 
-  var Collection = Backbone.Collection.extend({
-    comparator: 'name',
-    url: API_URL + '/country?lastyear=true',
-    parse: function (data) {
-      return data.map(function (country) {
-        return {
-          iso: country.iso,
-          name: country.name,
-          latestYear: country.year[0].year
-        };
-      });
-    }
-  });
-
   App.Page.DataPortalIndexPage = Backbone.View.extend({
 
     el: '.js-countries',
@@ -22,7 +8,7 @@
     template: JST['templates/data_portal/index-page'],
 
     initialize: function () {
-      this.collection = new Collection();
+      this.collection = new App.Collection.CountriesCollection();
       this._fetchData();
     },
 

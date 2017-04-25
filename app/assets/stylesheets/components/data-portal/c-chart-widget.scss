@@ -12,6 +12,18 @@
     }
   }
 
+  > .details {
+    margin-bottom: 10px;
+    font-family: $font-family-2;
+    font-size: $font-size-s;
+    text-transform: uppercase;
+
+    > span {
+      color: $color-1;
+      cursor: pointer;
+    }
+  }
+
   > .chart {
     width: 100%;
     overflow: hidden;
