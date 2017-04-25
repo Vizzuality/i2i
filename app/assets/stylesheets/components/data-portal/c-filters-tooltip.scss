@@ -1,0 +1,25 @@
+.c-filters-tooltip {
+  position: relative;
+  min-width: 145px;
+  padding: 10px 20px;
+  background-color: $color-5;
+  color: $color-4;
+  font-size: $font-size-xxs;
+  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+  &::before {
+    @include arrow(12px, 1px, $color-5, 'up');
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: rotate(45deg) translate(-50%, 0);
+    background-color: $color-5;
+  }
+
+  ul {
+    li {
+      display: list-item;
+      line-height: 1.5;
+    }
+  }
+}
