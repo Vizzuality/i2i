@@ -11,6 +11,10 @@
           name: country.name,
           latestYear: country.year[0].year
         };
+      }).filter(function (country) {
+        // Kenya is temporarly hidden
+        // https://basecamp.com/1756858/projects/12871501/todos/305471773
+        return country.iso !== 'KEN';
       });
     }
   });
