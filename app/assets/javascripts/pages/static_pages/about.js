@@ -13,6 +13,12 @@
       'click .js-read-more': '_onClickReadMore'
     },
 
+    initialize: function () {
+      this.countriesCollection = new App.Collection.CountriesCollection();
+
+      this._fetchCountries();
+    },
+
     /**
      * Event handler executed when the user clicks on an anchor
      * @param {Event} e
@@ -62,6 +68,32 @@
         title: title,
         content: content
       });
+    },
+
+    /**
+     * Fetch the list of countries and their last year with data
+     */
+    _fetchCountries: function () {
+      this.countriesCollection.fetch()
+        .done(this._updateCountriesLinks.bind(this));
+    },
+
+    /**
+     * Update the link of the countries
+     */
+    _updateCountriesLinks: function () {
+      var countryNodes = document.querySelectorAll('.js-country');
+      Array.prototype.slice.call(countryNodes).forEach(function (countryNode) {
+        var country = this.countriesCollection.toJSON().find(function (country) {
+          return country.iso === countryNode.dataset.iso;
+        });
+
+        if (country) {
+          countryNode.href = ['/data-portal', country.iso, country.latestYear].join('/');
+        } else {
+          countryNode.removeAttribute('href');
+        }
+      }, this);
     },
 
     /**

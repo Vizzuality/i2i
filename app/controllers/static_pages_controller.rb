@@ -3,7 +3,21 @@ class StaticPagesController < ApplicationController
   def about
     @teamMembers = sort_members_by_surname(Member.where(role: 1))
     @advisoryMembers = sort_members_by_surname(Member.where(role: 2))
-    @countries = Country.all.order('name')
+    @countries = [
+      { iso: 'BGD', name: 'Bangladesh' },
+      { iso: 'GHA', name: 'Ghana' },
+      { iso: 'IND', name: 'India' },
+      { iso: 'IDN', name: 'Indonesia' },
+      { iso: 'KEN', name: 'Kenya' },
+      { iso: 'MOZ', name: 'Mozambique' },
+      { iso: 'NGA', name: 'Nigeria' },
+      { iso: 'PAK', name: 'Pakistan' },
+      { iso: 'RWA', name: 'Rwanda' },
+      { iso: 'SEN', name: 'Senegal' },
+      { iso: 'TZA', name: 'Tanzania' },
+      { iso: 'UGA', name: 'Uganda' },
+      { iso: 'ZMB', name: 'Zambia' },
+    ]
 
     gon.team = JSON.parse serialized(@teamMembers).to_json
     gon.advisor = JSON.parse serialized(@advisoryMembers).to_json

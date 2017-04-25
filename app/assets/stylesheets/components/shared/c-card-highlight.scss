@@ -52,15 +52,22 @@
     margin: 0;
     padding: 85px 60px 85px 85px;
 
-    .c-country-list {
-      display: flex;
-      flex-wrap: wrap;
+    .country-list {
+      display: block;
+      width: 100%;
+      column-count: 2;
 
       > .country-item {
-        flex-basis: 50%;
+        display: block;
 
         &:not(:last-child) {
           margin: 0 0 15px;
+        }
+
+        > a {
+          color: $color-1;
+          font-family: $font-family-2;
+          font-size: $font-size-s;
         }
       }
     }

@@ -159,9 +159,9 @@
         <div class="grid-s-12 grid-m-6 grid-l-5">
           <div class="c-card-highlight -countries-about">
             <h3 class="title -dark -medium">Focus countries</h3>
-            <ul class="c-country-list">
+            <ul class="country-list">
               <% @countries.each do |country| %>
-                <li class="country-item"><a href="#"><%= country.name %></a></li>
+                <li class="country-item"><a href="#" class="js-country" data-iso="<%= country[:iso] %>"><%= country[:name] %></a></li>
               <% end %>
             </ul>
           </div>
