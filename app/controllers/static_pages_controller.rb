@@ -22,6 +22,6 @@ class StaticPagesController < ApplicationController
     # Temporary solution. It doesn't work with two-word names. Find a better solution.
     # Sorts members by surname.
     def sort_members_by_surname(members)
-      members.sort{ |a, b| a.name.split(' ')[1] <=> b.name.split(' ')[1] }
+      members.sort{ |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
     end
 end
