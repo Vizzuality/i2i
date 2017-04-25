@@ -27,6 +27,10 @@ class StaticPagesController < ApplicationController
 
   end
 
+  def privacy_policy
+
+  end
+
   private
 
     def serialized(model)

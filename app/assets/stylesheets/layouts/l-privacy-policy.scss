@@ -1,0 +1,49 @@
+.l-privacy-policy {
+
+  > .l-intro {
+    padding: 0 0 25px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+  }
+
+  .l-content {
+    margin: 75px 0;
+
+    h2 {
+      margin-bottom: 85px;
+    }
+
+    h3 {
+      margin-bottom: 15px;
+      font-family: $font-family-2;
+      font-size: $font-size-s;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0 0 30px;
+
+      & + ul {
+        margin-top: -25px;
+      }
+    }
+
+    ul {
+      padding-left: 20px;
+
+      > li {
+        display: list-item;
+        margin: 10px 0;
+        line-height: 1.38;
+        list-style-type: disc;
+      }
+
+      & + h3 {
+        margin-top: 30px;
+      }
+    }
+  }
+}
