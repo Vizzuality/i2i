@@ -89,6 +89,27 @@
       }
     }
 
+    .l-population {
+      margin-top: 20px;
+
+      span {
+        display: block;
+        color: $color-4;
+        font-family: $font-family-2;
+      }
+
+      .title {
+        margin-bottom: 5px;
+        font-size: $font-size-s;
+        text-transform: uppercase;
+      }
+
+      .number {
+        font-size: $font-size-xm;
+        letter-spacing: -1px;
+      }
+    }
+
     .l-data-range {
       margin: 25px 0 20px;
 
