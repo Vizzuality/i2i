@@ -6,11 +6,19 @@
      * @return {{ id: string, n: string, o: string[] }}
      */
     serialize: function (filter) {
-      return {
+      var res = {
         id: filter.id,
         n: filter.name,
         o: filter.options
       };
+
+      // The local storage removes the pairs which have a value equal to undefined
+      // so to prevent inconsistencies, we make sure to not add the name if it's undefined
+      if (res.n === undefined) {
+        delete res.n;
+      }
+
+      return res;
     },
 
     /**
