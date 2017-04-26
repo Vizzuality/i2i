@@ -265,19 +265,19 @@
               <div class="grid-l-8">
                 <%= form_tag '/email', class: 'c-form contact-form' do %>
                   <div class="custom-row">
-                    <label for="name">name</label>
+                    <label for="email_name">name</label>
                     <%= text_field_tag 'email[name]', nil, placeholder: 'Name', required: true %>
                   </div>
                   <div class="custom-row">
-                    <label for="email">email</label>
+                    <label for="email_email">email</label>
                     <%= text_field_tag 'email[email]', nil, type: 'email', placeholder: 'Email', required: true %>
                   </div>
                   <div class="custom-row">
-                    <label for="subject">subject</label>
+                    <label for="email_subject">subject</label>
                     <%= text_area_tag 'email[subject]', nil, placeholder: 'Text subject', required: true %>
                   </div>
                   <div class="footer-form">
-                    <%= submit_tag :send, class: 'c-button -sea -big js-submit' %>
+                    <button class="c-button -sea -big js-submit">Send</button>
                   </div>
                 <% end %>
               </div>

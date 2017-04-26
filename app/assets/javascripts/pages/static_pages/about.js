@@ -72,24 +72,53 @@
     },
 
     /**
-     * Event handler executed when the user clicks to submit a contact
+     * Event handler executed when the user clicks the "Send" button
      * @param {Event} e
      */
     _onClickSubmit: function (e) {
-      // TODO: We should validate the fields are filled
-      var dataSet = $(this).serialize(); // TODO: This isn't correct
+      var button = e.currentTarget;
+      var form = button.closest('form');
+      var message = form.querySelector('.js-message');
+
+      // If the form is invalid, we return
+      if (!form.checkValidity()) return;
+
+      e.preventDefault();
+
+      // Loading state
+      button.innerHTML = '<span></span><span></span><span></span>';
+
       $.ajax({
-        type: "POST",
-        url: e.toElement.parentElement.parentElement.action,
-        data: dataSet,
-        success: function(){
-          alert("Contact Successful!");
+        type: 'POST',
+        url: form.action,
+        data: $(form).serialize(),
+        success: function () {
+          button.textContent = 'Sent!';
+
+          // We remove the message
+          if (message) form.removeChild(message);
+
+          var info = document.createElement('div');
+          info.classList.add('message', '-info', 'js-message');
+          info.textContent = 'Thank you! We will be in touch.';
+          form.insertBefore(info, form.firstChild);
+
+          setTimeout(function () {
+            button.textContent = 'Send';
+          }, 5000);
         },
-        error: function(){
-          alert("There was a problem trying to contact us. Please try again");
+        error: function () {
+          // We remove the message
+          if (message) form.removeChild(message);
+
+          button.textContent = 'Send';
+
+          var error = document.createElement('div');
+          error.classList.add('message', '-error', 'js-message');
+          error.textContent = 'Sorry there was an error sending your message. Please try again later.';
+          form.insertBefore(error, form.firstChild);
         }
       });
-      return false;
     },
 
     /**
