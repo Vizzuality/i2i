@@ -79,7 +79,8 @@
       var options = _.extend({}, {
         el: this.widgetContainer,
         showToolbar: false,
-        autoResize: false
+        autoResize: false,
+        showDetails: true
       }, this.options._state);
 
       var widget = new App.View.ChartWidgetView(options);
