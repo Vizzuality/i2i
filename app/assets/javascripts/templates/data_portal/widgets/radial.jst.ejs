@@ -68,7 +68,14 @@
       "name": "x",
       "type": "ordinal",
       "range": "width",
-      "domain": {"data": "table","field": "label"},
+      "domain": {
+        "data": "table",
+        "field": "label",
+        "sort": {
+          "field": "id",
+          "op": "mean"
+        }
+      },
       "points": true,
       "padding": 1
     },
