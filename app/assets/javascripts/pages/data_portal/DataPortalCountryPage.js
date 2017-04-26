@@ -1,9 +1,10 @@
 (function (App) {
   'use strict';
 
-  var MapUrlModel = Backbone.Model.extend({
+  var CountryModel = Backbone.Model.extend({
 
-    initialize: function (iso) {
+    initialize: function (iso, year) {
+      this.year = year;
       this.iso = iso;
     },
 
@@ -12,7 +13,16 @@
     },
 
     parse: function (data) {
+      var population = null;
+      if (data && data.length && data[0].years.length) {
+        var year = data[0].years.find(function (y) {
+          return y.year === this.year;
+        }, this);
+        population = year && year.total;
+      }
+
       return {
+        population: population,
         url: data && data.length && data[0].mapUrl || null
       };
     }
@@ -50,7 +60,7 @@
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
       this.indicatorsCollection = new App.Collection.IndicatorsCollection();
-      this.mapUrlModel = new MapUrlModel(this.options.iso);
+      this.countryModel = new CountryModel(this.options.iso, this.options.year);
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this.footerContainer = this.el.querySelector('.js-footer');
@@ -94,7 +104,7 @@
     },
 
     /**
-     * Replace this.options.year and updates the URL
+     * Replace this.options.year, updates the URL and the header
      * @param {number} year
      */
     _updateYear: function (year) {
@@ -102,6 +112,12 @@
 
       this.options.year = year;
       this._updateURL();
+
+      // We need to update the header with the population of the country for the selected year
+      this.countryModel.year = year;
+      // If the request fails, we just don't update the population
+      this.countryModel.fetch()
+        .done(this._renderHeader.bind(this));
     },
 
     /**
@@ -162,7 +178,7 @@
 
       $.when.apply($, [
         this.indicatorsCollection.fetch(),
-        this.mapUrlModel.fetch()
+        this.countryModel.fetch()
       ])
         .done(function (){
           this._loadingError = false;
@@ -207,6 +223,28 @@
       return _.findWhere(this.options._filters, { id: 'jurisdiction' });
     },
 
+    /**
+     * Return a human readable population number
+     * @return {string}
+     */
+    _getReadablePopulation: function () {
+      var population = this.countryModel.get('population');
+      var factor, unit;
+
+      if (population / Math.pow(10, 9) >= 1) {
+        factor = 9;
+        unit = 'billion';
+      } else if (population / Math.pow(10, 6) >= 1) {
+        factor = 6;
+        unit = 'million';
+      } else {
+        factor = 3;
+        unit = 'thousand';
+      }
+
+      return (population / Math.pow(10, factor)).toFixed(2) + ' ' + unit;
+    },
+
     render: function () {
       this._renderHeader();
       this._renderWidgets();
@@ -228,7 +266,8 @@
         jurisdiction: this._getJurisdictionFilter()
           ? this._getJurisdictionFilter().options[0]
           : 'All jurisdictions',
-        country: App.Helper.Indicators.COUNTRIES[this.options.iso]
+        country: App.Helper.Indicators.COUNTRIES[this.options.iso],
+        population: this._getReadablePopulation()
       });
     },
 
@@ -240,7 +279,7 @@
         isZambia: this.options.iso === 'ZMB', // remove this in the future
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
-        mapUrl: this.mapUrlModel.get('url'),
+        mapUrl: this.countryModel.get('url'),
         downloadUrl: API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
       });
     },

@@ -8,6 +8,8 @@
     defaults: {
       // Encoded state of the widget
       encodedState: null,
+      // Whether to print the indicator when entering the page
+      print: false,
       // Decoded state of the widget
       _state: null
     },
@@ -17,13 +19,10 @@
       this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       this.widgetContainer = this.el.querySelector('.js-widget');
       this.gridContainer = this.el.querySelector('.js-grid');
+      this.layoutContainer = this.el.querySelector('.js-layout');
 
-      if (!this.options.encodedState) {
-        // TODO
-      } else {
-        this._retrieveState();
-        this._fetchData();
-      }
+      this._retrieveState();
+      this._fetchData();
     },
 
     /**
@@ -32,6 +31,19 @@
      */
     _onWidgetSync: function (event) {
       this._updateWidgetContainer();
+    },
+
+    /**
+     * Event listener executed when the widget has rendered its graph
+     */
+    _onChartRender: function () {
+      // If we want to print the indicator, we change the width of the page
+      if (this.options.print) {
+        this.gridContainer.classList.remove('grid-m-6');
+        this.layoutContainer.classList.add('-print');
+      }
+
+      if (this.options.print) this._print();
     },
 
     /**
@@ -60,9 +72,16 @@
      * Render the widget
      */
     _renderWidget: function () {
-      var options = _.extend({}, { el: this.widgetContainer, showToolbar: false }, this.options._state);
+      var options = _.extend({}, {
+        el: this.widgetContainer,
+        showToolbar: false,
+        autoResize: false,
+        showDetails: true
+      }, this.options._state);
+
       var widget = new App.View.ChartWidgetView(options);
       this.listenTo(widget, 'data:sync', this._onWidgetSync);
+      this.listenTo(widget, 'chart:render', this._onChartRender);
     },
 
     /**
@@ -78,6 +97,13 @@
       if (isComplex) {
         this.gridContainer.classList.remove('grid-m-6');
       }
+    },
+
+    /**
+     * Print the indicator
+     */
+    _print: function () {
+      window.print();
     },
 
     render: function () {

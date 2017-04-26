@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding: 30px 15px;
 
+  &.-print {
+    max-width: 18cm;
+  }
+
   .grid {
     margin: 0 auto;
     float: none;
