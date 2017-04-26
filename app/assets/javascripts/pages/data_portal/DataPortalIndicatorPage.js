@@ -21,12 +21,8 @@
       this.gridContainer = this.el.querySelector('.js-grid');
       this.layoutContainer = this.el.querySelector('.js-layout');
 
-      if (!this.options.encodedState) {
-        // TODO
-      } else {
-        this._retrieveState();
-        this._fetchData();
-      }
+      this._retrieveState();
+      this._fetchData();
     },
 
     /**
