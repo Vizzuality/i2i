@@ -22,6 +22,7 @@ Rails.application.routes.draw do
                             as: 'data_portal_report'
 
 
+  post 'email' => 'static_pages#email'
   get 'about' => 'static_pages#about'
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'

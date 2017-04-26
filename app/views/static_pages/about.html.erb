@@ -263,26 +263,23 @@
           <div class="grid-s-12">
             <div class="l-form-contact">
               <div class="grid-l-8">
-                <form action="#" class="c-form contact-form">
+                <%= form_tag '/email', class: 'c-form contact-form' do %>
                   <div class="custom-row">
                     <label for="name">name</label>
-                    <input type="text" name="name" placeholder="Name" required>
+                    <%= text_field_tag 'email[name]', nil, placeholder: 'Name', required: true %>
                   </div>
-
                   <div class="custom-row">
                     <label for="email">email</label>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <%= text_field_tag 'email[email]', nil, type: 'email', placeholder: 'Email', required: true %>
                   </div>
-
                   <div class="custom-row">
                     <label for="subject">subject</label>
-                    <textarea name="subject" placeholder="Text Subject" required></textarea>
+                    <%= text_area_tag 'email[subject]', nil, placeholder: 'Text subject', required: true %>
                   </div>
-
                   <div class="footer-form">
-                    <button class="c-button -sea -big">Send</button>
+                    <%= submit_tag :send, class: 'c-button -sea -big js-submit' %>
                   </div>
-                </form>
+                <% end %>
               </div>
             </div>
           </div>

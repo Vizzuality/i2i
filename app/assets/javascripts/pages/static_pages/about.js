@@ -10,7 +10,8 @@
       'click .js-anchor': '_onClickAnchor',
       'click .js-profile': '_onClickProfile',
       'keydown .js-profile': '_onKeydownProfile',
-      'click .js-read-more': '_onClickReadMore'
+      'click .js-read-more': '_onClickReadMore',
+      'click .js-submit': '_onClickSubmit'
     },
 
     initialize: function () {
@@ -68,6 +69,27 @@
         title: title,
         content: content
       });
+    },
+
+    /**
+     * Event handler executed when the user clicks to submit a contact
+     * @param {Event} e
+     */
+    _onClickSubmit: function (e) {
+      // TODO: We should validate the fields are filled
+      var dataSet = $(this).serialize(); // TODO: This isn't correct
+      $.ajax({
+        type: "POST",
+        url: e.toElement.parentElement.parentElement.action,
+        data: dataSet,
+        success: function(){
+          alert("Contact Successful!");
+        },
+        error: function(){
+          alert("There was a problem trying to contact us. Please try again");
+        }
+      });
+      return false;
     },
 
     /**
