@@ -104,7 +104,7 @@
     },
 
     /**
-     * Replace this.options.year and updates the URL
+     * Replace this.options.year, updates the URL and the header
      * @param {number} year
      */
     _updateYear: function (year) {
@@ -112,6 +112,12 @@
 
       this.options.year = year;
       this._updateURL();
+
+      // We need to update the header with the population of the country for the selected year
+      this.countryModel.year = year;
+      // If the request fails, we just don't update the population
+      this.countryModel.fetch()
+        .done(this._renderHeader.bind(this));
     },
 
     /**
