@@ -23,23 +23,39 @@ class StaticPagesController < ApplicationController
     gon.advisor = JSON.parse serialized(@advisoryMembers).to_json
   end
 
-  def terms_of_use
+  def email
+    email = params.require(:email).permit(:name, :email, :subject)
+    if valid_email_contact? email
+      begin
+        ContactMailer.message_mail(email.to_h).deliver!
+      rescue SparkPostRails::DeliveryException => e
+        Rails.logger.error "Error sending the email: #{e}"
+      end
 
+      render json: email.to_json, status: :created
+    else
+      render json: email.errors, status: :unprocessable_entity
+    end
   end
 
-  def privacy_policy
+  def terms_of_use; end
 
-  end
+  def privacy_policy; end
 
   private
 
-    def serialized(model)
-      ActiveModelSerializers::SerializableResource.new(model, adapter: :json)
-    end
+  def serialized(model)
+    ActiveModelSerializers::SerializableResource.new(model, adapter: :json)
+  end
 
-    # Temporary solution. It doesn't work with two-word names. Find a better solution.
-    # Sorts members by surname.
-    def sort_members_by_surname(members)
-      members.sort{ |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
-    end
+  # Temporary solution. It doesn't work with two-word names. Find a better solution.
+  # Sorts members by surname.
+  def sort_members_by_surname(members)
+    members.sort { |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
+  end
+
+  def valid_email_contact?(email)
+    return false unless email.key?(:name) && email.key?(:email) && email.key?(:subject)
+    !email[:name].blank? && !email[:email].blank? && !email[:subject].blank?
+  end
 end
