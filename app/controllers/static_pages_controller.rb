@@ -25,7 +25,7 @@ class StaticPagesController < ApplicationController
 
   def email
     email = params.require(:email).permit(:name, :email, :subject)
-    if email.key?(:name) && email.key?(:email) && email.key?(:subject)
+    if valid_email_contact? email
       begin
         ContactMailer.message_mail(email.to_h).deliver!
       rescue SparkPostRails::DeliveryException => e
@@ -51,6 +51,11 @@ class StaticPagesController < ApplicationController
   # Temporary solution. It doesn't work with two-word names. Find a better solution.
   # Sorts members by surname.
   def sort_members_by_surname(members)
-    members.sort{ |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
+    members.sort { |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
+  end
+
+  def valid_email_contact?(email)
+    return false unless email.key?(:name) && email.key?(:email) && email.key?(:subject)
+    !email[:name].blank? && !email[:email].blank? && !email[:subject].blank?
   end
 end
