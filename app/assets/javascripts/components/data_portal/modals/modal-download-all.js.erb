@@ -56,6 +56,9 @@
     },
 
     _onContinue: function () {
+      var country = App.Helper.Indicators.COUNTRIES[this.options.iso];
+      App.Helper.Analytics.sendEvent('Download', 'Download from Data Portal', country);
+
       this._sendRequest();
       this.constructor.__super__.onCloseModal.apply(this);
     },

@@ -6,7 +6,7 @@
       <% group.indicators.forEach(function (indicator) { %>
         <li>
           <div class="c-checkbox">
-            <input type="checkbox" id="indicator-<%= indicator.id %>" value="<%= indicator.id %>" class="js-indicator" <%= indicator.visible ? 'checked' : '' %> />
+            <input type="checkbox" id="indicator-<%= indicator.id %>" value="<%= indicator.id %>" data-indicator="<%= indicator.name %>" data-group="<%= group.name %>" class="js-indicator" <%= indicator.visible ? 'checked' : '' %> />
             <label for="indicator-<%= indicator.id %>"><%= indicator.name %></label>
           </div>
         </li>

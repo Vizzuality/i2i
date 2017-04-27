@@ -105,6 +105,8 @@
     _onTabChange: function (tabName) {
       this.options._mode = tabName;
 
+      App.Helper.Analytics.sendEvent('Change data view', 'Choose new view','Choose ' + tabName + ' view');
+
       if (tabName === 'graphics') {
         // We need to restore the configuration of the widgets
         this.widgets.forEach(function (widget) {

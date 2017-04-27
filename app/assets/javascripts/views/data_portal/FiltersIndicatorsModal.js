@@ -79,6 +79,14 @@
     },
 
     /**
+     * Event handler executed when the user closes the modal
+     */
+    onCloseModal: function () {
+      App.Helper.Analytics.sendEvent('Customise indicators', 'User cancels selection', 'click');
+      App.Component.Modal.prototype.onCloseModal.apply(this, arguments);
+    },
+
+    /**
      * Event handler executed when the user switch from one tab to another
      * @param {string} tabId
      */

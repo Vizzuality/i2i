@@ -15,6 +15,10 @@
       filters: []
     },
 
+    events: {
+      'click .js-option': '_onClickOption'
+    },
+
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
       // Filter out the the complex indicators (access or strands) and copy the
@@ -38,6 +42,18 @@
         });
 
       this._fetchData();
+    },
+
+    /**
+     * Event handler executed when the user clicks an option
+     * @param {Event} e event
+     */
+    _onClickOption: function (e) {
+      if (!e.currentTarget.checked) return;
+
+      var indicator = e.currentTarget.dataset.indicator;
+      var option = e.currentTarget.value;
+      App.Helper.Analytics.sendEvent('Add filters', indicator, option);
     },
 
     /**
@@ -114,7 +130,7 @@
       options = Array.prototype.slice.call(options);
 
       var filtersGroup = _.groupBy(options, function (option) {
-        return option.dataset.indicator;
+        return option.dataset.indicatorId;
       });
 
       return Object.keys(filtersGroup)
