@@ -26,11 +26,11 @@
      * @return {string} - string of saved indicator array
      */
     _encodeIndicators: function () {
-      return App.Helper.URL.encode({ indicators: JSON.parse(localStorage.getItem('indicators')) });
+      return App.Helper.URL.encode({ indicators: JSON.parse(sessionStorage.getItem('indicators')) });
     },
 
     render: function () {
-      var widgetsOnReport = localStorage.getItem('indicators') ? JSON.parse(localStorage.getItem('indicators')).length : null;
+      var widgetsOnReport = sessionStorage.getItem('indicators') ? JSON.parse(sessionStorage.getItem('indicators')).length : null;
 
       this.el.classList.toggle('_is-hidden', !widgetsOnReport);
 

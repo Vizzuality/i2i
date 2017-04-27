@@ -117,19 +117,13 @@
 
     _onAddReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-
-      // adds indicator to localStorage
       App.Helper.Indicators.saveIndicator(indicator);
-
       this._toggleButtons();
     },
 
     _onRemoveReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-
-      // removes indicator from localStorage
       App.Helper.Indicators.removeIndicator(indicator);
-
       this._toggleButtons();
     },
 

@@ -41,7 +41,7 @@
       // Check here: https://github.com/turbolinks/turbolinks/issues/219
       history.replaceState({ turbolinks: {} }, '', url);
 
-      // We delete the indicator from the localStorage, if stored there
+      // We delete the indicator from the sessionStorage, if stored there
       if (App.Helper.Indicators.isIndicatorSaved(indicator)) {
         App.Helper.Indicators.removeIndicator(indicator);
       }

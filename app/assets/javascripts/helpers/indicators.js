@@ -95,7 +95,7 @@
      * @return {{ id: string, i: string, y: number, c: string, f: {}[], an: string, cp: {}[] }[]}
      */
     getSavedIndicators: function () {
-      var indicators = localStorage.getItem('indicators');
+      var indicators = sessionStorage.getItem('indicators');
       try {
         return indicators ? JSON.parse(indicators) : [];
       } catch(e) {
@@ -112,7 +112,7 @@
       var serializedIndicator = App.Helper.Indicators.serialize(indicator);
 
       savedIndicators.push(serializedIndicator);
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+      sessionStorage.setItem('indicators', JSON.stringify(savedIndicators));
 
       Backbone.Events.trigger('indicator:saved');
     },
@@ -128,7 +128,7 @@
       savedIndicators = savedIndicators.filter(function (ind) {
         return !_.isEqual(ind, serializedIndicator);
       });
-      localStorage.setItem('indicators', JSON.stringify(savedIndicators));
+      sessionStorage.setItem('indicators', JSON.stringify(savedIndicators));
 
       Backbone.Events.trigger('indicator:saved');
     },
