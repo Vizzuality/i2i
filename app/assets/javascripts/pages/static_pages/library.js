@@ -18,7 +18,8 @@
     },
 
     events: {
-      'click .js-category-button': '_onClickCategory'
+      'click .js-category-button': '_onClickCategory',
+      'click .js-download': '_onClickDownload'
     },
 
     initialize: function (options) {
@@ -40,16 +41,27 @@
 
     /**
      * Event handler for when the user clicks on a category
-     * @params {Event} e
+     * @param {Event} e
      */
     _onClickCategory: function (e) {
       var categoryName = e.target.textContent;
       var category = _.findWhere(this.options.categories, { name: categoryName });
 
+      App.Helper.Analytics.sendEvent('i2i Library', 'Change Tab', categoryName);
+
       this.options.selectedCategory = category;
       this.options.selectedSubcategory = null; // We reset the subcategory each time
       this._updateCategoryButtons();
       this._filter();
+    },
+
+    /**
+     * Event handler executed when the user clicks a download link
+     * @param {Event} e event
+     */
+    _onClickDownload: function (e) {
+      var name = e.currentTarget.dataset.name;
+      App.Helper.Analytics.sendEvent('Download', 'Download from i2i library', name);
     },
 
     /**

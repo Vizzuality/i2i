@@ -48,7 +48,9 @@
       //   { id: 'my-indicator', name: 'My indicator', options: ['Option 1', 'Option 2'] }
       // ]
       // NOTE: Do not set this property at instantiation time
-      _filters: []
+      _filters: [],
+      // Mode of the portal: "graphics" or "table"
+      _mode: 'graphics'
     },
 
     events: {
@@ -64,6 +66,7 @@
       this.headerContainer = this.el.querySelector('.js-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this.footerContainer = this.el.querySelector('.js-footer');
+      this.tabsContainers = this.el.querySelectorAll('.js-tabs');
       this._fetchData();
 
       new App.View.ReportFixedBar();
@@ -93,6 +96,61 @@
       this._updateJurisdiction(jurisdiction);
 
       this.render();
+    },
+
+    /**
+     * Event handler executed when the tab is changed
+     * @param {'graphics'|'table'} tabName
+     */
+    _onTabChange: function (tabName) {
+      this.options._mode = tabName;
+
+      App.Helper.Analytics.sendEvent('Change data view', 'Choose new view','Choose ' + tabName + ' view');
+
+      if (tabName === 'graphics') {
+        // We need to restore the configuration of the widgets
+        this.widgets.forEach(function (widget) {
+          var widgetConfig = this.widgetsConfig.find(function (widgetConfig) {
+            return widgetConfig.id === widget.options.id;
+          });
+
+          if (!widgetConfig) {
+            // This case can be triggered if the user adds an indicator while in the
+            // table mode
+            widget.options = Object.assign({}, widget.options, {
+              chart: null,
+              showToolbar: true
+            });
+          } else {
+            widget.options = Object.assign({}, widget.options, {
+              chart: widgetConfig.chart,
+              analysisIndicator: widgetConfig.analysisIndicator,
+              compareIndicators: widgetConfig.compareIndicators,
+              showToolbar: true
+            });
+          }
+
+          widget.reload();
+        }, this);
+
+        delete this.widgetsConfig;
+      } else {
+        // We need to save the current configuration of the widgets
+        this.widgetsConfig = this.widgets.map(function (widget) {
+          return Object.assign({}, widget.options);
+        });
+
+        // We update all the widgets to the table view
+        this.widgets.forEach(function (widget) {
+          widget.options = Object.assign({}, widget.options, {
+            chart: 'table',
+            showToolbar: false,
+            analysisIndicator: null,
+            compareIndicators: null
+          });
+          widget.reload();
+        });
+      }
     },
 
     /**
@@ -269,6 +327,20 @@
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         population: this._getReadablePopulation()
       });
+
+      // We instantiate the tab views
+      if (!this.tabs) {
+        this.tabs = [];
+        this.tabs = Array.prototype.slice.call(this.tabsContainers)
+          .map(function (container) {
+            return new App.View.SwitcherView({
+              el: container,
+              tabpanel: this.widgetsContainer,
+              currentTab: 'graphics',
+              onChange: this._onTabChange.bind(this)
+            });
+          }, this);
+      }
     },
 
     /**
@@ -362,13 +434,21 @@
 
       // We instantiate the widget views
       visibleIndicators.forEach(function (indicator, index) {
-        var widget = new App.View.ChartWidgetView({
+        var chartOptions = {
           el: this.widgetsContainer.children[index].children[0],
           id: indicator.id,
           iso: this.options.iso,
           year: this.options.year,
           filters: this.options._filters
-        });
+        };
+
+        // If the portal is in table mode, we force the widgets to display
+        // as tables
+        if (this.options._mode === 'table') {
+          chartOptions.chart = 'table';
+        }
+
+        var widget = new App.View.ChartWidgetView(chartOptions);
 
         this.widgets.push(widget);
 

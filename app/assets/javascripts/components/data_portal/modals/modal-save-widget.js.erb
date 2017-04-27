@@ -28,7 +28,8 @@
         'click .js-add-report': '_onAddReport',
         'click .js-remove-report': '_onRemoveReport',
         'click .js-slide-button': '_onSelectSlide',
-        'click .js-print': '_onPrint'
+        'click .js-print': '_onPrint',
+        'click .js-download': '_onDownload'
       });
     },
 
@@ -117,24 +118,18 @@
 
     _onAddReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-
-      // adds indicator to localStorage
       App.Helper.Indicators.saveIndicator(indicator);
-
       this._toggleButtons();
     },
 
     _onRemoveReport: function () {
       var indicator = _.extend({}, this.options.widgetConfig);
-
-      // removes indicator from localStorage
       App.Helper.Indicators.removeIndicator(indicator);
-
       this._toggleButtons();
     },
 
     _onSelectSlide: function (event) {
-      var slideIndex = +event.currentTarget.dataset['slide-index'];
+      var slideIndex = +event.currentTarget.dataset['slideIndex'];
       this.setSlide(slideIndex);
     },
 
@@ -154,6 +149,14 @@
       var printURL = location.origin +
         '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
       window.open(printURL, '_blank');
+    },
+
+    /**
+     * Event handler executed when the user clicks the "Download" button
+     */
+    _onDownload: function () {
+      var country = App.Helper.Indicators.COUNTRIES[this.options.widgetConfig.iso];
+      App.Helper.Analytics.sendEvent('Download', 'Download from Data Portal', country);
     },
 
     /**

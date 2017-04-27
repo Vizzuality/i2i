@@ -294,6 +294,13 @@
     },
 
     /**
+     * Reload the widget its current configuration
+     */
+    reload: function () {
+      this._fetchData();
+    },
+
+    /**
      * Return the name of the jurisdiction if there's one, null otherwise
      * @return {string|null}
      */

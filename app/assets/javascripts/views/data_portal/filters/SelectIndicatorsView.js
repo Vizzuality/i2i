@@ -10,9 +10,25 @@
       indicators: []
     },
 
+    events: {
+      'click .js-indicator': '_onClickIndicator'
+    },
+
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
       this.render();
+    },
+
+    /**
+     * Event handler executed when the user clicks on an indicator
+     * @param {Event} e event
+     */
+    _onClickIndicator: function (e) {
+      if (!e.currentTarget.checked) return;
+
+      var indicator = e.currentTarget.dataset.indicator;
+      var group = e.currentTarget.dataset.group;
+      App.Helper.Analytics.sendEvent('Customise indicators', 'Select ' + group, indicator);
     },
 
     /**

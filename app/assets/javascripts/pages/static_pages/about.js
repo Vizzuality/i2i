@@ -10,7 +10,8 @@
       'click .js-anchor': '_onClickAnchor',
       'click .js-profile': '_onClickProfile',
       'keydown .js-profile': '_onKeydownProfile',
-      'click .js-read-more': '_onClickReadMore'
+      'click .js-read-more': '_onClickReadMore',
+      'click .js-submit': '_onClickSubmit'
     },
 
     initialize: function () {
@@ -67,6 +68,56 @@
       new App.Component.ModalAboutReadMore({
         title: title,
         content: content
+      });
+    },
+
+    /**
+     * Event handler executed when the user clicks the "Send" button
+     * @param {Event} e
+     */
+    _onClickSubmit: function (e) {
+      var button = e.currentTarget;
+      var form = button.closest('form');
+      var message = form.querySelector('.js-message');
+
+      // If the form is invalid, we return
+      if (!form.checkValidity()) return;
+
+      e.preventDefault();
+
+      // Loading state
+      button.innerHTML = '<span></span><span></span><span></span>';
+
+      $.ajax({
+        type: 'POST',
+        url: form.action,
+        data: $(form).serialize(),
+        success: function () {
+          button.textContent = 'Sent!';
+
+          // We remove the message
+          if (message) form.removeChild(message);
+
+          var info = document.createElement('div');
+          info.classList.add('message', '-info', 'js-message');
+          info.textContent = 'Thank you! We will be in touch.';
+          form.insertBefore(info, form.firstChild);
+
+          setTimeout(function () {
+            button.textContent = 'Send';
+          }, 5000);
+        },
+        error: function () {
+          // We remove the message
+          if (message) form.removeChild(message);
+
+          button.textContent = 'Send';
+
+          var error = document.createElement('div');
+          error.classList.add('message', '-error', 'js-message');
+          error.textContent = 'Sorry there was an error sending your message. Please try again later.';
+          form.insertBefore(error, form.firstChild);
+        }
       });
     },
 

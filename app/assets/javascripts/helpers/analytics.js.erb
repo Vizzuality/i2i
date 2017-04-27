@@ -1,0 +1,12 @@
+App.Helper.Analytics = {
+  /**
+   * Send an analytics event
+   */
+  sendEvent: function () {
+    var params = Array.prototype.slice.call(arguments);
+    params.unshift('send');
+
+    var func = <%= Rails.env.production? ? 'window.ga || function () {}' : 'console.log' %>;
+    func.apply(func, params);
+  }
+};

@@ -34,7 +34,8 @@
     },
 
     events: {
-      'click .js-year': '_onClickYear'
+      'click .js-year': '_onClickYear',
+      'click .js-jurisdiction': '_onClickJurisdiction'
     },
 
     initialize: function (options) {
@@ -77,6 +78,15 @@
           // happen that for another year, the jurisdiction doesn't exist anymore
           this.el.querySelector('.js-jurisdiction[value="All"]').checked = true;
         }.bind(this));
+    },
+
+    /**
+     * Event handler executed when the user selects a jurisdiction
+     * @param {Event} e event
+     */
+    _onClickJurisdiction: function (e) {
+      var jurisdiction = e.currentTarget.value;
+      App.Helper.Analytics.sendEvent('Customise indicators', 'Select Jurisdiction', jurisdiction);
     },
 
     /**
