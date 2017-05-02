@@ -4,7 +4,7 @@ class Updates::BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.limit(8).order(date: :DESC)
+    @blogs = Blog.order(date: :DESC)
   end
 
   # GET /blog/1

@@ -4,7 +4,7 @@ class Updates::NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = News.limit(15).order(date: :DESC)
+    @news = News.order(date: :DESC)
   end
 
   # GET /news/1
