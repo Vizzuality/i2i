@@ -4,7 +4,7 @@ class Updates::EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.limit(16).order(date: :DESC)
+    @events = Event.order(date: :DESC)
   end
 
   # GET /event/1

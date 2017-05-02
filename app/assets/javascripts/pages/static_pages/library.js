@@ -19,7 +19,8 @@
 
     events: {
       'click .js-category-button': '_onClickCategory',
-      'click .js-download': '_onClickDownload'
+      'click .js-download': '_onClickDownload',
+      'click .js-video': '_onClickVideo'
     },
 
     initialize: function (options) {
@@ -62,6 +63,20 @@
     _onClickDownload: function (e) {
       var name = e.currentTarget.dataset.name;
       App.Helper.Analytics.sendEvent('Download', 'Download from i2i library', name);
+    },
+
+    /**
+     * Event handler executed when the user clicks the button to see a video
+     * @param {Event} e event
+     */
+    _onClickVideo: function (e) {
+      e.preventDefault();
+
+      var link = e.target.href;
+
+      new App.Component.YoutubeModal({
+        link: link
+      });
     },
 
     /**
