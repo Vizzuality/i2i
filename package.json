@@ -1,7 +1,7 @@
 {
   "name": "insight-to-impact",
   "version": "1.0.0",
-  "description": "Advancing financial inclusion",
+  "description": "Unleashing the power of data for financial inclusion",
   "main": "index.js",
   "directories": {
     "test": "test"

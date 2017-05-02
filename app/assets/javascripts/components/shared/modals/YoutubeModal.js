@@ -29,7 +29,12 @@
      * @return {string}
      */
     _getEmbedLink: function () {
-      return this.options.link.replace('watch?v=', 'embed/');
+      var videoID;
+      var matches = this.options.link.match(/(watch\?v=|youtu\.be\/)([^#\&\?]*)/);
+      if (matches && matches.length > 2) videoID = matches[2];
+
+      if (videoID) return 'https://www.youtube.com/embed/' + videoID;
+      return null;
     },
 
     /**
