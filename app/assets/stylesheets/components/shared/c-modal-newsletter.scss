@@ -1,0 +1,21 @@
+.c-modal-newsletter {
+  padding: 30px;
+
+  > .title {
+    margin-bottom: 40px;
+    font-size: $font-size-xxm;
+  }
+
+  > .c-form {
+    display: flex;
+    flex-direction: column;
+
+    > input {
+      margin-bottom: 30px;
+    }
+
+    > button {
+      align-self: flex-end;
+    }
+  }
+}

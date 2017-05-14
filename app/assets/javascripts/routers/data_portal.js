@@ -99,6 +99,7 @@
 
     new App.View.MobileMenu();
     new App.View.Footer();
+    new App.View.Newsletter();
   };
 
   document.addEventListener('turbolinks:load', init);

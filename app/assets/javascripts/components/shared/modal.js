@@ -27,7 +27,9 @@
         // Content of the modal
         content: '',
         // Modal footer
-        footer: ''
+        footer: '',
+        // Additional class to add to c-modal
+        modalClass: ''
       }, this.defaults, options);
 
       // Binded functions
@@ -102,6 +104,7 @@
 
     render: function () {
       $(this.body).append(this.$el.html(this.template({
+        modalClass: this.options.modalClass,
         showTitle: this.options.showTitle,
         title: this.options.title,
         content: this.options.content,
