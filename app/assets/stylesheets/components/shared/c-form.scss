@@ -1,4 +1,3 @@
-
 .c-form {
 
   > .custom-row {
@@ -6,7 +5,11 @@
     flex-direction: column;
 
     &:not(:first-child) {
-      margin: 40px 0 0;
+      margin: 25px 0 0;
+
+      @media #{$mq-tablet} {
+        margin: 40px 0 0;
+      }
     }
   }
 

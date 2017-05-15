@@ -7,6 +7,10 @@
   transform: translate(-50%, -50%);
   background: $color-4;
 
+  &.-newsletter {
+    max-width: 600px;
+  }
+
   > div {
     outline: 0;
   }

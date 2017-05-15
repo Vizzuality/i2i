@@ -13,7 +13,13 @@
     },
 
     parse: function (data) {
-      return data.map(function (row) {
+      return data
+        .filter(function (country) {
+          // Kenya is temporarly hidden
+          // https://basecamp.com/1756858/projects/12871501/todos/305471773
+          return country.iso !== 'KEN';
+        })
+        .map(function (row) {
         return {
           name: row.name,
           iso: row.iso,
