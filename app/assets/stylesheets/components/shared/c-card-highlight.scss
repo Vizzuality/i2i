@@ -38,11 +38,39 @@
   }
 
   &.-about {
-    display: inline-block;
-    width: calc(100% - 340px);
-    height: 100%;
-    margin: 0;
-    padding: 85px 110px 85px 85px;
+    flex-direction: row;
+    align-items: stretch;
+
+    .content {
+      padding: 85px 110px 85px 85px;
+
+      .title {
+        margin: 0 0 20px;
+      }
+
+      p + .title {
+        margin-top: 50px;
+      }
+
+      .c-button {
+        margin: 25px 0 0;
+      }
+    }
+
+    &.-reverse {
+      flex-direction: row-reverse;
+
+      .content {
+        padding: 85px 85px 85px 110px;
+      }
+    }
+
+    .image-container {
+      flex-basis: 340px;
+      flex-shrink: 0;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
   }
 
   &.-countries-about {
