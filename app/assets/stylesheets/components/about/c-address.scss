@@ -1,33 +1,41 @@
-
 .c-address {
   display: inline-block;
   position: relative;
   width: 100%;
-  height: 445px;
 
   > a {
-    display: inline-block;
-    width: 100%;
-    height: 175px;
+    display: none;
 
-    > .map {
-      display: inline-block;
+    @media #{$mq-tablet} {
+      display: block;
+      position: relative;
       width: 100%;
-      height: 100%;
+      padding-top: 51.6%; // We maintain the image ratio
 
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
+      > .map {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
     }
   }
 
   > .info {
-    position: absolute;
-    top: 175px;
-    left: 0;
-    width: 100%;
-    padding: 25px 30px 30px;
+    padding: 25px 15px;
     background-color: $color-4;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+    @media #{$mq-tablet} {
+      width: 100%;
+      padding: 25px 30px 30px;
+      box-shadow: none;
+    }
 
     > .title {
       display: inline-block;

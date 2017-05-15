@@ -24,8 +24,9 @@
   <div class="l-content">
     <div class="wrapper">
     <div class="l-section -insights">
-      <div class="insight-container">
-        <div id="background" class="c-card-highlight -about">
+
+      <div id="background" class="c-card-highlight -about">
+        <div class="content">
           <h3 class="title -dark -medium">Background</h3>
           <p>The availability of data in financial inclusion has grown tremendously in recent years. Data initiatives such as the World Bank’s Findex, FinMark Trust’s Finscope, IMF’s Financial Access Surveys, AFI’s Core Set, GPFI’s Basic Set, MIX Market’s Finclusion Lab, as well as countless studies driven at a national level have played a critical role in deepening our understanding of financial inclusion.</p>
           <button class="c-button js-read-more" data-title="Background">Read more</button>
@@ -42,13 +43,13 @@
             <p>
               Launched in 2015, i2i was created in response to this identified data gap. The i2i facility is jointly hosted by <a href="http://www.cenfri.org" target="_blank" rel="noopener">Cenfri </a>and <a href="http://www.finmark.org.za/" target="_blank">FinMark Trust</a> and funded by the <a href="http://www.gatesfoundation.org/" target="_blank" rel="noopener">Bill & Melinda Gates Foundation</a> in partnership with <a href="http://www.mastercardfdn.org/" target="_blank" rel="noopener">The MasterCard Foundation</a>.
             </p>
-
           </div>
         </div>
         <div class="image-container" style="background-image: url(<%= asset_path('about/background.jpg') %>)"></div>
       </div>
-      <div id="about-us" class="insight-container -reverse">
-        <div class="c-card-highlight -about">
+
+      <div id="about-us" class="c-card-highlight -about -reverse">
+        <div class="content">
           <h3 class="title -dark -medium">About us</h3>
           <p>We are in the business of liberating data. Whether you are a financial service provider,
             a policymaker, impact investor, or development partner, we want you to optimise the impact
@@ -82,8 +83,8 @@
         <div class="image-container" style="background-image: url(<%= asset_path('about/about-us.jpg') %>)"></div>
       </div>
 
-      <div id="vision-mission" class="insight-container -what-we-do">
-        <div class="c-card-highlight -about">
+      <div id="vision-mission" class="c-card-highlight -about">
+        <div class="content">
           <h3 class="title -dark -medium">i2i vision</h3>
           <p>Policymakers, financial service providers, and financial inclusion development partners
             use data to make effective, evidence-based decisions that drive positive financial inclusion
@@ -91,9 +92,7 @@
             lead to financial services that respond to people’s needs who are traditionally underserved
             by formal financial systems. All people are able to adequately absorb economic shocks,
             accumulate wealth, and unlock economic opportunities through the use of financial services.</p>
-        </div>
 
-        <div class="c-card-highlight -about">
           <h3 class="title -dark -medium">i2i mission</h3>
           <p>We aim to unlock development outcomes by mobilising the data market and catalysing the generation and
             use of high quality, client-centric data. We accomplish this by advancing measurement frameworks,
@@ -105,8 +104,8 @@
         <div class="image-container" style="background-image: url(<%= asset_path('about/i2i-vision-mission.jpg') %>)"></div>
       </div>
 
-      <div id="our-work" class="insight-container -reverse">
-        <div class="c-card-highlight -about">
+      <div id="our-work" class="c-card-highlight -about -reverse">
+        <div class="content">
           <h3 class="title -dark -medium">Our work</h3>
           <p>The work of the i2i facility is structured along five focus areas. In partnership with a
             broad range of stakeholders (including policymakers, financial services providers, data
@@ -134,7 +133,7 @@
           <div class="l-staff-grid">
             <div class="row">
               <% @teamMembers.each do |member| %>
-                <div class="grid-s-12 grid-m-4 grid-l-3">
+                <div class="grid-s-6 grid-m-4 grid-l-3">
                   <div class="c-profile js-profile"
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
@@ -157,7 +156,7 @@
     <div id="focus-countries" class="l-section -countries" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
       <div class="row">
         <div class="grid-s-12 grid-m-6 grid-l-5">
-          <div class="c-card-highlight -countries-about">
+          <div class="c-card-highlight -countries-about" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
             <h3 class="title -dark -medium">Focus countries</h3>
             <ul class="country-list">
               <% @countries.each do |country| %>
@@ -184,7 +183,7 @@
           <div class="l-staff-grid">
             <div class="row">
               <% @advisoryMembers.each do |member| %>
-                <div class="grid-s-12 grid-m-4 grid-l-3">
+                <div class="grid-s-6 grid-m-4 grid-l-3">
                   <div class="c-profile js-profile"
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
@@ -218,9 +217,9 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="l-addresses">
-              <div class="grid-l-8">
+              <div class="grid-s-12 grid-l-8">
                 <div class="row">
-                  <div class="grid-l-6">
+                  <div class="grid-s-12 grid-m-6">
                     <address class="c-address">
                       <a href="https://www.google.es/maps/place/New+Rd+%26+16th+Rd,+Midrand,+1685,+Sud%C3%A1frica/@-25.981063,28.127887,17z/data=!3m1!4b1!4m5!3m4!1s0x1e956e3ea117bcf5:0xc2e5f08e0d7747bc!8m2!3d-25.9810678!4d28.1300757" rel="noopener noreferrer" target="_blank" alt="FinMark Trust map location">
                         <div class="map" style="background-image: url(<%= asset_path('about/map-finmark.png')%>)"></div>
@@ -237,7 +236,7 @@
                       </div>
                     </address>
                   </div>
-                  <div class="grid-l-6">
+                  <div class="grid-s-12 grid-m-6">
                     <address class="c-address">
                       <a href="https://www.google.es/maps/place/99+Jip+De+Jager+Dr,+De+Bron,+Cape+Town,+7530,+Sud%C3%A1frica/@-33.8558211,18.6252073,18.37z/data=!4m5!3m4!1s0x1dcc57517431becf:0xb602e69f03fc6860!8m2!3d-33.8554596!4d18.6256236" rel="noopener noreferrer" target="_blank" alt="Cenfri map location">
                         <div class="map" style="background-image: url(<%= asset_path('about/map-cenfri.png')%>)"></div>
@@ -262,7 +261,7 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="l-form-contact">
-              <div class="grid-l-8">
+              <div class="grid-s-12 grid-m-8">
                 <%= form_tag '/email', class: 'c-form contact-form' do %>
                   <div class="custom-row">
                     <label for="email_name">name</label>
