@@ -6,10 +6,18 @@
 
   .l-section {
     position: relative;
-    padding: 0 0 60px;
+    padding: 0 0 25px;
+
+    @media #{$mq-tablet} {
+      padding: 0 0 60px;
+    }
 
     &:not(:first-child) {
-      margin: 70px 0 0;
+      margin: 25px 0 0;
+
+      @media #{$mq-tablet} {
+        margin: 70px 0 0;
+      }
     }
 
     &::after {
@@ -24,17 +32,61 @@
     }
 
     &.-countries {
-      margin: 60px 0 0;
-      padding: 0 40px 60px 0;
+      position: relative;
+      left: -10px;
+      width: calc(100% + 20px);
+      margin: 0;
+      padding: 0 1%; // To compensate the wrapper on mobile
+      background-size: 0 0;
 
-      background-repeat: no-repeat;
-      background-position: right center;
-      background-origin: content-box;
+      &:after { content: none; }
+
+      @media #{$mq-tablet} {
+        position: static;
+        width: 100%;
+        margin: 60px 0 0;
+        padding: 0 40px 60px 0;
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 50% auto;
+        background-origin: content-box;
+      }
+
+      @media #{$mq-desktop} {
+        background-size: auto;
+      }
     }
 
     &.-insights {
       .c-card-highlight {
         margin-bottom: 20px;
+
+        &:nth-of-type(3) {
+          .image-container {
+            background-position-y: -80px;
+          }
+        }
+      }
+    }
+
+    &.-team,
+    &.-advisory {
+      &:after { content: none; }
+
+      @media #{$mq-tablet} {
+        &:after { content: ''; }
+      }
+    }
+
+    &.-contact {
+      &:after { content: none; }
+
+      .l-section-description {
+        margin-bottom: 30px;
+
+        @media #{$mq-tablet} {
+          margin-bottom: 0;
+        }
       }
     }
 
@@ -54,19 +106,36 @@
   }
 
   .l-staff-grid {
-    margin: 60px 0 0;
+    margin: 25px 0 0;
+
+    @media #{$mq-tablet} {
+      margin: 60px 0 0;
+    }
   }
 
   .l-addresses {
-    display: flex;
-    justify-content: center;
-    margin: 60px 0 0;
+    @media #{$mq-tablet} {
+      display: flex;
+      justify-content: center;
+      margin: 60px 0 0;
+    }
+
+    .c-address {
+      margin-top: 20px;
+
+      @media #{$mq-tablet} {
+        margin-top: 0;
+      }
+    }
   }
 
   .l-form-contact {
     display: flex;
     justify-content: center;
-    margin: 40px 0 0;
+
+    @media #{$mq-tablet} {
+      margin: 40px 0 0;
+    }
 
     .contact-form {
       textarea {
@@ -78,8 +147,13 @@
       }
 
       .message {
+        margin-top: 30px;
         padding: 15px 20px;
         font-family: $font-family-2;
+
+        @media #{$mq-tablet} {
+          margin-top: 0;
+        }
 
         &.-info {
           border-left: 3px solid $color-1;
@@ -94,11 +168,20 @@
       }
 
       > .footer-form {
-        margin: 50px 0 0;
+        margin: 30px 0 0;
         text-align: center;
 
+        @media #{$mq-tablet} {
+          margin: 50px 0 0;
+        }
+
         button {
+          width: 100%;
           text-align: center;
+
+          @media #{$mq-tablet} {
+            width: auto;
+          }
 
           span {
             display: inline-block;

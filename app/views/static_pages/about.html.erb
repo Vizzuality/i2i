@@ -133,7 +133,7 @@
           <div class="l-staff-grid">
             <div class="row">
               <% @teamMembers.each do |member| %>
-                <div class="grid-s-12 grid-m-4 grid-l-3">
+                <div class="grid-s-6 grid-m-4 grid-l-3">
                   <div class="c-profile js-profile"
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
@@ -156,7 +156,7 @@
     <div id="focus-countries" class="l-section -countries" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
       <div class="row">
         <div class="grid-s-12 grid-m-6 grid-l-5">
-          <div class="c-card-highlight -countries-about">
+          <div class="c-card-highlight -countries-about" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
             <h3 class="title -dark -medium">Focus countries</h3>
             <ul class="country-list">
               <% @countries.each do |country| %>
@@ -183,7 +183,7 @@
           <div class="l-staff-grid">
             <div class="row">
               <% @advisoryMembers.each do |member| %>
-                <div class="grid-s-12 grid-m-4 grid-l-3">
+                <div class="grid-s-6 grid-m-4 grid-l-3">
                   <div class="c-profile js-profile"
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
@@ -217,9 +217,9 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="l-addresses">
-              <div class="grid-l-8">
+              <div class="grid-s-12 grid-l-8">
                 <div class="row">
-                  <div class="grid-l-6">
+                  <div class="grid-s-12 grid-m-6">
                     <address class="c-address">
                       <a href="https://www.google.es/maps/place/New+Rd+%26+16th+Rd,+Midrand,+1685,+Sud%C3%A1frica/@-25.981063,28.127887,17z/data=!3m1!4b1!4m5!3m4!1s0x1e956e3ea117bcf5:0xc2e5f08e0d7747bc!8m2!3d-25.9810678!4d28.1300757" rel="noopener noreferrer" target="_blank" alt="FinMark Trust map location">
                         <div class="map" style="background-image: url(<%= asset_path('about/map-finmark.png')%>)"></div>
@@ -236,7 +236,7 @@
                       </div>
                     </address>
                   </div>
-                  <div class="grid-l-6">
+                  <div class="grid-s-12 grid-m-6">
                     <address class="c-address">
                       <a href="https://www.google.es/maps/place/99+Jip+De+Jager+Dr,+De+Bron,+Cape+Town,+7530,+Sud%C3%A1frica/@-33.8558211,18.6252073,18.37z/data=!4m5!3m4!1s0x1dcc57517431becf:0xb602e69f03fc6860!8m2!3d-33.8554596!4d18.6256236" rel="noopener noreferrer" target="_blank" alt="Cenfri map location">
                         <div class="map" style="background-image: url(<%= asset_path('about/map-cenfri.png')%>)"></div>
@@ -261,7 +261,7 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="l-form-contact">
-              <div class="grid-l-8">
+              <div class="grid-s-12 grid-m-8">
                 <%= form_tag '/email', class: 'c-form contact-form' do %>
                   <div class="custom-row">
                     <label for="email_name">name</label>
