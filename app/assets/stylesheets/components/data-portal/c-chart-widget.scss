@@ -42,6 +42,13 @@
     svg {
       width: 100%;
     }
+
+    &.-scroll {
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+
+      svg { width: auto; }
+    }
   }
 
   > .toolbar {

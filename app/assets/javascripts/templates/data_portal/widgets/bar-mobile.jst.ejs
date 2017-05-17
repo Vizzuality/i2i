@@ -1,6 +1,6 @@
 {
   "width": <%= width %>,
-  "height": <%= height %>,
+  "height": 0,
   "padding": "strict",
   "data": [
     {
@@ -26,7 +26,7 @@
         {
           "type": "formula",
           "field": "tickLimit",
-          "expr": "datum.b.count_label < 6 ? 30 : (datum.b.count_label < 8 ? 13 : 12)"
+          "expr": "20"
         },
         {
           "type": "formula",
@@ -60,7 +60,7 @@
     {
       "name": "y",
       "type": "linear",
-      "range": "height",
+      "range": [120, 0],
       "domain": [0, 100]
     },
     {
@@ -152,21 +152,44 @@
       }
     },
     {
-      "type": "text",
-      "from": {"data": "table"},
+      "type": "group",
       "properties": {
         "enter": {
-          "x": {"scale": "x", "field": "a.label"},
-          "y": {"scale": "y", "value": 0},
-          "text": {"template": "{{datum.tickLabel}}"},
-          "dy": {"field": "tickPos"},
-          "font": {"value": "Montserrat"},
-          "fontWeight": {"value": "700"},
-          "fontSize": {"value": 11},
-          "fill": {"value": "#001d22"},
-          "align": {"value": "center"}
+          "x": {"value": 0},
+          "y": {"scale": "y", "value": 0}
         }
-      }
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 0 },
+              "y": {"field": "rank", "mult": 24},
+              "width": { "value": 12 },
+              "height": { "value": 12 },
+              "fill": { "field": "rank", "scale": "color" }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 20 },
+              "y": {"field": "rank", "mult": 24, "offset": 0},
+              "dy": { "value": 12 },
+              "fontSize": {"value": 13},
+              "fontWeight": {"value": 300},
+              "font": {"value": "inherit"},
+              "fill": { "value": "#001d22" },
+              "text": { "field": "tickLabel" }
+            }
+          }
+        }
+      ]
     }
   ]
 }

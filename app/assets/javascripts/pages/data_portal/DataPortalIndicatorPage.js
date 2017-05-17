@@ -75,7 +75,7 @@
       var options = _.extend({}, {
         el: this.widgetContainer,
         showToolbar: false,
-        autoResize: false,
+        autoResize: !this.options.print,
         showDetails: true
       }, this.options._state);
 
