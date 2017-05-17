@@ -119,14 +119,16 @@
             // table mode
             widget.options = Object.assign({}, widget.options, {
               chart: null,
-              showToolbar: true
+              showToolbar: true,
+              mode: this.options._mode
             });
           } else {
             widget.options = Object.assign({}, widget.options, {
               chart: widgetConfig.chart,
               analysisIndicator: widgetConfig.analysisIndicator,
               compareIndicators: widgetConfig.compareIndicators,
-              showToolbar: true
+              showToolbar: true,
+              mode: this.options._mode
             });
           }
 
@@ -144,12 +146,13 @@
         this.widgets.forEach(function (widget) {
           widget.options = Object.assign({}, widget.options, {
             chart: 'table',
-            showToolbar: false,
+            showToolbar: true,
             analysisIndicator: null,
-            compareIndicators: null
+            compareIndicators: null,
+            mode: this.options._mode
           });
           widget.reload();
-        });
+        }.bind(this));
       }
     },
 
@@ -439,7 +442,8 @@
           id: indicator.id,
           iso: this.options.iso,
           year: this.options.year,
-          filters: this.options._filters
+          filters: this.options._filters,
+          mode: this.options._mode
         };
 
         // If the portal is in table mode, we force the widgets to display
