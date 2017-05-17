@@ -1,18 +1,40 @@
 .c-modal-chart-analysis {
-  padding: 40px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  margin: 0 auto;
+  padding: $wrapper-padding-mobile;
 
-  > button {
-    margin-bottom: 25px;
+  background: $color-4;
+  overflow-y: auto;
+
+  @media #{$mq-tablet} {
+    width: 100%;
+    margin: 0;
+    padding: $wrapper-padding-tablet;
   }
 
-  > .indicators-list {
+  button {
+    margin-bottom: $wrapper-padding-mobile;
+
+    @media #{$mq-tablet} {
+      margin-bottom: 25px;
+    }
+  }
+
+  .indicators-list {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     list-style: none;
 
     > li {
-      flex-basis: 50%;
+      flex-basis: 100%;
+
+      @media #{$mq-tablet} {
+        flex-basis: 50%;
+      }
     }
   }
 }

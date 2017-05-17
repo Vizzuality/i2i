@@ -6,7 +6,7 @@
 
     defaults: {
       showTitle: false,
-      footer: '<button type="button" class="c-button -padding -white js-close-btn-modal">Close</button>',
+      footer: '<button type="button" class="c-button -medium -white js-close-btn-modal">Close</button>',
       // Contains an object with the info of the member to be displayed
       memberInfo: {}
     },

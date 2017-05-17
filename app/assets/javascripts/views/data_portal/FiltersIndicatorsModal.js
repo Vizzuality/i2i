@@ -4,7 +4,7 @@
 
     defaults: {
       // See App.Component.Modal for details about this option
-      title: 'Customize indicators',
+      title: 'Customise indicators',
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option

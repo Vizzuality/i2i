@@ -1,5 +1,20 @@
 .c-modal-newsletter {
-  padding: 30px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  height: 100%;
+  margin: $wrapper-padding-mobile auto 0;
+  padding: $wrapper-padding-mobile;
+  background-color: $color-4;
+  overflow: auto;
+
+  @media #{$mq-tablet} {
+    width: 100%;
+    margin: 0;
+    padding: $wrapper-padding-tablet;
+  }
 
   > .title {
     margin-bottom: 40px;
@@ -15,7 +30,9 @@
     }
 
     > button {
-      align-self: flex-end;
+      @media #{$mq-tablet} {
+        align-self: flex-end;
+      }
     }
   }
 }

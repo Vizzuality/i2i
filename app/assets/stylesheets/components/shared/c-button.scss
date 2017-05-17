@@ -174,4 +174,10 @@
       }
     }
   }
+
+  &.-outflow {
+    border: 0;
+    background: none;
+    color: $color-4;
+  }
 }

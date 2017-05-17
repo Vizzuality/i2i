@@ -1,20 +1,44 @@
 .c-modal-chart-compare {
-  height: 450px;
-  padding: 30px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  margin: 0 auto;
+  padding: $wrapper-padding-mobile;
+  background-color: $color-4;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 
-  > .header {
+  @media #{$mq-tablet} {
+    width: 100%;
+    margin: 0;
+    padding: $wrapper-padding-tablet;
+  }
+
+
+  .header {
+    padding: 0 0 24px;
+    border-bottom: 1px solid rgba($color-1, .4);
+
+    @media #{$mq-tablet} {
+      padding: 0;
+      border-bottom: 0;
+    }
+
     span {
       color: $color-1;
     }
   }
 
-  > button {
-    margin: 25px 0;
+  button {
+    margin: $wrapper-padding-mobile 0 10px;
+
+    @media #{$mq-tablet} {
+      margin: 25px 0;
+    }
   }
 
-  > .compare-container {
+  .compare-container {
     position: relative;
 
     &:not(:empty),
@@ -31,14 +55,22 @@
       justify-content: space-between;
 
       > div {
-        flex-basis: calc(50% - 15px);
+        flex-basis: 100%;
+
+        @media #{$mq-tablet} {
+          flex-basis: calc(50% - 15px);
+        }
 
         > .years-list {
           display: flex;
           flex-wrap: wrap;
           margin: 10px 0 20px;
+        }
 
-          > li {
+        > .years-list > li {
+          flex-basis: 50%;
+
+          @media #{$mq-tablet} {
             flex-basis: 33.33%;
           }
         }
@@ -52,7 +84,11 @@
       flex-wrap: wrap;
 
       > li {
-        flex-basis: 33.33%;
+        flex-basis: 100%;
+
+        @media #{$mq-tablet} {
+          flex-basis: 33.33%;
+        }
       }
     }
   }

@@ -1,11 +1,32 @@
 .c-modal-chart-selector {
   display: flex;
+  flex: 1;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: stretch;
-  padding: 40px;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  height: 100%;
+  margin: 0 auto;
+  padding: $wrapper-padding-mobile;
+  background-color: $color-4;
+  overflow: auto;
 
-  > .c-radio-button {
-    flex-basis: calc(100% / 3);
+  @media #{$mq-tablet} {
+    width: 100%;
+    margin: 0;
+
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .c-radio-button {
+    flex-basis: 100%;
+
+    @media #{$mq-tablet} {
+      flex-basis: calc(100% / 3);
+    }
 
     img {
       display: block;

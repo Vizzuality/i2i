@@ -7,7 +7,7 @@
     defaults: {
       title: 'Watch video',
       showTitle: false,
-      footer: '<span></span><button type="button" class="c-button -padding -white js-close">Close</button>',
+      footer: '<span></span><button type="button" class="c-button -medium -white js-close">Close</button>',
       // Youtube link to the video
       link: null
     },

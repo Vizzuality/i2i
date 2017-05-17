@@ -4,7 +4,7 @@
 
     defaults: {
       showTitle: true,
-      footer: '<span></span><button type="button" class="c-button -padding -white js-close">Close</button>',
+      footer: '<span></span><button type="button" class="c-button -medium -white js-close">Close</button>',
     },
 
     events: function () {

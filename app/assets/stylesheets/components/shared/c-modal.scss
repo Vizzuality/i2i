@@ -1,42 +1,80 @@
 .c-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: calc(100% - 40px);
-  max-width: 880px;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
   background: $color-4;
+
+  @media #{$mq-tablet} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - #{$wrapper-padding-mobile * 2});
+    max-width: 880px;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
 
   &.-newsletter {
     max-width: 600px;
   }
 
-  > div {
+  > .modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     outline: 0;
+    background-color: $color-1;
+
+    @media #{$mq-tablet} {
+      background: none;
+    }
   }
 
   .modal-title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
+    padding: 25px $wrapper-padding-mobile;
+
+    background-color: $color-1;
+
     color: $color-4;
     font-family: $font-family-2;
-    font-size: $font-size-xm;
-    font-weight: $font-weight-medium;
-    line-height: 1.5;
-    text-shadow: 0 2px 3px rgba($color-6, .15);
+    font-size: $font-size-xxm;
+
+    @media #{$mq-tablet} {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0;
+
+      transform: translateY(-100%);
+      background: none;
+
+      font-size: $font-size-xm;
+      line-height: 1.5;
+      text-shadow: 0 2px 3px rgba($color-6, .15);
+    }
   }
 
   .modal-footer {
     display: flex;
-    position: absolute;
-    bottom: -20px;
+    position: relative;
+    bottom: 0;
     left: 0;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    transform: translateY(100%);
+    padding: 15px $wrapper-padding-mobile;
+    background: $color-1;
+
+    @media #{$mq-tablet} {
+      position: absolute;
+      padding: 15px 0;
+      transform: translateY(100%);
+      background: none;
+    }
 
     > .group-button > .c-button {
       &:not(:last-child) {
@@ -49,6 +87,87 @@
     width: auto;
     max-width: none;
     transform: none;
+  }
+
+  &.-only-footer {
+    background: none;
+
+    .modal-title {
+      background: none;
+    }
+
+    .modal-content {
+      background: rgba($color-1, .93);
+    }
+
+    .c-modal-save-widget {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: translate(100%, 0);
+      transition: transform .28s ease-in-out;
+      z-index: 1;
+      overflow-y: auto;
+
+      > .c-widget {
+        display: none;
+      }
+
+      &.-active {
+        transform: translate(0, 0);
+
+        > .c-slider {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        > .c-slider {
+          > .slide {
+            &.-visible {
+              transform: none;
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+
+
+    .modal-footer {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: flex-start;
+      background: none;
+
+      .group-button {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        &.-bottom {
+          position: absolute;
+          bottom: #{$wrapper-padding-mobile * 3};
+          left: 50%;
+          width: calc(100% - #{$wrapper-padding-mobile * 2});
+          transform: translate(-50%, 0);
+        }
+
+        &:not(:first-child) {
+          margin: 24px 0 0;
+        }
+
+        > .c-button {
+          width: 100%;
+          margin: 0;
+
+          &:not(._is-hidden) + .c-button {
+            margin: 24px 0 0;
+          }
+        }
+      }
+    }
   }
 }
 
