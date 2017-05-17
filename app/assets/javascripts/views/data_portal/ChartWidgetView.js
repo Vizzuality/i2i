@@ -43,7 +43,8 @@
       // Automatically resize the chart when the size of the window changes
       // If false, then the chart is made "responsive" using the preserveAspectRatio attribute
       autoResize: true,
-      // default mode for widget view
+      // Default mode for widget view
+      // The mode is used to determine how the toolbar should be shown
       mode: 'graphics'
     },
 
@@ -594,8 +595,7 @@
           collection: new Backbone.Collection(this.model.get('data')),
           tableName: this.model.get('title') + ' data',
           resultsPerPage: isComplex ? 10 : 3,
-          resultsPerPageOptions: null,
-          showToolbar: this.options.showToolbar
+          resultsPerPageOptions: null
         });
       } else {
         vg.parse

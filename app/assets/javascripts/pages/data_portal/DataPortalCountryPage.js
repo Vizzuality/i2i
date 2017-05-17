@@ -119,7 +119,6 @@
             // table mode
             widget.options = Object.assign({}, widget.options, {
               chart: null,
-              showToolbar: true,
               mode: this.options._mode
             });
           } else {
@@ -127,7 +126,6 @@
               chart: widgetConfig.chart,
               analysisIndicator: widgetConfig.analysisIndicator,
               compareIndicators: widgetConfig.compareIndicators,
-              showToolbar: true,
               mode: this.options._mode
             });
           }
