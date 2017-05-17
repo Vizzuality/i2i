@@ -42,7 +42,10 @@
       onDelete: function () {},
       // Automatically resize the chart when the size of the window changes
       // If false, then the chart is made "responsive" using the preserveAspectRatio attribute
-      autoResize: true
+      autoResize: true,
+      // Default mode for widget view
+      // The mode is used to determine how the toolbar should be shown
+      mode: 'graphics'
     },
 
     events: {
@@ -88,6 +91,7 @@
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
         name: this.model.get('title'),
+        mode: this.options.mode,
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         year: this.options.year,
         filters: this.options.filters.filter(function (filter) {
