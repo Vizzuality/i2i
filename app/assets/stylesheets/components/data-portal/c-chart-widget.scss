@@ -53,8 +53,9 @@
 
   > .toolbar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
-    margin-top: 30px;
+    margin-top: 25px;
 
     @media #{$mq-tablet} {
       right: 30px;
@@ -62,8 +63,8 @@
       left: 30px;
     }
 
-    > .c-button:not(:last-child) {
-      margin: 0 5px 0 0;
+    > .c-button {
+      margin: 5px 5px 0 0;
     }
   }
 
