@@ -112,15 +112,14 @@
 
     .l-data-range {
       margin: 25px 0 20px;
-
-      @media #{$mq-laptop} {
-        margin: 20px 0 0;
-      }
-
       color: $color-3;
       font-family: $font-family-2;
       font-size: $font-size-xs;
       line-height: 1.8;
+
+      @media #{$mq-laptop} {
+        margin: 20px 0 0;
+      }
 
       p {
         color: $color-3;
@@ -144,7 +143,12 @@
         }
 
         .c-button {
-          margin: 40px 0 25px;
+          width: 100%;
+
+          @media #{$mq-tablet} {
+            width: auto;
+            margin: 40px 0 25px;
+          }
         }
       }
 
