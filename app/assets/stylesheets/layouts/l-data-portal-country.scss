@@ -194,8 +194,32 @@
 
     .l-indicator-grid {
 
+      // We want the cards to have the same height and the wigdet's toolbar
+      // to be aligned at the bottom
       .widgets-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
         min-height: 500px;
+
+        > div {
+          margin-bottom: 20px;
+
+          > .c-widget {
+            height: 100%;
+            margin: 0;
+
+            > .c-chart-widget {
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+
+              > .chart {
+                flex-grow: 1;
+              }
+            }
+          }
+        }
       }
 
       .footer-indicator-grid {
