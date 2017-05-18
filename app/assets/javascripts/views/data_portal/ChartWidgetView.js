@@ -295,6 +295,13 @@
     },
 
     /**
+     * Event handler for when a chart receives a touchmove event
+     */
+    _onTouchmoveChart: function () {
+      this._onMouseoutChart();
+    },
+
+    /**
      * Event handler executed when the delete button is clicked
      */
     _onDelete: function () {
@@ -652,6 +659,7 @@
 
             this.chart.on('mouseover', this._onMouseoverChart.bind(this));
             this.chart.on('mouseout', this._onMouseoutChart.bind(this));
+            this.chart.on('touchmove', this._onTouchmoveChart.bind(this));
           }.bind(this));
       }
     },
