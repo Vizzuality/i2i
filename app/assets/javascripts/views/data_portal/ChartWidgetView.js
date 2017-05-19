@@ -637,7 +637,7 @@
 
         new App.View.TableView({
           el: this.chartContainer,
-          collection: new Backbone.Collection(this.model.get('data')),
+          collection: this.model.get('data'),
           tableName: this.model.get('title') + ' data',
           resultsPerPage: isComplex ? 10 : 3,
           resultsPerPageOptions: null
