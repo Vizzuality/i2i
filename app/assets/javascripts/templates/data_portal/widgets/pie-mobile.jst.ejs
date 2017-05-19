@@ -1,0 +1,96 @@
+{
+  "width": <%= width %>,
+  "height": 0,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [
+        {"type": "sort","by": "-percentage"},
+        {"type": "pie", "field": "percentage"},
+        {"type": "rank", "field": "-column"},
+        {"type": "formula", "field": "tooltipTitle", "expr": "datum.label"},
+        {"type": "formula", "field": "tooltipValue", "expr": "format('.2f', datum.percentage) + '%'"},
+        {"type": "formula", "field": "label", "expr": "slice(datum.label, 0, 22) + (datum.label.length > 21 ? '...' : '')"}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "data": "table",
+        "field": "label",
+        "sort": {
+          "field": "rank",
+          "op": "mean"
+        }
+      },
+      "range": ["#2f939c","#97c9ce","#001d22","#f9d031","#f95e31", "#FCAE98", "#633AE8", "#E4D081", "#00D9C6", "#B9A86C", "#7B0051", "#B685C9", "#076270", "#8ADF70"]
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "properties": {
+        "enter": {
+          "x": {"value": 0},
+          "y": {"value": <%= (isNaN(width) ? width : Math.min(250, width)) - 60 %>}
+        }
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 0 },
+              "y": {"field": "rank","mult": 24},
+              "width": { "value": 12 },
+              "height": { "value": 12 },
+              "fill": { "field": "label", "scale": "color" }
+            }
+          }
+        },
+        {
+          "type": "text",
+          "from": { "data": "table" },
+          "properties": {
+            "enter": {
+              "x": { "value": 20 },
+              "y": {"field": "rank", "mult": 24, "offset": 0},
+              "dy": { "value": 12 },
+              "fontSize": {"value": 13},
+              "fontWeight": {"value": 300},
+              "font": {"value": "inherit"},
+              "fill": { "value": "#001d22" },
+              "text": { "field": "label" }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "hasTooltip",
+      "type": "arc",
+      "from": {
+        "data": "table"
+      },
+      "properties": {
+        "enter": {
+          "x": { "value": <%= width / 2 %> },
+          "y": { "value": <%= (isNaN(width) ? width : Math.min(250, width)) / 2 - 30 %> },
+          "startAngle": { "field": "layout_start" },
+          "endAngle": { "field": "layout_end" },
+          "innerRadius": { "value": <%= (isNaN(width) ? width : Math.min(250, width)) / 2 - 65 %> },
+          "outerRadius": { "value": <%= (isNaN(width) ? width : Math.min(250, width)) / 2 - 30 %> },
+          "stroke": { "value": "#fff" },
+          "strokeWidth": {"value": 2},
+          "fill": { "field": "label", "scale": "color" }
+        }
+      }
+    }
+  ]
+}
