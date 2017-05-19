@@ -34,6 +34,7 @@
     el: 'body',
 
     headerTemplate: JST['templates/data_portal/header'],
+    mobileHeaderTemplate: JST['templates/data_portal/mobile-header'],
     widgetsTemplate: JST['templates/data_portal/widgets'],
     footerTemplate: JST['templates/data_portal/footer'],
 
@@ -56,7 +57,8 @@
     events: {
       'click .js-customize-indicators': '_openFilterModal',
       'click .js-filter-tag': '_openFilterModal',
-      'click .js-download-all': '_openDownloadAllModal'
+      'click .js-download-all': '_openDownloadAllModal',
+      'click .js-mobile-header-toggle': '_onClickMobileHeaderToggle'
     },
 
     initialize: function (settings) {
@@ -64,12 +66,36 @@
       this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       this.countryModel = new CountryModel(this.options.iso, this.options.year);
       this.headerContainer = this.el.querySelector('.js-header');
+      this.mobileHeaderContainer = this.el.querySelector('.js-mobile-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this.footerContainer = this.el.querySelector('.js-footer');
       this.tabsContainers = this.el.querySelectorAll('.js-tabs');
+
+      this._setListeners();
+      this._onWindowScroll();
       this._fetchData();
 
       new App.View.ReportFixedBar();
+    },
+
+    /**
+     * Set the listeners that don't depend on DOM elements
+     */
+    _setListeners: function () {
+      window.addEventListener('scroll', _.debounce(this._onWindowScroll.bind(this), 16));
+    },
+
+    /**
+     * Event handler executed when the window is scrolled
+     */
+    _onWindowScroll: function () {
+      var headerRect = this.headerContainer.getBoundingClientRect();
+      this.mobileHeaderContainer.classList.toggle('_is-hidden', headerRect.bottom > 0);
+
+      // We close the menu when it's hidden so when it appears again, it's closed
+      if (headerRect.bottom > 0) {
+        this.mobileHeaderContainer.classList.remove('-open');
+      }
     },
 
     /**
@@ -155,6 +181,13 @@
     },
 
     /**
+     * Event handler for when the user clicks the toggle button of the mobile header
+     */
+    _onClickMobileHeaderToggle: function () {
+      this.mobileHeaderContainer.classList.toggle('-open');
+    },
+
+    /**
      * Replace this.options._filters by the new filters
      * @param { { name: string, options: string[] }[] } activeFiltersOptions
      */
@@ -176,7 +209,10 @@
       this.countryModel.year = year;
       // If the request fails, we just don't update the population
       this.countryModel.fetch()
-        .done(this._renderHeader.bind(this));
+        .done(function (){
+          this._renderHeader();
+          this._renderMobileHeader();
+        }.bind(this));
     },
 
     /**
@@ -306,6 +342,7 @@
 
     render: function () {
       this._renderHeader();
+      this._renderMobileHeader();
       this._renderWidgets();
       this._renderFooter();
 
@@ -342,6 +379,23 @@
             });
           }, this);
       }
+    },
+
+    /**
+     * Render the mobile header
+     */
+    _renderMobileHeader: function () {
+      this.mobileHeaderContainer.innerHTML = this.mobileHeaderTemplate({
+        error: this._loadingError,
+        indicators: this.indicatorsCollection.getVisibleIndicators(),
+        filters: this.options._filters
+          .filter(function (filter) { return filter.id !== 'jurisdiction'; }),
+        year: this.options.year,
+        jurisdiction: this._getJurisdictionFilter()
+          ? this._getJurisdictionFilter().options[0]
+          : 'All jurisdictions',
+        country: App.Helper.Indicators.COUNTRIES[this.options.iso],
+      });
     },
 
     /**
