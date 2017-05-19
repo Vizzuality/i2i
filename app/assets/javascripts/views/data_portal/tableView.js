@@ -73,7 +73,8 @@
       // This is computed at instantiation, do not set it from outside
       headers: null,
       // Column index used for sorting the table
-      sortColumnIndex: 0,
+      // -1 for no sorting
+      sortColumnIndex: -1,
       // Sort order: 1 for ASC, -1 for DESC
       sortOrder: 1,
       // Table name used by screen readers
@@ -290,7 +291,7 @@
         return collator.compare(valA, valB) * this.options.sortOrder;
       }.bind(this);
 
-      this.options.collection.sort();
+      if (this.options.sortColumnIndex !== -1) this.options.collection.sort();
     },
 
     /**
@@ -428,14 +429,17 @@
     },
 
     render: function () {
-      var sortColumn = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      var sortColumn;
+      if (this.options.sortColumnIndex !== -1) {
+        sortColumn = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      }
 
       var headers;
       if (this.options.collection.length) {
         headers = this.options.headers.toJSON()
           .map(function (column) {
             var sort;
-            if (column.name === sortColumn) {
+            if (sortColumn && column.name === sortColumn) {
               sort = this.options.sortOrder === 1 ? 'ascending' : 'descending';
             }
 

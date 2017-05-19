@@ -1,6 +1,6 @@
 <table role="grid" aria-readonly="true" aria-rowcount="<%= totalResults %>">
   <caption>
-    <%= tableName %>, sorted by <%= sortColumn %>: <%= sortOrder %>
+    <%= tableName %><% if (sortColumn) { %>, sorted by <%= sortColumn %>: <%= sortOrder %><% } %>
   </caption>
   <% if (error) { %>
     <tr class="error">
