@@ -260,11 +260,11 @@
      * Set the comparator to the table's first column and sort the collection
      */
     _initSort: function () {
-      this.options.collection.comparator = function (modelA, modelB) {
-        var comparator = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      var collator = new Intl.Collator([], { sensitivity: 'base' });
 
-        var cellA = _.findWhere(modelA.attributes.row, { name: comparator });
-        var cellB = _.findWhere(modelB.attributes.row, { name: comparator });
+      this.options.collection.comparator = function (modelA, modelB) {
+        var cellA = modelA.attributes.row[this.options.sortColumnIndex];
+        var cellB = modelB.attributes.row[this.options.sortColumnIndex];
 
         var valA = Array.isArray(cellA.value) ? cellA.value[0] : cellA.value;
         var valB = Array.isArray(cellB.value) ? cellB.value[0] : cellB.value;
@@ -287,7 +287,7 @@
           return this.options.sortOrder;
         }
 
-        return valA.localeCompare(valB, [], { sensitivity: 'base' }) * this.options.sortOrder;
+        return collator.compare(valA, valB) * this.options.sortOrder;
       }.bind(this);
 
       this.options.collection.sort();
