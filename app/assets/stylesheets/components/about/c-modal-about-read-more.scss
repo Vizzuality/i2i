@@ -10,7 +10,7 @@
   }
 
   > .content {
-    padding: 8px;
+    padding: $wrapper-padding-mobile;
     background-color: $color-4;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
