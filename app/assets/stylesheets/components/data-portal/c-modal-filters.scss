@@ -1,17 +1,78 @@
 .c-modal-filters {
-  > .filters-tabs {
-    display: flex;
-    align-items: center;
-    padding: 15px 30px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
+  > .fade {
+    position: relative;
+    width: calc(100% - #{$wrapper-padding-mobile * 2});
+    margin: 0 auto;
+    background-color: $color-4;
 
-    background-color: rgba($color-1, .1);
+    @media #{$mq-tablet} {
+      width: 100%;
+      margin: 0;
+    }
+
+    &::after,
+    &::before {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      width: $wrapper-padding-mobile;
+      height: 100%;
+
+      content: '';
+
+      @media #{$mq-tablet} {
+        display: none;
+      }
+    }
+
+    &::before {
+      left: 0;
+      background-image: linear-gradient(-91deg, rgba($color-4, 0), $color-11);
+      z-index: 1;
+    }
+
+    &::after {
+      right: 0;
+      background-image: linear-gradient(91deg, rgba($color-4, 0), $color-11);
+    }
   }
 
-  > .filters-tabs .tab {
+  .filters-tabs {
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    background-color: rgba($color-1, .1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media #{$mq-tablet} {
+      padding: 0 $wrapper-padding-tablet;
+    }
+  }
+
+  .filters-tabs > .c-tabs {
+    display: flex;
+    padding: $wrapper-padding-mobile;
+
+    @media #{$mq-tablet} {
+      padding: $wrapper-padding-mobile 0;
+    }
+  }
+
+  .filters-tabs .tab {
     color: $color-1;
     font-family: $font-family-1;
     font-size: $font-size-xs;
+    white-space: nowrap;
     cursor: pointer;
 
     &:not(:last-child) {
@@ -20,12 +81,12 @@
 
     &[aria-selected='true'] {
       position: relative;
-      color: $color-5;
+      color: $color-1;
 
       &::after {
         display: inline-block;
         position: absolute;
-        bottom: -15px;
+        bottom: -$wrapper-padding-mobile;
         left: 0;
         width: 100%;
         height: 6px;
@@ -38,13 +99,20 @@
   }
 
   > .filters-container {
-    height: 450px;
+    flex: 1;
+    width: calc(100% - #{$wrapper-padding-mobile * 2});
+    margin: 0 auto;
+    background-color: $color-4;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+
+    @media #{$mq-tablet} {
+      height: 450px;
+      background: none;
+    }
   }
 
   .filter-selection {
-    padding: 25px 30px;
 
     .filter-list > .filter-item {
       width: 100%;
@@ -77,8 +145,24 @@
   }
 
   .select-indicators,
-  .select-context {
+  .select-context,
+  form {
     padding: 25px 30px;
+    background-color: $color-4;
+
+    @media #{$mq-tablet} {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .select-indicators,
+  .select-context {
+    padding: 25px $wrapper-padding-mobile;
+
+    @media #{$mq-tablet} {
+      padding: 25px $wrapper-padding-tablet;
+    }
 
     h3 {
       margin: 0 0 10px;
@@ -96,10 +180,22 @@
       display: flex;
       flex-wrap: wrap;
       align-content: flex-start;
-      margin-bottom: 15px;
+      margin: 0 0 24px;
+      padding: 0 0 12px;
+
+      border-bottom: 1px solid rgba($color-1, .4);
+
+      &:last-child {
+        margin: 0;
+        border-bottom: 0;
+      }
 
       > li {
-        flex-basis: calc(100% / 3);
+        flex-basis: 100%;
+
+        @media #{$mq-tablet} {
+          flex-basis: calc(100% / 3);
+        }
       }
     }
   }

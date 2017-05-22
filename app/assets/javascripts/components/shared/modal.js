@@ -39,7 +39,8 @@
     },
 
     _setVars: function () {
-      this.body = document.querySelector('body');
+      this.html = document.children[0];
+      this.body = document.body;
     },
 
     _setEventListeners: function () {
@@ -87,6 +88,7 @@
 
       this._removeEventListeners();
       this.remove();
+      this.html.classList.remove('_no-scroll');
       this.body.classList.remove('_no-scroll');
     },
 
@@ -121,6 +123,7 @@
       modalContent.setAttribute('tabindex', '0');
 
       this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
+      this.html.classList.toggle('_no-scroll', !this.options.allowScroll);
       this.el.classList.toggle('-absolute', this.options.isAbsolute);
 
       // We attach the event listeners

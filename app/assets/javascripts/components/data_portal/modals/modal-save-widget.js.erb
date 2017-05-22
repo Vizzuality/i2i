@@ -11,11 +11,11 @@
       // See App.Component.Modal for details about this option
       showTitle: true,
       // See App.Component.Modal for details about this option
-      allowScroll: true,
+      allowScroll: window.outerWidth >= 1024,
       // See App.Component.Modal for details about this option
       isAbsolute: true,
       // See App.Component.Modal for details about this option
-      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button></div>',
+      footer: '<div class="group-button"><button type="button" class="c-button -white js-add-report">Add to report</button><button type="button" class="c-button -white js-remove-report">Remove from report</button></div><div class="group-button"><button type="button" class="c-button -white -outline js-print">Print</button><a href="" class="c-button -white -outline js-download" download>Download</a><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button><div class="group-button -bottom"><button type="button" class="c-button -outflow js-close _no-tablet">Cancel</button></div></div>',
       // modifies locally the widget configuration to render it properly in the modal
       widgetConfig: {
         // See App.View.ChartWidgetView for details about this option
@@ -29,7 +29,8 @@
         'click .js-remove-report': '_onRemoveReport',
         'click .js-slide-button': '_onSelectSlide',
         'click .js-print': '_onPrint',
-        'click .js-download': '_onDownload'
+        'click .js-download': '_onDownload',
+        'click .js-close': 'onCloseModal'
       });
     },
 
@@ -46,6 +47,17 @@
           callback: this._returnWidget.bind(this)
         })
       }];
+
+      this.viewPortWidth = document.body.getBoundingClientRect().width;
+    },
+
+    _setEventListeners: function () {
+      this.constructor.__super__._setEventListeners.call(this);
+      // allows the modal to recalculate its position when a orientation change happen (like in mobile devices)
+      window.addEventListener('orientationchange', function() {
+        this.viewPortWidth = document.body.getBoundingClientRect().width;
+        this._setDimensions();
+      }.bind(this));
     },
 
     /**
@@ -93,13 +105,13 @@
           // 52px is the height of the modal title
           scrollTop: modalDimension.offsets.top - 52
         }, 400, function () {
-          this._renderWidget();
+          this.viewPortWidth >= 768 && this._renderWidget();
           this._renderSlides();
 
           this.constructor.__super__.afterRender.apply(this);
         }.bind(this));
       } else {
-        this._renderWidget();
+        this.viewPortWidth >= 768 && this._renderWidget();
         this._renderSlides();
 
         this.constructor.__super__.afterRender.apply(this);
@@ -211,13 +223,19 @@
     },
 
     setSlide: function (slideIndex) {
+      this.viewPortWidth < 768 && this.el.querySelector('.c-modal-save-widget').classList.toggle('-active');
+
       this.slides.forEach(function (slide, index) {
         slide.view.toggleVisibility(index === slideIndex);
       }.bind(this));
     },
 
     afterRender: function () {
-      this._setDimensions();
+      if(this.viewPortWidth >= 768) {
+        this._setDimensions();
+      } else {
+        this.el.querySelector('.c-modal').classList.add('-only-footer');
+      }
       this._renderContent();
       this._toggleButtons();
     },
