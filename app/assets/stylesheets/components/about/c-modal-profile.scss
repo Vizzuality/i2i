@@ -1,21 +1,44 @@
-
 .c-modal-profile {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  height: 100%;
+  margin: $wrapper-padding-mobile auto 0;
+  padding: $wrapper-padding-mobile;
+  background-color: $color-4;
+
+  @media #{$mq-tablet} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
 
   > .member-picture {
-    display: inline-block;
-    width: 340px;
+    display: none;
 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    @media #{$mq-tablet} {
+      display: inline-block;
+      width: 340px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
   }
 
   > .member-info {
+    display: flex;
     position: relative;
-    width: calc(100% - 340px);
-    padding: 35px 45px 0;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    @media #{$mq-tablet} {
+      width: calc(100% - 340px);
+      padding: 35px 45px 0;
+    }
   }
 
   > .member-info > .member-position {
@@ -23,7 +46,11 @@
   }
 
   > .member-info > .scroll-container {
+    display: flex;
     position: relative;
+    flex-grow: 1;
+    align-items: stretch;
+    overflow: hidden;
 
     &::before,
     &::after {
@@ -35,6 +62,7 @@
       height: 25px;
 
       content: '';
+      z-index: 1;
     }
 
     &::before {
@@ -48,9 +76,13 @@
     }
 
     > .content {
-      max-height: 400px;
       padding: 25px 0;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+
+      @media #{$mq-tablet} {
+        max-height: 400px;
+      }
     }
   }
 

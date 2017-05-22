@@ -6,7 +6,7 @@
       // See App.Component.Modal for details about this option
       title: 'Subscribe to our newsletter',
       // See App.Component.Modal for details about this option
-      footer: '<span></span><button class="c-button -padding -white js-close">Close</button>',
+      footer: '<span></span><button class="c-button -medium -white js-close">Close</button>',
       // See App.Component.Modal for details about this option
       modalClass: '-newsletter'
     },

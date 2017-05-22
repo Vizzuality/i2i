@@ -5,8 +5,37 @@
     display: flex;
     align-items: center;
     height: 33px;
-
     background: rgba($color-6, .1);
+
+    > .wrapper {
+      padding: 0;
+
+      .row {
+        width: 100%;
+        margin: 0;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .selectors-container {
+        display: flex;
+        width: auto;
+        padding: 0 $wrapper-padding-mobile 3px $wrapper-padding-mobile; // 3px for te button's shadow
+
+        @media #{$mq-tablet} {
+          padding: 0 0 3px;
+        }
+      }
+
+      @media #{$mq-tablet} {
+        padding: 0 $wrapper-padding-tablet;
+      }
+
+      @media #{$mq-laptop} {
+        padding: 0 $wrapper-padding-desktop;
+      }
+
+    }
   }
 
   .l-library-content-selector .content-selector {
@@ -40,7 +69,11 @@
 
   .l-subcategory-filter {
     margin: 40px 0 28px;
-    text-align: right;
+    text-align: center;
+
+    @media #{$mq-tablet} {
+      text-align: right;
+    }
 
     .filter {
       padding: 0;

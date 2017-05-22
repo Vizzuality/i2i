@@ -1,13 +1,15 @@
 <div class="c-modal-chart-selector">
-  <% charts.forEach(function (chart) { %>
+  <div>
+    <% charts.forEach(function (chart) { %>
 
-    <div class="c-radio-button">
-      <input type="radio" value="<%= chart.name %>" name="chart" <%= chart.selected ? 'checked' : '' %> <%= !chart.available ? 'disabled' : '' %> id="radio-<%= chart.name %>" class="js-option" />
-      <label for="radio-<%= chart.name %>">
-        <%= chart.name.slice(0, 1).toUpperCase() + chart.name.slice(1, chart.name.length) %>
-        <img src="/images/charts/<%= chart.name.replace(' ', '-') %>-chart-icon.svg" alt="<%= chart.name %> chart" />
-      </label>
-    </div>
+      <div class="c-radio-button">
+        <input type="radio" value="<%= chart.name %>" name="chart" <%= chart.selected ? 'checked' : '' %> <%= !chart.available ? 'disabled' : '' %> id="radio-<%= chart.name %>" class="js-option" />
+        <label for="radio-<%= chart.name %>">
+          <%= chart.name.slice(0, 1).toUpperCase() + chart.name.slice(1, chart.name.length) %>
+          <img src="/images/charts/<%= chart.name.replace(' ', '-') %>-chart-icon.svg" alt="<%= chart.name %> chart" />
+        </label>
+      </div>
 
-  <% }) %>
+    <% }) %>
+  </div>
 </div>

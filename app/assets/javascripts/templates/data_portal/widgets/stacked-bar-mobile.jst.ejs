@@ -1,0 +1,192 @@
+{
+  "width": <%= width %>,
+  "height": 0,
+  "padding": "strict",
+  "data": [
+    {
+      "name": "table",
+      "values": <%= data %>,
+      "transform": [
+        {"type": "filter","test": "datum.label.length"},
+        {
+          "type": "formula",
+          "field": "tooltipTitle",
+          "expr": "datum.label"
+        },
+        {
+          "type": "formula",
+          "field": "tooltipValue",
+          "expr": "format('.2f', datum.percentage) + '%'"
+        }
+      ]
+    },
+    {
+      "name": "valuesCount",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "summarize": [{ "field": "label", "ops": ["count"] }]
+        }
+      ]
+    },
+    {
+      "name": "legend",
+      "source": "table",
+      "transform": [
+        {
+          "type": "cross",
+          "with": "valuesCount"
+        },
+        {"type": "rank"},
+        {
+          "type": "formula",
+          "field": "yPos",
+          "expr": "<%= isNaN(height) ? '0' : height / 3 %> + 60 + datum.rank * 30"
+        },
+        {
+          "type": "formula",
+          "field": "xPos",
+          "expr": "0"
+        }
+      ]
+    },
+    {
+      "name": "rules",
+      "values": [
+        { "x": 10 },
+        { "x": 20 },
+        { "x": 30 },
+        { "x": 40 },
+        { "x": 50 },
+        { "x": 60 },
+        { "x": 70 },
+        { "x": 80 },
+        { "x": 90 },
+        { "x": 100 }
+      ]
+    },
+    {
+      "name": "final",
+      "source": "table",
+      "transform": [
+        {
+          "type": "stack",
+          "field": "percentage"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table","field": "label"},
+      "range": [
+        "#2f939c",
+        "#97c9ce",
+        "#001d22",
+        "#f9d031",
+        "#f95e31",
+        "#FCAE98",
+        "#633AE8",
+        "#E4D081",
+        "#00D9C6",
+        "#B9A86C",
+        "#7B0051",
+        "#B685C9",
+        "#076270",
+        "#8ADF70"
+      ]
+    },
+    {
+      "name": "stack",
+      "type": "linear",
+      "range": "width",
+      "domain": [0, 100]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rule",
+      "properties": {
+        "enter": {
+          "x": {"value": 0, "scale": "stack"},
+          "y": {"field": {"group": "height"}, "mult": 0.1, "offset": -10},
+          "y2": {"value": 70},
+          "stroke": {"value": "#ccd2d3"}
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "from": {"data": "rules"},
+      "properties": {
+        "enter": {
+          "x": {"field": "x", "scale": "stack"},
+          "y": {"field": {"group": "height"}, "mult": 0.1, "offset": -10},
+          "y2": {"value": 70},
+          "stroke": {"value": "#ccd2d3"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "rules"},
+      "properties": {
+        "enter": {
+          "x": {"field": "x", "scale": "stack", "offset": -1},
+          "y": {"field": {"group": "height"}, "mult": 0.1, "offset": "50"},
+          "text": {"field": "x"},
+          "align": {"value": "right"},
+          "baseline": {"value": "bottom"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "name": "hasTooltip",
+      "from": {"data": "final"},
+      "properties": {
+        "enter": {
+          "x": {"scale": "stack","field": "layout_start"},
+          "x2": {"scale": "stack","field": "layout_end"},
+          "y": {"field": {"group": "height"}, "mult": 0.1},
+          "height": {"value": 20},
+          "fill": {"scale": "color","field": "label"}
+        }
+      }
+    },
+    {
+      "type": "symbol",
+      "from": { "data": "legend" },
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "offset": 6},
+          "y": {"field": "yPos"},
+          "size": {"value": 100},
+          "fill": {"scale": "color", "field": "a.label"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "legend" },
+      "properties": {
+        "enter": {
+          "x": {"field": "xPos", "offset": 20},
+          "y": {"field": "yPos", "offset": 5},
+          "text": {"field": "a.label"},
+          "font": {"value": "Montserrat"},
+          "fontWeight": {"value": "300"},
+          "fontSize": {"value": 13},
+          "fill": {"value": "#001d22"}
+        }
+      }
+    }
+  ]
+}

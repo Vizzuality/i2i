@@ -40,9 +40,16 @@
       report: false,
       // Callback executed when the delete button is clicked
       onDelete: function () {},
-      // Automatically resize the chart when the size of the window changes
-      // If false, then the chart is made "responsive" using the preserveAspectRatio attribute
-      autoResize: true
+      // Automatically re-render the chart when the size of the window changes
+      // If false, the widget is scaled with the preserveAspectRatio attribute
+      // If true, it depends on the responsive mode of the widget:
+      //   * if adaptative, the widget is rendered with a different template according to its size
+      //   * if scroll, the widget is rendered as on desktop but with a horizontal scroll
+      //   * if no mode is provided, the desktop template is always chosen
+      autoResize: true,
+      // Default mode for widget view
+      // The mode is used to determine how the toolbar should be shown
+      mode: 'graphics'
     },
 
     events: {
@@ -88,6 +95,7 @@
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
         name: this.model.get('title'),
+        mode: this.options.mode,
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         year: this.options.year,
         filters: this.options.filters.filter(function (filter) {
@@ -287,6 +295,13 @@
     },
 
     /**
+     * Event handler for when a chart receives a touchmove event
+     */
+    _onTouchmoveChart: function () {
+      this._onMouseoutChart();
+    },
+
+    /**
      * Event handler executed when the delete button is clicked
      */
     _onDelete: function () {
@@ -457,7 +472,7 @@
      */
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
-        var chart = _.findWhere(App.Helper.ChartConfig, { name: chartName });
+        var chart = this._getChartConfig(chartName);
         return !chart.categories || chart.categories.indexOf(this._getIndicator().category) !== -1;
       }, this);
     },
@@ -487,11 +502,18 @@
       var chartTemplate = JSON.parse(this._getChartTemplate()({
         data: JSON.stringify([]),
         label: JSON.stringify(''),
-        width: JSON.stringify(''),
-        height: JSON.stringify('')
+        width: JSON.stringify(0),
+        height: JSON.stringify(0)
       }));
 
       var containerDimensions = this.chartContainer.getBoundingClientRect();
+      var chartConfig = this._getChartConfig();
+      var fixedWidth = false
+        || (chartConfig.responsive
+        && chartConfig.responsive.mode === 'scroll'
+        && containerDimensions.width < chartConfig.responsive.breakpoint);
+
+      this.chartContainer.classList[fixedWidth ? 'add' : 'remove']('-scroll');
 
       var padding = _.extend({}, chartTemplate.padding, {
         top: 0,
@@ -500,7 +522,7 @@
         left: 0
       });
 
-      var width = Math.round(containerDimensions.width - padding.left - padding.right);
+      var width = Math.round((fixedWidth ? 1024 : containerDimensions.width) - padding.left - padding.right);
       var height = Math.round(width * this._getChartRatio());
 
       // We save the current dimensions of the chart to diff them whenever the window is resized in order to minimize
@@ -517,12 +539,39 @@
     },
 
     /**
+     * Return whether the mobile template of the chart should be loaded
+     * @return {boolean}
+     */
+    _shouldLoadMobileTemplate: function () {
+      if (!this.options.autoResize) return false;
+
+      var chartContainer = this.chartContainer.getBoundingClientRect();
+      var chartConfig = this._getChartConfig();
+
+      if (!chartConfig.responsive || chartConfig.responsive.mode !== 'adaptative') return false;
+
+      return chartContainer.width < chartConfig.responsive.breakpoint;
+    },
+
+    /**
      * Get the chart Handlebars template
      * @returns {function}
      */
     _getChartTemplate: function () {
       var chartName = this.options.chart.replace(' ', '-');
-      return JST['templates/data_portal/widgets/' + chartName];
+      var responsive = this._shouldLoadMobileTemplate();
+      return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
+    },
+
+    /**
+     * Return the configuration a the chart
+     * If a chart name is provided, return the config of this chart, otherwise the
+     * config of the widget's chart
+     * @param {string} chartName name of the chart
+     * @return {object}
+     */
+    _getChartConfig: function (chartName) {
+      return _.findWhere(App.Helper.ChartConfig, { name: chartName || this.options.chart });
     },
 
     /**
@@ -530,7 +579,7 @@
      * @returns {number}
      */
     _getChartRatio: function () {
-      var chartConfig = _.findWhere(App.Helper.ChartConfig, { name: this.options.chart });
+      var chartConfig = this._getChartConfig();
       return (chartConfig && chartConfig.ratio) || this.options.chartRatio;
     },
 
@@ -588,7 +637,7 @@
 
         new App.View.TableView({
           el: this.chartContainer,
-          collection: new Backbone.Collection(this.model.get('data')),
+          collection: this.model.get('data'),
           tableName: this.model.get('title') + ' data',
           resultsPerPage: isComplex ? 10 : 3,
           resultsPerPageOptions: null
@@ -610,6 +659,7 @@
 
             this.chart.on('mouseover', this._onMouseoverChart.bind(this));
             this.chart.on('mouseout', this._onMouseoutChart.bind(this));
+            this.chart.on('touchmove', this._onTouchmoveChart.bind(this));
           }.bind(this));
       }
     },

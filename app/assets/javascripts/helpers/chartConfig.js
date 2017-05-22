@@ -19,7 +19,15 @@
   // all the categories
   // - ratio: ratio between the width and the height, if not set, use the
   // default one in App.View.ChartWidgetView
+  // the ratio might not be respected if the template has an hard-coded height
   // - visible: hide the chart from the chart selector; default to true
+  // - responsive:
+  //     * mode: "adaptative" or "scroll"
+  //         > adaptative: a different template is loaded
+  //         > scroll: the widget is rendered as on desktop and the user has to scroll
+  //           horizontally
+  //     * breakpoint: below which size the responsive mode is activated
+  //   If the value is not set, the desktop widget is rendered, without scroll
   App.Helper.ChartConfig = [
     {
       name: 'pie',
@@ -28,7 +36,11 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.COMMON]
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON],
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
     },
     {
       name: 'bar',
@@ -37,7 +49,11 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.COMMON]
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON],
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
     },
     {
       name: 'stacked bar',
@@ -47,7 +63,11 @@
         ['quantitative']
       ],
       categories: [App.Helper.Indicators.CATEGORIES.STRANDS],
-      ratio: 0.2
+      ratio: 0.2,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
     },
     {
       name: 'radial',
@@ -57,18 +77,30 @@
         ['quantitative']
       ],
       categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
-      ratio: 0.3
+      ratio: 0.3,
+      responsive: {
+        mode: 'scroll',
+        breakpoint: 950
+      }
     },
     {
       name: 'analysis',
       categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
-      visible: false
+      visible: false,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
     },
     {
       name: 'compare',
       categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
       visible: false,
-      ratio: 0.3
+      ratio: 0.3,
+      responsive: {
+        mode: 'scroll',
+        breakpoint: 950
+      }
     },
     {
       name: 'table',

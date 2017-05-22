@@ -1,0 +1,37 @@
+<% if (error || !indicators.length) { %>
+  <div class="wrapper">
+    <header>
+      <span class="country-name js-country">–</span>
+      <button type="button" class="js-mobile-header-toggle">Toggle menu</button>
+    </header>
+  </div>
+<% } else { %>
+  <div class="wrapper">
+    <header>
+      <span class="country-name js-country"><%= country %></span>
+      <button type="button" class="js-mobile-header-toggle">Toggle menu</button>
+    </header>
+    <div class="content">
+      <div class="l-data-range">
+        <span class="c-tag js-filter-tag" data-tab="context"><%= jurisdiction %></span>
+        in
+        <span class="c-tag js-filter-tag" data-tab="context"><%= year %></span>
+        <p>
+          Showing data about
+          <% indicators.forEach(function (indicator, index) { %>
+            <%= indicators.length > 1 && index === indicators.length - 1 ? 'and' : '' %> <span class="c-tag js-filter-tag" data-tab="indicator"><%= indicator.name %></span>
+          <% }) %>
+        </p>
+        <% if (filters.length) { %>
+          <p>
+            Filtered by
+            <% filters.forEach(function (filter, index) { %>
+              <%= filters.length > 1 && index === filters.length - 1 ? 'and' : '' %> <span class="c-tag js-filter-tag" data-tab="filter"><%= filter.name + ': ' + filter.options.join(', ') %></span>
+            <% }) %>
+          </p>
+        <% } %>
+      </div>
+      <button class="c-button -white js-customize-indicators">Customise indicators</button>
+    </div>
+  </div>
+<% } %>

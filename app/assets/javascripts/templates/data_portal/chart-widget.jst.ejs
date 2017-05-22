@@ -13,9 +13,11 @@
         <button type="button" class="c-button -mini js-delete">Delete</button>
       <% } else { %>
         <button type="button" class="c-button -mini js-save">Save</button>
-        <button type="button" class="c-button -mini js-change">Change</button>
-        <% if (canCompare) { %><button type="button" class="c-button -mini js-compare" aria-pressed="<%= isComparing %>">Compare</button><% } %>
-        <% if (canAnalyze) { %><button type="button" class="c-button -mini js-analyze" aria-pressed="<%= isAnalyzing %>">Analyse</button><% } %>
+        <% if (mode !== 'table') { %>
+          <button type="button" class="c-button -mini js-change">Change</button>
+          <% if (canCompare) { %><button type="button" class="c-button -mini js-compare" aria-pressed="<%= isComparing %>">Compare</button><% } %>
+          <% if (canAnalyze) { %><button type="button" class="c-button -mini js-analyze" aria-pressed="<%= isAnalyzing %>">Analyse</button><% } %>
+        <% } %>
       <% } %>
     </div>
   <% } %>

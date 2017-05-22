@@ -50,9 +50,9 @@
       resultsPerPageOptions: [10, 25, 50, 100],
       // Current pagination index
       paginationIndex: 0,
-      // Collection representing the table
+      // Collection representing the table (not a Backone collection)
       // Each row can contain the name of the column, the value of the cell or an html content,
-      // a, attribute to tell if the column can be searchable and another to tell if it's sortable
+      // an attribute to tell if the column can be searchable and another to tell if it's sortable
       // The value attribute can have an array of strings
       // An optional link attribute can be present, it contains its url and an attribute to tell
       // if the link is external or not (this is not built for multi-value cells)
@@ -67,13 +67,14 @@
       //     ]
       //   }
       // ]
-      // NOTE: the collection will be added a comparator function and methods
+      // NOTE: don't directly call this value, use _getCollection instead
       collection: null,
       // List of headers
       // This is computed at instantiation, do not set it from outside
       headers: null,
       // Column index used for sorting the table
-      sortColumnIndex: 0,
+      // -1 for no sorting
+      sortColumnIndex: -1,
       // Sort order: 1 for ASC, -1 for DESC
       sortOrder: 1,
       // Table name used by screen readers
@@ -97,50 +98,33 @@
     initialize: function (settings) {
       this.options = Object.assign({}, this.defaults, settings);
 
-      if (!this.options.collection) {
-        throw new Error('Please provide to the table component a collection to fetch.');
+      if (!this.options.collection || !this.options.collection.length) {
+        throw new Error('Please provide a collection to the table component.');
       }
 
       if (!this.options.tableName || !this.options.tableName.length) {
         throw new Error('Please provide a name to the table component.');
       }
 
-      // Callback executed when the collection has data
-      var done = function () {
-        this.options.headers = new HeadersCollection(this.options.collection.toJSON(), { parse: true });
-        this._initSort();
-        if (this.options.searchFieldContainer) this._initSearch();
-        this.render();
-      };
-
-      if (this.options.collection.length > 0) {
-        done.call(this);
-      } else if (!this.options.collection.url) {
-        // eslint-disable-next-line no-console
-        console.warn('The table has been instanciated with an empty collection and no url to fetch the data has been provided.');
-        return;
-      } else {
-        this.options.collection.fetch()
-          .done(done.bind(this))
-          .fail(function () {
-            this.error = 'Unable to load the data for the table.';
-            this.render();
-          }.bind(this));
-      }
+      this.options.headers = new HeadersCollection(this._getCollection(), { parse: true });
+      this._initSort();
+      if (this.options.searchFieldContainer) this._initSearch();
+      this.render();
     },
 
     /**
      * Set global variables
      */
     _setVars: function () {
-      this.$headers = this.$('.js-header > th');
+      this.$headersContainer = this.$('.js-header');
+      this.$headers = this.$headersContainer.children();
     },
 
     /**
      * Set the listeners on the rendered DOM
      */
     _setListeners: function () {
-      this.$('.js-header').on('click', function (e) {
+      this.$headersContainer.on('click', function (e) {
         // We need to move the user to the first page of results
         // NOTE: it needs to be placed before the actual sort so that when the table
         // is rendered, the page is resetted
@@ -150,7 +134,7 @@
         if (column) this._sortTable(column);
       }.bind(this));
 
-      this.$('.js-header').on('keydown', this._onKeydownHeader.bind(this));
+      this.$headersContainer.on('keydown', this._onKeydownHeader.bind(this));
 
       this.$('.js-more').on('click', this._onClickMore.bind(this));
 
@@ -260,11 +244,11 @@
      * Set the comparator to the table's first column and sort the collection
      */
     _initSort: function () {
-      this.options.collection.comparator = function (modelA, modelB) {
-        var comparator = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      var collator = new Intl.Collator([], { sensitivity: 'base' });
 
-        var cellA = _.findWhere(modelA.attributes.row, { name: comparator });
-        var cellB = _.findWhere(modelB.attributes.row, { name: comparator });
+      this.options.compareFunction = function (modelA, modelB) {
+        var cellA = modelA.row[this.options.sortColumnIndex];
+        var cellB = modelB.row[this.options.sortColumnIndex];
 
         var valA = Array.isArray(cellA.value) ? cellA.value[0] : cellA.value;
         var valB = Array.isArray(cellB.value) ? cellB.value[0] : cellB.value;
@@ -287,10 +271,63 @@
           return this.options.sortOrder;
         }
 
-        return valA.localeCompare(valB, [], { sensitivity: 'base' }) * this.options.sortOrder;
+        return collator.compare(valA, valB) * this.options.sortOrder;
       }.bind(this);
 
-      this.options.collection.sort();
+      if (this.options.sortColumnIndex !== -1) this.options.collection.sort(this.options.compareFunction);
+    },
+
+    /**
+     * Return the value of the collection
+     * @returns {object[]}
+     */
+    _getCollection: function () {
+      var collection = this.options.collection;
+      if (!this.options.searchQuery || !this.options.searchQuery.length) return collection;
+
+      // Each time, we need to recreate an instance of Fuse to maintain the sorting of the table
+      var searchableColumns = this.options.headers.toJSON()
+        .filter(function (header) { return header.searchable; })
+        .map(function (header) { return header.name; });
+
+      // We need to format the data for Fuse
+      // The basic idea is that Fuse has a direct access to the searchable columns and their value.
+      // We maintain a reference to the original row so we can display it later
+      // Example of the format:
+      // [
+      //   {
+      //     row: [
+      //      { name: 'Title', value: 'Vizzuality' },
+      //      { name: 'Price', value: '100€' }
+      //     ],
+      //     Title: 'Vizzuality',
+      //     Price: '100€'
+      //   }
+      // ]
+      var fuseCollection = collection.map(function (row) {
+        var o = {};
+        o.row = row;
+        for (var i = 0, j = searchableColumns.length; i < j; i++) {
+          var value = _.findWhere(row.row, { name: searchableColumns[i] }).value;
+          o[searchableColumns[i]] = value;
+        }
+        return o;
+      });
+
+      var fuse = new Fuse(fuseCollection, {
+        include: ['matches'],
+        keys: searchableColumns,
+        tokenize: true,
+        threshold: 0.1,
+        matchAllTokens: true,
+        shouldSort: false
+      });
+
+      var searchResults = fuse.search(this.options.searchQuery);
+
+      return searchResults.map(function (result) {
+        return result.item.row;
+      });
     },
 
     /**
@@ -326,56 +363,6 @@
       this.options.searchFieldContainer.innerHTML = ''; // We make sure the container is empty
       this.options.searchFieldContainer.appendChild(searchField);
       this.options.searchFieldContainer.appendChild(searchButton);
-
-      // We modify the toJSON method to take into account the search query
-      this.options.collection.toJSON = function (options) {
-        var collection = Backbone.Collection.prototype.toJSON.call(this.options.collection, options);
-        if (!this.options.searchQuery || !this.options.searchQuery.length) return collection;
-
-        // Each time, we need to recreate an instance of Fuse to maintain the sorting of the table
-        var searchableColumns = this.options.headers.toJSON()
-          .filter(function (header) { return header.searchable; })
-          .map(function (header) { return header.name; });
-
-        // We need to format the data for Fuse
-        // The basic idea is that Fuse has a direct access to the searchable columns and their value.
-        // We maintain a reference to the original row so we can display it later
-        // Example of the format:
-        // [
-        //   {
-        //     row: [
-        //      { name: 'Title', value: 'Vizzuality' },
-        //      { name: 'Price', value: '100€' }
-        //     ],
-        //     Title: 'Vizzuality',
-        //     Price: '100€'
-        //   }
-        // ]
-        var fuseCollection = collection.map(function (row) {
-          var o = {};
-          o.row = row;
-          for (var i = 0, j = searchableColumns.length; i < j; i++) {
-            var value = _.findWhere(row.row, { name: searchableColumns[i] }).value;
-            o[searchableColumns[i]] = value;
-          }
-          return o;
-        });
-
-        this.options.collection.fuse = new Fuse(fuseCollection, {
-          include: ['matches'],
-          keys: searchableColumns,
-          tokenize: true,
-          threshold: 0.1,
-          matchAllTokens: true,
-          shouldSort: false
-        });
-
-        var searchResults = this.options.collection.fuse.search(this.options.searchQuery);
-
-        return searchResults.map(function (result) {
-          return result.item.row;
-        });
-      }.bind(this);
     },
 
     /**
@@ -397,7 +384,7 @@
         this.options.sortColumnIndex = columnIndex;
       }
 
-      this.options.collection.sort();
+      this.options.collection.sort(this.options.compareFunction);
       this.render();
     },
 
@@ -418,24 +405,27 @@
       var start = this.options.resultsPerPage * this.options.paginationIndex;
       var end = this.options.resultsPerPage * (this.options.paginationIndex + 1);
 
-      return this.options.collection.toJSON()
+      return this._getCollection()
+        .slice(start, end)
         .map(function (row, index) {
           // The rowIndex value is used for accessibility
           // The index needs to start at 2 because the header row is 1
           return Object.assign({}, row.row, { rowIndex: index + 2 });
-        })
-        .slice(start, end);
+        });
     },
 
     render: function () {
-      var sortColumn = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      var sortColumn;
+      if (this.options.sortColumnIndex !== -1) {
+        sortColumn = this.options.headers.at(this.options.sortColumnIndex).attributes.name;
+      }
 
       var headers;
       if (this.options.collection.length) {
         headers = this.options.headers.toJSON()
           .map(function (column) {
             var sort;
-            if (column.name === sortColumn) {
+            if (sortColumn && column.name === sortColumn) {
               sort = this.options.sortOrder === 1 ? 'ascending' : 'descending';
             }
 
@@ -455,9 +445,9 @@
         columnCount: headers.length,
         resultsPerPage: this.options.resultsPerPage,
         resultsPerPageOptions: this.options.resultsPerPageOptions,
-        firstResultIndex: this.options.collection.toJSON().length ? (this.options.resultsPerPage * this.options.paginationIndex) + 1 : 0,
-        lastResultIndex: Math.min(this.options.resultsPerPage * (this.options.paginationIndex + 1), this.options.collection.toJSON().length),
-        totalResults: this.options.collection.toJSON().length,
+        firstResultIndex: this._getCollection().length ? (this.options.resultsPerPage * this.options.paginationIndex) + 1 : 0,
+        lastResultIndex: Math.min(this.options.resultsPerPage * (this.options.paginationIndex + 1), this._getCollection().length),
+        totalResults: this._getCollection().length,
         rows: this._getRenderableRows(),
         sortColumn: sortColumn,
         sortOrder: this.options.sortOrder === 1 ? 'ascending' : 'descending',
