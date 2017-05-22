@@ -48,6 +48,7 @@
 
     background-color: rgba($color-1, .1);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 
     &::-webkit-scrollbar {
       display: none;
@@ -99,7 +100,9 @@
 
   > .filters-container {
     flex: 1;
-    background-color: $color-1;
+    width: calc(100% - #{$wrapper-padding-mobile * 2});
+    margin: 0 auto;
+    background-color: $color-4;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 
@@ -144,8 +147,6 @@
   .select-indicators,
   .select-context,
   form {
-    width: calc(100% - #{$wrapper-padding-mobile * 2});
-    margin: 0 auto;
     padding: 25px 30px;
     background-color: $color-4;
 

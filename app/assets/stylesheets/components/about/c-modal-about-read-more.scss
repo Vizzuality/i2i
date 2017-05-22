@@ -13,11 +13,11 @@
     padding: 8px;
     background-color: $color-4;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 
     @media #{$mq-tablet} {
       max-height: 460px;
       padding: 50px 0;
-      -webkit-overflow-scrolling: touch;
 
       ul {
         margin: 10px 0 20px;

@@ -39,8 +39,8 @@
     },
 
     _setVars: function () {
-      this.html = document.querySelector('html');
-      this.body = document.querySelector('body');
+      this.html = document.children[0];
+      this.body = document.body;
     },
 
     _setEventListeners: function () {

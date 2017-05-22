@@ -8,6 +8,7 @@
 
   background: $color-4;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   @media #{$mq-tablet} {
     width: 100%;

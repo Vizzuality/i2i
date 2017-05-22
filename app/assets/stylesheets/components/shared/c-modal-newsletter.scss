@@ -9,6 +9,7 @@
   padding: $wrapper-padding-mobile;
   background-color: $color-4;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   @media #{$mq-tablet} {
     width: 100%;
