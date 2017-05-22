@@ -102,6 +102,13 @@
     flex: 1;
     width: calc(100% - #{$wrapper-padding-mobile * 2});
     margin: 0 auto;
+
+    /* The next two lines are a hack to get the "overflow" background to be white
+     * This is not the case by default (iOS bug):
+     * https://stackoverflow.com/a/24883883 */
+    margin-top: -1px;
+    padding-top: 1px;
+
     background-color: $color-4;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -133,11 +140,17 @@
 
     .filter-list > .filter-item > .indicator-filters-list {
       display: flex;
-      flex-wrap: wrap;
-      align-items: stretch;
+      flex-direction: column;
+
+      @media #{$mq-tablet} {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 
       > .indicator-filters-item {
-        flex-basis: calc(100% / 3);
+        @media #{$mq-tablet} {
+          flex-basis: calc(100% / 3);
+        }
 
         > .c-checkbox { height: 100%; }
       }
