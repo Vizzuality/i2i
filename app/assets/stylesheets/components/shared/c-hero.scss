@@ -1,6 +1,10 @@
 .c-hero {
-  padding: 120px 0 110px;
+  padding: 70px 0;
   overflow: hidden;
+
+  @media #{$mq-tablet} {
+    padding: 120px 0 110px;
+  }
 
   .subtitle {
     margin: 20px 0 0;
