@@ -19,7 +19,7 @@ ActiveAdmin.register Library do
     def permitted_params
       params.permit library: [:title, :summary, :id,
                               :image, :date, :url_resource,
-                              :video_url, :subcategory_id]
+                              :video_url, :subcategory_id, :issuu_link]
     end
   end
 
@@ -54,6 +54,7 @@ ActiveAdmin.register Library do
       f.input :video_url
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
+      f.input :issuu_link
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
@@ -68,6 +69,7 @@ ActiveAdmin.register Library do
       row :date
       row :title
       row :summary
+      row :issuu_link
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end

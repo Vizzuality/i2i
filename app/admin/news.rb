@@ -8,7 +8,7 @@ ActiveAdmin.register News do
   controller do
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit news: [:title, :author, :summary, :content, :id, :image, :date]
+      params.permit news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link]
     end
   end
 
@@ -33,6 +33,7 @@ ActiveAdmin.register News do
       f.input :date, as: :date_picker
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
+      f.input :issuu_link
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
@@ -48,6 +49,7 @@ ActiveAdmin.register News do
       row :author
       row :summary
       row :content
+      row :issuu_link
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
