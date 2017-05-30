@@ -14,6 +14,7 @@
 #  image_updated_at   :datetime
 #  date               :datetime
 #  author             :string
+#  issuu_link         :string
 #
 
 require 'test_helper'
