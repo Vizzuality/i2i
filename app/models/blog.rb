@@ -15,6 +15,7 @@
 #  date               :datetime
 #  author             :string
 #  workstream         :string
+#  issuu_link         :string
 #
 
 class Blog < ApplicationRecord

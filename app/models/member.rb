@@ -15,6 +15,7 @@
 #  slug               :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  date               :date
 #
 
 class Member < ApplicationRecord

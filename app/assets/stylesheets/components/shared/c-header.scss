@@ -1,12 +1,15 @@
-
 .c-header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 25px 0 0;
+  padding: 12px 0;
   background: $color-1;
+
+  @media #{$mq-laptop} {
+    padding: 25px 0;
+  }
 
   .container {
     display: flex;
@@ -20,8 +23,13 @@
 
 
     .app-logo > a > img {
-      width: 96px;
-      height: 38px;
+      width: 128px;
+      height: 52px;
+
+      @media #{$mq-laptop} {
+        width: 96px;
+        height: 38px;
+      }
     }
 
     .hamburguer {

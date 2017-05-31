@@ -1,11 +1,15 @@
 .c-flag {
   position: relative;
-  height: 210px;
+  height: 95px;
   margin: 0 0 20px;
   background-color: $color-1;
   background-position: center center;
   background-size: cover;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+  @media #{$mq-tablet} {
+    height: 210px;
+  }
 
   &.-placeholder {
     background-color: $color-7;
@@ -20,14 +24,18 @@
 
   > .country-name {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
-
+    bottom: 5px;
+    left: 5px;
     color: $color-3;
+    text-shadow: 0 1px rgba($color-6, .4);
     font-family: $font-family-2;
     font-size: $font-size-s;
     text-transform: uppercase;
-
     pointer-events: none;
+
+    @media #{$mq-tablet} {
+      bottom: 30px;
+      left: 30px;
+    }
   }
 }

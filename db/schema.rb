@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418135232) do
+ActiveRecord::Schema.define(version: 20170530155846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170418135232) do
     t.datetime "date"
     t.string   "author"
     t.string   "workstream"
+    t.string   "issuu_link"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -132,6 +133,7 @@ ActiveRecord::Schema.define(version: 20170418135232) do
     t.string   "url_resource"
     t.string   "video_url"
     t.integer  "subcategory_id"
+    t.string   "issuu_link"
     t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
   end
 
@@ -163,6 +165,7 @@ ActiveRecord::Schema.define(version: 20170418135232) do
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
+    t.string   "issuu_link"
   end
 
   create_table "subcategories", force: :cascade do |t|
