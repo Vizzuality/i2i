@@ -1,3 +1,5 @@
+include ActiveAdminHelper
+
 ActiveAdmin.register Blog do
 
   config.per_page = 20
@@ -18,7 +20,9 @@ ActiveAdmin.register Blog do
     end
     column :summary
     column :updated_at
-    column :date
+    column :date do |blog|
+    	ActiveAdminHelper.format_date(blog.date)
+    end
     actions
   end
 
@@ -45,13 +49,14 @@ ActiveAdmin.register Blog do
 
   show do |ad|
     attributes_table do
-      row :date
       row :title
       row :author
       row :workstream
       row :summary
       row :content
-      row :date
+      row :date do
+      	ActiveAdminHelper.format_date(ad.date)
+      end
       row :issuu_link
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?

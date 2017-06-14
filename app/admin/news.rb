@@ -1,3 +1,5 @@
+include ActiveAdminHelper
+
 ActiveAdmin.register News do
 
   config.per_page = 20
@@ -44,7 +46,9 @@ ActiveAdmin.register News do
 
   show do |ad|
     attributes_table do
-      row :date
+      row :date do
+      	ActiveAdminHelper.format_date(ad.date)
+      end
       row :title
       row :author
       row :summary

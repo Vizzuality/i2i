@@ -1,3 +1,5 @@
+include ActiveAdminHelper
+
 ActiveAdmin.register Library do
 
   config.per_page = 20
@@ -66,7 +68,9 @@ ActiveAdmin.register Library do
   show do |ad|
     attributes_table do
       row :subcategory
-      row :date
+      row :date do
+      	ActiveAdminHelper.format_date(ad.date)
+      end
       row :title
       row :summary
       row :issuu_link

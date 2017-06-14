@@ -1,3 +1,5 @@
+include ActiveAdminHelper
+
 ActiveAdmin.register Event do
 
   config.per_page = 20
@@ -43,7 +45,9 @@ ActiveAdmin.register Event do
 
   show do |ad|
     attributes_table do
-      row :date
+      row :date do
+      	ActiveAdminHelper.format_date(ad.date)
+      end
       row :title
       row :author
       row :url
