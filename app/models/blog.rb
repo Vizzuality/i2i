@@ -27,7 +27,7 @@ class Blog < ApplicationRecord
 
   validates_presence_of :title
   validates_length_of :title, maximum: 125
-  validates_length_of :summary, maximum: 150, allow_blank: true
+  validates_length_of :summary, maximum: 172, allow_blank: true
 
   def set_date
     self.date ||= DateTime.now

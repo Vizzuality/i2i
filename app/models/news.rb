@@ -28,7 +28,7 @@ class News < ApplicationRecord
 
   validates_presence_of :title
   validates_length_of :title, maximum: 75
-  validates_length_of :summary, maximum: 125, allow_blank: true
+  validates_length_of :summary, maximum: 172, allow_blank: true
 
   def set_date
     self.date ||= DateTime.now
