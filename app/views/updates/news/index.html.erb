@@ -44,7 +44,7 @@
             <% else %>
               <div class="grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
-                  <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
+                  <a href="<%= news_path(news.slug) %>" alt="<%= news.title %>">
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
                     <div class="metadata">
                       <h4 class="title -dark -xs"><%= news.title %></h4>

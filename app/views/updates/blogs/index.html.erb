@@ -28,7 +28,7 @@
           <% @blogs.each do |post| %>
             <div class="grid-s-12">
               <article class="c-card -horizontal">
-                <a href="<%= updates_blog_path(post.id) %>" alt="<%= post.title %>">
+                <a href="<%= updates_blog_path(post.slug) %>" alt="<%= post.title %>">
                   <div class="picture" style="background-image: url(<%= post.image %>)"></div>
                   <div class="metadata">
                     <h4 class="title -dark -xs"><%= post.title %></h4>

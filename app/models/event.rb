@@ -18,6 +18,8 @@
 #
 
 class Event < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date

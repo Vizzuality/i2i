@@ -10,14 +10,14 @@ class Updates::EventsController < ApplicationController
   # GET /event/1
   # GET /event/1.json
   def show
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
     @RelatedEvents = Event.all.where.not(id: params[:id]).limit(4)
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @news = Event.find(params[:id])
+    @news = Event.friendly.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
