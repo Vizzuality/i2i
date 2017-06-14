@@ -15,6 +15,7 @@
 #  date               :datetime
 #  author             :string
 #  url                :string
+#  slug               :string
 #
 
 class Event < ApplicationRecord
