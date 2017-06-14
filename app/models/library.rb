@@ -19,6 +19,8 @@
 #
 
 class Library < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
   extend EnumerateIt
 
   belongs_to :subcategory, required: true

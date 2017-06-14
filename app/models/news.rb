@@ -18,6 +18,8 @@
 #
 
 class News < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
   self.table_name = 'news'
 
   after_initialize :set_date
