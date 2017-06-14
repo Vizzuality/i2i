@@ -17,7 +17,7 @@ ActiveAdmin.register Member do
   controller do
     def permitted_params
       params.permit member: [:name, :position, :organization_name,
-                             :image, :id, :biography, :role, :date]
+                             :image, :id, :biography, :role, :date, :order]
     end
   end
 
@@ -51,6 +51,7 @@ ActiveAdmin.register Member do
       f.input :date, as: :date_picker
       f.input :position
       f.input :organization_name
+      f.input :order
       f.input :role, as: :select, collection: RoleType.to_a
       f.input :biography, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :image, as: :file, hint: f.object.image.present? ? \
@@ -70,6 +71,7 @@ ActiveAdmin.register Member do
       row :position
       row :organization_name
       row :role
+      row :order
       row :biography
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
