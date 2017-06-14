@@ -16,6 +16,7 @@
 #  video_url          :string
 #  subcategory_id     :integer
 #  issuu_link         :string
+#  slug               :string
 #
 
 require 'test_helper'
