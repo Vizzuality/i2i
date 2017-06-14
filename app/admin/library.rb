@@ -58,7 +58,7 @@ ActiveAdmin.register Library do
       f.input :date, as: :date_picker
       f.input :url_resource
       f.input :video_url
-      f.has_many :tagged_items, allow_destroy: true, new_record: true do |a|
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
       	a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
       end
       f.input :image, as: :file, hint: f.object.image.present? ? \
