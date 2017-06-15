@@ -29,6 +29,11 @@ class Library < ApplicationRecord
 
   has_attached_file :image, styles: {thumb: '300x300>'}
 
+  has_many :documents, :through => :documented_items
+  accepts_nested_attributes_for :documents, allow_destroy: true
+  has_many :documented_items, :as => :documentable, :dependent => :destroy
+  accepts_nested_attributes_for :documented_items, allow_destroy: true
+
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
