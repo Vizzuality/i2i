@@ -16,6 +16,7 @@
 #  video_url          :string
 #  subcategory_id     :integer
 #  issuu_link         :string
+#  slug               :string
 #
 
 class Library < ApplicationRecord
@@ -28,6 +29,14 @@ class Library < ApplicationRecord
   accepts_nested_attributes_for :subcategory
 
   has_attached_file :image, styles: {thumb: '300x300>'}
+  has_many :tagged_items, :as => :taggable, :dependent => :destroy
+  has_many :tags, :through => :tagged_items
+  accepts_nested_attributes_for :tagged_items, allow_destroy: true
+
+  has_many :documents, :through => :documented_items
+  accepts_nested_attributes_for :documents, allow_destroy: true
+  has_many :documented_items, :as => :documentable, :dependent => :destroy
+  accepts_nested_attributes_for :documented_items, allow_destroy: true
 
   after_initialize :set_date
 
@@ -37,7 +46,7 @@ class Library < ApplicationRecord
   validates :url_resource, url: true, if: 'url_resource.present?'
   validates :video_url, url: true, if: 'video_url.present?'
   validates_length_of :title, maximum: 70
-  validates_length_of :summary, maximum: 125, allow_blank: true
+  validates_length_of :summary, maximum: 172, allow_blank: true
 
   def set_date
     self.date ||= DateTime.now

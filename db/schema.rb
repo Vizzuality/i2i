@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614092817) do
+ActiveRecord::Schema.define(version: 20170614170727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,27 @@ ActiveRecord::Schema.define(version: 20170614092817) do
     t.string   "iso"
   end
 
+  create_table "documented_items", force: :cascade do |t|
+    t.string   "documentable_type"
+    t.integer  "documentable_id"
+    t.integer  "document_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["document_id", "documentable_id", "documentable_type"], name: "documentable_index", unique: true, using: :btree
+    t.index ["document_id"], name: "index_documented_items_on_document_id", using: :btree
+    t.index ["documentable_type", "documentable_id"], name: "index_documented_items_on_documentable_type_and_documentable_id", using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string   "name"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "title"
     t.text     "summary"
@@ -166,6 +187,7 @@ ActiveRecord::Schema.define(version: 20170614092817) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.date     "date"
+    t.integer  "order"
   end
 
   create_table "news", force: :cascade do |t|
@@ -192,6 +214,23 @@ ActiveRecord::Schema.define(version: 20170614092817) do
     t.integer  "category_id"
     t.string   "slug"
     t.index ["category_id"], name: "index_subcategories_on_category_id", using: :btree
+  end
+
+  create_table "tagged_items", force: :cascade do |t|
+    t.string   "taggable_type"
+    t.integer  "taggable_id"
+    t.integer  "tag_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["tag_id", "taggable_id", "taggable_type"], name: "index_tagged_items_on_tag_id_and_taggable_id_and_taggable_type", unique: true, using: :btree
+    t.index ["tag_id"], name: "index_tagged_items_on_tag_id", using: :btree
+    t.index ["taggable_type", "taggable_id"], name: "index_tagged_items_on_taggable_type_and_taggable_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "libraries", "subcategories"
