@@ -15,6 +15,7 @@
 #  date               :datetime
 #  author             :string
 #  issuu_link         :string
+#  slug               :string
 #
 
 class News < ApplicationRecord

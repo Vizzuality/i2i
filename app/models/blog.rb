@@ -16,6 +16,7 @@
 #  author             :string
 #  workstream         :string
 #  issuu_link         :string
+#  slug               :string
 #
 
 class Blog < ApplicationRecord
