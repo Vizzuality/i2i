@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+
+<head>
+	<meta charset="utf-8">
+	<title>Page Not Found - insight2impact</title>
+	<%= Gon::Base.render_data %>
+	<%= csrf_meta_tags %>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+
+<div class="l-terms-of-use">
+	<div class="l-intro">
+		<div class="wrapper">
+			<%= render partial: 'shared/header', locals: { isCover: true }%>
+		</div>
+	</div>
+	<div class="l-content">
+		<div class="wrapper">
+			<div class="row">
+				<div class="grid-s-12 grid-l-8">
+					<h2 class="title -xbig -center -dark">Page Not Found</h2>
+					<h3 class="subtitle term-title">Sorry but we were not able to find the page you were looking for.</h3>
+					</br>
+					</br>
+					<div class="row">
+						<div class="grid-m-4">
+							<%= button_to "Main", root_path, method: :get, class: "c-button -sea -big js-submit -center" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

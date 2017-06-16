@@ -41,4 +41,6 @@ Rails.application.routes.draw do
 
   resources :libraries
   resources :updates, only: :index
+
+  match "/404", :to => "errors#not_found", :via => :all
 end
