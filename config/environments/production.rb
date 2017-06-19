@@ -64,8 +64,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sparkpost
   # To work with Active Admin
   config.action_mailer.default_url_options =
-    { host: ENV.fetch('I2I_HOST') { 'localhost' },
-      port: ENV.fetch('I2I_PORT') { '3000' } }
+    { host: ENV.fetch('I2I_HOST') { 'i2ifacility.org' },
+      port: ENV.fetch('I2I_PORT') { } }
   #config.action_mailer.delivery_method = :smtp
   #config.action_mailer.smtp_settings = {
   #  address:              'smtp.gmail.com',
