@@ -1,8 +1,8 @@
 class StaticPagesController < ApplicationController
 
   def about
-    @teamMembers = sort_members_by_surname(Member.where(role: 1))
-    @advisoryMembers = sort_members_by_surname(Member.where(role: 2))
+    @teamMembers = sort_by_importance(Member.where(role: 1))
+    @advisoryMembers = sort_by_importance(Member.where(role: 2))
     @countries = [
       { iso: 'BGD', name: 'Bangladesh' },
       { iso: 'GHA', name: 'Ghana' },
@@ -48,10 +48,8 @@ class StaticPagesController < ApplicationController
     ActiveModelSerializers::SerializableResource.new(model, adapter: :json)
   end
 
-  # Temporary solution. It doesn't work with two-word names. Find a better solution.
-  # Sorts members by surname.
-  def sort_members_by_surname(members)
-    members.sort { |a, b| a.name.downcase.split(' ')[1] <=> b.name.downcase.split(' ')[1] }
+  def sort_by_importance(members)
+    members.sort_by { |member| [member.order ? 0 : 1, member.order] }
   end
 
   def valid_email_contact?(email)
