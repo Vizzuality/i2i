@@ -79,10 +79,31 @@
       display: flex;
       justify-content: center;
 
+      // We want all the links to have the same colour,
+      // even the nested ones
+      a {
+        color: $color-1;
+      }
+
       ul {
         li {
           display: list-item;
           list-style: disc;
+        }
+      }
+
+      ol {
+        li {
+          display: list-item;
+          list-style: decimal;
+        }
+      }
+
+      p {
+        // If the link is within a tag <strong>, we want the weight to be
+        // bold and not what's defined in typography.scss
+        a {
+          font-weight: inherit;
         }
       }
 
