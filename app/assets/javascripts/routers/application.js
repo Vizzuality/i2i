@@ -6,7 +6,7 @@ var Router = Backbone.Router.extend({
   routes: {
     '': '_homePage',
     'updates/events': '_eventsPage',
-    'libraries': '_libraryPage',
+    'resources': '_libraryPage',
     'about': '_aboutPage',
     'terms-of-use': '_termsOfUsePage'
   },

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
 
+  get 'resources', to: 'libraries#index', as: 'libraries'
 
   post 'email' => 'static_pages#email'
   get 'about' => 'static_pages#about'
@@ -39,7 +40,6 @@ Rails.application.routes.draw do
     resources :news, only: [:index, :show]
   end
 
-  resources :libraries
   resources :updates, only: :index
 
   match "/404", :to => "errors#not_found", :via => :all
