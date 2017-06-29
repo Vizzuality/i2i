@@ -2,7 +2,8 @@
 @font-face {
   font-family: 'Chalet';
   font-weight: $font-weight-medium;
-  src: font-url('typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+  src: font-url('typography/ChaletNewYorkNineteenSixty.ttf') format('truetype'),
+    font-url('typography/chaletnewyorknineteensixty-webfont.woff') format('woff');
 }
 
 @font-face {
