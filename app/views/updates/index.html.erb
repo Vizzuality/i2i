@@ -12,7 +12,7 @@
           <div class="c-hero">
             <div class="grid-l-6">
               <h1 class="title -light -huge">News</h1>
-              <p class="subtitle">Stay up-to-date with the latest news, events, and blogs from us and our partners.</p>
+              <p class="subtitle">Stay up to date with the latest <a href="#news" class="js-anchor">news</a>, <a href="#events" class="js-anchor">events</a> and <a href="#blogs" class="js-anchor">blogs</a> from us and our partners.</p>
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
 
   <div class="l-content">
     <div class="wrapper">
-      <div class="card-grid -news">
+      <div class="card-grid -news" id="news">
         <div class="row">
           <% @news.each_with_index do |news, index| %>
             <% if index == 0 %>
@@ -61,12 +61,12 @@
         </div>
       </div>
 
-      <section class="events-section">
+      <section class="events-section" id="events">
         <h2 class="title -dark -big">Events</h2>
         <div class="card-grid">
           <div class="row">
             <% @events.each do |event| %>
-              <div class="grid-s-12 grid-m-6 grid-l-4 grid-xl-3">
+              <div class="grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
                   <a href="<%= updates_event_path(id: event.slug) %>" alt="<%= event.title %>">
                     <div class="picture" style="background-image: url(<%= event.image %>)"></div>
@@ -88,7 +88,7 @@
         </div>
       </section>
 
-      <section class="blog-section">
+      <section class="blog-section" id="blogs">
         <h2 class="title -dark -big">Blog</h2>
         <div class="card-grid">
           <div class="row">
