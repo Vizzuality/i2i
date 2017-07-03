@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
 
-  get 'resources', to: 'libraries#index', as: 'libraries'
+  get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
   post 'email' => 'static_pages#email'
   get 'about' => 'static_pages#about'

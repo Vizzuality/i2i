@@ -5,11 +5,11 @@ var Router = Backbone.Router.extend({
 
   routes: {
     '': '_homePage',
-    'updates': '_updatesPage',
-    'updates/events': '_eventsPage',
-    'resources': '_libraryPage',
-    'about': '_aboutPage',
-    'terms-of-use': '_termsOfUsePage'
+    'updates(/)': '_updatesPage',
+    'updates/events(/)': '_eventsPage',
+    'resources(/)(:category)': '_libraryPage',
+    'about(/)': '_aboutPage',
+    'terms-of-use(/)': '_termsOfUsePage'
   },
 
   // *** PAGES ***
@@ -40,13 +40,14 @@ var Router = Backbone.Router.extend({
     new App.Page.EventsPage();
   },
 
-  _libraryPage: function () {
+  _libraryPage: function (category) {
     // Don't forget to stop the router on each route
     // otherwise you'll break the browser's back button
     Backbone.history.stop();
 
     new App.Page.LibraryPage({
-      categories: gon.categories.categories
+      categories: gon.categories.categories,
+      selectedCategory: category
     });
   },
 

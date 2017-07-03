@@ -28,9 +28,22 @@
       this._setVars();
 
       if (this.options.categories.length) {
-        this.options.selectedCategory = this.options.categories[0];
+        // At this point, selectedCategory is a string: the category comes
+        // from the URL
+        if (this.options.selectedCategory) {
+          this.options.selectedCategory = this.options.categories.find(function (category) {
+            return category.name.toLowerCase() === this.options.selectedCategory;
+          }, this);
+        }
+
+        // Either the URL didn't contain any category or the category couln't be found
+        if (!this.options.selectedCategory) {
+          this.options.selectedCategory = this.options.categories[0];
+        }
+
         this._updateCategoryButtons();
         this._filter();
+        this._updateUrl();
       }
     },
 
@@ -54,6 +67,7 @@
       this.options.selectedSubcategory = null; // We reset the subcategory each time
       this._updateCategoryButtons();
       this._filter();
+      this._updateUrl();
     },
 
     /**
@@ -112,6 +126,19 @@
           ? 'block'
           : 'none';
       }, this);
+    },
+
+    /**
+     * Update the URL with the selected category
+     */
+    _updateUrl: function () {
+      var category = this.options.selectedCategory.name.toLowerCase();
+      var url = '/resources/' + category;
+
+      // Adding { turbolinks: {} } is mandatory to avoid breaking the browser's back button
+      // because Turbolinks doesn't handle well the URL changes
+      // Check here: https://github.com/turbolinks/turbolinks/issues/219
+      history.replaceState({ turbolinks: {} }, '', url);
     },
 
     /**
