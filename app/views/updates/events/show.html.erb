@@ -72,7 +72,7 @@
         <div class="l-card-grid">
           <div class="row">
             <% @RelatedEvents.each do |event| %>
-              <div class="grid-s-12 grid-m-6 grid-l-3">
+              <div class="grid-s-12 grid-m-6 grid-4">
                 <article class="c-card">
                   <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
                     <div class="picture" style="background-image: url(<%= event.image %>)"></div>
