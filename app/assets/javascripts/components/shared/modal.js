@@ -39,7 +39,7 @@
     },
 
     _setVars: function () {
-      this.html = document.children[0];
+      this.html = document.childNodes[1];
       this.body = document.body;
     },
 
