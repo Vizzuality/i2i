@@ -153,8 +153,8 @@
      * @return {object} profile
      */
     _getProfileData: function (profileNode) {
-      var slug = profileNode.dataset.slug,
-        role = profileNode.dataset.role,
+      var slug = profileNode.getAttribute('data-slug'),
+        role = profileNode.getAttribute('data-role'),
         members = window.gon && gon[role].members;
 
       if (!members) return;
