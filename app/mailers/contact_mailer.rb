@@ -6,7 +6,7 @@ class ContactMailer < ApplicationMailer
     sub_data = { country: @contact.country,
                  year: @contact.year }
 
-    data = { template_id: 'test',
+    data = { template_id: 'country-data',
              substitution_data: sub_data }
 
     mail(to: @contact.email,
