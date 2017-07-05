@@ -5,6 +5,7 @@ var Router = Backbone.Router.extend({
 
   routes: {
     '': '_homePage',
+    'news/:id(/)': '_newsPage',
     'updates(/)': '_updatesPage',
     'updates/events(/)': '_eventsPage',
     'resources(/)(:category)': '_libraryPage',
@@ -22,6 +23,14 @@ var Router = Backbone.Router.extend({
     Backbone.history.stop();
 
     new App.Page.HomePage();
+  },
+
+  _newsPage: function () {
+    // Don't forget to stop the router on each route
+    // otherwise you'll break the browser's back button
+    Backbone.history.stop();
+
+    new App.Page.NewsPage();
   },
 
   _updatesPage: function () {

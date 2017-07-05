@@ -1,0 +1,79 @@
+.c-news-fixed-header {
+  position: fixed;
+  top: -66px;
+  left: 0;
+  width: 100%;
+  // If you change the height of the header, please also update
+  // this.progressBarHeight in the news page JS file
+  height: 60px;
+  background-color: $color-3;
+  box-shadow: 0 0 3px 0 rgba($color-6, .2);
+  transition: transform .3s ease-out;
+  z-index: 10;
+
+  &.-visible {
+    transform: translateY(66px);
+  }
+
+  > .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media #{$mq-tablet} {
+      justify-content: space-between;
+    }
+  }
+
+  h2.title.title { // Trick to increase the specificity
+    display: none;
+
+    @media #{$mq-tablet} {
+      display: block;
+      margin: 0;
+      font-size: $font-size-xs;
+    }
+  }
+
+  .medias {
+    height: 31px;
+    padding: 0;
+    margin: 0;
+
+    @media #{$mq-tablet} {
+      padding-left: 20px;
+      border-left: 1px solid rgba($color-5, .2);
+    }
+
+    li {
+      &:not(:last-of-type) {
+        margin-right: 12px;
+      }
+
+      button {
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .icon {
+        height: 16px;
+        fill: rgba($color-5, .7);
+      }
+    }
+  }
+
+  .progress-bar {
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    // If you change the height of the bar, please also update
+    // this.progressBarHeight in the news page JS file
+    height: 6px;
+    background-color: $color-2;
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+  }
+}
