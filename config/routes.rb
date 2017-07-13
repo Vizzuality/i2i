@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   resource :contacts, only: :create
 
   namespace :updates do
+    get 'blogs/preview', to: 'blogs#preview'
+
     resources :news, only: [:index, :show]
     resources :blogs, only: [:index, :show]
     resources :events, only: [:index, :show]

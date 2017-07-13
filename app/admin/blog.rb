@@ -8,6 +8,26 @@ ActiveAdmin.register Blog do
   filter :title
 
   controller do
+    def create
+      if params[:commit] == 'Preview'
+        session[:post] = permitted_params['blog']
+
+        redirect_to updates_blogs_preview_path
+      else
+        super
+      end
+    end
+
+    def update
+      if params[:commit] == 'Preview'
+        session[:post] = permitted_params['blog']
+
+        redirect_to updates_blogs_preview_path
+      else
+        super
+      end
+    end
+
     def permitted_params
       params.permit blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link]
     end
@@ -43,6 +63,7 @@ ActiveAdmin.register Blog do
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end
+    f.submit "Preview"
     f.actions
   end
 
