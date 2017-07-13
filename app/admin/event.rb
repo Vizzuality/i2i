@@ -28,7 +28,7 @@ ActiveAdmin.register Event do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Event details' do
       f.input :title
-      f.input :author
+      f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }

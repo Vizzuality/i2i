@@ -28,7 +28,7 @@ ActiveAdmin.register News do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
-      f.input :author
+      f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
