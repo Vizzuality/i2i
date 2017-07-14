@@ -15,13 +15,15 @@ class Updates::BlogsController < ApplicationController
   end
 
   def preview
-    unless session[:has_image]
-      image = session[:data]['image']
-      tempfile = Tempfile.new('image')
-      tempfile.binmode
-      tempfile.write(Base64.decode64(image.tempfile))
-      image = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, filename: image.original_filename, type: image.content_type, head: image.headers)
-      session[:data][:image] = image
+    unless session[:skip_image]
+      unless session[:has_image]
+        image = session[:data]['image']
+        tempfile = Tempfile.new('image')
+        tempfile.binmode
+        tempfile.write(Base64.decode64(image.tempfile))
+        image = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, filename: image.original_filename, type: image.content_type, head: image.headers)
+        session[:data][:image] = image
+      end
     end
 
     @post = Blog.new(session[:data])
@@ -30,6 +32,7 @@ class Updates::BlogsController < ApplicationController
 
     session[:data] = nil
     session[:has_image] = nil
+    session[:skip_image] = nil
     render 'show'
   end
 
