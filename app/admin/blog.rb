@@ -10,7 +10,10 @@ ActiveAdmin.register Blog do
   controller do
     def create
       if params[:commit] == 'Preview'
-        session[:post] = permitted_params['blog']
+        image = permitted_params['blog']['image']
+        image.tempfile.binmode
+        image.tempfile = Base64.encode64(image.tempfile.read)
+        session[:data] = permitted_params['blog']
 
         redirect_to updates_blogs_preview_path
       else
@@ -20,7 +23,17 @@ ActiveAdmin.register Blog do
 
     def update
       if params[:commit] == 'Preview'
-        session[:post] = permitted_params['blog']
+        session[:data] = permitted_params['blog']
+
+        if permitted_params['blog']['image'].present?
+          image = permitted_params['blog']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          image = Blog.find_by(slug: permitted_params[:id]).image
+          session[:data][:image] = image
+          session[:has_image] = true
+        end
 
         redirect_to updates_blogs_preview_path
       else
@@ -29,7 +42,7 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-      params.permit blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link]
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link])
     end
   end
 

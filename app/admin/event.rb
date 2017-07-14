@@ -8,8 +8,46 @@ ActiveAdmin.register Event do
   filter :title
 
   controller do
+    def create
+      if params[:commit] == 'Preview'
+        if permitted_params['event']['image'].present?
+          image = permitted_params['event']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          session[:skip_image] = true
+        end
+
+        session[:data] = permitted_params['event']
+
+        redirect_to updates_events_preview_path
+      else
+        super
+      end
+    end
+
+    def update
+      if params[:commit] == 'Preview'
+        session[:data] = permitted_params['event']
+
+        if permitted_params['event']['image'].present?
+          image = permitted_params['event']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          image = Event.find_by(slug: permitted_params[:id]).image
+          session[:data][:image] = image
+          session[:has_image] = true
+        end
+
+        redirect_to updates_events_preview_path
+      else
+        super
+      end
+    end
+
     def permitted_params
-      params.permit event: [:title, :author, :url, :summary, :content, :id, :image, :date]
+      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date])
     end
   end
 
@@ -39,6 +77,7 @@ ActiveAdmin.register Event do
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end
+    f.submit "Preview"
     f.actions
   end
 

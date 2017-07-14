@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   namespace :updates do
     get 'blogs/preview', to: 'blogs#preview'
+    get 'events/preview', to: 'events#preview'
 
     resources :news, only: [:index, :show]
     resources :blogs, only: [:index, :show]

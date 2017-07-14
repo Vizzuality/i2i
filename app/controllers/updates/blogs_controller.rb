@@ -15,9 +15,21 @@ class Updates::BlogsController < ApplicationController
   end
 
   def preview
-    @post = Blog.new(session[:post])
+    unless session[:has_image]
+      image = session[:data]['image']
+      tempfile = Tempfile.new('image')
+      tempfile.binmode
+      tempfile.write(Base64.decode64(image.tempfile))
+      image = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, filename: image.original_filename, type: image.content_type, head: image.headers)
+      session[:data][:image] = image
+    end
+
+    @post = Blog.new(session[:data])
+    @post.image.save unless session[:has_image]
     @RelatedPosts = related_posts
 
+    session[:data] = nil
+    session[:has_image] = nil
     render 'show'
   end
 
