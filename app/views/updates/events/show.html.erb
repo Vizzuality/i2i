@@ -71,7 +71,7 @@
         <h2 class="title -dark -big">Related events</h2>
         <div class="l-card-grid">
           <div class="row">
-            <% @RelatedEvents.each do |event| %>
+            <% @related_events.each do |event| %>
               <div class="grid-s-12 grid-m-6 grid-4">
                 <article class="c-card">
                   <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
