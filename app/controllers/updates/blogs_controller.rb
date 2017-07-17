@@ -11,7 +11,7 @@ class Updates::BlogsController < ApplicationController
   # GET /blog/1.json
   def show
     @post = Blog.friendly.find(params[:id])
-    @RelatedPosts = related_posts
+    @related_posts = related_posts
   end
 
   def preview
@@ -28,7 +28,7 @@ class Updates::BlogsController < ApplicationController
 
     @post = Blog.new(session[:data])
     @post.image.save unless session[:has_image]
-    @RelatedPosts = related_posts
+    @related_posts = related_posts
 
     session[:data] = nil
     session[:has_image] = nil
@@ -43,7 +43,7 @@ class Updates::BlogsController < ApplicationController
   end
 
   def related_posts
-    @RelatedPosts = Blog.all.where.not(id: params[:id]).limit(4)
+    @related_posts = Blog.all.where.not(id: params[:id]).limit(4)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -109,7 +109,7 @@
         <h2 class="title -dark -big">Related news</h2>
         <div class="l-card-grid">
           <div class="row">
-            <% @RelatedNews.each do |news| %>
+            <% @related_news.each do |news| %>
               <div class="grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
                   <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">

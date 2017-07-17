@@ -11,7 +11,7 @@ class Updates::NewsController < ApplicationController
   # GET /news/1.json
   def show
     @news = News.friendly.find(params[:id])
-    @RelatedNews = related_news
+    @related_news = related_news
   end
 
   def preview
@@ -28,7 +28,7 @@ class Updates::NewsController < ApplicationController
 
     @news = News.new(session[:data])
     @news.image.save unless session[:has_image]
-    @RelatedNews = related_news
+    @related_news = related_news
 
     session[:data] = nil
     session[:has_image] = nil

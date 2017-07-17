@@ -68,7 +68,7 @@
         <h2 class="title -dark -big">Related posts</h2>
         <div class="l-card-grid">
           <div class="row">
-            <% @RelatedPosts.each_with_index do |post, index| %>
+            <% @related_posts.each_with_index do |post, index| %>
               <div class="grid-s-12">
                 <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
                   <a href="<%= updates_blog_path(post.id) %>" alt="<%= post.title %>">

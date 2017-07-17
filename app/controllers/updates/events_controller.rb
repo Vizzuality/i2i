@@ -11,7 +11,7 @@ class Updates::EventsController < ApplicationController
   # GET /event/1.json
   def show
     @event = Event.friendly.find(params[:id])
-    @RelatedEvents = related_events
+    @related_events = related_events
   end
 
   def preview
@@ -28,7 +28,7 @@ class Updates::EventsController < ApplicationController
 
     @event = Event.new(session[:data])
     @event.image.save unless session[:has_image]
-    @RelatedEvents = related_events
+    @related_events = related_events
 
     session[:data] = nil
     session[:has_image] = nil
