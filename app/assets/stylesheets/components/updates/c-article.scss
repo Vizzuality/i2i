@@ -5,6 +5,11 @@
   header {
     text-align: center;
 
+    h1 {
+      margin: 0 0 15px 0;
+      letter-spacing: -1.9px;
+    }
+
     .container {
       display: flex;
       justify-content: center;
@@ -21,16 +26,12 @@
 
     .authorship {
       display: block;
-      margin: 30px 0 40px;
+      margin: 0 0 50px;
 
       color: $color-5;
       font-family: $font-family-2;
-      font-size: $font-size-s;
+      font-size: $font-size-xs;
       text-transform: uppercase;
-
-      @media #{$mq-laptop} {
-        margin: 30px 0 85px;
-      }
 
       > .author-name {
         color: $color-1;
@@ -79,23 +80,75 @@
       display: flex;
       justify-content: center;
 
+      h1 {
+        margin: 30px 0 15px;
+        font-family: $font-family-2;
+        font-size: $font-size-xm;
+        letter-spacing: -1px;
+      }
+
+      h2 {
+        margin: 25px 0;
+        font-family: $font-family-2;
+        font-size: $font-size-xs;
+        text-transform: uppercase;
+      }
+
       // We want all the links to have the same colour,
       // even the nested ones
       a {
+        font-family: $font-family-2;
         color: $color-1;
       }
 
-      ul {
-        li {
-          display: list-item;
-          list-style: disc;
+      img {
+        max-width: 100%;
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+      }
+
+      blockquote {
+        margin: 30px 0 45px; // Bottom margin compensates the lack of <br/> in the block
+        text-align: center;
+
+        > p {
+          font-family: $font-family-2;
+          font-size: $font-size-xxm;
+          font-weight: $font-weight-bold;
         }
       }
 
+      ul,
       ol {
+        display: block;
+        margin: 1em 0;
+        padding-left: 20px;
+
+        li { display: list-item; }
+
+        li + li {
+          margin-top: 25px;
+        }
+      }
+
+      ul li { list-style: disc; }
+
+      ol {
+        counter-reset: ol-item;
+
         li {
-          display: list-item;
-          list-style: decimal;
+          text-indent: -15px;
+          list-style-type: none;
+          counter-increment: ol-item;
+
+          &::before {
+            display: inline-block;
+            width: 20px;
+            padding-right: 10px;
+            text-align: right;
+            font-size: $font-size-xs;
+            font-weight: $font-weight-bold;
+            content: counter(ol-item) ".";
+          }
         }
       }
 
@@ -107,8 +160,33 @@
         }
       }
 
+      table {
+        margin: 15px 0;  // Compensate the lack of space before and after
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+        tr {
+          td {
+            padding: 20px;
+          }
+
+          th {
+            padding: 20px;
+            background-color: $color-4;
+            text-align: left;
+            font-weight: $font-weight-bold;
+          }
+
+          &:nth-child(2n) {
+            td {
+              background-color: $color-4;
+            }
+          }
+        }
+      }
+
       .youtube-embed-wrapper {
         margin: 25px 0;
+        box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
         @media #{$mq-tablet} {
           margin: 35px 0;
