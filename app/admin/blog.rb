@@ -10,9 +10,14 @@ ActiveAdmin.register Blog do
   controller do
     def create
       if params[:commit] == 'Preview'
-        image = permitted_params['blog']['image']
-        image.tempfile.binmode
-        image.tempfile = Base64.encode64(image.tempfile.read)
+        if permitted_params['blog']['image'].present?
+          image = permitted_params['blog']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          session[:skip_image] = true
+        end
+
         session[:data] = permitted_params['blog']
 
         redirect_to updates_blogs_preview_path
