@@ -47,7 +47,7 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link])
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published])
     end
   end
 
@@ -57,6 +57,7 @@ ActiveAdmin.register Blog do
       link_to blog.title, admin_blog_path(blog)
     end
     column :summary
+    column :published
     column :updated_at
     column :date do |blog|
     	ActiveAdminHelper.format_date(blog.date)
@@ -70,6 +71,7 @@ ActiveAdmin.register Blog do
     f.inputs 'Blog details' do
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
+      f.input :published
       f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -90,6 +92,7 @@ ActiveAdmin.register Blog do
     attributes_table do
       row :title
       row :author
+      row :published
       row :workstream
       row :summary
       row :content

@@ -4,13 +4,13 @@ class Updates::EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.order(date: :DESC)
+    @events = Event.published.order(date: :DESC)
   end
 
   # GET /event/1
   # GET /event/1.json
   def show
-    @event = Event.friendly.find(params[:id])
+    @event = Event.published.friendly.find(params[:id])
     @related_events = related_events
   end
 
@@ -43,7 +43,7 @@ class Updates::EventsController < ApplicationController
   end
 
   def related_events
-    Event.all.where.not(id: params[:id]).limit(4)
+    Event.published.where.not(id: params[:id]).limit(4)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
