@@ -1,4 +1,15 @@
 <% title @news.title %>
+<% content_for :media_metas do %>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@i2ifacility" />
+  <meta name="twitter:title" content="<%= @news.title %>" />
+  <meta name="twitter:description" content="<%= @news.summary %>" />
+  <meta name="twitter:image" content="http://i2ifacility.org<%= @news.image %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="<%= @news.title %>" />
+  <meta property="og:description" content="<%= @news.summary %>" />
+  <meta property="og:image" content="http://i2ifacility.org<%= @news.image %>" />
+<% end %>
 
 <div class="l-details-page">
 
@@ -12,6 +23,40 @@
 
     <div class="l-article">
 
+      <div class="c-news-fixed-header js-fixed-header">
+        <div class="wrapper">
+          <h2 class="title"><%= @news.title %></h2>
+          <ul class="medias">
+            <li>
+              <a href="https://twitter.com/home?status=Check%20out%20this%20really%20interesting%20article%20from%20%40i2ifacility%3A%0A{{URL}}" class="js-share" aria-label="Share on Twitter" target="_blank" ref="noopener noreferrer">
+                <svg class="icon"><use xlink:href="#icon-twitter"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{URL}}" class="js-share" aria-label="Share on Facebook" target="_blank" ref="noopener noreferrer">
+                <svg class="icon"><use xlink:href="#icon-facebook"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url={{URL}}&title={{TITLE}}" class="js-share" aria-label="Share on Linked in" target="_blank" ref="noopener noreferrer">
+                <svg class="icon"><use xlink:href="#icon-linkedln"></use></svg>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:?body=Check%20out%20this%20really%20interesting%20article%20from%20i2i%3A%0A{{URL}}" class="js-share" aria-label="Email to a friend" target="_blank" ref="noopener noreferrer">
+                <svg class="icon"><use xlink:href="#icon-email"></use></svg>
+              </a>
+            </li>
+            <li>
+              <button aria-label="Print" target="_blank" ref="noopener noreferrer" onClick="window.print();">
+                <svg class="icon"><use xlink:href="#icon-print"></use></svg>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="progress-bar js-progress-bar"></div>
+      </div>
+
       <div class="wrapper">
 
         <div class="row">
@@ -24,7 +69,7 @@
                   <div class="container">
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
-                      <h1 class="title -xbig -dark "><%= @news.title %></h1>
+                      <h1 class="title -xbig -dark js-title"><%= @news.title %></h1>
                       <span class="authorship">Written
                         <% unless @news.author.blank? %>
                           by <span class="author-name"><%= @news.author %></span>
@@ -36,7 +81,7 @@
                 </header>
               </div>
 
-              <section class="article-content">
+              <section class="article-content js-news">
                 <%if @news.image.blank? != true %>
                   <div class="row">
                     <div class="grid-s-12">
@@ -64,7 +109,7 @@
         <h2 class="title -dark -big">Related news</h2>
         <div class="l-card-grid">
           <div class="row">
-            <% @RelatedNews.each do |news| %>
+            <% @related_news.each do |news| %>
               <div class="grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
                   <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
@@ -90,3 +135,5 @@
     </div>
   </div>
 </div>
+
+<%= render partial: 'shared/newsletter' %>

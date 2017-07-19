@@ -8,8 +8,46 @@ ActiveAdmin.register Blog do
   filter :title
 
   controller do
+    def create
+      if params[:commit] == 'Preview'
+        if permitted_params['blog']['image'].present?
+          image = permitted_params['blog']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          session[:skip_image] = true
+        end
+
+        session[:data] = permitted_params['blog']
+
+        redirect_to updates_blogs_preview_path
+      else
+        super
+      end
+    end
+
+    def update
+      if params[:commit] == 'Preview'
+        session[:data] = permitted_params['blog']
+
+        if permitted_params['blog']['image'].present?
+          image = permitted_params['blog']['image']
+          image.tempfile.binmode
+          image.tempfile = Base64.encode64(image.tempfile.read)
+        else
+          image = Blog.find_by(slug: permitted_params[:id]).image
+          session[:data][:image] = image
+          session[:has_image] = true
+        end
+
+        redirect_to updates_blogs_preview_path
+      else
+        super
+      end
+    end
+
     def permitted_params
-      params.permit blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link]
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link])
     end
   end
 
@@ -31,7 +69,7 @@ ActiveAdmin.register Blog do
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Blog details' do
       f.input :title
-      f.input :author
+      f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -43,6 +81,7 @@ ActiveAdmin.register Blog do
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end
+    f.submit "Preview"
     f.actions
   end
 

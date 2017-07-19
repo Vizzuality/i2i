@@ -75,7 +75,7 @@
      * @param {Event} e event
      */
     _onClickDownload: function (e) {
-      var name = e.currentTarget.dataset.name;
+      var name = e.currentTarget.getAttribute('name');
       App.Helper.Analytics.sendEvent('Download', 'Download from i2i library', name);
     },
 
@@ -107,8 +107,13 @@
      */
     _updateCategoryButtons: function () {
       this.categoryButtons.forEach(function (categoryButton) {
-        categoryButton.classList.toggle('-current',
-          categoryButton.textContent === this.options.selectedCategory.name);
+
+        if (categoryButton.textContent === this.options.selectedCategory.name) {
+          categoryButton.classList.add('-current');
+        } else {
+          categoryButton.classList.remove('-current');
+        }
+
       }, this);
 
       this._renderFilters();
@@ -119,8 +124,8 @@
      */
     _filter: function () {
       this.items.forEach(function (item) {
-        var category = item.dataset.category;
-        var subcategory = item.dataset.subcategory;
+        var category = item.getAttribute('data-category');
+        var subcategory = item.getAttribute('data-subcategory');
         item.style.display = (category === this.options.selectedCategory.name
           && (!this.options.selectedSubcategory || (subcategory === this.options.selectedSubcategory.name)))
           ? 'block'
