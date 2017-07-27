@@ -47,7 +47,7 @@ ActiveAdmin.register Event do
     end
 
     def permitted_params
-      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date])
+      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published])
     end
   end
 
@@ -56,6 +56,7 @@ ActiveAdmin.register Event do
     column :title do |event|
       link_to event.title, admin_event_path(event)
     end
+    column :published
     column :summary
     column :updated_at
     actions
@@ -67,6 +68,7 @@ ActiveAdmin.register Event do
     f.inputs 'Event details' do
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
+      f.input :published
       f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -89,6 +91,7 @@ ActiveAdmin.register Event do
       end
       row :title
       row :author
+      row :published
       row :url
       row :summary
       row :content

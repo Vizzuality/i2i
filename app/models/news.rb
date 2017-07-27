@@ -16,6 +16,7 @@
 #  author             :string
 #  issuu_link         :string
 #  slug               :string
+#  published          :boolean
 #
 
 class News < ApplicationRecord
@@ -32,6 +33,8 @@ class News < ApplicationRecord
   validates_presence_of :title
   validates_length_of :title, maximum: 75
   validates_length_of :summary, maximum: 172, allow_blank: true
+
+  scope :published, -> {where(published: true)}
 
   def set_date
     self.date ||= DateTime.now

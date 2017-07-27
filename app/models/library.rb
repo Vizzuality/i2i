@@ -48,6 +48,8 @@ class Library < ApplicationRecord
   validates_length_of :title, maximum: 70
   validates_length_of :summary, maximum: 172, allow_blank: true
 
+  scope :published, -> {where(published: true)}
+
   def set_date
     self.date ||= DateTime.now
   end

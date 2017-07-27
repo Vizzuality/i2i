@@ -4,7 +4,7 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.json
   def index
-    @libraries = Library.all.order(date: :DESC)
+    @libraries = Library.published.order(date: :DESC)
     @categories = Category.all
 
     gon.categories = JSON.parse serialized(@categories).to_json

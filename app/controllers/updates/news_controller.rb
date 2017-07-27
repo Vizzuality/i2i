@@ -4,13 +4,13 @@ class Updates::NewsController < ApplicationController
   # GET /news
   # GET /news.json
   def index
-    @news = News.order(date: :DESC)
+    @news = News.published.order(date: :DESC)
   end
 
   # GET /news/1
   # GET /news/1.json
   def show
-    @news = News.friendly.find(params[:id])
+    @news = News.published.friendly.find(params[:id])
     @related_news = related_news
   end
 
@@ -48,7 +48,7 @@ class Updates::NewsController < ApplicationController
     end
 
     def related_news
-      News.all.where.not(id: params[:id]).limit(3)
+      News.published.where.not(id: params[:id]).limit(3)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
