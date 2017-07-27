@@ -4,13 +4,13 @@ class Updates::BlogsController < ApplicationController
   # GET /blogs
   # GET /blogs.json
   def index
-    @blogs = Blog.order(date: :DESC)
+    @blogs = Blog.published.order(date: :DESC)
   end
 
   # GET /blog/1
   # GET /blog/1.json
   def show
-    @post = Blog.friendly.find(params[:id])
+    @post = Blog.published.friendly.find(params[:id])
     @related_posts = related_posts
   end
 
@@ -43,7 +43,7 @@ class Updates::BlogsController < ApplicationController
   end
 
   def related_posts
-    @related_posts = Blog.all.where.not(id: params[:id]).limit(4)
+    @related_posts = Blog.published.where.not(id: params[:id]).limit(4)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

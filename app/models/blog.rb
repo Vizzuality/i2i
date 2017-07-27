@@ -17,6 +17,7 @@
 #  workstream         :string
 #  issuu_link         :string
 #  slug               :string
+#  published          :boolean
 #
 
 class Blog < ApplicationRecord
@@ -31,6 +32,8 @@ class Blog < ApplicationRecord
   validates_presence_of :title
   validates_length_of :title, maximum: 125
   validates_length_of :summary, maximum: 172, allow_blank: true
+
+  scope :published, -> {where(published: true)}
 
   def set_date
     self.date ||= DateTime.now
