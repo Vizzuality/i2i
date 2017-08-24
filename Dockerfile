@@ -1,7 +1,8 @@
 FROM ruby:2.3.3-alpine
 MAINTAINER David Inga <david.inga@vizzuality.com>
 
-ENV NAME i2i
+ENV RAILS_ENV production
+ENV RACK_ENV production
 
 # Install dependencies
 RUN apk update && \
@@ -16,31 +17,25 @@ RUN apk update && \
       libxml2-dev \
       libxslt-dev \
       postgresql-dev \
-    && rm -rf /var/cache/apk/*
-RUN bundle config build.nokogiri --use-system-libraries
-RUN gem install bundler --no-ri --no-rdoc
+    && rm -rf /var/cache/apk/* \
+    && bundle config build.nokogiri --use-system-libraries \
+    && gem install bundler --no-ri --no-rdoc \
+    && mkdir -p /usr/src/i2i
 
-# Create app directory
-ENV APP_PATH /usr/src/$NAME
-RUN mkdir -p $APP_PATH
-WORKDIR $APP_PATH
+WORKDIR /usr/src/i2i
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install --jobs 20 --retry 5 --without development test
-ADD . $APP_PATH
-
-# Set Rails to run in production
-ENV RAILS_ENV production
-ENV RACK_ENV production
+ADD . /usr/src/i2i
 
 # Run rake tasks
-RUN bundle exec rake db:migrate
+# RUN bundle exec rake db:migrate
 
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
 
 # Setting port
-EXPOSE 3000
+# EXPOSE 3000
 
 # Start puma
-CMD bundle exec puma -C config/puma.rb
+# CMD bundle exec puma -C config/puma.rb

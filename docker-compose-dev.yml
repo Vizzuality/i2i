@@ -1,0 +1,27 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./.data:/var/lib/postgresql/data
+  web:
+    # restart: always
+    build: .
+    command: bundle exec puma -C config/puma.rb
+    env_file: .env
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT_5432_TCP_ADDR=db
+      - PORT=3000
+      - RAILS_ENV=production
+      - RACK_ENV=production
+    volumes:
+      - "./public/uploads:/usr/src/i2i/public/uploads"
+      - "./public/system:/usr/src/i2i/public/system"
+    ports:
+      - 3000:3000
+    links:
+      - db
+    depends_on:
+      - db
