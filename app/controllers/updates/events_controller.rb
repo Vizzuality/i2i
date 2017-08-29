@@ -11,6 +11,7 @@ class Updates::EventsController < ApplicationController
   # GET /event/1.json
   def show
     @event = Event.published.friendly.find(params[:id])
+    @event.author = @event.custom_author.present? ? @event.custom_author : @event.author
     @related_events = related_events
   end
 

@@ -47,7 +47,7 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published])
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author])
     end
   end
 
@@ -71,6 +71,7 @@ ActiveAdmin.register Blog do
     f.inputs 'Blog details' do
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
+      f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
       f.input :workstream
       f.input :summary
@@ -92,6 +93,7 @@ ActiveAdmin.register Blog do
     attributes_table do
       row :title
       row :author
+      row :custom_author
       row :published
       row :workstream
       row :summary
