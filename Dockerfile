@@ -1,14 +1,12 @@
-FROM ruby:2.3.3-alpine
+FROM ruby:2.3.3
 MAINTAINER David Inga <david.inga@vizzuality.com>
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
 
 # Install dependencies
-RUN apk update && \
-    apk upgrade && \
-    apk add --update --no-cache \
-      build-base \
+RUN apt-get update && apt-get install -y \
+      build-essential \
       imagemagick \
       bash \
       git \
@@ -16,8 +14,10 @@ RUN apk update && \
       tzdata \
       libxml2-dev \
       libxslt-dev \
-      postgresql-dev \
-    && rm -rf /var/cache/apk/* \
+      postgresql postgresql-contrib \
+      --no-install-recommends \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && bundle config build.nokogiri --use-system-libraries \
     && gem install bundler --no-ri --no-rdoc \
     && mkdir -p /usr/src/i2i
@@ -30,3 +30,6 @@ ADD . /usr/src/i2i
 
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
+
+EXPOSE 3000
+CMD bundle exec puma -C config/puma.rb
