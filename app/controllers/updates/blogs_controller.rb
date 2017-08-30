@@ -11,6 +11,7 @@ class Updates::BlogsController < ApplicationController
   # GET /blog/1.json
   def show
     @post = Blog.published.friendly.find(params[:id])
+    @post.author = @post.custom_author.present? ? @post.custom_author : @post.author
     @related_posts = related_posts
   end
 
