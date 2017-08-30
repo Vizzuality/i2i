@@ -47,7 +47,7 @@ ActiveAdmin.register Event do
     end
 
     def permitted_params
-      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published])
+      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author])
     end
   end
 
@@ -68,6 +68,7 @@ ActiveAdmin.register Event do
     f.inputs 'Event details' do
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
+      f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
       f.input :url
       f.input :summary
@@ -91,6 +92,7 @@ ActiveAdmin.register Event do
       end
       row :title
       row :author
+      row :custom_author
       row :published
       row :url
       row :summary
