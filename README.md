@@ -49,3 +49,20 @@ Because we need to be able to share some components outside the project, there i
 
 In order to compile those assets, run `RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret rake assets:precompile`. This will place all precompiled asssets in `public` folder. Once done, run `rake non_digested RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret`. This task will create duplicate of current compiled files but removing its hash, making it easier to manage. For example: `exported_componentes#mfnhf21378kjashjads1234.js` would be `exported_componentes.js`
 
+# Using docker in development
+
+```
+docker-compose -f docker-compose-dev.yml up --build`
+```
+
+It will fails because database has not been creted. So you have to run:
+
+```
+docker-compose -f docker-compose-dev.yml run web rake db:create db:migrate
+```
+
+and repeat first command:
+
+```
+docker-compose -f docker-compose-dev.yml up --build
+```

@@ -1,0 +1,30 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./.data:/var/lib/postgresql/data
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    command: bundle exec rails server -b 0.0.0.0
+    env_file: .env
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT_5432_TCP_ADDR=db
+      - PORT=3000
+      - RAILS_ENV=development
+      - RACK_ENV=development
+    volumes:
+      - "./:/usr/src/i2i"
+      - "./public/uploads:/usr/src/i2i/public/uploads"
+      - "./public/system:/usr/src/i2i/public/system"
+    ports:
+      - 3000:3000
+    links:
+      - db
+    depends_on:
+      - db
