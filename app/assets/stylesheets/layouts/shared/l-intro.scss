@@ -1,4 +1,18 @@
 .l-intro {
+  position: relative;
+  z-index: 2;
+
+  > .wrapper:first-child {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    z-index: 11;
+  }
+
+  @include translate_content;
+
   background-color: $color-1;
   background-repeat: no-repeat;
   background-position: center;
