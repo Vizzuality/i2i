@@ -1,4 +1,5 @@
 .l-about {
+  @include header_veil;
 
   .l-content {
     transform: translate(0, -50px);

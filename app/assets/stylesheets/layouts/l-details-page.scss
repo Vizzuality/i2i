@@ -1,4 +1,5 @@
 .l-details-page {
+  @include translate_content;
 
   .l-content {
     margin: 40px 0 50px;

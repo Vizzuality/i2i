@@ -1,4 +1,6 @@
 .l-terms-of-use {
+  @include header_veil;
+  @include translate_content;
 
   > .l-intro {
     padding: 0 0 25px;
