@@ -1,8 +1,27 @@
+// layout
+$body-max-width: 1280px;
+$content-max-width: 1060px;
+
+// Breakpoints
+$breakpoint-mobile:  320px;
+$breakpoint-tablet:  768px;
+$breakpoint-laptop: 1024px;
+$breakpoint-desktop: 1200px;
+
+// Media queries
+$mq-mobile: 'screen and (min-width: #{$breakpoint-mobile})';
+$mq-tablet: 'screen and (min-width: #{$breakpoint-tablet})';
+$mq-laptop: 'screen and (min-width: #{$breakpoint-laptop})';
+$mq-desktop: 'screen and (min-width: #{$breakpoint-desktop})';
+
+$mq-body-width: 'screen and (min-width: #{$body-max-width})';
+$mq-content-width: 'screen and (min-width: #{$content-max-width})';
 
 // typography
-$font-family-1: 'Montserrat', sans-serif;
-$font-family-2: 'Chalet';
+$font-family-1: 'Open Sans', sans-serif;
+$font-family-2: 'Open Sans', sans-serif; // TODO: remove it
 
+// TODO: remove old styles
 $font-size-s: 13px;
 $font-size-xxs: 14px;
 $font-size-xs: 16px;
@@ -12,6 +31,17 @@ $font-size-m: 46px;
 $font-size-xxl: 50px;
 $font-size-xl: 75px;
 $font-size-l: 111px;
+
+// Font styles
+$font-size-small: 14px;
+$font-size-regular: 16px;
+$font-size-medium: 24px;
+$font-size-big: 35px;
+$font-size-huge: 60px;
+
+@media #{$mq-laptop} {
+  $font-size-huge: 46px;
+}
 
 $font-weight-light: 300;
 $font-weight-medium: 400;
@@ -30,10 +60,6 @@ $color-9: #d8d8d8;
 $color-10: #dd3636;
 $color-11: #d5e6e8;
 
-// layout
-$body-max-width: 1280px;
-$content-max-width: 1060px;
-
 // cards
 $card-height: 325px;
 $card-bottom-margin: 20px;
@@ -47,18 +73,3 @@ $grid-padding: 20px;
 $wrapper-padding-mobile: 18px;
 $wrapper-padding-tablet: 30px;
 $wrapper-padding-desktop: 110px;
-
-// Breakpoints
-$breakpoint-mobile:  320px;
-$breakpoint-tablet:  768px;
-$breakpoint-laptop: 1024px;
-$breakpoint-desktop: 1200px;
-
-// Media queries
-$mq-mobile: 'screen and (min-width: #{$breakpoint-mobile})';
-$mq-tablet: 'screen and (min-width: #{$breakpoint-tablet})';
-$mq-laptop: 'screen and (min-width: #{$breakpoint-laptop})';
-$mq-desktop: 'screen and (min-width: #{$breakpoint-desktop})';
-
-$mq-body-width: 'screen and (min-width: #{$body-max-width})';
-$mq-content-width: 'screen and (min-width: #{$content-max-width})';
