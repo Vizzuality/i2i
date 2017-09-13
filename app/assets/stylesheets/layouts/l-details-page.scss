@@ -1,8 +1,29 @@
 .l-details-page {
   @include translate_content;
 
+  .l-image {
+    height: 200px;
+    margin: 0 0 40px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15);
+
+    @media #{$mq-tablet} {
+      height: 400px;
+    }
+
+    @media #{$mq-laptop} {
+      height: 585px;
+    }
+  }
+
   .l-content {
-    margin: 40px 0 50px;
+    position: relative;
+    margin-top: -145px;
+    z-index: 1;
 
     // If you want to change the styles of the WYSIWYG content
     // place the styles in .c-article instead

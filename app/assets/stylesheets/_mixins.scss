@@ -48,10 +48,10 @@
 }
 
 @mixin translate_content() {
-  padding-top: 91px;
+  padding-top: 50px;
 
   @media #{$mq-laptop} {
-    padding-top: 91px;
+    padding-top: 50px;
   }
 }
 
