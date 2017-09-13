@@ -18,10 +18,10 @@
 
     setListeners: function () {
       if (App.Helper.Utils.supportsPassiveListeners) {
-      document.addEventListener('scroll', this._onScroll, { passive: true });
-    } else {
-      document.addEventListener('scroll', this._onScroll);
-    }
+        document.addEventListener('scroll', this._onScroll, { passive: true });
+      } else {
+        document.addEventListener('scroll', this._onScroll);
+      }
     },
 
     _setVars: function () {

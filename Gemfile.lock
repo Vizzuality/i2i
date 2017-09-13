@@ -235,7 +235,19 @@ GEM
       sprockets-rails (>= 2.0.0)
     rails-assets-d3 (3.5.17)
     rails-assets-datalib (1.7.3)
+    rails-assets-desandro-matches-selector (2.0.2)
+    rails-assets-ev-emitter (1.1.1)
+    rails-assets-fizzy-ui-utils (2.0.5)
+      rails-assets-desandro-matches-selector (>= 2.0.0, < 3)
     rails-assets-fuse (3.0.5)
+    rails-assets-get-size (2.0.2)
+    rails-assets-masonry (4.2.0)
+      rails-assets-get-size (>= 2.0.2, < 3)
+      rails-assets-outlayer (>= 2.1.0, < 3)
+    rails-assets-outlayer (2.1.1)
+      rails-assets-ev-emitter (>= 1.0.0, < 2)
+      rails-assets-fizzy-ui-utils (>= 2.0.0, < 3)
+      rails-assets-get-size (>= 2.0.2, < 3)
     rails-assets-vega (2.6.5)
       rails-assets-d3 (>= 3.5.6, < 4)
     rails-backbone (1.2.0)
@@ -352,6 +364,7 @@ DEPENDENCIES
   rails-assets-d3 (~> 3.5.16)!
   rails-assets-datalib (= 1.7.3)!
   rails-assets-fuse!
+  rails-assets-masonry (~> 4.2.0)!
   rails-assets-vega (~> 2.6.5)!
   rails-backbone (~> 1.2)
   sass-rails (~> 5.0)
@@ -368,4 +381,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

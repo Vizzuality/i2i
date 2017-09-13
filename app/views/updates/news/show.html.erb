@@ -113,9 +113,9 @@
       <div class="wrapper">
         <h2 class="title -dark -big">Related news</h2>
         <div class="l-card-grid">
-          <div class="row">
+          <div class="row masonry-cards">
             <% @related_news.each do |news| %>
-              <div class="grid-s-12 grid-m-6 grid-l-4">
+              <div class="masonry-item grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
                   <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
@@ -130,6 +130,8 @@
                 </article>
               </div>
             <% end %>
+          </div>
+          <div class="row">
             <div class="grid-s-12">
               <div class="grid-footer">
                 <%= link_to 'More news', updates_news_index_path, :class => 'c-button -big -sea' %>
