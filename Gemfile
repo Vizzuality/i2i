@@ -28,6 +28,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-datalib', '1.7.3'
   gem 'rails-assets-fuse'
   gem 'rails-assets-vega', '~> 2.6.5'
+  gem 'rails-assets-masonry', '~>4.2.0'
 end
 
 gem 'dotenv-rails', '~> 2.1'

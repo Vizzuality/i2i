@@ -88,6 +88,7 @@ var init = function () {
   new App.View.MobileMenu();
   new App.View.Footer();
   new App.View.Newsletter();
+  new App.View.Cards();
 };
 
 document.addEventListener('turbolinks:load', init);
