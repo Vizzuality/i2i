@@ -60,8 +60,10 @@ $color-9: #d8d8d8;
 $color-10: #dd3636;
 $color-11: #d5e6e8;
 
+$border-color: rgba($color-5, .1);
+
 // cards
-$card-height: 325px;
+$card-height: auto;
 $card-bottom-margin: 20px;
 
 // grid
