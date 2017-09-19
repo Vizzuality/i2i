@@ -23,10 +23,6 @@ class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
   has_attached_file :image, styles: {thumb: '300x300>'}
-  has_many :documents, :through => :documented_items
-  accepts_nested_attributes_for :documents, allow_destroy: true
-  has_many :documented_items, :as => :documentable, :dependent => :destroy
-  accepts_nested_attributes_for :documented_items, allow_destroy: true
 
   belongs_to :subcategory, required: true
   delegate :category, to: :subcategory, allow_nil: false

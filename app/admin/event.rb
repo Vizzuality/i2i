@@ -96,12 +96,9 @@ ActiveAdmin.register Event do
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
-<<<<<<< HEAD
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
         a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
       end
-=======
->>>>>>> Add possibility to upload pdfs on event
       f.has_many :documents, allow_destroy: true, new_record: true, heading: 'Documents' do |a|
         a.input :name
         a.input :file, as: :file, allow_destroy: true, hint: a.object.file.present? ? \
@@ -134,15 +131,6 @@ ActiveAdmin.register Event do
         ActiveAdminHelper.tags_names(ad.tags)
       end
       row :content
-      row :documents do
-        if ad.documents.present?
-          links = ad.documents.map do |document|
-            link_to document.file_file_name, request.base_url + document.file.url
-          end.join(', ')
-
-          raw links
-        end
-      end
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
