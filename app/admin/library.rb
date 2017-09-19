@@ -18,6 +18,20 @@ ActiveAdmin.register Library do
 
 
   controller do
+    before_action :check_url_resource, only: [:show]
+
+    def check_url_resource
+      library = Library.find_by(slug: params[:id])
+
+      if library.document.present? && library.document.file.present?
+        library.url_resource = request.base_url + library.document.file.url
+        library.save
+      else
+        library.url_resource = ''
+        library.save
+      end
+    end
+
     def permitted_params
       params.permit library: [:title, :summary, :id, :published,
                               :image, :date, :url_resource,
@@ -67,12 +81,16 @@ ActiveAdmin.register Library do
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       f.input :issuu_link
 
-      f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
-        s.input :name
-        s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
-          "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
+      if f.object.new_record?
+        li "Please save Library before adding a document."
+      else
+        f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
+          s.input :name
+          s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
+            "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
 
-        s.input :_destroy, as: :boolean
+          s.input :_destroy, as: :boolean
+        end
       end
 
       # Will preview the image when the object is edited
