@@ -47,9 +47,7 @@ ActiveAdmin.register Event do
     end
 
     def permitted_params
-      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author,
-                                 documents_attributes: [:file, :name, :id, :_destroy],
-                                 documented_items_attributes: [:document_id, :id, :_destroy]])
+      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author])
     end
   end
 
@@ -76,11 +74,6 @@ ActiveAdmin.register Event do
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
-      f.has_many :documents, allow_destroy: true, new_record: true, heading: 'Documents' do |a|
-        a.input :name
-        a.input :file, as: :file, allow_destroy: true, hint: a.object.file.present? ? \
-          "#{a.object.file_file_name}" : content_tag(:span, 'No PDF yet')
-      end
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
@@ -104,15 +97,6 @@ ActiveAdmin.register Event do
       row :url
       row :summary
       row :content
-      row :documents do
-        if ad.documents.present?
-          links = ad.documents.map do |document|
-            link_to document.file_file_name, request.base_url + document.file.url
-          end.join(', ')
-
-          raw links
-        end
-      end
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
