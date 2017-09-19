@@ -6,4 +6,12 @@ module ActiveAdminHelper
   def self.format_date(date)
     date.strftime("%B %d, %Y")
   end
+
+  def create_document(f)
+    new_document = f.object.build_documented_item.build_document
+
+    new_document.documented_items << f.object.build_documented_item
+    new_document.save
+    new_document
+  end
 end
