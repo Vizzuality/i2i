@@ -114,19 +114,6 @@
         li + li {
           margin-top: 25px;
         }
-
-        &.link-list {
-          padding: 0;
-          margin: 2em 0;
-
-          > .link-item {
-            list-style: none;
-
-            & + .link-item {
-              margin-top: 15px;
-            }
-          }
-        }
       }
 
       ul li { list-style: disc; }
