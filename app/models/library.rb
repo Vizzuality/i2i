@@ -33,10 +33,10 @@ class Library < ApplicationRecord
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true
 
-  has_many :documents, :through => :documented_items
-  accepts_nested_attributes_for :documents, allow_destroy: true
-  has_many :documented_items, :as => :documentable, :dependent => :destroy
-  accepts_nested_attributes_for :documented_items, allow_destroy: true
+  has_one :documented_item, as: :documentable
+  has_one :document, through: :documented_item
+  accepts_nested_attributes_for :documented_item, allow_destroy: true
+  accepts_nested_attributes_for :document, allow_destroy: true
 
   after_initialize :set_date
 
