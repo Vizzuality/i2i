@@ -131,6 +131,15 @@ ActiveAdmin.register Event do
         ActiveAdminHelper.tags_names(ad.tags)
       end
       row :content
+      row :documents do
+        if ad.documents.present?
+          links = ad.documents.map do |document|
+            link_to document.file_file_name, request.base_url + document.file.url
+          end.join(', ')
+
+          raw links
+        end
+      end
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end

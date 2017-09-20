@@ -51,6 +51,19 @@
                       <%= @event.content.html_safe %>
                     </div>
                   </div>
+
+                  <div class="article-text">
+                    <div class="grid-s-12 grid-m-10 grid-l-8">
+                      <% if @event.documents.present? %>
+                        <ul class="link-list">
+                          <% @event.documents.each do |document| %>
+                            <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= document.name %></a></li>
+                          <% end %>
+                        </ul>
+                      <% end %>
+                    </div>
+                  </div>
+
                   <% if @event.url.blank? != true %>
                     <div class="grid-s-12 grid-m-10 grid-l-12">
                       <div class="footer-article">
