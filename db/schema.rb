@@ -10,11 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
+
 ActiveRecord::Schema.define(version: 20170921085749) do
-=======
-ActiveRecord::Schema.define(version: 20170829174103) do
->>>>>>> header fix on top
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +153,35 @@ ActiveRecord::Schema.define(version: 20170829174103) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "household_transaction_histories", force: :cascade do |t|
+    t.integer  "household_transaction_id"
+    t.string   "value"
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["household_transaction_id", "month", "year"], name: "index_household_histories_on_household_id_month_year", using: :btree
+    t.index ["month", "year"], name: "index_household_transaction_histories_on_month_and_year", using: :btree
+    t.index ["month"], name: "index_household_transaction_histories_on_month", using: :btree
+    t.index ["year"], name: "index_household_transaction_histories_on_year", using: :btree
+  end
+
+  create_table "household_transactions", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.string   "category_type"
+    t.string   "subcategory"
+    t.integer  "num_accounts"
+    t.integer  "num_members"
+    t.integer  "num_adults"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "category_name"
+    t.index ["category_name"], name: "index_household_transactions_on_category_name", using: :btree
+    t.index ["category_type"], name: "index_household_transactions_on_category_type", using: :btree
+    t.index ["subcategory"], name: "index_household_transactions_on_subcategory", using: :btree
   end
 
   create_table "indicators", force: :cascade do |t|
