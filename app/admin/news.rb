@@ -57,17 +57,26 @@ ActiveAdmin.register News do
 
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
+<<<<<<< HEAD
       params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link,
                                 :published, :subcategory_id, :category_id, :is_featured,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy]])
+=======
+      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id])
+>>>>>>> Add categories to blogs, events and news
     end
   end
 
   index do
     selectable_column
+<<<<<<< HEAD
     column :category
     column :subcategory
 
+=======
+
+    column :subcategory
+>>>>>>> Add categories to blogs, events and news
     column :title do |news|
       link_to news.title, admin_news_path(news)
     end
@@ -121,6 +130,7 @@ ActiveAdmin.register News do
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
+      row :subcategory
       row :title
       row :author
       row :published

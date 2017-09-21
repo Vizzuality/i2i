@@ -5,6 +5,7 @@ class Updates::NewsController < ApplicationController
   # GET /news.json
   def index
     @news = News.published.order(date: :DESC)
+    @categories = Category.all
   end
 
   # GET /news/1
