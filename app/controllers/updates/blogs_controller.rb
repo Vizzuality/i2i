@@ -5,6 +5,7 @@ class Updates::BlogsController < ApplicationController
   # GET /blogs.json
   def index
     @blogs = Blog.published.order(date: :DESC)
+    @categories = Category.all
   end
 
   # GET /blog/1

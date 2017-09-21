@@ -28,6 +28,10 @@ class Event < ApplicationRecord
   has_many :documented_items, :as => :documentable, :dependent => :destroy
   accepts_nested_attributes_for :documented_items, allow_destroy: true
 
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
+  accepts_nested_attributes_for :subcategory
+
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/

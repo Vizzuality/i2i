@@ -26,6 +26,10 @@ class News < ApplicationRecord
 
   after_initialize :set_date
 
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
+  accepts_nested_attributes_for :subcategory
+
   # Validations for paperclip
   has_attached_file :image, styles: {thumb: '300x300>'}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/

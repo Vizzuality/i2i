@@ -25,6 +25,10 @@ class Blog < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
   has_attached_file :image, styles: {thumb: '300x300>'}
 
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
+  accepts_nested_attributes_for :subcategory
+
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
