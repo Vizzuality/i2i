@@ -57,7 +57,8 @@ ActiveAdmin.register News do
 
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id])
+      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id,
+                                tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
 
@@ -90,6 +91,9 @@ ActiveAdmin.register News do
       f.input :published
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.input :date, as: :date_picker
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
@@ -113,6 +117,9 @@ ActiveAdmin.register News do
       row :author
       row :published
       row :summary
+      row :tags do
+        ActiveAdminHelper.tags_names(ad.tags)
+      end
       row :content
       row :issuu_link
       row :image do
