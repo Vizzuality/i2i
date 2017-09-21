@@ -102,6 +102,9 @@ ActiveAdmin.register Blog do
       f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.input :date, as: :date_picker
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
         a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
