@@ -1,0 +1,2 @@
+class ProjectMetadatum < ApplicationRecord
+end
