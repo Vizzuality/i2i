@@ -320,6 +320,24 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "project_metadata", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "name"
+    t.string   "country_iso2"
+    t.string   "country_iso3"
+    t.string   "currency_singular"
+    t.string   "currency_plural"
+    t.string   "currency_code"
+    t.string   "currency_symbol"
+    t.integer  "num_households_in_hh"
+    t.integer  "num_households_in_mem"
+    t.integer  "member_level_interviews"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
