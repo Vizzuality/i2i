@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20170921085749) do
+ActiveRecord::Schema.define(version: 20170921130453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +72,17 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "slug"
+  end
+
+  create_table "category_usages", force: :cascade do |t|
+    t.string   "category_type"
+    t.string   "category_name"
+    t.string   "subcategory"
+    t.string   "project_name"
+    t.integer  "num_rows"
+    t.integer  "num_projects"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -155,6 +165,36 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
+  create_table "household_member_transaction_histories", force: :cascade do |t|
+    t.integer  "household_member_transaction_id"
+    t.string   "value"
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["household_member_transaction_id", "month", "year"], name: "index_household_member_histories_on_member_id_month_year", using: :btree
+    t.index ["month", "year"], name: "index_household_member_transaction_histories_on_month_and_year", using: :btree
+    t.index ["month"], name: "index_household_member_transaction_histories_on_month", using: :btree
+    t.index ["year"], name: "index_household_member_transaction_histories_on_year", using: :btree
+  end
+
+  create_table "household_member_transactions", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.string   "person_code"
+    t.string   "gender"
+    t.string   "relationship_to_head"
+    t.string   "employed"
+    t.string   "status"
+    t.string   "category_type"
+    t.string   "category_name"
+    t.string   "subcategory"
+    t.integer  "age"
+    t.integer  "num_accounts"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "household_transaction_histories", force: :cascade do |t|
     t.integer  "household_transaction_id"
     t.string   "value"
@@ -172,13 +212,13 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "project_name"
     t.string   "household_name"
     t.string   "category_type"
+    t.string   "category_name"
     t.string   "subcategory"
     t.integer  "num_accounts"
     t.integer  "num_members"
     t.integer  "num_adults"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.string   "category_name"
     t.index ["category_name"], name: "index_household_transactions_on_category_name", using: :btree
     t.index ["category_type"], name: "index_household_transactions_on_category_type", using: :btree
     t.index ["subcategory"], name: "index_household_transactions_on_subcategory", using: :btree
@@ -207,7 +247,6 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "custom_author"
     t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
   end
 
@@ -244,6 +283,24 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "slug"
     t.boolean  "published"
     t.integer  "subcategory_id"
+  end
+
+  create_table "project_metadata", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "name"
+    t.string   "country_iso2"
+    t.string   "country_iso3"
+    t.string   "currency_singular"
+    t.string   "currency_plural"
+    t.string   "currency_code"
+    t.string   "currency_symbol"
+    t.integer  "num_households_in_hh"
+    t.integer  "num_households_in_mem"
+    t.integer  "member_level_interviews"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "sessions", force: :cascade do |t|
