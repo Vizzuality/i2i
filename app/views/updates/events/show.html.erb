@@ -57,7 +57,7 @@
                       <% if @event.documents.present? %>
                         <ul class="link-list">
                           <% @event.documents.each do |document| %>
-                            <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= document.name %></a></li>
+                            <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= "#{document.name} (#{readable_file_size(document.file_file_size)})" %></a></li>
                           <% end %>
                         </ul>
                       <% end %>
