@@ -22,11 +22,11 @@
 
   <div class="l-content">
     <div class="wrapper">
-      <div class="card-grid -news" id="news">
-        <div class="row">
+      <div class="l-card-grid">
+        <div class="row masonry-cards">
           <% @news.each_with_index do |news, index| %>
             <% if index == 0 %>
-              <div class="grid-s-12 grid-m-6 grid-l-8">
+              <div class="masonry-item grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card -highlighted">
                   <a href="<%= news_path(news.slug) %>" alt="<%= news.title %>">
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
@@ -35,24 +35,31 @@
                       <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
                       <p><%= news.summary %></p>
                     </div>
+                    <footer class="footer">
+                      <span class="date"><%= DateHelper.beautify news.date %></span>
+                    </footer>
                   </a>
                 </article>
               </div>
             <% else %>
-              <div class="grid-s-12 grid-m-6 grid-l-4">
+              <div class="masonry-item grid-s-12 grid-m-6 grid-l-4">
                 <article class="c-card">
                   <a href="<%= news_path(id: news.slug) %>" alt="<%= news.title %>">
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
                     <div class="metadata">
                       <h4 class="title -dark -xs"><%= news.title %></h4>
-                      <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
                       <p><%= news.summary %></p>
                     </div>
+                    <footer class="footer">
+                      <span class="date"><%= DateHelper.beautify news.date %></span>
+                    </footer>
                   </a>
                 </article>
               </div>
             <% end %>
           <% end %>
+        </div>
+        <div class="row">
           <div class="grid-s-12">
             <div class="grid-footer">
               <a href="<%= updates_news_index_path %>" class="c-button -big  btn-more">More news</a>

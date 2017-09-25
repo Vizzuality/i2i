@@ -18,17 +18,17 @@
 
     setListeners: function () {
       if (App.Helper.Utils.supportsPassiveListeners) {
-      document.addEventListener('scroll', this._onScroll, { passive: true });
-    } else {
-      document.addEventListener('scroll', this._onScroll);
-    }
+        document.addEventListener('scroll', this._onScroll, { passive: true });
+      } else {
+        document.addEventListener('scroll', this._onScroll);
+      }
     },
 
     _setVars: function () {
       this.fixedHeader = document.querySelector('.js-fixed-header');
       this.fixedHeaderVisibility = false; // Is the header visible?
       this.progressBar = this.fixedHeader.querySelector('.js-progress-bar');
-      this.progressBarHeight = 66;
+      this.progressBarHeight = 60;
 
       this.title = document.querySelector('.js-title');
       var titleRect = this.title.getBoundingClientRect()

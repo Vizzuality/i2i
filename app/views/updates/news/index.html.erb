@@ -33,11 +33,13 @@
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
                     <div class="metadata">
                       <h4 class="title -dark -xs"><%= news.title %></h4>
-                      <% if news.has_attribute? 'date' %>
-                        <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
-                      <% end %>
                       <p><%= news.summary %></p>
                     </div>
+                    <footer class="footer">
+                      <% if news.has_attribute? 'date' %>
+                        <span class="date"><%= DateHelper.beautify news.date %></span>
+                      <% end %>
+                    </footer>
                   </a>
                 </article>
               </div>
@@ -48,11 +50,13 @@
                     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
                     <div class="metadata">
                       <h4 class="title -dark -xs"><%= news.title %></h4>
-                      <% if news.has_attribute? 'date' %>
-                        <h4 class="title -sea -small"><%= DateHelper.beautify news.date %></h4>
-                      <% end %>
                       <p><%= news.summary %></p>
                     </div>
+                    <footer class="footer">
+                      <% if news.has_attribute? 'date' %>
+                        <span class="date"><%= DateHelper.beautify news.date %></span>
+                      <% end %>
+                    </footer>
                   </a>
                 </article>
               </div>

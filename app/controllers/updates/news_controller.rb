@@ -48,7 +48,7 @@ class Updates::NewsController < ApplicationController
     end
 
     def related_news
-      News.published.where.not(id: params[:id]).limit(3)
+      News.published.where.not(id: params[:id]).limit(6)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

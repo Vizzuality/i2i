@@ -1,3 +1,13 @@
 .l-header {
-  background: $color-1;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+
+  background-color: $color-1;
+
+  z-index: 11;
 }

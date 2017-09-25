@@ -46,3 +46,27 @@
     border-right: 0;
   }
 }
+
+@mixin translate_content() {
+  padding-top: 50px;
+
+  @media #{$mq-laptop} {
+    padding-top: 50px;
+  }
+}
+
+@mixin header_veil() {
+  &:before {
+    content: "";
+    display: block;
+    position: fixed;
+    height: 91px;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    background-color: $color-1;
+
+    z-index: 1;
+  }
+}

@@ -1,4 +1,5 @@
 .l-keep-updated {
+  @include translate_content;
   margin: 0 0 50px;
 
   @media #{mq-laptop} {

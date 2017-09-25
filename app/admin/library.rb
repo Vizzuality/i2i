@@ -18,13 +18,27 @@ ActiveAdmin.register Library do
 
 
   controller do
+    before_action :check_url_resource, only: [:show]
+
+    def check_url_resource
+      library = Library.find_by(slug: params[:id])
+
+      if library.document.present? && library.document.file.present?
+        library.url_resource = request.base_url + library.document.file.url
+        library.save
+      else
+        library.url_resource = ''
+        library.save
+      end
+    end
+
     def permitted_params
       params.permit library: [:title, :summary, :id, :published,
                               :image, :date, :url_resource,
                               :video_url, :subcategory_id, :issuu_link,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
-                              documents_attributes: [:file, :name, :id, :_destroy],
-                              documented_items_attributes: [:document_id, :id, :_destroy]
+                              document_attributes: [:file, :name, :id, :_destroy],
+                              documented_item_attributes: [:document_id, :id, :_destroy]
       ]
     end
   end
@@ -66,11 +80,19 @@ ActiveAdmin.register Library do
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       f.input :issuu_link
-      f.has_many :documents, allow_destroy: true, new_record: true, heading: 'Documents' do |a|
-      	a.input :name
-      	a.input :file, as: :file, allow_destroy: true, hint: a.object.file.present? ? \
-        	"#{a.object.file_file_name}" : content_tag(:span, 'No PDF yet')
+
+      if f.object.new_record?
+        li "Please save Library before adding a document."
+      else
+        f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
+          s.input :name
+          s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
+            "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
+
+          s.input :_destroy, as: :boolean
+        end
       end
+
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
@@ -91,13 +113,9 @@ ActiveAdmin.register Library do
       	ActiveAdminHelper.tags_names(ad.tags)
       end
       row :issuu_link
-      row :documents do
-      	if ad.documents.present?
-					links = ad.documents.map do |document|
-						link_to document.file_file_name, request.base_url + document.file.url
-					end.join(', ')
-
-					raw links
+      row :document do
+        if ad.document.present?
+					raw link_to ad.document.file_file_name, request.base_url + ad.document.file.url
 				end
       end
       row :image do
