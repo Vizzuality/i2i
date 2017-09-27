@@ -4,7 +4,7 @@ namespace :db do
   desc 'Import household transactions from CSV'
   task import_household_transactions: :environment do
     p "started at #{DateTime.now}"
-    csv_text = File.read('db/Household Transactions.csv')
+    csv_text = File.read('db/data/household_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     households = []
     date_headers = csv.headers[8..72]
@@ -49,7 +49,7 @@ namespace :db do
 
   task import_household_member_transactions: :environment do
     p "started at #{DateTime.now}"
-    csv_text = File.read('db/Household Member Transactions.csv')
+    csv_text = File.read('db/data/household_member_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     household_members = []
     date_headers = csv.headers[12..76]
@@ -97,7 +97,7 @@ namespace :db do
   end
 
   task import_project_metadata: :environment do
-    csv_text = File.read('db/Projects Meta Data.csv')
+    csv_text = File.read('db/data/projects_meta_data.csv')
     csv = CSV.parse(csv_text, :headers => true)
     project_metadata = []
     csv.each do |row|
@@ -122,7 +122,7 @@ namespace :db do
   end
 
   task import_category_usage: :environment do
-    csv_text = File.read('db/Category Statistics and Usage.csv')
+    csv_text = File.read('db/data/category_statistics_and_usage.csv')
     csv = CSV.parse(csv_text, :headers => true)
     category_usages = []
     csv.each do |row|
