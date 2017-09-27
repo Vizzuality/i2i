@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
 
+  get 'search' => 'searches#index'
+
   resource :contacts, only: :create
 
   scope :format => true, :constraints => { :format => 'json' } do
