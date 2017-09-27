@@ -1,0 +1,2 @@
+class CategoryUsage < ApplicationRecord
+end
