@@ -18,19 +18,19 @@ ActiveAdmin.register Library do
 
 
   controller do
-    before_action :check_url_resource, only: [:show]
+    # before_action :check_url_resource, only: [:show]
 
-    def check_url_resource
-      library = Library.find_by(slug: params[:id])
+    # def check_url_resource
+    #   library = Library.find_by(slug: params[:id])
 
-      if library.document.present? && library.document.file.present?
-        library.url_resource = request.base_url + library.document.file.url
-        library.save
-      else
-        library.url_resource = ''
-        library.save
-      end
-    end
+    #   if library.document.present? && library.document.file.present?
+    #     library.url_resource = request.base_url + library.document.file.url
+    #     library.save
+    #   else
+    #     library.url_resource = ''
+    #     library.save
+    #   end
+    # end
 
     def permitted_params
       params.permit library: [:title, :summary, :id, :published,
