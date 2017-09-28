@@ -128,15 +128,15 @@
     }
 
     .partner-item {
-      flex-basis: 50%;
+      // flex-basis: 50%;
+      // flex-shrink: 0;
+      // flex-grow: 0;
       margin-bottom: 30px;
-      flex-shrink: 0;
-      flex-grow: 0;
       overflow: hidden;
       text-align: center;
 
       @media #{$mq-tablet} {
-        flex-basis: 25%;
+        // flex-basis: 25%;
         margin-bottom: 0;
       }
 
@@ -160,6 +160,11 @@
         @media #{$mq-tablet} {
           max-width: auto;
         }
+      }
+
+      > .finscope-logo > img {
+        opacity: .6;
+        max-height: 68px;
       }
 
       > .mastercard-logo > img {
