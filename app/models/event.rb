@@ -17,6 +17,8 @@
 #  url                :string
 #  slug               :string
 #  published          :boolean
+#  custom_author      :string
+#  subcategory_id     :integer
 #
 
 class Event < ApplicationRecord

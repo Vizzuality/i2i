@@ -18,6 +18,8 @@
 #  issuu_link         :string
 #  slug               :string
 #  published          :boolean
+#  custom_author      :string
+#  subcategory_id     :integer
 #
 
 class Blog < ApplicationRecord
