@@ -17,6 +17,7 @@
 #  issuu_link         :string
 #  slug               :string
 #  published          :boolean
+#  subcategory_id     :integer
 #
 
 class News < ApplicationRecord
