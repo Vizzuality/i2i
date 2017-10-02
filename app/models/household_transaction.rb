@@ -16,5 +16,13 @@
 #
 
 class HouseholdTransaction < ApplicationRecord
+  include Filterable
+
   has_many :household_transaction_histories
+
+  scope :project_name, -> (project_name) { where project_name: project_name }
+  scope :household_name, -> (household_name) { where household_name: household_name }
+  scope :category_name, -> (category_name) { where category_name: category_name }
+  scope :category_type, -> (category_type) { where category_type: category_type }
+  scope :subcategory, -> (subcategory) { where subcategory: subcategory }
 end
