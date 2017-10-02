@@ -98,7 +98,6 @@
     Backbone.history.start({ pushState: true });
 
     new App.View.MobileMenu();
-    new App.View.Footer();
     new App.View.Newsletter();
   };
 
