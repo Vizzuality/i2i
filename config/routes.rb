@@ -30,6 +30,15 @@ Rails.application.routes.draw do
 
   resource :contacts, only: :create
 
+  namespace :api do
+    namespace :v1 do
+      resources :household_transactions, only: [:index, :show]
+      resources :household_member_transactions, only: [:index, :show]
+      resources :category_usages, only: [:index, :show]
+      resources :project_metadata, only: [:index, :show]
+    end
+  end
+
   namespace :updates do
     get 'news/preview', to: 'news#preview'
     get 'blogs/preview', to: 'blogs#preview'

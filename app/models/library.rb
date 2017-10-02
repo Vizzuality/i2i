@@ -17,6 +17,7 @@
 #  subcategory_id     :integer
 #  issuu_link         :string
 #  slug               :string
+#  published          :boolean
 #
 
 class Library < ApplicationRecord

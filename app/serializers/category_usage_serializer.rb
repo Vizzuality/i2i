@@ -13,10 +13,6 @@
 #  updated_at    :datetime         not null
 #
 
-class CategoryUsage < ApplicationRecord
-  include Filterable
-
-  scope :category_type, -> (category_type) { where category_type: category_type }
-  scope :category_name, -> (category_name) { where category_name: category_name }
-  scope :subcategory, -> (subcategory) { where subcategory: subcategory }
+class CategoryUsageSerializer < ActiveModel::Serializer
+  attributes :id, :category_type, :category_name, :subcategory, :project_name, :num_rows, :num_projects
 end
