@@ -3,5 +3,12 @@ class ApplicationController < ActionController::Base
 
   def entities
     [News, Event, Library, Blog]
+
+  def meta(records)
+    {
+      current_page: records.current_page,
+      total_pages: records.total_pages,
+      total_count: records.total_count
+    }
   end
 end
