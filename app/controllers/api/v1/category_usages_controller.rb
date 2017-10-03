@@ -1,6 +1,6 @@
 module Api
   module V1
-    class CategoryUsagesController < ApplicationController
+    class CategoryUsagesController < ApiController
       def index
         category_usages = CategoryUsage.filter(params.slice(:category_type, :category_name, :subcategory))
         category_usages = category_usages.page(params[:page])

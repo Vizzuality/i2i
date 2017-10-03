@@ -344,6 +344,7 @@ DEPENDENCIES
   activerecord-session_store!
   annotate
   autoprefixer-rails (~> 6.7)
+  bcrypt (~> 3.1.7)
   byebug
   capistrano (= 3.7.1)
   capistrano-bundler

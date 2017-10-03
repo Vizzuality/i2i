@@ -1,6 +1,6 @@
 module Api
   module V1
-    class HouseholdTransactionsController < ApplicationController
+    class HouseholdTransactionsController < ApiController
       def index
         household_transactions = HouseholdTransaction.filter(params.slice(:project_name, :household_name, :category_name, :category_type, :subcategory))
         household_transactions = household_transactions.page(params[:page])
