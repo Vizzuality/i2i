@@ -59,7 +59,7 @@
                 <div class="card-options">
                   <% if (library.document.present? && library.document.file.present?) || library.url_resource.present? %>
                     <% if library.document.present? && library.document.file.present? %>
-                      <a href="<%= library.document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
+                      <a href="<%= library.document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download <%= "(#{readable_file_size(library.document.file_file_size)})" %></a>
                     <% else %>
                       <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
                     <% end %>
