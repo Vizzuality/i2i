@@ -10,6 +10,7 @@ class ApiController < ActionController::Base
   def meta(records)
     {
       current_page: records.current_page,
+      page_total: records.count,
       total_pages: records.total_pages,
       total_count: records.total_count
     }
