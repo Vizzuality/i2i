@@ -15,14 +15,13 @@
 #  updated_at     :datetime         not null
 #
 
-class HouseholdTransaction < ApplicationRecord
-  include Filterable
+class HouseholdTransactionSerializer < ActiveModel::Serializer
+  attributes :id, :project_name, :household_name, :category_type, :category_name,
+             :subcategory, :num_accounts, :num_members, :num_adults
 
   has_many :household_transaction_histories
 
-  scope :project_name, -> (project_name) { where project_name: project_name }
-  scope :household_name, -> (household_name) { where household_name: household_name }
-  scope :category_name, -> (category_name) { where category_name: category_name }
-  scope :category_type, -> (category_type) { where category_type: category_type }
-  scope :subcategory, -> (subcategory) { where subcategory: subcategory }
+  def household_transaction_histories
+    object.household_transaction_histories.order(year: :asc, month: :asc)
+  end
 end

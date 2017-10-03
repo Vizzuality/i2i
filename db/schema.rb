@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921130453) do
+ActiveRecord::Schema.define(version: 20171003083815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170921130453) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 20170921130453) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -280,6 +282,7 @@ ActiveRecord::Schema.define(version: 20170921130453) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
+    t.integer  "subcategory_id"
   end
 
   create_table "project_metadata", force: :cascade do |t|
@@ -334,6 +337,16 @@ ActiveRecord::Schema.define(version: 20170921130453) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "token"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["token"], name: "index_users_on_token", using: :btree
   end
 
   add_foreign_key "libraries", "subcategories"

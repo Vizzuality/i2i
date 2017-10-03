@@ -20,8 +20,8 @@
 #  updated_at              :datetime         not null
 #
 
-class ProjectMetadatum < ApplicationRecord
-  include Filterable
-
-  scope :project_name, -> (project_name) { where project_name: project_name }
+class ProjectMetadatumSerializer < ActiveModel::Serializer
+  attributes :id, :project_name, :start_date, :end_date, :name, :country_iso2, :country_iso3,
+             :currency_singular, :currency_plural, :currency_code, :currency_symbol, :num_households_in_hh,
+             :num_households_in_mem, :member_level_interviews
 end
