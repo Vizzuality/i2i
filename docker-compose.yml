@@ -16,6 +16,7 @@ services:
     volumes:
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
+      - "./db/data:/usr/src/i2i/db/data"
 #    external_links:
 #      - redis
 #    environment:
