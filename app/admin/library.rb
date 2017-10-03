@@ -72,7 +72,6 @@ ActiveAdmin.register Library do
       f.input :published
       f.input :summary
       f.input :date, as: :date_picker
-      f.input :url_resource
       f.input :video_url
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
       	a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
@@ -82,14 +81,33 @@ ActiveAdmin.register Library do
       f.input :issuu_link
 
       if f.object.new_record?
+        f.input :url_resource, placeholder: "Adding a download URL here will disable the possibility to add a Download Document until this URL is cleared"
         li "Please save Library before adding a document."
       else
-        f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
-          s.input :name
-          s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
-            "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
+        if (f.object.document.present? && f.object.document.file.present?) || f.object.url_resource.present?
+          if f.object.document.present? && f.object.document.file.present?
+            f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
+              s.input :name
+              s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
+                "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
 
-          s.input :_destroy, as: :boolean
+              s.input :_destroy, as: :boolean
+            end
+            li "To add an external Url resource, please clear this document"
+          else
+            f.input :url_resource
+            li "To upload a document, please clear Url resource"
+          end
+        else
+          li "Url resource and Document are used to display the DOWNLOAD button on a library, plase choose one to fill. In case both are filled in, Document will take priority."
+          f.input :url_resource
+          f.inputs "Document", for: [:document, f.object.document || create_document(f)] do |s|
+                s.input :name
+                s.input :file, as: :file, allow_destroy: true, hint: s.object.file.present? ? \
+                  "#{s.object.file_file_name}" : content_tag(:span, 'No PDF yet')
+
+                s.input :_destroy, as: :boolean
+              end
         end
       end
 
@@ -113,8 +131,9 @@ ActiveAdmin.register Library do
       	ActiveAdminHelper.tags_names(ad.tags)
       end
       row :issuu_link
+      row :url_resource
       row :document do
-        if ad.document.present?
+        if ad.document.present? && ad.document.file.present?
 					raw link_to ad.document.file_file_name, request.base_url + ad.document.file.url
 				end
       end

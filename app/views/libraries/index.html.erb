@@ -57,8 +57,12 @@
                 <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>
                 <p><%= library.summary %></p>
                 <div class="card-options">
-                  <% if library.url_resource.present?%>
-                    <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
+                  <% if (library.document.present? && library.document.file.present?) || library.url_resource.present? %>
+                    <% if library.document.present? && library.document.file.present? %>
+                      <a href="<%= library.document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
+                    <% else %>
+                      <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
+                    <% end %>
                   <% end %>
                   <% if library.issuu_link.present? and library.category.name === 'Publications' %>
                     <a href="<%= library.issuu_link %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">View</a>
