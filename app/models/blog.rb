@@ -25,6 +25,11 @@
 class Blog < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
+
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
+  accepts_nested_attributes_for :subcategory
+
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   belongs_to :subcategory, required: true

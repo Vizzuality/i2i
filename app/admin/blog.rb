@@ -56,16 +56,25 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
+<<<<<<< HEAD
       params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
                                 :issuu_link, :published, :custom_author, :subcategory_id,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy]])
+=======
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author, :subcategory_id])
+>>>>>>> Add subcategory to blogs, events and news
     end
   end
 
   index do
     selectable_column
+<<<<<<< HEAD
 
     column :subcategory
+=======
+    column :subcategory
+
+>>>>>>> Add subcategory to blogs, events and news
     column :title do |blog|
       link_to blog.title, admin_blog_path(blog)
     end

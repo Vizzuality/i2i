@@ -56,9 +56,13 @@ ActiveAdmin.register Event do
     end
 
     def permitted_params
+<<<<<<< HEAD
 
       params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author,
                                  tagged_items_attributes: [:tag_id, :id, :_destroy],
+=======
+      params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author, :subcategory_id,
+>>>>>>> Add subcategory to blogs, events and news
                                  documents_attributes: [:file, :name, :id, :_destroy],
                                  documented_items_attributes: [:document_id, :id, :_destroy]])
     end
@@ -66,8 +70,13 @@ ActiveAdmin.register Event do
 
   index do
     selectable_column
+<<<<<<< HEAD
 
     column :subcategory
+=======
+    column :subcategory
+
+>>>>>>> Add subcategory to blogs, events and news
     column :title do |event|
       link_to event.title, admin_event_path(event)
     end
@@ -117,6 +126,7 @@ ActiveAdmin.register Event do
 
   show do |ad|
     attributes_table do
+      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end

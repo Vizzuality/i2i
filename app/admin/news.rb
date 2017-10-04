@@ -109,6 +109,7 @@ ActiveAdmin.register News do
 
   show do |ad|
     attributes_table do
+      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
