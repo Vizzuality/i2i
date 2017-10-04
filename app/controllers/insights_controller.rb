@@ -2,6 +2,7 @@ class InsightsController < ApplicationController
   def index
     @categories = Category.all
     @category = Category.find_by(slug: params[:category])
+    subcategory = Subcategory.find_by(slug: params[:subcategory])
     records = []
 
     records << News.where(published: true)
@@ -13,7 +14,13 @@ class InsightsController < ApplicationController
 
     if params[:category].present?
       if @category.present?
-        @insights = @insights.select { |r| r.category_id == @category.id } if @category.present?
+        if params[:subcategory].present?
+          subcategory = Subcategory.find_by(slug: params[:subcategory])
+
+          @insights = subcategory.present? ? @insights.select { |r| r.subcategory_id == subcategory.id } : []
+        else
+          @insights = @insights.select { |r| r.category_id == @category.id }
+        end
       else
         @insights = []
       end
