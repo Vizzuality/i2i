@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003083815) do
+ActiveRecord::Schema.define(version: 20171004073339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "date"
     t.string   "author"
     t.string   "workstream"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.boolean  "published"
     t.string   "custom_author"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "blog"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -142,8 +143,8 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "date"
     t.string   "author"
     t.string   "url"
@@ -151,6 +152,7 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.boolean  "published"
     t.string   "custom_author"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "event"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -232,8 +234,8 @@ ActiveRecord::Schema.define(version: 20171003083815) do
   end
 
   create_table "libraries", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "title"
     t.text     "summary"
     t.string   "image_file_name"
@@ -247,6 +249,7 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
+    t.string   "record_type",        default: "library"
     t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
   end
 
@@ -268,8 +271,8 @@ ActiveRecord::Schema.define(version: 20171003083815) do
   end
 
   create_table "news", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "title"
     t.text     "summary"
     t.text     "content"
@@ -283,6 +286,7 @@ ActiveRecord::Schema.define(version: 20171003083815) do
     t.string   "slug"
     t.boolean  "published"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "news"
   end
 
   create_table "project_metadata", force: :cascade do |t|
