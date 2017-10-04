@@ -56,25 +56,15 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-<<<<<<< HEAD
       params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
-                                :issuu_link, :published, :custom_author, :subcategory_id,
-                                tagged_items_attributes: [:tag_id, :id, :_destroy]])
-=======
-      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author, :subcategory_id])
->>>>>>> Add subcategory to blogs, events and news
+      :issuu_link, :published, :custom_author, :category_id, :is_featured,
+      tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
 
   index do
     selectable_column
-<<<<<<< HEAD
-
-    column :subcategory
-=======
-    column :subcategory
-
->>>>>>> Add subcategory to blogs, events and news
+    column :category
     column :title do |blog|
       link_to blog.title, admin_blog_path(blog)
     end
@@ -91,13 +81,16 @@ ActiveAdmin.register Blog do
   form multipart: true do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Blog details' do
+      f.input :category_id,
+              as: :select,
+              collection: Category.all,
+              include_blank: false
       f.input :subcategory_id,
               as: :select,
               collection:
                 option_groups_from_collection_for_select(Category.all,
                                                          :subcategories, :name,
-                                                         :id, :name, :id),
-              include_blank: false
+                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
@@ -123,6 +116,7 @@ ActiveAdmin.register Blog do
 
   show do |ad|
     attributes_table do
+      row :category
       row :subcategory
       row :title
       row :author

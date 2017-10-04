@@ -64,8 +64,7 @@ ActiveAdmin.register News do
 
   index do
     selectable_column
-
-    column :subcategory
+    column :category
     column :title do |news|
       link_to news.title, admin_news_path(news)
     end
@@ -79,13 +78,16 @@ ActiveAdmin.register News do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
+      f.input :category_id,
+              as: :select,
+              collection: Category.all,
+              include_blank: false
       f.input :subcategory_id,
               as: :select,
               collection:
                 option_groups_from_collection_for_select(Category.all,
                                                          :subcategories, :name,
-                                                         :id, :name, :id),
-              include_blank: false
+                                                         :id, :name, f.object.subcategory_id)
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
@@ -109,6 +111,7 @@ ActiveAdmin.register News do
 
   show do |ad|
     attributes_table do
+      row :category
       row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
