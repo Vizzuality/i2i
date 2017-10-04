@@ -1,6 +1,7 @@
 class InsightsController < ApplicationController
   def index
-    # if filter_param is present
+    @categories = Category.all
+    @category = Category.find_by(slug: params[:category])
     records = []
 
     records << News.where(published: true)
@@ -9,12 +10,14 @@ class InsightsController < ApplicationController
     records << Library.where(published: true)
 
     @insights = records.flatten.sort { |a, b| b[:created_at] <=> a[:created_at] }
-    @categories = Category.all
 
-    # news = News.where(published: true).where("title LIKE ? OR summary LIKE ? OR content LIKE ?", "%#{term}%", "%#{term}%", "%#{term}%")
-    # blogs = Blog.where(published: true).where("title LIKE ? OR summary LIKE ? OR content LIKE ?", "%#{term}%", "%#{term}%", "%#{term}%")
-    # events = Event.where(published: true).where("title LIKE ? OR summary LIKE ? OR content LIKE ?", "%#{term}%", "%#{term}%", "%#{term}%")
-    # libraries = Library.where(published: true).where("title LIKE ? OR summary LIKE ?", "%#{term}%", "%#{term}%")
+    if params[:category].present?
+      if @category.present?
+        @insights = @insights.select { |r| r.category_id == @category.id } if @category.present?
+      else
+        @insights = []
+      end
+    end
   end
 
   def show

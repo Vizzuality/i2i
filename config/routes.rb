@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   end
 
   get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
+  get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
 
   resources :insights, only: [:index]
   resources :household_transactions, only: [:index, :show]
