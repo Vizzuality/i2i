@@ -57,7 +57,8 @@ ActiveAdmin.register News do
 
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id,
+      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link,
+                                :published, :category_id, :is_featured,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
@@ -82,12 +83,6 @@ ActiveAdmin.register News do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
@@ -112,7 +107,6 @@ ActiveAdmin.register News do
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end

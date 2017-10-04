@@ -85,16 +85,11 @@ ActiveAdmin.register Blog do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
+      f.input :is_featured
       f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -117,7 +112,6 @@ ActiveAdmin.register Blog do
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :title
       row :author
       row :custom_author

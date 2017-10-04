@@ -27,7 +27,6 @@ class News < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
   self.table_name = 'news'
 
-  belongs_to :subcategory, required: false
   belongs_to :category, required: true
   accepts_nested_attributes_for :subcategory
 

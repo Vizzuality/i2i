@@ -27,7 +27,6 @@ class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  belongs_to :subcategory, required: false
   belongs_to :category, required: true
   accepts_nested_attributes_for :subcategory
 

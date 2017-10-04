@@ -84,12 +84,6 @@ ActiveAdmin.register Event do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
@@ -120,7 +114,6 @@ ActiveAdmin.register Event do
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
