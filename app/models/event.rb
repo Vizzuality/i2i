@@ -19,14 +19,16 @@
 #  published          :boolean
 #  custom_author      :string
 #  subcategory_id     :integer
+#  record_type        :string           default("event")
+#  category_id        :integer
 #
 
 class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  belongs_to :subcategory, required: true
-  delegate :category, to: :subcategory, allow_nil: false
+  belongs_to :subcategory, required: false
+  belongs_to :category, required: true
   accepts_nested_attributes_for :subcategory
 
   has_attached_file :image, styles: {thumb: '300x300>'}
@@ -44,9 +46,17 @@ class Event < ApplicationRecord
   validates_length_of :summary, maximum: 172, allow_blank: true
   validates :url, url: true, if: 'url.present?'
 
+  validate :subcategory_is_valid
+
   scope :published, -> {where(published: true)}
 
   def set_date
     self.date ||= DateTime.now
+  end
+
+  def subcategory_is_valid
+    if subcategory.present?
+      errors.add(:invalid_subcategory, "- must belong to the same Category") if category.id != subcategory.category_id
+    end
   end
 end

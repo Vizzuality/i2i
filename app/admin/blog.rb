@@ -56,12 +56,13 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author, :subcategory_id])
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author, :subcategory_id, :category_id])
     end
   end
 
   index do
     selectable_column
+    column :category
     column :subcategory
 
     column :title do |blog|
@@ -80,13 +81,16 @@ ActiveAdmin.register Blog do
   form multipart: true do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'Blog details' do
+      f.input :category_id,
+              as: :select,
+              collection: Category.all,
+              include_blank: false
       f.input :subcategory_id,
               as: :select,
               collection:
                 option_groups_from_collection_for_select(Category.all,
                                                          :subcategories, :name,
-                                                         :id, :name, :id),
-              include_blank: false
+                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
@@ -109,6 +113,7 @@ ActiveAdmin.register Blog do
 
   show do |ad|
     attributes_table do
+      row :category
       row :subcategory
       row :title
       row :author
