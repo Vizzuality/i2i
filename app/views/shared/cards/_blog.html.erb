@@ -1,0 +1,11 @@
+<article class="c-card">
+  <a href="<%= insights_show_path('blog', blog.slug, { entity: blog.record_type }) %>" alt="<%= blog.title %>">
+    <div class="picture" style="background-image: url(<%= blog.image %>)"></div>
+    <div class="metadata">
+      <h4 class="title -dark -xs"><%= blog.title %></h4>
+      <h4 class="title -sea -small"><%= DateHelper.beautify blog.date %></h4>
+      <p><%= blog.summary %></p>
+    </div>
+  </a>
+</article>
+

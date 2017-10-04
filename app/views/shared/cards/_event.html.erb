@@ -1,0 +1,11 @@
+<article class="c-card">
+  <a href="<%= insights_show_path('event', event.slug, { entity: event.record_type }) %>" alt="<%= event.title %>">
+    <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+    <div class="metadata">
+      <h4 class="title -dark -xs"><%= event.title %></h4>
+      <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+      <p><%= event.summary %></p>
+    </div>
+  </a>
+</article>
+

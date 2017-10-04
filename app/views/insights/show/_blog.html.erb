@@ -1,0 +1,86 @@
+<!-- Image header -->
+<% unless blog.image.blank? %>
+  <div class="l-image" style="background-image: url(<%= blog.image.url(:original) %>)"></div>
+<% end %>
+
+<div class="l-content">
+  <div class="l-article">
+    <div class="wrapper">
+      <div class="row">
+        <div class="grid-s-12">
+          <article class="c-article">
+            <div class="row">
+              <header>
+                <div class="container">
+                  <div class="grid-s-12 grid-l-8">
+                    <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
+                    <h1 class="title -xbig -dark "><%= blog.title %></h1>
+                    <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
+                      <% unless blog.author.blank? %>
+                        by <span class="author-name"><%= blog.author %></span>
+                      <% end %>
+                      on <%= DateHelper.beautify blog.date %>
+                    </span>
+
+                    <% unless blog.workstream.blank? %>
+                      <span class="workstream"><%= blog.workstream %></span>
+                    <% end %>
+                  </div>
+                </div>
+              </header>
+            </div>
+
+            <section class="article-content">
+              <%if blog.image.blank? != true %>
+                <div class="row">
+                  <div class="grid-s-12">
+                      <div class="article-image" style="background-image: url(<%= blog.image %>)"></div>
+                  </div>
+                </div>
+              <% end %>
+
+              <div class="row">
+                <div class="article-text">
+                  <div class="grid-s-12 grid-m-10 grid-l-8">
+                    <%= blog.content.html_safe %>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <% if false %>
+      <section class="l-related-section">
+        <div class="wrapper">
+          <h2 class="title -dark -big">Related blogs</h2>
+          <div class="l-card-grid">
+            <div class="row">
+              <% related_blogs.each_with_index do |blog, index| %>
+                <div class="grid-s-12">
+                  <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
+                    <a href="<%= updates_blog_path(blog.id) %>" alt="<%= blog.title %>">
+                      <div class="picture" style="background-image: url(<%= blog.image %>)"></div>
+                      <div class="metadata">
+                        <h4 class="title -dark -xs"><%= blog.title %></h4>
+                        <h4 class="title -sea -small"><%= DateHelper.beautify blog.date %></h4>
+                        <p><%= blog.summary %></p>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              <% end %>
+              <div class="grid-s-12">
+                <div class="grid-footer">
+                  <%= link_to 'More blogs', updates_blogs_path, :class => 'c-button -big -sea' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% end%>
+  </div>
+</div>
