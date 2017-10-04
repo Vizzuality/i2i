@@ -11,8 +11,6 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
-  get 'community' => 'community#index'
-
   get 'data-portal' => 'data_portal#index'
   get 'data-portal/:iso/:year', to: 'data_portal#show',
                                 as: 'data_portal_y'
@@ -37,6 +35,8 @@ Rails.application.routes.draw do
 
   get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
   get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  # Tools
+  get 'tools' => 'tools#index'
 
   resources :insights, only: [:index]
   resources :household_transactions, only: [:index, :show]
