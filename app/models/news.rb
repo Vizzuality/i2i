@@ -32,15 +32,8 @@ class News < ApplicationRecord
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true
+
   after_initialize :set_date
-
-  has_many :tagged_items, :as => :taggable, :dependent => :destroy
-  has_many :tags, :through => :tagged_items
-  accepts_nested_attributes_for :tagged_items, allow_destroy: true
-
-  has_many :tagged_items, :as => :taggable, :dependent => :destroy
-  has_many :tags, :through => :tagged_items
-  accepts_nested_attributes_for :tagged_items, allow_destroy: true
 
   # Validations for paperclip
   has_attached_file :image, styles: {thumb: '300x300>'}
