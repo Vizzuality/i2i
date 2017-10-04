@@ -1,0 +1,15 @@
+<article class="c-card">
+  <a href="<%= insights_show_path('news', news.slug, { entity: news.record_type }) %>" alt="<%= news.title %>">
+    <div class="picture" style="background-image: url(<%= news.image %>)"></div>
+    <div class="metadata">
+      <h4 class="title -dark -xs"><%= news.title %></h4>
+      <p><%= news.summary %></p>
+    </div>
+    <footer class="footer">
+      <% if news.has_attribute? 'date' %>
+        <span class="date"><%= DateHelper.beautify news.date %></span>
+      <% end %>
+    </footer>
+  </a>
+</article>
+

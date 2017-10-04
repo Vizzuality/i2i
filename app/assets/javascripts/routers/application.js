@@ -5,10 +5,11 @@ var Router = Backbone.Router.extend({
 
   routes: {
     '': '_homePage',
-    'news/:id(/)': '_newsPage',
-    'updates(/)': '_updatesPage',
-    'updates/events(/)': '_eventsPage',
-    'resources(/)(:category)': '_libraryPage',
+    // 'news/:id(/)': '_newsPage',
+    // 'updates(/)': '_updatesPage',
+    // 'updates/events(/)': '_eventsPage',
+    // 'resources(/)(:category)': '_libraryPage',
+    'insights(/)': '_insightsPage',
     'about(/)': '_aboutPage',
     'terms-of-use(/)': '_termsOfUsePage'
   },
@@ -25,39 +26,47 @@ var Router = Backbone.Router.extend({
     new App.Page.HomePage();
   },
 
-  _newsPage: function () {
+  // _newsPage: function () {
+  //   // Don't forget to stop the router on each route
+  //   // otherwise you'll break the browser's back button
+  //   Backbone.history.stop();
+
+  //   new App.Page.NewsPage();
+  // },
+
+  // _updatesPage: function () {
+  //   // Don't forget to stop the router on each route
+  //   // otherwise you'll break the browser's back button
+  //   Backbone.history.stop();
+
+  //   new App.Page.UpdatesPage();
+  // },
+
+  // _eventsPage: function () {
+  //   // Don't forget to stop the router on each route
+  //   // otherwise you'll break the browser's back button
+  //   Backbone.history.stop();
+
+  //   new App.Page.EventsPage();
+  // },
+
+  // _libraryPage: function (category) {
+  //   // Don't forget to stop the router on each route
+  //   // otherwise you'll break the browser's back button
+  //   Backbone.history.stop();
+
+  //   new App.Page.LibraryPage({
+  //     categories: gon.categories.categories,
+  //     selectedCategory: category
+  //   });
+  // },
+
+  _insightsPage: function (category) {
     // Don't forget to stop the router on each route
     // otherwise you'll break the browser's back button
     Backbone.history.stop();
 
-    new App.Page.NewsPage();
-  },
-
-  _updatesPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.UpdatesPage();
-  },
-
-  _eventsPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.EventsPage();
-  },
-
-  _libraryPage: function (category) {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.LibraryPage({
-      categories: gon.categories.categories,
-      selectedCategory: category
-    });
+    new App.Page.InsightsPage();
   },
 
   _aboutPage: function () {
