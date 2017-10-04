@@ -44,6 +44,7 @@ class Library < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates_presence_of :title
+  validates :title, uniqueness: { case_sensitive: false }
   validates :url_resource, url: true, if: 'url_resource.present?'
   validates :video_url, url: true, if: 'video_url.present?'
   validates_length_of :title, maximum: 70
