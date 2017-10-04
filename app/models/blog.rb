@@ -32,6 +32,7 @@ class Blog < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates_presence_of :title
+  validates :title, uniqueness: { case_sensitive: false }
   validates_length_of :title, maximum: 125
   validates_length_of :summary, maximum: 172, allow_blank: true
 
