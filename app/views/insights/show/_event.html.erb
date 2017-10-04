@@ -1,0 +1,102 @@
+<!-- Image header -->
+<% unless event.image.blank? %>
+  <div class="l-image" style="background-image: url(<%= event.image.url(:original) %>)"></div>
+<% end %>
+
+<div class="l-content">
+  <div class="l-article">
+    <div class="wrapper">
+      <div class="row">
+        <div class="grid-s-12">
+          <article class="c-article">
+            <div class="row">
+              <header>
+                <div class="container">
+                  <div class="grid-s-12 grid-l-8">
+                    <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
+                    <h1 class="title -xbig -dark "><%= event.title %></h1>
+                    <span class="authorship">Written
+                      <% unless event.author.blank? %>
+                        by <span class="author-name"><%= event.author %></span>
+                      <% end %>
+                      on <%= DateHelper.beautify event.date %>
+                    </span>
+                  </div>
+                </div>
+              </header>
+            </div>
+
+            <section class="article-content">
+              <%if event.image.blank? != true %>
+                <div class="row">
+                  <div class="grid-s-12">
+                      <div class="article-image" style="background-image: url(<%= event.image %>)"></div>
+                  </div>
+                </div>
+              <% end %>
+
+              <div class="row">
+                <div class="article-text">
+                  <div class="grid-s-12 grid-m-10 grid-l-8">
+                    <%= event.content.html_safe %>
+                  </div>
+                </div>
+
+                <div class="article-text">
+                  <div class="grid-s-12 grid-m-10 grid-l-8">
+                    <% if event.documents.present? %>
+                      <ul class="link-list">
+                        <% event.documents.each do |document| %>
+                          <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= "#{document.name} (#{readable_file_size(document.file_file_size)})" %></a></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                  </div>
+                </div>
+
+                <% if event.url.blank? != true %>
+                  <div class="grid-s-12 grid-m-10 grid-l-12">
+                    <div class="footer-article">
+                      <a class="c-button -medium -sea" href="<%= event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <% if false %>
+      <section class="l-related-section">
+        <div class="wrapper">
+          <h2 class="title -dark -big">Related events</h2>
+          <div class="l-card-grid">
+            <div class="row">
+              <% @related_events.each do |event| %>
+                <div class="grid-s-12 grid-m-6 grid-4">
+                  <article class="c-card">
+                    <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
+                      <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+                      <div class="metadata">
+                        <h4 class="title -dark -xs"><%= event.title %></h4>
+                        <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
+                        <p><%= event.summary %></p>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              <% end %>
+              <div class="grid-s-12">
+                <div class="grid-footer">
+                  <%= link_to 'More events', updates_events_path, :class => 'c-button -big -sea' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>

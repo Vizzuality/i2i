@@ -1,0 +1,17 @@
+<% title @insight.title %>
+
+<div class="l-details-page">
+
+  <div class="l-header">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: false } %>
+    </div>
+  </div>
+
+  <% case @insight.record_type
+    when 'blog' %> <%= render partial: 'insights/show/blog', locals: { blog: @insight }%>
+    <% when 'event' %> <%= render partial: 'insights/show/event', locals: { event: @insight }%>
+    <% when 'news' %> <%= render partial: 'insights/show/news', locals: { news: @insight }%>
+    <% when 'library' %> <%= render partial: 'insights/show/library', locals: { library: @insight }%>
+  <% end %>
+</div>
