@@ -25,6 +25,10 @@ class News < ApplicationRecord
   friendly_id :title, use: [:slugged, :finders]
   self.table_name = 'news'
 
+  belongs_to :subcategory, required: true
+  delegate :category, to: :subcategory, allow_nil: false
+  accepts_nested_attributes_for :subcategory
+
   after_initialize :set_date
 
   # Validations for paperclip
