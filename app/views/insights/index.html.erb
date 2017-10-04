@@ -23,7 +23,8 @@
         <div class="row">
           <div class="selectors-container grid-12">
             <% @categories.each do |category| %>
-              <%= link_to category.name, insights_path, class: 'content-selector' %>
+              <%= link_to category.name, insights_filter_index_path(category.slug),
+              class: "content-selector #{'-current' if @currentCategory == category.slug}" %>
             <% end %>
           </div>
         </div>
