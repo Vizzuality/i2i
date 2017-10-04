@@ -78,7 +78,6 @@ ActiveAdmin.register News do
     actions
   end
 
-
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
