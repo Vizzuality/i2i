@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     delete "/logout"      => "sessions#destroy"
   end
 
-  get 'insights/:category/:slug', to: 'insights#show', as: 'filter_insights'
+  get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
 
   resources :insights, only: [:index]
   resources :household_transactions, only: [:index, :show]
