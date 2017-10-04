@@ -28,13 +28,8 @@ class News < ApplicationRecord
   self.table_name = 'news'
 
   belongs_to :category, required: true
-  accepts_nested_attributes_for :subcategory
 
   after_initialize :set_date
-
-  belongs_to :subcategory, required: true
-  delegate :category, to: :subcategory, allow_nil: false
-  accepts_nested_attributes_for :subcategory
 
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
