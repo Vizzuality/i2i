@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004152940) do
+ActiveRecord::Schema.define(version: 20171004174506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(version: 20171004152940) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "subcategory_id"
     t.string   "record_type",        default: "blog"
     t.integer  "category_id"
+    t.integer  "subcategory_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -152,9 +152,9 @@ ActiveRecord::Schema.define(version: 20171004152940) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "subcategory_id"
     t.string   "record_type",        default: "event"
     t.integer  "category_id"
+    t.integer  "subcategory_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -288,9 +288,9 @@ ActiveRecord::Schema.define(version: 20171004152940) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "subcategory_id"
     t.string   "record_type",        default: "news"
     t.integer  "category_id"
+    t.integer  "subcategory_id"
   end
 
   create_table "project_metadata", force: :cascade do |t|
