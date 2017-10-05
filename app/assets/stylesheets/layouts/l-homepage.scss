@@ -1,3 +1,6 @@
+$cover-slider-height-mobile: calc(100vh - 150px);
+$cover-slider-height: 680px;
+
 .l-homepage {
   @include header_veil(91px);
 
@@ -12,110 +15,83 @@
     max-width: 800px;
   }
 
-  > .homepage-section {
-    > .wrapper {
-      @media #{$mq-laptop} {
-        display: flex;
-      }
+  .rslides {
+    position: relative;
+    width: 100%;
+    height: $cover-slider-height-mobile;
+
+    @media #{$mq-tablet} {
+      height: $cover-slider-height;
     }
 
-    &.-government {
-      background-color: $color-4;
-      background-image: asset-url('homepage/home-bg-1-b.svg');
-      background-repeat: no-repeat;
-      background-position: top 25px left;
-      background-size: auto 200px;
+    > li {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
 
-      @media #{$mq-tablet} {
-        background-position: top 60px center;
-        background-size: auto 230px;
-      }
+      > div {
+        width: 100%;
+        height: 100%;
 
-      @media #{$mq-laptop} {
-        background-color: transparent;
-        background-position: top 90px center;
-        background-size: auto 260px;
-      }
-
-      > .wrapper {
-        justify-content: flex-end;
-        padding-top: 240px;
-        background-image: asset-url('homepage/home-bg-1-a.svg');
         background-repeat: no-repeat;
-        background-position: top 25px center;
-        background-size: auto 200px;
+        background-position: center;
+        background-size: cover;
 
-        @media #{$mq-tablet} {
-          padding-top: 290px;
-          background-position: top 60px center;
-          background-size: auto 230px;
+        .content {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          justify-content: flex-end;
         }
 
-        @media #{$mq-laptop} {
-          padding-top: 0;
-          background-color: transparent;
-          background-position: top 90px right 747px;
-          background-size: auto 260px;
-        }
-      }
 
-      .c-card-highlight {
-        @media #{$mq-laptop} {
-          transform: translate(0, -50px);
-        }
-      }
-    }
+        .title,
+        .subtitle {
+          font-weight: $font-weight-bold;
+          color: $color-4;
 
-    &.-researcher {
+          .highlighted {
+            color: $color-2;
 
-      > .wrapper {
-        justify-content: flex-start;
-        padding-top: 240px;
-        background-image: asset-url('homepage/home-bg-2.svg');
-        background-repeat: no-repeat;
-        background-position: top 40px center;
-        background-size: auto 200px;
-
-        @media #{$mq-tablet} {
-          padding-top: 310px;
-          background-position: top 50px center;
-          background-size: auto 260px;
+            > a {
+              color: $color-2;
+              font-weight: $font-weight-bold;
+            }
+          }
         }
 
-        @media #{$mq-laptop} {
-          padding-top: 55px;
-          padding-bottom: 85px;
-          background-position: bottom 90px right;
-          background-size: auto 500px;
-        }
-      }
-    }
-
-    &.-fsp-tech {
-      background-color: $color-4;
-
-      @media #{$mq-laptop} {
-        padding: 0 0 95px;
-        background-color: transparent;
-      }
-
-      > .wrapper {
-        justify-content: flex-end;
-        padding-top: 160px;
-        background-image: asset-url('homepage/home-bg-3.svg');
-        background-repeat: no-repeat;
-        background-position: top 40px center;
-        background-size: auto 110px;
-
-        @media #{$mq-laptop} {
-          padding-top: 200px;
-          background-size: auto 200px;
+        .title {
+          line-height: $font-size-huge;
+          letter-spacing: -2px;
         }
 
-        @media #{$mq-laptop} {
-          padding-top: 0;
-          background-position: center left;
-          background-size: auto 200px;
+        .subtitle {
+          margin: 20px 0 0;
+          font-size: $font-size-regular;
+          line-height: 20px;
+        }
+
+        .established {
+          .title-list {
+            display: block;
+            margin: 40px 0 0;
+
+            font-size: $font-size-small;
+            font-weight: $font-weight-bold;
+            color: $color-4;
+          }
+
+          .established-list {
+            margin: 5px 0 0;
+
+            > .established-item {
+              &:not(:first-child) {
+                margin: 0 0 0 75px;
+              }
+            }
+          }
         }
       }
     }

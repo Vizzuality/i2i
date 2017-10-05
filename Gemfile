@@ -31,6 +31,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fuse'
   gem 'rails-assets-vega', '~> 2.6.5'
   gem 'rails-assets-masonry', '~>4.2.0'
+  gem 'rails-assets-jquery.responsive-slides'
 end
 
 gem 'dotenv-rails', '~> 2.1'
