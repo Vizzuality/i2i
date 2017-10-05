@@ -14,4 +14,8 @@ class InitiativesController < ApplicationController
 
     @insights = records.flatten
   end
+
+  def show
+    @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
+  end
 end
