@@ -262,6 +262,7 @@ GEM
       rails-assets-desandro-matches-selector (>= 2.0.0, < 3)
     rails-assets-fuse (3.0.5)
     rails-assets-get-size (2.0.2)
+    rails-assets-jquery.responsive-slides (1.54.1)
     rails-assets-masonry (4.2.0)
       rails-assets-get-size (>= 2.0.2, < 3)
       rails-assets-outlayer (>= 2.1.0, < 3)
@@ -402,6 +403,7 @@ DEPENDENCIES
   rails-assets-d3 (~> 3.5.16)!
   rails-assets-datalib (= 1.7.3)!
   rails-assets-fuse!
+  rails-assets-jquery.responsive-slides!
   rails-assets-masonry (~> 4.2.0)!
   rails-assets-vega (~> 2.6.5)!
   rails-backbone (~> 1.2)
