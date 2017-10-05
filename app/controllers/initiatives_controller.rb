@@ -1,9 +1,10 @@
 class InitiativesController < ApplicationController
   def index
-    # return fixed tags for index page
+    @featured_tags = Tag.featured(true)
   end
 
   def filter_index
+    @featured_tags = Tag.featured(true)
     @tag = Tag.find_by(slug: params[:tag])
     records = []
 
