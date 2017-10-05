@@ -235,6 +235,11 @@ ActiveRecord::Schema.define(version: 20171005150224) do
     t.datetime "date"
   end
 
+  create_table "initiatives", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "libraries", force: :cascade do |t|
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false

@@ -1,4 +1,4 @@
-<% title 'i2i Insights' %>
+<% title 'Insights | i2i' %>
 
 <div class="l-library">
   <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-library.jpg') %>)">
@@ -32,10 +32,12 @@
     </div>
   </div>
 
-  <div class="l-card-grid">
-    <div class="wrapper">
-      <div class="row">
-        <%= render partial: 'shared/cards', locals: { insights: @insights }%>
+  <div class="l-content">
+    <div class="l-card-grid">
+      <div class="wrapper">
+        <div class="row">
+          <%= render partial: 'shared/cards', locals: { route: 'insights' }%>
+        </div>
       </div>
     </div>
   </div>
