@@ -19,15 +19,16 @@ class HouseholdMemberTransactionHistorySerializer < ActiveModel::Serializer
       values = object.value.split(':').map { |val| val.eql?("null") ? nil : val.to_f }
 
       {
-        avg_value: values[0],
-        min_value: values[1],
-        max_value: values[2],
-        rolling_balance: values[3],
-        business_expenses: values[4],
-        withdrawals: values[5],
-        deposits: values[6],
-        new_borrowing: values[7],
-        repayment: values[8]
+        total_transaction_value: values[0],
+        avg_value: values[1],
+        min_value: values[2],
+        max_value: values[3],
+        rolling_balance: values[4],
+        business_expenses: values[5],
+        withdrawals: values[6],
+        deposits: values[7],
+        new_borrowing: values[8],
+        repayment: values[9]
       }
     end
   end
