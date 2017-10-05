@@ -2,10 +2,10 @@
   <% @insights.each do |insight| %>
     <div class="grid-s-12 grid-m-6 grid-l-4 library masonry-item">
       <% case insight.record_type
-        when 'blog' %> <%= render partial: 'shared/cards/blog', locals: { blog: insight }%>
-        <% when 'event' %> <%= render partial: 'shared/cards/event', locals: { event: insight }%>
-        <% when 'news' %> <%= render partial: 'shared/cards/news', locals: { news: insight }%>
-        <% when 'library' %> <%= render partial: 'shared/cards/library', locals: { library: insight }%>
+        when 'blog' %> <%= render partial: "#{route}/cards/blog", locals: { blog: insight }%>
+        <% when 'event' %> <%= render partial: "#{route}/cards/event", locals: { event: insight }%>
+        <% when 'news' %> <%= render partial: "#{route}/cards/news", locals: { news: insight }%>
+        <% when 'library' %> <%= render partial: "#{route}/cards/library", locals: { library: insight }%>
       <% end %>
     </div>
   <% end %>

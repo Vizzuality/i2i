@@ -61,6 +61,10 @@ h2 {
     font-size: $font-size-small;
   }
 
+  &.-regular {
+    font-size: $font-size-regular;
+  }
+
   &.-medium {
     font-size: $font-size-medium;
     letter-spacing: -1px;
