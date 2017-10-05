@@ -1,0 +1,2 @@
+class Initiative < ApplicationRecord
+end
