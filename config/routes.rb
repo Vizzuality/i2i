@@ -36,11 +36,11 @@ Rails.application.routes.draw do
   #Insights
   get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
   get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  get 'insights', to: redirect("/insights/#{Category.first.slug}")
 
   # Tools
   get 'tools' => 'tools#index'
 
-  resources :insights, only: [:index]
   resources :household_transactions, only: [:index, :show]
   resources :household_member_transactions, only: [:index, :show]
   resources :category_usages, only: [:index, :show]
