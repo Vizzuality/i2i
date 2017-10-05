@@ -1,4 +1,6 @@
-<div class="c-header <% if isCover.present? %>-cover<% end %>">
+<% isLarge ||= false %>
+
+<div class="c-header <% if isCover.present? %>-cover<% end %> <% if isLarge %>-large<% end %>">
   <div class="container">
   	<div class="app-logo">
   		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path %>

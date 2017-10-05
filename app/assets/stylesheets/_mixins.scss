@@ -55,18 +55,16 @@
   }
 }
 
-@mixin header_veil() {
+@mixin header_veil($size: 50px) {
   &:before {
-    content: "";
     display: block;
     position: fixed;
-    height: 91px;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
-
+    height: $size;
     background-color: $color-1;
-
+    content: '';
     z-index: 1;
   }
 }
