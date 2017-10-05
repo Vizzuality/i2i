@@ -1,5 +1,5 @@
 .l-homepage {
-  @include header_veil;
+  @include header_veil(91px);
 
   .c-header .app-logo > a > img {
     @media #{$mq-tablet} {
