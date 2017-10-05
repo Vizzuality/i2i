@@ -34,7 +34,7 @@ ActiveAdmin.register Library do
 
     def permitted_params
       params.permit library: [:title, :summary, :id, :published, :category_id,
-                              :image, :date, :url_resource,
+                              :image, :date, :url_resource, :is_featured,
                               :video_url, :subcategory_id, :issuu_link,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
                               document_attributes: [:file, :name, :id, :_destroy],
@@ -52,6 +52,7 @@ ActiveAdmin.register Library do
       link_to library.title, admin_library_path(library)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
@@ -74,6 +75,7 @@ ActiveAdmin.register Library do
                                                          :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :published
+      f.input :is_featured
       f.input :summary
       f.input :date, as: :date_picker
       f.input :video_url
@@ -131,6 +133,7 @@ ActiveAdmin.register Library do
       end
       row :title
       row :published
+      row :is_featured
       row :summary
       row :tags do
       	ActiveAdminHelper.tags_names(ad.tags)

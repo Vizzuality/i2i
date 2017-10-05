@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005150224) do
+ActiveRecord::Schema.define(version: 20171005162258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20171005150224) do
     t.string   "record_type",        default: "blog"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.boolean  "is_featured",        default: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -155,6 +156,7 @@ ActiveRecord::Schema.define(version: 20171005150224) do
     t.string   "record_type",        default: "event"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.boolean  "is_featured",        default: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -258,6 +260,7 @@ ActiveRecord::Schema.define(version: 20171005150224) do
     t.boolean  "published"
     t.string   "record_type",        default: "library"
     t.integer  "category_id"
+    t.boolean  "is_featured",        default: false
     t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
   end
 
@@ -296,6 +299,7 @@ ActiveRecord::Schema.define(version: 20171005150224) do
     t.string   "record_type",        default: "news"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.boolean  "is_featured",        default: false
   end
 
   create_table "project_metadata", force: :cascade do |t|

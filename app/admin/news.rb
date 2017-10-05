@@ -58,7 +58,7 @@ ActiveAdmin.register News do
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
       params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link,
-                                :published, :subcategory_id, :category_id,
+                                :published, :subcategory_id, :category_id, :is_featured,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
@@ -72,6 +72,7 @@ ActiveAdmin.register News do
       link_to news.title, admin_news_path(news)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
@@ -94,6 +95,7 @@ ActiveAdmin.register News do
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
+      f.input :is_featured
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
@@ -122,6 +124,7 @@ ActiveAdmin.register News do
       row :title
       row :author
       row :published
+      row :is_featured
       row :summary
       row :tags do
         ActiveAdminHelper.tags_names(ad.tags)

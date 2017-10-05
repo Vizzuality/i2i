@@ -49,6 +49,7 @@ class News < ApplicationRecord
   validate :subcategory_is_valid
 
   scope :published, -> {where(published: true)}
+  scope :featured, -> {where(is_featured: true)}
 
   def set_date
     self.date ||= DateTime.now

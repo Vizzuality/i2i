@@ -57,7 +57,7 @@ ActiveAdmin.register Blog do
 
     def permitted_params
       params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
-                    :issuu_link, :published, :custom_author, :subcategory_id, :category_id,
+                    :issuu_link, :published, :custom_author, :subcategory_id, :category_id, :is_featured,
                     tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
@@ -72,6 +72,7 @@ ActiveAdmin.register Blog do
     end
     column :summary
     column :published
+    column :is_featured
     column :updated_at
     column :date do |blog|
     	ActiveAdminHelper.format_date(blog.date)
@@ -97,6 +98,7 @@ ActiveAdmin.register Blog do
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
+      f.input :is_featured
       f.input :workstream
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -124,6 +126,7 @@ ActiveAdmin.register Blog do
       row :author
       row :custom_author
       row :published
+      row :is_featured
       row :workstream
       row :summary
       row :tags do
