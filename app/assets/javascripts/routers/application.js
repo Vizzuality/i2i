@@ -9,7 +9,7 @@ var Router = Backbone.Router.extend({
     // 'updates(/)': '_updatesPage',
     // 'updates/events(/)': '_eventsPage',
     // 'resources(/)(:category)': '_libraryPage',
-    'insights(/)': '_insightsPage',
+    'insights(/)(:category)': '_insightsPage',
     'about(/)': '_aboutPage',
     'terms-of-use(/)': '_termsOfUsePage'
   },
