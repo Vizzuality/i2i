@@ -9,7 +9,7 @@ class InsightsController < ApplicationController
       records << klass.where(published: true)
     end
 
-    @insights = records.flatten.sort { |a, b| b[:created_at] <=> a[:created_at] }
+    @insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
 
     if params[:category].present?
       if @category.present?

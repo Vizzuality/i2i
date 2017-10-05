@@ -71,6 +71,7 @@ ActiveAdmin.register Event do
       link_to event.title, admin_event_path(event)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
@@ -88,6 +89,7 @@ ActiveAdmin.register Event do
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
+      f.input :is_featured
       f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -122,6 +124,7 @@ ActiveAdmin.register Event do
       row :author
       row :custom_author
       row :published
+      row :is_featured
       row :url
       row :summary
       row :tags do

@@ -70,6 +70,7 @@ ActiveAdmin.register Blog do
     end
     column :summary
     column :published
+    column :is_featured
     column :updated_at
     column :date do |blog|
     	ActiveAdminHelper.format_date(blog.date)
@@ -119,6 +120,7 @@ ActiveAdmin.register Blog do
       row :author
       row :custom_author
       row :published
+      row :is_featured
       row :workstream
       row :summary
       row :tags do

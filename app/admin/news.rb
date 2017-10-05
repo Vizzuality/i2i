@@ -70,6 +70,7 @@ ActiveAdmin.register News do
       link_to news.title, admin_news_path(news)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
@@ -86,6 +87,7 @@ ActiveAdmin.register News do
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
+      f.input :is_featured
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
@@ -117,6 +119,7 @@ ActiveAdmin.register News do
       row :title
       row :author
       row :published
+      row :is_featured
       row :summary
       row :tags do
         ActiveAdminHelper.tags_names(ad.tags)
