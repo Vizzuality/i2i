@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   def entities
     [News, Event, Library, Blog]
+  end
 
   def meta(records)
     {
