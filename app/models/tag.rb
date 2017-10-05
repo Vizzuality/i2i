@@ -15,6 +15,9 @@ class Tag < ApplicationRecord
 
   has_many :tagged_items, :dependent => :destroy
   has_many :libraries, :through => :tagged_items, :source => :taggable, :source_type => 'Library'
+  has_many :events, :through => :tagged_items, :source => :taggable, :source_type => 'Event'
+  has_many :blogs, :through => :tagged_items, :source => :taggable, :source_type => 'Blog'
+  has_many :news, :through => :tagged_items, :source => :taggable, :source_type => 'News'
   validates :name, uniqueness: { case_sensitive: false }
 
   def should_generate_new_friendly_id?

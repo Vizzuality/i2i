@@ -58,6 +58,7 @@ ActiveAdmin.register Event do
     def permitted_params
       params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date, :published, :custom_author, :subcategory_id, :category_id,
                                  documents_attributes: [:file, :name, :id, :_destroy],
+                                 tagged_items_attributes: [:tag_id, :id, :_destroy],
                                  documented_items_attributes: [:document_id, :id, :_destroy]])
     end
   end
@@ -98,6 +99,9 @@ ActiveAdmin.register Event do
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.has_many :documents, allow_destroy: true, new_record: true, heading: 'Documents' do |a|
         a.input :name
         a.input :file, as: :file, allow_destroy: true, hint: a.object.file.present? ? \
@@ -127,6 +131,9 @@ ActiveAdmin.register Event do
       row :published
       row :url
       row :summary
+      row :tags do
+        ActiveAdminHelper.tags_names(ad.tags)
+      end
       row :content
       row :documents do
         if ad.documents.present?

@@ -32,6 +32,10 @@ class Blog < ApplicationRecord
   belongs_to :category, required: true
   accepts_nested_attributes_for :subcategory
 
+  has_many :tagged_items, :as => :taggable, :dependent => :destroy
+  has_many :tags, :through => :tagged_items
+  accepts_nested_attributes_for :tagged_items, allow_destroy: true
+
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date

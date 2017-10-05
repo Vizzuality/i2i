@@ -56,7 +56,9 @@ ActiveAdmin.register Blog do
     end
 
     def permitted_params
-      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date, :issuu_link, :published, :custom_author, :subcategory_id, :category_id])
+      params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
+                    :issuu_link, :published, :custom_author, :subcategory_id, :category_id,
+                    tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
 
@@ -99,6 +101,9 @@ ActiveAdmin.register Blog do
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.input :date, as: :date_picker
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.input :issuu_link
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
@@ -121,6 +126,9 @@ ActiveAdmin.register Blog do
       row :published
       row :workstream
       row :summary
+      row :tags do
+        ActiveAdminHelper.tags_names(ad.tags)
+      end
       row :content
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
