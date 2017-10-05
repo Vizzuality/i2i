@@ -1,2 +1,0 @@
-class Initiative < ApplicationRecord
-end
