@@ -19,4 +19,8 @@ class Subcategory < ApplicationRecord
   has_many :libraries, dependent: :nullify
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :category_id
+
+  def should_generate_new_friendly_id?
+    name_changed?
+  end
 end

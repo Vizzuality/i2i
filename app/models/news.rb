@@ -57,4 +57,8 @@ class News < ApplicationRecord
       errors.add(:invalid_subcategory, "- must belong to the same Category") if category.id != subcategory.category_id
     end
   end
+
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
 end
