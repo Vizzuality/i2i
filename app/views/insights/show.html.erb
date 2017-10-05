@@ -9,9 +9,9 @@
   </div>
 
   <% case @insight.record_type
-    when 'blog' %> <%= render partial: 'insights/show/blog', locals: { blog: @insight }%>
-    <% when 'event' %> <%= render partial: 'insights/show/event', locals: { event: @insight }%>
-    <% when 'news' %> <%= render partial: 'insights/show/news', locals: { news: @insight }%>
-    <% when 'library' %> <%= render partial: 'insights/show/library', locals: { library: @insight }%>
+    when 'blog' %> <%= render partial: 'shared/show/blog', locals: { blog: @insight }%>
+    <% when 'event' %> <%= render partial: 'shared/show/event', locals: { event: @insight }%>
+    <% when 'news' %> <%= render partial: 'shared/show/news', locals: { news: @insight }%>
+    <% when 'library' %> <%= render partial: 'shared/show/library', locals: { library: @insight }%>
   <% end %>
 </div>

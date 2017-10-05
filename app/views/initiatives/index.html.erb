@@ -1,0 +1,44 @@
+<% title 'Initiatives | i2i' %>
+
+<div class="l-library">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-comm.jpg') %>)">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
+
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row">
+          <div class="c-hero">
+            <div class="grid-l-8">
+              <h1 class="title -light -huge">i2i initiatives</h1>
+              <p class="subtitle">Initiatives lorem description.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row masonry-cards">
+          <% @featured_tags.each do |tag| %>
+            <div class="masonry-item grid-s-12 grid-m-6">
+              <article class="c-card">
+                <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="Measurement">
+                  <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= tag.name %></h4>
+                    <p><%= tag.description %></p>
+                  </div>
+                </a>
+              </article>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
