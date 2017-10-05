@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   get 'insights', to: redirect("/insights/#{Category.first.slug}")
 
   # Initiatives
+  get 'initiatives/:tag', to: 'initiatives#filter_index'
   get 'initiatives', to: 'initiatives#index'
 
   # Tools
