@@ -18,12 +18,18 @@
 #  slug               :string
 #  published          :boolean
 #  subcategory_id     :integer
+#  record_type        :string           default("news")
+#  category_id        :integer
 #
 
 class News < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
   self.table_name = 'news'
+
+  belongs_to :subcategory, required: false
+  belongs_to :category, required: true
+  accepts_nested_attributes_for :subcategory
 
   after_initialize :set_date
 
@@ -32,12 +38,21 @@ class News < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   validates_presence_of :title
+  validates :title, uniqueness: { case_sensitive: false }
   validates_length_of :title, maximum: 75
   validates_length_of :summary, maximum: 172, allow_blank: true
+
+  validate :subcategory_is_valid
 
   scope :published, -> {where(published: true)}
 
   def set_date
     self.date ||= DateTime.now
+  end
+
+  def subcategory_is_valid
+    if subcategory.present?
+      errors.add(:invalid_subcategory, "- must belong to the same Category") if category.id != subcategory.category_id
+    end
   end
 end

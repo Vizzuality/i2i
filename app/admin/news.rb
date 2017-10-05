@@ -5,7 +5,16 @@ ActiveAdmin.register News do
   config.per_page = 20
   config.sort_order = 'id_asc'
 
+  belongs_to :subcategory, optional: true
+
   filter :title
+
+  scope :all, default: true
+  Category.find_each do |c|
+    scope c.name do |s|
+      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+    end
+  end
 
   controller do
     def create
@@ -48,12 +57,15 @@ ActiveAdmin.register News do
 
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published])
+      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id, :category_id])
     end
   end
 
   index do
     selectable_column
+    column :category
+    column :subcategory
+
     column :title do |news|
       link_to news.title, admin_news_path(news)
     end
@@ -67,6 +79,16 @@ ActiveAdmin.register News do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
+      f.input :category_id,
+              as: :select,
+              collection: Category.all,
+              include_blank: false
+      f.input :subcategory_id,
+              as: :select,
+              collection:
+                option_groups_from_collection_for_select(Category.all,
+                                                         :subcategories, :name,
+                                                         :id, :name, f.object.subcategory_id)
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
@@ -87,6 +109,8 @@ ActiveAdmin.register News do
 
   show do |ad|
     attributes_table do
+      row :category
+      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
