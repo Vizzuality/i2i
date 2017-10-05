@@ -32,3 +32,8 @@ News.create(category_id: 1, subcategory_id: 1, title: 'news good', summary: 'thi
 News.create(category_id: 1, subcategory_id: 2, title: 'newsaround the globe good', summary: 'round ball', published: true)
 News.create(category_id: 2, subcategory_id: 2, title: 'bad things', summary: 'square ball', published: true)
 News.create(category_id: 2, subcategory_id: 3, title: 'just things', summary: 'square triangle', published: true)
+
+Tag.create(name: 'Good Stuff')
+Tag.create(name: 'Bad Things')
+Tag.create(name: 'Random')
+Tag.create(name: 'New Content')
