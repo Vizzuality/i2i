@@ -5,10 +5,9 @@ class InsightsController < ApplicationController
     subcategory = Subcategory.find_by(slug: params[:subcategory])
     records = []
 
-    records << News.where(published: true)
-    records << Blog.where(published: true)
-    records << Event.where(published: true)
-    records << Library.where(published: true)
+    entities.each do |klass|
+      records << klass.where(published: true)
+    end
 
     @insights = records.flatten.sort { |a, b| b[:created_at] <=> a[:created_at] }
 

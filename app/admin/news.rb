@@ -92,6 +92,9 @@ ActiveAdmin.register News do
         a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
       end
       f.input :date, as: :date_picker
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       f.input :issuu_link
