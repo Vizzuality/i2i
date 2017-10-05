@@ -1,5 +1,5 @@
 <article class="c-card">
-  <a href="<%= insights_show_path(news.record_type, news.slug, { entity: news.record_type }) %>" alt="<%= news.title %>">
+  <a href="<%= insights_show_path(news.category.slug, news.slug, { entity: news.record_type }) %>" alt="<%= news.title %>">
     <div class="picture" style="background-image: url(<%= news.image %>)"></div>
   </a>
   <div class="metadata">
@@ -8,7 +8,7 @@
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify news.date %></h4>
-    <%= link_to news.subcategory.name, insights_filter_index_path(news.record_type,
+    <%= link_to news.subcategory.name, insights_filter_index_path(news.category.slug,
     { subcategory: news.subcategory.slug, entity: news.record_type }),
     class: "subcategory" %>
   </footer>
