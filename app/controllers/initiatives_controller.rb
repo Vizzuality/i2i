@@ -1,0 +1,2 @@
+class InitiativesController < ApplicationController
+end
