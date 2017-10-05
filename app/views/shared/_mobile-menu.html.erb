@@ -8,11 +8,8 @@
           <li class="nav-item <% if controller.controller_name == 'data_portal' || controller.controller_name == 'report' %> -current <% end%>">
             <%= link_to 'Data portal', data_portal_path %>
           </li>
-          <li class="nav-item <% if current_page?(updates_path) || controller.controller_name == 'news' || controller.controller_name == 'events' || controller.controller_name == 'blogs' %> -current <% end%>">
-            <%= link_to 'News', updates_path %>
-          </li>
-          <li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>">
-            <%= link_to 'Resources', libraries_path %>
+          <li class="nav-item <% if current_page?(insights_path) %> -current <% end%>">
+            <%= link_to 'Insights', insights_path %>
           </li>
           <li class="nav-item <% if current_page?(tools_path) %> -current <% end%>">
             <%= link_to 'Tools', tools_path %>
