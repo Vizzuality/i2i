@@ -6,7 +6,8 @@
 
     events: {
       'click .js-download': '_onClickDownload',
-      'click .js-video': '_onClickVideo'
+      'click .js-video': '_onClickVideo',
+      'click .js-anchor': '_onClickAnchor'
     },
 
     /**
@@ -29,6 +30,19 @@
 
       new App.Component.YoutubeModal({
         link: link
+      });
+    },
+
+    /**
+     * Event handler executed when the user clicks on an anchor
+     * @param {Event} e
+     */
+    _onClickAnchor: function (e) {
+      e.preventDefault();
+      var target = e.currentTarget.getAttribute('href');
+
+      $('html, body').animate({
+        scrollTop: $(target).offset().top
       });
     }
   });

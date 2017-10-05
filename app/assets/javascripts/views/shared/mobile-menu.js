@@ -30,8 +30,6 @@
       this.el.classList.toggle('-open');
 
       this.body.classList.toggle('_no-scroll', this.el.classList.contains('-open'));
-
-
     }
 
   });
