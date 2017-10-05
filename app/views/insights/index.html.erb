@@ -18,18 +18,20 @@
       </div>
     </div>
 
-    <div class="l-library-content-selector">
-      <div class="wrapper">
-        <div class="row">
-          <div class="selectors-container grid-12">
-            <% @categories.each do |category| %>
-              <%= link_to category.name, insights_filter_index_path(category.slug),
-              class: "content-selector #{'-current' if @currentCategory == category.slug}" %>
-            <% end %>
+    <% if !@subcategory.present? %>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <% @categories.each do |category| %>
+                <%= link_to category.name, insights_filter_index_path(category.slug),
+                class: "content-selector #{'-current' if (@category && @category.slug == category.slug)}" %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <div class="l-card-grid">

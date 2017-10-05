@@ -9,6 +9,9 @@
       <% if news.has_attribute? 'date' %>
         <span class="date"><%= DateHelper.beautify news.date %></span>
       <% end %>
+      <%= link_to news.subcategory.name, insights_filter_index_path(news.record_type,
+      { subcategory: news.subcategory.slug, entity: news.record_type }),
+      class: "title -sea -small" %>
     </footer>
   </a>
 </article>

@@ -2,7 +2,7 @@ class InsightsController < ApplicationController
   def index
     @categories = Category.all
     @category = Category.find_by(slug: params[:category])
-    subcategory = Subcategory.find_by(slug: params[:subcategory])
+    @subcategory = Subcategory.find_by(slug: params[:subcategory])
     records = []
 
     records << News.where(published: true)
@@ -11,7 +11,6 @@ class InsightsController < ApplicationController
     records << Library.where(published: true)
 
     @insights = records.flatten.sort { |a, b| b[:created_at] <=> a[:created_at] }
-    @currentCategory = params[:category]
 
     if params[:category].present?
       if @category.present?
