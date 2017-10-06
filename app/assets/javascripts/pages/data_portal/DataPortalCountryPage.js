@@ -403,7 +403,6 @@
      */
     _renderFooter: function () {
       this.footerContainer.innerHTML = this.footerTemplate({
-        isTanzania: this.options.iso === 'TZA',
         isZambia: this.options.iso === 'ZMB', // remove this in the future
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
