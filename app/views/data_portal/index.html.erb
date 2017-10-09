@@ -13,33 +13,15 @@
             <div class="grid-l-8">
               <div class="row">
                 <h1 class="title -light -huge">i2i data portal</h1>
-                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world. Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
+                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                  Extract insights into new markets, including informal markets.
+                  Compare indicators across countries and time periods.
+                  <a href="#finscope-dataset" class="js-anchor">Financial diaries,</a>
+                  <a href="#financial-diaries-dataset" class="js-anchor">FinScope dataset.</a>
+                </p>
+                <a href=".l-country-list" class="c-button -white -big js-anchor">select country</a>
               </div>
             </div>
-            <!--<div class="grid-s-12 grid-l-8">
-              <div class="row">
-                <div class="l-data-stats">
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Datasets</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Household surveys</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Geospatial data</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>-->
           </div>
         </div>
       </div>
@@ -48,77 +30,70 @@
 
   <div class="l-content">
     <div class="wrapper">
-      <div class="l-card-grid">
-        <div class="row countries-list js-countries"></div>
-        <!--
+      <section class="l-dataset -finscope" id="finscope-dataset">
         <div class="row">
-          <div class="grid-s-12">
-            <div class="grid-footer">
-              <a href="#" class="c-button -medium -sea">Compare countries</a>
-            </div>
+          <div class="grid-s-12 grid-m-6">
+            <h3 class="title -big -dark">FinScope</h3>
+            <ul class="stats-list">
+              <li class"stats-item">
+                <h4 class="stats-title">Countries</h4>
+                <span class="quantity">7</span>
+              </li>
+              <li class"stats-item">
+                <h4 class="stats-title">Population Surveys</h4>
+                <span class="quantity">1081</span>
+              </li>
+            </ul>
+            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+            </p>
           </div>
         </div>
-        -->
-      </div>
+      </section>
+      <section class="l-dataset -financial-diaries" id="financial-diaries-dataset">
+        <div class="row">
+          <div class="grid-s-12 grid-m-6">
+            <h3 class="title -big -dark">Financial Diaries</h3>
+            <ul class="stats-list">
+              <li class"stats-item">
+                <h4 class="stats-title">Countries</h4>
+                <span class="quantity">7</span>
+              </li>
+              <li class"stats-item">
+                <h4 class="stats-title">Population Surveys</h4>
+                <span class="quantity">1081</span>
+              </li>
+            </ul>
+            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="l-country-list">
+        <header>
+          <h3 class="title -big -dark">Select country</h3>
+          <p>Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+            nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+          </p>
+        </header>
+        <div class="l-card-grid">
+          <div class="row">
+            <% @countries.each do |country| %>
+              <div class="grid-s-6 grid-m-6 grid-l-4">
+                <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
+                  <%= link_to 'Go to the {% country[:name] %} portal', data_portal_country_preview_path(country[:iso]) %>
+                  <span class="country-name"><%= country[:name] %></span>
+                </article>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </section>
     </div>
-
-    <!-- This section needs its data (recent activity list) to be defined  -->
-    <!-- <section class="recent-activity">
-      <h2 class="title -dark -big">Recent activity</h2>
-      <div class="l-card-grid">
-        <div class="row">
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_1.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 1</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_2.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 2</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_3.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 3</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_4.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 4</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-
-        </div>
-      </div>
-    </section> -->
   </div>
 </div>
 
