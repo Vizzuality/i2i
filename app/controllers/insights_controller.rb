@@ -23,6 +23,8 @@ class InsightsController < ApplicationController
       else
         @insights = []
       end
+    else
+      redirect_to insights_filter_index_path(Category.first)
     end
   end
 
