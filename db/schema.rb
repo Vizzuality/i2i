@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "blog"
     t.integer  "category_id"
-    t.integer  "subcategory_id"
     t.boolean  "is_featured",        default: false
   end
 
@@ -153,9 +153,9 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "event"
     t.integer  "category_id"
-    t.integer  "subcategory_id"
     t.boolean  "is_featured",        default: false
   end
 
@@ -237,11 +237,6 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.datetime "date"
   end
 
-  create_table "initiatives", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "libraries", force: :cascade do |t|
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -296,28 +291,10 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "news"
     t.integer  "category_id"
-    t.integer  "subcategory_id"
     t.boolean  "is_featured",        default: false
-  end
-
-  create_table "project_metadata", force: :cascade do |t|
-    t.string   "project_name"
-    t.string   "name"
-    t.string   "country_iso2"
-    t.string   "country_iso3"
-    t.string   "currency_singular"
-    t.string   "currency_plural"
-    t.string   "currency_code"
-    t.string   "currency_symbol"
-    t.integer  "num_households_in_hh"
-    t.integer  "num_households_in_mem"
-    t.integer  "member_level_interviews"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
   end
 
   create_table "project_metadata", force: :cascade do |t|
@@ -376,16 +353,6 @@ ActiveRecord::Schema.define(version: 20171005162258) do
     t.boolean  "is_featured", default: false
     t.text     "description"
     t.string   "image_url"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "token"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["token"], name: "index_users_on_token", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
