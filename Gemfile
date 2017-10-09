@@ -47,6 +47,7 @@ gem 'ckeditor', github: 'galetahub/ckeditor'
 
 gem 'enumerate_it'
 gem 'valid_url'
+gem 'twitter'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
