@@ -21,14 +21,28 @@
       new App.Page.DataPortalIndexPage();
     },
 
-    country: function (iso, year) {
+    country: function (iso, year, p) {
       // Don't forget to stop the router on each route
       // otherwise you'll break the browser's back button
       Backbone.history.stop();
 
+      var params = p || ''
+      .split('&')
+      .map(function (param) {
+        return {
+          name: param.split('=')[0],
+          value: param.split('=')[1]
+        };
+      })
+      .reduce(function (res, param) {
+        res[param.name] = param.value;
+        return res;
+      }, {});
+
       new App.Page.DataPortalCountryPage({
         iso: iso,
-        year: +year
+        year: +year,
+        dataset: params.dataset || null
       });
     },
 
