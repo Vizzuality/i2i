@@ -3,7 +3,6 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  // height: $card-height;
   margin: 0 0 $card-bottom-margin;
 
   background: $color-4;
@@ -30,18 +29,11 @@
 
   .metadata {
     width: 100%;
-    padding: 30px 30px 15px 30px;
+    padding: 25px;
     background-color: $color-4;
 
-    pointer-events: none;
-
-    .title {
-      line-height: 20px;
-      font-size: $font-size-regular;
-
-      &:not(:first-child) {
-        margin: 10px 0 0;
-      }
+    > .title {
+      line-height: 28px;
     }
 
     > * + p  {
@@ -57,53 +49,59 @@
       align-items: flex-end;
       justify-content: space-between;
       margin: 15px 0 0;
-
-      > a {
-        pointer-events: all;
-      }
     }
   }
 
   .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-top: 2px solid $border-color;
-    padding: 15px 30px;
+    padding: 15px 25px;
 
     .date {
       font-size: $font-size-small;
-      font-weight: bold;
+      font-weight: $font-weight-bold;
       color: rgba($color-5, .3);
     }
-  }
 
-  &.-horizontal {
-
-    @media #{$mq-tablet} {
-      height: 280px;
-
-      > a {
-        flex-direction: row;
-      }
-
-      .picture {
-        width: 50%;
-        height: 100%;
-      }
-
-      .metadata {
-        width: 50%;
-      }
-
-      &.-reverse {
-        > a {
-          flex-direction: row-reverse;
-        }
-      }
-    }
-
-    @media #{$mq-laptop} {
-      height: 190px;
+    .subcategory {
+      font-size: $font-size-small;
+      font-weight: $font-weight-bold;
+      color: $color-1;
+      letter-spacing: 1px;
     }
   }
+
+  // &.-horizontal {
+
+  //   @media #{$mq-tablet} {
+  //     height: 280px;
+
+  //     > a {
+  //       flex-direction: row;
+  //     }
+
+  //     .picture {
+  //       width: 50%;
+  //       height: 100%;
+  //     }
+
+  //     .metadata {
+  //       width: 50%;
+  //     }
+
+  //     &.-reverse {
+  //       > a {
+  //         flex-direction: row-reverse;
+  //       }
+  //     }
+  //   }
+
+  //   @media #{$mq-laptop} {
+  //     height: 190px;
+  //   }
+  // }
 
   &.-highlighted {
 

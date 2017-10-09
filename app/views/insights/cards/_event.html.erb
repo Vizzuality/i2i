@@ -1,0 +1,16 @@
+<article class="c-card">
+  <a href="<%= insights_show_path(event.category.slug, event.slug, { entity: event.record_type }) %>" alt="<%= event.title %>">
+    <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+  </a>
+  <div class="metadata">
+    <h4 class="title -dark -regular"><%= event.title %></h4>
+    <p><%= event.summary %></p>
+  </div>
+  <footer class="footer">
+    <h4 class="date"><%= DateHelper.beautify event.date %></h4>
+    <%= link_to event.subcategory.name, insights_filter_index_path(event.category.slug,
+    { subcategory: event.subcategory.slug, entity: event.record_type }),
+    class: "subcategory" %>
+  </footer>
+</article>
+

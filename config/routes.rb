@@ -11,8 +11,6 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
-  get 'community' => 'community#index'
-
   get 'data-portal' => 'data_portal#index'
   get 'data-portal/:iso/:year', to: 'data_portal#show',
                                 as: 'data_portal_y'
@@ -34,6 +32,19 @@ Rails.application.routes.draw do
     post   "/login"       => "sessions#create"
     delete "/logout"      => "sessions#destroy"
   end
+
+  # Insights
+  get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
+  get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  get 'insights', to: 'insights#index'
+
+  # Initiatives
+  get 'initiatives/:tag/:slug', to: 'initiatives#show', as: 'initiatives_show'
+  get 'initiatives/:tag', to: 'initiatives#filter_index', as: 'initiatives_filter_index'
+  get 'initiatives', to: 'initiatives#index'
+
+  # Tools
+  get 'tools' => 'tools#index'
 
   resources :household_transactions, only: [:index, :show]
   resources :household_member_transactions, only: [:index, :show]

@@ -33,8 +33,8 @@ ActiveAdmin.register Library do
     # end
 
     def permitted_params
-      params.permit library: [:title, :summary, :id, :published,
-                              :image, :date, :url_resource,
+      params.permit library: [:title, :summary, :id, :published, :category_id,
+                              :image, :date, :url_resource, :is_featured,
                               :video_url, :subcategory_id, :issuu_link,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
                               document_attributes: [:file, :name, :id, :_destroy],
@@ -45,12 +45,14 @@ ActiveAdmin.register Library do
 
   index do
     selectable_column
+    column :category
     column :subcategory
 
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
@@ -61,15 +63,19 @@ ActiveAdmin.register Library do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs 'Library details' do
+      f.input :category_id,
+              as: :select,
+              collection: Category.all,
+              include_blank: false
       f.input :subcategory_id,
               as: :select,
               collection:
                 option_groups_from_collection_for_select(Category.all,
                                                          :subcategories, :name,
-                                                         :id, :name, :id),
-              include_blank: false
+                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :published
+      f.input :is_featured
       f.input :summary
       f.input :date, as: :date_picker
       f.input :video_url
@@ -120,12 +126,14 @@ ActiveAdmin.register Library do
 
   show do |ad|
     attributes_table do
+      row :category
       row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
       row :title
       row :published
+      row :is_featured
       row :summary
       row :tags do
       	ActiveAdminHelper.tags_names(ad.tags)
