@@ -391,6 +391,7 @@ DEPENDENCIES
   enumerate_it
   friendly_id (~> 5.1.0)
   gon
+  http
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
