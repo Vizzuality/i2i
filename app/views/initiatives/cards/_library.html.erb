@@ -18,8 +18,7 @@
       <% if library.video_url.present?%>
         <a href="<%= library.video_url %>" class="title -sea -small js-video" target="_blank" rel="noopener">Watch video</a>
       <% end %>
-      <%= link_to library.subcategory.name, insights_filter_index_path(library.record_type,
-      { subcategory: library.subcategory.slug, entity: library.record_type }),
+      <%= link_to library.category.name, insights_filter_index_path(library.category.slug),
       class: "title -sea -small" %>
     </div>
   </div>
