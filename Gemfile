@@ -23,6 +23,7 @@ gem 'sparkpost_rails'
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'activerecord-import', '~> 0.15.0'
+gem 'http'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'

@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
+  # Data Portal
   get 'data-portal' => 'data_portal#index'
+  get 'data-portal/:iso' => 'data_portal#country_preview', as: 'data_portal_country_preview'
   get 'data-portal/:iso/:year', to: 'data_portal#show',
                                 as: 'data_portal_y'
   get 'data-portal/indicator', to: 'data_portal/indicator#show',

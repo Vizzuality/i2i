@@ -37,17 +37,20 @@
   }
 
   .l-content {
-    transform: translate(0, -50px);
-
-    @media #{$mq-laptop} {
-      margin: 0 0 45px;
-    }
 
     section {
-      margin: 40px 0 0;
+      &:not(:first-child) {
+        padding: 75px 0 0;
+        margin: 40px 0 0;
 
-      @media #{$mq-laptop} {
-        margin: 85px 0 0;
+
+        @media #{$mq-laptop} {
+          margin: 85px 0 0;
+        }
+      }
+
+      &.l-country-list {
+        border-top: 1px solid rgba($color-1, .2);
       }
 
       .l-card-grid {

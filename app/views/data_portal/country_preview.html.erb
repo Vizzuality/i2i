@@ -1,0 +1,64 @@
+<% title 'i2i data portal' %>
+
+<div class="l-preview-country">
+  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isCover: true }%>
+    </div>
+
+    <div class="l-title">
+      <div class="wrapper">
+        <div class="row">
+          <div class="c-hero">
+            <div class="grid-l-8">
+              <div class="row">
+                <h1 class="title -light -huge">Country Name</h1>
+                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                  Extract insights into new markets, including informal markets.
+                  Compare indicators across countries and time periods.
+                  <a href="#finscope-dataset" class="js-anchor">Financial diaries,</a>
+                  <a href="#financial-diaries-dataset" class="js-anchor">FinScope dataset.</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <section class="dataset">
+        <div class="row">
+          <div class="grid-s-12 grid-m-6">
+            <h3 class="title -big -dark">Financial Diaries</h3>
+            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+            </p>
+
+            <%= link_to "Discover Financial Diaries", data_portal_y_path(@country[:iso], @country[:latest_year], { dataset: 'financial-diaries' }),
+              class: "c-button -sea" %>
+          </div>
+        </div>
+      </section>
+      <section class="dataset">
+        <div class="row">
+          <div class="grid-s-12 grid-m-6">
+            <h3 class="title -big -dark">FinScope</h3>
+            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+            </p>
+
+            <%= link_to "Discover FinScope data", data_portal_y_path(@country[:iso], @country[:latest_year], { dataset: 'finscope-data' }),
+              class: "c-button -sea" %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'shared/contribute' %>
