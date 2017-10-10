@@ -5,7 +5,7 @@ class DataPortalController < ApplicationController
     @countries = FinscopeApi.get_countries
   end
 
-  def countryPreview
+  def country_preview
     @country = FinscopeApi.get_countries.find{ |c| c[:iso] == params[:iso] }
   end
 
