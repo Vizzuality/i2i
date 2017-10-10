@@ -2,28 +2,13 @@ class SearchesController < ApplicationController
   def index
     term = params[:term]
 
-    news = News.where(published: true)
-               .joins(:category)
-               .joins(:tags)
-               .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) like ? OR lower(tags.name) ?",
-                      "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
-    blogs = Blog.where(published: true)
-                .joins(:category)
-                .joins(:tags)
-                .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) like ? OR lower(tags.name) ?",
-                       "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
-    events = Event.where(published: true)
-                  .joins(:category)
-                  .joins(:tags)
-                  .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) like ? OR lower(tags.name) ?",
-                         "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
-    libraries = Library.where(published: true)
-                       .joins(:category)
-                       .joins(:tags)
-                       .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) like ? OR lower(tags.name) ?",
-                              "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+    news = News.search_fields(term)
+    blogs = Blog.search_fields(term)
+    events = Event.search_fields(term)
+    libraries = Library.search_fields(term)
 
     @categories = Category.all
     @records = (news + blogs + events + libraries)
+    debugger
   end
 end
