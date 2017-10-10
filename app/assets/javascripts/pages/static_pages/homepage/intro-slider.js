@@ -1,7 +1,7 @@
 (function (App) {
-  App.View.HomePageSlider = Backbone.View.extend({
+  App.View.HomePageIntroSlider = Backbone.View.extend({
 
-    el: '.rslides',
+    el: '.js-intro-slider',
 
     options: {
       auto: true,

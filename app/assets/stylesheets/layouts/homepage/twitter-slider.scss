@@ -1,0 +1,95 @@
+.twitter-slider {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+
+  .slidelist {
+    width: 100%;
+  }
+
+  .slide {
+    display: flex;
+    position: relative;
+    width: 100%;
+    background-color: $color-4;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .tweet {
+    flex: 1;
+    padding: 37px 31px 44px 50px;
+  }
+
+  .user {
+    display: block;
+    margin-top: 20px;
+    color: $color-1;
+    font-family: $font-family-1;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-bold;
+  }
+
+  .date {
+    display: block;
+    margin-top: 10px;
+    color: $color-6;
+    font-family: $font-family-1;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-bold;
+    opacity: .3;
+  }
+
+  .text {
+    margin-top: 22px;
+    color: $color-6;
+    font-family: $font-family-1;
+    font-size: 18px;
+    font-weight: $font-weight-medium;
+    line-height: 28px;
+  }
+
+  .quote {
+ 
+  }
+
+  .image {
+    width: 40%;
+    min-height: 350px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  // Selector to align with rslider library naming convention
+  .buttons_nav { 
+    position: absolute;
+    top: 50%;
+    left: -25px;
+    width: 50px;
+    height: 50px;
+    margin-top: -25px;
+    border-radius: 50%;
+    background-color: $color-1;
+    background-image: url(../images/icons/arrow-previous.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    color: $color-4;
+    text-decoration: none;
+    text-indent: -9999px;
+    opacity: 1;
+    overflow: hidden;
+    z-index: 3;
+
+    &.next {
+      right: -25px;
+      left: auto;
+      background-image: url(../images/icons/arrow-next.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &.prev {
+
+    }
+  }
+}
