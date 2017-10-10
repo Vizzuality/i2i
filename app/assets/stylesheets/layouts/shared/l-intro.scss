@@ -1,20 +1,29 @@
 .l-intro {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 
-  > .wrapper:first-child {
-    position: fixed;
-    width: 100%;
+  > .nav {
+    position: absolute;
     top: 0;
+    right: 0;
     left: 0;
-
-    z-index: 11;
+    z-index:  4;
   }
 
-  @include translate_content;
+  > .fixed-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: $color-1;
+    z-index:  0;
+  }
 
-  background-color: $color-1;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  > .content {
+    position: relative;
+    background-color: $color-1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
 }

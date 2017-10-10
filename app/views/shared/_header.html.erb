@@ -1,8 +1,9 @@
 <% isLarge ||= false %>
+<% isCover ||= false %>
 
 <div class="c-header <% if isCover.present? %>-cover<% end %> <% if isLarge %>-large<% end %>">
   <div class="container">
-  	<div class="app-logo">
+  	<div class="c-app-logo <% if isLarge %>-large<% end %>">
   		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path %>
   	</div>
     <nav class="c-nav" role="navigation">
@@ -24,12 +25,10 @@
         </li>
       </ul>
     </nav>
-
     <button class="hamburguer js-btn-mobile-menu">
       <span class="ingredient"></span>
       <span class="ingredient"></span>
       <span class="ingredient"></span>
     </button>
-
   </div>
 </div>

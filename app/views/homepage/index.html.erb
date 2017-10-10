@@ -2,12 +2,20 @@
 
 <div class="l-homepage">
   <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true, isLarge: true } %>
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true, isLarge: true } %>
+      </div>
     </div>
-    <%= render partial: 'homepage/cover_slider' %>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header' %>
+      </div>
+    </div>
+    <div class="content">
+      <%= render partial: 'homepage/cover_slider' %>
+    </div>
   </div>
-
   <div class="l-content">
     <div class="l-featured-insights">
       <div class="wrapper">
