@@ -11,7 +11,7 @@
           <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
         <% end %>
       <% end %>
-      <% if library.issuu_link.present? and library.subcategory.name === 'Publications' %>
+      <% if library.issuu_link.present? and library.category.name === 'Publications' %>
         <a href="<%= library.issuu_link %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">View</a>
       <% end %>
       <% if library.video_url.present?%>
