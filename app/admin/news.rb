@@ -1,18 +1,15 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register News do
-
   config.per_page = 20
   config.sort_order = 'id_asc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
@@ -114,7 +111,6 @@ ActiveAdmin.register News do
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
-      row :subcategory
       row :title
       row :author
       row :published

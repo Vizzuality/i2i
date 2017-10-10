@@ -1,23 +1,20 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register Blog do
-
   config.per_page = 20
   config.sort_order = 'date_desc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
   controller do
-    def create
+    def created_at
       if params[:commit] == 'Preview'
         if permitted_params['blog']['image'].present?
           image = permitted_params['blog']['image']
@@ -73,11 +70,10 @@ ActiveAdmin.register Blog do
     column :is_featured
     column :updated_at
     column :date do |blog|
-    	ActiveAdminHelper.format_date(blog.date)
+      ActiveAdminHelper.format_date(blog.date)
     end
     actions
   end
-
 
   form multipart: true do |f|
     f.semantic_errors *f.object.errors.keys
@@ -112,7 +108,6 @@ ActiveAdmin.register Blog do
     f.actions
   end
 
-
   show do |ad|
     attributes_table do
       row :category
@@ -128,7 +123,7 @@ ActiveAdmin.register Blog do
       end
       row :content
       row :date do
-      	ActiveAdminHelper.format_date(ad.date)
+        ActiveAdminHelper.format_date(ad.date)
       end
       row :issuu_link
       row :image do
@@ -137,5 +132,4 @@ ActiveAdmin.register Blog do
       # Will display the image on show object page
     end
   end
-
 end

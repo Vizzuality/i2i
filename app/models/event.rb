@@ -18,9 +18,9 @@
 #  slug               :string
 #  published          :boolean
 #  custom_author      :string
-#  subcategory_id     :integer
 #  record_type        :string           default("event")
 #  category_id        :integer
+#  is_featured        :boolean          default(FALSE)
 #
 
 class Event < ApplicationRecord
@@ -48,19 +48,12 @@ class Event < ApplicationRecord
   validates_length_of :summary, maximum: 172, allow_blank: true
   validates :url, url: true, if: 'url.present?'
 
-  validate :subcategory_is_valid
 
   scope :published, -> {where(published: true)}
   scope :featured, -> {where(is_featured: true)}
 
   def set_date
     self.date ||= DateTime.now
-  end
-
-  def subcategory_is_valid
-    if subcategory.present?
-      errors.add(:invalid_subcategory, "- must belong to the same Category") if category.id != subcategory.category_id
-    end
   end
 
   def should_generate_new_friendly_id?
