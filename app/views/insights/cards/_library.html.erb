@@ -21,8 +21,7 @@
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify library.date %></h4>
-    <%= link_to library.category.name, insights_filter_index_path(library.category.slug),
-    class: "subcategory" %>
+    <span class="card-category"><%= library.category.name %></span>
   </footer>
 </article>
 
