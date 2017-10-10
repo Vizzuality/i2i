@@ -5,6 +5,7 @@ class Updates::EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.published.order(date: :DESC)
+    @categories = Category.all
   end
 
   # GET /event/1

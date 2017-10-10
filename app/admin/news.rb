@@ -78,7 +78,6 @@ ActiveAdmin.register News do
     actions
   end
 
-
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
@@ -98,6 +97,9 @@ ActiveAdmin.register News do
       f.input :is_featured
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
+      f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
+        a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
+      end
       f.input :date, as: :date_picker
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
         a.input :tag_id, as: :select, collection: Tag.all, allow_destroy: true
@@ -121,6 +123,7 @@ ActiveAdmin.register News do
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
+      row :subcategory
       row :title
       row :author
       row :published

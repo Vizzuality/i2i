@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
 
+  get 'search' => 'searches#index'
+
   resource :contacts, only: :create
 
   scope :format => true, :constraints => { :format => 'json' } do
@@ -52,6 +54,15 @@ Rails.application.routes.draw do
   resources :household_member_transactions, only: [:index, :show]
   resources :category_usages, only: [:index, :show]
   resources :project_metadata, only: [:index, :show]
+
+  namespace :api do
+    namespace :v1 do
+      resources :household_transactions, only: [:index, :show]
+      resources :household_member_transactions, only: [:index, :show]
+      resources :category_usages, only: [:index, :show]
+      resources :project_metadata, only: [:index, :show]
+    end
+  end
 
   namespace :updates do
     get 'news/preview', to: 'news#preview'
