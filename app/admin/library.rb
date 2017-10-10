@@ -1,18 +1,15 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register Library do
-
   config.per_page = 20
   config.sort_order = 'id_asc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
@@ -35,7 +32,7 @@ ActiveAdmin.register Library do
     def permitted_params
       params.permit library: [:title, :summary, :id, :published, :category_id,
                               :image, :date, :url_resource, :is_featured,
-                              :video_url, :subcategory_id, :issuu_link,
+                              :video_url, :issuu_link,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
                               document_attributes: [:file, :name, :id, :_destroy],
                               documented_item_attributes: [:document_id, :id, :_destroy]
@@ -46,8 +43,6 @@ ActiveAdmin.register Library do
   index do
     selectable_column
     column :category
-    column :subcategory
-
     column :title do |library|
       link_to library.title, admin_library_path(library)
     end
@@ -67,12 +62,6 @@ ActiveAdmin.register Library do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :published
       f.input :is_featured
@@ -127,7 +116,6 @@ ActiveAdmin.register Library do
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
@@ -150,5 +138,4 @@ ActiveAdmin.register Library do
       end
     end
   end
-
 end

@@ -1,23 +1,20 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register Blog do
-
   config.per_page = 20
   config.sort_order = 'date_desc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
   controller do
-    def create
+    def created_at
       if params[:commit] == 'Preview'
         if permitted_params['blog']['image'].present?
           image = permitted_params['blog']['image']
@@ -57,7 +54,7 @@ ActiveAdmin.register Blog do
 
     def permitted_params
       params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
-                    :issuu_link, :published, :custom_author, :subcategory_id, :category_id, :is_featured,
+                    :issuu_link, :published, :custom_author, :category_id, :is_featured,
                     tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
@@ -65,8 +62,6 @@ ActiveAdmin.register Blog do
   index do
     selectable_column
     column :category
-    column :subcategory
-
     column :title do |blog|
       link_to blog.title, admin_blog_path(blog)
     end
@@ -75,11 +70,10 @@ ActiveAdmin.register Blog do
     column :is_featured
     column :updated_at
     column :date do |blog|
-    	ActiveAdminHelper.format_date(blog.date)
+      ActiveAdminHelper.format_date(blog.date)
     end
     actions
   end
-
 
   form multipart: true do |f|
     f.semantic_errors *f.object.errors.keys
@@ -88,12 +82,6 @@ ActiveAdmin.register Blog do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
@@ -120,11 +108,9 @@ ActiveAdmin.register Blog do
     f.actions
   end
 
-
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :title
       row :author
       row :custom_author
@@ -137,7 +123,7 @@ ActiveAdmin.register Blog do
       end
       row :content
       row :date do
-      	ActiveAdminHelper.format_date(ad.date)
+        ActiveAdminHelper.format_date(ad.date)
       end
       row :issuu_link
       row :image do
@@ -146,5 +132,4 @@ ActiveAdmin.register Blog do
       # Will display the image on show object page
     end
   end
-
 end

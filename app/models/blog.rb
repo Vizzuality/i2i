@@ -19,19 +19,16 @@
 #  slug               :string
 #  published          :boolean
 #  custom_author      :string
-#  subcategory_id     :integer
 #  record_type        :string           default("blog")
 #  category_id        :integer
+#  is_featured        :boolean          default(FALSE)
 #
 
 class Blog < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
 
-  belongs_to :subcategory, required: false
   belongs_to :category, required: true
-
-  accepts_nested_attributes_for :subcategory
 
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
@@ -48,19 +45,11 @@ class Blog < ApplicationRecord
   validates_length_of :title, maximum: 125
   validates_length_of :summary, maximum: 172, allow_blank: true
 
-  validate :subcategory_is_valid
-
   scope :published, -> {where(published: true)}
   scope :featured, -> {where(is_featured: true)}
 
   def set_date
     self.date ||= DateTime.now
-  end
-
-  def subcategory_is_valid
-    if subcategory.present?
-      errors.add(:invalid_subcategory, "- must belong to the same Category") if category.id != subcategory.category_id
-    end
   end
 
   def should_generate_new_friendly_id?

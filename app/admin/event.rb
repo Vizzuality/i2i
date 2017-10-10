@@ -1,18 +1,15 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register Event do
-
   config.per_page = 20
   config.sort_order = 'id_asc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
@@ -57,7 +54,7 @@ ActiveAdmin.register Event do
 
     def permitted_params
       params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date,
-                                 :published, :custom_author, :subcategory_id, :category_id, :is_featured,
+                                 :published, :custom_author, :category_id, :is_featured,
                                  documents_attributes: [:file, :name, :id, :_destroy],
                                  tagged_items_attributes: [:tag_id, :id, :_destroy],
                                  documented_items_attributes: [:document_id, :id, :_destroy]])
@@ -67,8 +64,6 @@ ActiveAdmin.register Event do
   index do
     selectable_column
     column :category
-    column :subcategory
-
     column :title do |event|
       link_to event.title, admin_event_path(event)
     end
@@ -87,12 +82,6 @@ ActiveAdmin.register Event do
               as: :select,
               collection: Category.all,
               include_blank: false
-      f.input :subcategory_id,
-              as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, f.object.subcategory_id)
       f.input :title
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :custom_author, placeholder: 'This will take priority over author.'
@@ -124,7 +113,6 @@ ActiveAdmin.register Event do
   show do |ad|
     attributes_table do
       row :category
-      row :subcategory
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
@@ -154,5 +142,4 @@ ActiveAdmin.register Event do
       # Will display the image on show object page
     end
   end
-
 end
