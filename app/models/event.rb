@@ -52,6 +52,14 @@ class Event < ApplicationRecord
   scope :published, -> {where(published: true)}
   scope :featured, -> {where(is_featured: true)}
 
+  scope :search_fields, ->(term) do
+    where(published: true)
+      .joins(:category)
+      .joins(:tags)
+      .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
+             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+  end
+
   def set_date
     self.date ||= DateTime.now
   end
