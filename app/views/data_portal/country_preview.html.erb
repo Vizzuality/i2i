@@ -38,7 +38,7 @@
               nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
             </p>
 
-            <%= link_to "Discover Financial Diaries", data_portal_y_path(@country[:iso], @country[:latest_year], { dataset: 'financial-diaries' }),
+            <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso], @country[:latest_year]),
               class: "c-button -sea" %>
           </div>
         </div>
@@ -52,7 +52,7 @@
               nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
             </p>
 
-            <%= link_to "Discover FinScope data", data_portal_y_path(@country[:iso], @country[:latest_year], { dataset: 'finscope-data' }),
+            <%= link_to "Discover FinScope data", data_portal_y_path(@country[:iso], @country[:latest_year]),
               class: "c-button -sea" %>
           </div>
         </div>
