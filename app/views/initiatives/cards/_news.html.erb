@@ -8,8 +8,7 @@
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify news.date %></h4>
-    <%= link_to news.category.name, initiatives_filter_index_path(news.record_type),
-    class: "subcategory" %>
+    <span class="card-category"><%= news.category.name %></span>
   </footer>
 </article>
 
