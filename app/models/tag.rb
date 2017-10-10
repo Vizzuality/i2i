@@ -2,11 +2,14 @@
 #
 # Table name: tags
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  slug       :string
+#  id          :integer          not null, primary key
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  slug        :string
+#  is_featured :boolean          default(FALSE)
+#  description :text
+#  image_url   :string
 #
 
 class Tag < ApplicationRecord

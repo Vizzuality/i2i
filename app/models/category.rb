@@ -13,8 +13,7 @@
 class Category < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
-
-  has_many :subcategories
+  
   validates_presence_of :name
   validates_uniqueness_of :name
 
