@@ -14,12 +14,16 @@ Rails.application.routes.draw do
   # Data Portal
   get 'data-portal' => 'data_portal#index'
   get 'data-portal/:iso' => 'data_portal#country_preview', as: 'data_portal_country_preview'
+  # Data Portal - FinScope Data
   get 'data-portal/:iso/:year', to: 'data_portal#show',
                                 as: 'data_portal_y'
   get 'data-portal/indicator', to: 'data_portal/indicator#show',
                                as: 'data_portal_indicator'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
+  # Data Portal - Financial Diaries
+  get 'data-portal/:iso/:year/financial-diaries', to: 'data_portal_financial_diaries#index',
+                                                  as: 'data_portal_financial_diaries'
 
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
