@@ -39,14 +39,6 @@ class Event < ApplicationRecord
   has_many :documented_items, :as => :documentable, :dependent => :destroy
   accepts_nested_attributes_for :documented_items, allow_destroy: true
 
-  has_many :tagged_items, :as => :taggable, :dependent => :destroy
-  has_many :tags, :through => :tagged_items
-  accepts_nested_attributes_for :tagged_items, allow_destroy: true
-
-  has_many :tagged_items, :as => :taggable, :dependent => :destroy
-  has_many :tags, :through => :tagged_items
-  accepts_nested_attributes_for :tagged_items, allow_destroy: true
-
   after_initialize :set_date
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
