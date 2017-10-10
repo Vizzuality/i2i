@@ -8,8 +8,7 @@
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify blog.date %></h4>
-    <%= link_to blog.subcategory.name, insights_filter_index_path(blog.category.slug,
-    { subcategory: blog.subcategory.slug, entity: blog.record_type }),
+    <%= link_to blog.category.name, insights_filter_index_path(blog.category.slug),
     class: "subcategory" %>
   </footer>
 </article>
