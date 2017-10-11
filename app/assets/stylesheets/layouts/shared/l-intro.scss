@@ -96,7 +96,9 @@
           }
 
           .established-list {
-            margin: 5px 0 0;
+            display: flex;
+            align-items: center;
+            margin: 10px 0 0;
 
             > .established-item {
               &:not(:first-child) {
