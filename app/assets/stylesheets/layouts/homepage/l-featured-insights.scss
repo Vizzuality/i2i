@@ -1,0 +1,21 @@
+.l-featured-insights {
+  margin: 0 0 40px;
+
+  .title {
+    margin: 0 0 40px;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 0;
+
+    > .c-button {
+      width: 100%;
+
+      @media #{$mq-tablet} {
+        width: auto;
+      }
+    }
+  }
+}

@@ -1,25 +1,33 @@
 <% title 'i2i data portal' %>
 
 <div class="l-data-portal">
-  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true }%>
-    </div>
-
-    <div class="l-title">
+  <div class="l-intro">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="c-hero">
-            <div class="grid-l-8">
-              <div class="row">
-                <h1 class="title -light -huge">i2i data portal</h1>
-                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
-                  Extract insights into new markets, including informal markets.
-                  Compare indicators across countries and time periods.
-                  <a href="#finscope-dataset" class="js-anchor">Financial diaries,</a>
-                  <a href="#financial-diaries-dataset" class="js-anchor">FinScope dataset.</a>
-                </p>
-                <a href=".l-country-list" class="c-button -white -big js-anchor">select country</a>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header' %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <div class="row">
+                  <h1 class="title -light -huge">i2i data portal</h1>
+                  <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                    Extract insights into new markets, including informal markets.
+                    Compare indicators across countries and time periods.
+                    <a href="#finscope-dataset" class="js-anchor">Financial diaries,</a>
+                    <a href="#financial-diaries-dataset" class="js-anchor">FinScope dataset.</a>
+                  </p>
+                  <a href=".l-country-list" class="c-button -white -big js-anchor">select country</a>
+                </div>
               </div>
             </div>
           </div>
@@ -27,7 +35,6 @@
       </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="wrapper">
       <section class="l-dataset -finscope" id="finscope-dataset">

@@ -1,0 +1,19 @@
+<div class="twitter-slider">
+  <ul class="js-twitter-slider slidelist">
+    <% @tweets.each do |tweet| %>
+      <li class="slide">
+        <div class="tweet">
+          <a class="user" href="https://twitter.com/<%= tweet.user.name %>">@<%= tweet.user.name %></a>
+          <time class="date" datetime="<%= tweet.created_at.strftime("%F") %>">
+            <%= tweet.created_at.strftime("%d %b %Y") %>
+          </time>
+          <p class="text">
+            <%= tweet.text %>
+          </p>
+        </div>
+        <div class="image" style="background-image: url(/images/original/missing.png)">
+        </div>
+      </li>
+    <% end %>    
+  </ul>  
+</div>

@@ -1,37 +1,44 @@
 <% title 'Insights | i2i' %>
 
 <div class="l-library">
-  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-library.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true }%>
-    </div>
-    <div class="l-title">
+  <div class="l-intro">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="c-hero">
-            <div class="grid-l-6">
-              <h1 class="title -light -huge">insights</h1>
-              <p class="subtitle">The latest research in financial inclusion data, measurement, and client insights, produced by i2i, our partners, and other thought leaders in the field.</p>
-              </div>
-            </div>
-        </div>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
-
-    <div class="l-library-content-selector">
+    <div class="fixed-nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="selectors-container grid-12">
-            <% @categories.each do |category| %>
-              <%= link_to category.name, insights_filter_index_path(category.slug),
-              class: "content-selector #{'-current' if (@category && @category.slug == category.slug)}" %>
-            <% end %>
+        <%= render partial: 'shared/header' %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-library.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-6">
+                <h1 class="title -light -huge">insights</h1>
+                <p class="subtitle">The latest research in financial inclusion data, measurement, and client insights, produced by i2i, our partners, and other thought leaders in the field.</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <% @categories.each do |category| %>
+                <%= link_to category.name, insights_filter_index_path(category.slug),
+                class: "content-selector #{'-current' if (@category && @category.slug == category.slug)}" %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="l-card-grid">
       <div class="wrapper">

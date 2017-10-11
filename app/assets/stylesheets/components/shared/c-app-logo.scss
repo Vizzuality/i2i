@@ -1,0 +1,24 @@
+.c-app-logo {
+  a {
+    display: inline-block;
+
+    > img {
+      width: 128px;
+      height: 52px;
+
+      @media #{$mq-laptop} {
+        width: 96px;
+        height: 38px;
+      }
+    }
+  }
+
+  &.-large {
+    a > img {
+      @media #{$mq-tablet} {
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+}

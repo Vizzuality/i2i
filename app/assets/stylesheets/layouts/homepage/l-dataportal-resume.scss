@@ -1,0 +1,129 @@
+.l-dataportal-resume {
+  padding: 25px 0 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background: asset-url('homepage/data_portal_resume_bg.png');
+  background-size: cover;
+
+  @media#{$mq-tablet} {
+    padding: 25px 0 25px;
+  }
+
+  .title {
+    display: none;
+
+    @media #{$mq-tablet} {
+      display: block;
+      margin: 0 0 40px;
+    }
+  }
+
+  .stats-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .column {
+      &:not(:first-child) {
+        .stats-item {
+          @media#{$mq-tablet} {
+            border-left: 1px solid rgba($color-4  , .5);
+          }
+        }
+      }
+    }
+
+    .stats-item {
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 35px;
+
+      @media#{$mq-tablet} {
+        align-items: center;
+        margin: 0;
+      }
+
+      @media #{$mq-laptop} {
+        align-items: flex-start;
+        padding: 0 0 0 15px;
+      }
+
+      > .data {
+        display: flex;
+        align-items: center;
+        margin: 0 0 15px;
+
+        @media #{$mq-laptop} {
+          flex-direction: row-reverse;
+        }
+
+        > .quantity {
+          font-size: $font-size-big;
+          font-weight: $font-weight-bold;
+          color: $color-4;
+
+          & + .icon {
+            margin: 0 0 0 5px;
+          }
+
+          @media #{$mq-laptop} {
+            margin: 0 0 0 10px;
+
+            & + .icon {
+              margin: 0;
+            }
+          }
+        }
+
+        > .icon {
+          fill: $color-4;
+        }
+      }
+
+      > .legend {
+        display: flex;
+        flex-direction: column;
+
+        @media#{$mq-tablet} {
+          align-items: center;
+        }
+
+        @media #{$mq-laptop} {
+          align-items: flex-start;
+          padding: 0 0 0 40px;
+        }
+
+        > .legend-title {
+          font-size: $font-size-regular;
+          font-weight: $font-weight-bold;
+          color: $color-2;
+        }
+
+        > .legend-description {
+          margin: 5px 0 0;
+          font-weight: $font-weight-light;
+          color: $color-4;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 0;
+
+    @media #{$mq-tablet} {
+      margin: 40px 0 0;
+    }
+
+    > .c-button {
+      width: 100%;
+
+      @media #{$mq-tablet} {
+        width: auto;
+      }
+    }
+  }
+};

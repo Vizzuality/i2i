@@ -6,7 +6,8 @@
     initialize: function () {
       this._setVars();
 
-      this._setAnchors();
+      new App.View.HomePageIntroSlider();
+      new App.View.HomePageTwitterSlider();
     },
 
     _setVars: function () {

@@ -2,54 +2,102 @@
 
 <div class="l-homepage">
   <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true, isLarge: true } %>
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true, isLarge: true } %>
+      </div>
     </div>
-    <div class="wrapper">
-      <div class="c-hero">
-        <h1 class="title -light -huge">Unleashing the power of data for financial inclusion</h1>
-        <p class="subtitle">A platform for
-          <a class="js-anchor" href="#governments">governments</a>,
-          <a class="js-anchor" href="#researchers">researchers</a>
-          and
-          <a class="js-anchor" href="#fsp-tech">financial service providers</a>.
-        </p>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header' %>
+      </div>
+    </div>
+    <div class="content">
+      <%= render partial: 'homepage/cover_slider' %>
+    </div>
+  </div>
+  <div class="l-content">
+    <div class="l-featured-insights">
+      <div class="wrapper">
+        <h2 class="title -big -center -dark">News and insights</h2>
+        <div class="row">
+          <%= render partial: 'shared/cards', locals: { route: 'insights' }%>
+        </div>
+        <div class="btn-container">
+          <%= link_to 'See more', insights_path, class: 'c-button -sea -big' %>
+        </div>
+      </div>
+    </div>
+    <div class="l-dataportal-resume">
+      <div class="wrapper">
+        <div class="row">
+          <h2 class="title -big -center -light">Data portal</h2>
+          <div class="stats-list">
+              <div class="column grid-s-5 grid-m-3">
+                <div class="stats-item">
+                  <div class="data">
+                    <span class="quantity">17</span>
+                    <svg class="icon icon-countries"><use xlink:href="#icon-countries"></use></svg>
+                  </div>
+                  <div class="legend">
+                    <span class="legend-title">Countries</span>
+                    <span class="legend-description">Across Africa and Asia</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column grid-s-5 grid-m-3">
+                <div class="stats-item">
+                  <div class="data">
+                    <span class="quantity">54</span>
+                    <svg class="icon icon-finscope"><use xlink:href="#icon-finscope"></use></svg>
+                  </div>
+                  <div class="legend">
+                    <span class="legend-title">FinScope</span>
+                    <span class="legend-description">Datasets</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column grid-s-5 grid-m-3">
+                <div class="stats-item">
+                  <div class="data">
+                    <span class="quantity">08</span>
+                    <svg class="icon icon-financial"><use xlink:href="#icon-financial"></use></svg>
+                  </div>
+                  <div class="legend">
+                    <span class="legend-title">Financial Diaries</span>
+                    <span class="legend-description">Datasets</span>
+                  </div>
+                </div>
+              </div>
+              <div class="column grid-s-5 grid-m-3">
+                <div class="stats-item">
+                  <div class="data">
+                    <span class="quantity">08</span>
+                    <svg class="icon icon-geospatial"><use xlink:href="#icon-geospatial"></use></svg>
+                  </div>
+                  <div class="legend">
+                    <span class="legend-title">Geospatial</span>
+                    <span class="legend-description">Datasets</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="btn-container">
+            <%= link_to 'Discover data', data_portal_path, class: 'c-button -white -big' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="l-twitter">
+      <div class="wrapper">
+        <header>
+          <h2 class="title -big -dark">i2i on Twitter</h2>
+          <p class="twitter-description">Ultricies proin congue accumsan eleifend phasellus orci, mattis bibendum neque facilisi gravida, ac risus rutrum iaculis eget.</p>
+        </header>
+        <%= render partial: 'homepage/twitter_slider' %>
       </div>
     </div>
   </div>
-
-  <div class="homepage-section -government">
-    <div class="wrapper">
-      <div id="fsp-tech" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">Financial service providers:</h3>
-        <p>Data is increasingly important for all types of market players including banks, fintechs, payment providers, credit providers, insurance companies, MFIs, and cooperatives, among others. This data portal provides new tools and datasets to help market players deepen their understanding of client behaviour and needs, and identify new market opportunities.
-        </p>
-        <a href="<%= data_portal_path %>" class="c-button">Select a country</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="homepage-section -researcher">
-    <div class="wrapper">
-      <div id="governments" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">Governments, policymakers and regulators:</h3>
-        <p>Data is increasingly used to inform, measure and evaluate financial inclusion policies. This data portal offers data and indicators for policymakers and regulators to compare their jurisdiction with their peers, identify under and un-served populations that require interventions, and understand the state of financial inclusion.
-        </p>
-        <a href="<%= data_portal_path %>" class="c-button">Customise indicators</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="homepage-section -fsp-tech">
-    <div class="wrapper">
-      <div id="researchers" class="c-card-highlight -homepage">
-        <h3 class="title -dark -medium">Researchers:</h3>
-        <p>Data is a critical input for researchers looking to deepen their understanding of financial inclusion and its ultimate impact on communities and households. This data portal provides a one-stop-shop for your financial-inclusion-data needs by gathering, cleaning, and making previously inaccessible datasets available to download and interact with.
-        </p>
-        <a href="<%= data_portal_path %>" class="c-button">Draw up reports</a>
-      </div>
-    </div>
-  </div>
-
   <%= render partial: 'shared/contribute' %>
 </div>
