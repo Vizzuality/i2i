@@ -24,4 +24,14 @@ class ProjectMetadatum < ApplicationRecord
   include Filterable
 
   scope :project_name, -> (project_name) { where project_name: project_name }
+
+  def self.quantities
+    all.map do |project|
+      {
+        project_name: project.project_name,
+        number_households: project.num_households_in_hh,
+        number_individuals: project.num_households_in_mem
+      }
+    end
+  end
 end
