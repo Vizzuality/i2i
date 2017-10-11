@@ -1,6 +1,8 @@
 module TwitterApi
   def self.get_tweets
-    client.user_timeline('i2ifacility')
+    client.user_timeline('i2ifacility', {
+    	:tweet_mode => 'extended' 
+    })
   end
 
   def self.client
