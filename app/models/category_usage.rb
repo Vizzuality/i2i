@@ -30,5 +30,7 @@ class CategoryUsage < ApplicationRecord
         children: subcategories[1]
       }
     end
+
+    response
   end
 end
