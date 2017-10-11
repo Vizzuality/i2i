@@ -21,6 +21,7 @@
       this.iso = options.iso;
       this.year = options.year;
 
+      console.log(this.filters);
 
       this._setVars();
       this._setEventListeners();
@@ -63,31 +64,29 @@
       if(categories[index]) {
         // the user has selected the same option, so we will deactivate it
         if(_.isEqual(newCategoryObject, categories[index])) {
-          categories.splice(index, 1);
+          categories.splice(index, 1); // <-- this is a problem
         } else {
           categories[index] = newCategoryObject;
         }
-
       } else {
-        categories.push(newCategoryObject);
+        // categories.push(newCategoryObject);
+        categories[index] = newCategoryObject;
       }
 
-      this._updateFilters({
-        categories: categories
-      });
+      // var x = categories.filter(cat, function (cat) { return _.isEmpty()})
+
+      this._updateFilters({ categories: categories });
     },
 
     _onClickTab: function(e) {
       var type = e.currentTarget.getAttribute('data-type');
-      this._updateFilters({
-        type: type
-      });
+      this._updateFilters({ type: type });
     },
 
     _updateFilters: function(newFilters) {
-      var prevFilters = this.filters;
+      var prevFilters = Object.assign({}, this.filters);
       this.filters = Object.assign({}, this.filters, newFilters);
-
+      console.log(this.filters);
       var filtersAreEqual = _.isEqual(prevFilters, this.filters);
       if (!filtersAreEqual) this._onUpateURLParams();
     },
