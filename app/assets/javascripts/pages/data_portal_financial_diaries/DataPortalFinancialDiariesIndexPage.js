@@ -21,6 +21,7 @@
       this.iso = options.iso;
       this.year = options.year;
 
+      console.log(this.filters);
 
       this._setVars();
       this._setEventListeners();
