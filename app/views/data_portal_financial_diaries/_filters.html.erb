@@ -1,6 +1,6 @@
 <div class="l-filters">
   <ul class="filters-list">
-    <% @categories.each do |category| %>
+    <% @categories.each_with_index do |category, index| %>
       <li class="filter-item">
         <span class="js-category-menu"><%= category[:name] %></span>
         <ul class="filter-children-list">
@@ -8,6 +8,7 @@
           <li class="filter-children-item">
             <span
               class="js-category-option"
+              data-index="<%= index %>"
               data-category="<%= category[:name] %>"
             >
               All <%= category[:name] %>
@@ -17,6 +18,7 @@
             <li class="filter-children-item">
               <span
                 class="js-category-option"
+                data-index="<%= index %>"
                 data-parent="<%= category[:name] %>"
                 data-category="<%= children[:name] %>"
               >
