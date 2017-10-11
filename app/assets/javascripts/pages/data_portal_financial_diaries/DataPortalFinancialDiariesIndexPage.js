@@ -102,13 +102,6 @@
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
       this.router.navigate(newURL, { replace: true });
-    },
-
-    _onFilterData: function() {
-      var pathname = Backbone.history.location.pathname;
-
-      var encodedParams = window.btoa(JSON.stringify(this.filters));
-      var newURL = pathname + '?p=' + encodedParams;
 
       // sends filters to server in order to get filtered data
       $.ajax(newURL, {});
