@@ -6,7 +6,11 @@
     defaults: {
       filters: {
         // can be households or individuals
-        type: 'households'
+        type: 'households',
+        category: {
+          parent: null,
+          category: (gon.categories[0] || {}).name
+        }
       }
     },
 
@@ -25,12 +29,19 @@
     _setVars: function() {
       this.router = App.Router.FinancialDiaries;
       this.categories = document.querySelectorAll('.js-category-option') || [];
+      this.tabs = document.querySelectorAll('.js-content-tab') || [];
     },
 
     _setEventListeners: function() {
       this.categories.forEach(function(category) {
         category.addEventListener('click', function(e) {
           this._onClickCategory(e);
+        }.bind(this));
+      }.bind(this));
+
+      this.tabs.forEach(function(tab) {
+        tab.addEventListener('click', function(e) {
+          this._onClickTab(e);
         }.bind(this));
       }.bind(this));
     },
@@ -47,10 +58,19 @@
       });
     },
 
+    _onClickTab: function(e) {
+      var type = e.currentTarget.getAttribute('data-type');
+      this._updateFilters({
+        type: type
+      });
+    },
+
     _updateFilters: function(newFilters) {
+      var prevFilters = this.filters;
       this.filters = Object.assign({}, this.filters, newFilters);
-      this._onUpateURLParams();
-      this._onFilterData();
+
+      var filtersAreEqual = _.isEqual(prevFilters, this.filters);
+      if (!filtersAreEqual) this._onUpateURLParams();
     },
 
     _onUpateURLParams: function() {
@@ -59,14 +79,8 @@
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
       this.router.navigate(newURL, { replace: true });
-    },
 
-    _onFilterData: function() {
-      var pathname = Backbone.history.location.pathname;
-
-      var encodedParams = window.btoa(JSON.stringify(this.filters));
-      var newURL = pathname + '?p=' + encodedParams;
-
+      // sends filters to server in order to get filtered data
       $.ajax(newURL, {});
     }
 
