@@ -7,10 +7,12 @@
       filters: {
         // can be households or individuals
         type: 'households',
-        category: {
-          type: (gon.categories[0] || {}).name,
-          subcategory: null
-        }
+        categories: [
+          {
+            type: (gon.categories[0] || {}).name,
+            subcategory: null
+          }
+        ]
       }
     },
 
@@ -18,6 +20,7 @@
       this.filters = Object.assign({}, this.defaults.filters, options.filters);
       this.iso = options.iso;
       this.year = options.year;
+
 
       this._setVars();
       this._setEventListeners();
@@ -49,12 +52,28 @@
     _onClickCategory: function (e) {
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
+      var index = +categoryOption.getAttribute('data-index');
       var category = categoryOption.getAttribute('data-category');
-      this._updateFilters({
-        category: {
-          type: parentCategory || null,
-          subcategory: category
+      var categories = this.filters.categories;
+      var newCategoryObject = {
+        type: parentCategory || null,
+        subcategory: category
+      };
+
+      if(categories[index]) {
+        // the user has selected the same option, so we will deactivate it
+        if(_.isEqual(newCategoryObject, categories[index])) {
+          categories.splice(index, 1);
+        } else {
+          categories[index] = newCategoryObject;
         }
+
+      } else {
+        categories.push(newCategoryObject);
+      }
+
+      this._updateFilters({
+        categories: categories
       });
     },
 
