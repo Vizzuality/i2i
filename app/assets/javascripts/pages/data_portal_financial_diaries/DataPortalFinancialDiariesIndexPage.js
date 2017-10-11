@@ -8,8 +8,8 @@
         // can be households or individuals
         type: 'households',
         category: {
-          parent: null,
-          category: (gon.categories[0] || {}).name
+          type: (gon.categories[0] || {}).name,
+          subcategory: null
         }
       }
     },
@@ -52,8 +52,8 @@
       var category = categoryOption.getAttribute('data-category');
       this._updateFilters({
         category: {
-          parent: parentCategory || null,
-          category: category
+          type: parentCategory || null,
+          subcategory: category
         }
       });
     },
