@@ -21,6 +21,7 @@
       this.iso = options.iso;
       this.year = options.year;
 
+
       this._setVars();
       this._setEventListeners();
 
@@ -51,6 +52,7 @@
     _onClickCategory: function (e) {
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
+      var index = +categoryOption.getAttribute('data-index');
       var category = categoryOption.getAttribute('data-category');
       var categories = this.filters.categories;
       var newCategoryObject = {
