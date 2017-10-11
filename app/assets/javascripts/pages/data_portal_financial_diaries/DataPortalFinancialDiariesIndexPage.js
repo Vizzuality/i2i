@@ -11,12 +11,15 @@
     },
 
     initialize: function(options) {
-      this.filters = Object.assign({}, this.defaults.filters);
+      this.filters = Object.assign({}, this.defaults.filters, options.filters);
       this.iso = options.iso;
       this.year = options.year;
 
       this._setVars();
       this._setEventListeners();
+
+      // set URL params
+      this._onUpateURLParams();
     },
 
     _setVars: function() {
@@ -33,22 +36,37 @@
     },
 
     _onClickCategory: function (e) {
-      var category = e.currentTarget.getAttribute('data-category');
-      this._onUpateURLParams({ category: category });
+      var categoryOption = e.currentTarget;
+      var parentCategory = categoryOption.getAttribute('data-parent');
+      var category = categoryOption.getAttribute('data-category');
+      this._updateFilters({
+        category: {
+          parent: parentCategory || null,
+          category: category
+        }
+      });
     },
 
-    _onUpateURLParams: function(newParams) {
-      var pathname = Backbone.history.location.pathname;
-      var currentParams = (Backbone.history.location.search.slice(1).split('=') || [])[1] || '';
+    _updateFilters: function(newFilters) {
+      this.filters = Object.assign({}, this.filters, newFilters);
+      this._onUpateURLParams();
+      this._onFilterData();
+    },
 
-      var parsedParams = currentParams !== '' ?
-        JSON.parse(window.atob(currentParams)) : {};
-      var encodedParams = window.btoa(JSON.stringify(Object.assign({}, parsedParams, newParams)));
+    _onUpateURLParams: function() {
+      var pathname = Backbone.history.location.pathname;
+
+      var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
       this.router.navigate(newURL, { replace: true });
+    },
 
-      // We send the request to the server in order to
-      // get the filtered data.
+    _onFilterData: function() {
+      var pathname = Backbone.history.location.pathname;
+
+      var encodedParams = window.btoa(JSON.stringify(this.filters));
+      var newURL = pathname + '?p=' + encodedParams;
+
       $.ajax(newURL, {});
     }
 
