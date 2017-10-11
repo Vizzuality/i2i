@@ -3,7 +3,18 @@
 
   App.Page.DataPortalFinancialDiariesIndexPage = Backbone.View.extend({
 
-    initialize: function() {
+    defaults: {
+      filters: {
+        // can be households or individuals
+        type: 'households'
+      }
+    },
+
+    initialize: function(options) {
+      this.filters = Object.assign({}, this.defaults.filters);
+      this.iso = options.iso;
+      this.year = options.year;
+
       this._setVars();
       this._setEventListeners();
     },
@@ -28,13 +39,17 @@
 
     _onUpateURLParams: function(newParams) {
       var pathname = Backbone.history.location.pathname;
-      var currentParams = Backbone.history.location.search.slice(1);
+      var currentParams = (Backbone.history.location.search.slice(1).split('=') || [])[1] || '';
+
       var parsedParams = currentParams !== '' ?
-        JSON.parse(JSON.stringify(atob(currentParams))) : {};
+        JSON.parse(window.atob(currentParams)) : {};
       var encodedParams = window.btoa(JSON.stringify(Object.assign({}, parsedParams, newParams)));
       var newURL = pathname + '?p=' + encodedParams;
+      this.router.navigate(newURL, { replace: true });
 
-      this.router.onNavigate(newURL);
+      // We send the request to the server in order to
+      // get the filtered data.
+      $.ajax(newURL, {});
     }
 
   });

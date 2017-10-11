@@ -7,21 +7,19 @@
       'data-portal/:iso/:year/financial-diaries': 'index'
     },
 
-    index: function () {
+    index: function (iso, year) {
       // Don't forget to stop the router on each route
       // otherwise you'll break the browser's back button because
       // the router will still be listening to the route and when
       // Turbolinks triggers its load event, the DOM won't be
       // loaded yet
-      Backbone.history.stop();
+      // Backbone.history.stop();
+      // Backbone.history.start({ pushState: true });
 
-      new App.Page.DataPortalFinancialDiariesIndexPage();
-    },
-
-    onNavigate: function(newUrl) {
-      console.log(newUrl)
-      console.log(this)
-      this.navigate('/data-portal/:iso/:year/financial-diaries');
+      new App.Page.DataPortalFinancialDiariesIndexPage({
+        iso: iso,
+        year: +year
+      });
     }
   });
 
