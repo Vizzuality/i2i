@@ -16,11 +16,17 @@
       Backbone.history.stop();
 
       new App.Page.DataPortalFinancialDiariesIndexPage();
+    },
+
+    onNavigate: function(newUrl) {
+      console.log(newUrl)
+      console.log(this)
+      this.navigate('/data-portal/:iso/:year/financial-diaries');
     }
   });
 
   var init = function () {
-    var router = new Router();
+    App.Router.FinancialDiaries = new Router();
 
     // Don't touch these two lines without testing if the
     // browser's back and forward buttons aren't broken
