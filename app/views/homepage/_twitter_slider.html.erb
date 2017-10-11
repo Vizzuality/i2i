@@ -8,11 +8,12 @@
             <%= tweet.created_at.strftime("%d %b %Y") %>
           </time>
           <p class="text">
-            <%= tweet.text %>
+            <%= tweet.attrs[:full_text] %>
           </p>
         </div>
-        <div class="image" style="background-image: url(/images/original/missing.png)">
-        </div>
+        <% if tweet.media? %>
+          <div class="image" style="background-image: url(<%= tweet.media[0].media_url.to_s %>)"></div>
+        <% end %>
       </li>
     <% end %>    
   </ul>  
