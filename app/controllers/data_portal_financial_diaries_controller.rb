@@ -3,5 +3,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
   def index
     @country = FinscopeApi.get_countries.find{ |c| c[:iso] == params[:iso] }
+    @categories = CategoryUsage.categories_with_children
+    @project_quantities = ProjectMetadatum.quantities
   end
 end
