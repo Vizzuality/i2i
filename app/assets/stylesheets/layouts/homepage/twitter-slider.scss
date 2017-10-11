@@ -11,12 +11,13 @@
     display: flex;
     position: relative;
     width: 100%;
+    min-height: 350px;
     background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
   }
 
   .tweet {
-    flex: 1;
+    width: 60%;
     padding: 37px 31px 44px 50px;
   }
 
@@ -48,13 +49,9 @@
     line-height: 28px;
   }
 
-  .quote {
- 
-  }
-
   .image {
-    width: 40%;
-    min-height: 350px;
+    flex: 1;
+    background-color: $color-4;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -86,10 +83,6 @@
       background-image: url(../images/icons/arrow-next.svg);
       background-repeat: no-repeat;
       background-position: center;
-    }
-
-    &.prev {
-
     }
   }
 }
