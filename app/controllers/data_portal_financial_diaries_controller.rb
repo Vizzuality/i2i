@@ -3,5 +3,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @country = Country.find_by(iso: params[:iso])
     @categories = CategoryUsage.categories_with_children
     @project_quantities = ProjectMetadatum.quantities
+
+    gon.categories = JSON.parse @categories.to_json
   end
 end
