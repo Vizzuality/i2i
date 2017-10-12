@@ -21,8 +21,6 @@
       this.iso = options.iso;
       this.year = options.year;
 
-      console.log(this.filters);
-
       this._setVars();
       this._setEventListeners();
 
@@ -53,7 +51,6 @@
     _onClickCategory: function (e) {
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
-      var index = +categoryOption.getAttribute('data-index');
       var category = categoryOption.getAttribute('data-category');
       var categories = this.filters.categories;
       var newCategoryObject = {
@@ -61,19 +58,28 @@
         subcategory: category
       };
 
-      if(categories[index]) {
-        // the user has selected the same option, so we will deactivate it
-        if(_.isEqual(newCategoryObject, categories[index])) {
-          categories.splice(index, 1); // <-- this is a problem
-        } else {
-          categories[index] = newCategoryObject;
-        }
+      if(!categories.length) {
+        categories.push(newCategoryObject);
       } else {
-        // categories.push(newCategoryObject);
-        categories[index] = newCategoryObject;
-      }
+        var categoryTypeExists = categories.find(function(cat) {
+          return cat.type === newCategoryObject.type;
+        });
 
-      // var x = categories.filter(cat, function (cat) { return _.isEmpty()})
+        // It doesn't exist any category with this type. We simply add it.
+        if (!categoryTypeExists) categories.push(newCategoryObject)
+
+        if (categoryTypeExists) {
+          var index = _.findIndex(categories, { type: newCategoryObject.type });
+
+          // the user is clicking on the same category. We remove it.
+          if (_.isEqual(categories[index], newCategoryObject)) {
+            categories.splice(index, 1);
+          } else {
+            // this is a new subcategory. We replace the current one.
+            categories[index] = newCategoryObject;
+          }
+        }
+      }
 
       this._updateFilters({ categories: categories });
     },
@@ -86,7 +92,6 @@
     _updateFilters: function(newFilters) {
       var prevFilters = Object.assign({}, this.filters);
       this.filters = Object.assign({}, this.filters, newFilters);
-      console.log(this.filters);
       var filtersAreEqual = _.isEqual(prevFilters, this.filters);
       if (!filtersAreEqual) this._onUpateURLParams();
     },
