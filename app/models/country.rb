@@ -28,12 +28,20 @@ class Country < ApplicationRecord
     end
 
     def finscope_country(iso)
-      FinscopeApi.get_countries.select { |fc| fc[:iso] == iso }.first
+      FinscopeApi.get_countries.find { |fc| fc[:iso] == iso }
     end
 
     def financial_diaries_country(iso)
       country = ProjectMetadatum.find_by(country_iso3: iso)
       country.attributes if country
     end
+  end
+
+  def finscope
+    FinscopeApi.get_countries.find { |c| c[:iso] == iso }
+  end
+
+  def financial_diaries
+    ProjectMetadatum.find_by(country_iso3: iso)
   end
 end
