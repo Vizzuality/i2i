@@ -22,6 +22,7 @@ class Tag < ApplicationRecord
   has_many :blogs, :through => :tagged_items, :source => :taggable, :source_type => 'Blog'
   has_many :news, :through => :tagged_items, :source => :taggable, :source_type => 'News'
   validates :name, uniqueness: { case_sensitive: false }
+  validates_presence_of :title, :if => :is_featured?, message: "must be present if tag is featured"
   validates_presence_of :image_url, :if => :is_featured?, message: "must be present if tag is featured"
   validates_presence_of :description, :if => :is_featured?, message: "must be present if tag is featured"
 
