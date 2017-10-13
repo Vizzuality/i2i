@@ -7,23 +7,10 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
+      klass = filters['type'] == 'households' ? HouseholdTransaction : HouseholdMemberTransaction
 
-      if filters['type'] == 'households'
-        filters['categories'].each do |category|
-          if category['subcategory']
-            @transactions << HouseholdTransaction.where(project_name: project_name, category_type: category['type'], subcategory: category['subcategory'])
-          else
-            @transactions << HouseholdTransaction.where(project_name: project_name, category_type: category['type'])
-          end
-        end
-      else
-        filters['categories'].each do |category|
-          if category['subcategory']
-            @transactions << HouseholdMemberTransaction.where(project_name: project_name, category_type: category['type'], subcategory: category['subcategory'])
-          else
-            @transactions << HouseholdMemberTransaction.where(project_name: project_name, category_type: category['type'])
-          end
-        end
+      filters['categories'].each do |category|
+        @transactions << klass.filter_combined(project_name, category['type'], category['subcategory'])
       end
     end
 

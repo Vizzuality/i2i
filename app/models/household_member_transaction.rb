@@ -29,4 +29,12 @@ class HouseholdMemberTransaction < ApplicationRecord
   scope :category_name, -> (category_name) { where category_name: category_name }
   scope :category_type, -> (category_type) { where category_type: category_type }
   scope :subcategory, -> (subcategory) { where subcategory: subcategory }
+
+  scope :filter_combined, -> (project_name, category_type, subcategory) do
+    if subcategory
+      where(project_name: project_name, category_type: category_type, subcategory: subcategory)
+    else
+      where(project_name: project_name, category_type: category_type)
+    end
+  end
 end
