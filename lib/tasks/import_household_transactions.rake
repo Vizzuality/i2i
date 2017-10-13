@@ -138,4 +138,26 @@ namespace :db do
 
     CategoryUsage.import(category_usages)
   end
+
+  # This is used to narrow down the number of subcategories present in records of category_type expense
+  task update_expenses_subcategories: :environment do
+    households = HouseholdTransaction.where(category_type: 'expense')
+    members = HouseholdMemberTransaction.where(category_type: 'expense')
+    p 'Starting update'
+
+    ActiveRecord::Base.transaction do
+      households.each do |household|
+        household.subcategory = household.category_name
+        household.save
+      end
+      p 'Household Transactions queued'
+
+      members.each do |member|
+        member.subcategory = member.category_name
+        member.save
+      end
+      p 'Household Member Transactions queued'
+    end
+    p 'Saved'
+  end
 end
