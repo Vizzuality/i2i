@@ -23,7 +23,7 @@
         <div class="row">
           <div class="selectors-container grid-12">
             <% @featured_tags.each do |tag| %>
-              <%= link_to tag.name, initiatives_filter_index_path(tag.slug),
+              <%= link_to tag.title, initiatives_filter_index_path(tag.slug),
               class: "content-selector #{'-current' if (@tag && @tag.slug == tag.slug)}" %>
             <% end %>
           </div>
