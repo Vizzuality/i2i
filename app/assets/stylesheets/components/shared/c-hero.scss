@@ -3,7 +3,7 @@
   overflow: hidden;
 
   @media #{$mq-tablet} {
-    padding: 120px 0 110px;
+    padding: 170px 0 75px;
   }
 
   .subtitle {
@@ -11,11 +11,22 @@
 
     color: $color-4;
     font-family: $font-family-2;
-    font-weight: $font-weight-medium;
+    font-weight: $font-weight-bold;
 
     > a {
       color: $color-2;
       font-weight: $font-weight-bold;
+    }
+  }
+
+  .c-button {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    left: 0;
+
+    @media #{$mq-tablet} {
+      right: auto;
     }
   }
 }
