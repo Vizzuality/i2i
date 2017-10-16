@@ -18,17 +18,18 @@ class Country < ApplicationRecord
   class << self
     def country_list
       countries = all
+      finscope_countries = FinscopeApi.get_countries
       countries.each do |country|
         iso = country.iso
-        country.has_finscope = finscope_country(iso)
+        country.has_finscope = finscope_country(finscope_countries, iso)
         country.has_financial_diaries = financial_diaries_country(iso)
       end
 
       countries
     end
 
-    def finscope_country(iso)
-      FinscopeApi.get_countries.find { |fc| fc[:iso] == iso }
+    def finscope_country(finscope_countries, iso)
+      finscope_countries.find { |fc| fc[:iso] == iso }
     end
 
     def financial_diaries_country(iso)
