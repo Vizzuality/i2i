@@ -1,4 +1,6 @@
 class InitiativesController < ApplicationController
+  include Relatable
+
   def index
     @featured_tags = Tag.featured
   end
@@ -13,9 +15,5 @@ class InitiativesController < ApplicationController
     end
 
     @insights = records.flatten
-  end
-
-  def show
-    @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
   end
 end
