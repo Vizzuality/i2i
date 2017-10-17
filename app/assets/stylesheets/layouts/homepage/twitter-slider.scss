@@ -10,14 +10,24 @@
   .slide {
     display: flex;
     position: relative;
+    flex-flow: column-reverse;
     width: 100%;
     background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+
+    @media#{$mq-tablet} {
+      flex-flow: row;
+    }
   }
 
   .tweet {
-    flex: 1;
-    padding: 37px 31px 44px 50px;
+    width: 100%;
+    padding: 20px 50px;
+
+    @media#{$mq-tablet} {
+      width: 60%;
+      padding: 37px 31px 44px 50px;
+    }
   }
 
   .user {
@@ -40,28 +50,55 @@
   }
 
   .text {
-    margin-top: 22px;
+    position: relative;
+    margin: 42px 28px;
     color: $color-6;
     font-family: $font-family-1;
     font-size: 18px;
     font-weight: $font-weight-medium;
     line-height: 28px;
-  }
 
-  .quote {
- 
+    &::before {
+      position: absolute;
+      right: 100%;
+      bottom: 100%;
+      margin-right: 5px;
+      color: $color-1;
+      font-size: 62px;
+      font-weight: $font-weight-bold;
+      line-height: 0;
+      content: open-quote;
+    }
+
+    &::after {
+      position: absolute;
+      top: 100%;
+      left: 100%;
+      margin-left: 5px;
+      color: $color-1;
+      font-size: 62px;
+      font-weight: $font-weight-bold;
+      line-height: 1;
+      content: close-quote;
+    }
+
+    @media#{$mq-tablet} {
+      margin-top: 62px;
+      margin-bottom: 62px;
+    }
   }
 
   .image {
-    width: 40%;
-    min-height: 350px;
+    flex: 1;
+    min-height: 250px;
+    background-color: $color-4;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
   }
 
   // Selector to align with rslider library naming convention
-  .buttons_nav { 
+  .buttons_nav {
     position: absolute;
     top: 50%;
     left: -25px;
@@ -86,10 +123,6 @@
       background-image: url(../images/icons/arrow-next.svg);
       background-repeat: no-repeat;
       background-position: center;
-    }
-
-    &.prev {
-
     }
   }
 }
