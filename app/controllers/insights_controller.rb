@@ -22,9 +22,4 @@ class InsightsController < ApplicationController
       redirect_to insights_filter_index_path(Category.first) rescue nil
     end
   end
-
-  def show
-    @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
-    @related = related(@insight)
-  end
 end
