@@ -17,7 +17,7 @@ class InsightsController < ApplicationController
         @insights = []
       end
     else
-      redirect_to insights_filter_index_path(Category.first)
+      redirect_to insights_filter_index_path(Category.first) rescue nil
     end
   end
 
