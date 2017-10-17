@@ -1,0 +1,18 @@
+.l-preview-country {
+  .dataset {
+    &:not(:first-child) {
+      margin-top: 52px;
+      padding-top: 40px;
+      border-top: 1px solid rgba($color-1, .2);
+    }
+
+    .datasetbutton {
+      width: 100%;
+      margin-top: 20px;
+
+      @media #{$mq-tablet} {
+        width: auto;
+      }
+    }
+  }
+}
