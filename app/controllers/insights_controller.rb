@@ -1,4 +1,6 @@
 class InsightsController < ApplicationController
+  include Relatable
+
   def index
     @categories = Category.all
     @category = Category.find_by(slug: params[:category])
@@ -23,16 +25,6 @@ class InsightsController < ApplicationController
 
   def show
     @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
-    # debugger
-    @related = related(@insight.tags)
-  end
-
-  def related(tags)
-    score = {}
-
-    Blog.joins(:tags).where(tags: {id: tags.pluck(:id)})
-    Events.joins(:tags).where(tags: {id: tags.pluck(:id)})
-    News.joins(:tags).where(tags: {id: tags.pluck(:id)})
-    Libraries.joins(:tags).where(tags: {id: tags.pluck(:id)})
+    @related = related(@insight)
   end
 end
