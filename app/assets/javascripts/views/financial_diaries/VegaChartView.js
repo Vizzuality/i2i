@@ -11,7 +11,10 @@
         a: 1,
         b: 2
       },
-      renderer: 'svg'
+      renderer: 'svg',
+      tooltip: {
+        showAllFields: true
+      }
     },
 
     template: JST['templates/financial_diaries/vega_chart'],
@@ -55,7 +58,7 @@
      */
     fetchChart: function(urlSpec) {
       var self = this;
-      this.fetchSpecFromURL(this.options.url).then(function(data) {
+      this.fetchSpecFromURL(urlSpec).then(function(data) {
         self.drawChart(JSON.parse(data));
       });
     },
@@ -64,12 +67,24 @@
      * @param {Object} spec
      */
     drawChart: function(spec) {
+      var runtime = this.parseSpec(spec);
+
       this.chartElement = this.$el.find('.chart').get(0);
-      this.chart = new vega.View(this.parseSpec(spec))
+
+      // Rendering chart
+      this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
+        .logLevel(vega.Warn)
         .initialize(this.chartElement)
         .hover()
         .run();
+
+      this.chart.tooltipHandler(function(event, item, text) {
+        console.log(event, item, text);
+      });
+
+      // Adding tooltip
+      vegaTooltip.vega(this.chart);
     },
 
     /**
