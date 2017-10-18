@@ -55,6 +55,7 @@
     }
 
     .text {
+      line-height: 22px;
       font-weight: $font-weight-bold;
 
       &.-leading {
@@ -62,7 +63,7 @@
       }
 
       &.-highlight {
-        color: $color-1; 
+        color: $color-1;
       }
 
       &.-button {
