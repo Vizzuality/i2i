@@ -22,6 +22,6 @@ class HouseholdTransactionSerializer < ActiveModel::Serializer
   has_many :values
 
   def values
-    object.household_transaction_histories_with_avg
+    object.household_transaction_histories_with_avg.sort { |a, b| [a[:year], a[:month]] <=> [b[:year], b[:month]] }
   end
 end
