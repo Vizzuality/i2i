@@ -1,15 +1,19 @@
 .c-footer {
 
   .footer-header {
-    padding: 45px 0;
-
+    padding: 40px 0;
     background-image: asset-url('footer-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    color: $color-5;
 
     .newsletter {
       @media #{$mq-tablet} {
         padding: 0 50px 0 0;
+      }
+
+      @media #{$mq-laptop} {
+        padding-top: 40px;
       }
     }
 
@@ -44,25 +48,30 @@
           background: rgba($color-4, .2)
         }
       }
+
+      @media #{$mq-laptop} {
+        padding-top: 40px;
+      }
     }
 
-    p {
-      color: $color-4;
+    .text {
+      font-weight: $font-weight-bold;
 
-      a, button {
-        color: $color-2;
-        font-weight: $font-weight-bold;
+      &.-leading {
+        margin-top: 20px;
       }
 
-      button {
+      &.-highlight {
+        color: $color-1; 
+      }
+
+      &.-button {
         padding: 0;
         cursor: pointer;
       }
 
-      .twitter-link {
+      &.-twitterlink {
         display: block;
-        font-size: $font-size-small;
-        font-weight: $font-weight-bold;
       }
     }
   }
