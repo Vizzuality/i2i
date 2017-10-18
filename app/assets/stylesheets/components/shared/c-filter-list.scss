@@ -1,0 +1,27 @@
+.c-filter-list {
+  display: none;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  left: -20px;
+  width: auto;
+  padding: 5px;
+  background-color: $color-4;
+  box-shadow: 0 2px 8px 0 rgba($color-6, .15);
+
+  .filterlistitem {
+    display: block;
+    padding: 5px;
+    color: $color-5;
+    font-weight: $font-weight-light;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-11;
+    }
+  }
+
+  .itemtitle {
+    display: block;
+  }
+}
