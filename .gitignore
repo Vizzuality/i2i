@@ -31,6 +31,9 @@
 # logs
 *.log
 
+# Dumps
+*.dump
+
 # Generated assets
 /vendor/bundle
 /public/assets

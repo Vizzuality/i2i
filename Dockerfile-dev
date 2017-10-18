@@ -3,6 +3,8 @@ MAINTAINER David Inga <david.inga@vizzuality.com>
 
 ENV RAILS_ENV development
 ENV RACK_ENV development
+ENV TWITTER_CONSUMER_KEY jggwSrr07PbGj8MoyYzpItt88
+ENV TWITTER_CONSUMER_SECRET mjn73VnzbTpyANjMPzQJQ2m2EDIxjy0RafH5PFCm3wkl59gXVa
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
