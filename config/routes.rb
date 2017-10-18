@@ -56,18 +56,11 @@ Rails.application.routes.draw do
   # Tools
   get 'tools' => 'tools#index'
 
-  resources :household_transactions, only: [:index, :show]
-  resources :household_member_transactions, only: [:index, :show]
-  resources :category_usages, only: [:index, :show]
-  resources :project_metadata, only: [:index, :show]
-
   namespace :api do
-    namespace :v1 do
-      resources :household_transactions, only: [:index, :show]
-      resources :household_member_transactions, only: [:index, :show]
-      resources :category_usages, only: [:index, :show]
-      resources :project_metadata, only: [:index, :show]
-    end
+    resources :household_transactions, only: [:index, :show]
+    resources :household_member_transactions, only: [:index, :show]
+    resources :category_usages, only: [:index, :show]
+    resources :project_metadata, only: [:index, :show]
   end
 
   namespace :updates do
