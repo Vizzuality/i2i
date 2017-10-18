@@ -30,12 +30,26 @@ var Router = Backbone.Router.extend({
     new App.Page.InsightsPage();
   },
 
-  _aboutPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
+  _aboutPage: function (p) {
+    var params = (p || '')
+    .split('&')
+    .map(function (param) {
+      return {
+        name: param.split('=')[0],
+        value: param.split('=')[1]
+      };
+    })
+    .reduce(function (res, param) {
+      res[param.name] = param.value;
+      return res;
+    }, {});
 
-    new App.Page.AboutPage();
+    new App.Page.AboutPage({
+      memberModal: {
+        slug: params.member || null,
+        role: params.role || null
+      }
+    });
   },
 
   _termsOfUsePage: function () {
@@ -48,7 +62,7 @@ var Router = Backbone.Router.extend({
 
 
 var init = function () {
-  var router = new Router();
+  App.Router.Application = new Router();
 
   // Don't touch these two lines without testing if the
     // browser's back and forward buttons aren't broken

@@ -14,10 +14,30 @@
       'click .js-submit': '_onClickSubmit'
     },
 
-    initialize: function () {
-      this.countriesCollection = new App.Collection.CountriesCollection();
+    initialize: function (options) {
+      this.options = options || {};
+      this._setVars();
+
+      var members = (window.gon.team || []).concat(window.gon.advisor || []);
+      var memberFound = members.find(function(member) {
+        return member.slug === options.memberModal.slug;
+      });
+
+      if (memberFound) {
+        var role = options.memberModal.role;
+        this._openProfileModal(memberFound);
+
+        $('html, body').animate({
+          scrollTop: $("#" + role).offset().top - 50
+        });
+      };
 
       this._fetchCountries();
+    },
+
+    _setVars: function() {
+      this.countriesCollection = new App.Collection.CountriesCollection();
+      this.router = App.Router.Application;
     },
 
     /**
@@ -29,7 +49,7 @@
       var target = e.currentTarget.getAttribute('href');
 
       $('html, body').animate({
-        scrollTop: $(target).offset().top
+        scrollTop: $(target).offset().top - 50
       });
     },
 
@@ -155,13 +175,17 @@
     _getProfileData: function (profileNode) {
       var slug = profileNode.getAttribute('data-slug'),
         role = profileNode.getAttribute('data-role'),
-        members = window.gon && gon[role].members;
+        members = window.gon && gon[role];
 
       if (!members) return;
 
-      return members.find(function (member) {
+
+      var profile = members.find(function (member) {
         return member.slug === slug;
       });
+
+      profile.roleName = role;
+      return profile;
     },
 
     /**
@@ -173,6 +197,9 @@
         title: profile.name,
         memberInfo: profile
       });
+
+      var newUrl = 'about?member=' + profile.slug + "&role=" + (profile.roleName || this.options.memberModal.role);
+      this.router.navigate(newUrl, { replace: true });
     }
 
   });
