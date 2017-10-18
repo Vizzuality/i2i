@@ -1,6 +1,8 @@
 class DataPortalFinancialDiariesController < ApplicationController
   def index
-    @country = Country.find_by(iso: params[:iso])
+    country_iso = params[:iso]
+    project_name = ProjectMetadatum.find_by(country_iso3: country_iso).project_name
+    @country = Country.find_by(iso: country_iso)
     @categories = CategoryUsage.categories_with_children
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @transactions = []
