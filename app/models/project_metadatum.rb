@@ -30,7 +30,7 @@ class ProjectMetadatum < ApplicationRecord
       {
         project_name: project.project_name,
         number_households: project.num_households_in_hh,
-        number_individuals: project.num_households_in_mem
+        number_individuals: project.num_members_in_mem
       }
     end
   end

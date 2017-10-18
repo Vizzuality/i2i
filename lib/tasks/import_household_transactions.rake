@@ -112,6 +112,7 @@ namespace :db do
         currency_symbol: row["currency_symbol"],
         num_households_in_hh: row["num_households_in_hh"],
         num_households_in_mem: row["num_households_in_mem"],
+        num_members_in_mem: row["num_members_in_mem"],
         member_level_interviews: row["member_level_interviews"],
         start_date: row["start_date"],
         end_date: row["end_date"]
