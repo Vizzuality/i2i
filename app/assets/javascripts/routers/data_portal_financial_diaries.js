@@ -7,20 +7,30 @@
       'data-portal/:iso/:year/financial-diaries': 'index'
     },
 
-    index: function () {
-      // Don't forget to stop the router on each route
-      // otherwise you'll break the browser's back button because
-      // the router will still be listening to the route and when
-      // Turbolinks triggers its load event, the DOM won't be
-      // loaded yet
-      Backbone.history.stop();
+    index: function (iso, year, p) {
+      var params = (p || '')
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {});
 
-      new App.Page.DataPortalFinancialDiariesIndexPage();
+      new App.Page.DataPortalFinancialDiariesIndexPage({
+        iso: iso,
+        year: +year,
+        filters: params.p ? JSON.parse(window.atob(params.p)) : {}
+      });
     }
   });
 
   var init = function () {
-    var router = new Router();
+    App.Router.FinancialDiaries = new Router();
 
     // Don't touch these two lines without testing if the
     // browser's back and forward buttons aren't broken

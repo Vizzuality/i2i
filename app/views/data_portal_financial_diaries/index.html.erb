@@ -4,7 +4,7 @@
 
 <% title 'Data Portal | Financial Diaries' %>
 
-<div class="l-data-portal-country">
+<div class="l-data-portal-financial-diaries">
   <div class="l-mobile-header _no-desktop js-mobile-header">
     <div class="wrapper">
       <header>
@@ -22,55 +22,45 @@
   <div class="l-intro">
     <div class="l-title">
       <div class="wrapper">
-        <div class="row js-header">
-        </div>
-      </div>
-    </div>
-    <div class="l-switcher _no-desktop">
-      <div class="grid-s-8 grid-m-4 grid-l-3">
-        <div class="c-switcher js-tabs" role="tablist">
-          <button id="graphics-tab" class="switcher-option -current" name="graphics" role="tab" aria-controls="widgets-list" aria-selected="true">Graphics</button>
-          <button id="table-tab" class="switcher-option" name="table" role="tab" aria-controls="widgets-list" aria-selected="false" tabindex="-1">Table</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="l-content">
-    <div class="wrapper">
-      <div class="l-switcher _only-desktop">
         <div class="row">
-          <div class="grid-l-12">
-            <div class="row">
-              <div class="container">
-                <div class="grid-l-3">
-                  <div class="c-switcher js-tabs" role="tablist">
-                    <button id="graphics-tab" class="switcher-option -current" name="graphics" role="tab" aria-controls="widgets-list" aria-selected="true">Graphics</button>
-                    <button id="table-tab" class="switcher-option" name="table" role="tab" aria-controls="widgets-list" aria-selected="false" tabindex="-1">Table</button>
-                  </div>
-                </div>
+          <div class="grid-s-12">
+            <div class="container">
+              <div class="grid-s-12 grid-m-8 grid-l-7">
+                <h1 class="title -light -huge js-country"><%= @country[:name] %></h1>
+                <p>Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                  Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="l-indicator-grid">
+    <div class="l-content-switch">
       <div class="wrapper">
         <div class="row">
           <div class="grid-s-12">
-            <div id="widgets-list" class="row widgets-list js-widgets" role="tabpanel" aria-labelledby="graphics-tab"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="grid-s-12">
-            <div class="row">
-              <div class="footer-indicator-grid js-footer"></div>
+            <div class="content-switch-container">
+              <%= render partial: 'data_portal_financial_diaries/filters' %>
+              <div class="l-content-tabs">
+                <ul class="content-tab-list">
+                  <li class="content-tab-item">
+                    <button type="button" data-type="households" class="js-content-tab">Households (<%= @project_quantities[:number_households] %>)</button>
+                  </li>
+                  <li class="content-tab-item">
+                    <button type="button" data-type="individuals" class="js-content-tab">Individuals (<%= @project_quantities[:number_individuals] %>)</button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper"></div>
   </div>
   <%= render partial: 'shared/contribute' %>
 </div>
