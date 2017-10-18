@@ -17,22 +17,21 @@
     initialize: function (options) {
       this.options = options || {};
       this._setVars();
+      this._fetchCountries();
 
       var members = (window.gon.team || []).concat(window.gon.advisor || []);
       var memberFound = members.find(function(member) {
         return member.slug === options.memberModal.slug;
       });
 
-      if (memberFound) {
-        var role = options.memberModal.role;
-        this._openProfileModal(memberFound);
+      if (memberFound) this._openProfileModal(memberFound);
 
+      if (options.linkTo || options.memberModal.role) {
+        var anchor = options.linkTo || options.memberModal.role;
         $('html, body').animate({
-          scrollTop: $("#" + role).offset().top - 50
+          scrollTop: $("#" + anchor).offset().top - 50
         });
-      };
-
-      this._fetchCountries();
+      }
     },
 
     _setVars: function() {
@@ -47,6 +46,9 @@
     _onClickAnchor: function (e) {
       e.preventDefault();
       var target = e.currentTarget.getAttribute('href');
+
+      var newUrl = 'about?linkTo=' + target.slice(1);
+      this.router.navigate(newUrl, { replace: true });
 
       $('html, body').animate({
         scrollTop: $(target).offset().top - 50

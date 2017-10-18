@@ -32,23 +32,24 @@ var Router = Backbone.Router.extend({
 
   _aboutPage: function (p) {
     var params = (p || '')
-    .split('&')
-    .map(function (param) {
-      return {
-        name: param.split('=')[0],
-        value: param.split('=')[1]
-      };
-    })
-    .reduce(function (res, param) {
-      res[param.name] = param.value;
-      return res;
-    }, {});
+      .split('&')
+      .map(function (param) {
+        return {
+          name: param.split('=')[0],
+          value: param.split('=')[1]
+        };
+      })
+      .reduce(function (res, param) {
+        res[param.name] = param.value;
+        return res;
+      }, {});
 
     new App.Page.AboutPage({
       memberModal: {
         slug: params.member || null,
         role: params.role || null
-      }
+      },
+      linkTo: params.linkTo
     });
   },
 
@@ -65,7 +66,7 @@ var init = function () {
   App.Router.Application = new Router();
 
   // Don't touch these two lines without testing if the
-    // browser's back and forward buttons aren't broken
+  // browser's back and forward buttons aren't broken
   Backbone.history.stop();
   Backbone.history.start({ pushState: true });
 
