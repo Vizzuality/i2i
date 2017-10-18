@@ -1,0 +1,31 @@
+<div class="l-filters">
+  <ul class="filters-list">
+    <% @categories.each do |category| %>
+      <li class="filter-item">
+        <span class="js-category-menu"><%= category[:name] %></span>
+        <ul class="filter-children-list">
+          <%# Default "all" option for all categories %>
+          <li class="filter-children-item">
+            <span
+              class="js-category-option"
+              data-parent="<%= category[:name] %>"
+            >
+              All <%= category[:name] %>
+            </span>
+          </li>
+          <% category[:children].each do |children| %>
+            <li class="filter-children-item">
+              <span
+                class="js-category-option"
+                data-parent="<%= category[:name] %>"
+                data-category="<%= children[:name] %>"
+              >
+                <%= children[:name] %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </liv>
+    <% end %>
+  </ul>
+</div>
