@@ -17,7 +17,7 @@ module Relatable
   end
 
   def page_quantity
-    (params[:offset].present? ? params[:offset].to_i : 1) * 9 rescue 9
+    (params[:offset].present? ? params[:offset].to_i : 1) * ENV['OFFSET_SIZE'].to_i rescue ENV['OFFSET_SIZE'].to_i
   end
 
   def related(insight)
