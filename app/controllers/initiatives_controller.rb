@@ -14,6 +14,6 @@ class InitiativesController < ApplicationController
       records << klass.where(published: true).joins(:tags).where(tags: {slug: @tag.slug})
     end
 
-    @insights = records.flatten
+    @insights = records.flatten.take(page_quantity)
   end
 end
