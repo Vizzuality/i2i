@@ -21,7 +21,7 @@
       <div class="wrapper">
         <h2 class="title -big -center -dark">News and insights</h2>
         <div class="row">
-          <%= render partial: 'shared/cards', locals: { route: 'insights' }%>
+          <%= render partial: 'shared/cards', locals: { insights: @insights, route: 'insights' }%>
         </div>
         <div class="btn-container">
           <%= link_to 'See more', insights_path, class: 'c-button -sea -big' %>

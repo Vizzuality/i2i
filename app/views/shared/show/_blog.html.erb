@@ -52,35 +52,24 @@
       </div>
     </div>
 
-    <% if false %>
+    <%if @related.any? %>
       <section class="l-related-section">
         <div class="wrapper">
           <h2 class="title -dark -big">Related blogs</h2>
           <div class="l-card-grid">
             <div class="row">
-              <% related_blogs.each_with_index do |blog, index| %>
+              <%= render partial: 'shared/cards', locals: { insights: @related, route: 'insights' }%>
+              <% if @morePaginationAvailable %>
                 <div class="grid-s-12">
-                  <article class="c-card -horizontal <%if index % 2 == 0 %> -reverse <% end %>">
-                    <a href="<%= updates_blog_path(blog.id) %>" alt="<%= blog.title %>">
-                      <div class="picture" style="background-image: url(<%= blog.image %>)"></div>
-                      <div class="metadata">
-                        <h4 class="title -dark -xs"><%= blog.title %></h4>
-                        <h4 class="title -sea -small"><%= DateHelper.beautify blog.date %></h4>
-                        <p><%= blog.summary %></p>
-                      </div>
-                    </a>
-                  </article>
+                  <div class="grid-footer">
+                    <%= link_to 'Show More', insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type, offset: @offset }), :class => 'c-button -big -sea' %>
+                  </div>
                 </div>
               <% end %>
-              <div class="grid-s-12">
-                <div class="grid-footer">
-                  <%= link_to 'More blogs', updates_blogs_path, :class => 'c-button -big -sea' %>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
-    <% end%>
+    <% end %>
   </div>
 </div>

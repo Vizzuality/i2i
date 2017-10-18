@@ -68,31 +68,20 @@
       </div>
     </div>
 
-    <% if false %>
+    <%if @related.any? %>
       <section class="l-related-section">
         <div class="wrapper">
-          <h2 class="title -dark -big">Related events</h2>
+          <h2 class="title -dark -big">Related blogs</h2>
           <div class="l-card-grid">
             <div class="row">
-              <% @related_events.each do |event| %>
-                <div class="grid-s-12 grid-m-6 grid-4">
-                  <article class="c-card">
-                    <a href="<%= updates_event_path(event.id) %>" alt="<%= event.title %>">
-                      <div class="picture" style="background-image: url(<%= event.image %>)"></div>
-                      <div class="metadata">
-                        <h4 class="title -dark -xs"><%= event.title %></h4>
-                        <h4 class="title -sea -small"><%= DateHelper.beautify event.date %></h4>
-                        <p><%= event.summary %></p>
-                      </div>
-                    </a>
-                  </article>
+              <%= render partial: 'shared/cards', locals: { insights: @related, route: 'insights' }%>
+              <% if @morePaginationAvailable %>
+                <div class="grid-s-12">
+                  <div class="grid-footer">
+                    <%= link_to 'Show More', insights_show_path(event.category.slug, event.slug, { entity: event.record_type, offset: @offset }), :class => 'c-button -big -sea' %>
+                  </div>
                 </div>
               <% end %>
-              <div class="grid-s-12">
-                <div class="grid-footer">
-                  <%= link_to 'More events', updates_events_path, :class => 'c-button -big -sea' %>
-                </div>
-              </div>
             </div>
           </div>
         </div>
