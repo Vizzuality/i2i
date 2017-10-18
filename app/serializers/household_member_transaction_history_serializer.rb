@@ -12,24 +12,30 @@
 #
 
 class HouseholdMemberTransactionHistorySerializer < ActiveModel::Serializer
-  attributes :id, :parsed_value, :month, :year
+  attributes :id, :avg_value, :month, :year, :date
 
-  def parsed_value
+  def date
+    Date.new(object.year, object.month, 1)
+  end
+
+  def avg_value
     if object.value.present?
-      values = object.value.split(':').map { |val| val.eql?("null") ? nil : val.to_f }
+      object.value.split(':')[1].to_f
+      
+      # values = object.value.split(':').map { |val| val.eql?("null") ? nil : val.to_f }
 
-      {
-        total_transaction_value: values[0],
-        avg_value: values[1],
-        min_value: values[2],
-        max_value: values[3],
-        rolling_balance: values[4],
-        business_expenses: values[5],
-        withdrawals: values[6],
-        deposits: values[7],
-        new_borrowing: values[8],
-        repayment: values[9]
-      }
+      # {
+      #   total_transaction_value: values[0],
+      #   avg_value: values[1],
+      #   min_value: values[2],
+      #   max_value: values[3],
+      #   rolling_balance: values[4],
+      #   business_expenses: values[5],
+      #   withdrawals: values[6],
+      #   deposits: values[7],
+      #   new_borrowing: values[8],
+      #   repayment: values[9]
+      # }
     end
   end
 end
