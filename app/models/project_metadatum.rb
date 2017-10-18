@@ -25,13 +25,13 @@ class ProjectMetadatum < ApplicationRecord
 
   scope :project_name, -> (project_name) { where project_name: project_name }
 
-  def self.quantities
-    all.map do |project|
-      {
-        project_name: project.project_name,
-        number_households: project.num_households_in_hh,
-        number_individuals: project.num_members_in_mem
-      }
-    end
+  def self.quantities(country_iso)
+    project = find_by(country_iso3: country_iso)
+
+    {
+      project_name: project.project_name,
+      number_households: project.num_households_in_hh,
+      number_individuals: project.num_members_in_mem
+    }
   end
 end
