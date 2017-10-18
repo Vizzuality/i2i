@@ -6,6 +6,7 @@
     "width": 1000,
     "height": 480,
     "padding": 5,
+    "autosize": {"type": "fit", "resize": true},
     "data": [{
       "name": "table",
       "format": {
@@ -168,7 +169,7 @@
                 "value": 1
               },
               "zindex": {
-                "value": 1000
+                "value": 10000
               }
             }
           }
@@ -349,7 +350,7 @@
     el: '#vis-main-chart',
 
     options: {
-      spec: chartSpec,
+      // spec: chartSpec,
       vis: 'ID',
       title: 'Flow of savings'
     }
