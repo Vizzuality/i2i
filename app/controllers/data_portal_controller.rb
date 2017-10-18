@@ -1,6 +1,4 @@
 class DataPortalController < ApplicationController
-  include FinscopeApi
-
   def index
     @countries = Country.country_list
   end
