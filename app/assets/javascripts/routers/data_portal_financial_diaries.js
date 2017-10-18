@@ -26,6 +26,10 @@
         year: +year,
         filters: params.p ? JSON.parse(window.atob(params.p)) : {}
       });
+
+      // Initializing visualisations
+      // TODO: change params with correct one
+      new App.View.MainChartView({ params: { c: 3 } });
     }
   });
 
