@@ -4,6 +4,7 @@
   App.View.VegaChartView = Backbone.View.extend({
 
     defaults: {
+      title: '',
       spec: 'https://vega.github.io/vega/examples/bar-chart.vg.json',
       vis: null,
       params: {
@@ -12,6 +13,8 @@
       },
       renderer: 'svg'
     },
+
+    template: JST['templates/financial_diaries/vega_chart'],
 
     /**
      * @param  {Object} settings
@@ -39,7 +42,6 @@
     parseSpec: function(originalSpec) {
       var resultSpec = originalSpec;
       var params = this.options.params || {};
-      var elementWidth = this.$el.width();
 
       if (this.options.params) {
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec), params)());
@@ -62,9 +64,10 @@
      * @param {Object} spec
      */
     drawChart: function(spec) {
+      this.chartElement = this.$el.find('.chart').get(0);
       this.chart = new vega.View(this.parseSpec(spec))
         .renderer(this.options.renderer)
-        .initialize(this.el)
+        .initialize(this.chartElement)
         .hover()
         .run();
     },
@@ -79,6 +82,10 @@
 
     render: function () {
       var spec = this.options.spec;
+
+      this.$el.html(this.template({
+        title: this.options.title
+      }));
 
       if (!spec) {
         throw Error('spec should be defined and it should be a JSON object or an URL string');
