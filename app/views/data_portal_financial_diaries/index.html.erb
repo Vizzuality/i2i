@@ -13,44 +13,49 @@
       </header>
     </div>
   </div>
-  <div class="l-header">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: false }%>
-    </div>
-  </div>
-
   <div class="l-intro">
-    <div class="l-title">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="grid-s-12">
-            <div class="container">
-              <div class="grid-s-12 grid-m-8 grid-l-7">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header' %>
+      </div>
+    </div>
+    <div class="content">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
                 <h1 class="title -light -huge js-country"><%= @country[:name] %></h1>
-                <p>Let the data speak to you. Delve into new financial inclusion datasets from around the world.
-                  Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.
-                </p>
+                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                  Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="l-content-switch">
-      <div class="wrapper">
-        <div class="row">
-          <div class="grid-s-12">
-            <div class="content-switch-container">
-              <%= render partial: 'data_portal_financial_diaries/filters' %>
-              <div class="l-content-tabs">
-                <ul class="content-tab-list">
-                  <li class="content-tab-item">
-                    <button type="button" data-type="households" class="js-content-tab">Households (<%= @project_quantities[:number_households] %>)</button>
-                  </li>
-                  <li class="content-tab-item">
-                    <button type="button" data-type="individuals" class="js-content-tab">Individuals (<%= @project_quantities[:number_individuals] %>)</button>
-                  </li>
-                </ul>
+      <div class="l-content-switch">
+        <div class="wrapper">
+          <div class="row">
+            <div class="grid-s-12">
+              <div class="contentswitchcontainer">
+                <div class="contentswitchitem">
+                  <%= render partial: 'data_portal_financial_diaries/filters' %>
+                </div>
+                <div class="contentswitchitem -primary">
+                  <ul class="c-content-tabs">
+                    <li class="content-tab-item">
+                      <button type="button" data-type="households" class="js-content-tab tab -current">Households (<%= @project_quantities[:number_households] %>)</button>
+                    </li>
+                    <li class="content-tab-item">
+                      <button type="button" data-type="individuals" class="js-content-tab tab">Individuals (<%= @project_quantities[:number_individuals] %>)</button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -58,7 +63,6 @@
       </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="wrapper"></div>
   </div>
