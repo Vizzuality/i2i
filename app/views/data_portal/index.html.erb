@@ -90,12 +90,14 @@
         <div class="l-card-grid">
           <div class="row">
             <% @countries.each do |country| %>
-              <div class="grid-s-6 grid-m-6 grid-l-4">
-                <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
-                  <%= link_to 'Go to the {% country[:name] %} portal', data_portal_country_preview_path(country[:iso]) %>
-                  <span class="country-name"><%= country[:name] %></span>
-                </article>
-              </div>
+              <% if country.has_dataset %>
+                <div class="grid-s-6 grid-m-6 grid-l-4">
+                  <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
+                    <%= link_to 'Go to the {% country[:name] %} portal', data_portal_country_preview_path(country[:iso]) %>
+                    <span class="country-name"><%= country[:name] %></span>
+                  </article>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

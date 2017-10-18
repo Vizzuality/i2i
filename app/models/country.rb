@@ -10,5 +10,20 @@
 #
 
 class Country < ApplicationRecord
+  include FinscopeApi
 
+  attr_accessor :has_finscope
+  attr_accessor :has_financial_diaries
+
+  def has_dataset
+    financial_diaries.present? || finscope.present?
+  end
+
+  def finscope
+    FinscopeApi.get_countries.find { |c| c[:iso] == iso }
+  end
+
+  def financial_diaries
+    ProjectMetadatum.find_by(country_iso3: iso)
+  end
 end
