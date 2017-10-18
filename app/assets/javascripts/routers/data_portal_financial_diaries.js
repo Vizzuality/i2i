@@ -4,6 +4,7 @@
   var Router = Backbone.Router.extend({
 
     routes: {
+      'data-portal/:iso/financial-diaries': 'visualisations',
       'data-portal/:iso/:year/financial-diaries': 'index'
     },
 
@@ -26,8 +27,9 @@
         year: +year,
         filters: params.p ? JSON.parse(window.atob(params.p)) : {}
       });
+    },
 
-      // Initializing visualisations
+    visualisations: function() {
       // TODO: change params with correct one
       new App.View.MainChartView({ params: { c: 3 } });
     }

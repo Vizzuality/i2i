@@ -79,10 +79,6 @@
         .hover()
         .run();
 
-      this.chart.tooltipHandler(function(event, item, text) {
-        console.log(event, item, text);
-      });
-
       // Adding tooltip
       vegaTooltip.vega(this.chart);
     },

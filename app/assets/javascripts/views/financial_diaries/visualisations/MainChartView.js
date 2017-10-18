@@ -11,13 +11,9 @@
       "name": "table",
       "format": {
         "type": "json",
-        "property": "values"
+        "property": "data"
       },
-      "url": "/data/kenya_household_without_null.json",
-      "transform": [{
-        "type": "filter",
-        "expr": "datum.category_type == 'income' || datum.category_type == 'expense'"
-      }]
+      "url": "/api/household_transactions?category_type=savings&category_name=ALL&project_name=Kenya Financial Diaries"
     }, {
       "name": "stats",
       "values": [{
@@ -101,7 +97,7 @@
           "facet": {
             "name": "partitioned_saved_data",
             "data": "table",
-            "field": "household_transaction_histories"
+            "field": "values"
           }
         },
         "encode": {
@@ -350,7 +346,7 @@
     el: '#vis-main-chart',
 
     options: {
-      // spec: chartSpec,
+      spec: chartSpec,
       vis: 'ID',
       title: 'Flow of savings'
     }
