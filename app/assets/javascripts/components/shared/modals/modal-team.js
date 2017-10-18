@@ -14,7 +14,7 @@
 
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
-        'click .js-close-btn-modal': '_onCloseBtnModal'
+        'click .js-close-btn-modal': 'onCloseModal'
       });
     },
 
@@ -26,8 +26,14 @@
       this.render();
     },
 
-    _onCloseBtnModal: function () {
+    _setVars: function() {
+      this.constructor.__super__._setVars.call(this, {});
+      this.router = App.Router.Application;
+    },
+
+    onCloseModal: function () {
       this.constructor.__super__.onCloseModal.apply(this);
+      this.router.navigate('about', { replace: true });
     },
 
     _setOptions: function () {
