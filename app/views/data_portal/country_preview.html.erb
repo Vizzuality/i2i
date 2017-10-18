@@ -28,34 +28,37 @@
   </div>
   <div class="l-content">
     <div class="wrapper">
-      <section class="dataset">
-        <div class="row">
-          <div class="grid-s-12 grid-m-8">
-            <h3 class="title -big -dark">Financial Diaries</h3>
-            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            </p>
-            <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso], @country[:latest_year]),
-              class: "c-button -sea datasetbutton" %>
+      <% if @country_financial_diaries.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark">Financial Diaries</h3>
+              <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+              </p>
+              <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
+                class: "c-button -sea datasetbutton" %>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="dataset">
-        <div class="row">
-          <div class="grid-s-12 grid-m-6">
-            <h3 class="title -big -dark">FinScope</h3>
-            <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-              ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-              nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-            </p>
-            <%= link_to "Discover FinScope data", data_portal_y_path(@country[:iso], @country[:latest_year]),
-              class: "c-button -sea datasetbutton" %>
+        </section>
+      <% end %>
+
+      <% if @country_finscope.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-6">
+              <h3 class="title -big -dark">FinScope</h3>
+              <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+              </p>
+              <%= link_to "Discover FinScope data", data_portal_y_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+                class: "c-button -sea datasetbutton" %>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      <% end %>
     </div>
   </div>
 </div>
-
-<%= render partial: 'shared/contribute' %>

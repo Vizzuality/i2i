@@ -1,12 +1,12 @@
 class DataPortalController < ApplicationController
-  include FinscopeApi
-
   def index
-    @countries = FinscopeApi.get_countries
+    @countries = Country.all
   end
 
   def country_preview
-    @country = FinscopeApi.get_countries.find{ |c| c[:iso] == params[:iso] }
+    @country = Country.find_by(iso: params[:iso])
+    @country_finscope = @country.finscope
+    @country_financial_diaries = @country.financial_diaries
   end
 
   def show
