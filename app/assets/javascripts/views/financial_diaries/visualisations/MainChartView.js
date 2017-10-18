@@ -350,7 +350,8 @@
 
     options: {
       spec: chartSpec,
-      vis: 'ID'
+      vis: 'ID',
+      title: 'Flow of savings'
     }
 
   });
