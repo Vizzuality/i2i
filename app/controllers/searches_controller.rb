@@ -9,6 +9,5 @@ class SearchesController < ApplicationController
 
     @categories = Category.all
     @records = (news + blogs + events + libraries)
-    debugger
   end
 end

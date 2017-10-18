@@ -1,4 +1,6 @@
 class InsightsController < ApplicationController
+  include Relatable
+
   def index
     @categories = Category.all
     @category = Category.find_by(slug: params[:category])
@@ -19,9 +21,5 @@ class InsightsController < ApplicationController
     else
       redirect_to insights_filter_index_path(Category.first) rescue nil
     end
-  end
-
-  def show
-    @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
   end
 end
