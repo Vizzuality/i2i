@@ -43,8 +43,13 @@
      * @return {Object}
      */
     parseSpec: function(originalSpec) {
-      var resultSpec = originalSpec;
+      this.chartElement = this.$el.find('.chart');
+
+      var width = this.chartElement.width();
+      var resultSpec = Object.assign({}, originalSpec);
       var params = this.options.params || {};
+
+      resultSpec.width = width;
 
       if (this.options.params) {
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec), params)());
@@ -69,13 +74,11 @@
     drawChart: function(spec) {
       var runtime = this.parseSpec(spec);
 
-      this.chartElement = this.$el.find('.chart').get(0);
-
       // Rendering chart
       this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
         .logLevel(vega.Warn)
-        .initialize(this.chartElement)
+        .initialize(this.chartElement.get(0))
         .hover()
         .run();
 
