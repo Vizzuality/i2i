@@ -1,6 +1,6 @@
 module Api
   class ProjectMetadataController < ApiController
-    before_action :require_login
+    # before_action :require_login
 
     def index
       project_metadata = ProjectMetadatum.filter(params.slice(:project_name))
