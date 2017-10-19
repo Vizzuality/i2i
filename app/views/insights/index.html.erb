@@ -43,7 +43,14 @@
     <div class="l-card-grid">
       <div class="wrapper">
         <div class="row">
-          <%= render partial: 'shared/cards', locals: { insights: @insights, route: 'insights' }%>
+          <%= render partial: 'shared/cards', locals: { insights: @insights, route: 'insights' } %>
+          <% if @morePaginationAvailable %>
+            <div class="grid-s-12">
+              <div class="grid-footer">
+                <%= link_to 'Show More', insights_filter_index_path(@category.slug, { offset: @offset}), :class => 'c-button -big -sea' %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
