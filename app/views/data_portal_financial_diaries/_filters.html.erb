@@ -7,7 +7,12 @@
           <label class="filtercontrol">
             <input type="checkbox" name="category" value="<%= category[:name] %>" class="filterinput">
             <span class="filterindicator"></span>
-            <span class="filterlabel js-category-menu"><%= category[:name] %></span>
+            <span
+              class="filterlabel js-category-menu js-category-option"
+              data-parent="<%= category[:name] %>"
+            >
+              <%= category[:name] %>
+            </span>
           </label>
           <ul class="c-filter-list">
             <%# Default "all" option for all categories %>
