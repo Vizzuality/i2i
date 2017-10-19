@@ -39,9 +39,7 @@
 
     section {
       &:not(:first-child) {
-        padding: 75px 0 0;
         margin: 40px 0 0;
-
 
         @media #{$mq-laptop} {
           margin: 85px 0 0;
