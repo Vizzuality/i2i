@@ -106,7 +106,7 @@
           "yMax": "number",
           "x": "date"
         }
-      }]
+      }
     }],
     "scales": [{
       "name": "color",
