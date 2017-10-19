@@ -28,13 +28,7 @@
           "#5079a5",
           "#ef8e3b",
           "#dd565c",
-          "#79b7b2",
-          "#5da052",
-          "#ecc853",
-          "#ad7aa1",
-          "#ef9ba7",
-          "#9b7461",
-          "#bab0ac"
+          "#79b7b2"
         ]
       }
 
@@ -45,11 +39,8 @@
         "type": "json",
         "property": "data"
       },
-      "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>",
-      "transform": [{
-        "type": "filter",
-        "expr": "datum.category_type == 'income'"
-      }]
+      "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
+      
     }, {
       "name": "stats",
       "values": [{
@@ -115,10 +106,6 @@
           "yMax": "number",
           "x": "date"
         }
-      },
-      "transform": [{
-        "type": "filter",
-        "expr": "datum.c == 'income' || datum.c == 'expense' || datum.c == 'savings' || datum.c == 'credits'"
       }]
     }],
     "scales": [{
@@ -198,7 +185,7 @@
           "facet": {
             "name": "partitioned_saved_data",
             "data": "table",
-            "field": "household_transaction_histories"
+            "field": "values"
           }
         },
         "encode": {
@@ -257,7 +244,7 @@
             },
             "hover": {
               "href": {
-                "signal": "'https://vega.github.io/'+parent.household_name"
+                "signal": "'/'+parent.household_name"
               },
               "strokeWidth": {
                 "value": 2
@@ -306,7 +293,7 @@
             },
             "hover": {
               "href": {
-                "signal": "'https://vega.github.io/'+parent.household_name"
+                "signal": "'/'+parent.household_name"
               },
               "zindex": {
                 "value": 1
