@@ -127,11 +127,17 @@
         };
       });
 
+      var params = {
+        project_name: gon.project_name,
+        categories: window.encodeURIComponent(JSON.stringify(categories))
+      };
+
       new App.View.MainChartView({
-        params: {
-          project_name: gon.project_name,
-          categories: window.encodeURIComponent(JSON.stringify(categories))
-        }
+        params: params
+      });
+
+      new App.View.GroupedBarView({
+        params: params
       });
     }
   });
