@@ -23,6 +23,7 @@
 
       this._setVars();
       this._setEventListeners();
+      this._loadCharts();
 
       // set URL params
       this._onUpateURLParams();
@@ -105,8 +106,23 @@
 
       // sends filters to server in order to get filtered data
       $.ajax(newURL, {});
-    }
+    },
 
+    _loadCharts: function() {
+      var categories = (this.filters.categories || []).map(function(category) {
+        return {
+          categoy_type: category.type,
+          category_name: category.subcategory || 'ALL'
+        };
+      });
+
+      new App.View.MainChartView({
+        params: {
+          project_name: gon.project_name,
+          categories: window.encodeURIComponent(JSON.stringify(categories))
+        }
+      });
+    }
   });
 
 }).call(this, this.App);

@@ -18,6 +18,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     @transactions.flatten!
 
+    gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
   end
 
