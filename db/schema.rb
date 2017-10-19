@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017134349) do
+ActiveRecord::Schema.define(version: 20171018170200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,16 @@ ActiveRecord::Schema.define(version: 20171017134349) do
     t.integer  "year"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.float    "total_transaction_value"
+    t.float    "avg_value"
+    t.float    "min_value"
+    t.float    "max_value"
+    t.float    "rolling_balance"
+    t.float    "business_expenses"
+    t.float    "withdrawals"
+    t.float    "deposits"
+    t.float    "new_borrowing"
+    t.float    "repayment"
     t.index ["household_member_transaction_id", "month", "year"], name: "index_household_member_histories_on_member_id_month_year", using: :btree
     t.index ["month", "year"], name: "index_household_member_transaction_histories_on_month_and_year", using: :btree
     t.index ["month"], name: "index_household_member_transaction_histories_on_month", using: :btree
@@ -206,6 +216,16 @@ ActiveRecord::Schema.define(version: 20171017134349) do
     t.integer  "year"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.float    "total_transaction_value"
+    t.float    "avg_value"
+    t.float    "min_value"
+    t.float    "max_value"
+    t.float    "rolling_balance"
+    t.float    "business_expenses"
+    t.float    "withdrawals"
+    t.float    "deposits"
+    t.float    "new_borrowing"
+    t.float    "repayment"
     t.index ["household_transaction_id", "month", "year"], name: "index_household_histories_on_household_id_month_year", using: :btree
     t.index ["month", "year"], name: "index_household_transaction_histories_on_month_and_year", using: :btree
     t.index ["month"], name: "index_household_transaction_histories_on_month", using: :btree
