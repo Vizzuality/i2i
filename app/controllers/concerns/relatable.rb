@@ -3,7 +3,17 @@ module Relatable
 
   def show
     @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
-    @related = related(@insight)
+    @total_related = related(@insight).size;
+
+    if params[:offset].present?
+      @morePaginationAvailable = (@total_related - (params[:offset].to_i * ENV['OFFSET_SIZE'].to_i)) > 0
+      @related = related(@insight).take((params[:offset].to_i * ENV['OFFSET_SIZE'].to_i))
+    else
+      @morePaginationAvailable = (@total_related - (1 * ENV['OFFSET_SIZE'].to_i)) > 0
+      @related = related(@insight).take((1 * ENV['OFFSET_SIZE'].to_i))
+    end
+
+    @offset = params[:offset] ? params[:offset].to_i + 1 : 2;
   end
 
   def related(insight)

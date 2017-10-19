@@ -40,11 +40,8 @@
     </div>
 
     <div class="wrapper">
-
       <div class="row">
-
         <div class="grid-s-12 grid-l-10 offset-l-1">
-
           <article class="c-article">
             <div class="row">
               <header class="c-article-header">
@@ -84,41 +81,25 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <%if false %>
-    <section class="l-related-section">
-      <div class="wrapper">
-        <h2 class="title -dark -big">Related news</h2>
-        <div class="l-card-grid">
-          <div class="row masonry-cards">
-            <% @related_news.each do |news| %>
-              <div class="masonry-item grid-s-12 grid-m-6 grid-l-4">
-                <article class="c-card">
-                  <a href="<%= news_path(news.id) %>" alt="<%= news.title %>">
-                    <div class="picture" style="background-image: url(<%= news.image %>)"></div>
-                    <div class="metadata">
-                      <h4 class="title -dark"><%= news.title %></h4>
-                      <p><%= news.summary %></p>
-                    </div>
-                    <footer class="footer">
-                      <span class="date"><%= DateHelper.beautify news.date %></span>
-                    </footer>
-                  </a>
-                </article>
-              </div>
-            <% end %>
-          </div>
-          <div class="row">
-            <div class="grid-s-12">
-              <div class="grid-footer">
-                <%= link_to 'More news', updates_news_index_path, :class => 'c-button -big -sea' %>
-              </div>
+    <%if @related.any? %>
+      <section class="l-related-section">
+        <div class="wrapper">
+          <h2 class="title -dark -big">Related content</h2>
+          <div class="l-card-grid">
+            <div class="row">
+              <%= render partial: 'shared/cards', locals: { insights: @related, route: 'insights' }%>
+              <% if @morePaginationAvailable %>
+                <div class="grid-s-12">
+                  <div class="grid-footer">
+                    <%= link_to 'Show More', insights_show_path(news.category.slug, news.slug, { entity: news.record_type, offset: @offset }), :class => 'c-button -big -sea' %>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  <% end %>
+      </section>
+    <% end %>
   </div>
 </div>
