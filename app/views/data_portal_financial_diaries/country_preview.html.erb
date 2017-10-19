@@ -41,9 +41,8 @@
           <div class="row">
             <div class="grid-s-12 grid-m-8">
               <h3 class="title -big -dark">Financial Diaries</h3>
-              <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+              <p class="dataset-description">
+                The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members. The survey was conducted in the <mark>{province}</mark> region. Please note that the Financial Diaries are not a nationally representative dataset.
               </p>
               <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
                 class: "c-button -sea datasetbutton" %>
@@ -55,11 +54,10 @@
       <% if @country_finscope.present? %>
         <section class="dataset">
           <div class="row">
-            <div class="grid-s-12 grid-m-6">
+            <div class="grid-s-12 grid-m-8">
               <h3 class="title -big -dark">FinScope</h3>
-              <p class="dataset-description">Description Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+              <p class="dataset-description">
+                The FinScope methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. FinScope methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
               </p>
               <%= link_to "Discover FinScope data", data_portal_y_path(@country_finscope[:iso], @country_finscope[:latest_year]),
                 class: "c-button -sea datasetbutton" %>
