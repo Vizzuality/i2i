@@ -33,9 +33,9 @@ class InsightsController < ApplicationController
 
 
     if params[:offset].present?
-      @morePaginationAvailable = (@total_insights - (params[:offset].to_i * ENV['OFFSET_SIZE'].to_i)) >= 0
+      @morePaginationAvailable = (@total_insights - (params[:offset].to_i * ENV['OFFSET_SIZE'].to_i)) > 0
     else
-      @morePaginationAvailable = (@total_insights - (1 * ENV['OFFSET_SIZE'].to_i)) >= 0
+      @morePaginationAvailable = (@total_insights - (1 * ENV['OFFSET_SIZE'].to_i)) > 0
     end
 
     @offset = params[:offset] ? params[:offset].to_i + 1 : 2;
