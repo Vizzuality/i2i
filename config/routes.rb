@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   # Tools
   get 'tools' => 'tools#index'
 
-  namespace :api do
+  namespace :fdapi do
     resources :household_transactions, only: [:index, :show]
     resources :household_member_transactions, only: [:index, :show]
     resources :category_usages, only: [:index, :show]
