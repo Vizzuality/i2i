@@ -58,11 +58,12 @@ Rails.application.routes.draw do
   # Tools
   get 'tools' => 'tools#index'
 
-  namespace :api do
+  namespace :fdapi do
     resources :household_transactions, only: [:index, :show]
     resources :household_member_transactions, only: [:index, :show]
     resources :category_usages, only: [:index, :show]
     resources :project_metadata, only: [:index, :show]
+    get 'project_min_max/:project_name', to: 'project_metadata#project_min_max'
   end
 
   namespace :updates do

@@ -1,4 +1,4 @@
-module Api
+module Fdapi
   class HouseholdMemberTransactionsController < ApiController
     # before_action :require_login
 

@@ -161,4 +161,44 @@ namespace :db do
     end
     p 'Saved'
   end
+
+  task create_histories_values: :environment do
+    histories = HouseholdTransactionHistory.where.not(value: nil)
+
+    histories.each do |history|
+      values = history.value.split(':').map { |val| val.eql?("null") ? nil : val.to_f }
+      history.update_columns(
+        total_transaction_value: values[0],
+        avg_value: values[1],
+        min_value: values[2],
+        max_value: values[3],
+        rolling_balance: values[4],
+        business_expenses: values[5],
+        withdrawals: values[6],
+        deposits: values[7],
+        new_borrowing: values[8],
+        repayment: values[9]
+      )
+    end
+  end
+
+  task create_member_histories_values: :environment do
+    histories = HouseholdMemberTransactionHistory.where.not(value: nil)
+
+    histories.each do |history|
+      values = history.value.split(':').map { |val| val.eql?("null") ? nil : val.to_f }
+      history.update_columns(
+        total_transaction_value: values[0],
+        avg_value: values[1],
+        min_value: values[2],
+        max_value: values[3],
+        rolling_balance: values[4],
+        business_expenses: values[5],
+        withdrawals: values[6],
+        deposits: values[7],
+        new_borrowing: values[8],
+        repayment: values[9]
+      )
+    end
+  end
 end
