@@ -15,7 +15,7 @@
         "type": "json",
         "property": "data"
       },
-      "url": "/api/household_transactions?category_type=savings&category_name=ALL&project_name=Kenya Financial Diaries",
+      "url": "/fdapi/household_transactions?category_type=savings&category_name=ALL&project_name=Kenya Financial Diaries",
       "transform": []
     }, {
       "name": "stats",
