@@ -22,11 +22,12 @@
       this.year = options.year;
 
       this._setVars();
+      this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
 
       // set URL params
-      this._onUpateURLParams();
+      // this._onUpateURLParams();
     },
 
     _setVars: function() {
@@ -35,9 +36,19 @@
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
     },
 
+    _removeEventListeners: function() {
+      this.categories.forEach(function(category) {
+        $(category).off('click');
+      });
+
+      this.tabs.forEach(function(tab) {
+        $(tab).off('click');
+      });
+    },
+
     _setEventListeners: function() {
       this.categories.forEach(function(category) {
-        category.addEventListener('click', function(e) {
+        $(category).on('click', function(e) {
           this._onClickCategory(e);
         }.bind(this));
       }.bind(this));
@@ -53,7 +64,7 @@
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
       var category = categoryOption.getAttribute('data-category');
-      var categories = this.filters.categories;
+      var categories = [].concat(this.filters.categories);
       var newCategoryObject = {
         type: parentCategory || null,
         subcategory: category
@@ -102,7 +113,7 @@
 
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
-      this.router.navigate(newURL, { replace: true });
+      this.router.navigate(newURL, { replace: true, trigger: true });
 
       // sends filters to server in order to get filtered data
       $.ajax(newURL, {});
@@ -111,7 +122,7 @@
     _loadCharts: function() {
       var categories = (this.filters.categories || []).map(function(category) {
         return {
-          categoy_type: category.type,
+          category_type: category.type,
           category_name: category.subcategory || 'ALL'
         };
       });

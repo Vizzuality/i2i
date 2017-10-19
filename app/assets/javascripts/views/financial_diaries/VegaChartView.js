@@ -53,7 +53,6 @@
 
       if (this.options.params) {
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec))(params));
-        console.log(resultSpec)
       }
 
       return vega.parse(resultSpec);
