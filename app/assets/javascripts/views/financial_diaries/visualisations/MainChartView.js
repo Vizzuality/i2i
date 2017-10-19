@@ -5,9 +5,39 @@
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 1000,
     "height": 480,
+    "padding": 10,
     "autosize": {
       "type": "pad",
       "resize": true
+    },
+    "config": {
+      "axis": {
+        "grid": false,
+        "gridColor": "#dedede"
+      },
+      "symbol": {
+        "fill": "steelblue",
+        "size": 64
+      },
+      "line": {
+        "opacity": "steelblue",
+        "interpolate": "monotone"
+      },
+      "range": {
+        "category": [
+          "#5079a5",
+          "#ef8e3b",
+          "#dd565c",
+          "#79b7b2",
+          "#5da052",
+          "#ecc853",
+          "#ad7aa1",
+          "#ef9ba7",
+          "#9b7461",
+          "#bab0ac"
+        ]
+      }
+
     },
     "data": [{
       "name": "table",
@@ -16,7 +46,10 @@
         "property": "data"
       },
       "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>",
-      "transform": []
+      "transform": [{
+        "type": "filter",
+        "expr": "datum.category_type == 'income'"
+      }]
     }, {
       "name": "stats",
       "values": [{
@@ -91,13 +124,7 @@
     "scales": [{
       "name": "color",
       "type": "ordinal",
-      "range": [
-        "#CCDDFE",
-        "#FECCD7",
-        "#E2CCFE",
-        "#CDFECC",
-        "#FEFECC"
-      ],
+      "range": "category",
       "domain": {
         "data": "table",
         "field": "category_type"
@@ -120,7 +147,9 @@
             "value": 390
           },
           "width": {
-            "value": 1000
+            "field": {
+              "group": "width"
+            }
           }
         }
       },
@@ -128,6 +157,7 @@
         "name": "xDetail",
         "type": "time",
         "range": "width",
+        "nice": true,
         "domain": {
           "data": "stats",
           "field": "x"
@@ -155,7 +185,8 @@
       }],
       "axes": [{
         "orient": "bottom",
-        "scale": "xDetail"
+        "scale": "xDetail",
+        "labelOverlap": true
       }, {
         "orient": "left",
         "scale": "yDetail"
@@ -167,7 +198,7 @@
           "facet": {
             "name": "partitioned_saved_data",
             "data": "table",
-            "field": "values"
+            "field": "household_transaction_histories"
           }
         },
         "encode": {
@@ -205,9 +236,6 @@
               "defined": {
                 "signal": "datum.avg_value!=null"
               },
-              "interpolate": {
-                "value": "monotone"
-              },
               "stroke": {
                 "scale": "color",
                 "field": {
@@ -215,24 +243,70 @@
                 }
               },
               "opacity": {
-                "value": 1
+                "value": 0.2
               },
               "strokeWidth": {
-                "value": 1
+                "value": 0.5
+              },
+              "strokeCap": {
+                "value": "round"
               },
               "zindex": {
                 "value": 0
               }
             },
             "hover": {
-              "stroke": {
-                "value": "firebrick"
+              "href": {
+                "signal": "'https://vega.github.io/'+parent.household_name"
               },
               "strokeWidth": {
                 "value": 2
               },
-              "strokeOpacity": {
+              "opacity": {
                 "value": 1
+              },
+              "zindex": {
+                "value": 1
+              }
+            }
+          }
+        }, {
+          "type": "symbol",
+          "from": {
+            "data": "partitioned_saved_data"
+          },
+          "encode": {
+            "update": {
+              "x": {
+                "scale": "xDetail",
+                "signal": "toDate(datum.date)"
+              },
+              "y": {
+                "scale": "yDetail",
+                "field": "avg_value"
+              },
+              "fill": {
+                "scale": "color",
+                "field": {
+                  "parent": "category_type"
+                }
+              },
+              "opacity": [{
+                "test": "datum.avg_value!=null",
+                "value": 0.2
+              }, {
+                "value": 0
+              }],
+              "size": {
+                "value": 10
+              },
+              "zindex": {
+                "value": 0
+              }
+            },
+            "hover": {
+              "href": {
+                "signal": "'https://vega.github.io/'+parent.household_name"
               },
               "zindex": {
                 "value": 1
@@ -282,9 +356,6 @@
                 "scale": "yDetail",
                 "field": "y"
               },
-              "interpolate": {
-                "value": "linear"
-              },
               "stroke": {
                 "scale": "color",
                 "field": "c"
@@ -323,7 +394,9 @@
             "value": 70
           },
           "width": {
-            "value": 1000
+            "field": {
+              "group": "width"
+            }
           },
           "fill": {
             "value": "transparent"
@@ -383,7 +456,8 @@
         "domain": {
           "data": "stats",
           "field": "x"
-        }
+        },
+        "nice": true
       }, {
         "name": "yOverview",
         "type": "linear",
@@ -400,7 +474,8 @@
       }],
       "axes": [{
         "orient": "bottom",
-        "scale": "xOverview"
+        "scale": "xOverview",
+        "labelOverlap": true
       }],
       "marks": [{
         "name": "area_group",
@@ -431,6 +506,7 @@
         },
         "marks": [{
           "type": "area",
+          "interactive": false,
           "from": {
             "data": "area_data"
           },
@@ -549,7 +625,7 @@
             "value": 390
           },
           "width": {
-            "value": 20
+            "value": 30
           },
           "fill": {
             "value": "transparent"
@@ -609,7 +685,7 @@
         "name": "xYOverview",
         "type": "time",
         "range": [
-          20,
+          30,
           0
         ],
         "domain": {
@@ -644,7 +720,7 @@
           "facet": {
             "name": "partitioned_saved_data",
             "data": "table",
-            "field": "values"
+            "field": "household_transaction_histories"
           }
         },
         "encode": {
@@ -686,11 +762,14 @@
                   "parent": "category_type"
                 }
               },
-              "opacity": {
-                "value": 1
-              },
+              "opacity": [{
+                "test": "datum.avg_value!=null",
+                "value": 0.2
+              }, {
+                "value": 0
+              }],
               "size": {
-                "value": 1
+                "value": 2
               },
               "zindex": {
                 "value": 0
@@ -707,7 +786,7 @@
               "value": 0
             },
             "width": {
-              "value": 20
+              "value": 30
             },
             "fill": {
               "value": "#333"
@@ -737,7 +816,7 @@
               "value": 0
             },
             "width": {
-              "value": 20
+              "value": 30
             },
             "fill": {
               "value": "firebrick"
@@ -761,7 +840,7 @@
               "value": 0
             },
             "width": {
-              "value": 20
+              "value": 30
             },
             "fill": {
               "value": "firebrick"
@@ -776,6 +855,7 @@
       }]
     }]
   };
+
 
   App.View.MainChartView = App.View.VegaChartView.extend({
 
