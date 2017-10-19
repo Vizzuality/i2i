@@ -19,9 +19,11 @@ class HouseholdTransactionSerializer < ActiveModel::Serializer
   attributes :id, :project_name, :household_name, :category_type, :category_name,
              :subcategory, :num_accounts, :num_members, :num_adults
 
-  has_many :values
+  has_many :household_transaction_histories
 
-  def values
-    object.household_transaction_histories_with_avg.sort { |a, b| [a[:year], a[:month]] <=> [b[:year], b[:month]] }
-  end
+  # has_many :values
+
+  # def values
+  #   object.household_transaction_histories_with_avg.sort { |a, b| [a[:year], a[:month]] <=> [b[:year], b[:month]] }
+  # end
 end
