@@ -20,4 +20,10 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     gon.categories = JSON.parse @categories.to_json
   end
+
+  def country_preview
+    @country = Country.find_by(iso: params[:iso])
+    @country_finscope = @country.finscope
+    @country_financial_diaries = @country.financial_diaries
+  end
 end
