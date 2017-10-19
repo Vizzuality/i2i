@@ -9,7 +9,7 @@
         type: 'households',
         categories: [
           {
-            type: (gon.categories[0] || {}).name,
+            type: ((gon.categories || [])[0] || {}).name,
             subcategory: null
           }
         ]
