@@ -22,7 +22,8 @@
 class HouseholdMemberTransaction < ApplicationRecord
   include Filterable
 
-  has_many :household_member_transaction_histories
+  has_many :household_member_transaction_histories_all, class_name: 'HouseholdMemberTransactionHistory'
+  has_many :household_member_transaction_histories, -> { with_avg }
 
   scope :project_name, -> (project_name) { where project_name: project_name }
   scope :household_name, -> (household_name) { where household_name: household_name }
@@ -38,7 +39,7 @@ class HouseholdMemberTransaction < ApplicationRecord
     end
   end
 
-  def household_member_transaction_histories_with_avg
-    household_member_transaction_histories.where.not(value: nil).select { |hh| hh.value.split(':')[1] != 'null' }
-  end
+  # def household_member_transaction_histories_with_avg
+  #   household_member_transaction_histories.where.not(value: nil).select { |hh| hh.value.split(':')[1] != 'null' }
+  # end
 end

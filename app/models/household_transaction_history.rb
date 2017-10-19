@@ -13,4 +13,6 @@
 
 class HouseholdTransactionHistory < ApplicationRecord
   belongs_to :household_transaction
+
+  scope :with_avg, -> { where.not(avg_value: nil).order([:year, :month]) }
 end
