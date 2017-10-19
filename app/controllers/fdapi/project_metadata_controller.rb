@@ -11,7 +11,12 @@ module Fdapi
 
     def project_min_max
       project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
-      household_transactions = HouseholdTransaction.filter(params.slice(:project_name, :household_name, :category_name, :category_type, :subcategory))
+      categories_filter = JSON.parse(params[:categories])
+
+      household_transactions = categories_filter.map do |category|
+        HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category))
+      end.flatten
+
       adapter = ActiveRecord::Base.connection
       min_value = adapter.execute("select min(avg_value) from household_transaction_histories where household_transaction_id in(#{household_transactions.pluck(:id).join(', ')})")
       max_value = adapter.execute("select max(avg_value) from household_transaction_histories where household_transaction_id in(#{household_transactions.pluck(:id).join(', ')})")
@@ -30,6 +35,10 @@ module Fdapi
       ]
 
       render json: { data: data }
+    end
+
+    def project_means
+
     end
   end
 end
