@@ -47,13 +47,10 @@
         },
         {
             "name": "stats",
-            "format": {
-                "type": "json",
-                "property": "data"
-            },
             "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
             "format": {
                 "type": "json",
+          "property": "data",
                 "parse": {
                     "value": "number",
                     "date": "date"
