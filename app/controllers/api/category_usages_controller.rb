@@ -1,6 +1,6 @@
 module Api
   class CategoryUsagesController < ApiController
-    before_action :require_login
+    # before_action :require_login
 
     def index
       category_usages = CategoryUsage.filter(params.slice(:category_type, :category_name, :subcategory))
