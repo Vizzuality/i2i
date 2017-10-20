@@ -18,28 +18,60 @@ module Fdapi
       end.flatten
 
       adapter = ActiveRecord::Base.connection
-      min_value = adapter.
-        execute("select household_transactions.category_type, min(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
-      max_value = adapter.
-        execute("select household_transactions.category_type, max(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
+
+      sql_result = adapter.execute("select household_transactions.category_type,
+          min(household_transaction_histories.rolling_balance), min(total_transaction_value),
+          max(household_transaction_histories.rolling_balance), max(total_transaction_value)
+          from household_transaction_histories inner join household_transactions
+          on household_transactions.id = household_transaction_histories.household_transaction_id
+          where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')})
+          group by household_transactions.category_type")
 
       data = []
-      min_value.values.each do |min|
-        data << {
-          c: 'min',
-          date: project_metadata.start_date.strftime('%Y-%m-%d'),
-          value: min.last,
-          category: min.first
-        }
+      field_index =
+        { category: 0, min_rolling: 1, min_total: 2, max_rolling: 3, max_total: 4}
+
+      sql_result.values.each do |values|
+        case values[field_index[:category]]
+        when 'credits', 'savings'
+          data << json_element('min', values[field_index[:min_rolling]],
+                               values[field_index[:category]],
+                               project_metadata.start_date.strftime('%Y-%m-%d'))
+          data << json_element('max', values[field_index[:max_rolling]],
+                               values[field_index[:category]],
+                               project_metadata.start_date.strftime('%Y-%m-%d'))
+        when 'expense', 'income'
+          data << json_element('min', values[field_index[:min_total]],
+                               values[field_index[:category]],
+                               project_metadata.start_date.strftime('%Y-%m-%d'))
+          data << json_element('max', values[field_index[:max_total]],
+                               values[field_index[:category]],
+                               project_metadata.start_date.strftime('%Y-%m-%d'))
+        end
       end
-      max_value.values.each do |max|
-        data << {
-          c: 'max',
-          date: project_metadata.end_date.strftime('%Y-%m-%d'),
-          value: max.last,
-          category: max.first
-        }
-      end
+
+
+      # min_value = adapter.
+      #   execute("select household_transactions.category_type, min(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
+      # max_value = adapter.
+      #   execute("select household_transactions.category_type, max(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
+      #
+      # min_value.values.each do |min|
+      #   data << {
+      #     c: 'min',
+      #     date: project_metadata.start_date.strftime('%Y-%m-%d'),
+      #     value: min.last,
+      #     category: min.first
+      #   }
+      # end
+      # max_value.values.each do |max|
+      #   data << {
+      #     c: 'max',
+      #     date: project_metadata.end_date.strftime('%Y-%m-%d'),
+      #     value: max.last,
+      #     category: max.first
+      #   }
+      # end
 
       render json: { data: data }
     end
@@ -91,6 +123,15 @@ module Fdapi
       end
 
       render json: { data: result.sort_by { |h| h[:date] } }
+    end
+
+    def json_element(operation, value, category, date)
+      {
+        c: operation,
+        date: date,
+        value: value,
+        category: category
+      }
     end
   end
 end
