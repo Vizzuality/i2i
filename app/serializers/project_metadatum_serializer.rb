@@ -18,6 +18,7 @@
 #  end_date                :datetime
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  num_members_in_mem      :integer
 #
 
 class ProjectMetadatumSerializer < ActiveModel::Serializer
