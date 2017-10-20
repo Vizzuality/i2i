@@ -2,19 +2,30 @@
   <ul class="js-twitter-slider slidelist">
     <% @tweets.each do |tweet| %>
       <li class="slide">
-        <div class="tweet <% if tweet.media? %>-narrow<% end %>">
-          <a class="user" href="https://twitter.com/<%= tweet.user.name %>">@<%= tweet.user.name %></a>
-          <time class="date" datetime="<%= tweet.created_at.strftime("%F") %>">
-            <%= tweet.created_at.strftime("%d %b %Y") %>
-          </time>
-          <p class="text">
-            <%= tweet.attrs[:full_text] %>
-          </p>
+        <div class="row">
+          <div class="grid-s-12 <% if tweet.media? %>grid-m-6<% end %>">
+            <div class="tweet">
+              <div class="grid-s-12 <% unless tweet.media? %>grid-m-6<% end %>">
+                <div class="tweet-header">
+                  <a class="user" href="https://twitter.com/<%= tweet.user.name %>">@<%= tweet.user.name %></a>
+                  <time class="date" datetime="<%= tweet.created_at.strftime("%F") %>">
+                    <%= tweet.created_at.strftime("%d %b %Y") %>
+                  </time>
+                </div>
+                <div class="tweet-content">
+                  <p class="text"><%= tweet.attrs[:full_text] %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if tweet.media? %>
+            <div class="grid-s-12 grid-m-5 offset-m-1">
+              <div class="tweet-image" style="background-image: url(<%= tweet.media[0].media_url.to_s %>)"></div>
+            </div>
+          <% end %>
         </div>
-        <% if tweet.media? %>
-          <div class="image" style="background-image: url(<%= tweet.media[0].media_url.to_s %>)"></div>
-        <% end %>
       </li>
-    <% end %>    
-  </ul>  
+    <% end %>
+  </ul>
 </div>
