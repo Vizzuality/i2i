@@ -42,11 +42,11 @@
           "type": "json",
           "property": "data"
         },
-        "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
+        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
       },
       {
         "name": "stats",
-        "url": "/fdapi/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>",
+        "url": "<%= api %>/project_min_max/<%= project_name %>?categories=<%= categories %>",
         "format": {
           "type": "json",
           "property": "data",

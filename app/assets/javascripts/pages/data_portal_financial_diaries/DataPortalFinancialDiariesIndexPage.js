@@ -129,7 +129,8 @@
 
       var params = {
         project_name: gon.project_name,
-        categories: window.encodeURIComponent(JSON.stringify(categories))
+        categories: window.encodeURIComponent(JSON.stringify(categories)),
+        api: FD_API_URL
       };
 
       new App.View.MainChartView({
