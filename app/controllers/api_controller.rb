@@ -1,19 +1,19 @@
 class ApiController < ActionController::Base
+  def default_indicators
+    {
+      credits: :rolling_balance,
+      savings: :rolling_balance,
+      income: :total_transaction_value,
+      expense: :total_transaction_value
+    }
+  end
+
   def require_login
     authenticate_token || render_unauthorized("Access denied")
   end
 
   def current_user
     @current_user ||= authenticate_token
-  end
-
-  def meta(records)
-    {
-      # current_page: records.current_page,
-      # total_pages: records.total_pages,
-      # total_count: records.total_count,
-      page_total: records.count
-    }
   end
 
   protected
