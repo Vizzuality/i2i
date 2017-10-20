@@ -83,7 +83,7 @@ module Fdapi
         end
       end
 
-      render json: { data: result }
+      render json: { data: result.sort_by { |h| h[:date] } }
     end
   end
 end
