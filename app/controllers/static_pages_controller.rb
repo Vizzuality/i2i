@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
     ]
 
     gon.team = JSON.parse @teamMembers.to_json(:methods => [:image_url])
-    gon.advisor = JSON.parse @advisoryMembers.to_json
+    gon.advisor = JSON.parse @advisoryMembers.to_json(:methods => [:image_url])
   end
 
   def email
