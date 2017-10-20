@@ -9,6 +9,10 @@
   background-color: $color-4;
   box-shadow: 0 2px 8px 0 rgba($color-6, .15);
 
+  &.-open {
+    display: block;
+  }
+
   .filterlistitem {
     display: block;
     padding: 5px;

@@ -3,6 +3,8 @@
 
   App.Page.DataPortalFinancialDiariesIndexPage = Backbone.View.extend({
 
+    el: 'body',
+
     defaults: {
       filters: {
         // can be households or individuals
@@ -16,30 +18,42 @@
       }
     },
 
+    events: {
+      'change .js-category-visibility': '_onChangeVisibility'
+    },
+
     initialize: function(options) {
       this.filters = Object.assign({}, this.defaults.filters, options.filters);
       this.iso = options.iso;
       this.year = options.year;
 
+      if (this.filterView) {
+        this.filterView.removeEventListener();
+      } else {
+        this.filterView = new App.Component.GroupedMenu({
+          el: $('.js-filters')
+        });
+      }
+
       this._setVars();
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
-
-      // set URL params
-      // this._onUpateURLParams();
     },
 
     _setVars: function() {
       this.router = App.Router.FinancialDiaries;
-      this.categories = document.querySelectorAll('.js-category-option') || [];
+      this.categories = document.querySelectorAll('.js-category-child-option') || [];
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
+
+      // bindings
+      this.onClickCategoryBinded = function(e) {
+        this._onClickCategory(e);
+      }.bind(this);
     },
 
     _removeEventListeners: function() {
-      this.categories.forEach(function(category) {
-        $(category).off('click');
-      });
+      $(this.categories).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -47,11 +61,7 @@
     },
 
     _setEventListeners: function() {
-      this.categories.forEach(function(category) {
-        $(category).on('click', function(e) {
-          this._onClickCategory(e);
-        }.bind(this));
-      }.bind(this));
+      $(this.categories).on('click', this.onClickCategoryBinded);
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -60,7 +70,13 @@
       }.bind(this));
     },
 
+    _onChangeVisibility: function(e) {
+      console.log(e);
+    },
+
     _onClickCategory: function (e) {
+      e && e.preventDefault() && e.stopPropagation();
+
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
       var category = categoryOption.getAttribute('data-category');
@@ -93,6 +109,7 @@
         }
       }
 
+      this.filterView.closeMenu();
       this._updateFilters({ categories: categories });
     },
 
@@ -110,13 +127,10 @@
 
     _onUpateURLParams: function() {
       var pathname = Backbone.history.location.pathname;
-
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
-      this.router.navigate(newURL, { replace: true, trigger: true });
 
-      // sends filters to server in order to get filtered data
-      $.ajax(newURL, {});
+      this.router.navigate(newURL, { replace: true, trigger: true });
     },
 
     _loadCharts: function() {
