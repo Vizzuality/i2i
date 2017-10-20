@@ -98,26 +98,37 @@
 
       .social-list {
         display: flex;
-        margin: 12px 0 0;
-      }
+        margin: 7px 0 0;
 
-      .social-list > .social-item {
+        > .social-item {
 
-        &:not(:first-child) {
-          margin: 0 0 0 25px;
-        }
-
-        @media #{$mq-desktop} {
           &:not(:first-child) {
-            margin: 0 0 0 15px;
+            margin: 0 0 0 20px;
+          }
+
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 10px;
+            }
+          }
+
+          svg {
+            fill: rgba($color-4, .5);
+
+            &:hover {
+              fill: $color-4;
+            }
           }
         }
 
-        svg {
-          fill: rgba($color-4, .5);
+        .social-link {
+          display: inline-block;
+          padding: 5px;
 
-          &:hover {
-            fill: $color-4;
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 15px;
+            }
           }
         }
       }
