@@ -93,6 +93,7 @@
 
       .title {
         color: rgba($color-4, .5);
+        font-size: $font-size-small;
       }
 
       .social-list {
@@ -127,6 +128,7 @@
 
       .title {
         color: rgba($color-4, .5);
+        font-size: $font-size-small;
       }
 
       @media #{$mq-laptop} {
