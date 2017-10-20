@@ -19,7 +19,7 @@ class HouseholdTransaction < ApplicationRecord
   include Filterable
 
   has_many :household_transaction_histories_all, class_name: 'HouseholdTransactionHistory'
-  has_many :household_transaction_histories, -> { with_avg }
+  has_many :household_transaction_histories, -> { with_values }
 
   scope :project_name, -> (project_name) { where project_name: project_name }
   scope :household_name, -> (household_name) { where household_name: household_name }
