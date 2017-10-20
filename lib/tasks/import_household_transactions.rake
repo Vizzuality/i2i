@@ -201,4 +201,24 @@ namespace :db do
       )
     end
   end
+
+  task remove_unwanted_categories: :environment do
+    hh = HouseholdTransaction.where(category_type: nil)
+    hh_histories = HouseholdTransactionHistory.where(household_transaction_id: hh.pluck(:id))
+    hm = HouseholdMemberTransaction.where(category_type: nil)
+    hm_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm.pluck(:id))
+    hh_insurance = HouseholdTransaction.where(category_type: 'insurance')
+    hh_insurance_histories = HouseholdTransactionHistory.where(household_transaction_id: hh_insurance.pluck(:id))
+    hm_insurance = HouseholdMemberTransaction.where(category_type: 'insurance')
+    hm_insurance_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm_insurance.pluck(:id))
+
+    hh.each(&:destroy)
+    hh_histories.each(&:destroy)
+    hm.each(&:destroy)
+    hm_histories.each(&:destroy)
+    hh_insurance.each(&:destroy)
+    hh_insurance_histories.each(&:destroy)
+    hm_insurance.each(&:destroy)
+    hm_insurance_histories.each(&:destroy)
+  end
 end
