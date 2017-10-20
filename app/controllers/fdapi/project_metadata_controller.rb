@@ -18,21 +18,28 @@ module Fdapi
       end.flatten
 
       adapter = ActiveRecord::Base.connection
-      min_value = adapter.execute("select min(avg_value) from household_transaction_histories where household_transaction_id in(#{household_transactions.pluck(:id).join(', ')})")
-      max_value = adapter.execute("select max(avg_value) from household_transaction_histories where household_transaction_id in(#{household_transactions.pluck(:id).join(', ')})")
+      min_value = adapter.
+        execute("select household_transactions.category_type, min(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
+      max_value = adapter.
+        execute("select household_transactions.category_type, max(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
 
-      data = [
-        {
+      data = []
+      min_value.values.each do |min|
+        data << {
           c: 'min',
           date: project_metadata.start_date.strftime('%Y-%m-%d'),
-          value: min_value.values.flatten.first
-        },
-        {
+          value: min.last,
+          category: min.first
+        }
+      end
+      max_value.values.each do |max|
+        data << {
           c: 'max',
           date: project_metadata.end_date.strftime('%Y-%m-%d'),
-          value: max_value.values.flatten.first
+          value: max.last,
+          category: max.first
         }
-      ]
+      end
 
       render json: { data: data }
     end
