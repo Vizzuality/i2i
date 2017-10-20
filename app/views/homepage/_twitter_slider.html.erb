@@ -2,7 +2,7 @@
   <ul class="js-twitter-slider slidelist">
     <% @tweets.each do |tweet| %>
       <li class="slide">
-        <div class="tweet">
+        <div class="tweet <% if tweet.media? %>-narrow<% end %>">
           <a class="user" href="https://twitter.com/<%= tweet.user.name %>">@<%= tweet.user.name %></a>
           <time class="date" datetime="<%= tweet.created_at.strftime("%F") %>">
             <%= tweet.created_at.strftime("%d %b %Y") %>
