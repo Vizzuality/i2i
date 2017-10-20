@@ -9,6 +9,16 @@
 #  year                     :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  total_transaction_value  :float
+#  avg_value                :float
+#  min_value                :float
+#  max_value                :float
+#  rolling_balance          :float
+#  business_expenses        :float
+#  withdrawals              :float
+#  deposits                 :float
+#  new_borrowing            :float
+#  repayment                :float
 #
 
 class HouseholdTransactionHistorySerializer < ActiveModel::Serializer

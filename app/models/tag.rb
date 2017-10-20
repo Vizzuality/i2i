@@ -10,6 +10,7 @@
 #  is_featured :boolean          default(FALSE)
 #  description :text
 #  image_url   :string
+#  title       :string
 #
 
 class Tag < ApplicationRecord
