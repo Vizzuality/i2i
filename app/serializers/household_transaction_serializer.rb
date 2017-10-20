@@ -19,7 +19,11 @@ class HouseholdTransactionSerializer < ActiveModel::Serializer
   attributes :id, :project_name, :household_name, :category_type, :category_name,
              :subcategory, :num_accounts, :num_members, :num_adults
 
-  has_many :household_transaction_histories
+  has_many :values
+
+  def values
+    object.household_transaction_histories
+  end
 
   # has_many :values
 
