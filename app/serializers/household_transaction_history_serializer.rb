@@ -22,15 +22,15 @@
 #
 
 class HouseholdTransactionHistorySerializer < ActiveModel::Serializer
-  attributes :id, :avg_value, :month, :year, :date
+  attributes :id, :month, :year, :date
 
   def date
     Date.new(object.year, object.month, 1)
   end
 
-  def avg_value
-    if object.value.present?
-      object.value.split(':')[1].to_f
-    end
-  end
+  # def avg_value
+  #   if object.value.present?
+  #     object.value.split(':')[1].to_f
+  #   end
+  # end
 end
