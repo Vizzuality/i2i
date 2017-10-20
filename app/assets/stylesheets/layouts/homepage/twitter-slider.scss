@@ -13,8 +13,9 @@
     flex-flow: column-reverse;
     justify-content: center;
     width: 100%;
+    min-height: 350px;
     background-color: $color-4;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
     @media#{$mq-tablet} {
       flex-flow: row;
@@ -22,12 +23,13 @@
   }
 
   .tweet {
-    width: 100%;
-    padding: 20px 50px;
+    flex: 1;
+    padding: 20px 52px;
 
     @media#{$mq-tablet} {
-      width: 60%;
-      padding: 37px 31px 44px 50px;
+      &.-narrow {
+        padding-right: 30px;
+      }
     }
   }
 
@@ -51,8 +53,9 @@
   }
 
   .text {
+    display: inline-block;
     position: relative;
-    margin: 42px 28px;
+    margin: 42px 30px;
     color: $color-6;
     font-family: $font-family-1;
     font-size: 18px;
@@ -64,10 +67,11 @@
       right: 100%;
       bottom: 100%;
       margin-right: 5px;
+      transform: translateY(100%);
       color: $color-1;
       font-size: 62px;
       font-weight: $font-weight-bold;
-      line-height: 0;
+      line-height: 28px;
       content: open-quote;
     }
 
@@ -76,10 +80,11 @@
       top: 100%;
       left: 100%;
       margin-left: 5px;
+      transform: translateY(-100%);
       color: $color-1;
       font-size: 62px;
       font-weight: $font-weight-bold;
-      line-height: 1;
+      line-height: 28px;
       content: close-quote;
     }
 
@@ -90,12 +95,16 @@
   }
 
   .image {
-    flex: 1;
+    width: 100%;
     min-height: 250px;
     background-color: $color-4;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+
+    @media#{$mq-tablet} {
+      width: 40%;
+    }
   }
 
   // Selector to align with rslider library naming convention
