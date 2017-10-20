@@ -42,7 +42,7 @@
         name: memberInfo.name,
         position: memberInfo.position,
         biography: memberInfo.biography,
-        image: memberInfo.image
+        image: memberInfo.image_url
       });
     },
 

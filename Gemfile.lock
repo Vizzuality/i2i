@@ -240,6 +240,7 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.4)
@@ -399,6 +400,7 @@ DEPENDENCIES
   paperclip
   pg
   puma (~> 3.0)
+  rack-cors
   rails (~> 5.0.1)
   rails-assets-d3 (~> 3.5.16)!
   rails-assets-datalib (= 1.7.3)!

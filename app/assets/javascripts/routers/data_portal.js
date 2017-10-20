@@ -59,7 +59,7 @@
     report: function (params) {
       // Don't forget to stop the router on each route
       // otherwise you'll break the browser's back button
-      Backbone.history.stop();
+
       var indicators = [],
         deserializedIndicators;
 

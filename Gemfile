@@ -25,6 +25,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'activerecord-import', '~> 0.15.0'
 gem 'http'
 
+# CORS
+gem 'rack-cors'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'
   gem 'rails-assets-datalib', '1.7.3'
