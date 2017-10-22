@@ -2,12 +2,12 @@
   <ul class="filters js-filters">
     <% @categories.each do |category| %>
       <li class="filter-item">
-        <input
-          type="checkbox"
-          id="<%= category[:name] %>"
-          value="<%= category[:name] %>"
-          class="filterinput js-category-visibility"
-        />
+        <%= check_box_tag(category[:name],
+          value = category[:name],
+          checked = @selectedCategories.find { |cat| cat['type'] == category[:name]}.present?,
+          options = {
+            class: "filterinput js-category-visibility"
+          }) %>
         <label class="visibility-indicator"></label>
         <label
           class="category-selected js-gm-label"
