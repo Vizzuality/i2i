@@ -39,6 +39,12 @@
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
+
+      // this._onUpateURLParams();
+      var pathname = Backbone.history.location.pathname;
+      var encodedParams = window.btoa(JSON.stringify(this.filters));
+      var newURL = pathname + '?p=' + encodedParams;
+      $.ajax(newURL, {});
     },
 
     _setVars: function() {
