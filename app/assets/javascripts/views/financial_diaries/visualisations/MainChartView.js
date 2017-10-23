@@ -233,10 +233,10 @@
                     },
                     "y": {
                       "scale": "yDetail",
-                      "field": "avg_value"
+                      "field": "value"
                     },
                     "defined": {
-                      "signal": "datum.avg_value!=null"
+                      "signal": "datum.value!=null"
                     },
                     "stroke": {
                       "scale": "color",
@@ -286,7 +286,7 @@
                     },
                     "y": {
                       "scale": "yDetail",
-                      "field": "avg_value"
+                      "field": "value"
                     },
                     "fill": {
                       "scale": "color",
@@ -295,7 +295,7 @@
                       }
                     },
                     "opacity": [{
-                        "test": "datum.avg_value!=null",
+                        "test": "datum.value!=null",
                         "value": 0.2
                       },
                       {
@@ -788,7 +788,7 @@
                   },
                   "y": {
                     "scale": "yYOverview",
-                    "field": "avg_value"
+                    "field": "value"
                   },
                   "fill": {
                     "scale": "color",
@@ -797,7 +797,7 @@
                     }
                   },
                   "opacity": [{
-                    "test": "datum.avg_value!=null",
+                    "test": "datum.value!=null",
                     "value": 0.2
                   }, {
                     "value": 0
