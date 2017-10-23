@@ -24,6 +24,10 @@ class CategoryUsage < ApplicationRecord
     response = []
     grouped_categories = where.not(category_type: nil).where.not(subcategory: nil).group_by { |category| category.category_type }
     category_children = grouped_categories.transform_values { |categories| categories.map { |category| { name: category.subcategory } } }
+
+    # Only for expense, we copied the category_name value to the subcategory field in expense, generating doubles
+    category_children['expense'].uniq!
+
     category_children.each do |subcategories|
       response << {
         name: subcategories[0],
