@@ -30,7 +30,7 @@
         left: 0;
         width: 100%;
         height: 1px;
-        background: rgba($color-4, .2)
+        background: rgba($color-5, .2)
       }
 
       @media #{$mq-tablet} {
@@ -45,7 +45,7 @@
           left: -1%;
           width: 1px;
           height: 100%;
-          background: rgba($color-4, .2)
+          background: rgba($color-5, .2)
         }
       }
 
@@ -55,8 +55,8 @@
     }
 
     .text {
+      font-weight: $font-weight-semi-bold;
       line-height: 22px;
-      font-weight: $font-weight-bold;
 
       &.-leading {
         margin-top: 20px;
@@ -93,30 +93,42 @@
 
       .title {
         color: rgba($color-4, .5);
+        font-size: $font-size-small;
       }
 
       .social-list {
         display: flex;
-        margin: 12px 0 0;
-      }
+        margin: 7px 0 0;
 
-      .social-list > .social-item {
+        > .social-item {
 
-        &:not(:first-child) {
-          margin: 0 0 0 25px;
-        }
-
-        @media #{$mq-desktop} {
           &:not(:first-child) {
-            margin: 0 0 0 15px;
+            margin: 0 0 0 20px;
+          }
+
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 10px;
+            }
+          }
+
+          svg {
+            fill: rgba($color-4, .5);
+
+            &:hover {
+              fill: $color-4;
+            }
           }
         }
 
-        svg {
-          fill: rgba($color-4, .5);
+        .social-link {
+          display: inline-block;
+          padding: 5px;
 
-          &:hover {
-            fill: $color-4;
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 15px;
+            }
           }
         }
       }
@@ -127,6 +139,7 @@
 
       .title {
         color: rgba($color-4, .5);
+        font-size: $font-size-small;
       }
 
       @media #{$mq-laptop} {
