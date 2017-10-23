@@ -1,9 +1,9 @@
-<% isLarge ||= false %>
+<% isFixed ||= false %>
 <% isCover ||= false %>
 
-<div class="c-header <% if isCover.present? %>-cover<% end %> <% if isLarge %>-large<% end %>">
+<div class="c-header <% if isCover.present? %>-cover<% end %> <% if isFixed %>-fixed<% end %>">
   <div class="container">
-  	<div class="c-app-logo <% if isLarge %>-large<% end %>">
+  	<div class="c-app-logo <% if isFixed %>-fixed<% end %>">
   		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path %>
   	</div>
     <nav class="c-nav" role="navigation">
