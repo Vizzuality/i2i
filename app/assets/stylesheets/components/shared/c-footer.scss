@@ -55,8 +55,8 @@
     }
 
     .text {
+      font-weight: $font-weight-semi-bold;
       line-height: 22px;
-      font-weight: $font-weight-bold;
 
       &.-leading {
         margin-top: 20px;
