@@ -1,66 +1,69 @@
 .c-radio-filters {
   .filters {
     display: flex;
+    align-items: center;
     flex-wrap: nowrap;
+    padding: 10px 0;
   }
 
-  .filteritem {
+  .filter-item {
     position: relative;
     flex-grow: 1;
-    padding: 5px 0;
-    color: $color-4;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
-    line-height: 22px;
+    padding-left: 20px;
     text-align: center;
-    text-transform: capitalize;
 
-    .filterinput {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      border: 0;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
+    &:not(:first-child) {
+      margin-left: 25px;
+    }
 
-      &:checked + .filterindicator {
-        &::after {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 10px;
-          height: 10px;
-          transform: translate(-50%, -50%);
-          border-radius: 50px;
-          background-color: $color-4;
-          content: '';
-        }
+    .category-selected {
+      position: relative;
+      color: $color-4;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-bold;
+      text-transform: capitalize;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        @include arrow(5px, 2px, $color-4, 'down');
+        position: absolute;
+        top: 50%;
+        right: -10px;
+        transform: translate(0,-50%) rotate(45deg);
       }
     }
 
-    .filtercontrol {
-      display: inline-block;
-      position: relative;
+    input[type=checkbox] {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      width: 15px;
+      height: 15px;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      z-index: 2;
       cursor: pointer;
+
+      &:checked + .visibility-indicator {
+        background: $color-4;
+      }
     }
 
-    .filterlabel {
-      display: block;
-      margin-left: 23px;
-    }
-
-    .filterindicator {
+    .visibility-indicator {
       display: inline-block;
       position: absolute;
       top: 50%;
       left: 0;
-      width: 16px;
-      height: 16px;
-      transform: translateY(-50%);
-      border: 1px solid rgba($color-4, .4);
-      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      transform: translate(0, -50%);
+      border: 1px solid rgba($color-4, .5);
+      background: transparent;
+      transition: background-color .24s cubic-bezier(0.550, 0.055, 0.675, 0.190);
+      cursor: pointer;
     }
   }
 }

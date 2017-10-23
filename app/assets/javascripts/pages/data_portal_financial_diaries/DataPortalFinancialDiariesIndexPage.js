@@ -3,16 +3,13 @@
 
   App.Page.DataPortalFinancialDiariesIndexPage = Backbone.View.extend({
 
+    el: 'body',
+
     defaults: {
       filters: {
         // can be households or individuals
         type: 'households',
-        categories: [
-          {
-            type: ((gon.categories || [])[0] || {}).name,
-            subcategory: null
-          }
-        ]
+        categories: gon.selectedCategories
       }
     },
 
@@ -21,25 +18,39 @@
       this.iso = options.iso;
       this.year = options.year;
 
+      if (this.filterView) {
+        this.filterView.removeEventListener();
+      } else {
+        this.filterView = new App.Component.GroupedMenu({
+          el: $('.js-filters')
+        });
+      }
+
       this._setVars();
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
-
-      // set URL params
-      // this._onUpateURLParams();
     },
 
     _setVars: function() {
       this.router = App.Router.FinancialDiaries;
-      this.categories = document.querySelectorAll('.js-category-option') || [];
+      this.categories = document.querySelectorAll('.js-category-child-option') || [];
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
+      this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || []
+
+      // bindings
+      this.onClickCategoryBinded = function(e) {
+        this._onClickCategory(e);
+      }.bind(this);
+
+      this.onChangeVisibilityBinded = function(e) {
+        this._onChangeVisibility(e);
+      }.bind(this);
     },
 
     _removeEventListeners: function() {
-      this.categories.forEach(function(category) {
-        $(category).off('click');
-      });
+      $(this.categories).off('click');
+      $(this.visibilityCheckboxes).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -47,11 +58,18 @@
     },
 
     _setEventListeners: function() {
-      this.categories.forEach(function(category) {
-        $(category).on('click', function(e) {
-          this._onClickCategory(e);
-        }.bind(this));
-      }.bind(this));
+      $(this.categories).on('click', this.onClickCategoryBinded);
+      $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
+
+      // allows to keep scroll position after Turbolinks render the new page
+      $(document).on('turbolinks:request-start', function() {
+        window.prevPageYOffset = window.pageYOffset;
+        window.prevPageXOffset = window.pageXOffset;
+      });
+
+      $(document).on('turbolinks:load', function() {
+        window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
+      });
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -60,14 +78,39 @@
       }.bind(this));
     },
 
+    _onChangeVisibility: function(e) {
+      e.stopPropagation();
+      var $checkbox = $(e.currentTarget);
+      var categoryType = $checkbox.val();
+      var isVisible = $checkbox[0].checked;
+      var categories = [].concat(this.filters.categories);
+      var index = _.findIndex(categories, { type: categoryType });
+
+      if (index !== -1) {
+        categories[index] = Object.assign({}, categories[index], { visible: isVisible });
+      } else {
+        // if the category is not already selected, it will be selected and displayed by default
+        categories.push({
+          type: categoryType,
+          subcategory: null,
+          visible: true
+        });
+      }
+
+      this._updateFilters({ categories: categories });
+    },
+
     _onClickCategory: function (e) {
+      e && e.preventDefault() && e.stopPropagation();
+
       var categoryOption = e.currentTarget;
       var parentCategory = categoryOption.getAttribute('data-parent');
       var category = categoryOption.getAttribute('data-category');
       var categories = [].concat(this.filters.categories);
       var newCategoryObject = {
         type: parentCategory || null,
-        subcategory: category
+        subcategory: category,
+        visible: true
       };
 
       if(!categories.length) {
@@ -88,11 +131,12 @@
             categories.splice(index, 1);
           } else {
             // this is a new subcategory. We replace the current one.
-            categories[index] = newCategoryObject;
+            categories[index] = Object.assign({}, newCategoryObject);
           }
         }
       }
 
+      this.filterView.closeMenu();
       this._updateFilters({ categories: categories });
     },
 
@@ -110,20 +154,27 @@
 
     _onUpateURLParams: function() {
       var pathname = Backbone.history.location.pathname;
-
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
-      this.router.navigate(newURL, { replace: true, trigger: true });
 
-      // sends filters to server in order to get filtered data
-      $.ajax(newURL, {});
+      Turbolinks.visit(newURL);
     },
 
     _loadCharts: function() {
-      var categories = (this.filters.categories || []).map(function(category) {
+      var categories = (this.filters.categories || [])
+      .filter(function(cat) { return cat.visible })
+      .map(function(category) {
+
+        if (category.subcategory) {
+          return {
+            category_type: category.type,
+            subcategory: category.subcategory || null
+          }
+        }
+
         return {
           category_type: category.type,
-          category_name: category.subcategory || 'ALL'
+          category_name: 'ALL'
         };
       });
 

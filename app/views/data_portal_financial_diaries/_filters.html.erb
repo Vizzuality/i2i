@@ -1,42 +1,49 @@
 <div class="c-radio-filters">
-  <%= form_tag do %>
-    <ul class="filters">
-      <% @categories.each do |category| %>
-        <li class="filteritem">
-          <label class="filtercontrol">
-            <input type="checkbox" name="category" value="<%= category[:name] %>" class="filterinput">
-            <span class="filterindicator"></span>
+  <ul class="filters js-filters">
+    <% @categories.each do |category| %>
+      <li class="filter-item">
+        <%= check_box_tag(category[:name],
+          value = category[:name],
+          checked = @selectedCategories.find { |cat| cat['type'] == category[:name] && cat['visible'] == true }.present?,
+          options = {
+            class: "filterinput js-category-visibility"
+          }) %>
+        <label
+          class="visibility-indicator"
+        ></label>
+        <label
+          class="category-selected js-gm-label"
+          data-parent="<%= category[:name] %>"
+        >
+          <% if (@selectedCategories.find { |cat| cat['type'] == category[:name] && cat['subcategory'] != nil }.present?) %>
+            <%= @selectedCategories.find { |cat| cat['type'] == category[:name] }['subcategory'].truncate(25) %>
+          <% else %>
+            <%= category[:name] %>
+          <% end %>
+        </label>
+        <ul class="c-filter-list js-gm-menu">
+          <%# Default "all" option for all categories %>
+          <li class="filter-list-item">
             <span
-              class="filterlabel js-category-menu js-category-option"
+              class="js-category-child-option"
               data-parent="<%= category[:name] %>"
             >
-              <%= category[:name] %>
+              All <%= category[:name] %>
             </span>
-          </label>
-          <ul class="c-filter-list">
-            <%# Default "all" option for all categories %>
-            <li class="filterlistitem">
+          </li>
+          <% category[:children].each do |children| %>
+            <li class="filter-list-item <% if (@selectedCategories.find { |cat| cat['type'] == category[:name] && cat['subcategory'] == children[:name] }) %> -selected <%end %>">
               <span
-                class="js-category-option"
+                class="itemtitle js-category-child-option"
                 data-parent="<%= category[:name] %>"
+                data-category="<%= children[:name] %>"
               >
-                All <%= category[:name] %>
+                <%= children[:name] %>
               </span>
             </li>
-            <% category[:children].each do |children| %>
-              <li class="filterlistitem">
-                <span
-                  class="itemtitle js-category-option"
-                  data-parent="<%= category[:name] %>"
-                  data-category="<%= children[:name] %>"
-                >
-                  <%= children[:name] %>
-                </span>
-              </li>
-            <% end %>
-          </ul>
-        </liv>
-      <% end %>
-    </ul>
-  <% end %>
+          <% end %>
+        </ul>
+      </liv>
+    <% end %>
+  </ul>
 </div>
