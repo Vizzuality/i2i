@@ -144,6 +144,7 @@ namespace :db do
   task update_expenses_subcategories: :environment do
     households = HouseholdTransaction.where(category_type: 'expense')
     members = HouseholdMemberTransaction.where(category_type: 'expense')
+    usage = CategoryUsage.where(category_type: 'expense')
     p 'Starting update'
 
     ActiveRecord::Base.transaction do
@@ -157,6 +158,12 @@ namespace :db do
         member.subcategory = member.category_name
         member.save
       end
+
+      usage.each do |cat|
+        cat.subcategory = cat.category_name
+        cat.save
+      end
+
       p 'Household Member Transactions queued'
     end
     p 'Saved'
