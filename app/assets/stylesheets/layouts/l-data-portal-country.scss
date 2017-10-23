@@ -197,7 +197,7 @@
     .l-switcher {
       display: flex;
       justify-content: center;
-      padding: 20px 0 45px;
+      padding: 20px 0;
       background: rgba($color-5, .1);
 
       .c-switcher {
@@ -212,11 +212,6 @@
   }
 
   .l-content {
-    margin: -20px 0 0;
-
-    @media #{$mq-laptop} {
-      margin: -125px 0 90px;
-    }
 
     .l-switcher {
       .container {
