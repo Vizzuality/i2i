@@ -9,17 +9,8 @@
       filters: {
         // can be households or individuals
         type: 'households',
-        categories: [
-          {
-            type: ((gon.categories || [])[0] || {}).name,
-            subcategory: null
-          }
-        ]
+        categories: gon.selectedCategories
       }
-    },
-
-    events: {
-      'change .js-category-visibility': '_onChangeVisibility'
     },
 
     initialize: function(options) {
@@ -39,27 +30,27 @@
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
-
-      // this._onUpateURLParams();
-      var pathname = Backbone.history.location.pathname;
-      var encodedParams = window.btoa(JSON.stringify(this.filters));
-      var newURL = pathname + '?p=' + encodedParams;
-      $.ajax(newURL, {});
     },
 
     _setVars: function() {
       this.router = App.Router.FinancialDiaries;
       this.categories = document.querySelectorAll('.js-category-child-option') || [];
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
+      this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || []
 
       // bindings
       this.onClickCategoryBinded = function(e) {
         this._onClickCategory(e);
       }.bind(this);
+
+      this.onChangeVisibilityBinded = function(e) {
+        this._onChangeVisibility(e);
+      }.bind(this);
     },
 
     _removeEventListeners: function() {
       $(this.categories).off('click');
+      $(this.visibilityCheckboxes).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -68,6 +59,17 @@
 
     _setEventListeners: function() {
       $(this.categories).on('click', this.onClickCategoryBinded);
+      $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
+
+      // allows to keep scroll position after Turbolinks render the new page
+      $(document).on('turbolinks:request-start', function() {
+        window.prevPageYOffset = window.pageYOffset;
+        window.prevPageXOffset = window.pageXOffset;
+      });
+
+      $(document).on('turbolinks:load', function() {
+        window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
+      });
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -77,7 +79,25 @@
     },
 
     _onChangeVisibility: function(e) {
-      console.log(e);
+      e.stopPropagation();
+      var $checkbox = $(e.currentTarget);
+      var categoryType = $checkbox.val();
+      var isVisible = $checkbox[0].checked;
+      var categories = [].concat(this.filters.categories);
+      var index = _.findIndex(categories, { type: categoryType });
+
+      if (index !== -1) {
+        categories[index] = Object.assign({}, categories[index], { visible: isVisible });
+      } else {
+        // if the category is not already selected, it will be selected and displayed by default
+        categories.push({
+          type: categoryType,
+          subcategory: null,
+          visible: true
+        });
+      }
+
+      this._updateFilters({ categories: categories });
     },
 
     _onClickCategory: function (e) {
@@ -89,7 +109,8 @@
       var categories = [].concat(this.filters.categories);
       var newCategoryObject = {
         type: parentCategory || null,
-        subcategory: category
+        subcategory: category,
+        visible: true
       };
 
       if(!categories.length) {
@@ -110,7 +131,7 @@
             categories.splice(index, 1);
           } else {
             // this is a new subcategory. We replace the current one.
-            categories[index] = newCategoryObject;
+            categories[index] = Object.assign({}, newCategoryObject);
           }
         }
       }
@@ -136,14 +157,24 @@
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
 
-      this.router.navigate(newURL, { replace: true, trigger: true });
+      Turbolinks.visit(newURL);
     },
 
     _loadCharts: function() {
-      var categories = (this.filters.categories || []).map(function(category) {
+      var categories = (this.filters.categories || [])
+      .filter(function(cat) { return cat.visible })
+      .map(function(category) {
+
+        if (category.subcategory) {
+          return {
+            category_type: category.type,
+            subcategory: category.subcategory || null
+          }
+        }
+
         return {
           category_type: category.type,
-          category_name: category.subcategory || 'ALL'
+          category_name: 'ALL'
         };
       });
 
