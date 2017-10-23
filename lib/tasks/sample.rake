@@ -8,7 +8,7 @@ def create_countries
     {name: 'Rwanda', iso: 'RWA'},
     {name: 'Uganda', iso: 'UGA'},
     {name: 'Zambia', iso: 'ZMB'},
-    {name: 'South Africa', iso: 'ZFA'}
+    {name: 'South Africa', iso: 'ZFA'},
     {name: 'Mexico', iso: 'MEX'}
   ].each do |country|
     Country.create! name: country[:name], iso: country[:iso]
