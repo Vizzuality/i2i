@@ -2,6 +2,8 @@
   <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
 <% end %>
 
+<% dataAvailable = (@selectedCategories.select { |cat| cat['visible'] == true }.size > 0) %>
+
 <% title 'Data Portal | Financial Diaries' %>
 
 <div class="l-data-portal-financial-diaries">
@@ -71,14 +73,22 @@
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
+          <% if (dataAvailable) %>
           <!-- Widget -->
           <div class="c-widget" id="vis-main-chart"></div>
           <!-- Widget -->
+          <% else %>
+            <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
+          <% end %>
         </div>
         <div class="grid-s-12">
+          <% if (dataAvailable) %>
           <!-- Widget -->
           <div class="c-widget" id="vis-grouped-bar-chart"></div>
           <!-- Widget -->
+          <% else %>
+            <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
+          <% end %>
         </div>
       </div>
     </div>
