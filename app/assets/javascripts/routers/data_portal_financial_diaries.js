@@ -8,6 +8,9 @@
     },
 
     show: function (iso, p) {
+
+      Backbone.history.stop();
+
       var params = (p || '')
         .split('&')
         .map(function (param) {

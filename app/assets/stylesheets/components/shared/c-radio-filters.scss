@@ -1,6 +1,7 @@
 .c-radio-filters {
   .filters {
     display: flex;
+    align-items: center;
     flex-wrap: nowrap;
     padding: 10px 0;
   }
@@ -8,15 +9,15 @@
   .filter-item {
     position: relative;
     flex-grow: 1;
+    padding-left: 20px;
+    text-align: center;
 
     &:not(:first-child) {
       margin-left: 25px;
     }
 
-
     .category-selected {
       position: relative;
-      margin-left: 25px;
       color: $color-4;
       font-size: $font-size-xs;
       font-weight: $font-weight-bold;
@@ -55,6 +56,7 @@
       display: inline-block;
       position: absolute;
       top: 50%;
+      left: 0;
       width: 15px;
       height: 15px;
       transform: translate(0, -50%);

@@ -5,7 +5,11 @@ class DataPortalFinancialDiariesController < ApplicationController
     @country = Country.find_by(iso: params[:iso])
     @categories = CategoryUsage.categories_with_children
     @project_quantities = ProjectMetadatum.quantities(country_iso)
-    @selectedCategories = [];
+    @selectedCategories = [{
+      type: @categories.first[:name],
+      subcategory: nil,
+      visible: true
+    }.stringify_keys];
 
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
@@ -14,6 +18,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
+    gon.selectedCategories = JSON.parse @selectedCategories.to_json
   end
 
   def country_preview
