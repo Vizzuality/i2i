@@ -9,12 +9,12 @@
       filters: {
         // can be households or individuals
         type: 'households',
-        categories: gon.selectedCategories
+        categories: []
       }
     },
 
     initialize: function(options) {
-      this.filters = Object.assign({}, this.defaults.filters, options.filters);
+      this.filters = Object.assign({}, this.defaults.filters, options.filters, { categories: gon.selectedCategories });
       this.iso = options.iso;
       this.year = options.year;
 
@@ -177,6 +177,7 @@
           category_name: 'ALL'
         };
       });
+
 
       var params = {
         project_name: gon.project_name,
