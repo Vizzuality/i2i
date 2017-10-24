@@ -232,7 +232,7 @@
           category_name: 'ALL'
         };
       });
-
+      var household = this.filters.household || null;
 
       var params = {
         project_name: gon.project_name,
@@ -241,7 +241,11 @@
       };
 
       new App.View.MainChartView({
-        params: params
+        params: params,
+        spec: household ? App.Specs.GropuedBarChart : App.Specs.MainChart,
+        onClick: function(value) {
+          console.log('from data-portal', value);
+        }
       });
 
       new App.View.GroupedBarView({
