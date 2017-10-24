@@ -30,9 +30,9 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="l-card-grid">
-        <div class="row masonry-cards">
+        <div class="row js-masonry-cards">
           <% @featured_tags.each do |tag| %>
-            <div class="masonry-item grid-s-12 grid-m-6">
+            <div class="js-masonry-item grid-s-12 grid-m-6">
               <article class="c-card">
                 <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="Measurement">
                   <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
