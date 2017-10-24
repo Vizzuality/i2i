@@ -9,7 +9,8 @@ class DataPortalFinancialDiariesController < ApplicationController
       type: @categories.first[:name],
       subcategory: nil,
       visible: true
-    }.stringify_keys];
+    }.stringify_keys]
+    @selectedDemographicFilters = []
 
     @demographicFilters = [
       {
@@ -45,6 +46,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
+      @selectedDemographicFilters = filters['demography'] || []
     end
 
 
