@@ -19,22 +19,4 @@ class CategoryUsage < ApplicationRecord
   scope :category_type, -> (category_type) { where category_type: category_type }
   scope :category_name, -> (category_name) { where category_name: category_name }
   scope :subcategory, -> (subcategory) { where subcategory: subcategory }
-
-  def self.categories_with_children
-    response = []
-    grouped_categories = where.not(category_type: nil).where.not(subcategory: nil).group_by { |category| category.category_type }
-    category_children = grouped_categories.transform_values { |categories| categories.map { |category| { name: category.subcategory } } }
-
-    # Only for expense, we copied the category_name value to the subcategory field in expense, generating doubles
-    category_children['expense'].uniq!
-
-    category_children.each do |subcategories|
-      response << {
-        name: subcategories[0],
-        children: subcategories[1]
-      }
-    end
-
-    response
-  end
 end

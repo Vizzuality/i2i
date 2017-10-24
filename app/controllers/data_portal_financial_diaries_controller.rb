@@ -3,7 +3,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     country_iso = params[:iso]
     project_name = ProjectMetadatum.find_by(country_iso3: country_iso).project_name
     @country = Country.find_by(iso: country_iso)
-    @categories = CategoryUsage.categories_with_children
+    @categories = HouseholdTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @selectedCategories = [{
       type: @categories.first[:name],

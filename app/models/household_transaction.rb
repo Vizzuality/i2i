@@ -35,4 +35,15 @@ class HouseholdTransaction < ApplicationRecord
       where(project_name: project_name, category_type: category_type)
     end
   end
+
+  def self.category_tree(project_name)
+    categories = []
+    types = where(project_name: project_name).pluck(:category_type).uniq
+
+    types.each do |type|
+      children = HouseholdTransaction.where(project_name: project_name, category_type: type)
+                  .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
+      categories << { name: type, children: children }
+    end
+  end
 end
