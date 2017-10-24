@@ -1,10 +1,10 @@
 (function (App) {
   App.View.Cards = Backbone.View.extend({
 
-    el: '.masonry-cards',
+    el: '.js-masonry-cards',
 
     options: {
-      itemSelector: '.masonry-item'
+      itemSelector: '.js-masonry-item'
     },
 
     initialize: function () {
