@@ -11,10 +11,42 @@ class DataPortalFinancialDiariesController < ApplicationController
       visible: true
     }.stringify_keys];
 
+    @demographicFilters = [
+      {
+        label: "Gender",
+        value: "gender",
+        children: [
+          {
+            label: "Male",
+            value: "male"
+          },
+          {
+            label: "Female",
+            value: "female"
+          }
+        ]
+      },
+      {
+        label: "Age",
+        value: "age",
+        children: [
+          {
+            label: "20-30",
+            value: "20-30"
+          },
+          {
+            label: "30-40",
+            value: "30-40"
+          }
+        ]
+      }
+    ]
+
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
     end
+
 
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
