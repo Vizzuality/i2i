@@ -45,5 +45,7 @@ class HouseholdTransaction < ApplicationRecord
                   .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
       categories << { name: type, children: children }
     end
+
+    categories
   end
 end
