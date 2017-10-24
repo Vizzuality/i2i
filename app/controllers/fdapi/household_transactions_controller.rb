@@ -13,6 +13,7 @@ module Fdapi
 
     def monthly_values
       project_name = params[:project_name]
+      household_name = params[:household]
       category_types = JSON.parse(params[:categories]).map { |cat| cat['category_type'] }
       response = []
 
@@ -21,6 +22,11 @@ module Fdapi
                         .with_subcategory
                         .project_name(project_name)
                         .category_type(category_type)
+
+        if household_name.present?
+          transactions = transactions.household_name(household_name)
+        end
+
         grouped = transactions.group_by { |transaction| transaction.subcategory }
 
         grouped.each do |subcategory, transactions|
