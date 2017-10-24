@@ -92,7 +92,7 @@ module Fdapi
 
         histories[category_type] = adapter.execute("select * from household_transaction_histories
           where household_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
-          and #{default_indicators[category_type.to_sym]} is not null")
+          and #{default_indicators[category_type]} is not null")
       end
 
       sorted = {}
@@ -109,7 +109,7 @@ module Fdapi
       sorted.each do |category_type, value|
         value.each do |year, value|
           value.each do |month, histories|
-            values = histories.map { |h| h[default_indicators[category_type.to_sym].to_s] }
+            values = histories.map { |h| h[default_indicators[category_type]] }
 
             result << {
               category_type: category_type,
