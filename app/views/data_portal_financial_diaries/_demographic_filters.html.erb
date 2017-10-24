@@ -1,0 +1,41 @@
+<div class="c-demographic-filters">
+  <ul class="filters js-demographic-filters">
+    <% @demographicFilters.each do |demographicFilter| %>
+      <li class="demographic-item">
+        <label
+          class="js-gm-label"
+          data-parent="<%= demographicFilter['value'] %>"
+        >
+        <% if (@selectedDemographicFilters.find { |f| f['group'] == demographicFilter[:value] }.present?) %>
+            <%= @selectedDemographicFilters.find { |f| f['group'] == demographicFilter[:value] }['value'] %>
+          <% else %>
+            <%= demographicFilter[:label] %>
+          <% end %>
+
+        </label>
+        <ul class="demographic-submenu js-gm-menu">
+          <li class="demographic-submenu-item">
+            <span
+              class="js-demographic-child-option"
+              data-parent="<%= demographicFilter[:value] %>"
+              data-value="all"
+            >
+              All
+            </span>
+          </li>
+          <% demographicFilter[:children].each do |child| %>
+            <li class="demographic-submenu-item">
+              <span
+                class="js-demographic-child-option"
+                data-parent="<%= demographicFilter[:value] %>"
+                data-value="<%= child[:value] %>"
+              >
+                <%= child[:label] %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

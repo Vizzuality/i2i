@@ -37,7 +37,7 @@
       this.$menuToOpen = $(e.currentTarget).next('.js-gm-menu')[0];
       this.$submenus.toArray().forEach(function(menu) {
         var menuMatches = this.$menuToOpen.isEqualNode(menu);
-        $(menu)[0].classList.toggle('-open', menuMatches)
+        $(menu)[0].classList.toggle('-open', menuMatches);
       }.bind(this));
 
       window.requestAnimationFrame(function() {

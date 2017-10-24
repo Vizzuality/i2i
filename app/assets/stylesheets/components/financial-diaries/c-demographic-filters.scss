@@ -1,0 +1,18 @@
+.c-demographic-filters {
+  display: flex;
+
+  .filters {
+
+  }
+
+  .filters > .demographic-item {
+
+    > .demographic-submenu {
+      display: none;
+
+      &.-open {
+        display: block;
+      }
+    }
+  }
+}

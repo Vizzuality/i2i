@@ -73,6 +73,11 @@
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
+          <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="grid-s-12">
           <% if (dataAvailable) %>
           <!-- Widget -->
           <div class="c-widget" id="vis-main-chart"></div>

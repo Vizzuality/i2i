@@ -9,7 +9,17 @@
       filters: {
         // can be households or individuals
         type: 'households',
-        categories: []
+        categories: [],
+        demography: [
+          {
+            group: 'gender',
+            value:'all'
+          },
+          {
+            group: 'age',
+            value:'all'
+          }
+        ]
       }
     },
 
@@ -25,9 +35,14 @@
 
       if (this.filterView) {
         this.filterView.removeEventListener();
+        this.demographicFiltersView.removeEventListener();
       } else {
         this.filterView = new App.Component.GroupedMenu({
           el: $('.js-filters')
+        });
+
+        this.demographicFiltersView = new App.Component.GroupedMenu({
+          el: $('.js-demographic-filters')
         });
       }
 
@@ -35,12 +50,12 @@
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
-
     },
 
     _setVars: function() {
       this.router = App.Router.FinancialDiaries;
       this.categories = document.querySelectorAll('.js-category-child-option') || [];
+      this.demographicOptions = document.querySelectorAll('.js-demographic-child-option') || [];
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
       this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || []
 
@@ -51,6 +66,10 @@
 
       this.onChangeVisibilityBinded = function(e) {
         this._onChangeVisibility(e);
+      }.bind(this);
+
+      this.onClickDemographicFilterBinded = function(e) {
+        this._onClickDemographicFilter(e);
       }.bind(this);
 
       this.getPreviousScroll = function() {
@@ -66,6 +85,7 @@
     _removeEventListeners: function() {
       $(this.categories).off('click');
       $(this.visibilityCheckboxes).off('click');
+      $(this.demographicOptions).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -78,6 +98,7 @@
     _setEventListeners: function() {
       $(this.categories).on('click', this.onClickCategoryBinded);
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
+      $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
 
       // allows to keep scroll position after Turbolinks render the new page
       $(document).on('turbolinks:request-start', this.setPreviousScroll);
@@ -151,6 +172,27 @@
 
       this.filterView.closeMenu();
       this._updateFilters({ categories: categories });
+    },
+
+    _onClickDemographicFilter: function(e) {
+      var $filterOption = $(e.currentTarget);
+      var group = $filterOption.data('parent');
+      var value = $filterOption.data('value');
+      var demographicFilters = [].concat(this.filters.demography);
+      var newDemographicFilter = {
+        group: group,
+        value: value
+      };
+
+      var index = _.findIndex(demographicFilters, { group: group });
+
+      if(index !== -1) {
+        demographicFilters[index] = newDemographicFilter;
+      } else {
+        demographicFilters.push(newDemographicFilter);
+      }
+
+      this._updateFilters({ demography: demographicFilters });
     },
 
     _onClickTab: function(e) {
