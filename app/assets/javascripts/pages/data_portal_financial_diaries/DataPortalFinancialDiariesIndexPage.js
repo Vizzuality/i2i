@@ -9,7 +9,17 @@
       filters: {
         // can be households or individuals
         type: 'households',
-        categories: []
+        categories: [],
+        demography: [
+          {
+            group: 'gender',
+            value:'all'
+          },
+          {
+            group: 'age',
+            value:'all'
+          }
+        ]
       }
     },
 
@@ -168,8 +178,21 @@
       var $filterOption = $(e.currentTarget);
       var group = $filterOption.data('parent');
       var value = $filterOption.data('value');
+      var demographicFilters = [].concat(this.filters.demography);
+      var newDemographicFilter = {
+        group: group,
+        value: value
+      };
 
-      this._updateFilters({ [group]: value });
+      var index = _.findIndex(demographicFilters, { group: group });
+
+      if(index !== -1) {
+        demographicFilters[index] = newDemographicFilter;
+      } else {
+        demographicFilters.push(newDemographicFilter);
+      }
+
+      this._updateFilters({ demography: demographicFilters });
     },
 
     _onClickTab: function(e) {
