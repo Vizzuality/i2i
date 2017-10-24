@@ -13,26 +13,30 @@ module Fdapi
 
     def monthly_values
       project_name = params[:project_name]
-      category_type = params[:category_type]
-      transactions = HouseholdTransaction
-                      .with_subcategory
-                      .project_name(project_name)
-                      .category_type(category_type)
-      grouped = transactions.group_by { |transaction| transaction.subcategory }
+      # category_type = params[:category_type]
+      category_types = JSON.parse(params[:categories]).map(&:values).flatten
       response = []
 
-      grouped.each do |subcategory, transactions|
-        indicator = default_indicators[category_type]
+      category_types.each do |category_type|
+        transactions = HouseholdTransaction
+                        .with_subcategory
+                        .project_name(project_name)
+                        .category_type(category_type)
+        grouped = transactions.group_by { |transaction| transaction.subcategory }
 
-        histories = transactions.map do |transaction|
-          transaction.household_transaction_histories_all.with_indicator(indicator)
-        end
-        .flatten
-        .group_by { |hist| "#{hist.year}-#{hist.month.to_s.rjust(2, '0')}-01" }
+        grouped.each do |subcategory, transactions|
+          indicator = default_indicators[category_type]
 
-        histories.each do |date, histories|
-          value = histories.pluck(indicator).compact.reduce(:+)
-          response << monthly_json(subcategory, date, value)
+          histories = transactions.map do |transaction|
+            transaction.household_transaction_histories_all.with_indicator(indicator)
+          end
+          .flatten
+          .group_by { |hist| "#{hist.year}-#{hist.month.to_s.rjust(2, '0')}-01" }
+
+          histories.each do |date, histories|
+            value = histories.pluck(indicator).compact.reduce(:+)
+            response << monthly_json(subcategory, date, value, category_type)
+          end
         end
       end
 
@@ -41,11 +45,12 @@ module Fdapi
       render json: { data: response }
     end
 
-    def monthly_json(subcategory, date, value)
+    def monthly_json(subcategory, date, value, category_type)
       {
         subcategory: subcategory,
         date: date,
-        value: value
+        value: value,
+        category_type: category_type
       }
     end
   end
