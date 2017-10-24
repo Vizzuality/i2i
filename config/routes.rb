@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     resources :project_metadata, only: [:index, :show]
     get 'project_min_max/:project_name', to: 'project_metadata#project_min_max'
     get 'project_means/:project_name', to: 'project_metadata#project_means'
+    get 'monthly_values/:project_name', to: 'household_transactions#monthly_values'
   end
 
   namespace :updates do
