@@ -13,8 +13,7 @@ module Fdapi
 
     def monthly_values
       project_name = params[:project_name]
-      # category_type = params[:category_type]
-      category_types = JSON.parse(params[:categories]).map(&:values).flatten
+      category_types = JSON.parse(params[:categories]).map { |cat| cat['category_type'] }
       response = []
 
       category_types.each do |category_type|
