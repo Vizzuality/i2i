@@ -14,7 +14,12 @@
     },
 
     initialize: function(options) {
-      this.filters = Object.assign({}, this.defaults.filters, options.filters, { categories: gon.selectedCategories });
+      this.filters = Object.assign(
+        {},
+        this.defaults.filters,
+        options.filters,
+        { categories: gon.selectedCategories }
+      );
       this.iso = options.iso;
       this.year = options.year;
 
@@ -30,6 +35,7 @@
       this._removeEventListeners();
       this._setEventListeners();
       this._loadCharts();
+
     },
 
     _setVars: function() {
@@ -46,6 +52,15 @@
       this.onChangeVisibilityBinded = function(e) {
         this._onChangeVisibility(e);
       }.bind(this);
+
+      this.getPreviousScroll = function() {
+        window.prevPageYOffset = window.pageYOffset;
+        window.prevPageXOffset = window.pageXOffset;
+      };
+
+      this.setPreviousScroll = function() {
+        window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
+      };
     },
 
     _removeEventListeners: function() {
@@ -55,6 +70,9 @@
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
       });
+
+      $(document).off('turbolinks:request-start');
+      $(document).off('turbolinks:load');
     },
 
     _setEventListeners: function() {
@@ -62,14 +80,8 @@
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
 
       // allows to keep scroll position after Turbolinks render the new page
-      $(document).on('turbolinks:request-start', function() {
-        window.prevPageYOffset = window.pageYOffset;
-        window.prevPageXOffset = window.pageXOffset;
-      });
-
-      $(document).on('turbolinks:load', function() {
-        window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
-      });
+      $(document).on('turbolinks:request-start', this.setPreviousScroll);
+      $(document).on('turbolinks:load', this.setPreviousScroll);
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -80,6 +92,7 @@
 
     _onChangeVisibility: function(e) {
       e.stopPropagation();
+
       var $checkbox = $(e.currentTarget);
       var categoryType = $checkbox.val();
       var isVisible = $checkbox[0].checked;
