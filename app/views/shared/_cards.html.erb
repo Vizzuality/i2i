@@ -1,6 +1,6 @@
-<div class="masonry-cards">
+<div class="js-masonry-cards">
   <% insights.each do |insight| %>
-    <div class="grid-s-12 grid-m-6 grid-l-4 library masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
       <% case insight.record_type
         when 'blog' %> <%= render partial: "#{route}/cards/blog", locals: { blog: insight }%>
         <% when 'event' %> <%= render partial: "#{route}/cards/event", locals: { event: insight }%>
