@@ -17,7 +17,11 @@
                     <h1 class="title -xbig -dark "><%= blog.title %></h1>
                     <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
                       <% unless blog.author.blank? %>
-                        by <span class="author-name"><%= blog.author %></span>
+                        <% if blog.custom_author.present? %>
+                          by <span class="author-name"><%= blog.author %></span>
+                        <% else %>
+                          <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+                        <% end %>
                       <% end %>
                       on <%= DateHelper.beautify blog.date %>
                     </span>
