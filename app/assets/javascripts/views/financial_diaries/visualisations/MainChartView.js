@@ -6,12 +6,24 @@
     el: '#vis-main-chart',
 
     options: {
-      customTooltip: true
+      customTooltip: true,
+      customTooltipOptions: {
+        fields: [
+          {
+            name: 'Date',
+            value: 'date'
+          },
+          {
+            name: 'Value',
+            value: 'value',
+            format: "s"
+          }
+        ]
+      }
     },
 
     setListeners: function() {
       this.constructor.__super__.setListeners.call(this, {});
-
 
       if(!this.options.params.household) {
         this.chart.addSignalListener('clickHousehold', function(name, value) {

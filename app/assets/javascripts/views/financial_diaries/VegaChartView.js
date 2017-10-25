@@ -51,6 +51,9 @@
       params: {},
       renderer: 'svg',
       customTooltip: false,
+      customTooltipOptions: {
+        fields: []
+      },
       tooltip: {
         showAllFields: true
       }
@@ -63,8 +66,12 @@
      */
     initialize: function (settings) {
       this.options = Object.assign({}, this.defaults, this.options || {}, settings);
+      // used by tooltip
+      this.currentItem = {};
 
       if (!this.el) return;
+
+      if (this.options.customTooltip) this.customTooltip = new App.Component.CustomTooltip();
 
       this.render();
       this.setListeners();
@@ -127,10 +134,14 @@
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
-        this.chart.addEventListener('mouseover', function(event, item) {
-          if (item && item.mark.marktype !== 'line') {
+        this.chart.addEventListener('mousemove', function(event, item) {
+          if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
             self.onTooltip.call(self, event, item);
           }
+        });
+
+        this.chart.addEventListener('mouseout', function(event, item) {
+          self.customTooltip.hideTooltip();
         });
       } else {
         vegaTooltip.vega(this.chart, this.options.tooltip);
@@ -155,7 +166,24 @@
      * @param  {Event} event
      * @param  {Object} item
      */
-    onTooltip: function(event, item) {},
+    onTooltip: function(event, item) {
+      var tooltipOptions = this.options.customTooltipOptions || {};
+
+      var position = {
+        x: event.clientX,
+        y: event.clientY
+      };
+
+      this.customTooltip.setFields(tooltipOptions.fields);
+
+      if(!_.isEqual(this.currentItem, item.datum)) {
+        this.currentItem = item;
+        this.customTooltip.renderContent(item.datum);
+      }
+
+      this.customTooltip.showTooltip();
+      this.customTooltip.setPosition(position);
+    },
 
     render: function () {
       var spec = this.options.spec;
