@@ -75,6 +75,11 @@
         <div class="grid-s-12">
           <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
         </div>
+        <% if (@household.present?)%>
+        <div class="grid-s-12">
+          <button class="c-button -outline -medium js-remove-household">See all households</button>
+        </div>
+        <% end %>
       </div>
       <div class="row">
         <div class="grid-s-12">
