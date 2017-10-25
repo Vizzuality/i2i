@@ -1,16 +1,25 @@
 .l-library {
   margin: 0 0 40px;
-  @include header_veil;
 
   .l-library-content-selector {
     display: flex;
     align-items: center;
-    height: 33px;
-    padding-top: 5px;
-    background: rgba($color-6, .5);
+
+    &::before {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 33px;
+      padding-top: 5px;
+      background: rgba($color-6, .5);
+      content: '';
+    }
 
     > .wrapper {
       padding: 0;
+      transform: translateY(12px);
+      overflow: auto;
 
       .row {
         width: 100%;
