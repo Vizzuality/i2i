@@ -3,8 +3,16 @@
     display: inline-block;
 
     > img {
-      width: auto;
+      width: 90px;
       height: auto;
+    }
+  }
+
+  @media #{$mq-tablet} {
+    a {
+      > img {
+        width: auto;
+      }
     }
   }
 
