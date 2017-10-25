@@ -23,7 +23,11 @@
         "size": 64
       },
       "line": {
-        "opacity": "steelblue",
+        "opacity": 1,
+        "interpolate": "monotone"
+      },
+      "area": {
+        "opacity": 1,
         "interpolate": "monotone"
       },
       "range": {
@@ -34,7 +38,6 @@
           "#79b7b2"
         ]
       }
-
     },
     "data": [{
         "name": "table",
@@ -88,6 +91,9 @@
       },
       {
         "name": "clickHousehold"
+      },
+      {
+        "name": "overHousehold"
       }
     ],
     "marks": [{
@@ -156,6 +162,25 @@
             "zindex": 0
           }
         ],
+        "signals": [{
+            "name": "clickHousehold",
+            "description": "A date value that updates in response to mousemove.",
+            "push": "outer",
+            "on": [{
+              "events": "line:click",
+              "update": "group().context.group.datum.household_name"
+            }]
+          },
+          {
+            "name": "overHousehold",
+            "description": "tootip data.",
+            "push": "outer",
+            "on": [{
+              "events": "line:mouseover",
+              "update": "{item: group().context.group.datum.values, date: invert('xDetail',x()), position: xy()}"
+            }]
+          }
+        ],
         "marks": [{
             "name": "partitioned_saved",
             "type": "group",
@@ -183,16 +208,7 @@
                 }
               }
             },
-            "signal": [{
-              "name": "clickHousehold",
-              "description": "Returns the household name when the user clicks on a line.",
-              "update": "datum",
-              "push": "outer",
-              "on": [{
-                "events": "click",
-                "marktype": "line"
-              }]
-            }],
+            "signal": [],
             "marks": [{
                 "type": "line",
                 "from": {
@@ -510,9 +526,6 @@
                     "scale": "yOverview",
                     "field": "max"
                   },
-                  "interpolate": {
-                    "value": "linear"
-                  },
                   "fill": {
                     "scale": "color",
                     "field": "category_type"
@@ -764,11 +777,13 @@
                     }
                   },
                   "opacity": [{
-                    "test": "datum.value!=null",
-                    "value": 0.2
-                  }, {
-                    "value": 0
-                  }],
+                      "test": "datum.value!=null",
+                      "value": 0.2
+                    },
+                    {
+                      "value": 0
+                    }
+                  ],
                   "size": {
                     "value": 2
                   },
@@ -861,5 +876,6 @@
       }
     ]
   };
+
 
 }).call(this, this.App);

@@ -241,11 +241,12 @@
       };
 
       new App.View.MainChartView({
-        params: params,
+        params: Object.assign(params, { household: household }),
         spec: household ? App.Specs.GropuedBarChart : App.Specs.MainChart,
-        onClick: function(value) {
-          console.log('from data-portal', value);
-        }
+        onClick: function(household) {
+          if(!household) return;
+          this._updateFilters({ household: household });
+        }.bind(this)
       });
 
       new App.View.GroupedBarView({
