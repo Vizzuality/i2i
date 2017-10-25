@@ -100,6 +100,7 @@
         "orient": "left",
         "scale": "yscale",
         "tickSize": 0,
+        "format": "s",
         "labelPadding": 4,
         "zindex": 1
       },
