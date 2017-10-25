@@ -82,13 +82,8 @@
         .hover()
         .run();
 
-      // this.chart.addSignalListener('detailDomain', function(name, value) {
-      //   console.log(name, value);
-      //   if(this.options.onClick) this.options.onClick(value);
-      // }.bind(this))
-
       // Adding tooltip
-      vegaTooltip.vega(this.chart);
+      vegaTooltip.vega(this.chart, this.options.tooltip);
     },
 
     /**
@@ -99,12 +94,11 @@
       this.render();
     },
 
-    setListeners: function() {
-      console.log('setListeners')
-    },
+    setListeners: function() {},
 
     render: function () {
       var spec = this.options.spec;
+
 
       this.$el.html(this.template({
         title: this.options.title
