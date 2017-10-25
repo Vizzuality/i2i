@@ -232,7 +232,7 @@
           category_name: 'ALL'
         };
       });
-
+      var household = this.filters.household || null;
 
       var params = {
         project_name: gon.project_name,
@@ -241,7 +241,12 @@
       };
 
       new App.View.MainChartView({
-        params: params
+        params: Object.assign(params, { household: household }),
+        spec: household ? App.Specs.GropuedBarChart : App.Specs.MainChart,
+        onClick: function(household) {
+          if(!household) return;
+          this._updateFilters({ household: household });
+        }.bind(this)
       });
 
       new App.View.GroupedBarView({

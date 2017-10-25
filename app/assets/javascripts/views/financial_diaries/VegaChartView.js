@@ -7,10 +7,7 @@
       title: '',
       spec: 'https://vega.github.io/vega/examples/bar-chart.vg.json',
       vis: null,
-      params: {
-        a: 1,
-        b: 2
-      },
+      params: {},
       renderer: 'svg',
       tooltip: {
         showAllFields: true
@@ -24,8 +21,11 @@
      */
     initialize: function (settings) {
       this.options = Object.assign({}, this.defaults, this.options || {}, settings);
+
       if (!this.el) return;
+
       this.render();
+      this.setListeners();
     },
 
     /**
@@ -83,7 +83,7 @@
         .run();
 
       // Adding tooltip
-      vegaTooltip.vega(this.chart);
+      vegaTooltip.vega(this.chart, this.options.tooltip);
     },
 
     /**
@@ -94,8 +94,11 @@
       this.render();
     },
 
+    setListeners: function() {},
+
     render: function () {
       var spec = this.options.spec;
+
 
       this.$el.html(this.template({
         title: this.options.title
