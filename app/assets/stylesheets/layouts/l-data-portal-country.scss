@@ -194,21 +194,21 @@
       }
     }
 
-    .l-switcher {
-      display: flex;
-      justify-content: center;
-      padding: 20px 0;
-      background: rgba($color-5, .1);
+    // .l-switcher {
+    //   display: flex;
+    //   justify-content: center;
+    //   padding: 20px 0;
+    //   background: rgba($color-5, .1);
 
-      .c-switcher {
-        max-width: 175px;
-        margin: 0 auto;
+    //   .c-switcher {
+    //     max-width: 175px;
+    //     margin: 0 auto;
 
-        @media #{$mq-tablet} {
-          max-width: none;
-        }
-      }
-    }
+    //     @media #{$mq-tablet} {
+    //       max-width: none;
+    //     }
+    //   }
+    // }
   }
 
   .l-content {
@@ -218,6 +218,11 @@
         display: flex;
         justify-content: flex-end;
         margin: 0 0 20px;
+
+        .c-switcher {
+          //This is the dark blue that we usually create by adding transparency to the element over a background but here, I need the color.
+          background-color: #2a848c;
+        }
       }
     }
 
