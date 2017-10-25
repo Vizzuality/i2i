@@ -4,12 +4,12 @@
   <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
     <div class="nav">
       <div class="wrapper">
-        <%= render partial: 'shared/header', locals: { isCover: true, isLarge: true } %>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
     <div class="fixed-nav">
       <div class="wrapper">
-        <%= render partial: 'shared/header' %>
+        <%= render partial: 'shared/header' , locals: { isFixed: true } %>
       </div>
     </div>
     <div class="content">
