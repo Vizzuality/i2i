@@ -52,6 +52,10 @@ h2 {
     color: $color-1;
   }
 
+  &.-highlight {
+    color: $color-2;
+  }
+
   &.-small {
     font-size: $font-size-small;
     text-transform: uppercase;
