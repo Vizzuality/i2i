@@ -6,7 +6,8 @@
     display: flex;
     align-items: center;
     height: 33px;
-    background: rgba($color-6, .1);
+    padding-top: 5px;
+    background: rgba($color-6, .5);
 
     > .wrapper {
       padding: 0;
