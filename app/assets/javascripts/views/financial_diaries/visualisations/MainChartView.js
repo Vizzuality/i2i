@@ -8,6 +8,7 @@
     options: {
       vis: 'ID',
       title: 'Flow of savings',
+      customTooltip: true,
       tooltip: {
         fields: [{
           field: "date",

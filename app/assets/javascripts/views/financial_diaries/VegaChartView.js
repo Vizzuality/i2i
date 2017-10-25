@@ -9,6 +9,7 @@
       vis: null,
       params: {},
       renderer: 'svg',
+      customTooltip: false,
       tooltip: {
         showAllFields: true
       }
@@ -72,6 +73,7 @@
      * @param {Object} spec
      */
     drawChart: function(spec) {
+      var self = this;
       var runtime = this.parseSpec(spec);
 
       // Rendering chart
@@ -82,8 +84,16 @@
         .hover()
         .run();
 
-      // Adding tooltip
-      vegaTooltip.vega(this.chart, this.options.tooltip);
+      // Interaction: Tooltip
+      if (this.options.customTooltip) {
+        this.chart.addEventListener('mouseover', function(event, item) {
+          if (item && item.mark.marktype !== 'line') {
+            self.onTooltip.call(self, event, item);
+          }
+        });
+      } else {
+        vegaTooltip.vega(this.chart, this.options.tooltip);
+      }
     },
 
     /**
@@ -94,11 +104,20 @@
       this.render();
     },
 
+    /**
+     * SetListeners
+     */
     setListeners: function() {},
+
+    /**
+     * onTooltip
+     * @param  {Event} event
+     * @param  {Object} item
+     */
+    onTooltip: function(event, item) {},
 
     render: function () {
       var spec = this.options.spec;
-
 
       this.$el.html(this.template({
         title: this.options.title
