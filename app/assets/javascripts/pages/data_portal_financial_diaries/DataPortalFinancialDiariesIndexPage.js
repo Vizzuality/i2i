@@ -261,7 +261,11 @@
       });
 
       new App.View.GroupedBarView({
-        params: params
+        params: Object.assign({}, params, {
+          categories: categories.map(function(cat) {
+            return { category_type: cat.category_type };
+          })
+        })
       });
     }
   });
