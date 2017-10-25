@@ -1,6 +1,47 @@
 (function (App) {
   'use strict';
 
+  var gridColor = 'rgba(0, 29, 34, 0.1)';
+  var fontColor = '#001D22';
+
+  var vegaTheme = {
+    background: null,
+
+    axis: {
+      domainWidth: 0,
+
+      gridDash: [3],
+      gridColor: gridColor,
+      gridWidth: 0.5,
+
+      labelFont: 'Open Sans',
+      labelFontSize: 13,
+      labelColor: fontColor,
+
+      tickWidth: 0,
+      tickColor: gridColor,
+    },
+
+    symbol: {
+      size: 20
+    },
+
+    line: {
+      opacity: 1,
+      interpolate: 'monotone',
+      strokeWidth: 1
+    },
+
+    range: {
+      category: [
+        '#2F939C',
+        '#001D22',
+        '#EDC72F',
+        '#F95E31'
+      ]
+    }
+  };
+
   App.View.VegaChartView = Backbone.View.extend({
 
     defaults: {
@@ -56,7 +97,7 @@
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec))(params));
       }
 
-      return vega.parse(resultSpec);
+      return vega.parse(resultSpec, vegaTheme);
     },
 
     /**

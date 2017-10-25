@@ -6,7 +6,7 @@
     el: '#vis-grouped-bar-chart',
 
     options: {
-      spec: App.Specs.GropuedBarChart,
+      spec: App.Specs.GroupedBarChart,
       vis: 'ID',
       title: 'Saving by type'
     }

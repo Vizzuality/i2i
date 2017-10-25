@@ -1,387 +1,335 @@
 (function (App) {
   'use strict';
 
-  App.Specs.GropuedBarChart = {
+  App.Specs.GroupedBarChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    "width": 400,
-    "height": 300,
-    "padding": 5,
+    "width": 800,
+    "height": 400,
+    autosize: {
+      type: 'fit',
+      "resize": true
+    },
 
-    "data": [{
-      "name": "table",
-      "values": [{
-          "category": "A",
-          "position": 0,
-          "date": "2012-01-01",
-          "value": 0.1
-        },
-        {
-          "category": "A",
-          "position": 1,
-          "date": "2012-01-01",
-          "value": 0.6
-        },
-        {
-          "category": "A",
-          "position": 2,
-          "date": "2012-01-01",
-          "value": 0.9
-        },
-        {
-          "category": "A",
-          "position": 3,
-          "date": "2012-01-01",
-          "value": 0.4
-        },
-        {
-          "category": "B",
-          "position": 0,
-          "date": "2012-01-01",
-          "value": 0.7
-        },
-        {
-          "category": "B",
-          "position": 1,
-          "date": "2012-01-01",
-          "value": 0.2
-        },
-        {
-          "category": "B",
-          "position": 2,
-          "date": "2012-01-01",
-          "value": 1.1
-        },
-        {
-          "category": "B",
-          "position": 3,
-          "date": "2012-01-01",
-          "value": 0.8
-        },
-        {
-          "category": "C",
-          "position": 0,
-          "date": "2012-01-01",
-          "value": 0.6
-        },
-        {
-          "category": "C",
-          "position": 1,
-          "date": "2012-01-01",
-          "value": 0.1
-        },
-        {
-          "category": "C",
-          "position": 2,
-          "date": "2012-01-01",
-          "value": 0.2
-        },
-        {
-          "category": "C",
-          "position": 3,
-          "date": "2012-01-01",
-          "value": 0.7
-        },
-        {
-          "category": "A",
-          "position": 0,
-          "date": "2012-02-01",
-          "value": 0.1
-        },
-        {
-          "category": "A",
-          "position": 1,
-          "date": "2012-02-01",
-          "value": 0.6
-        },
-        {
-          "category": "A",
-          "position": 2,
-          "date": "2012-02-01",
-          "value": 0.9
-        },
-        {
-          "category": "A",
-          "position": 3,
-          "date": "2012-02-01",
-          "value": 0.4
-        },
-        {
-          "category": "B",
-          "position": 0,
-          "date": "2012-02-01",
-          "value": 0.7
-        },
-        {
-          "category": "B",
-          "position": 1,
-          "date": "2012-02-01",
-          "value": 0.2
-        },
-        {
-          "category": "B",
-          "position": 2,
-          "date": "2012-02-01",
-          "value": 1.1
-        },
-        {
-          "category": "B",
-          "position": 3,
-          "date": "2012-02-01",
-          "value": 0.8
-        },
-        {
-          "category": "C",
-          "position": 0,
-          "date": "2012-02-01",
-          "value": 0.6
-        },
-        {
-          "category": "C",
-          "position": 1,
-          "date": "2012-02-01",
-          "value": 0.1
-        },
-        {
-          "category": "C",
-          "position": 2,
-          "date": "2012-02-01",
-          "value": 0.2
-        },
-        {
-          "category": "C",
-          "position": 3,
-          "date": "2012-02-01",
-          "value": 0.7
-        },
-        {
-          "category": "A",
-          "position": 0,
-          "date": "2012-03-01",
-          "value": 0.1
-        },
-        {
-          "category": "A",
-          "position": 1,
-          "date": "2012-03-01",
-          "value": 0.6
-        },
-        {
-          "category": "A",
-          "position": 2,
-          "date": "2012-03-01",
-          "value": 0.9
-        },
-        {
-          "category": "A",
-          "position": 3,
-          "date": "2012-03-01",
-          "value": 0.4
-        },
-        {
-          "category": "B",
-          "position": 0,
-          "date": "2012-03-01",
-          "value": 0.7
-        },
-        {
-          "category": "B",
-          "position": 1,
-          "date": "2012-03-01",
-          "value": 0.2
-        },
-        {
-          "category": "B",
-          "position": 2,
-          "date": "2012-03-01",
-          "value": 1.1
-        },
-        {
-          "category": "B",
-          "position": 3,
-          "date": "2012-03-01",
-          "value": 0.8
-        },
-        {
-          "category": "C",
-          "position": 0,
-          "date": "2012-03-01",
-          "value": 0.6
-        },
-        {
-          "category": "C",
-          "position": 1,
-          "date": "2012-03-01",
-          "value": 0.1
-        },
-        {
-          "category": "C",
-          "position": 2,
-          "date": "2012-03-01",
-          "value": 0.2
-        },
-        {
-          "category": "C",
-          "position": 3,
-          "date": "2012-03-01",
-          "value": 0.7
-        }
-      ],
+    "padding": 5,
+    // "config": {
+    //   "axis": {
+    //     "domain":false,
+    //     "grid": false,
+    //     "gridColor": "#dedede",
+    //     "labelFont": "sans-serif",
+    //     "labelFontSize": 12,
+    //     "tickColor": "#dedede"
+    //   },
+    //   "symbol": {
+    //     "fill": "steelblue",
+    //     "size": 64
+    //   },
+    //   "line": {
+    //     "opacity": 1,
+    //     "interpolate": "monotone"
+    //   },
+    //   "area": {
+    //     "opacity": 1,
+    //     "interpolate": "monotone"
+    //   },
+    //   "range": {
+    //     "category": [
+    //     "#1f77b4",
+    //     "#aec7e8",
+    //     "#ff7f0e",
+    //     "#ffbb78",
+    //     "#2ca02c",
+    //     "#98df8a",
+    //     "#d62728",
+    //     "#ff9896",
+    //     "#9467bd",
+    //     "#c5b0d5",
+    //     "#8c564b",
+    //     "#c49c94",
+    //     "#e377c2",
+    //     "#f7b6d2",
+    //     "#7f7f7f",
+    //     "#c7c7c7",
+    //     "#bcbd22",
+    //     "#dbdb8d",
+    //     "#17becf",
+    //     "#9edae5"
+    //     ]
+    //   }
+    // },
+    "data": [
+    {
+      "name": "data",
+      "url": "http://i2i.vizzuality.com/fdapi/monthly_values/<%= project_name %>?categories=<%= categories %>",
       "format": {
+        "property": "data",
         "parse": {
           "date": "date"
         }
       },
-      "transform": [{
+      "transform": [
+      {
+        "type": "filter",
+        "expr": "datum.subcategory != 'ALL'"
+      },
+      {
+        "type": "formula",
+        "as": "value",
+        "expr": "abs(datum.value)"
+      },
+      {
+        "type": "impute",
+        "groupby": [
+        "date"
+        ],
+        "key": "subcategory",
+        "field": "value",
+        "method": "value",
+        "value": 0
+      },
+      {
         "type": "stack",
         "field": "value",
-        "groupby": ["date", "category"],
+        "groupby": [
+        "date",
+        "subcategory"
+        ],
+        "sort": {
+          "field": [
+          "date",
+          "subcategory",
+          "value"
+          ],
+          "order": [
+          "ascending",
+          "ascending",
+          "descending"
+          ]
+        },
         "as": [
-          "y0",
-          "y1"
+        "y0",
+        "y1"
         ]
-      }]
-    }],
-
-    "scales": [{
-        "name": "xscale",
-        "type": "band",
-        "domain": {
-          "data": "table",
-          "field": "date"
-        },
-        "range": "width",
-        "padding": 0.2
       },
       {
-        "name": "yscale",
-        "type": "linear",
-        "domain": {
-          "fields": [{
-            "data": "table",
-            "field": "y0"
-          }, {
-            "data": "table",
-            "field": "y1"
-          }]
-        },
-        "range": "height",
-        "round": true,
-        "zero": true,
-        "nice": true
+        "type": "window",
+        "sort": {"field": "y1", "order": "descending"},
+        "ops": ["row_number"],
+        "groupby":["date"],
+        "fields": [null],
+        "as": ["rank"]
       },
       {
-        "name": "color",
-        "type": "ordinal",
-        "domain": {
-          "data": "table",
-          "field": "category"
-        },
-        "range": {
-          "scheme": "category20"
+        "type": "collect",
+        "sort": {
+          "field": [
+          "date",
+          "subcategory"
+          ],
+          "order": [
+          "ascending",
+          "ascending"
+          ]
         }
       }
-    ],
+      ]
+    },
+    {"name":"table",
+    "source":"data",
+    "transform":[
 
-    "axes": [{
-        "orient": "left",
-        "scale": "yscale",
-        "tickSize": 0,
-        "labelPadding": 4,
-        "zindex": 1
+    ]
+  }
+  ],
+  "scales": [
+  {
+    "name": "xscale",
+    "type": "band",
+    "domain": {
+      "data": "table",
+      "field": "date"
+    },
+    "range": "width",
+    "padding": 0.3
+  },
+  {
+    "name": "yscale",
+    "type": "linear",
+    "domain": {
+      "fields": [
+      {
+        "data": "table",
+        "field": "y0"
       },
       {
-        "orient": "bottom",
+        "data": "table",
+        "field": "y1"
+      }
+      ]
+    },
+    "range": "height",
+    "round": true,
+    "zero": true,
+    "nice": true
+  },
+  {
+    "name": "color",
+    "type": "ordinal",
+    "domain": {
+      "data": "table",
+      "field": "subcategory"
+    },
+    "range": "category"
+  }
+  ],
+  "axes": [
+  {
+    "orient": "left",
+    "scale": "yscale",
+    "tickSize": 5,
+    "grid":true,
+    "format":"s",
+    "labelPadding": 4,
+    "zindex": 0
+  },
+  { "domain": true,
+  "orient": "bottom",
+  "scale": "xscale",
+  "zindex": 10,
+  "encode": {
+    "labels": {
+      "update": {
+        "text": {
+          "signal": "timeFormat(datum.value, '%b  %Y')"
+        }
+      }
+    }
+  }
+}
+],
+"legends": [
+{
+  "fill": "color",
+  "padding": 4,
+  "orient": "bottom",
+  "encode": {
+    "legend": {},
+    "labels": {
+      "interactive": false,
+      "update": {
+        "text": {"signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"},
+        "fontSize": {
+          "value": 12
+        },
+        "fill": {
+          "value": "black"
+        },
+        "y": {
+          "signal": "datum.index<6 ? 0 : 30"
+        },
+        "x": {
+          "signal": "datum.index<6 ? datum.index*(width/6)+10 : (datum.index-6)*(width/6)+10"
+        }
+      }
+    },
+    "symbols": {
+      "update": {
+        "y": {
+          "signal": "datum.index<6 ? 0 : 30"
+        },
+        "x": {
+          "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
+        },
+        "stroke": {
+          "value": "transparent"
+        }
+      }
+    }
+  }
+}
+],
+"marks": [
+{
+  "type": "group",
+  "from": {
+    "facet": {
+      "data": "table",
+      "name": "facet",
+      "groupby": "date"
+    }
+  },
+  "encode": {
+    "enter": {
+      "x": {
         "scale": "xscale",
-        "encode": {
-          "labels": {
-            "update": {
-              "text": {
-                "signal": "timeFormat(datum.value, '%b  %Y')"
-              }
-            }
-          }
+        "field": "date"
+      }
+    }
+  },
+  "signals": [
+  {
+    "name": "width",
+    "update": "bandwidth('xscale')"
+  }
+  ],
+  "scales": [
+  {
+    "name": "pos",
+    "type": "band",
+    "range": "width",
+    "domain": {
+      "data": "facet",
+      "field": "subcategory"
+    }
+  }
+  ],
+  "marks": [
+  {
+    "name": "bars",
+    "from": {
+      "data": "facet"
+    },
+    "type": "rect",
+    "encode": {
+      "enter": {
+        "x": {
+          "scale": "pos",
+          "field": "subcategory"
+        },
+        "width": {
+          "scale": "pos",
+          "band": 1,
+          "offset": 0.5
+        },
+        "stroke": {
+          "value": "white"
+        },
+        "strokeWidth": {
+          "value": 1
+        },
+        "y": {
+          "scale": "yscale",
+          "field": "y0",
+          "offset": 0.5
+        },
+        "y2": {
+          "scale": "yscale",
+          "field": "y1",
+          "offset": 0.5
+        },
+        "fill": {
+          "scale": "color",
+          "field": "subcategory"
+        },
+        "fillOpacity": {
+          "value": 1
         }
       }
-    ],
-
-    "marks": [{
-      "type": "group",
-
-      "from": {
-        "facet": {
-          "data": "table",
-          "name": "facet",
-          "groupby": "date"
-        }
-      },
-
-      "encode": {
-        "enter": {
-          "x": {
-            "scale": "xscale",
-            "field": "date"
-          }
-        }
-      },
-
-      "signals": [{
-        "name": "width",
-        "update": "bandwidth('xscale')"
-      }],
-
-      "scales": [{
-        "name": "pos",
-        "type": "band",
-        "range": "width",
-        "domain": {
-          "data": "facet",
-          "field": "category"
-        }
-      }],
-
-      "marks": [{
-        "name": "bars",
-        "from": {
-          "data": "facet"
-        },
-        "type": "rect",
-        "encode": {
-          "enter": {
-            "x": {
-              "scale": "pos",
-              "field": "category"
-            },
-            "width": {
-              "scale": "pos",
-              "band": 1
-            },
-            "stroke": {
-              "value": "white"
-            },
-            "strokeWidth": {
-              "value": 1
-            },
-            "y": {
-              "scale": "yscale",
-              "field": "y0",
-              "offset": 1
-            },
-            "y2": {
-              "scale": "yscale",
-              "field": "y1",
-              "offset": 1
-            },
-            "fill": {
-              "scale": "color",
-              "field": "category"
-            },
-            "fillOpacity": {
-              "signal": "clamp((datum.position/5)+0.20,0,1)"
-            }
-          }
-        }
-      }]
-    }]
-  };
+    }
+  }
+  ]
+}
+]
+};
 
 }).call(this, this.App);
