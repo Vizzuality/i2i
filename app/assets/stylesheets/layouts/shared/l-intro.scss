@@ -1,6 +1,8 @@
 .l-intro {
   position: relative;
   z-index: 3;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   > .nav {
     position: absolute;
