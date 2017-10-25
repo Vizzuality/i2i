@@ -16,13 +16,15 @@ module Fdapi
     def monthly_values
       project_name = params[:project_name]
       household_name = params[:household]
-      category_types = JSON.parse(params[:categories]).map { |cat| cat['category_type'] }
-      cache_key = "monthly_values-#{project_name}-#{household_name}-#{category_types}"
+      categories = JSON.parse(params[:categories])
+      cache_key = "monthly_values-#{project_name}-#{household_name}-#{categories}"
 
       response = Rails.cache.fetch(cache_key) do
         response = []
 
-        category_types.each do |category_type|
+        categories.each do |category|
+          category_type = category['category_type']
+
           transactions = HouseholdTransaction
                           .with_subcategory
                           .project_name(project_name)
@@ -30,6 +32,10 @@ module Fdapi
 
           if household_name.present?
             transactions = transactions.household_name(household_name)
+          end
+
+          if category['subcategory'].present?
+            transactions = transactions.subcategory(category['subcategory'])
           end
 
           grouped = transactions.group_by { |transaction| transaction.subcategory }
