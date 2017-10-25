@@ -47,6 +47,7 @@ class DataPortalFinancialDiariesController < ApplicationController
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
       @selectedDemographicFilters = filters['demography'] || []
+      @household = filters['household'] || nil
     end
 
 

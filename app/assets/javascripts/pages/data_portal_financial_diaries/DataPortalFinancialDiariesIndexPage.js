@@ -57,7 +57,8 @@
       this.categories = document.querySelectorAll('.js-category-child-option') || [];
       this.demographicOptions = document.querySelectorAll('.js-demographic-child-option') || [];
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
-      this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || []
+      this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || [];
+      this.removeHouseholdButton = document.querySelector('.js-remove-household');
 
       // bindings
       this.onClickCategoryBinded = function(e) {
@@ -70,6 +71,10 @@
 
       this.onClickDemographicFilterBinded = function(e) {
         this._onClickDemographicFilter(e);
+      }.bind(this);
+
+      this.onClickRemoveHouseholdBinded = function() {
+        this._onRemoveHousehold();
       }.bind(this);
 
       this.getPreviousScroll = function() {
@@ -86,6 +91,7 @@
       $(this.categories).off('click');
       $(this.visibilityCheckboxes).off('click');
       $(this.demographicOptions).off('click');
+      $(this.removeHouseholdButton).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -99,6 +105,7 @@
       $(this.categories).on('click', this.onClickCategoryBinded);
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
+      $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
 
       // allows to keep scroll position after Turbolinks render the new page
       $(document).on('turbolinks:request-start', this.setPreviousScroll);
@@ -195,6 +202,10 @@
       this._updateFilters({ demography: demographicFilters });
     },
 
+    _onRemoveHousehold: function () {
+      this._updateFilters({ household: null });
+    },
+
     _onClickTab: function(e) {
       var type = e.currentTarget.getAttribute('data-type');
       this._updateFilters({ type: type });
@@ -242,7 +253,7 @@
 
       new App.View.MainChartView({
         params: Object.assign(params, { household: household }),
-        spec: household ? App.Specs.GropuedBarChart : App.Specs.MainChart,
+        spec: household ? App.Specs.MainChartHousehold : App.Specs.MainChart,
         onClick: function(household) {
           if(!household) return;
           this._updateFilters({ household: household });
