@@ -10,6 +10,7 @@ services:
       - PORT=3000
       - RAILS_ENV=production
       - RACK_ENV=production
+      - REDIS_HOST=redis
     ports:
       - "3000:3000"
     container_name: i2i
@@ -17,6 +18,16 @@ services:
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
       - "./db/data:/usr/src/i2i/db/data"
+  redis:
+    image: redis
+    restart: always
+    container_name: i2i_redis
+    ports:
+      - 6789:6789
+    volumes:
+      - redis:/data
+volumes:
+  redis: {}
 #    external_links:
 #      - redis
 #    environment:
