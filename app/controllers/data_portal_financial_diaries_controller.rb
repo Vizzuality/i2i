@@ -6,7 +6,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @categories = HouseholdTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @selectedCategories = [{
-      type: @categories.first[:name],
+      type: @categories.find { |cat| cat[:name] == "income" }[:name],
       subcategory: nil,
       visible: true
     }.stringify_keys]
