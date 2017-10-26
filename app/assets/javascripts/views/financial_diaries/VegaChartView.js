@@ -161,7 +161,7 @@
       var spec = this.options.spec;
 
       this.$el.html(this.template({
-        title: this.options.title
+        title: this.options.params.title
       }));
 
       if (!spec) {

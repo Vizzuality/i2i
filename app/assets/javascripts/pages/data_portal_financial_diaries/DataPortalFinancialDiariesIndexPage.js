@@ -227,6 +227,7 @@
     },
 
     _loadCharts: function() {
+      var capitalize = App.Helper.Utils.capitalize;
       var categories = (this.filters.categories || [])
       .filter(function(cat) { return cat.visible })
       .map(function(category) {
@@ -251,8 +252,16 @@
         api: FD_API_URL
       };
 
+      var mainChartTitle = categories.map(function(cat) {
+        return capitalize(cat.category_type);
+      }).join(', ');
+
       new App.View.MainChartView({
-        params: Object.assign(params, { household: household }),
+        params: Object.assign(
+          params,
+          { household: household },
+          { title: mainChartTitle }
+        ),
         spec: household ? App.Specs.MainChartHousehold : App.Specs.MainChart,
         onClick: function(household) {
           if(!household) return;
@@ -260,12 +269,18 @@
         }.bind(this)
       });
 
+      var groupedBarTitle = categories.map(function(cat) {
+        return capitalize(cat.category_type);
+      }).join(', ') + " by type";
+
       new App.View.GroupedBarView({
-        params: Object.assign({}, params, {
-          categories: window.encodeURIComponent(JSON.stringify(categories.map(function(cat) {
+        params: Object.assign(
+          params,
+          { categories: window.encodeURIComponent(JSON.stringify(categories.map(function(cat) {
             return { category_type: cat.category_type };
-          })))
-        })
+          })))},
+          { title: groupedBarTitle }
+        )
       });
     }
   });
