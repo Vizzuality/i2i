@@ -55,6 +55,8 @@
   }
 
   &.-fixed {
-    height: 50px;
+    @media #{$mq-tablet} {
+      height: 50px;
+    }
   }
 }
