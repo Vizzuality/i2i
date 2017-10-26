@@ -42,7 +42,8 @@
         name: memberInfo.name,
         position: memberInfo.position,
         biography: memberInfo.biography,
-        image: memberInfo.image_url
+        image: memberInfo.image_url,
+        blogs: memberInfo.blogs
       });
     },
 

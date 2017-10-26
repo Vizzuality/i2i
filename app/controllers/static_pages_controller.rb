@@ -19,7 +19,7 @@ class StaticPagesController < ApplicationController
       { iso: 'ZMB', name: 'Zambia' },
     ]
 
-    gon.team = JSON.parse @teamMembers.to_json(:methods => [:image_url])
+    gon.team = JSON.parse @teamMembers.to_json(:methods => [:image_url, :blogs])
     gon.advisor = JSON.parse @advisoryMembers.to_json(:methods => [:image_url])
   end
 
