@@ -87,13 +87,6 @@
   }
 
   .l-intro {
-    padding: 50px 0 0;
-    background-color: $color-1;
-
-    @media #{$mq-laptop} {
-      padding: 100px 0 75px;
-    }
-
     .l-title {
       .container {
         @media #{$mq-tablet} {
@@ -104,7 +97,8 @@
 
         .c-button {
           @media #{$mq-tablet} {
-            float: right;
+            left: auto;
+            right: 0;
           }
         }
       }
