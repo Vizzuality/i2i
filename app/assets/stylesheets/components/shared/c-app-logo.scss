@@ -1,4 +1,8 @@
 .c-app-logo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+
   a {
     display: inline-block;
 
@@ -17,6 +21,8 @@
   }
 
   &.-fixed {
+    margin: 0;
+
     a > img {
       @media #{$mq-tablet} {
         width: 128px;
