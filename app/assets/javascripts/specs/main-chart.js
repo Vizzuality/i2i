@@ -129,14 +129,16 @@
         "name": "sort",
         "value": true,
         "bind": {
-          "input": "checkbox"
+          "input": "checkbox",
+          "name": "View all individuals"
         }
       },
       {
         "name": "sort2",
         "value": true,
         "bind": {
-          "input": "checkbox"
+          "input": "checkbox",
+          "name": "View mean"
         }
       },
       {
