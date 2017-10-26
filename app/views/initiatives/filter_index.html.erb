@@ -2,36 +2,43 @@
 
 <div class="l-initiatives l-library">
   <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-initiatives.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true }%>
-    </div>
-    <div class="l-title">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="c-hero">
-            <div class="grid-l-6">
-              <h1 class="title -highlight -huge">i2i Initiatives</h1>
-              <p class="subtitle">See how we’re working to promote financial inclusion through data-driven insights.</p>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-6">
+                <h1 class="title -highlight -huge">i2i Initiatives</h1>
+                <p class="subtitle">See how we’re working to promote financial inclusion through data-driven insights.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <% @featured_tags.each do |tag| %>
+                <%= link_to tag.title, initiatives_filter_index_path(tag.slug),
+                class: "content-selector #{'-current' if (@tag && @tag.slug == tag.slug)}" %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="l-library-content-selector">
-      <div class="wrapper">
-        <div class="row">
-          <div class="selectors-container grid-12">
-            <% @featured_tags.each do |tag| %>
-              <%= link_to tag.title, initiatives_filter_index_path(tag.slug),
-              class: "content-selector #{'-current' if (@tag && @tag.slug == tag.slug)}" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-
   <div class="l-content">
     <div class="l-card-grid">
       <div class="wrapper">
