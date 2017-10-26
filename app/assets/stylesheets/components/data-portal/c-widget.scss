@@ -28,7 +28,7 @@
 
     .vega-bindings {
       position: absolute;
-      top: 50px;
+      top: 38px;
       right: 30px;
       display: flex;
 
@@ -40,7 +40,7 @@
         padding-left: 15px;
 
         &:not(:first-child) {
-          margin-left: 35px;
+          margin-left: 15px;
         }
       }
 
@@ -48,6 +48,7 @@
         margin-left: 5px;
         font-family: $font-family-1;
         font-size: $font-size-small;
+        font-weight: $font-weight-semi-bold;
       }
     }
   }
