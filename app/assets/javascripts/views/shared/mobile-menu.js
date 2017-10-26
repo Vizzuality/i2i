@@ -19,10 +19,11 @@
     },
 
     _setEventListeners: function () {
-      var button = document.querySelector('.js-btn-mobile-menu');
-      if (button) {
+      var buttons = document.querySelectorAll('.js-btn-mobile-menu');
+
+      buttons.forEach(function(button) {
         button.addEventListener('click', this._toggleMenu.bind(this));
-      }
+      }.bind(this));
     },
 
     _toggleMenu: function (e) {
