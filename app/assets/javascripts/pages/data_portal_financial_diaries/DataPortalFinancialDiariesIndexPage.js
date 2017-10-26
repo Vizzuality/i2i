@@ -279,7 +279,8 @@
           { categories: window.encodeURIComponent(JSON.stringify(categories.map(function(cat) {
             return { category_type: cat.category_type };
           })))},
-          { title: groupedBarTitle }
+          // temporary patch. REMOVE ASAP
+          { title: 'Savings by type' || groupedBarTitle }
         )
       });
     }
