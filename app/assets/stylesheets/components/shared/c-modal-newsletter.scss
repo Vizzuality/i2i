@@ -1,13 +1,14 @@
 .c-modal-newsletter {
   display: flex;
-  flex: 1;
   flex-direction: column;
+  flex-flow: wrap;
   flex-wrap: wrap;
+  align-content: flex-start;
   width: calc(100% - #{$wrapper-padding-mobile * 2});
-  height: 100%;
   margin: $wrapper-padding-mobile auto 0;
   padding: $wrapper-padding-mobile;
   background-color: $color-4;
+  text-align: center;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 
@@ -15,16 +16,23 @@
     width: 100%;
     margin: 0;
     padding: $wrapper-padding-tablet;
+
+    > .title {
+      margin-bottom: 40px;
+    }
   }
 
   > .title {
-    margin-bottom: 40px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
     font-size: $font-size-xxm;
   }
 
   > .c-form {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     > input {
       margin-bottom: 30px;
