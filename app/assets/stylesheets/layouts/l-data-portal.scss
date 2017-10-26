@@ -63,4 +63,26 @@
       min-height: 500px;
     }
   }
+
+  .dataset-description {
+    margin-bottom: 20px;
+  }
+
+  .data-portal-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.-reverse {
+      flex-direction: column-reverse;
+    }
+
+    @media #{$mq-tablet} {
+      flex-direction: row;
+
+      &.-reverse {
+        flex-direction: row;
+      }
+    }
+  }
 }
