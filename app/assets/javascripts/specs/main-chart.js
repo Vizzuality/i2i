@@ -3,8 +3,8 @@
 
   App.Specs.MainChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    "width": 600,
-    "height": 500,
+    // "width": 800,
+    "height": 530,
     "padding": 0,
     "autosize": {
       "type": "fit",
@@ -19,7 +19,7 @@
       //   "tickColor": "#dedede"
       // },
       // "symbol": {
-      //   "fill": "#F9C6B7",
+      //   "fill": "steelblue",
       //   "size": 64
       // },
       // "line": {
@@ -32,8 +32,10 @@
       // },
       "range": {
         "category": [
-          "#F9C6B7",
-          "#F95E31"
+          "#5079a5",
+          "#ef8e3b",
+          "#dd565c",
+          "#79b7b2"
         ]
       }
     },
@@ -72,6 +74,7 @@
         }
       }
     ],
+
     "scales": [{
       "name": "color",
       "type": "ordinal",
@@ -81,7 +84,62 @@
         "field": "category_type"
       }
     }],
+    "legends": [{
+      "fill": "color",
+      "padding": 10,
+      "orient": "bottom",
+      "encode": {
+        "legend": {},
+        "labels": {
+          "interactive": false,
+          "update": {
+            "text": {
+              "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
+            },
+            "fontSize": {
+              "value": 12
+            },
+            "fill": {
+              "value": "black"
+            },
+            "y": {
+              "signal": "datum.index<6 ? 0 : 30"
+            },
+            "x": {
+              "signal": "datum.index<6 ? datum.index*(width/6)+10 : (datum.index-6)*(width/6)+10"
+            }
+          }
+        },
+        "symbols": {
+          "update": {
+            "y": {
+              "signal": "datum.index<6 ? 0 : 30"
+            },
+            "x": {
+              "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
+            },
+            "stroke": {
+              "value": "transparent"
+            }
+          }
+        }
+      }
+    }],
     "signals": [{
+        "name": "sort",
+        "value": true,
+        "bind": {
+          "input": "checkbox"
+        }
+      },
+      {
+        "name": "sort2",
+        "value": true,
+        "bind": {
+          "input": "checkbox"
+        }
+      },
+      {
         "name": "detailDomain"
       },
       {
@@ -231,12 +289,17 @@
                         "parent": "category_type"
                       }
                     },
-                    // "opacity": {
-                    //   "value": 0.2
-                    // },
-                    // "strokeWidth": {
-                    //   "value": 1
-                    // },
+                    "opacity": [{
+                        "test": "sort",
+                        "value": 0.2
+                      },
+                      {
+                        "value": 0
+                      }
+                    ],
+                    "strokeWidth": {
+                      "value": 1
+                    },
                     "strokeCap": {
                       "value": "round"
                     },
@@ -245,15 +308,17 @@
                     }
                   },
                   "hover": {
-                    "stroke": {
-                      "value": "#F95E31"
-                    },
                     "strokeWidth": {
                       "value": 2
                     },
-                    // "opacity": {
-                    //   "value": 1
-                    // },
+                    "opacity": [{
+                        "test": "sort",
+                        "value": 1
+                      },
+                      {
+                        "value": 0
+                      }
+                    ],
                     "zindex": {
                       "value": 1
                     }
@@ -281,24 +346,30 @@
                         "parent": "category_type"
                       }
                     },
-                    // "opacity": [{
-                    //     "test": "datum.value!=null",
-                    //     "value": 0.2
-                    //   },
-                    //   {
-                    //     "value": 0
-                    //   }
-                    // ],
-                    // "size": {
-                    //   "value": 10
-                    // },
+                    "opacity": [{
+                        "test": "datum.value!=null && sort",
+                        "value": 0.2
+                      },
+                      {
+                        "value": 0
+                      }
+                    ],
+                    "size": {
+                      "value": 10
+                    },
                     "zindex": {
-                      "value": 1
+                      "value": 0
                     }
                   },
                   "hover": {
+                    "size": {
+                      "value": 20
+                    },
+                    "opacity": {
+                      "value": 1
+                    },
                     "zindex": {
-                      "value": 2
+                      "value": 1
                     }
                   }
                 }
@@ -351,9 +422,14 @@
                     "scale": "color",
                     "field": "category_type"
                   },
-                  "opacity": {
-                    "value": 1
-                  },
+                  "opacity": [{
+                      "test": "sort2",
+                      "value": 1
+                    },
+                    {
+                      "value": 0
+                    }
+                  ],
                   "strokeWidth": {
                     "value": 1
                   },
@@ -877,6 +953,5 @@
       }
     ]
   };
-
 
 }).call(this, this.App);
