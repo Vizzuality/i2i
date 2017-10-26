@@ -3,8 +3,6 @@
   height: 95px;
   margin: 0 0 20px;
   background-color: $color-1;
-  background-position: center center;
-  background-size: cover;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
   @media #{$mq-tablet} {
@@ -26,10 +24,11 @@
     position: absolute;
     bottom: 5px;
     left: 5px;
-    color: $color-3;
-    text-shadow: 0 1px rgba($color-6, .4);
-    font-family: $font-family-2;
+    font-family: $font-family-1;
     font-size: $font-size-s;
+    color: $color-3;
+    font-weight: $font-weight-bold;
+    text-shadow: 0 1px rgba($color-6, .4);
     text-transform: uppercase;
     pointer-events: none;
 
