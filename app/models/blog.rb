@@ -47,6 +47,7 @@ class Blog < ApplicationRecord
 
   scope :published, -> {where(published: true)}
   scope :featured, -> {where(is_featured: true)}
+  scope :author, -> (author) {where(author: author)}
 
   scope :search_fields, ->(term) do
     where(published: true)

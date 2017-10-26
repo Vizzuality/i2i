@@ -32,6 +32,10 @@ class Member < ApplicationRecord
     image.url
   end
 
+  def blogs
+    Blog.author(name)
+  end
+
   private
     def generate_slug
       write_attribute(:slug, self.name.parameterize)
