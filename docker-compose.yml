@@ -10,6 +10,7 @@ services:
       - PORT=3000
       - RAILS_ENV=production
       - RACK_ENV=production
+      - REDIS_HOST=redis
     ports:
       - "3000:3000"
     container_name: i2i
