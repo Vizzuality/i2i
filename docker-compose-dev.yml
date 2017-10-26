@@ -17,6 +17,7 @@ services:
       - PORT=3000
       - RAILS_ENV=development
       - RACK_ENV=development
+      - REDIS_HOST=redis
     volumes:
       - "./:/usr/src/i2i"
       - "./public/uploads:/usr/src/i2i/public/uploads"
