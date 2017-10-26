@@ -6,21 +6,7 @@
     el: '#vis-main-chart',
 
     options: {
-      vis: 'ID',
-      title: 'Flow of savings',
-      customTooltip: true,
-      tooltip: {
-        fields: [{
-          field: "date",
-          title: "Date",
-          formatType: "string"
-        },
-        {
-          field: "value",
-          title: "Value",
-          formatType: "number"
-        }]
-      }
+      customTooltip: true
     },
 
     setListeners: function() {
