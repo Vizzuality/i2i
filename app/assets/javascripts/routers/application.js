@@ -65,6 +65,10 @@ var Router = Backbone.Router.extend({
 var init = function () {
   App.Router.Application = new Router();
 
+  if(document.querySelector('html').classList.contains('_no-scroll')) {
+    document.querySelector('html').classList.remove('_no-scroll');
+  }
+
   // Don't touch these two lines without testing if the
   // browser's back and forward buttons aren't broken
   Backbone.history.stop();
