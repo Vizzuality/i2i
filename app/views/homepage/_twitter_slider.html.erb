@@ -3,9 +3,9 @@
     <% @tweets.each do |tweet| %>
       <li class="slide">
         <div class="row">
-          <div class="grid-s-12 <% if tweet.media? %>grid-m-6<% end %>">
+          <div class="grid-s-12 <% if tweet.media? %>grid-m-7<% end %>">
             <div class="tweet">
-              <div class="grid-s-12 <% unless tweet.media? %>grid-m-6<% end %>">
+              <div class="grid-s-12 <% unless tweet.media? %>grid-m-10<% end %>">
                 <div class="tweet-header">
                   <a class="user" href="https://twitter.com/<%= tweet.user.name %>">@<%= tweet.user.name %></a>
                   <time class="date" datetime="<%= tweet.created_at.strftime("%F") %>">
@@ -13,14 +13,15 @@
                   </time>
                 </div>
                 <div class="tweet-content">
+                  <svg class="icon icon-open-quote tweet-quote-mark -open"><use xlink:href="#icon-open-quote"></use></svg>
                   <p class="text"><%= tweet.attrs[:full_text] %></p>
+                  <svg class="icon icon-close-quote tweet-quote-mark -close"><use xlink:href="#icon-close-quote"></use></svg>
                 </div>
               </div>
             </div>
           </div>
-
           <% if tweet.media? %>
-            <div class="grid-s-12 grid-m-5 offset-m-1">
+            <div class="grid-s-12 grid-m-5">
               <div class="tweet-image" style="background-image: url(<%= tweet.media[0].media_url.to_s %>)"></div>
             </div>
           <% end %>

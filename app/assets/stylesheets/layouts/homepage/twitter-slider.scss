@@ -12,8 +12,10 @@
     position: relative;
     justify-content: center;
     width: 100%;
+    min-height: 350px;
     background-color: $color-4;
     box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    overflow: hidden;
 
     > .row {
       width: 100%;
@@ -22,9 +24,8 @@
 
   .tweet {
     display: flex;
-    // flex: 1;
     justify-content: center;
-    padding: 50px;
+    padding: 30px;
 
     @media#{$mq-tablet} {
       &.-narrow {
@@ -35,7 +36,6 @@
     .tweet-header {
       > .user {
         display: block;
-        // margin-top: 20px;
         color: $color-1;
         font-family: $font-family-1;
         font-size: $font-size-regular;
@@ -53,55 +53,38 @@
       }
     }
 
+    .tweet-quote-mark {
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      color: $color-1;
+
+      &.-open {
+        top: 0;
+        right: 100%;
+      }
+
+      &.-close {
+        bottom: 0;
+        left: 100%;
+      }
+    }
+
     .tweet-content {
-      // display: flex;
-      // flex: 1;
-      // align-items: center;
-      margin-top: 20px;
-      transform: translate(33px, 0);
+      position: relative;
+      margin: 20px 25px 0;
 
       > .text {
-        // position: relative;
-        // color: $color-6;
-        // font-family: $font-family-1;
-        // font-size: $font-size-regular;
-        // font-weight: $font-weight-medium;
-        // line-height: 28px;
-
-        &::before {
-          position: absolute;
-          right: 100%;
-          bottom: 100%;
-          margin-right: 5px;
-          transform: translateY(100%);
-          color: $color-1;
-          font-size: 62px;
-          font-weight: $font-weight-bold;
-          line-height: 28px;
-          content: open-quote;
-        }
-
-        &::after {
-          position: absolute;
-          top: 100%;
-          left: 100%;
-          margin-left: 5px;
-          transform: translateY(-100%);
-          color: $color-1;
-          font-size: 62px;
-          font-weight: $font-weight-bold;
-          line-height: 28px;
-          content: close-quote;
-        }
+        padding: 0 10px;
       }
     }
   }
 
   .tweet-image {
     position: relative;
-    right: -3%;
-    width: 100%;
-    height: 350px;
+    width: calc(100% - 100px);
+    height: 150px;
+    margin: 0 auto;
     background-color: $color-4;
     background-repeat: no-repeat;
     background-position: center;
@@ -126,13 +109,42 @@
     z-index: 2;
 
     &.prev {
-      left: -25px;
-      background-image: url(../images/icons/arrow-previous.svg);
+      left: -15px;
+      background-image: url('../images/icons/arrow-previous.svg');
     }
 
     &.next {
-      right: -25px;
-      background-image: url(../images/icons/arrow-next.svg);
+      right: -15px;
+      background-image: url('../images/icons/arrow-next.svg');
+    }
+  }
+}
+
+@media#{$mq-tablet} {
+  .twitter-slider {
+    .buttons_nav {
+      &.prev {
+        left: -25px;
+      }
+
+      &.next {
+        right: -25px;
+      }
+    }
+
+    .tweet {
+      padding-top: 50px;
+      padding-bottom: 50px;
+
+      &.-narrow {
+        padding-right: 30px;
+      }
+    }
+
+    .tweet-image {
+      right: -3%;
+      width: 100%;
+      height: 350px;
     }
   }
 }
