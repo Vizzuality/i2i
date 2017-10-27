@@ -9,9 +9,9 @@ module Fdapi
       render json: project_metadata, adapter: :json, meta: meta(project_metadata), root: 'data'
     end
 
-    def project_min_max
+    def project_min_max_households
       categories_filter = JSON.parse(params[:categories])
-      cache_key = "project_min_max-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
+      cache_key = "project_min_max_households-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
       data = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
@@ -56,31 +56,59 @@ module Fdapi
         data
       end
 
+      render json: { data: data }
+    end
 
-      # min_value = adapter.
-      #   execute("select household_transactions.category_type, min(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
-      # max_value = adapter.
-      #   execute("select household_transactions.category_type, max(household_transaction_histories.avg_value) from household_transaction_histories inner join household_transactions on household_transactions.id = household_transaction_histories.household_transaction_id where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')}) group by household_transactions.category_type")
-      #
-      # min_value.values.each do |min|
-      #   data << {
-      #     c: 'min',
-      #     date: project_metadata.start_date.strftime('%Y-%m-%d'),
-      #     value: min.last,
-      #     category: min.first
-      #   }
-      # end
-      # max_value.values.each do |max|
-      #   data << {
-      #     c: 'max',
-      #     date: project_metadata.end_date.strftime('%Y-%m-%d'),
-      #     value: max.last,
-      #     category: max.first
-      #   }
-      # end
+    def project_min_max_members
+      categories_filter = JSON.parse(params[:categories])
+      cache_key = "project_min_max_members-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
+
+      data = Rails.cache.fetch(cache_key) do
+        project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
+
+        household_member_transactions = categories_filter.map do |category|
+          HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name).merge(category))
+        end.flatten
+
+        adapter = ActiveRecord::Base.connection
+
+        sql_result = adapter.execute("select household_member_transactions.category_type,
+            min(household_member_transaction_histories.rolling_balance), min(total_transaction_value),
+            max(household_member_transaction_histories.rolling_balance), max(total_transaction_value)
+            from household_member_transaction_histories inner join household_member_transactions
+            on household_member_transactions.id = household_member_transaction_histories.household_member_transaction_id
+            where household_member_transactions.id in(#{household_member_transactions.pluck(:id).join(', ')})
+            group by household_member_transactions.category_type")
+
+        data = []
+        field_index =
+          { category: 0, min_rolling: 1, min_total: 2, max_rolling: 3, max_total: 4}
+
+        sql_result.values.each do |values|
+          case values[field_index[:category]]
+          when 'credits', 'savings'
+            data << json_element('min', values[field_index[:min_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+            data << json_element('max', values[field_index[:max_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+          when 'expense', 'income'
+            data << json_element('min', values[field_index[:min_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+            data << json_element('max', values[field_index[:max_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+          end
+        end
+
+        data
+      end
 
       render json: { data: data }
     end
+
 
     def project_means
       categories_filter = JSON.parse(params[:categories])
