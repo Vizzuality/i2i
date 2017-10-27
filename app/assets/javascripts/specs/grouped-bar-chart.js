@@ -60,7 +60,7 @@
     "data": [
     {
       "name": "data",
-      "url": "http://i2i.vizzuality.com/fdapi/monthly_values/<%= project_name %>?categories=<%= categories %>",
+      "url": "<%= api %>/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
       "format": {
         "property": "data",
         "parse": {
