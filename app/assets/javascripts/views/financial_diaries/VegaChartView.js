@@ -31,6 +31,11 @@
       interpolate: 'monotone',
       strokeWidth: 1
     },
+    area: {
+      opacity: 0.8,
+      interpolate: 'monotone',
+      strokeWidth: 1
+    },
 
     range: {
       category: [
