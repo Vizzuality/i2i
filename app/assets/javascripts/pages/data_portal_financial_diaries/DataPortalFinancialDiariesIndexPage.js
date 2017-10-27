@@ -288,7 +288,7 @@
             params,
             { title: capitalize(category.category_type) + " by type" },
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },
-            { household: household || '' },
+            { household: household || '' }
           ),
           el: document.querySelector('#vis-grouped-bar-chart-' + category.category_type)
         });
