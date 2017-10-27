@@ -86,8 +86,19 @@
         </div>
         <div class="grid-s-12">
           <% if (dataAvailable) %>
-          <%# category charts  %>
-          <div class="c-widget" id="vis-grouped-bar-chart"></div>
+            <%# category charts  %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'credits' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-credits"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'income' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-income"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'savings' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-savings"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'expense' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-expense"></div>
+            <% end %>
           <% else %>
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
           <% end %>
