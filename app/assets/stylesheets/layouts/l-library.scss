@@ -2,23 +2,24 @@
   margin: 0 0 40px;
 
   .l-library-content-selector {
+    $selector-spacing: 6px;
     display: flex;
+    position: relative;
     align-items: center;
+    transform: translateY($selector-spacing);
 
     &::before {
       position: absolute;
+      top: $selector-spacing;
       right: 0;
-      bottom: 0;
+      bottom: $selector-spacing;
       left: 0;
-      height: 33px;
-      padding-top: 5px;
       background: rgba($color-6, .5);
       content: '';
     }
 
     > .wrapper {
       padding: 0;
-      transform: translateY(12px);
       overflow: auto;
 
       .row {
@@ -29,6 +30,7 @@
 
       .selectors-container {
         display: flex;
+        align-items: stretch;
         width: auto;
         padding: 0 $wrapper-padding-mobile 3px $wrapper-padding-mobile; // 3px for te button's shadow
 
@@ -50,13 +52,12 @@
 
   .l-library-content-selector .content-selector {
     @extend .c-button;
-    height: 48px;
+    display: flex;
+    align-items: center;
     border: 0;
     background: transparent;
-
     color: $color-2;
     font-weight: $font-weight-bold;
-
     cursor: pointer;
 
     &:hover {
