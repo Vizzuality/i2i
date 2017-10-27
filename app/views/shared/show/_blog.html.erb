@@ -9,29 +9,31 @@
       <div class="row">
         <div class="grid-s-12">
           <article class="c-article">
-            <div class="row">
-              <header>
-                <div class="container">
-                  <div class="grid-s-12 grid-l-8">
-                    <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
-                    <h1 class="title -xbig -dark "><%= blog.title %></h1>
-                    <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
-                      <% unless blog.author.blank? %>
-                        <% if blog.custom_author.present? %>
-                          by <span class="author-name"><%= blog.author %></span>
-                        <% else %>
-                          <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+            <div class="wrapper">
+              <div class="row">
+                <header>
+                  <div class="container">
+                    <div class="grid-s-12 grid-l-10">
+                      <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
+                      <h1 class="title -xbig -dark "><%= blog.title %></h1>
+                      <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
+                        <% unless blog.author.blank? %>
+                          <% if blog.custom_author.present? %>
+                            by <span class="author-name"><%= blog.author %></span>
+                          <% else %>
+                            <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+                          <% end %>
                         <% end %>
-                      <% end %>
-                      on <%= DateHelper.beautify blog.date %>
-                    </span>
+                        on <%= DateHelper.beautify blog.date %>
+                      </span>
 
-                    <% unless blog.workstream.blank? %>
-                      <span class="workstream"><%= blog.workstream %></span>
-                    <% end %>
+                      <% unless blog.workstream.blank? %>
+                        <span class="workstream"><%= blog.workstream %></span>
+                      <% end %>
+                    </div>
                   </div>
-                </div>
-              </header>
+                </header>
+              </div>
             </div>
 
             <section class="article-content">
@@ -42,10 +44,9 @@
                   </div>
                 </div>
               <% end %>
-
-              <div class="row">
-                <div class="article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-8">
+              <div class="wrapper">
+                <div class="row article-text">
+                  <div class="grid-s-12 grid-m-10 grid-l-10">
                     <%= blog.content.html_safe %>
                   </div>
                 </div>
