@@ -6,6 +6,7 @@ module Fdapi
 
       household_transactions = Rails.cache.fetch(cache_key) do
         categories_filter.map do |category|
+          category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
           HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category)).includes(:household_transaction_histories)
         end.flatten
       end
