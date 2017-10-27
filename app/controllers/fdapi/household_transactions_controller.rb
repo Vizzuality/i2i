@@ -11,14 +11,14 @@ module Fdapi
         end.flatten
       end
 
-      render json: household_transactions, adapter: :json, root: 'data'
+      render json: { data: household_transactions }
     end
 
     def monthly_values
       project_name = params[:project_name]
       household_name = params[:household]
       categories = JSON.parse(params[:categories])
-      cache_key = "monthly_values-#{project_name}-#{household_name}-#{categories}"
+      cache_key = "household_monthly_values-#{project_name}-#{household_name}-#{categories}"
 
       response = Rails.cache.fetch(cache_key) do
         response = []
