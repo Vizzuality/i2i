@@ -6,7 +6,7 @@
 
 <% title 'Data Portal | Financial Diaries' %>
 
-<div class="l-data-portal-financial-diaries">
+<div class="l-financial-diaries">
   <div class="l-intro">
     <div class="nav">
       <div class="wrapper">
@@ -103,6 +103,13 @@
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
           <% end %>
         </div>
+        <% if @country.finscope.present? %>
+          <div class="grid-s-12">
+            <div class="grid-footer -end">
+              <%= link_to('Go to FinScope data', data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year]), { class: 'c-button -sea' }) %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
     <div id="vis-tooltip" class="vg-tooltip"></div>
