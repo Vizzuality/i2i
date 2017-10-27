@@ -281,20 +281,16 @@
         });
       }
 
-
-      var groupedBarTitle = categories.map(function(cat) {
-        return capitalize(cat.category_type);
-      }).join(', ') + " by type";
-
-      new App.View.GroupedBarView({
-        params: Object.assign(
-          params,
-          { categories: window.encodeURIComponent(JSON.stringify(categories.map(function(cat) {
-            return { category_type: cat.category_type };
-          })))},
-          // temporary patch. REMOVE ASAP
-          { title: 'Savings by type' || groupedBarTitle }
-        )
+      // renders charts by indicator
+      categories.forEach(function(category) {
+        new App.View.GroupedBarView({
+          params: Object.assign(
+            params,
+            { title: capitalize(category.category_type) + " by type" },
+            { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) }
+          ),
+          el: document.querySelector('#vis-grouped-bar-chart-' + category.category_type)
+        });
       });
     }
   });
