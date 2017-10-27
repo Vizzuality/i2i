@@ -228,24 +228,25 @@
 
     _loadCharts: function() {
       var capitalize = App.Helper.Utils.capitalize;
+      var household = this.filters.household || null;
       var categories = (this.filters.categories || [])
-      .filter(function(cat) { return cat.visible })
-      .map(function(category) {
+        .filter(function(cat) { return cat.visible })
+        .map(function(category) {
 
-        if (category.subcategory) {
+          if (category.subcategory) {
+            return {
+              category_type: category.type,
+              subcategory: category.subcategory || null
+            }
+          }
+
           return {
             category_type: category.type,
-            subcategory: category.subcategory || null
-          }
-        }
+            category_name: 'ALL'
+          };
+        });
 
-        return {
-          category_type: category.type,
-          category_name: 'ALL'
-        };
-      });
-      var household = this.filters.household || null;
-
+      // common params for all charts
       var params = {
         project_name: gon.project_name,
         categories: window.encodeURIComponent(JSON.stringify(categories)),
@@ -256,18 +257,29 @@
         return capitalize(cat.category_type);
       }).join(', ');
 
-      new App.View.MainChartView({
-        params: Object.assign(
-          params,
-          { household: household },
-          { title: mainChartTitle }
-        ),
-        spec: household ? App.Specs.MainChartHousehold : App.Specs.MainChart,
-        onClick: function(household) {
-          if(!household) return;
-          this._updateFilters({ household: household });
-        }.bind(this)
-      });
+      if(!household) {
+        // renders main chart
+        new App.View.MainChartView({
+          params: Object.assign(
+            params,
+            { title: mainChartTitle }
+          ),
+          onClick: function(household) {
+            if(!household) return;
+            this._updateFilters({ household: household });
+          }.bind(this)
+        });
+      } else {
+        // renders main chart with household detail
+        new App.View.MainChartHouseholdView({
+          params: Object.assign(
+            params,
+            { household: household },
+            { title: mainChartTitle }
+          )
+        });
+      }
+
 
       var groupedBarTitle = categories.map(function(cat) {
         return capitalize(cat.category_type);

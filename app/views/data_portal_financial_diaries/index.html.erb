@@ -76,18 +76,18 @@
       <div class="row">
         <div class="grid-s-12">
           <% if (dataAvailable) %>
-          <!-- Widget -->
-          <div class="c-widget -main" id="vis-main-chart"></div>
-          <!-- Widget -->
+            <%# main chart %>
+            <% if (@household.present? == false) %> <div class="c-widget -main" id="vis-main-chart"></div> <% end %>
+            <%# main chart - household detail %>
+            <% if (@household.present?) %> <div class="c-widget" id="vis-main-household-detail-chart"></div> <% end %>
           <% else %>
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
           <% end %>
         </div>
         <div class="grid-s-12">
           <% if (dataAvailable) %>
-          <!-- Widget -->
+          <%# category charts  %>
           <div class="c-widget" id="vis-grouped-bar-chart"></div>
-          <!-- Widget -->
           <% else %>
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
           <% end %>
