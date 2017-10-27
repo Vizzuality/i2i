@@ -28,8 +28,9 @@
         {},
         this.defaults.filters,
         options.filters,
-        { categories: gon.selectedCategories }
+        { categories: options.filters.categories || gon.selectedCategories }
       );
+
       this.iso = options.iso;
       this.year = options.year;
 
