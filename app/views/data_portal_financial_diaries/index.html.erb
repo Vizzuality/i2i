@@ -105,7 +105,8 @@
         </div>
         <% if @country.finscope.present? %>
           <div class="grid-s-12">
-            <div class="grid-footer -end">
+            <div class="grid-footer">
+              <button class="c-button -white js-download-all">Download all</button>
               <%= link_to('Go to FinScope data', data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year]), { class: 'c-button -sea' }) %>
             </div>
           </div>

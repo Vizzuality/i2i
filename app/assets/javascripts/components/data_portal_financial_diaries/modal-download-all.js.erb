@@ -1,0 +1,23 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+(function (App) {
+  App.Component.ModalDownloadAllFinancial = App.Component.ModalDownloadAll.extend({
+
+    /**
+     * Sends email request
+     */
+    _sendRequest: function() {
+      var oReq = new XMLHttpRequest(),
+        params = new FormData();
+
+      params.append('email', this.emailField.value);
+      params.append('country', this.options.iso);
+
+      <%# add categories? %>
+
+      oReq.open("POST", "<%= contacts_path %>", true);
+      oReq.send(params);
+    }
+
+  });
+}).call(this, this.App);
