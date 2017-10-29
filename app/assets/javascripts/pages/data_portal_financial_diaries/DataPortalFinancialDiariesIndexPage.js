@@ -60,6 +60,7 @@
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
       this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || [];
       this.removeHouseholdButton = document.querySelector('.js-remove-household');
+      this.downloadAllButton = document.querySelector('.js-download-all');
 
       // bindings
       this.onClickCategoryBinded = function(e) {
@@ -78,6 +79,10 @@
         this._onRemoveHousehold();
       }.bind(this);
 
+      this.onClickDownloadAllBinded = function() {
+        this._onDownloadAll();
+      }.bind(this);
+
       this.getPreviousScroll = function() {
         window.prevPageYOffset = window.pageYOffset;
         window.prevPageXOffset = window.pageXOffset;
@@ -93,6 +98,7 @@
       $(this.visibilityCheckboxes).off('click');
       $(this.demographicOptions).off('click');
       $(this.removeHouseholdButton).off('click');
+      $(this.downloadAllButton).off('click');
 
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
@@ -107,6 +113,7 @@
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
       $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
+      $(this.downloadAllButton).on('click', this.onClickDownloadAllBinded);
 
       // allows to keep scroll position after Turbolinks render the new page
       $(document).on('turbolinks:request-start', this.setPreviousScroll);
@@ -205,6 +212,13 @@
 
     _onRemoveHousehold: function () {
       this._updateFilters({ household: null });
+    },
+
+    _onDownloadAll: function() {
+      new App.Component.ModalDownloadAll({
+        iso: this.iso,
+        categories: this.filters.categories
+      });
     },
 
     _onClickTab: function(e) {
