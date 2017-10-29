@@ -10,88 +10,85 @@
   .slide {
     display: flex;
     position: relative;
-    flex-flow: column-reverse;
     justify-content: center;
     width: 100%;
+    min-height: 350px;
     background-color: $color-4;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    overflow: hidden;
+  }
 
-    @media#{$mq-tablet} {
-      flex-flow: row;
-    }
+  .tweet-row {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
   .tweet {
-    width: 100%;
-    padding: 20px 50px;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
 
     @media#{$mq-tablet} {
-      width: 60%;
-      padding: 37px 31px 44px 50px;
+      &.-narrow {
+        padding-right: 30px;
+      }
+    }
+
+    .tweet-header {
+      > .user {
+        display: block;
+        color: $color-1;
+        font-family: $font-family-1;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-bold;
+      }
+
+      > .date {
+        display: block;
+        margin-top: 10px;
+        color: $color-6;
+        font-family: $font-family-1;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-bold;
+        opacity: .3;
+      }
+    }
+
+    .tweet-quote-mark {
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      color: $color-1;
+
+      &.-open {
+        top: 0;
+        right: 100%;
+      }
+
+      &.-close {
+        bottom: 0;
+        left: 100%;
+      }
+    }
+
+    .tweet-content {
+      position: relative;
+      margin: 20px 25px 0;
+
+      > .text {
+        padding: 0 10px;
+      }
     }
   }
 
-  .user {
-    display: block;
-    margin-top: 20px;
-    color: $color-1;
-    font-family: $font-family-1;
-    font-size: $font-size-regular;
-    font-weight: $font-weight-bold;
-  }
-
-  .date {
-    display: block;
-    margin-top: 10px;
-    color: $color-6;
-    font-family: $font-family-1;
-    font-size: $font-size-regular;
-    font-weight: $font-weight-bold;
-    opacity: .3;
-  }
-
-  .text {
+  .tweet-image {
     position: relative;
-    margin: 42px 28px;
-    color: $color-6;
-    font-family: $font-family-1;
-    font-size: 18px;
-    font-weight: $font-weight-medium;
-    line-height: 28px;
-
-    &::before {
-      position: absolute;
-      right: 100%;
-      bottom: 100%;
-      margin-right: 5px;
-      color: $color-1;
-      font-size: 62px;
-      font-weight: $font-weight-bold;
-      line-height: 0;
-      content: open-quote;
-    }
-
-    &::after {
-      position: absolute;
-      top: 100%;
-      left: 100%;
-      margin-left: 5px;
-      color: $color-1;
-      font-size: 62px;
-      font-weight: $font-weight-bold;
-      line-height: 1;
-      content: close-quote;
-    }
-
-    @media#{$mq-tablet} {
-      margin-top: 62px;
-      margin-bottom: 62px;
-    }
-  }
-
-  .image {
-    flex: 1;
-    min-height: 250px;
+    height: 150px;
+    margin-right: -3%;
+    margin-left: -3%;
     background-color: $color-4;
     background-repeat: no-repeat;
     background-position: center;
@@ -101,14 +98,11 @@
   // Selector to align with rslider library naming convention
   .buttons_nav {
     position: absolute;
-    top: 50%;
-    left: -25px;
+    top: calc(50% - 25px);
     width: 50px;
     height: 50px;
-    margin-top: -25px;
     border-radius: 50%;
     background-color: $color-1;
-    background-image: url(../images/icons/arrow-previous.svg);
     background-repeat: no-repeat;
     background-position: center;
     color: $color-4;
@@ -116,14 +110,47 @@
     text-indent: -9999px;
     opacity: 1;
     overflow: hidden;
-    z-index: 3;
+    z-index: 2;
+
+    &.prev {
+      left: -15px;
+      background-image: url('../images/icons/arrow-previous.svg');
+    }
 
     &.next {
-      right: -25px;
-      left: auto;
-      background-image: url(../images/icons/arrow-next.svg);
-      background-repeat: no-repeat;
-      background-position: center;
+      right: -15px;
+      background-image: url('../images/icons/arrow-next.svg');
+    }
+  }
+}
+
+@media#{$mq-tablet} {
+  .twitter-slider {
+    .tweet-row {
+      flex-direction: row;
+    }
+
+    .buttons_nav {
+      &.prev {
+        left: -25px;
+      }
+
+      &.next {
+        right: -25px;
+      }
+    }
+
+    .tweet {
+      padding-top: 50px;
+      padding-bottom: 50px;
+
+      &.-narrow {
+        padding-right: 30px;
+      }
+    }
+
+    .tweet-image {
+      height: 350px;
     }
   }
 }
