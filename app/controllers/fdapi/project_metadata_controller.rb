@@ -39,17 +39,21 @@ module Fdapi
           when 'credits', 'savings'
             data << json_element('min', values[field_index[:min_rolling]],
                                  values[field_index[:category]],
-                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
             data << json_element('max', values[field_index[:max_rolling]],
                                  values[field_index[:category]],
-                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
           when 'expense', 'income'
             data << json_element('min', values[field_index[:min_total]],
                                  values[field_index[:category]],
-                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
             data << json_element('max', values[field_index[:max_total]],
                                  values[field_index[:category]],
-                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
           end
         end
 
@@ -89,17 +93,21 @@ module Fdapi
           when 'credits', 'savings'
             data << json_element('min', values[field_index[:min_rolling]],
                                  values[field_index[:category]],
-                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
             data << json_element('max', values[field_index[:max_rolling]],
                                  values[field_index[:category]],
-                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
           when 'expense', 'income'
             data << json_element('min', values[field_index[:min_total]],
                                  values[field_index[:category]],
-                                 project_metadata.start_date.strftime('%Y-%m-%d'))
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
             data << json_element('max', values[field_index[:max_total]],
                                  values[field_index[:category]],
-                                 project_metadata.end_date.strftime('%Y-%m-%d'))
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
           end
         end
 
@@ -219,12 +227,13 @@ module Fdapi
       render json: { data: result }
     end
 
-    def json_element(operation, value, category, date)
+    def json_element(operation, value, category, date, unit)
       {
         c: operation,
         date: date,
         value: value,
-        category: category
+        category: category,
+        unit: unit
       }
     end
   end
