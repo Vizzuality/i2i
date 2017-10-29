@@ -77,15 +77,6 @@
       this.onClickRemoveHouseholdBinded = function() {
         this._onRemoveHousehold();
       }.bind(this);
-
-      this.getPreviousScroll = function() {
-        window.prevPageYOffset = window.pageYOffset;
-        window.prevPageXOffset = window.pageXOffset;
-      };
-
-      this.setPreviousScroll = function() {
-        window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
-      };
     },
 
     _removeEventListeners: function() {
@@ -97,9 +88,6 @@
       this.tabs.forEach(function(tab) {
         $(tab).off('click');
       });
-
-      $(document).off('turbolinks:request-start');
-      $(document).off('turbolinks:load');
     },
 
     _setEventListeners: function() {
@@ -107,10 +95,6 @@
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
       $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
-
-      // allows to keep scroll position after Turbolinks render the new page
-      $(document).on('turbolinks:request-start', this.setPreviousScroll);
-      $(document).on('turbolinks:load', this.setPreviousScroll);
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -262,6 +246,7 @@
         // renders main chart
         new App.View.MainChartView({
           params: Object.assign(
+            {},
             params,
             { title: mainChartTitle }
           ),
@@ -274,6 +259,7 @@
         // renders main chart with household detail
         new App.View.MainChartHouseholdView({
           params: Object.assign(
+            {},
             params,
             { household: household },
             { title: mainChartTitle }
@@ -285,6 +271,7 @@
       categories.forEach(function(category) {
         new App.View.GroupedBarView({
           params: Object.assign(
+            {},
             params,
             { title: capitalize(category.category_type) + " by type" },
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },

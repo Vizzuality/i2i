@@ -1,2 +1,12 @@
 <h2 class="title -dark -medium"><%= title %></h2>
 <div class="chart"></div>
+
+<% if (showToolbar) { %>
+  <div class="toolbar">
+    <% if (report) { %>
+      <button type="button" class="c-button -mini js-delete">Delete</button>
+    <% } else { %>
+      <button type="button" class="c-button -mini js-save">Save</button>
+    <% } %>
+  </div>
+<% } %>
