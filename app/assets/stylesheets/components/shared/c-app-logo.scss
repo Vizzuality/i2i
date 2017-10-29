@@ -1,10 +1,10 @@
 .c-app-logo {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 
   a {
     display: inline-block;
+    margin-top: 10px;
 
     > img {
       width: 90px;
@@ -21,18 +21,14 @@
   }
 
   &.-fixed {
-    margin: 0;
+    a {
+      margin-top: 0;
 
-    a > img {
-      @media #{$mq-tablet} {
-        width: 128px;
-        height: 52px;
-      }
-
-      @media #{$mq-laptop} {
+      > img {
         width: 96px;
         height: 38px;
-      }
+        margin: 0;
+    }
     }
   }
 }
