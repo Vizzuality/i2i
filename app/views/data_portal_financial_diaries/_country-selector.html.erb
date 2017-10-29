@@ -1,0 +1,9 @@
+<div class="c-country-selector">
+  <%= select_tag "country",
+    options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }),
+    { class: 'country-selector js-country-selector'}
+  %>
+  <h1 class="title -highlight -huge country-placeholder js-country-placeholder"><%= @country[:name] %></h1>
+</div>
+
+

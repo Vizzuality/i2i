@@ -1,0 +1,35 @@
+.c-country-selector {
+  display: inline-block;
+  position: relative;
+
+  .country-selector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent: -9999px;
+
+    &.-open + .country-placeholder {
+      &::after {
+        @include arrow(20px, 4px, $color-2, 'up');
+      }
+    }
+  }
+
+  .country-placeholder {
+    display: inline-block;
+    position: relative;
+    padding-right: 45px;
+
+    pointer-events: none;
+
+    &::after {
+      @include arrow(20px, 4px, $color-2, 'down');
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: rotate(45deg) translate(0, -50%);
+    }
+  }
+}
