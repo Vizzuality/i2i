@@ -47,6 +47,12 @@
         });
       }
 
+      new App.Component.CountryPreview({
+        onChangeCountry: function(iso) {
+          Turbolinks.visit('/data-portal/' + iso + '/financial-diaries');
+        }
+      })
+
       this._setVars();
       this._removeEventListeners();
       this._setEventListeners();

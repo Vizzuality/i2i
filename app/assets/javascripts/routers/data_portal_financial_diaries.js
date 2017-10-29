@@ -4,7 +4,12 @@
   var Router = Backbone.Router.extend({
 
     routes: {
+      'data-portal/:iso': 'index',
       'data-portal/:iso/financial-diaries': 'show'
+    },
+
+    index: function() {
+      new App.Page.CountryPreview();
     },
 
     show: function (iso, p) {

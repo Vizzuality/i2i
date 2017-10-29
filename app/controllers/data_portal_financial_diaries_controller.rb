@@ -2,6 +2,9 @@ class DataPortalFinancialDiariesController < ApplicationController
   def index
     country_iso = params[:iso]
     project_name = ProjectMetadatum.find_by(country_iso3: country_iso).project_name
+    @countries = Country.all.select{ |country|
+      country.financial_diaries.present? && country[:iso] != country_iso
+    }
     @country = Country.find_by(iso: country_iso)
     @categories = HouseholdTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
@@ -57,6 +60,7 @@ class DataPortalFinancialDiariesController < ApplicationController
   end
 
   def country_preview
+    @countries = Country.all
     @country = Country.find_by(iso: params[:iso])
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
