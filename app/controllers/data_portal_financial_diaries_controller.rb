@@ -57,6 +57,7 @@ class DataPortalFinancialDiariesController < ApplicationController
   end
 
   def country_preview
+    @countries = Country.all
     @country = Country.find_by(iso: params[:iso])
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
