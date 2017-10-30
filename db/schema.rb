@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030085729) do
+ActiveRecord::Schema.define(version: 20171019145000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "blog"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "event"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
@@ -208,15 +210,6 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.integer  "num_accounts"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-  end
-
-  create_table "household_subcategory_incomes", force: :cascade do |t|
-    t.string   "project_name"
-    t.string   "household_name"
-    t.float    "value"
-    t.string   "subcategory"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
   end
 
   create_table "household_transaction_histories", force: :cascade do |t|
@@ -286,16 +279,6 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.boolean  "is_featured",        default: false
   end
 
-  create_table "member_subcategory_incomes", force: :cascade do |t|
-    t.string   "project_name"
-    t.string   "household_name"
-    t.string   "person_code"
-    t.float    "value"
-    t.string   "subcategory"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
   create_table "members", force: :cascade do |t|
     t.string   "name"
     t.string   "position"
@@ -328,6 +311,7 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
+    t.integer  "subcategory_id"
     t.string   "record_type",        default: "news"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
