@@ -1,36 +1,40 @@
 <div class="c-demographic-filters">
   <ul class="filters js-demographic-filters">
-    <% @demographicFilters.each do |demographicFilter| %>
+    <% @filters.each do |filter| %>
       <li class="demographic-item">
         <label
           class="js-gm-label"
-          data-parent="<%= demographicFilter['value'] %>"
+          data-parent="<%= filter[:name] %>"
         >
-        <% if (@selectedDemographicFilters.find { |f| f['group'] == demographicFilter[:value] }.present?) %>
-            <%= @selectedDemographicFilters.find { |f| f['group'] == demographicFilter[:value] }['value'] %>
+          <% if (@selectedSubFilters.find { |f| f['type'] == filter[:name] }.present?) %>
+            <% currentValue = @selectedSubFilters.find { |f| f['type'] == filter[:name] }%>
+            <% if (currentValue['value'] == 'all') %>
+              <%= filter[:label] %>
+            <% else %>
+              <%= filter[:children].find { |f| f[:name] == currentValue['value'] }[:name] %>
+            <% end %>
           <% else %>
-            <%= demographicFilter[:label] %>
+            <%= filter[:label] %>
           <% end %>
-
         </label>
-        <ul class="demographic-submenu js-gm-menu">
-          <li class="demographic-submenu-item">
+        <ul class="c-submenu-list -subfilters js-gm-menu">
+          <li class="submenu-item">
             <span
               class="js-demographic-child-option"
-              data-parent="<%= demographicFilter[:value] %>"
+              data-parent="<%= filter[:name] %>"
               data-value="all"
             >
               All
             </span>
           </li>
-          <% demographicFilter[:children].each do |child| %>
-            <li class="demographic-submenu-item">
+          <% filter[:children].each do |child| %>
+            <li class="submenu-item">
               <span
                 class="js-demographic-child-option"
-                data-parent="<%= demographicFilter[:value] %>"
-                data-value="<%= child[:value] %>"
+                data-parent="<%= filter[:name] %>"
+                data-value="<%= child[:name] %>"
               >
-                <%= child[:label] %>
+                <%= child[:name] %>
               </span>
             </li>
           <% end %>

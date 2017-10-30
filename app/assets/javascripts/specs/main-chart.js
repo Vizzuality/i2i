@@ -64,7 +64,7 @@
           "type": "json",
           "property": "data"
         },
-        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
+        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %><%= subFilters %>"
       },
       {
         "name": "stats",
