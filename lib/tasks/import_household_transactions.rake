@@ -278,12 +278,14 @@ namespace :db do
   end
 
   task add_dates_to_histories: :environment do
-    HouseholdTransactionHistory.all.each do |hist|
-      hist.update_column(:date, "#{hist.year}-#{hist.month}-01")
+    dates = HouseholdTransactionHistory.all.pluck(:month, :year).uniq
+    dates.each do |date|
+      HouseholdTransactionHistory.where(month: date[0], year: date[1]).update_all(date: "#{date[1]}-#{date[0].to_s.rjust(2, '0')}-01")
     end
 
-    HouseholdMemberTransactionHistory.all.each do |hist|
-      hist.update_column(:date, "#{hist.year}-#{hist.month}-01")
+    dates = HouseholdMemberTransactionHistory.all.pluck(:month, :year).uniq
+    dates.each do |date|
+      HouseholdMemberTransactionHistory.where(month: date[0], year: date[1]).update_all(date: "#{date[1]}-#{date[0].to_s.rjust(2, '0')}-01")
     end
   end
 end
