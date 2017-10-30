@@ -26,6 +26,7 @@ class HouseholdMemberTransaction < ApplicationRecord
   has_many :household_member_transaction_histories, -> { with_values }
 
   scope :project_name, -> (project_name) { where project_name: project_name }
+  scope :gender, -> (gender) { where gender: gender }
   scope :household_name, -> (household_name) { where household_name: household_name }
   scope :category_name, -> (category_name) { where category_name: category_name }
   scope :category_type, -> (category_type) { where category_type: category_type }
