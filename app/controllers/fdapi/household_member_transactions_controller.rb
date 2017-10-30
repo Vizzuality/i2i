@@ -16,7 +16,7 @@ module Fdapi
           transactions = members.map do |household_member|
             transactions.where(household_name: household_member[0],
                                person_code: household_member[1])
-          end if  if params[:main_income].present?
+          end if params[:main_income].present?
 
           transactions
         end.flatten
