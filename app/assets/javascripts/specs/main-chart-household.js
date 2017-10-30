@@ -6,6 +6,7 @@
     "width": 800,
     "height": 500,
     "padding": 5,
+    "background": "white",
     "autosize": {
       "type": "fit",
       "resize": true

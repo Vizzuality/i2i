@@ -5,7 +5,7 @@
   var fontColor = '#001D22';
 
   var vegaTheme = {
-    background: null,
+    background: 'white',
 
     axis: {
       domainWidth: 0,
@@ -81,6 +81,11 @@
 
       this.render();
       this.setListeners();
+
+      // Resize
+      $(window)
+        .off('resize', this.onResizeWindow)
+        .on('resize', _.debounce(_.bind(this.onResizeWindow, this), 100));
     },
 
     /**
@@ -104,7 +109,7 @@
       var resultSpec = Object.assign({}, originalSpec);
       var params = this.options.params || {};
 
-      resultSpec.width = width;
+      resultSpec.width = width - (parseInt(resultSpec.padding || 0) * 2);
 
       if (this.options.params) {
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec))(params));
@@ -127,8 +132,13 @@
      * @param {Object} spec
      */
     drawChart: function(spec) {
+      this.currentSpec = spec || this.currentSpec;
+
       var self = this;
-      var runtime = this.parseSpec(spec);
+      var runtime = this.parseSpec(this.currentSpec);
+
+      // Remove last created chart
+      if (this.chart) this.chart.finalize();
 
       // Rendering chart
       this.chart = new vega.View(runtime)
@@ -166,6 +176,10 @@
      * SetListeners
      */
     setListeners: function() {},
+
+    onResizeWindow: function() {
+      if (this.chart) this.drawChart();
+    },
 
     /**
      * onTooltip

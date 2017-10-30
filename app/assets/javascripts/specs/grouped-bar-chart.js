@@ -6,6 +6,11 @@
     "width": 800,
     "height": 400,
     "padding": 5,
+    "background": "white",
+    "autosize": {
+      "type": "fit",
+      "resize": true
+    },
     "config": {
       "axis": {
         "domainWidth": 0,
