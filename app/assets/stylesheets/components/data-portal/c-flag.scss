@@ -4,6 +4,7 @@
   margin: 0 0 20px;
   background-color: $color-1;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+  background-size: cover;
 
   @media #{$mq-tablet} {
     height: 210px;
