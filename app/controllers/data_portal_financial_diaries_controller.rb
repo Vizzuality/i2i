@@ -10,54 +10,34 @@ class DataPortalFinancialDiariesController < ApplicationController
       subcategory: nil,
       visible: true
     }.stringify_keys]
-    @selectedDemographicFilters = []
+    @selectedSubFilters = []
     @main_incomes = {
       households: HouseholdSubcategoryIncome.main_incomes(project_name),
       members: MemberSubcategoryIncome.main_incomes(project_name)
     }
-
-    @demographicFilters = [
-      {
-        label: "Gender",
-        value: "gender",
-        children: [
-          {
-            label: "Male",
-            value: "male"
-          },
-          {
-            label: "Female",
-            value: "female"
-          }
-        ]
-      },
-      {
-        label: "Age",
-        value: "age",
-        children: [
-          {
-            label: "20-30",
-            value: "20-30"
-          },
-          {
-            label: "30-40",
-            value: "30-40"
-          }
-        ]
-      }
-    ]
+    @filters = [];
 
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
-      @selectedDemographicFilters = filters['demography'] || []
+      @selectedSubFilters = filters['subFilters'] || []
       @household = filters['household'] || nil
+      @type = filters['type'];
+      @currentMainIncomes = @main_incomes[@type.to_sym]
+    else
+      @currentMainIncomes = @main_incomes[:households]
     end
 
+    @filters.push({
+      name: 'main_income',
+      label: 'Main income type',
+      children: @currentMainIncomes
+    })
 
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json
+    gon.selectedSubFilters = JSON.parse @selectedSubFilters.to_json
   end
 
   def country_preview
