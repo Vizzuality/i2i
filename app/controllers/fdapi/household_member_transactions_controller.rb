@@ -5,9 +5,20 @@ module Fdapi
       cache_key = "household_member_transactions-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
+        members = MemberSubcategoryIncome.members_with_main(params[:main_income], params[:project_name]) if params[:main_income].present?
+
         categories_filter.map do |category|
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
-          HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name).merge(category)).includes(:household_member_transaction_histories)
+          transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name)
+                                    .merge(category))
+                                    .includes(:household_member_transaction_histories)
+
+          transactions = members.map do |household_member|
+            transactions.where(household_name: household_member[0],
+                               person_code: household_member[1])
+          end if members.present?
+
+          transactions
         end.flatten
       end
 
