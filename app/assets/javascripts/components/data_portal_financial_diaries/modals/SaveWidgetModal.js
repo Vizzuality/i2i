@@ -1,0 +1,254 @@
+(function (App) {
+  App.Component.ModalSaveWidgetFinancial = App.Component.Modal.extend({
+
+    contentTemplate: JST['templates/financial_diaries/save_chart'],
+
+    defaults: {
+      // See App.Component.Modal for details about this option
+      title: 'Save widget',
+      // See App.Component.Modal for details about this option
+      showTitle: true,
+      // See App.Component.Modal for details about this option
+      allowScroll: window.outerWidth >= 1024,
+      // See App.Component.Modal for details about this option
+      isAbsolute: true,
+      // See App.Component.Modal for details about this option
+      footer: '<div class="group-button"></div><div class="group-button"><button type="button" class="c-button -white -outline js-print">Print</button><button type="button" data-slide-index="0" class="c-button -white -outline js-slide-button">Share</button><div class="group-button -bottom"><button type="button" class="c-button -outflow js-close _no-tablet">Cancel</button></div></div>',
+      // modifies locally the widget configuration to render it properly in the modal
+      widgetConfig: {
+        // See App.View.ChartWidgetView for details about this option
+        showToolbar: false
+      },
+      toolbar: false,
+      report: false
+    },
+
+    events: function () {
+      return _.extend({}, App.Component.Modal.prototype.events, {
+        // 'click .js-add-report': '_onAddReport',
+        // 'click .js-remove-report': '_onRemoveReport',
+        'click .js-slide-button': '_onSelectSlide',
+        'click .js-print': '_onPrint',
+        // 'click .js-download': '_onDownload',
+        'click .js-close': 'onCloseModal'
+      });
+    },
+
+    initialize: function (options) {
+      this.constructor.__super__.initialize.call(this, options);
+      this.render();
+    },
+
+    _setVars: function () {
+      this.constructor.__super__._setVars.call(this);
+      this.slides = [{
+        view: new App.View.ShareViewFinancial()
+      }];
+
+      this.viewPortWidth = document.body.getBoundingClientRect().width;
+    },
+
+    _setEventListeners: function () {
+      this.constructor.__super__._setEventListeners.call(this);
+      // allows the modal to recalculate its position when a orientation change happen (like in mobile devices)
+      window.addEventListener('orientationchange', function() {
+        this.viewPortWidth = document.body.getBoundingClientRect().width;
+        this._setDimensions();
+      }.bind(this));
+    },
+
+    /**
+     * @return {object} - object with bounds and offsets properties of the modal
+     */
+    _getModalDimensions: function() {
+      var bounds = this.options.widgetConfig.el.getBoundingClientRect();
+      return {
+        bounds: bounds,
+        offsets: {
+          top: (window.pageYOffset + bounds.top) || bounds.top + document.body.scrollTop,
+          left: bounds.left + document.body.scrollLeft
+        }
+      };
+    },
+
+    /**
+     * Sets dimensions of the modal before render its content
+     */
+    _setDimensions: function () {
+      var modalDimension = this._getModalDimensions();
+      var modal = this.el.querySelector('.c-modal');
+      var modalContent = modal.querySelector('.js-modal-content');
+
+      modal.classList.add('-save-widget');
+      modal.style.top = modalDimension.offsets.top + 'px';
+      modal.style.left = modalDimension.offsets.left + 'px';
+
+      var modalHeight = Math.min(modalDimension.bounds.height, 550);
+
+      modalContent.style.width = modalDimension.bounds.width + 'px';
+      modalContent.style.height = modalHeight + 'px';
+    },
+
+    /**
+     * Renders modal content and performs a scroll animation if needed.
+     */
+    _renderContent: function () {
+      var modalDimension = this._getModalDimensions();
+
+      // we assure the modal is completely displayed. This way focus won't center it
+      if (modalDimension.offsets.top < document.body.scrollTop) {
+        $('body').animate({
+          // 52px is the height of the modal title
+          scrollTop: modalDimension.offsets.top - 52
+        }, 400, function () {
+          this.viewPortWidth >= 768 && this._renderWidget();
+          this._renderSlides();
+
+          this.constructor.__super__.afterRender.apply(this);
+        }.bind(this));
+      } else {
+        this.viewPortWidth >= 768 && this._renderWidget();
+        this._renderSlides();
+
+        this.constructor.__super__.afterRender.apply(this);
+      }
+    },
+
+    /**
+     * Toggle button classes based on widget saved status
+     */
+    // _toggleButtons: function () {
+    //   var currentIndicator = _.extend({}, this.options.widgetConfig);
+    //   var isSaved = App.Helper.Indicators.isIndicatorSaved(currentIndicator);
+
+    //   this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isSaved);
+    //   this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isSaved);
+    // },
+
+    // _onAddReport: function () {
+    //   var indicator = _.extend({}, this.options.widgetConfig);
+    //   App.Helper.Indicators.saveIndicator(indicator);
+    //   this._toggleButtons();
+    // },
+
+    // _onRemoveReport: function () {
+    //   var indicator = _.extend({}, this.options.widgetConfig);
+    //   App.Helper.Indicators.removeIndicator(indicator);
+    //   this._toggleButtons();
+    // },
+
+    _onSelectSlide: function (event) {
+      var slideIndex = +event.currentTarget.dataset['slideIndex'];
+      this.setSlide(slideIndex);
+    },
+
+    /**
+     * Return the encoded state of the widget
+     * @return {string}
+     */
+    // _getEncodedWidget: function () {
+    //   var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
+    //   return App.Helper.URL.encode(serializedWidget);
+    // },
+
+    /**
+     * Event handler executed when the user clicks the "Print" button
+     */
+    // _onPrint: function () {
+    //   var printURL = location.origin +
+    //     '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
+    //   window.open(printURL, '_blank');
+    // },
+
+    /**
+     * Event handler executed when the user clicks the "Download" button
+     */
+    // _onDownload: function () {
+    //   var country = App.Helper.Indicators.COUNTRIES[this.options.widgetConfig.iso];
+    //   App.Helper.Analytics.sendEvent('Download', 'Download from Data Portal', country);
+    // },
+
+    /**
+     * Return the link to download the data of the widget
+     * @return {string}
+     */
+    // _generateDownloadLink: function () {
+    //   var res = API_URL
+    //     + '/indicator/'
+    //     + this.options.widgetConfig.id
+    //     + '/expanded/download?'
+    //     + this.options.widgetConfig.iso
+    //     + '='
+    //     + this.options.widgetConfig.year;
+
+    //   if (this.options.widgetConfig.filters.length) {
+    //     var filters = this.options.widgetConfig.filters.map(function (filter) {
+    //       return {
+    //         indicatorId: filter.id,
+    //         value: filter.options
+    //       };
+    //     });
+
+    //     res += '&filters=' + encodeURIComponent(JSON.stringify(filters));
+    //   }
+
+    //   return res;
+    // },
+
+    _renderWidget: function () {
+      new App.View.GroupedBarView({
+        params: Object.assign({},
+          this.options,
+          this.options.widgetConfig,
+        ),
+        showToolbar: false,
+        el: this.el.querySelector('.js-widget-container')
+      });
+    },
+
+    _renderSlides: function () {
+      var slidesContainer = this.el.querySelector('.js-slider-container');
+      var fragment = new DocumentFragment();
+
+      this.slides.forEach(function (slide) {
+        fragment.appendChild($(slide.view.render())[0]);
+      }.bind(this));
+
+      slidesContainer.appendChild(fragment);
+    },
+
+    // _returnWidget: function () {
+    //   this.setSlide(-1);
+    // },
+
+    setSlide: function (slideIndex) {
+      this.viewPortWidth < 768 && this.el.querySelector('.c-modal-save-widget').classList.toggle('-active');
+
+      this.slides.forEach(function (slide, index) {
+        slide.view.toggleVisibility(index === slideIndex);
+      }.bind(this));
+    },
+
+    afterRender: function () {
+      if(this.viewPortWidth >= 768) {
+        this._setDimensions();
+      } else {
+        this.el.querySelector('.c-modal').classList.add('-only-footer');
+      }
+      this._renderContent();
+      // this._toggleButtons();
+    },
+
+    render: function () {
+      this.options.content = this.contentTemplate({
+        title: this.options.widgetConfig.title,
+        showToolbar: this.options.toolbar,
+        report: this.options.report
+      });
+      this.constructor.__super__.render.apply(this);
+
+      // We update the link to download the data of the widget
+      // this.el.querySelector('.js-download').href = this._generateDownloadLink();
+    }
+  });
+}).call(this, this.App);

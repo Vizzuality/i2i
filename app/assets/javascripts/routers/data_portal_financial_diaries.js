@@ -44,10 +44,18 @@
     Backbone.history.stop();
     Backbone.history.start({ pushState: true });
 
+    window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
+
     new App.View.MobileMenu();
     new App.View.Newsletter();
   };
 
+  var getPreviousScroll = function() {
+    window.prevPageYOffset = window.pageYOffset;
+    window.prevPageXOffset = window.pageXOffset;
+  };
+
+  document.addEventListener('turbolinks:request-start', getPreviousScroll);
   document.addEventListener('turbolinks:load', init);
 
 }).call(this, this.App);

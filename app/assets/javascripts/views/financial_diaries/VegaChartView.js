@@ -61,7 +61,8 @@
       },
       tooltip: {
         showAllFields: true
-      }
+      },
+      report: false
     },
 
     template: JST['templates/financial_diaries/vega_chart'],
@@ -194,7 +195,9 @@
       var spec = this.options.spec;
 
       this.$el.html(this.template({
-        title: this.options.params.title
+        title: this.options.params.title,
+        showToolbar: this.options.showToolbar,
+        report: this.options.report
       }));
 
       if (!spec) {
