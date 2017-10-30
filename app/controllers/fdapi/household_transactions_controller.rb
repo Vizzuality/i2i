@@ -13,7 +13,7 @@ module Fdapi
                                              .merge(category))
                                              .includes(:household_transaction_histories)
 
-          transactions = transactions.where(household_name: households) if households.present?
+          transactions = transactions.where(household_name: households) if params[:main_income].present?
 
           transactions
         end.flatten
