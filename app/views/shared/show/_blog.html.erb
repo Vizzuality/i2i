@@ -60,7 +60,7 @@
     <%if @related.any? %>
       <section class="l-related-section">
         <div class="wrapper">
-          <h2 class="title -dark -big">Related blogs</h2>
+          <h2 class="title -dark -big">Related content</h2>
           <div class="l-card-grid">
             <div class="row">
               <%= render partial: 'shared/cards', locals: { insights: @related, route: 'insights' }%>
