@@ -15,6 +15,11 @@
     display: block;
   }
 
+  &.-subfilters {
+    top: 0;
+    width: auto;
+  }
+
   .submenu-item {
     display: block;
     padding: 5px;
