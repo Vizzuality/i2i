@@ -243,6 +243,7 @@
         categories: window.encodeURIComponent(JSON.stringify(categories)),
         api: FD_API_URL
       };
+      var houseHoldTitle = household ? '(Household: ' + household + ')' : '';
 
       var mainChartTitle = categories.map(function(cat) {
         return capitalize(cat.category_type);
@@ -268,7 +269,7 @@
             {},
             params,
             { household: household },
-            { title: mainChartTitle }
+            { title: mainChartTitle + ' ' + houseHoldTitle }
           )
         });
       }
@@ -279,7 +280,7 @@
           params: Object.assign(
             {},
             params,
-            { title: capitalize(category.category_type) + " by type" },
+            { title: capitalize(category.category_type) + ' by type' + ' ' + houseHoldTitle },
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },
             { household: household || '' }
           ),
