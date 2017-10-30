@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030085729) do
+ActiveRecord::Schema.define(version: 20171030165435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.float    "deposits"
     t.float    "new_borrowing"
     t.float    "repayment"
+    t.datetime "date"
     t.index ["avg_value"], name: "index_household_member_transaction_histories_on_avg_value", using: :btree
     t.index ["household_member_transaction_id", "month", "year"], name: "index_household_member_histories_on_member_id_month_year", using: :btree
     t.index ["month", "year"], name: "index_household_member_transaction_histories_on_month_and_year", using: :btree
@@ -236,6 +237,7 @@ ActiveRecord::Schema.define(version: 20171030085729) do
     t.float    "deposits"
     t.float    "new_borrowing"
     t.float    "repayment"
+    t.datetime "date"
     t.index ["avg_value"], name: "index_household_transaction_histories_on_avg_value", using: :btree
     t.index ["household_transaction_id", "month", "year"], name: "index_household_histories_on_household_id_month_year", using: :btree
     t.index ["month", "year"], name: "index_household_transaction_histories_on_month_and_year", using: :btree

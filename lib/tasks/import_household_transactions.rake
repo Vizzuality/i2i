@@ -257,4 +257,33 @@ namespace :db do
       income.save
     end
   end
+
+  task update_project_start_and_end_date: :environment do
+    dates = [
+      ['India Financial Diaries', '2013-02-01', '2013-06-01'],
+      ['Kenya Financial Diaries', '2012-10-01', '2013-08-01'],
+      ['Smallholders Mozambique', '2014-07-01', '2015-06-01'],
+      ['Smallholders Pakistan', '2014-07-01', '2015-06-01'],
+      ['Smallholders Tanzania', '2014-07-01', '2015-05-01'],
+      ['South Africa GAFIS', '2012-12-01', '2013-06-01'],
+      ['Mexico Financial Diaries', '2014-04-01', '2014-11-01']
+    ]
+
+    dates.each do |info|
+      project = ProjectMetadatum.find_by(project_name: info[0])
+      project.start_date = info[1]
+      project.end_date = info[2]
+      project.save
+    end
+  end
+
+  task add_dates_to_histories: :environment do
+    HouseholdTransactionHistory.all.each do |hist|
+      hist.update_column(:date, "#{hist.year}-#{hist.month}-01")
+    end
+
+    HouseholdMemberTransactionHistory.all.each do |hist|
+      hist.update_column(:date, "#{hist.year}-#{hist.month}-01")
+    end
+  end
 end
