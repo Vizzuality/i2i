@@ -64,9 +64,11 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="row">
-        <div class="grid-s-12">
-          <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
-        </div>
+        <% unless @household.present? %>
+          <div class="grid-s-12">
+            <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
+          </div>
+        <% end %>
         <% if (@household.present?)%>
         <div class="grid-s-12">
           <button class="c-button -outline -medium js-remove-household">See all households</button>
