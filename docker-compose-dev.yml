@@ -3,7 +3,7 @@ services:
   db:
     image: postgres
     volumes:
-      - ./.data:/var/lib/postgresql/data
+      - ./.data/db:/var/lib/postgresql/data
   web:
     restart: always
     build:
@@ -22,7 +22,6 @@ services:
       - "./:/usr/src/i2i"
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
-      - "./db/data:/usr/src/i2i/db/data"
     ports:
       - 3000:3000
     links:
