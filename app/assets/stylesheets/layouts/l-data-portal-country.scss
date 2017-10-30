@@ -97,8 +97,7 @@
 
         .c-button {
           @media #{$mq-tablet} {
-            left: auto;
-            right: 0;
+            position: relative;
           }
         }
       }
