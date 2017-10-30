@@ -1,12 +1,22 @@
 .c-modal-about-read-more {
   display: flex;
   position: relative;
-  flex: 1;
   flex-direction: column;
-  padding: 10px $wrapper-padding-mobile;
+  flex-flow: wrap;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
+  margin: $wrapper-padding-mobile auto 0;
+  padding: $wrapper-padding-mobile;
+  background-color: $color-4;
+  text-align: center;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   @media #{$mq-tablet} {
-    padding: 10px 60px;
+    width: 100%;
+    margin: 0;
+    padding: $wrapper-padding-tablet;
   }
 
   > .content {
@@ -47,19 +57,21 @@
   @media #{$mq-tablet} {
     &::before {
       position: fixed;
-      top: 10px;
-      width: calc(100% - 2 * 60px);
+      top: 0;
+      right: 0;
+      left: 0;
       height: 50px;
-      background: linear-gradient(to top, rgba($color-4, 0), $color-4);
+      background: linear-gradient(to top, rgba($color-4, .4), $color-4);
       content: '';
     }
 
     &::after {
       position: fixed;
-      bottom: 10px;
-      width: calc(100% - 2 * 60px);
+      right: 0;
+      bottom: 0;
+      left: 0;
       height: 50px;
-      background: linear-gradient(to bottom, rgba($color-4, 0), $color-4);
+      background: linear-gradient(to bottom, rgba($color-4, .4), $color-4);
       content: '';
     }
   }
