@@ -3,7 +3,9 @@
     <div class="picture" style="background-image: url(<%= blog.image %>)"></div>
   </a>
   <div class="metadata">
-    <h4 class="title -dark -regular"><%= blog.title %></h4>
+    <a <a href="<%= insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type }) %>">
+      <h4 class="title -dark -regular"><%= blog.title %></h4>
+    </a>
     <p><%= blog.summary %></p>
   </div>
   <footer class="footer">

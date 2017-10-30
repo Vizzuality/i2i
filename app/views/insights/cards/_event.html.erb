@@ -3,7 +3,9 @@
     <div class="picture" style="background-image: url(<%= event.image %>)"></div>
   </a>
   <div class="metadata">
-    <h4 class="title -dark -regular"><%= event.title %></h4>
+    <a href="<%= insights_show_path(event.category.slug, event.slug, { entity: event.record_type }) %>" alt="<%= event.title %>">
+      <h4 class="title -dark -regular"><%= event.title %></h4>
+    </a>
     <p><%= event.summary %></p>
   </div>
   <footer class="footer">
