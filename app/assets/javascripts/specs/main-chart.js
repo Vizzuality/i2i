@@ -3,39 +3,57 @@
 
   App.Specs.MainChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    // "width": 800,
-    "height": 530,
-    "padding": 0,
+    "width": 800,
+    "height": 620,
+    "padding": 10,
     "autosize": {
       "type": "fit",
       "resize": true
     },
     "config": {
-      // "axis": {
-      //   "grid": false,
-      //   "gridColor": "#dedede",
-      //   "labelFont": "sans-serif",
-      //   "labelFontSize": 12,
-      //   "tickColor": "#dedede"
-      // },
-      // "symbol": {
-      //   "fill": "steelblue",
-      //   "size": 64
-      // },
-      // "line": {
-      //   "opacity": 1,
-      //   "interpolate": "monotone"
-      // },
-      // "area": {
-      //   "opacity": 1,
-      //   "interpolate": "monotone"
-      // },
+      "axis": {
+        "domainWidth": 0,
+        "gridDash": [
+          1
+        ],
+        "labelFont": "Open Sans",
+        "labelFontSize": 13,
+        "labelColor": "#001D22",
+        "ticks": false
+      },
+      "legend": {
+        "domainWidth": 0,
+        "gridDash": [
+          3
+        ],
+        "gridColor": "rgba(0, 29, 34, 0.1)",
+        "gridWidth": 0.5,
+        "labelFont": "Open Sans",
+        "labelFontSize": 13,
+        "labelColor": "#001D22",
+        "tickWidth": 0,
+        "tickColor": "rgba(0, 29, 34, 0.1)",
+        "strokeWidth": 10
+      },
+      "symbol": {
+        "size": 20
+      },
+      "line": {
+        "opacity": 1,
+        "interpolate": "monotone",
+        "strokeWidth": 1
+      },
+      "area": {
+        "opacity": 0.5,
+        "interpolate": "monotone",
+        "strokeWidth": 1
+      },
       "range": {
         "category": [
-          "#5079a5",
-          "#ef8e3b",
-          "#dd565c",
-          "#79b7b2"
+          "#F95E31",
+          "#915FC4",
+          "#83CB4D",
+          "#3DDFE7"
         ]
       }
     },
@@ -74,63 +92,115 @@
         }
       }
     ],
-
     "scales": [{
       "name": "color",
       "type": "ordinal",
       "range": "category",
-      "domain": {
-        "data": "table",
-        "field": "category_type"
-      }
+      "domain": [
+        "income",
+        "expense",
+        "savings",
+        "credits"
+      ]
     }],
     "legends": [{
-      "fill": "color",
-      "padding": 10,
-      "orient": "bottom",
-      "encode": {
-        "legend": {},
-        "labels": {
-          "interactive": false,
-          "update": {
-            "text": {
-              "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
-            },
-            "fontSize": {
-              "value": 12
-            },
-            "fill": {
-              "value": "black"
-            },
-            "y": {
-              "signal": "datum.index<6 ? 0 : 30"
-            },
-            "x": {
-              "signal": "datum.index<6 ? datum.index*(width/6)+10 : (datum.index-6)*(width/6)+10"
+        "stroke": "color",
+        "padding": 20,
+        "orient": "bottom",
+        "encode": {
+          "legend": {},
+          "labels": {
+            "interactive": false,
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "signal": "datum.index<6 ? 0 : 30"
+              },
+              "x": {
+                "signal": "datum.index<6 ? datum.index*(width/8)+15 : (datum.index-6)*(width/8)+40"
+              }
+            }
+          },
+          "symbols": {
+            "update": {
+              "size": {
+                "value": 50
+              },
+              "shape": {
+                "value": "M -1 0 l 3 0"
+              },
+              "y": {
+                "signal": "datum.index<6 ? 0 : 30"
+              },
+              "x": {
+                "signal": "datum.index<6 ? datum.index*(width/8) : (datum.index-6)*(width/8)"
+              }
             }
           }
-        },
-        "symbols": {
-          "update": {
-            "y": {
-              "signal": "datum.index<6 ? 0 : 30"
-            },
-            "x": {
-              "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
-            },
-            "stroke": {
-              "value": "transparent"
+        }
+      },
+      {
+        "stroke": "color",
+        "padding": 20,
+        "orient": "bottom",
+        "values": [
+          "mean"
+        ],
+        "encode": {
+          "legend": {},
+          "labels": {
+            "interactive": false,
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "signal": "datum.index<6 ? 0 : 30"
+              },
+              "x": {
+                "signal": "datum.index<6 ? datum.index*(width/6)+15 : (datum.index-6)*(width/6)+30"
+              }
+            }
+          },
+          "symbols": {
+            "update": {
+              "size": {
+                "value": 100
+              },
+              "shape": {
+                "value": "M -1 0 l 3 0"
+              },
+              "y": {
+                "signal": "datum.index<6 ? 0 : 30"
+              },
+              "strokeDash": {
+                "value": [
+                  4,
+                  4
+                ]
+              },
+              "x": {
+                "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
+              }
             }
           }
         }
       }
-    }],
+    ],
     "signals": [{
         "name": "sort",
         "value": true,
         "bind": {
           "input": "checkbox",
-          "name": "View all individuals"
+          "name": "View all households"
         }
       },
       {
@@ -207,8 +277,10 @@
         "axes": [{
             "orient": "bottom",
             "scale": "xDetail",
-            "labelOverlap": true,
-            "domain": true,
+            "labelOverlap": "parity",
+            "ticks": false,
+            "format": "%B",
+            "labelPadding": 10,
             "zindex": 1
           },
           {
@@ -225,7 +297,7 @@
             "description": "A date value that updates in response to mousemove.",
             "push": "outer",
             "on": [{
-              "events": "line:click",
+              "events": "line:click,line:touchstart",
               "update": "group().context.group.datum.household_name"
             }]
           },
@@ -307,9 +379,15 @@
                     },
                     "zindex": {
                       "value": 0
+                    },
+                    "cursor": {
+                      "value": "auto"
                     }
                   },
                   "hover": {
+                    "cursor": {
+                      "value": "pointer"
+                    },
                     "strokeWidth": {
                       "value": 2
                     },
@@ -357,7 +435,10 @@
                       }
                     ],
                     "size": {
-                      "value": 10
+                      "value": 20
+                    },
+                    "cursor": {
+                      "value": "auto"
                     },
                     "zindex": {
                       "value": 0
@@ -365,13 +446,16 @@
                   },
                   "hover": {
                     "size": {
-                      "value": 20
+                      "value": 60
                     },
                     "opacity": {
                       "value": 1
                     },
                     "zindex": {
                       "value": 1
+                    },
+                    "cursor": {
+                      "value": "pointer"
                     }
                   }
                 }
@@ -433,7 +517,7 @@
                     }
                   ],
                   "strokeWidth": {
-                    "value": 1
+                    "value": 2
                   },
                   "strokeDash": {
                     "value": [
@@ -459,10 +543,10 @@
               "value": 80
             },
             "y": {
-              "value": 430
+              "value": 450
             },
             "height": {
-              "value": 30
+              "value": 70
             },
             "width": {
               "field": {
@@ -478,12 +562,12 @@
             "name": "brush",
             "value": 0,
             "on": [{
-                "events": "@overview:mousedown",
-                "update": "[x(), x()]"
+                "events": "@overview:mousedown, @end:mousedown, @overview:touchstart, @end:touchstart",
+                "update": "[x()-80, x()-80]"
               },
               {
-                "events": "[@overview:mousedown, window:mouseup] > window:mousemove!",
-                "update": "[brush[0], clamp(x(), 0, width)]"
+                "events": "[@overview:mousedown, window:mouseup] > window:mousemove!,[@end:mousedown, window:mouseup] > window:mousemove!,[@end:touchstart, window:touchend] > window:touchmove!,[@end:touchstart, window:touchend] > window:touchmove!",
+                "update": "[brush[0], clamp(x()-80, 0, width)]"
               },
               {
                 "events": {
@@ -497,7 +581,7 @@
             "name": "anchor",
             "value": null,
             "on": [{
-              "events": "@brush:mousedown",
+              "events": "@brush:mousedown, @brush:touchstart",
               "update": "slice(brush)"
             }]
           },
@@ -505,7 +589,7 @@
             "name": "xdown",
             "value": 0,
             "on": [{
-              "events": "@brush:mousedown",
+              "events": "@brush:mousedown, @brush:touchstart",
               "update": "x()"
             }]
           },
@@ -513,7 +597,7 @@
             "name": "delta",
             "value": 0,
             "on": [{
-              "events": "[@brush:mousedown, window:mouseup] > window:mousemove!",
+              "events": "[@brush:mousedown, window:mouseup] > window:mousemove!, [@brush:touchstart, window:touchend] > window:touchmove!",
               "update": "x() - xdown"
             }]
           },
@@ -542,7 +626,7 @@
             "name": "yOverview",
             "type": "sqrt",
             "range": [
-              50,
+              70,
               0
             ],
             "domain": {
@@ -554,10 +638,19 @@
           }
         ],
         "axes": [{
-          "orient": "bottom",
-          "scale": "xOverview",
-          "labelOverlap": true
-        }],
+            "orient": "bottom",
+            "scale": "xOverview",
+            "labelOverlap": true,
+            "format": "%B"
+          },
+          {
+            "orient": "bottom",
+            "scale": "xOverview",
+            "labelOverlap": true,
+            "offset": 20,
+            "tickCount": 4
+          }
+        ],
         "marks": [{
             "name": "area_group",
             "type": "group",
@@ -609,9 +702,6 @@
                     "scale": "color",
                     "field": "category_type"
                   },
-                  "opacity": {
-                    "value": 1
-                  },
                   "zindex": {
                     "value": 1
                   }
@@ -628,10 +718,16 @@
                   "value": 0
                 },
                 "height": {
-                  "value": 30
+                  "value": 70
+                },
+                "stroke": {
+                  "value": "#2F939C"
+                },
+                "strokeWidth": {
+                  "value": 1
                 },
                 "fill": {
-                  "value": "#333"
+                  "value": "#2F939C"
                 },
                 "fillOpacity": {
                   "value": 0.2
@@ -656,18 +752,51 @@
                   "value": 0
                 },
                 "height": {
-                  "value": 30
+                  "value": 70
                 },
                 "width": {
                   "value": 1
                 },
                 "fill": {
-                  "value": "firebrick"
+                  "value": "#2F939C"
                 }
               },
               "update": {
                 "x": {
                   "signal": "brush[0]"
+                }
+              }
+            }
+          },
+          {
+            "type": "symbol",
+            "interactive": true,
+            "encode": {
+              "enter": {
+                "y": {
+                  "value": 35
+                },
+                "size": {
+                  "value": 100
+                },
+                "fill": {
+                  "value": "#2F939C"
+                },
+                "stroke": {
+                  "value": "#efefef"
+                }
+              },
+              "update": {
+                "x": {
+                  "signal": "brush[0]"
+                },
+                "cursor": {
+                  "value": "auto"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "ew-resize"
                 }
               }
             }
@@ -681,13 +810,13 @@
                   "value": 0
                 },
                 "height": {
-                  "value": 30
+                  "value": 70
                 },
                 "width": {
                   "value": 1
                 },
                 "fill": {
-                  "value": "firebrick"
+                  "value": "#2F939C"
                 }
               },
               "update": {
@@ -696,8 +825,69 @@
                 }
               }
             }
+          },
+          {
+            "type": "symbol",
+            "name": "end",
+            "interactive": true,
+            "encode": {
+              "enter": {
+                "y": {
+                  "value": 35
+                },
+                "size": {
+                  "value": 100
+                },
+                "fill": {
+                  "value": "#2F939C"
+                },
+                "stroke": {
+                  "value": "#efefef"
+                }
+              },
+              "update": {
+                "x": {
+                  "signal": "brush[1]"
+                },
+                "cursor": {
+                  "value": "auto"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "ew-resize"
+                }
+              }
+            }
           }
         ]
+      },
+      {
+        "type": "rule",
+        "name": "swq",
+        "interactive": false,
+        "encode": {
+          "enter": {
+            "x": {
+              "value": 0
+            },
+            "y": {
+              "value": 580
+            },
+            "x2": {
+              "signal": "width*1.1"
+            },
+            "strokeOpacity": {
+              "value": 1
+            },
+            "strokeWidth": {
+              "value": 1
+            },
+            "stroke": {
+              "value": "#efefef"
+            }
+          }
+        }
       },
       {
         "type": "group",
@@ -714,51 +904,54 @@
               "value": "transparent"
             },
             "clip": {
-              "value": true
+              "value": false
+            },
+            "stroke": {
+              "value": "#efefef"
             }
           }
         },
         "signals": [{
-            "name": "brush",
+            "name": "yBrush",
             "value": 0,
             "on": [{
-                "events": "@yOverview:mousedown",
+                "events": "@yOverview:mousedown, @yend:mousedown,@yOverview:touchstart, @yend:touchstart",
                 "update": "[y(), y()]"
               },
               {
-                "events": "[@yOverview:mousedown, window:mouseup] > window:mousemove!",
-                "update": "[brush[0],clamp(y(), 0, height)]"
+                "events": "[@yOverview:mousedown, window:mouseup] > window:mousemove!, [@yOverview:mousedown, window:mouseup] > window:mousemove!, [@yOverview:touchstart, window:touchend] > window:touchmove!, [@yOverview:touchstart, window:touchend] > window:touchmove!",
+                "update": "[yBrush[0],clamp(y(), 0, 390)]"
               },
               {
                 "events": {
-                  "signal": "delta"
+                  "signal": "ydelta"
                 },
-                "update": "clampRange([anchor[0] + delta,anchor[1] + delta], 0, height)"
+                "update": "clampRange([yanchor[0] + ydelta, yanchor[1] + ydelta], 0, 390)"
               }
             ]
           },
           {
-            "name": "anchor",
+            "name": "yanchor",
             "value": null,
             "on": [{
-              "events": "@brush:mousedown",
-              "update": "slice(brush)"
+              "events": "@yBrush:mousedown,@yBrush:touchstart",
+              "update": "slice(yBrush)"
             }]
           },
           {
-            "name": "xdown",
+            "name": "ydown",
             "value": 0,
             "on": [{
-              "events": "@brush:mousedown",
+              "events": "@yBrush:mousedown,@yBrush:touchstart",
               "update": "y()"
             }]
           },
           {
-            "name": "delta",
+            "name": "ydelta",
             "value": 0,
             "on": [{
-              "events": "[@brush:mousedown, window:mouseup] > window:mousemove!",
-              "update": "y() - xdown"
+              "events": "[@yBrush:mousedown, window:mouseup] > window:mousemove!, [@yBrush:touchstart, window:touchend] > window:touchmove!",
+              "update": "y() - ydown"
             }]
           },
           {
@@ -766,9 +959,9 @@
             "push": "outer",
             "on": [{
               "events": {
-                "signal": "brush"
+                "signal": "yBrush"
               },
-              "update": "span(brush) ? [invert('yYOverview', brush)[1],invert('yYOverview', brush)[0]] : null"
+              "update": "span(yBrush) ? [invert('yYOverview', yBrush)[1],invert('yYOverview', yBrush)[0]] : null"
             }]
           }
         ],
@@ -875,7 +1068,7 @@
           },
           {
             "type": "rect",
-            "name": "brush",
+            "name": "yBrush",
             "encode": {
               "enter": {
                 "x": {
@@ -884,8 +1077,14 @@
                 "width": {
                   "value": 30
                 },
+                "stroke": {
+                  "value": "#2F939C"
+                },
+                "strokeWidth": {
+                  "value": 1
+                },
                 "fill": {
-                  "value": "#333"
+                  "value": "#2F939C"
                 },
                 "fillOpacity": {
                   "value": 0.2
@@ -893,10 +1092,10 @@
               },
               "update": {
                 "y2": {
-                  "signal": "brush[0]"
+                  "signal": "yBrush[0]"
                 },
                 "y": {
-                  "signal": "brush[1]"
+                  "signal": "yBrush[1]"
                 }
               }
             }
@@ -916,12 +1115,45 @@
                   "value": 30
                 },
                 "fill": {
-                  "value": "firebrick"
+                  "value": "#2F939C"
                 }
               },
               "update": {
                 "y": {
-                  "signal": "brush[0]"
+                  "signal": "yBrush[0]"
+                }
+              }
+            }
+          },
+          {
+            "type": "symbol",
+            "interactive": true,
+            "encode": {
+              "enter": {
+                "x": {
+                  "value": 15
+                },
+                "size": {
+                  "value": 100
+                },
+                "fill": {
+                  "value": "#2F939C"
+                },
+                "stroke": {
+                  "value": "#efefef"
+                }
+              },
+              "update": {
+                "y": {
+                  "signal": "yBrush[0]"
+                },
+                "cursor": {
+                  "value": "auto"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "ns-resize"
                 }
               }
             }
@@ -941,12 +1173,46 @@
                   "value": 30
                 },
                 "fill": {
-                  "value": "firebrick"
+                  "value": "#2F939C"
                 }
               },
               "update": {
                 "y": {
-                  "signal": "brush[1]"
+                  "signal": "yBrush[1]"
+                }
+              }
+            }
+          },
+          {
+            "type": "symbol",
+            "name": "yend",
+            "interactive": true,
+            "encode": {
+              "enter": {
+                "x": {
+                  "value": 15
+                },
+                "size": {
+                  "value": 100
+                },
+                "fill": {
+                  "value": "#2F939C"
+                },
+                "stroke": {
+                  "value": "#efefef"
+                }
+              },
+              "update": {
+                "y": {
+                  "signal": "yBrush[1]"
+                },
+                "cursor": {
+                  "value": "auto"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "ns-resize"
                 }
               }
             }
