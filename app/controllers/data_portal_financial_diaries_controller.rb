@@ -14,6 +14,10 @@ class DataPortalFinancialDiariesController < ApplicationController
       visible: true
     }.stringify_keys]
     @selectedDemographicFilters = []
+    @main_incomes = {
+      households: HouseholdSubcategoryIncome.main_incomes(project_name),
+      members: MemberSubcategoryIncome.main_incomes(project_name)
+    }
 
     @demographicFilters = [
       {

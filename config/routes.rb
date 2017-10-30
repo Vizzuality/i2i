@@ -70,10 +70,6 @@ Rails.application.routes.draw do
     get 'members/project_means/:project_name', to: 'project_metadata#project_means_members'
     get 'households/monthly_values/:project_name', to: 'household_transactions#monthly_values'
     get 'members/monthly_values/:project_name', to: 'household_member_transactions#monthly_values'
-
-    # Filters
-    get 'households/:project_name/main_incomes' => 'households#main_incomes'
-    get 'members/:project_name/main_incomes' => 'members#main_incomes'
   end
 
   namespace :updates do
