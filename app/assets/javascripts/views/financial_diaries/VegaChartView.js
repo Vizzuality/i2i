@@ -85,7 +85,7 @@
       // Resize
       $(window)
         .off('resize', this.onResizeWindow)
-        .on('resize', _.debounce(_.bind(this.onResizeWindow, this), 100));
+        .on('resize', _.debounce(_.bind(this.onResizeWindow, this), 300));
     },
 
     /**
@@ -137,13 +137,9 @@
       var self = this;
       var runtime = this.parseSpec(this.currentSpec);
 
-      // Remove last created chart
-      if (this.chart) this.chart.finalize();
-
       // Rendering chart
       this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
-        .logLevel(vega.Warn)
         .initialize(this.chartElement.get(0))
         .hover()
         .run();
@@ -178,7 +174,18 @@
     setListeners: function() {},
 
     onResizeWindow: function() {
-      if (this.chart) this.drawChart();
+      var self = this;
+
+      if (this.chart) {
+        // Remove last created chart
+        this.chart.finalize();
+        this.chartElement.html(null);
+
+        // Redraw
+        requestAnimationFrame(function() {
+          self.drawChart();
+        });
+      }
     },
 
     /**
