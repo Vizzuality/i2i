@@ -6,6 +6,7 @@
     el: '#vis-main-chart',
 
     options: {
+      renderer: 'canvas',
       customTooltip: true,
       customTooltipOptions: {
         fields: [
