@@ -21,7 +21,7 @@
                           <% if blog.custom_author.present? %>
                             by <span class="author-name"><%= blog.author %></span>
                           <% else %>
-                            <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+                            by <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
                           <% end %>
                         <% end %>
                         on <%= DateHelper.beautify blog.date %>
