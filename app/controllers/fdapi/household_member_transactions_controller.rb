@@ -2,14 +2,14 @@ module Fdapi
   class HouseholdMemberTransactionsController < ApiController
     def index
       categories_filter = JSON.parse(params[:categories])
-      cache_key = "household_member_transactions-#{params.slice(:project_name, :household_name, :main_income).to_json}-#{categories_filter}"
+      cache_key = "household_member_transactions-#{params.slice(:project_name, :household_name, :main_income, :gender).to_json}-#{categories_filter}"
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
         members = MemberSubcategoryIncome.members_with_main(params[:main_income], params[:project_name]) if params[:main_income].present?
 
         categories_filter.map do |category|
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
-          transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name)
+          transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name, :gender)
                                     .merge(category))
                                     .includes(:household_member_transaction_histories)
 
