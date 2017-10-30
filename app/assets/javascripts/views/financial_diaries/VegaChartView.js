@@ -137,12 +137,20 @@
       var self = this;
       var runtime = this.parseSpec(this.currentSpec);
 
+      // Remove old event listeners
+      if (this.chart) this.chart.finalize();
+
       // Rendering chart
       this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
         .initialize(this.chartElement.get(0))
         .hover()
+        .resize()
         .run();
+
+      // this.chart.runAfter(function() {
+      //   console.log('yeah!');
+      // });
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
@@ -175,15 +183,12 @@
 
     onResizeWindow: function() {
       var self = this;
+      var width = this.chartElement.width();
 
       if (this.chart) {
-        // Remove last created chart
-        this.chart.finalize();
-        this.chartElement.html(null);
-
-        // Redraw
         requestAnimationFrame(function() {
-          self.drawChart();
+          // Redraw
+          self.chart.width(width).run();
         });
       }
     },
