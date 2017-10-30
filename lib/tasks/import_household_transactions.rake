@@ -228,4 +228,33 @@ namespace :db do
     hm_insurance.each(&:destroy)
     hm_insurance_histories.each(&:destroy)
   end
+
+  task calculate_household_subcategory_income: :environment do
+    transactions = HouseholdTransaction.where(category_type: 'income').where.not(subcategory: 'Resources').where.not(subcategory: nil)
+
+    transactions.each do |transaction|
+      income = HouseholdSubcategoryIncome.find_or_create_by(project_name: transaction.project_name,
+                                                   household_name: transaction.household_name,
+                                                   subcategory: transaction.subcategory)
+
+      total_income = transaction.household_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      income.value = income.value.to_f + total_income.to_f
+      income.save
+    end
+  end
+
+  task calculate_member_subcategory_income: :environment do
+    transactions = HouseholdMemberTransaction.where(category_type: 'income').where.not(subcategory: 'Resources').where.not(subcategory: nil)
+
+    transactions.each do |transaction|
+      income = MemberSubcategoryIncome.find_or_create_by(project_name: transaction.project_name,
+                                                         household_name: transaction.household_name,
+                                                         subcategory: transaction.subcategory,
+                                                         person_code: transaction.person_code)
+
+      total_income = transaction.household_member_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      income.value = income.value.to_f + total_income.to_f
+      income.save
+    end
+  end
 end
