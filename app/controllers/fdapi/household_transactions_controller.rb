@@ -2,31 +2,23 @@ module Fdapi
   class HouseholdTransactionsController < ApiController
     def index
       categories_filter = JSON.parse(params[:categories])
-      cache_key = "household_transactions-#{params.slice(:project_name, :household_name, :main_income).to_json}-#{categories_filter}"
+      cache_key = "household_transactions-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
       household_transactions = Rails.cache.fetch(cache_key) do
-        households = HouseholdSubcategoryIncome.households_with_main(params[:main_income], params[:project_name]) if params[:main_income].present?
-
         categories_filter.map do |category|
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
-          transactions = HouseholdTransaction.filter(params.slice(:project_name, :household_name)
-                                             .merge(category))
-                                             .includes(:household_transaction_histories)
-
-          transactions = transactions.where(household_name: households) if households.present?
-
-          transactions
+          HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category)).includes(:household_transaction_histories)
         end.flatten
       end
 
-      render json: { data: household_transactions }
+      render json: household_transactions, adapter: :json, root: 'data'
     end
 
     def monthly_values
       project_name = params[:project_name]
       household_name = params[:household]
       categories = JSON.parse(params[:categories])
-      cache_key = "household_monthly_values-#{project_name}-#{household_name}-#{categories}"
+      cache_key = "monthly_values-#{project_name}-#{household_name}-#{categories}"
 
       response = Rails.cache.fetch(cache_key) do
         response = []

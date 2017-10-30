@@ -28,6 +28,7 @@ class HouseholdTransaction < ApplicationRecord
   scope :subcategory, -> (subcategory) { where subcategory: subcategory }
   scope :with_subcategory, -> { where.not(subcategory: nil) }
 
+
   scope :filter_combined, -> (project_name, category_type, subcategory) do
     if subcategory
       where(project_name: project_name, category_type: category_type, subcategory: subcategory)

@@ -30,7 +30,6 @@ class HouseholdMemberTransaction < ApplicationRecord
   scope :category_name, -> (category_name) { where category_name: category_name }
   scope :category_type, -> (category_type) { where category_type: category_type }
   scope :subcategory, -> (subcategory) { where subcategory: subcategory }
-  scope :with_subcategory, -> { where.not(subcategory: nil) }
 
   scope :filter_combined, -> (project_name, category_type, subcategory) do
     if subcategory
@@ -38,18 +37,5 @@ class HouseholdMemberTransaction < ApplicationRecord
     else
       where(project_name: project_name, category_type: category_type)
     end
-  end
-
-  def self.category_tree(project_name)
-    categories = []
-    types = where(project_name: project_name).pluck(:category_type).uniq
-
-    types.each do |type|
-      children = HouseholdMemberTransaction.where(project_name: project_name, category_type: type)
-                  .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
-      categories << { name: type, children: children }
-    end
-
-    categories
   end
 end
