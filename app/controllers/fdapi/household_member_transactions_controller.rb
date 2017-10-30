@@ -2,7 +2,7 @@ module Fdapi
   class HouseholdMemberTransactionsController < ApiController
     def index
       categories_filter = JSON.parse(params[:categories])
-      cache_key = "household_member_transactions-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
+      cache_key = "household_member_transactions-#{params.slice(:project_name, :household_name, :main_income).to_json}-#{categories_filter}"
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
         members = MemberSubcategoryIncome.members_with_main(params[:main_income], params[:project_name]) if params[:main_income].present?
@@ -22,7 +22,7 @@ module Fdapi
         end.flatten
       end
 
-      render json: { data: household_member_transactions }
+      render json: household_member_transactions, adapter: :json, root: :data
     end
 
     def monthly_values

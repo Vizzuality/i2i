@@ -19,7 +19,7 @@ module Fdapi
         end.flatten
       end
 
-      render json: { data: household_transactions }
+      render json: household_transactions, adapter: :json, root: :data
     end
 
     def monthly_values
