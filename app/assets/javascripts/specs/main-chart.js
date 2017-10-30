@@ -67,7 +67,7 @@
       },
       {
         "name": "stats",
-        "url": "<%= api %>/project_min_max/<%= project_name %>?categories=<%= categories %>",
+        "url": "<%= api %>/households/project_min_max/<%= project_name %>?categories=<%= categories %>",
         "format": {
           "type": "json",
           "property": "data",
@@ -79,7 +79,7 @@
       },
       {
         "name": "mean",
-        "url": "<%= api %>/project_means/<%= project_name %>?categories=<%= categories %>",
+        "url": "<%= api %>/households/project_means/<%= project_name %>?categories=<%= categories %>",
         "format": {
           "type": "json",
           "property": "data",

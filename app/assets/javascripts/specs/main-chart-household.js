@@ -12,7 +12,7 @@
     },
     "data": [{
       "name": "table",
-      "url": "<%= api %>/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
+      "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
       "format": {
         "property": "data",
         "parse": {
