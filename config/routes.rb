@@ -63,9 +63,17 @@ Rails.application.routes.draw do
     resources :household_member_transactions, only: [:index, :show]
     resources :category_usages, only: [:index, :show]
     resources :project_metadata, only: [:index, :show]
-    get 'project_min_max/:project_name', to: 'project_metadata#project_min_max'
-    get 'project_means/:project_name', to: 'project_metadata#project_means'
-    get 'monthly_values/:project_name', to: 'household_transactions#monthly_values'
+
+    get 'households/project_min_max/:project_name', to: 'project_metadata#project_min_max_households'
+    get 'members/project_min_max/:project_name', to: 'project_metadata#project_min_max_members'
+    get 'households/project_means/:project_name', to: 'project_metadata#project_means_households'
+    get 'members/project_means/:project_name', to: 'project_metadata#project_means_members'
+    get 'households/monthly_values/:project_name', to: 'household_transactions#monthly_values'
+    get 'members/monthly_values/:project_name', to: 'household_member_transactions#monthly_values'
+
+    # Filters
+    get 'households/:project_name/main_incomes' => 'households#main_incomes'
+    get 'members/:project_name/main_incomes' => 'members#main_incomes'
   end
 
   namespace :updates do
