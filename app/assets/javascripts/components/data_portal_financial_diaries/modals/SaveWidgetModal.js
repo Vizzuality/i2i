@@ -199,7 +199,7 @@
       new App.View.GroupedBarView({
         params: Object.assign({},
           this.options,
-          this.options.widgetConfig,
+          this.options.widgetConfig
         ),
         showToolbar: false,
         el: this.el.querySelector('.js-widget-container')
