@@ -13,92 +13,35 @@ class DataPortalFinancialDiariesController < ApplicationController
       subcategory: nil,
       visible: true
     }.stringify_keys]
-    @selectedDemographicFilters = []
+    @selectedSubFilters = []
     @main_incomes = {
       households: HouseholdSubcategoryIncome.main_incomes(project_name),
       members: MemberSubcategoryIncome.main_incomes(project_name)
     }
-    @genders = [{name: 'male'}, {name: 'female'}]
-    @ages = [
-      {
-        name: '18-25',
-        value: {
-          min_age: 18,
-          max_age: 25
-        }
-      },
-      {
-        name: '25-35',
-        value: {
-          min_age: 25,
-          max_age: 35
-        }
-      },
-      {
-        name: '35-45',
-        value: {
-          min_age: 35,
-          max_age: 45
-        }
-      },
-      {
-        name: '45-60',
-        value: {
-          min_age: 45,
-          max_age: 60
-        }
-      },
-      {
-        name: '>60',
-        value: {
-          min_age: 60,
-          max_age: 200
-        }
-      }
-    ]
 
-    @demographicFilters = [
-      {
-        label: "Gender",
-        value: "gender",
-        children: [
-          {
-            label: "Male",
-            value: "male"
-          },
-          {
-            label: "Female",
-            value: "female"
-          }
-        ]
-      },
-      {
-        label: "Age",
-        value: "age",
-        children: [
-          {
-            label: "20-30",
-            value: "20-30"
-          },
-          {
-            label: "30-40",
-            value: "30-40"
-          }
-        ]
-      }
-    ]
+    @filters = [];
 
     if params[:p].present?
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
-      @selectedDemographicFilters = filters['demography'] || []
+      @selectedSubFilters = filters['subFilters'] || []
       @household = filters['household'] || nil
+      @type = filters['type'];
+      @currentMainIncomes = @main_incomes[@type.to_sym]
+    else
+      @currentMainIncomes = @main_incomes[:households]
     end
 
+    @filters.push({
+      name: 'main_income',
+      label: 'Main income type',
+      children: @currentMainIncomes
+    })
 
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json
+    gon.selectedSubFilters = JSON.parse @selectedSubFilters.to_json
   end
 
   def country_preview

@@ -10,16 +10,7 @@
         // can be households or individuals
         type: 'households',
         categories: [],
-        demography: [
-          {
-            group: 'gender',
-            value:'all'
-          },
-          {
-            group: 'age',
-            value:'all'
-          }
-        ]
+        subFilters: []
       }
     },
 
@@ -28,7 +19,8 @@
         {},
         this.defaults.filters,
         options.filters,
-        { categories: options.filters.categories || gon.selectedCategories }
+        { categories: options.filters.categories || gon.selectedCategories },
+        { subFilters: options.filters.subFilters || gon.selectedSubFilters }
       );
 
       this.iso = options.iso;
@@ -77,7 +69,7 @@
       }.bind(this);
 
       this.onClickDemographicFilterBinded = function(e) {
-        this._onClickDemographicFilter(e);
+        this._onClickFilter(e);
       }.bind(this);
 
       this.onClickRemoveHouseholdBinded = function() {
@@ -172,25 +164,25 @@
       this._updateFilters({ categories: categories });
     },
 
-    _onClickDemographicFilter: function(e) {
+    _onClickFilter: function(e) {
       var $filterOption = $(e.currentTarget);
-      var group = $filterOption.data('parent');
+      var type = $filterOption.data('parent');
       var value = $filterOption.data('value');
-      var demographicFilters = [].concat(this.filters.demography);
-      var newDemographicFilter = {
-        group: group,
+      var subFilters = [].concat(this.filters.subFilters);
+      var newFilter = {
+        type: type,
         value: value
       };
 
-      var index = _.findIndex(demographicFilters, { group: group });
+      var index = _.findIndex(subFilters, { type: type });
 
       if(index !== -1) {
-        demographicFilters[index] = newDemographicFilter;
+        subFilters[index] = newFilter;
       } else {
-        demographicFilters.push(newDemographicFilter);
+        subFilters.push(newFilter);
       }
 
-      this._updateFilters({ demography: demographicFilters });
+      this._updateFilters({ subFilters: subFilters });
     },
 
     _onRemoveHousehold: function () {
@@ -237,10 +229,22 @@
           };
         });
 
+      var subFiltersString = '';
+      var subFilters = (this.filters.subFilters || [])
+        .filter(function(filter) { return filter.value !== 'all' })
+        .forEach(function(f, index) {
+          var filterString = '';
+          if (index === 0) filterString += '&';
+          filterString += f.type + '=' + f.value;
+          if(index < this.filters.subFilters.length && this.filters.subFilters.lenght > 1) filterString += '&'
+          subFiltersString += filterString;
+        }.bind(this))
+
       // common params for all charts
       var params = {
         project_name: gon.project_name,
         categories: window.encodeURIComponent(JSON.stringify(categories)),
+        subFilters: subFiltersString,
         api: FD_API_URL
       };
       var houseHoldTitle = household ? '(Household: ' + household + ')' : '';

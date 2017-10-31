@@ -5,7 +5,7 @@
   var fontColor = '#001D22';
 
   var vegaTheme = {
-    background: null,
+    background: 'white',
 
     axis: {
       domainWidth: 0,
@@ -81,6 +81,11 @@
 
       this.render();
       this.setListeners();
+
+      // Resize
+      $(window)
+        .off('resize', this.onResizeWindow)
+        .on('resize', _.debounce(_.bind(this.onResizeWindow, this), 300));
     },
 
     /**
@@ -104,7 +109,7 @@
       var resultSpec = Object.assign({}, originalSpec);
       var params = this.options.params || {};
 
-      resultSpec.width = width;
+      resultSpec.width = width - (parseInt(resultSpec.padding || 0) * 2);
 
       if (this.options.params) {
         resultSpec = JSON.parse(_.template(JSON.stringify(resultSpec))(params));
@@ -127,16 +132,32 @@
      * @param {Object} spec
      */
     drawChart: function(spec) {
+      this.currentSpec = spec || this.currentSpec;
+      this.el.classList.add('c-spinning-loader');
+
       var self = this;
-      var runtime = this.parseSpec(spec);
+      var runtime = this.parseSpec(this.currentSpec);
+
+      // Remove old event listeners
+      if (this.chart) this.chart.finalize();
+
 
       // Rendering chart
       this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
-        .logLevel(vega.Warn)
         .initialize(this.chartElement.get(0))
         .hover()
+        .resize()
         .run();
+
+      this.chart.runAfter(function() {
+        // TODO: add a event to Vega when dom is ready
+        setTimeout(function() {
+          requestAnimationFrame(function() {
+            self.el.classList.remove('c-spinning-loader');
+          });
+        }, 1000);
+      });
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
@@ -166,6 +187,18 @@
      * SetListeners
      */
     setListeners: function() {},
+
+    onResizeWindow: function() {
+      var self = this;
+      var width = this.chartElement.width();
+
+      if (this.chart) {
+        requestAnimationFrame(function() {
+          // Redraw
+          self.chart.width(width).run();
+        });
+      }
+    },
 
     /**
      * onTooltip

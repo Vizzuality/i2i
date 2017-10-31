@@ -42,7 +42,9 @@
     _setVars: function () {
       this.constructor.__super__._setVars.call(this);
       this.slides = [{
-        view: new App.View.ShareViewFinancial()
+        view: new App.View.ShareViewFinancial({
+          callback: this._returnWidget.bind(this)
+        })
       }];
 
       this.viewPortWidth = document.body.getBoundingClientRect().width;
@@ -104,13 +106,13 @@
           this.viewPortWidth >= 768 && this._renderWidget();
           this._renderSlides();
 
-          this.constructor.__super__.afterRender.apply(this);
+          // this.constructor.__super__.afterRender.apply(this);
         }.bind(this));
       } else {
         this.viewPortWidth >= 768 && this._renderWidget();
         this._renderSlides();
 
-        this.constructor.__super__.afterRender.apply(this);
+        // this.constructor.__super_.afterRender.apply(this);
       }
     },
 
@@ -217,9 +219,9 @@
       slidesContainer.appendChild(fragment);
     },
 
-    // _returnWidget: function () {
-    //   this.setSlide(-1);
-    // },
+    _returnWidget: function () {
+      this.setSlide(-1);
+    },
 
     setSlide: function (slideIndex) {
       this.viewPortWidth < 768 && this.el.querySelector('.c-modal-save-widget').classList.toggle('-active');

@@ -6,6 +6,7 @@
     "width": 800,
     "height": 620,
     "padding": 10,
+    "background": "white",
     "autosize": {
       "type": "fit",
       "resize": true
@@ -63,7 +64,7 @@
           "type": "json",
           "property": "data"
         },
-        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %>"
+        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %><%= subFilters %>"
       },
       {
         "name": "stats",
