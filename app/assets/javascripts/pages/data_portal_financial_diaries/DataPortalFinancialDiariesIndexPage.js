@@ -243,8 +243,7 @@
         .filter(function(filter) { return filter.value !== 'all' })
         .forEach(function(f, index) {
           var filterString = '';
-          if (index === 0) filterString += '&';
-          filterString += f.type + '=' + f.value;
+          filterString += '&' + f.type + '=' + f.value;
           if(index < this.filters.subFilters.length && this.filters.subFilters.lenght > 1) filterString += '&'
           subFiltersString += filterString;
         }.bind(this))

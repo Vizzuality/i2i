@@ -4,7 +4,7 @@
   .filters > .demographic-item {
     position: relative;
 
-    @media #{$mq-desktop} {
+    @media #{$mq-tablet} {
       &:not(:first-child) {
         margin-left: 30px;
       }
