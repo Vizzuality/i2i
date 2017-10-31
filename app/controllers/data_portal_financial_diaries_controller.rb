@@ -18,6 +18,7 @@ class DataPortalFinancialDiariesController < ApplicationController
       households: HouseholdSubcategoryIncome.main_incomes(project_name),
       members: MemberSubcategoryIncome.main_incomes(project_name)
     }
+
     @filters = [];
 
     if params[:p].present?
