@@ -11,7 +11,7 @@
             <% if (currentValue['value'] == 'all') %>
               <%= filter[:label] %>
             <% else %>
-              <%= filter[:children].find { |f| f[:name] == currentValue['value'] }[:name] %>
+              <%= filter[:children].find { |f| f[:name] == currentValue['value'].to_s }[:name] %>
             <% end %>
           <% else %>
             <%= filter[:label] %>
@@ -20,7 +20,7 @@
         <ul class="c-submenu-list -subfilters js-gm-menu">
           <li class="submenu-item">
             <span
-              class="js-demographic-child-option"
+              class="js-demographic-child-option literal"
               data-parent="<%= filter[:name] %>"
               data-value="all"
             >
@@ -30,7 +30,7 @@
           <% filter[:children].each do |child| %>
             <li class="submenu-item">
               <span
-                class="js-demographic-child-option"
+                class="js-demographic-child-option literal"
                 data-parent="<%= filter[:name] %>"
                 data-value="<%= child[:value] %>"
               >

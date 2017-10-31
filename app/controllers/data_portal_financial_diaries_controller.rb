@@ -36,10 +36,33 @@ class DataPortalFinancialDiariesController < ApplicationController
       children: @currentMainIncomes
     }
 
+    @income_tier_options = {
+      name: 'income_tier',
+      label: 'Income level',
+      children: [
+        {
+          name: '1',
+          value: '1'
+        },
+        {
+          name: '2',
+          value: '2'
+        },
+        {
+          name: '3',
+          value: '3'
+        },
+        {
+          name: '4',
+          value: '4'
+        }
+      ]
+    }
+
     if @type == 'households'
        # households filters here
 
-      @filters.push(@main_income_options)
+      @filters.push(@main_income_options, @income_tier_options)
 
     else
       # individuals filters here
@@ -99,6 +122,12 @@ class DataPortalFinancialDiariesController < ApplicationController
         ]
       }
 
+
+      @filters.push(
+        @main_income_options,
+        @gender_options,
+        @age_options,
+        @income_tier_options)
     end
 
     gon.project_name = project_name
