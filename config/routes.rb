@@ -14,10 +14,7 @@ Rails.application.routes.draw do
   # Data Portal
   get 'data-portal' => 'data_portal#index'
 
-
   # Data Portal - Financial Diaries
-  get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
-                                                                             as: 'data_portal_country_preview'
   get 'data-portal/:iso/financial-diaries', to: 'data_portal_financial_diaries#index',
                                             as: 'data_portal_financial_diaries'
 
@@ -28,6 +25,10 @@ Rails.application.routes.draw do
                                as: 'data_portal_indicator'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
+
+  # Data Portal - Financial Diaries
+  get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
+                                                                             as: 'data_portal_country_preview'
 
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
