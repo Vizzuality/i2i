@@ -1,0 +1,2 @@
+class MemberIncomeTier < ApplicationRecord
+end
