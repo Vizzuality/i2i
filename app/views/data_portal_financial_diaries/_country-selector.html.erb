@@ -1,4 +1,5 @@
 <div class="c-country-selector">
+  <%= link_to 'Go to the ' + @country[:name] + ' portal', data_portal_country_preview_path(@country[:iso]), :class => 'country-link' %>
   <%= select_tag "country",
     options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }),
     { class: 'country-selector js-country-selector'}
