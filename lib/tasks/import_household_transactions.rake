@@ -237,7 +237,8 @@ namespace :db do
                                                    household_name: transaction.household_name,
                                                    subcategory: transaction.subcategory)
 
-      total_income = transaction.household_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      project_metadata = ProjectMetadatum.find_by(project_name: transaction.project_name)
+      total_income = transaction.household_transaction_histories.where(date: project_metadata.start_date..project_metadata.end_date).pluck(:total_transaction_value).compact.reduce(:+)
       income.value = income.value.to_f + total_income.to_f
       income.save
     end
@@ -252,7 +253,8 @@ namespace :db do
                                                          subcategory: transaction.subcategory,
                                                          person_code: transaction.person_code)
 
-      total_income = transaction.household_member_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      project_metadata = ProjectMetadatum.find_by(project_name: transaction.project_name)
+      total_income = transaction.household_member_transaction_histories.where(date: project_metadata.start_date..project_metadata.end_date).pluck(:total_transaction_value).compact.reduce(:+)
       income.value = income.value.to_f + total_income.to_f
       income.save
     end
