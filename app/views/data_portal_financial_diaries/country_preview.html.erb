@@ -23,8 +23,8 @@
                   <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
                     Extract insights into new markets, including informal markets.
                     Compare indicators across countries and time periods.
-                    <a href="#finscope-dataset" class="js-anchor">Financial diaries,</a>
-                    <a href="#financial-diaries-dataset" class="js-anchor">FinScope dataset.</a>
+                    <a href="#financial-diaries-dataset" data-turbolinks="false" class="js-anchor">Financial diaries,</a>
+                    <a href="#finscope-dataset" data-turbolinks="false" class="js-anchor">FinScope dataset.</a>
                   </p>
                 </div>
               </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-  <div class="l-content">
+  <div class="l-content" id="financial-diaries-dataset">
     <div class="wrapper">
       <% if @country_financial_diaries.present? %>
         <section class="dataset">
@@ -52,7 +52,7 @@
       <% end %>
 
       <% if @country_finscope.present? %>
-        <section class="dataset">
+        <section class="dataset" id="finscope-dataset">
           <div class="row">
             <div class="grid-s-12 grid-m-8">
               <h3 class="title -big -dark">FinScope</h3>
