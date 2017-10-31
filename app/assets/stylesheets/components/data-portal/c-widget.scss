@@ -22,15 +22,14 @@
   // financial diaries
   &.-main {
 
-    .title {
-      max-width: 65%;
-    }
-
     .vega-bindings {
-      position: absolute;
-      top: 38px;
-      right: 30px;
       display: flex;
+
+      @media #{$mq-desktop} {
+        position: absolute;
+        top: 38px;
+        right: 30px;
+      }
 
       > .vega-bind {
         position: relative;
