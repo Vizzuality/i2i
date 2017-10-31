@@ -85,10 +85,7 @@
       $(this.visibilityCheckboxes).off('click');
       $(this.demographicOptions).off('click');
       $(this.removeHouseholdButton).off('click');
-
-      this.tabs.forEach(function(tab) {
-        $(tab).off('click');
-      });
+      $(this.tabs).off('click');
     },
 
     _setEventListeners: function() {
@@ -97,12 +94,7 @@
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
       $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
       $(this.toggleMobileFiltersButton).on('click', this._onToggleMobileFilters.bind(this));
-
-      this.tabs.forEach(function(tab) {
-        tab.addEventListener('click', function(e) {
-          this._onClickTab(e);
-        }.bind(this));
-      }.bind(this));
+      $(this.tabs).on('click', this._onClickTab.bind(this));
     },
 
     _onChangeVisibility: function(e) {
@@ -240,8 +232,8 @@
 
       var subFiltersString = '';
       var subFilters = (this.filters.subFilters || [])
-        .filter(function(filter) { return filter.value !== 'all' })
-        .forEach(function(f, index) {
+        .filter(function(filter) { return filter.value !== 'all' });
+      _.each(subFilters, function(f, index) {
           var filterString = '';
           filterString += '&' + f.type + '=' + f.value;
           if(index < this.filters.subFilters.length && this.filters.subFilters.lenght > 1) filterString += '&'
