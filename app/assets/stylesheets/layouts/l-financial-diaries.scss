@@ -1,5 +1,20 @@
 .l-financial-diaries {
 
+  .country-link {
+    display: block;
+    position: relative;
+    margin-bottom: 5px;
+    color: $color-2;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+
+    &::before {
+      @include arrow(11px, 2px, $color-2, 'left');
+      margin-right: 10px;
+    }
+  }
+
   .grid-footer {
     display: flex;
 

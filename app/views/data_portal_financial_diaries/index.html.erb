@@ -24,6 +24,7 @@
           <div class="row">
             <div class="c-hero">
               <div class="grid-l-8">
+                <%= link_to 'Go to the ' + @country[:name] + ' portal', data_portal_country_preview_path(@country[:iso]), :class => 'country-link' %>
                 <%= render partial: 'data_portal_financial_diaries/country-selector' %>
                 <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
                   Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
