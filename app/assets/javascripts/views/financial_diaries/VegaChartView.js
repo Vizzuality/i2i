@@ -109,6 +109,10 @@
       var resultSpec = Object.assign({}, originalSpec);
       var params = this.options.params || {};
 
+      // Overriding background color
+      resultSpec.background = 'white';
+
+      // Overriding width
       resultSpec.width = width - (parseInt(resultSpec.padding || 0) * 2);
 
       if (this.options.params) {
@@ -163,7 +167,7 @@
       if (this.options.customTooltip) {
         this.chart.addEventListener('mousemove', function(event, item) {
           if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
-            if (item.mark.name === 'yend' || item.mark.name === 'end') return;
+            if (item.mark.name === 'yend' || item.mark.name === 'end' || item.mark.name === 'brush') return;
             self.onTooltip.call(self, event, item);
           }
         });
