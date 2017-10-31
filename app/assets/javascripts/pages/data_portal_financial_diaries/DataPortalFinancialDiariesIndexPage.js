@@ -58,6 +58,9 @@
       this.tabs = document.querySelectorAll('.js-content-tab') || [];
       this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || [];
       this.removeHouseholdButton = document.querySelector('.js-remove-household');
+      this.toggleMobileFiltersButton = document.querySelector('.js-toggle-filters');
+      this.contentVeil = document.querySelector('.js-content-veil');
+
 
       // bindings
       this.onClickCategoryBinded = function(e) {
@@ -93,6 +96,7 @@
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
       $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
+      $(this.toggleMobileFiltersButton).on('click', this._onToggleMobileFilters.bind(this));
 
       this.tabs.forEach(function(tab) {
         tab.addEventListener('click', function(e) {
@@ -192,6 +196,11 @@
     _onClickTab: function(e) {
       var type = e.currentTarget.getAttribute('data-type');
       this._updateFilters({ type: type });
+    },
+
+    _onToggleMobileFilters() {
+      this.toggleMobileFiltersButton.classList.toggle('-open');
+      this.contentVeil.classList.toggle('-open');
     },
 
     _updateFilters: function(newFilters) {
