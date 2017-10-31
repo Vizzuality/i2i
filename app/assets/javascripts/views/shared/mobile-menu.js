@@ -21,7 +21,7 @@
     _setEventListeners: function () {
       var buttons = document.querySelectorAll('.js-btn-mobile-menu');
 
-      buttons.forEach(function(button) {
+      _.each(buttons, function(button) {
         button.addEventListener('click', this._toggleMenu.bind(this));
       }.bind(this));
     },
