@@ -1,0 +1,24 @@
+.c-no-data-available {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  margin: 0 0 30px;
+  padding: 15px;
+  background: $color-4;
+  box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+
+  .no-data-box {
+    display: inline-block;
+    padding: 14px 20px 11px;
+    border: 1px solid $color-1;
+    border-radius: 0;
+    background-color: $color-1;
+    color: $color-4;
+    font-family: $font-family-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    text-align: center;
+  }
+}
