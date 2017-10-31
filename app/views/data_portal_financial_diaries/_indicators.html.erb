@@ -20,7 +20,7 @@
         >
           <% if (@selectedCategories.find { |cat| cat['type'] == category[:name] && cat['subcategory'] != nil }.present?) %>
             <span>
-              <%= @selectedCategories.find { |cat| cat['type'] == category[:name] }['subcategory'].truncate(25) %>
+              <%= @selectedCategories.find { |cat| cat['type'] == category[:name] }['subcategory'] %>
             </span>
           <% else %>
             <span>

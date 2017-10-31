@@ -32,29 +32,23 @@
           </div>
         </div>
       </div>
-      <div class="l-content-switch">
-        <div class="wrapper">
-          <div class="row">
-            <div class="grid-s-12">
-              <div class="contentswitchcontainer">
-                <div class="contentswitchitem">
+
+        <div class="row">
+          <div class="grid-s-12">
+            <div class="l-content-switch">
+              <div class="wrapper">
+                <div class="container">
                   <div class="row">
-                    <div class="grid-s-12 grid-m-7">
-                      <%= render partial: 'data_portal_financial_diaries/filters' %>
+                    <div class="grid-s-12 grid-xl-4 offset-xl-1">
+                      <%= render partial: 'data_portal_financial_diaries/tabs' %>
+                    </div>
+                    <div class="grid-s-12 grid-xl-7">
+                      <%= render partial: 'data_portal_financial_diaries/indicators' %>
                     </div>
                   </div>
                 </div>
-                <div class="contentswitchitem -primary">
-                  <ul class="c-content-tabs">
-                    <li class="content-tab-item">
-                      <button type="button" data-type="households" class="js-content-tab tab -current">Households (<%= @project_quantities[:number_households] %>)</button>
-                    </li>
-                    <li class="content-tab-item">
-                      <button type="button" data-type="individuals" class="js-content-tab tab">Individuals (<%= @project_quantities[:number_individuals] %>)</button>
-                    </li>
-                  </ul>
-                </div>
               </div>
+              <%= render partial: 'data_portal_financial_diaries/filters_mobile' %>
             </div>
           </div>
         </div>
