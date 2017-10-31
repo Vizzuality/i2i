@@ -163,6 +163,7 @@
       if (this.options.customTooltip) {
         this.chart.addEventListener('mousemove', function(event, item) {
           if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
+            if (item.mark.name === 'yend' || item.mark.name === 'end') return;
             self.onTooltip.call(self, event, item);
           }
         });
