@@ -198,7 +198,7 @@
       this._updateFilters({ type: type });
     },
 
-    _onToggleMobileFilters() {
+    _onToggleMobileFilters: function() {
       this.toggleMobileFiltersButton.classList.toggle('-open');
       this.contentVeil.classList.toggle('-open');
     },
