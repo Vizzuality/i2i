@@ -44,13 +44,19 @@
     Backbone.history.stop();
     Backbone.history.start({ pushState: true });
 
-    window.scrollTo(window.prevPageXOffset, window.prevPageYOffset);
+    // Go to previous scroll if turbolinks is enbaled in the same page
+    if (window.currentLocation === window.location.pathname) {
+      $('html, body').scrollTop(window.prevPageYOffset);
+    } else {
+      $('html, body').scrollTop(0);
+    }
 
     new App.View.MobileMenu();
     new App.View.Newsletter();
   };
 
   var getPreviousScroll = function() {
+    window.currentLocation = window.location.pathname;
     window.prevPageYOffset = window.pageYOffset;
     window.prevPageXOffset = window.pageXOffset;
   };
