@@ -18,8 +18,11 @@
 class HouseholdTransaction < ApplicationRecord
   include Filterable
 
-  has_many :household_transaction_histories_all, class_name: 'HouseholdTransactionHistory'
-  has_many :household_transaction_histories, -> { with_values }
+  has_one :project_metadatum, class_name: 'ProjectMetadatum', primary_key: :project_name, foreign_key: :project_name
+  has_many :household_transaction_histories
+  has_many :household_transaction_histories_with_values, -> { with_values },
+                                                        foreign_key: "household_transaction_id",
+                                                        class_name: "HouseholdTransactionHistory"
 
   scope :project_name, -> (project_name) { where project_name: project_name }
   scope :household_name, -> (household_name) { where household_name: household_name }
@@ -34,6 +37,33 @@ class HouseholdTransaction < ApplicationRecord
     else
       where(project_name: project_name, category_type: category_type)
     end
+  end
+
+  def values
+    project = project_metadatum
+    start_date = project.start_date
+    end_date = project.end_date
+
+    household_transaction_histories_with_values.where(date: start_date..end_date).map do |history|
+      if history.send(indicator).present?
+        HouseholdTransactionHistorySerializer.new(history).serializable_hash.merge(
+          value: history.send(indicator)
+        )
+      end
+    end.compact
+  end
+
+  def indicator
+    default_indicators[category_type.to_sym]
+  end
+
+  def default_indicators
+    {
+      credits: :rolling_balance,
+      savings: :rolling_balance,
+      income: :total_transaction_value,
+      expense: :total_transaction_value
+    }
   end
 
   def self.category_tree(project_name)
