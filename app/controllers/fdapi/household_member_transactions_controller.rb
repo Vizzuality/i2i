@@ -3,12 +3,10 @@ module Fdapi
     def index
       categories_filter = JSON.parse(params[:categories])
       cache_key = "household_member_transactions-" +
-                  "#{params.slice(:project_name, :household_name, :main_income, :gender, :max_age, :min_age).to_json}-" +
+                  "#{params.slice(:project_name, :household_name, :main_income, :gender, :max_age, :min_age, :income_tier).to_json}-" +
                   "#{categories_filter}"
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
-        members = MemberSubcategoryIncome.members_with_main(params[:main_income], params[:project_name]) if params[:main_income].present?
-
         categories_filter.map do |category|
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
           transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name, :gender)
@@ -17,10 +15,26 @@ module Fdapi
 
           transactions = transactions.where(age: params[:min_age]..params[:max_age]) if (params[:min_age].present? && params[:max_age])
 
-          transactions = members.map do |household_member|
-            transactions.where(household_name: household_member[0],
-                               person_code: household_member[1])
-          end if params[:main_income].present?
+          if params[:income_tier].present?
+            members_within_tier = HouseholdMemberTransaction.members_within_tier(params[:project_name], params[:income_tier])
+
+            ids = members_within_tier.map do |household_member|
+              transactions.where(household_name: household_member[0],
+                                 person_code: household_member[1])
+            end.flatten.pluck(:id)
+
+            # Making it an activerecord collection again, otherwise I can't query it anymore. Am I proud? NO! Does it work? Maybe...
+            transactions = HouseholdMemberTransaction.where(id: ids)
+          end
+
+          if params[:main_income].present?
+            members = MemberSubcategoryIncome.members_with_main(params[:main_income], params[:project_name])
+
+            transactions = members.map do |household_member|
+              transactions.where(household_name: household_member[0],
+                                 person_code: household_member[1])
+            end
+          end
 
           transactions
         end.flatten

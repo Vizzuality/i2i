@@ -306,4 +306,57 @@ namespace :db do
       ProjectMetadatum.find_by(project_name: value[0]).update_column(:currency_symbol, value[1])
     end
   end
+
+  task create_household_income_tiers: :environment do
+    tables = ActiveRecord::Base.connection.execute('with s as (Select sum(value) as value, project_name, household_name   from  household_subcategory_incomes group by project_name, household_name),
+                                                    r as (Select ntile(4)  over ( partition by project_name ORDER BY value asc), value,   project_name from  s)
+                                                    select min(value), max(value), count(value), ntile, project_name from r group by ntile, project_name order by project_name, ntile;')
+
+    tables.values.each do |table|
+      HouseholdIncomeTier.find_or_create_by(
+        min: table[0],
+        max: table[1],
+        count: table[2],
+        ntile: table[3],
+        project_name: table[4]
+      )
+    end
+  end
+
+  task create_member_income_tiers: :environment do
+    tables = ActiveRecord::Base.connection.execute('with s as (Select sum(value) as value, project_name, household_name   from  member_subcategory_incomes group by project_name, household_name),
+                                                    r as (Select ntile(4)  over ( partition by project_name ORDER BY value asc), value,   project_name from  s)
+                                                    select min(value), max(value), count(value), ntile, project_name from r group by ntile, project_name order by project_name, ntile;')
+
+    tables.values.each do |table|
+      MemberIncomeTier.find_or_create_by(
+        min: table[0],
+        max: table[1],
+        count: table[2],
+        ntile: table[3],
+        project_name: table[4]
+      )
+    end
+  end
+
+  task calculate_household_transaction_total_income: :environment do
+    transactions = HouseholdTransaction.where(category_type: 'income', category_name: 'ALL')
+
+    transactions.each do |transaction|
+      incomes = HouseholdSubcategoryIncome.where(household_name: transaction.household_name,
+                                                 project_name: transaction.project_name)
+      transaction.update_column(:total_income, incomes.pluck(:value).reduce(:+))
+    end
+  end
+
+  task calculate_household_member_transaction_total_income: :environment do
+    transactions = HouseholdMemberTransaction.where(category_type: 'income', category_name: 'ALL')
+
+    transactions.each do |transaction|
+      incomes = MemberSubcategoryIncome.where(household_name: transaction.household_name,
+                                              project_name: transaction.project_name,
+                                              person_code: transaction.person_code)
+      transaction.update_column(:total_income, incomes.pluck(:value).reduce(:+))
+    end
+  end
 end

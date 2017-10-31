@@ -71,16 +71,29 @@ class HouseholdMemberTransaction < ApplicationRecord
     }
   end
 
-  def self.category_tree(project_name)
-    categories = []
-    types = where(project_name: project_name).pluck(:category_type).uniq
+  class << self
+    def category_tree(project_name)
+      categories = []
+      types = where(project_name: project_name).pluck(:category_type).uniq
 
-    types.each do |type|
-      children = HouseholdMemberTransaction.where(project_name: project_name, category_type: type)
-                  .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
-      categories << { name: type, children: children }
+      types.each do |type|
+        children = HouseholdMemberTransaction.where(project_name: project_name, category_type: type)
+                    .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
+        categories << { name: type, children: children }
+      end
+
+      categories
     end
 
-    categories
+    def members_within_tier(project_name, income_tier)
+      income_range = MemberIncomeTier.find_by(project_name: project_name, ntile: income_tier)
+
+      transactions = HouseholdMemberTransaction.where(project_name: project_name,
+                                                category_type: 'income',
+                                                category_name: 'ALL')
+                                          .where(total_income: income_range.min..income_range.max)
+
+      transactions.pluck(:household_name, :person_code).uniq
+    end
   end
 end

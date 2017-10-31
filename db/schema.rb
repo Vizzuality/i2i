@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030165435) do
+ActiveRecord::Schema.define(version: 20171031174446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,6 +169,16 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
+  create_table "household_income_tiers", force: :cascade do |t|
+    t.float    "min"
+    t.float    "max"
+    t.integer  "count"
+    t.integer  "ntile"
+    t.string   "project_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "household_member_transaction_histories", force: :cascade do |t|
     t.integer  "household_member_transaction_id"
     t.string   "value"
@@ -209,6 +219,7 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.integer  "num_accounts"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.float    "total_income"
   end
 
   create_table "household_subcategory_incomes", force: :cascade do |t|
@@ -256,6 +267,7 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.integer  "num_adults"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.float    "total_income"
     t.index ["category_name"], name: "index_household_transactions_on_category_name", using: :btree
     t.index ["category_type"], name: "index_household_transactions_on_category_type", using: :btree
     t.index ["subcategory"], name: "index_household_transactions_on_subcategory", using: :btree
@@ -286,6 +298,16 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.string   "record_type",        default: "library"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
+  end
+
+  create_table "member_income_tiers", force: :cascade do |t|
+    t.float    "min"
+    t.float    "max"
+    t.integer  "count"
+    t.integer  "ntile"
+    t.string   "project_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "member_subcategory_incomes", force: :cascade do |t|
