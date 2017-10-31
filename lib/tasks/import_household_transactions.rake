@@ -237,7 +237,8 @@ namespace :db do
                                                    household_name: transaction.household_name,
                                                    subcategory: transaction.subcategory)
 
-      total_income = transaction.household_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      project_metadata = ProjectMetadatum.find_by(project_name: transaction.project_name)
+      total_income = transaction.household_transaction_histories.where(date: project_metadata.start_date..project_metadata.end_date).pluck(:total_transaction_value).compact.reduce(:+)
       income.value = income.value.to_f + total_income.to_f
       income.save
     end
@@ -252,7 +253,8 @@ namespace :db do
                                                          subcategory: transaction.subcategory,
                                                          person_code: transaction.person_code)
 
-      total_income = transaction.household_member_transaction_histories.pluck(:total_transaction_value).compact.reduce(:+)
+      project_metadata = ProjectMetadatum.find_by(project_name: transaction.project_name)
+      total_income = transaction.household_member_transaction_histories.where(date: project_metadata.start_date..project_metadata.end_date).pluck(:total_transaction_value).compact.reduce(:+)
       income.value = income.value.to_f + total_income.to_f
       income.save
     end
@@ -286,6 +288,22 @@ namespace :db do
     dates = HouseholdMemberTransactionHistory.all.pluck(:month, :year).uniq
     dates.each do |date|
       HouseholdMemberTransactionHistory.where(month: date[0], year: date[1]).update_all(date: "#{date[1]}-#{date[0].to_s.rjust(2, '0')}-01")
+    end
+  end
+
+  task update_currency_symbols: :environment do
+    values = [
+      ['India Financial Diaries', '₹'],
+      ['Kenya Financial Diaries', 'KSh'],
+      ['Mexico Financial Diaries', 'Mex$'],
+      ['Smallholders Mozambique', 'MT'],
+      ['Smallholders Pakistan', 'Rs'],
+      ['Smallholders Tanzania', 'TSh'],
+      ['South Africa GAFIS', 'R']
+    ]
+
+    values.each do |value|
+      ProjectMetadatum.find_by(project_name: value[0]).update_column(:currency_symbol, value[1])
     end
   end
 end

@@ -198,7 +198,7 @@
       this._updateFilters({ type: type });
     },
 
-    _onToggleMobileFilters() {
+    _onToggleMobileFilters: function() {
       this.toggleMobileFiltersButton.classList.toggle('-open');
       this.contentVeil.classList.toggle('-open');
     },
@@ -243,8 +243,7 @@
         .filter(function(filter) { return filter.value !== 'all' })
         .forEach(function(f, index) {
           var filterString = '';
-          if (index === 0) filterString += '&';
-          filterString += f.type + '=' + f.value;
+          filterString += '&' + f.type + '=' + f.value;
           if(index < this.filters.subFilters.length && this.filters.subFilters.lenght > 1) filterString += '&'
           subFiltersString += filterString;
         }.bind(this))
@@ -288,7 +287,7 @@
       }
 
       // renders charts by indicator
-      categories.forEach(function(category) {
+      _.each(categories, function(category) {
         new App.View.GroupedBarView({
           params: Object.assign(
             {},
