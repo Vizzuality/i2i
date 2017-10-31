@@ -5,7 +5,8 @@
 
     options: {
       auto: true,
-      speed: 3000
+      speed: 1000,
+      timeout: 5000
     },
 
     initialize: function () {
