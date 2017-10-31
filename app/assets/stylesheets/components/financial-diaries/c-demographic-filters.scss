@@ -1,5 +1,9 @@
 .c-demographic-filters {
-  display: flex;
+  display: none;
+
+  @media #{$mq-tablet} {
+    display: flex;
+  }
 
   .filters > .demographic-item {
     position: relative;
