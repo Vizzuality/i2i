@@ -28,6 +28,8 @@ module Fdapi
             from household_transaction_histories inner join household_transactions
             on household_transactions.id = household_transaction_histories.household_transaction_id
             where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')})
+            and household_transaction_histories.date >= '#{project_metadata.start_date}'
+            and household_transaction_histories.date <= '#{project_metadata.end_date}'
             group by household_transactions.category_type")
 
         data = []
@@ -82,6 +84,8 @@ module Fdapi
             from household_member_transaction_histories inner join household_member_transactions
             on household_member_transactions.id = household_member_transaction_histories.household_member_transaction_id
             where household_member_transactions.id in(#{household_member_transactions.pluck(:id).join(', ')})
+            and household_member_transaction_histories.date >= '#{project_metadata.start_date}'
+            and household_member_transaction_histories.date <= '#{project_metadata.end_date}'
             group by household_member_transactions.category_type")
 
         data = []
@@ -136,6 +140,8 @@ module Fdapi
 
           histories[category_type] = adapter.execute("select * from household_transaction_histories
             where household_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
+            and date >= '#{project_metadata.start_date}'
+            and date <= '#{project_metadata.end_date}'
             and #{default_indicators[category_type]} is not null")
         end
 
@@ -191,6 +197,8 @@ module Fdapi
 
           histories[category_type] = adapter.execute("select * from household_member_transaction_histories
             where household_member_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
+            and date >= '#{project_metadata.start_date}'
+            and date <= '#{project_metadata.end_date}'
             and #{default_indicators[category_type]} is not null")
         end
 

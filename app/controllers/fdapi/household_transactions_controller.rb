@@ -11,7 +11,7 @@ module Fdapi
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
           transactions = HouseholdTransaction.filter(params.slice(:project_name, :household_name)
                                              .merge(category))
-                                             .includes(:household_transaction_histories)
+                                             .includes(:household_transaction_histories_with_values)
 
           transactions = transactions.where(household_name: households) if params[:main_income].present?
 
@@ -24,6 +24,7 @@ module Fdapi
 
     def monthly_values
       project_name = params[:project_name]
+      project_metadata = ProjectMetadatum.find_by(project_name: project_name)
       household_name = params[:household]
       categories = JSON.parse(params[:categories])
       cache_key = "household_monthly_values-#{project_name}-#{household_name}-#{categories}"
@@ -53,7 +54,10 @@ module Fdapi
             indicator = default_indicators[category_type]
 
             histories = transactions.map do |transaction|
-              transaction.household_transaction_histories_all.with_indicator(indicator)
+              transaction
+                .household_transaction_histories
+                .with_indicator(indicator)
+                .where(date: project_metadata.start_date..project_metadata.end_date)
             end
             .flatten
             .group_by { |hist| "#{hist.year}-#{hist.month.to_s.rjust(2, '0')}-01" }
