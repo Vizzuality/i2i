@@ -1,5 +1,5 @@
 module FinancialDiariesFilterHelper
-  def genders_options
+  def gender_options
     [
       {
         name: 'Male',
@@ -12,7 +12,7 @@ module FinancialDiariesFilterHelper
     ]
   end
 
-  def ages_options
+  def age_options
     [
       {
         name: '18-25',
