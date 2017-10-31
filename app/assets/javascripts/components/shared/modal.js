@@ -90,6 +90,8 @@
       this.remove();
       this.html.classList.remove('_no-scroll');
       this.body.classList.remove('_no-scroll');
+
+      $('html, body').scrollTop(this.scrollOffset);
     },
 
     getFocusableElements: function () {
@@ -98,10 +100,12 @@
     },
 
     afterRender: function () {
+      this.scrollOffset = window.pageYOffset;
       // We focus the first focusable element of the modal
       if (this.focusableElements !== undefined && this.focusableElements.length) {
         this.focusableElements[0].focus()
       }
+      document.body.classList.add('_no-scroll');
     },
 
     render: function () {
@@ -124,7 +128,7 @@
 
       this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
       this.html.classList.toggle('_no-scroll', !this.options.allowScroll);
-      this.el.classList.toggle('-absolute', this.options.isAbsolute);
+      // this.el.classList.toggle('-absolute', this.options.isAbsolute);
 
       // We attach the event listeners
       this._setEventListeners();

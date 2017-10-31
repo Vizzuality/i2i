@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.string   "record_type",        default: "blog"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
-    t.integer  "subcategory_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -156,7 +155,6 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.string   "record_type",        default: "event"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
-    t.integer  "subcategory_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -335,7 +333,6 @@ ActiveRecord::Schema.define(version: 20171030165435) do
     t.string   "record_type",        default: "news"
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
-    t.integer  "subcategory_id"
   end
 
   create_table "project_metadata", force: :cascade do |t|
