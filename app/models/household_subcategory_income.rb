@@ -4,7 +4,12 @@ class HouseholdSubcategoryIncome < ApplicationRecord
   class << self
     def main_incomes(project_name)
       grouped_by_household(project_name).map do |household, values|
-        { name: values.max_by(&:value).subcategory }
+        value = values.max_by(&:value).subcategory
+
+        {
+          name: value,
+          value: value
+        }
       end.uniq.sort { |a, b| a[:name] <=> b[:name] }
     end
 
