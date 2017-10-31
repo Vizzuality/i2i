@@ -73,7 +73,10 @@
         <div class="grid-s-12">
           <% if (dataAvailable) %>
             <%# main chart %>
-            <% if (@household.present? == false) %> <div class="c-widget -main" id="vis-main-chart"></div> <% end %>
+            <% if (@household.present? == false) %>
+              <div class="c-widget -main _no-mobile" id="vis-main-chart"></div>
+              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile"></div>
+            <% end %>
             <%# main chart - household detail %>
             <% if (@household.present?) %> <div class="c-widget" id="vis-main-household-detail-chart"></div> <% end %>
           <% else %>

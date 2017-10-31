@@ -1,9 +1,11 @@
 (function (App) {
   'use strict';
 
+  var isTabletOrHigher = window.innerWidth >= 768;
+
   App.View.MainChartView = App.View.VegaChartView.extend({
 
-    el: '#vis-main-chart',
+    el: isTabletOrHigher ? '#vis-main-chart' : '#vis-main-chart-mobile',
 
     options: {
       renderer: 'canvas',
@@ -21,7 +23,7 @@
           }
         ]
       },
-      spec: App.Specs.MainChart
+      spec: isTabletOrHigher ? App.Specs.MainChart : App.Specs.MainChartMobile
     },
 
     setListeners: function() {
