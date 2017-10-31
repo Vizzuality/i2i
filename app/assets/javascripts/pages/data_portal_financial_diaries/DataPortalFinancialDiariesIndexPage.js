@@ -288,7 +288,7 @@
       }
 
       // renders charts by indicator
-      categories.forEach(function(category) {
+      _.each(categories, function(category) {
         new App.View.GroupedBarView({
           params: Object.assign(
             {},
