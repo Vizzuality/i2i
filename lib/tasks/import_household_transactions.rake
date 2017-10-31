@@ -288,4 +288,20 @@ namespace :db do
       HouseholdMemberTransactionHistory.where(month: date[0], year: date[1]).update_all(date: "#{date[1]}-#{date[0].to_s.rjust(2, '0')}-01")
     end
   end
+
+  task update_currency_symbols: :environment do
+    values = [
+      ['India Financial Diaries', '₹'],
+      ['Kenya Financial Diaries', 'KSh'],
+      ['Mexico Financial Diaries', 'Mex$'],
+      ['Smallholders Mozambique', 'MT'],
+      ['Smallholders Pakistan', 'Rs'],
+      ['Smallholders Tanzania', 'TSh'],
+      ['South Africa GAFIS', 'R']
+    ]
+
+    values.each do |value|
+      ProjectMetadatum.find_by(project_name: value[0]).update_column(:currency_symbol, value[1])
+    end
+  end
 end
