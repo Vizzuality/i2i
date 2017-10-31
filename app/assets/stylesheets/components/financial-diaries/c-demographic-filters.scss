@@ -1,11 +1,30 @@
 .c-demographic-filters {
   display: flex;
 
-  .filters {
-
-  }
-
   .filters > .demographic-item {
+    position: relative;
+
+    @media #{$mq-desktop} {
+      &:not(:first-child) {
+        margin-left: 30px;
+      }
+    }
+
+    > label {
+      position: relative;
+      color: $color-5;
+      font-weight: $font-weight-light;
+
+      &:after {
+        content: '';
+        @include arrow(5px, 1px, $color-5, 'down');
+        position: absolute;
+        top: 50%;
+        right: -15px;
+        transform: translate(0, -50%) rotate(45deg);
+      }
+
+    }
 
     > .demographic-submenu {
       display: none;
