@@ -1,0 +1,2 @@
+class HouseholdIncomeTier < ApplicationRecord
+end
