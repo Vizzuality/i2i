@@ -18,6 +18,44 @@ class DataPortalFinancialDiariesController < ApplicationController
       households: HouseholdSubcategoryIncome.main_incomes(project_name),
       members: MemberSubcategoryIncome.main_incomes(project_name)
     }
+    @genders = [{name: 'male'}, {name: 'female'}]
+    @ages = [
+      {
+        name: '18-25',
+        value: {
+          min_age: 18,
+          max_age: 25
+        }
+      },
+      {
+        name: '25-35',
+        value: {
+          min_age: 25,
+          max_age: 35
+        }
+      },
+      {
+        name: '35-45',
+        value: {
+          min_age: 35,
+          max_age: 45
+        }
+      },
+      {
+        name: '45-60',
+        value: {
+          min_age: 45,
+          max_age: 60
+        }
+      },
+      {
+        name: '>60',
+        value: {
+          min_age: 60,
+          max_age: 200
+        }
+      }
+    ]
 
     @demographicFilters = [
       {
