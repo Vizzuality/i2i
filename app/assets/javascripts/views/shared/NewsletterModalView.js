@@ -8,7 +8,9 @@
       // See App.Component.Modal for details about this option
       footer: '<span></span><button class="c-button -medium -white js-close">Close</button>',
       // See App.Component.Modal for details about this option
-      modalClass: '-newsletter'
+      modalClass: '-newsletter',
+      institution: false,
+      id: ''
     },
 
     events: function () {
@@ -25,7 +27,7 @@
     },
 
     render: function () {
-      this.options.content = this.contentTemplate();
+      this.options.content = this.contentTemplate(this.options);
       this.constructor.__super__.render.apply(this);
     }
 

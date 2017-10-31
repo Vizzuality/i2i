@@ -5,11 +5,11 @@
     el: '.js-subscribe',
 
     events: {
-      'click' : '_onClickSubscribe'
+      'click .js-subscribe-link' : '_onClickSubscribe'
     },
 
-    _onClickSubscribe: function () {
-      new App.View.NewsletterModalView();
+    _onClickSubscribe: function (e) {
+      new App.View.NewsletterModalView(e.target.dataset);
     }
 
   });
