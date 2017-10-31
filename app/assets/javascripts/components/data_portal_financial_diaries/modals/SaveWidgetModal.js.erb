@@ -1,3 +1,5 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
 (function (App) {
   App.Component.ModalSaveWidgetFinancial = App.Component.Modal.extend({
 
@@ -148,19 +150,20 @@
      * Return the encoded state of the widget
      * @return {string}
      */
-    // _getEncodedWidget: function () {
-    //   var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
-    //   return App.Helper.URL.encode(serializedWidget);
-    // },
+    _getEncodedWidget: function () {
+      console.log(this.options.widgetConfig);
+      var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
+      return App.Helper.URL.encode(serializedWidget);
+    },
 
     /**
      * Event handler executed when the user clicks the "Print" button
      */
-    // _onPrint: function () {
-    //   var printURL = location.origin +
-    //     '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
-    //   window.open(printURL, '_blank');
-    // },
+    _onPrint: function () {
+      var printURL = location.origin +
+        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
+      window.open(printURL, '_blank');
+    },
 
     /**
      * Event handler executed when the user clicks the "Download" button
@@ -232,12 +235,16 @@
     },
 
     afterRender: function () {
+      this.scrollOffset = window.pageYOffset;
+
       if(this.viewPortWidth >= 768) {
-        this._setDimensions();
+        // this._setDimensions();
       } else {
         this.el.querySelector('.c-modal').classList.add('-only-footer');
       }
       this._renderContent();
+
+      document.body.classList.add('_no-scroll');
       // this._toggleButtons();
     },
 

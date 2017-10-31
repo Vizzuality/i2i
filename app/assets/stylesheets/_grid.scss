@@ -8,7 +8,7 @@
     padding: 0 $wrapper-padding-tablet;
   }
 
-  @media #{$mq-laptop} {
+  @media #{$mq-desktop} {
     padding: 0 $wrapper-padding-desktop;
   }
 }
