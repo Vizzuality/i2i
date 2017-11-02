@@ -78,6 +78,8 @@ var init = function () {
   new App.View.Newsletter();
   new App.View.Cards();
   new App.Component.FixedNav();
+  new App.Component.SocialNav();
+
 };
 
 document.addEventListener('turbolinks:load', init);

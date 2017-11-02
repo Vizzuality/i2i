@@ -27,11 +27,8 @@
 
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
-        // 'click .js-add-report': '_onAddReport',
-        // 'click .js-remove-report': '_onRemoveReport',
         'click .js-slide-button': '_onSelectSlide',
         'click .js-print': '_onPrint',
-        // 'click .js-download': '_onDownload',
         'click .js-close': 'onCloseModal'
       });
     },
@@ -45,9 +42,12 @@
       this.constructor.__super__._setVars.call(this);
       this.slides = [{
         view: new App.View.ShareViewFinancial({
-          callback: this._returnWidget.bind(this)
+          callback: this._returnWidget.bind(this),
+          widgetConfig: this.options.widgetConfig
         })
       }];
+
+      this.iso = gon.iso;
 
       this.viewPortWidth = document.body.getBoundingClientRect().width;
     },
@@ -107,39 +107,12 @@
         }, 400, function () {
           this.viewPortWidth >= 768 && this._renderWidget();
           this._renderSlides();
-
-          // this.constructor.__super__.afterRender.apply(this);
         }.bind(this));
       } else {
         this.viewPortWidth >= 768 && this._renderWidget();
         this._renderSlides();
-
-        // this.constructor.__super_.afterRender.apply(this);
       }
     },
-
-    /**
-     * Toggle button classes based on widget saved status
-     */
-    // _toggleButtons: function () {
-    //   var currentIndicator = _.extend({}, this.options.widgetConfig);
-    //   var isSaved = App.Helper.Indicators.isIndicatorSaved(currentIndicator);
-
-    //   this.el.querySelector('.js-add-report').classList.toggle('_is-hidden', isSaved);
-    //   this.el.querySelector('.js-remove-report').classList.toggle('_is-hidden', !isSaved);
-    // },
-
-    // _onAddReport: function () {
-    //   var indicator = _.extend({}, this.options.widgetConfig);
-    //   App.Helper.Indicators.saveIndicator(indicator);
-    //   this._toggleButtons();
-    // },
-
-    // _onRemoveReport: function () {
-    //   var indicator = _.extend({}, this.options.widgetConfig);
-    //   App.Helper.Indicators.removeIndicator(indicator);
-    //   this._toggleButtons();
-    // },
 
     _onSelectSlide: function (event) {
       var slideIndex = +event.currentTarget.dataset['slideIndex'];
@@ -151,7 +124,6 @@
      * @return {string}
      */
     _getEncodedWidget: function () {
-      console.log(this.options.widgetConfig);
       var serializedWidget = App.Helper.Indicators.serialize(this.options.widgetConfig);
       return App.Helper.URL.encode(serializedWidget);
     },
@@ -160,55 +132,48 @@
      * Event handler executed when the user clicks the "Print" button
      */
     _onPrint: function () {
-      var printURL = location.origin +
-        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
+      var widgetParams = this.options.widgetConfig;
+      var widgetType = widgetParams.shareOptions.spec;
+      var paramsToSend = Object.assign({},
+        { title: widgetParams.title },
+        { household: widgetParams.household },
+        { project_name: widgetParams.project_name },
+        { categories: widgetParams.categories },
+        { subFilters: widgetParams.subFilters }
+      );
+      var encodedParams = window.btoa(JSON.stringify(paramsToSend));
+      var printURL = location.pathname + '/embed/' + widgetType +'?p=' + encodedParams + '&print=true';
+
       window.open(printURL, '_blank');
     },
 
-    /**
-     * Event handler executed when the user clicks the "Download" button
-     */
-    // _onDownload: function () {
-    //   var country = App.Helper.Indicators.COUNTRIES[this.options.widgetConfig.iso];
-    //   App.Helper.Analytics.sendEvent('Download', 'Download from Data Portal', country);
-    // },
-
-    /**
-     * Return the link to download the data of the widget
-     * @return {string}
-     */
-    // _generateDownloadLink: function () {
-    //   var res = API_URL
-    //     + '/indicator/'
-    //     + this.options.widgetConfig.id
-    //     + '/expanded/download?'
-    //     + this.options.widgetConfig.iso
-    //     + '='
-    //     + this.options.widgetConfig.year;
-
-    //   if (this.options.widgetConfig.filters.length) {
-    //     var filters = this.options.widgetConfig.filters.map(function (filter) {
-    //       return {
-    //         indicatorId: filter.id,
-    //         value: filter.options
-    //       };
-    //     });
-
-    //     res += '&filters=' + encodeURIComponent(JSON.stringify(filters));
-    //   }
-
-    //   return res;
-    // },
-
     _renderWidget: function () {
-      new App.View.GroupedBarView({
+      var specToRender = this.options.widgetConfig.shareOptions.spec;
+      var onClick = this.options.widgetConfig.shareOptions.onClick;
+      var widgetParams = {
         params: Object.assign({},
           this.options,
           this.options.widgetConfig
         ),
         showToolbar: false,
-        el: this.el.querySelector('.js-widget-container')
-      });
+        el: this.el.querySelector('.js-widget-container'),
+        onClick: onClick
+      };
+
+
+      switch(specToRender) {
+        case 'main-chart':
+          new App.View.MainChartView(widgetParams);
+          break;
+        case 'main-chart-household':
+          new App.View.MainChartHouseholdView(widgetParams);
+          break;
+        case 'grouped-bar-chart':
+          new App.View.GroupedBarView(widgetParams);
+          break;
+        default:
+          return;
+      }
     },
 
     _renderSlides: function () {
@@ -235,17 +200,11 @@
     },
 
     afterRender: function () {
-      this.scrollOffset = window.pageYOffset;
+      var customClass = this.options.widgetConfig.shareOptions.customClass || null;
 
-      if(this.viewPortWidth >= 768) {
-        // this._setDimensions();
-      } else {
-        this.el.querySelector('.c-modal').classList.add('-only-footer');
-      }
+      if (customClass) this.el.querySelector('.c-widget').classList.add(customClass);
+
       this._renderContent();
-
-      document.body.classList.add('_no-scroll');
-      // this._toggleButtons();
     },
 
     render: function () {

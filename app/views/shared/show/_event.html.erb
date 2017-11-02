@@ -5,6 +5,7 @@
 
 <div class="l-content">
   <div class="l-article">
+    <%= render partial: 'shared/social-nav', locals: { title: event.title } %>
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
@@ -15,7 +16,7 @@
                   <div class="container">
                     <div class="grid-s-12 grid-l-10">
                       <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
-                      <h1 class="title -xbig -dark "><%= event.title %></h1>
+                      <h1 class="title -xbig -dark js-social-nav-title"><%= event.title %></h1>
                       <span class="authorship">Written
                         <% unless event.author.blank? %>
                           by <span class="author-name"><%= event.author %></span>
@@ -28,7 +29,7 @@
               </div>
             </div>
 
-            <section class="article-content">
+            <section class="article-content js-social-nav-content">
               <%if event.image.blank? != true %>
                 <div class="row">
                   <div class="grid-s-12">
@@ -82,7 +83,7 @@
               <% if @morePaginationAvailable %>
                 <div class="grid-s-12">
                   <div class="grid-footer" id="show-more">
-                    <%= link_to 'Show More', insights_show_path(event.category.slug, event.slug, { entity: event.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                    <%= link_to 'Show more', insights_show_path(event.category.slug, event.slug, { entity: event.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
                   </div>
                 </div>
               <% end %>

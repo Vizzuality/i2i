@@ -359,4 +359,19 @@ namespace :db do
       transaction.update_column(:total_income, incomes.pluck(:value).reduce(:+))
     end
   end
+
+  task add_province_to_project_metadata: :environment do
+    provinces = [
+      ['Mexico', 'Puebla and Oaxaca states, and Mexico City outskirt'],
+      ['Kenya', 'Nairobi, Makueni, Mombasa, Eldoret, Vihiga'],
+      ['Pakistan', 'Two villages, Bahawalnagar district, in the south of the Punjab province'],
+      ['Tanzania', 'Two villages in Mbeya region'],
+      ['India', 'Varanasi and outskirts, Uttar Pradesh province'],
+      ['Mozambique', 'Three villages in Rapale district, northern Nampula province']
+    ]
+
+    provinces.each do |province|
+      ProjectMetadatum.find_by(name: province[0]).update_column(:province, province[1])
+    end
+  end
 end

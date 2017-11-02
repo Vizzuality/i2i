@@ -18,10 +18,10 @@
           1
         ],
         "labelFont": "Open Sans",
-        "labelFontSize": 10,
+        "labelFontSize": 11,
         "labelColor": "#001D22",
         "titleFont": "Open Sans",
-        "titleFontSize": 13,
+        "titleFontSize": 11,
         "titleFontWeight": "normal",
         "titleColor": "#001D22",
         "ticks": false
@@ -34,7 +34,7 @@
         "gridColor": "rgba(0, 29, 34, 0.1)",
         "gridWidth": 0.5,
         "labelFont": "Open Sans",
-        "labelFontSize": 10,
+        "labelFontSize": 11,
         "labelColor": "#001D22",
         "tickWidth": 0,
         "tickColor": "rgba(0, 29, 34, 0.1)",

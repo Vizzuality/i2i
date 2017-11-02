@@ -4,7 +4,7 @@
 <div class="c-header <% if isCover.present? %>-cover<% end %> <% if isFixed %>-fixed<% end %>">
   <div class="container">
   	<div class="c-app-logo <% if isFixed %>-fixed<% end %>">
-  		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path %>
+  		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path, data: { turbolinks: false } %>
   	</div>
     <nav class="c-nav" role="navigation">
       <ul class="nav-list">
@@ -13,19 +13,19 @@
             controller.controller_name == 'data_portal' || controller.controller_name == 'data_portal_financial_diaries' ||
             controller.controller_name == 'report' %>-current <% end %>"
         >
-          <%= link_to 'Data portal', data_portal_path %>
+          <%= link_to 'Data portal', data_portal_path, data: { turbolinks: false } %>
         </li>
     		<li class="nav-item <% if current_page?(insights_path) || controller.controller_name == 'insights' %> -current <% end%>">
-          <%= link_to 'Insights', insights_path %>
+          <%= link_to 'Insights', insights_path, data: { turbolinks: false } %>
         </li>
         <li class="nav-item <% if current_page?(initiatives_path) || controller.controller_name == 'initiatives' %> -current <% end%>">
-          <%= link_to 'Initiatives', initiatives_path %>
+          <%= link_to 'Initiatives', initiatives_path, data: { turbolinks: false } %>
         </li>
         <li class="nav-item <% if current_page?(tools_path) %> -current <% end%>">
-          <%= link_to 'Tools', tools_path %>
+          <%= link_to 'Tools', tools_path, data: { turbolinks: false } %>
         </li>
     		<li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
-          <%= link_to 'About', about_path %>
+          <%= link_to 'About', about_path, data: { turbolinks: false } %>
         </li>
       </ul>
     </nav>

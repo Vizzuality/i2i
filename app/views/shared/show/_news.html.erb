@@ -5,7 +5,7 @@
 
 <div class="l-content">
   <div class="l-article">
-    <div class="c-news-fixed-header js-fixed-header">
+    <div class="c-social-nav js-social-nav">
       <div class="wrapper">
         <h2 class="title"><%= news.title %></h2>
         <ul class="medias">
@@ -36,7 +36,7 @@
           </li>
         </ul>
       </div>
-      <div class="progress-bar js-progress-bar"></div>
+      <div class="progress-bar js-social-nav-progress-bar"></div>
     </div>
 
     <div class="wrapper">
@@ -49,7 +49,7 @@
                   <div class="container">
                     <div class="grid-s-12 grid-l-8">
                       <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
-                      <h1 class="title -xbig -dark js-title"><%= news.title %></h1>
+                      <h1 class="title -xbig -dark js-social-nav-title"><%= news.title %></h1>
                       <span class="authorship">Written
                         <% unless news.author.blank? %>
                           by <span class="author-name"><%= news.author %></span>
@@ -62,7 +62,7 @@
               </div>
             </div>
 
-            <section class="article-content js-news">
+            <section class="article-content js-social-nav-content">
               <%if news.image.blank? != true %>
                 <div class="row">
                   <div class="grid-s-12">
@@ -94,7 +94,7 @@
               <% if @morePaginationAvailable %>
                 <div class="grid-s-12">
                   <div class="grid-footer" id="show-more">
-                    <%= link_to 'Show More', insights_show_path(news.category.slug, news.slug, { entity: news.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                    <%= link_to 'Show more', insights_show_path(news.category.slug, news.slug, { entity: news.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
                   </div>
                 </div>
               <% end %>

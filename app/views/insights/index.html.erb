@@ -47,7 +47,7 @@
           <% if @morePaginationAvailable %>
             <div class="grid-s-12">
               <div class="grid-footer" id="show-more">
-                <%= link_to 'Show More', insights_filter_index_path(@category.slug, { offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                <%= link_to 'Show more', insights_filter_index_path(@category.slug, { offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
               </div>
             </div>
           <% end %>

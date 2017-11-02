@@ -22,6 +22,10 @@
   // financial diaries
   &.-main {
 
+    > .toolbar {
+      margin-top: 15px;
+    }
+
     .vega-bindings {
       display: flex;
       flex-wrap: wrap;
@@ -33,7 +37,7 @@
 
       @media #{$mq-desktop} {
         position: absolute;
-        top: 28px;
+        top: 38px;
         right: 30px;
         margin: 0;
       }
