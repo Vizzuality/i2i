@@ -18,7 +18,10 @@ class DataPortalFinancialDiariesController < ApplicationController
       households: HouseholdSubcategoryIncome.main_incomes(project_name),
       members: MemberSubcategoryIncome.main_incomes(project_name)
     }
-
+    @income_ranges = {
+      households: HouseholdIncomeTier.ranges(project_name),
+      members: MemberIncomeTier.ranges(project_name)
+    }
 
     @filters = [];
 
