@@ -170,9 +170,11 @@
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
+        var noAllowedNames = ['end0', 'end', 'yend0', 'yend', 'brush', 'yBrush'];
         this.chart.addEventListener('mousemove', function(event, item) {
           if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
-            if (item.mark.name === 'yend' || item.mark.name === 'end' || item.mark.name === 'brush') return;
+            console.log(item.mark.name);
+            if (_.contains(noAllowedNames, item.mark.name)) return;
             self.onTooltip.call(self, event, item);
           }
         });

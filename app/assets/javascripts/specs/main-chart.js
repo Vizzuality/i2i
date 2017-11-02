@@ -848,6 +848,7 @@
       },
       {
         "type": "symbol",
+        "name": "end0",
         "interactive": true,
         "encode": {
           "enter": {
@@ -1222,6 +1223,7 @@
       },
       {
         "type": "symbol",
+        "name": "yend0",
         "interactive": true,
         "encode": {
           "enter": {
