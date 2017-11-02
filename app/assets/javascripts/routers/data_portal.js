@@ -99,6 +99,7 @@
 
     new App.View.MobileMenu();
     new App.View.Newsletter();
+    new App.Component.FixedNav();
 
     // Go to previous scroll if turbolinks is enbaled in the same page
     if (window.currentLocation === window.location.pathname) {
