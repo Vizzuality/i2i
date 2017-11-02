@@ -135,6 +135,7 @@ class DataPortalFinancialDiariesController < ApplicationController
         @income_tier_options)
     end
 
+    gon.iso = country_iso;
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json

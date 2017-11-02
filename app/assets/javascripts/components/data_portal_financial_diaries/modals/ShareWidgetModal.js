@@ -46,11 +46,20 @@
      * @return {string}
      */
     _generateURL: function (service) {
+      var widgetParams = Object.assign(
+        {},
+        { categories: this.options.widgetConfig.categories },
+        { subFilters: this.options.widgetConfig.subFilters },
+        { title: this.options.widgetConfig.title }
+      );
+
+      var widgetType = this.options.widgetConfig.shareOptions.spec;
+      var embedUrl =  location.origin + location.pathname + '/embed/' + widgetType + '?p=' + window.btoa(JSON.stringify(widgetParams));
+      var embedHeight = this.options.widgetConfig.el.offsetHeight + 65;
       var widgetURL = window.location.href;
-      // var embedHeight = this.options.widgetConfig.el.offsetHeight + 65;
 
       var urls = {
-        // embed_link: '<iframe height="' + embedHeight + '" width="1090" src="' + widgetURL + '" style="border:0;"></iframe>',
+        embed_link: '<iframe height="' + embedHeight + '" width="1090" src="' + embedUrl + '" style="border:0;"></iframe>',
         facebook: 'http://www.facebook.com/sharer.php?u=' + widgetURL,
         page_link: widgetURL,
         twitter: 'https://twitter.com/intent/tweet?url=' + widgetURL

@@ -34,6 +34,7 @@
         filters: params.p ? JSON.parse(window.atob(params.p)) : {}
       });
     }
+
   });
 
   var init = function () {
