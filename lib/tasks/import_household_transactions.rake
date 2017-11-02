@@ -7,7 +7,7 @@ namespace :db do
     csv_text = File.read('db/data/household_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     households = []
-    date_headers = csv.headers[8..72]
+    date_headers = csv.headers[11..75]
 
     csv.each do |row|
       households << HouseholdTransaction.new(
@@ -28,7 +28,7 @@ namespace :db do
 
     csv.each_with_index do |row, index|
       household_histories = []
-      row[8..72].each_with_index do |value, date_index|
+      row[11..75].each_with_index do |value, date_index|
         date = date_headers[date_index].split('-')
         year = date[0]
         month = date[1]
@@ -52,7 +52,7 @@ namespace :db do
     csv_text = File.read('db/data/household_member_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     household_members = []
-    date_headers = csv.headers[12..76]
+    date_headers = csv.headers[15..79]
 
     csv.each do |row|
       household_members << HouseholdMemberTransaction.new(
@@ -77,7 +77,7 @@ namespace :db do
 
     csv.each_with_index do |row, index|
       household_member_histories = []
-      row[12..76].each_with_index do |value, date_index|
+      row[15..79].each_with_index do |value, date_index|
         date = date_headers[date_index].split('-')
         year = date[0]
         month = date[1]
@@ -142,8 +142,8 @@ namespace :db do
 
   # This is used to narrow down the number of subcategories present in records of category_type expense
   task update_expenses_subcategories: :environment do
-    households = HouseholdTransaction.where(category_type: 'expense')
-    members = HouseholdMemberTransaction.where(category_type: 'expense')
+    households = HouseholdTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
+    members = HouseholdMemberTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
     usage = CategoryUsage.where(category_type: 'expense')
     p 'Starting update'
 
