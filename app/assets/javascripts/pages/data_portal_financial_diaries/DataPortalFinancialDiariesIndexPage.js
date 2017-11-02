@@ -254,17 +254,35 @@
       }).join(', ');
 
       if(!household) {
+        var isTabletOrHigher = window.innerWidth >= 768;
+        var el = isTabletOrHigher ?
+          document.querySelector('#vis-main-chart') : document.querySelector('#vis-main-chart-mobile');
+        var spec = isTabletOrHigher ?
+          'main-chart' : 'main-chart-mobile';
+
+        var onClickHousehold = function(household) {
+          if(!household) return;
+          this._updateFilters({ household: household });
+        }.bind(this);
+
         // renders main chart
         new App.View.MainChartView({
           params: Object.assign(
             {},
             params,
-            { title: mainChartTitle }
+            { title: mainChartTitle },
+            { household: household }
           ),
-          onClick: function(household) {
-            if(!household) return;
-            this._updateFilters({ household: household });
-          }.bind(this)
+          el: el,
+          shareOptions: {
+            spec: spec,
+            customClass: '-main',
+            onClick: function(household) {
+              onClickHousehold(household);
+              window.scrollTo(0, 0);
+            }
+          },
+          onClick: onClickHousehold
         });
       } else {
         // renders main chart with household detail
@@ -274,7 +292,11 @@
             params,
             { household: household },
             { title: mainChartTitle + ' ' + houseHoldTitle }
-          )
+          ),
+          shareOptions: {
+            spec: 'main-chart-household'
+          },
+          el: document.querySelector('#vis-main-household-detail-chart')
         });
       }
 
@@ -288,7 +310,10 @@
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },
             { household: household || '' }
           ),
-          el: document.querySelector('#vis-grouped-bar-chart-' + category.category_type)
+          el: document.querySelector('#vis-grouped-bar-chart-' + category.category_type),
+          shareOptions: {
+            spec: 'grouped-bar-chart'
+          }
         });
       });
     }
