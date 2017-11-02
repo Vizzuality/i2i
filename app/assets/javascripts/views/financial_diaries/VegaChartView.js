@@ -15,7 +15,7 @@
       gridWidth: 0.5,
 
       labelFont: 'Open Sans',
-      labelFontSize: 13,
+      labelFontSize: 11,
       labelColor: fontColor,
 
       tickWidth: 0,
@@ -173,7 +173,6 @@
         var noAllowedNames = ['end0', 'end', 'yend0', 'yend', 'brush', 'yBrush'];
         this.chart.addEventListener('mousemove', function(event, item) {
           if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
-            console.log(item.mark.name);
             if (_.contains(noAllowedNames, item.mark.name)) return;
             self.onTooltip.call(self, event, item);
           }
