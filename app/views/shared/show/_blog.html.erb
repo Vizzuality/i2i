@@ -67,7 +67,7 @@
               <% if @morePaginationAvailable %>
                 <div class="grid-s-12">
                   <div class="grid-footer" id="show-more">
-                    <%= link_to 'Show More', insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                    <%= link_to 'Show more', insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
                   </div>
                 </div>
               <% end %>
