@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
                                                                              as: 'data_portal_country_preview'
 
+  # Data Portal - Financial Diaries - embed
+  get 'data-portal/:iso/financial-diaries/embed/:chart_type' => 'data_portal_financial_diaries_embed#index', to: 'data_portal_financial_diaries_embed#index',
+                                                                                           as: 'data_portal_financial_diaries_embed'
+
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
   post 'email' => 'static_pages#email'
