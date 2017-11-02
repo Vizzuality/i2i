@@ -250,7 +250,7 @@
       var houseHoldTitle = household ? '(Household: ' + household + ')' : '';
 
       var mainChartTitle = categories.map(function(cat) {
-        return capitalize(cat.category_type);
+        return capitalize(cat.subcategory || cat.category_type);
       }).join(', ');
 
       if(!household) {
