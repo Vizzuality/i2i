@@ -76,10 +76,17 @@ class HouseholdMemberTransaction < ApplicationRecord
       categories = []
       types = where(project_name: project_name).pluck(:category_type).uniq
 
-      types.each do |type|
+      types.sort.each do |type|
         children = HouseholdMemberTransaction.where(project_name: project_name, category_type: type)
-                    .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
+                    .pluck(:subcategory).uniq.compact.sort.map { |c| { name: c } }
         categories << { name: type, children: children }
+      end
+
+      # Categories are sorted alphabetically, but income should be first
+      income = categories.find { |category| category[:name] == 'income' }
+      if income.present?
+        categories.delete_if { |category| category[:name] == 'income' }
+        categories.prepend(income)
       end
 
       categories
