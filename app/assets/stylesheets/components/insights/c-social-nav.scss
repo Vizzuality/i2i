@@ -1,23 +1,24 @@
-.c-news-fixed-header {
-  $element-height: 40px;
-  $header-height: 50px;
+.c-social-nav {
+  $element-offset: 50px;
 
   display: flex;
-  align-items: center;
   position: fixed;
-  top: -$element-height;
+  top: 0;
   left: 0;
+  align-items: center;
   width: 100%;
   // If you change the height of the header, please also update
   // this.progressBarHeight in the news page JS file
-  height: $element-height;
+  height: $element-offset;
+  transition: transform .3s ease-out;
   background-color: $color-3;
   box-shadow: 0 0 3px 0 rgba($color-6, .2);
-  transition: transform .3s ease-out;
+  visibility: hidden;
   z-index: 10;
 
   &.-visible {
-    transform: translateY($header-height+$element-height);
+    transform: translateY($element-offset);
+    visibility: visible;
   }
 
   > .wrapper {
