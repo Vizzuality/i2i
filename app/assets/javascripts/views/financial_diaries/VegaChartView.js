@@ -62,7 +62,12 @@
       tooltip: {
         showAllFields: true
       },
-      report: false
+      report: false,
+      showToolbar: true
+    },
+
+    events: {
+      'click .js-save': '_onSave'
     },
 
     template: JST['templates/financial_diaries/vega_chart'],
@@ -229,6 +234,21 @@
 
       this.customTooltip.showTooltip();
       this.customTooltip.setPosition(position);
+    },
+
+    /**
+     * Event handler for when the user clicks the save button
+     */
+    _onSave: function () {
+      new App.Component.ModalSaveWidgetFinancial({
+        widgetConfig: Object.assign(
+          {},
+          this.options.params,
+          { el: this.options.el },
+          { shareOptions: this.options.shareOptions },
+          { onClick: this.options.onClick || null }
+        )
+      });
     },
 
     render: function () {

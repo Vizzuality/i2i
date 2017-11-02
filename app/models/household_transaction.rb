@@ -17,6 +17,7 @@
 
 class HouseholdTransaction < ApplicationRecord
   include Filterable
+  include Categorizable
 
   has_one :project_metadatum, class_name: 'ProjectMetadatum', primary_key: :project_name, foreign_key: :project_name
   has_many :household_transaction_histories
@@ -53,33 +54,7 @@ class HouseholdTransaction < ApplicationRecord
     end.compact
   end
 
-  def indicator
-    default_indicators[category_type.to_sym]
-  end
-
-  def default_indicators
-    {
-      credits: :rolling_balance,
-      savings: :rolling_balance,
-      income: :total_transaction_value,
-      expense: :total_transaction_value
-    }
-  end
-
   class << self
-    def category_tree(project_name)
-      categories = []
-      types = where(project_name: project_name).pluck(:category_type).uniq
-
-      types.each do |type|
-        children = HouseholdTransaction.where(project_name: project_name, category_type: type)
-                    .pluck(:subcategory).uniq.compact.map { |c| { name: c } }
-        categories << { name: type, children: children }
-      end
-
-      categories
-    end
-
     def households_within_tier(project_name, income_tier)
       income_range = HouseholdIncomeTier.find_by(project_name: project_name, ntile: income_tier)
 

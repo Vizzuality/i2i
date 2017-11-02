@@ -2,7 +2,7 @@ class InsightsController < ApplicationController
   include Relatable
 
   def index
-    @categories = Category.all
+    @categories = Category.all.order(:position)
     @category = Category.find_by(slug: params[:category])
     records = []
 
