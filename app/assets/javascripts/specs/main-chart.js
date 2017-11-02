@@ -262,7 +262,7 @@
         "name": "xDetail",
         "type": "utc",
         "range": "width",
-        "nice": {"interval": "month", "step": 3},
+        "nice": true,
         "domain": {
           "data": "stats",
           "field": "date"
