@@ -19,12 +19,12 @@
     margin-top: 30px;
   }
 
-  > .toolbar {
-    margin-top: 15px;
-  }
-
   // financial diaries
   &.-main {
+
+    > .toolbar {
+      margin-top: 15px;
+    }
 
     .vega-bindings {
       display: flex;
