@@ -5,6 +5,7 @@
 
 <div class="l-content">
   <div class="l-article">
+    <%= render partial: 'shared/social-nav', locals: { title: blog.title } %>
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
@@ -15,7 +16,7 @@
                   <div class="container">
                     <div class="grid-s-12 grid-l-10">
                       <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
-                      <h1 class="title -xbig -dark "><%= blog.title %></h1>
+                      <h1 class="title -xbig -dark js-social-nav-title"><%= blog.title %></h1>
                       <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
                         <% unless blog.author.blank? %>
                           <% if blog.custom_author.present? %>
@@ -36,7 +37,7 @@
               </div>
             </div>
 
-            <section class="article-content">
+            <section class="article-content js-social-nav-content">
               <%if blog.image.blank? != true %>
                 <div class="row">
                   <div class="grid-s-12">
