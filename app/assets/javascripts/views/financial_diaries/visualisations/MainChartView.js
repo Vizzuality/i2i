@@ -13,13 +13,15 @@
       customTooltipOptions: {
         fields: [
           {
-            name: 'Date',
-            value: 'date'
+            title: 'Value',
+            value: 'value',
+            formatType: 'number',
+            format: "s"
           },
           {
-            name: 'Value',
-            value: 'value',
-            format: "s"
+            title: 'Date',
+            value: 'date',
+            formatType: 'string'
           }
         ]
       },
@@ -33,16 +35,15 @@
         if (this.options.onClick) this.options.onClick(value);
       }.bind(this))
 
-      this.chart.addSignalListener('overHousehold', function(name, data) {
-        if(!data) return;
-        var currentDate = data.date;
+      // this.chart.addSignalListener('overHousehold', function(name, data) {
+      //   if(!data) return;
 
-        var currentItem = (data.item || []).find(function(i) {
-          return currentDate.toString === new Date(i.date).toString;
-        });
-
-      }.bind(this))
+      //   var currentItem = _.findWhere(data.item.values, function(d) {
+      //     return moment(data.date).isSame(d.date, 'day');
+      //   });
+      // }.bind(this))
     }
+
   });
 
 }).call(this, this.App);
