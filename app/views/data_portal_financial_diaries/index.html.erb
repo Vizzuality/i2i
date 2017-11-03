@@ -25,8 +25,9 @@
             <div class="c-hero">
               <div class="grid-l-8">
                 <%= render partial: 'data_portal_financial_diaries/country-selector' %>
-                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
-                  Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
+                <p class="subtitle">
+                  The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the <span><%= @country_financial_diaries[:province] %></span> region<% end %>. Please note that the Financial Diaries are not a nationally representative dataset.
+                </p>
               </div>
             </div>
           </div>
