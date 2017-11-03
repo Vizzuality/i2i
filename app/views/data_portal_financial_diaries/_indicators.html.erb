@@ -2,9 +2,9 @@
   <ul class="indicator-menu js-filters">
     <% @categories.each do |category| %>
       <li class="indicator-item">
-        <%= check_box_tag(category[:name],
-          value = category[:name],
-          checked = @selectedCategories.find { |cat| cat['type'] == category[:name] && cat['visible'] == true }.present?,
+        <%= check_box_tag(category[:value],
+          value = category[:value],
+          checked = @selectedCategories.find { |cat| cat['type'] == category[:value] && cat['visible'] == true }.present?,
           options = {
             class: "filterinput js-category-visibility"
           }) %>
@@ -14,13 +14,13 @@
         <label
           class="indicator-group-name"
         > <%= category[:name] %> </label>
-        <label
-          class="indicator-selected js-gm-label"
-          data-parent="<%= category[:name] %>"
+          <label
+            class="indicator-selected js-gm-label"
+          data-parent="<%= category[:value] %>"
         >
-          <% if (@selectedCategories.find { |cat| cat['type'] == category[:name] && cat['subcategory'] != nil }.present?) %>
+          <% if (@selectedCategories.find { |cat| cat['type'] == category[:value] && cat['subcategory'] != nil }.present?) %>
             <span>
-              <%= @selectedCategories.find { |cat| cat['type'] == category[:name] }['subcategory'] %>
+              <%= @selectedCategories.find { |cat| cat['type'] == category[:value] }['subcategory'] %>
             </span>
           <% else %>
             <span>
@@ -33,17 +33,17 @@
           <li class="submenu-item">
             <span
               class="literal js-category-child-option"
-              data-parent="<%= category[:name] %>"
+              data-parent="<%= category[:value] %>"
             >
               All <%= category[:name] %>
             </span>
           </li>
           <% category[:children].each do |children| %>
-            <li class="submenu-item <% if (@selectedCategories.find { |cat| cat['type'] == category[:name] && cat['subcategory'] == children[:name] }) %> -selected <%end %>">
+            <li class="submenu-item <% if (@selectedCategories.find { |cat| cat['type'] == category[:value] && cat['subcategory'] == children[:value] }) %> -selected <%end %>">
               <span
                 class="literal js-category-child-option"
-                data-parent="<%= category[:name] %>"
-                data-category="<%= children[:name] %>"
+                data-parent="<%= category[:value] %>"
+                data-category="<%= children[:value] %>"
               >
                 <%= children[:name] %>
               </span>
