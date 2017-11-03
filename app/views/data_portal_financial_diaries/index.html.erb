@@ -1,0 +1,116 @@
+<% content_for :head do %>
+  <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
+<% end %>
+
+<% dataAvailable = (@selectedCategories.select { |cat| cat['visible'] == true }.size > 0) %>
+
+<% title 'Data Portal | Financial Diaries' %>
+
+<div class="l-financial-diaries">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true }  %>
+      </div>
+    </div>
+    <div class="content">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+                <p class="subtitle">
+                  The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the <span><%= @country_financial_diaries[:province] %></span> region.<% end %> Please note that the Financial Diaries are not a nationally representative dataset.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-content-switch">
+        <div class="wrapper">
+          <div class="row">
+            <div class="grid-s-12">
+              <div class="container">
+                <div class="row">
+                  <%# <div class="grid-s-12 grid-xl-4 offset-xl-1">
+                    <%= render partial: 'data_portal_financial_diaries/tabs'
+                  </div> %>
+                  <div class="grid-s-12 grid-xl-7- ">
+                    <%= render partial: 'data_portal_financial_diaries/indicators' %>
+                  </div>
+                </div>
+              </div>
+              <%= render partial: 'data_portal_financial_diaries/filters_mobile' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="row">
+        <% unless @household.present? %>
+          <div class="grid-s-12">
+            <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
+          </div>
+        <% end %>
+        <% if (@household.present?)%>
+        <div class="grid-s-12">
+          <button class="c-button -outline -medium js-remove-household">See all households</button>
+        </div>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="grid-s-12">
+          <% if (dataAvailable) %>
+            <%# main chart %>
+            <% if (@household.present? == false) %>
+              <div class="c-widget -main _no-mobile" id="vis-main-chart"></div>
+              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile"></div>
+            <% end %>
+            <%# main chart - household detail %>
+            <% if (@household.present?) %> <div class="c-widget" id="vis-main-household-detail-chart"></div> <% end %>
+          <% else %>
+            <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
+          <% end %>
+        </div>
+        <div class="grid-s-12">
+          <% if (dataAvailable) %>
+            <%# category charts  %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'credits' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-credits"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'income' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-income"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'savings' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-savings"></div>
+            <% end %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'expense' && cat['visible'] == true }.present? %>
+              <div class="c-widget" id="vis-grouped-bar-chart-expense"></div>
+            <% end %>
+          <% else %>
+            <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
+          <% end %>
+        </div>
+        <% if @country.finscope.present? %>
+          <div class="grid-s-12">
+            <div class="grid-footer -end">
+              <%= link_to('Go to FinScope data', data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year]), { class: 'c-button -sea' }) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div id="vis-tooltip" class="vg-tooltip"></div>
+    <div id="vis-custom-tooltip" class="vg-tooltip"></div>
+  </div>
+</div>

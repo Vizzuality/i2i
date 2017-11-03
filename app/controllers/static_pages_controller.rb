@@ -19,8 +19,8 @@ class StaticPagesController < ApplicationController
       { iso: 'ZMB', name: 'Zambia' },
     ]
 
-    gon.team = JSON.parse serialized(@teamMembers).to_json
-    gon.advisor = JSON.parse serialized(@advisoryMembers).to_json
+    gon.team = JSON.parse @teamMembers.to_json(:methods => [:image_url, :blogs])
+    gon.advisor = JSON.parse @advisoryMembers.to_json(:methods => [:image_url])
   end
 
   def email

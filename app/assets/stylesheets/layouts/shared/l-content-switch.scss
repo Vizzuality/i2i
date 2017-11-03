@@ -1,0 +1,114 @@
+.l-content-switch {
+  padding: 15px 0;
+  background-color: rgba($color-6, .1);
+
+  @media #{$mq-desktop} {
+    padding: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media #{$mq-desktop} {
+      display: inline-block;
+      > .row {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+      }
+    }
+
+    @media #{$mq-desktop} {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .c-switcher {
+
+    @media #{$mq-tablet} {
+      max-width: 350px;
+      margin: 0 auto;
+    }
+  }
+
+  .l-indicator-menu {
+    @media #{$mq-tablet} {
+      margin-top: 10px;
+    }
+
+    @media #{$mq-desktop} {
+      margin: 0;
+    }
+  }
+
+  .l-mobile-filters {
+    padding: 15px 0;
+    border-top: 1px solid rgba($color-6, .1);
+
+    .toggle-filters-btn {
+      position: relative;
+      padding: 0;
+      font-weight: $font-weight-bold;
+      color: $color-4;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        @include arrow(5px, 2px, $color-4, 'down');
+        position: absolute;
+        top: 50%;
+        right: -15px;
+        transform: translate(0, -50%) rotate(45deg);
+      }
+
+      &.-open {
+        &:after {
+          @include arrow(5px, 2px, $color-4, 'up');
+          top: calc(50% + 3px);
+          transform: translate(0, -50%) rotate(45deg);
+        }
+      }
+    }
+
+    .content-veil {
+      display: none;
+
+      &.-open {
+        display: block;
+        margin-top: 15px;
+      }
+
+      .c-demographic-filters {
+        display: flex;
+
+        .demographic-item {
+          display: block;
+
+          &:not(:first-child) {
+            margin: 15px 0 0;
+          }
+
+          > label {
+            color: $color-4;
+
+            &:after {
+              content: '';
+              @include arrow(5px, 1px, $color-4, 'down');
+              position: absolute;
+              top: 50%;
+              right: -15px;
+              transform: translate(0, -50%) rotate(45deg);
+            }
+          }
+
+          > .c-submenu-list {
+            min-width: 155px;
+          }
+        }
+      }
+    }
+  }
+}

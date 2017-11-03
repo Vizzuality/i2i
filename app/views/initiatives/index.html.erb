@@ -1,0 +1,51 @@
+<% title 'Initiatives | i2i' %>
+
+<div class="l-library">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-initiatives.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <h1 class="title -highlight -huge">i2i initiatives</h1>
+                <p class="subtitle">See how we’re working to promote financial inclusion through data-driven insights.</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row js-masonry-cards">
+          <% @featured_tags.each do |tag| %>
+            <div class="js-masonry-item grid-s-12 grid-m-6">
+              <article class="c-card">
+                <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="Measurement">
+                  <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
+                  <div class="metadata">
+                    <h4 class="title -dark -xs"><%= tag.title %></h4>
+                    <p><%= tag.description %></p>
+                  </div>
+                </a>
+              </article>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

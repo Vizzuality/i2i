@@ -66,3 +66,27 @@ and repeat first command:
 ```
 docker-compose -f docker-compose-dev.yml up --build
 ```
+
+## Importing financial diaries data (csv)
+
+Financial diaries data will be sent in four individual `.csv` files, if the names in the files don't match the ones shown beneath, please change accordingly:
+
+`Household Transactions.csv`
+
+`Household Member Transactions.csv`
+
+`Projects Meta Data.csv`
+
+`Category Statistics and Usage.csv`
+
+These files must then be uploaded to the server on the `db` folder manually to maintain them private. For each file, a single rake task should be run respectively, order doesn't matter:
+
+`rake db:import_household_transactions`
+
+`import_household_member_transactions`
+
+`import_project_metadata`
+
+`import_category_usage`
+
+The imports don't update the data, it creates completely new records based on the new `.csv` files, if there's and already existing set of records for these entities, then please be sure to remove the old ones otherwise the data will be partially duplicated and/or completely mixed. This cleanup should be included in the tasks once the financial diaries data structure is settled.

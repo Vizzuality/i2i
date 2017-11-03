@@ -1,20 +1,30 @@
 <% title 'About' %>
 
 <div class="l-about">
-  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true }%>
-    </div>
-
-    <div class="l-title">
+  <div class="l-intro js-hero">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="c-hero">
-            <div class="grid-l-6">
-              <h1 class="title -light -huge">About i2i</h1>
-              <p class="subtitle">Learn more about the team and values that drive our work. <a href="#background" class="js-anchor">Background</a>, <a href="#about-us" class="js-anchor">about us</a>,
-              <a href="#vision-mission" class="js-anchor">i2i vision and mission</a>, <a href="#our-work" class="js-anchor">our work</a>, <a href="#team-members" class="js-anchor">team members</a>, <a href="#focus-countries" class="js-anchor">focus countries</a>, <a href="#advisory-board" class="js-anchor">advisory board</a> and
-              <a href="#contact" class="js-anchor">contact</a>.</p>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-6">
+                <h1 class="title -highlight -huge">About i2i</h1>
+                <p class="subtitle">
+                  Learn more about the team and values that drive our work.
+                  <a href="#background" class="js-anchor">Background</a>, <a href="#about-us" class="js-anchor">about us</a>, <a href="#vision-mission" class="js-anchor">i2i vision and mission</a>, <a href="#our-work" class="js-anchor">our work</a>, <a href="#team" class="js-anchor">team members</a>, <a href="#focus-countries" class="js-anchor">focus countries</a>, <a href="#advisor" class="js-anchor">advisory board</a> and
+                <a href="#contact" class="js-anchor">contact</a>.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -27,7 +37,7 @@
 
       <div id="background" class="c-card-highlight -about">
         <div class="content">
-          <h3 class="title -dark -medium">Background</h3>
+          <h3 class="title -dark -big">Background</h3>
           <p>The availability of data in financial inclusion has grown tremendously in recent years. Data initiatives such as the World Bank’s Findex, FinMark Trust’s Finscope, IMF’s Financial Access Surveys, AFI’s Core Set, GPFI’s Basic Set, MIX Market’s Finclusion Lab, as well as countless studies driven at a national level have played a critical role in deepening our understanding of financial inclusion.</p>
           <button class="c-button js-read-more" data-title="Background">Read more</button>
           <div style="display: none;">
@@ -50,7 +60,7 @@
 
       <div id="about-us" class="c-card-highlight -about -reverse">
         <div class="content">
-          <h3 class="title -dark -medium">About us</h3>
+          <h3 class="title -dark -big">About us</h3>
           <p>We are in the business of liberating data. Whether you are a financial service provider,
             a policymaker, impact investor, or development partner, we want you to optimise the impact
             of your work through the use of data. i2i is a resource centre that aims to catalyse the
@@ -85,7 +95,7 @@
 
       <div id="vision-mission" class="c-card-highlight -about">
         <div class="content">
-          <h3 class="title -dark -medium">i2i vision</h3>
+          <h3 class="title -dark -big">i2i vision</h3>
           <p>Policymakers, financial service providers, and financial inclusion development partners
             use data to make effective, evidence-based decisions that drive positive financial inclusion
             and welfare outcomes for all people. Data-driven policies and client-centric product design
@@ -93,7 +103,7 @@
             by formal financial systems. All people are able to adequately absorb economic shocks,
             accumulate wealth, and unlock economic opportunities through the use of financial services.</p>
 
-          <h3 class="title -dark -medium">i2i mission</h3>
+          <h3 class="title -dark -big">i2i mission</h3>
           <p>We aim to unlock development outcomes by mobilising the data market and catalysing the generation and
             use of high quality, client-centric data. We accomplish this by advancing measurement frameworks,
             client research, and the innovative use and collection of data with the purpose of improving the
@@ -106,7 +116,7 @@
 
       <div id="our-work" class="c-card-highlight -about -reverse">
         <div class="content">
-          <h3 class="title -dark -medium">Our work</h3>
+          <h3 class="title -dark -big">Our work</h3>
           <p>The work of the i2i facility is structured along five focus areas. In partnership with a
             broad range of stakeholders (including policymakers, financial services providers, data
             scientists, researchers, academics, and development partners), our own team of experts
@@ -117,7 +127,7 @@
         <div class="image-container" style="background-image: url(<%= asset_path('about/our-work.jpg') %>)"></div>
       </div>
     </div>
-    <div id="team-members" class="l-section -team">
+    <div id="team" class="l-section -team">
       <div class="row">
         <div class="grid-s-12">
           <div class="l-section-description">
@@ -157,7 +167,7 @@
       <div class="row">
         <div class="grid-s-12 grid-m-6 grid-l-5">
           <div class="c-card-highlight -countries-about" style="background-image: url(<%= asset_path('about/map-about.svg') %>)">
-            <h3 class="title -dark -medium">Focus countries</h3>
+            <h3 class="title -dark -big">Focus countries</h3>
             <ul class="country-list">
               <% @countries.each do |country| %>
                 <li class="country-item"><a href="#" class="js-country" data-iso="<%= country[:iso] %>"><%= country[:name] %></a></li>
@@ -167,7 +177,7 @@
         </div>
       </div>
     </div>
-    <div id="advisory-board" class="l-section -advisory">
+    <div id="advisor" class="l-section -advisory">
       <div class="row">
         <div class="grid-s-12">
           <div class="l-section-description">
@@ -287,5 +297,3 @@
     </div>
   </div>
 </div>
-
-<%= render partial: 'shared/newsletter' %>

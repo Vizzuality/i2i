@@ -1,0 +1,77 @@
+<ul class="js-intro-slider introslides">
+<li class="introslide" style="background-image: url(<%= asset_path('homepage/image_home_1.png') %>)">
+    <div class="wrapper">
+      <div class="row">
+        <div class="c-hero -slider">
+          <div class="grid-s-12 grid-l-7 offset-l-5 offset-xl-5">
+            <h1 class="title -huge -light"><span class="highlighted">Unlocking<br /></span> the power of data for financial inclusion</h1>
+            <p class="subtitle">Insight2impact is a <span class="highlighted">resource centre</span> that generates insights through data, for impact in financial inclusion.</p>
+            <div class="established">
+              <span class="title-list">Established by</span>
+              <ul class="established-list">
+                <li class="established-item">
+                  <%= link_to image_tag('logos/cenfri.png',
+                    :alt => 'Cenfri',
+                    :width => '115'), 'http://cenfri.org/',
+                    :class => 'cenfri-logo',
+                    :target => '_blank',
+                    :rel => 'noopener'
+                  %>
+                </li>
+                <li class="established-item">
+                  <%= link_to image_tag('logos/fmt.png',
+                    :alt => 'Finmark Trust',
+                    :width => '115'), 'http://www.finmark.org.za/',
+                    :class => 'finmark-logo',
+                    :target => '_blank',
+                    :rel => 'noopener'
+                  %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="introslide" style="background-image: url(<%= asset_path('homepage/image_home_2.png') %>)">
+    <div class="wrapper">
+      <div class="row">
+        <div class="c-hero -slider">
+          <div class="grid-s-12 grid-l-7 offset-l-5 offset-xl-5">
+            <h1 class="title -huge -light">Are you a tech innovator?
+              <span class="highlighted"><br />Do you love data?</span>
+            </h1>
+            <p class="subtitle">
+              <span class="highlighted"><a href="http://www.datahack4fi.org/" target="_blank" rel="noopener noreferrer">Register</a></span>
+              for Season 2 of DataHack4FI.
+            </p>
+            <div class="established">
+              <span class="title-list">Established by</span>
+              <ul class="established-list">
+                <li class="established-item">
+                  <%= link_to image_tag('logos/cenfri.png',
+                    :width => '115',
+                    :alt => 'Cenfri'), 'http://cenfri.org/',
+                    :class => 'cenfri-logo',
+                    :target => '_blank',
+                    :rel => 'noopener'
+                  %>
+                </li>
+                <li class="established-item">
+                  <%= link_to image_tag('logos/fmt.png',
+                    :alt => 'Finmark Trust',
+                    :width => '115'), 'http://www.finmark.org.za/',
+                    :class => 'finmark-logo',
+                    :target => '_blank',
+                    :rel => 'noopener'
+                  %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

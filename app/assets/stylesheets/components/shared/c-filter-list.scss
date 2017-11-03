@@ -1,0 +1,33 @@
+.c-filter-list {
+  display: none;
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  padding: 5px;
+  background-color: $color-4;
+  box-shadow: 0 2px 8px 0 rgba($color-6, .15);
+
+  &.-open {
+    display: block;
+  }
+
+  .filter-list-item {
+    display: block;
+    padding: 5px;
+    color: $color-5;
+    font-weight: $font-weight-light;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color-1, .1);
+    }
+
+    &.-selected {
+      background-color: rgba($color-1, .1);
+    }
+  }
+
+  .itemtitle {
+    display: block;
+  }
+}

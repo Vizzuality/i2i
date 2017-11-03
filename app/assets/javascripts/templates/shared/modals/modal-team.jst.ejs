@@ -6,6 +6,20 @@
     <div class="scroll-container">
       <div class="content">
         <%= biography %>
+        <% if (blogs.length > 0) { %>
+          <div class="blogs">
+            <h5 class="title -dark -small">Blogs</h5>
+            <ul class="blog-link-list">
+              <% for(var i=0; i < blogs.length; i++) { %>
+                <li class="blog-link">
+                  <a href='/insights/blog/<%= blogs[i].slug %>?entity=blog'>
+                    <%= blogs[i].title %>
+                  </a>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+        <% } %>
       </div>
     </div>
   </div>

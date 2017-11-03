@@ -1,0 +1,156 @@
+.twitter-slider {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+
+  .slidelist {
+    width: 100%;
+  }
+
+  .slide {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 100%;
+    min-height: 350px;
+    background-color: $color-4;
+    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    overflow: hidden;
+  }
+
+  .tweet-row {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tweet {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+
+    @media#{$mq-tablet} {
+      &.-narrow {
+        padding-right: 30px;
+      }
+    }
+
+    .tweet-header {
+      > .user {
+        display: block;
+        color: $color-1;
+        font-family: $font-family-1;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-bold;
+      }
+
+      > .date {
+        display: block;
+        margin-top: 10px;
+        color: $color-6;
+        font-family: $font-family-1;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-bold;
+        opacity: .3;
+      }
+    }
+
+    .tweet-quote-mark {
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      color: $color-1;
+
+      &.-open {
+        top: 0;
+        right: 100%;
+      }
+
+      &.-close {
+        bottom: 0;
+        left: 100%;
+      }
+    }
+
+    .tweet-content {
+      position: relative;
+      margin: 20px 25px 0;
+
+      > .text {
+        padding: 0 10px;
+      }
+    }
+  }
+
+  .tweet-image {
+    position: relative;
+    height: 150px;
+    margin-right: -3%;
+    margin-left: -3%;
+    background-color: $color-4;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  // Selector to align with rslider library naming convention
+  .buttons_nav {
+    position: absolute;
+    top: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $color-1;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: $color-4;
+    text-decoration: none;
+    text-indent: -9999px;
+    opacity: 1;
+    overflow: hidden;
+    z-index: 2;
+
+    &.prev {
+      left: -15px;
+      background-image: url('../images/icons/arrow-previous.svg');
+    }
+
+    &.next {
+      right: -15px;
+      background-image: url('../images/icons/arrow-next.svg');
+    }
+  }
+}
+
+@media#{$mq-tablet} {
+  .twitter-slider {
+    .tweet-row {
+      flex-direction: row;
+    }
+
+    .buttons_nav {
+      &.prev {
+        left: -25px;
+      }
+
+      &.next {
+        right: -25px;
+      }
+    }
+
+    .tweet {
+      padding-top: 50px;
+      padding-bottom: 50px;
+
+      &.-narrow {
+        padding-right: 30px;
+      }
+    }
+
+    .tweet-image {
+      height: 350px;
+    }
+  }
+}

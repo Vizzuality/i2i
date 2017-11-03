@@ -84,6 +84,22 @@
         max-height: 400px;
       }
     }
+
+    .blogs {
+      margin-top: 15px;
+
+      .blog-link-list {
+        > .blog-link {
+          margin-top: 10px;
+          display: block;
+
+          > a {
+            color: $color-1;
+          }
+        }
+      }
+    }
+
   }
 
   & + .modal-footer {

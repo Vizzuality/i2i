@@ -1,0 +1,108 @@
+<% title 'Tools | i2i' %>
+
+<div class="l-tools">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-tools.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <h1 class="title -highlight -huge">i2i tools</h1>
+                <p class="subtitle">i2i’s interactive tools and databases.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="l-card-grid">
+        <div class="row js-masonry-cards">
+          <% if false %>
+          <div class="js-masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/i2i_Portal/Experts.php" target="_blank" alt="Find an Expert database" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('tools/experts.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Find an Expert database</h4>
+                  <p>Find an Expert is a database of companies and individuals who have expertise in data for financial inclusion.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <% end %>
+          <% if false %>
+          <div class="js-masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/i2i_Portal/Forum.php" target="_blank" alt="Discussion forum" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('tools/discussion-forum.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Discussion forum</h4>
+                  <p>General discussion forum for financial inclusion, free to join, use, and enjoy forever. Join today!</p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <% end %>
+          <div class="js-masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/Community/Questionnaire_design_tool/" target="_blank" alt="Questionnaire design tool" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('tools/questionnaire-design-tool.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Financial inclusion questionaire design tool</h4>
+                  <p>See how other questionaires asked a question or got that question answered, a taxonomy on questionnaire design.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <div class="js-masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/Community/Implementation_Guide/" target="_blank" alt="DSS implementation guide" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('tools/implementation-guide.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Demand-side survey implementation guide</h4>
+                  <p>A comprehensive guide on how to start, design and configure a demand-side survey.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <div class="masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/Community/Spatial_Data/" target="_blank" alt="Geospatial data" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('community/spatial-data.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Geospatial data</h4>
+                  <p>A geospatial data for financial inclusion (gis4FI) community that promotes learning, sharing, and support.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+          <div class="js-masonry-item grid-s-12 grid-m-6">
+            <article class="c-card">
+              <a href="http://access.i2ifacility.org/Behavioural_Science/" target="_blank" alt="DSS implementation guide" rel="noopener noreferrer">
+                <div class="picture" style="background-image: url(<%= asset_path('tools/behavioural-interventions.jpg') %>)"></div>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">Behavioural interventions for financial services</h4>
+                  <p>A database of rigorous behavioural science studies relating to people’s decisions to take-up or use financial products.</p>
+                </div>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
