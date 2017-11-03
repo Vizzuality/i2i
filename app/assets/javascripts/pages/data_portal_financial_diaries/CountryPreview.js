@@ -16,7 +16,7 @@
         }
       });
 
-      this._renderCharts();
+      if(gon.isFinancialDiaries) this._renderCharts();
     },
 
     _onClickAnchor: function (e) {
