@@ -148,7 +148,11 @@ class DataPortalFinancialDiariesController < ApplicationController
   def country_preview
     @countries = Country.all
     @country = Country.find_by(iso: params[:iso])
+    project_name = ProjectMetadatum.find_by(country_iso3: params[:iso]).project_name
+
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
+
+    gon.project_name = project_name;
   end
 end

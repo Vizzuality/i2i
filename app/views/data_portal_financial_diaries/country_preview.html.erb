@@ -44,6 +44,11 @@
               <p class="dataset-description">
                 The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members. The survey was conducted in the <mark>{province}</mark> region. Please note that the Financial Diaries are not a nationally representative dataset.
               </p>
+            </div>
+            <div class="grid-s-12">
+              <%# FD chart %>
+              <div class="c-widget -main _no-mobile" id="vis-main-chart"></div>
+              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile"></div>
               <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
                 class: "c-button -sea datasetbutton", data: { turbolinks: false } %>
             </div>
@@ -67,4 +72,6 @@
       <% end %>
     </div>
   </div>
+  <div id="vis-tooltip" class="vg-tooltip"></div>
+  <div id="vis-custom-tooltip" class="vg-tooltip"></div>
 </div>
