@@ -92,6 +92,12 @@
   .app-logo {
     position: absolute;
     bottom: 0;
+    left: 0;
+
+    @media screen and (orientation: landscape) {
+      right: 0;
+      left: auto;
+    }
 
     > a {
       display: inline-block;
