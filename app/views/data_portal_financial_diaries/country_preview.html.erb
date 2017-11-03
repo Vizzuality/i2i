@@ -42,7 +42,7 @@
             <div class="grid-s-12 grid-m-8">
               <h3 class="title -big -dark">Financial Diaries</h3>
               <p class="dataset-description">
-                The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members. The survey was conducted in the <mark>{province}</mark> region. Please note that the Financial Diaries are not a nationally representative dataset.
+                Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.
               </p>
               <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
                 class: "c-button -sea datasetbutton", data: { turbolinks: false } %>

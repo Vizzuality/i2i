@@ -6,6 +6,7 @@ class DataPortalFinancialDiariesController < ApplicationController
       country.financial_diaries.present? && country[:iso] != country_iso
     }
     @country = Country.find_by(iso: country_iso)
+    @country_financial_diaries = @country.financial_diaries
     @categories = HouseholdTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @selectedCategories = [{
