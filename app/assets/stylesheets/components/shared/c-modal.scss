@@ -19,8 +19,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: auto;
-    min-width: 880px;
+    width: 100%;
     // width: calc(100% - #{$wrapper-padding-mobile * 2});
     max-width: calc(100% - #{$wrapper-padding-mobile * 2});
     height: auto;
