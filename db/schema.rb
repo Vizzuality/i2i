@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921085749) do
+ActiveRecord::Schema.define(version: 20171102165204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "date"
     t.string   "author"
     t.string   "workstream"
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.boolean  "published"
     t.string   "custom_author"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
+    t.boolean  "is_featured",        default: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -72,6 +75,18 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "slug"
+    t.integer  "position"
+  end
+
+  create_table "category_usages", force: :cascade do |t|
+    t.string   "category_type"
+    t.string   "category_name"
+    t.string   "subcategory"
+    t.string   "project_name"
+    t.integer  "num_rows"
+    t.integer  "num_projects"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -131,8 +146,8 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "date"
     t.string   "author"
     t.string   "url"
@@ -140,6 +155,9 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.boolean  "published"
     t.string   "custom_author"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "event"
+    t.integer  "category_id"
+    t.boolean  "is_featured",        default: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -154,6 +172,110 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
+  create_table "household_income_tiers", force: :cascade do |t|
+    t.float    "min"
+    t.float    "max"
+    t.integer  "count"
+    t.integer  "ntile"
+    t.string   "project_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "household_member_transaction_histories", force: :cascade do |t|
+    t.integer  "household_member_transaction_id"
+    t.string   "value"
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.float    "total_transaction_value"
+    t.float    "avg_value"
+    t.float    "min_value"
+    t.float    "max_value"
+    t.float    "rolling_balance"
+    t.float    "business_expenses"
+    t.float    "withdrawals"
+    t.float    "deposits"
+    t.float    "new_borrowing"
+    t.float    "repayment"
+    t.datetime "date"
+    t.index ["avg_value"], name: "index_household_member_transaction_histories_on_avg_value", using: :btree
+    t.index ["household_member_transaction_id", "month", "year"], name: "index_household_member_histories_on_member_id_month_year", using: :btree
+    t.index ["month", "year"], name: "index_household_member_transaction_histories_on_month_and_year", using: :btree
+    t.index ["month"], name: "index_household_member_transaction_histories_on_month", using: :btree
+    t.index ["year"], name: "index_household_member_transaction_histories_on_year", using: :btree
+  end
+
+  create_table "household_member_transactions", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.string   "person_code"
+    t.string   "gender"
+    t.string   "relationship_to_head"
+    t.string   "employed"
+    t.string   "status"
+    t.string   "category_type"
+    t.string   "category_name"
+    t.string   "subcategory"
+    t.integer  "age"
+    t.integer  "num_accounts"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.float    "total_income"
+  end
+
+  create_table "household_subcategory_incomes", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.float    "value"
+    t.string   "subcategory"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "household_transaction_histories", force: :cascade do |t|
+    t.integer  "household_transaction_id"
+    t.string   "value"
+    t.integer  "month"
+    t.integer  "year"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.float    "total_transaction_value"
+    t.float    "avg_value"
+    t.float    "min_value"
+    t.float    "max_value"
+    t.float    "rolling_balance"
+    t.float    "business_expenses"
+    t.float    "withdrawals"
+    t.float    "deposits"
+    t.float    "new_borrowing"
+    t.float    "repayment"
+    t.datetime "date"
+    t.index ["avg_value"], name: "index_household_transaction_histories_on_avg_value", using: :btree
+    t.index ["household_transaction_id", "month", "year"], name: "index_household_histories_on_household_id_month_year", using: :btree
+    t.index ["month", "year"], name: "index_household_transaction_histories_on_month_and_year", using: :btree
+    t.index ["month"], name: "index_household_transaction_histories_on_month", using: :btree
+    t.index ["year"], name: "index_household_transaction_histories_on_year", using: :btree
+  end
+
+  create_table "household_transactions", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.string   "category_type"
+    t.string   "category_name"
+    t.string   "subcategory"
+    t.integer  "num_accounts"
+    t.integer  "num_members"
+    t.integer  "num_adults"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.float    "total_income"
+    t.index ["category_name"], name: "index_household_transactions_on_category_name", using: :btree
+    t.index ["category_type"], name: "index_household_transactions_on_category_type", using: :btree
+    t.index ["subcategory"], name: "index_household_transactions_on_subcategory", using: :btree
+  end
+
   create_table "indicators", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -162,8 +284,8 @@ ActiveRecord::Schema.define(version: 20170921085749) do
   end
 
   create_table "libraries", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "title"
     t.text     "summary"
     t.string   "image_file_name"
@@ -173,12 +295,32 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.datetime "date"
     t.string   "url_resource"
     t.string   "video_url"
-    t.integer  "subcategory_id"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "custom_author"
-    t.index ["subcategory_id"], name: "index_libraries_on_subcategory_id", using: :btree
+    t.string   "record_type",        default: "library"
+    t.integer  "category_id"
+    t.boolean  "is_featured",        default: false
+  end
+
+  create_table "member_income_tiers", force: :cascade do |t|
+    t.float    "min"
+    t.float    "max"
+    t.integer  "count"
+    t.integer  "ntile"
+    t.string   "project_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "member_subcategory_incomes", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "household_name"
+    t.string   "person_code"
+    t.float    "value"
+    t.string   "subcategory"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "members", force: :cascade do |t|
@@ -199,8 +341,8 @@ ActiveRecord::Schema.define(version: 20170921085749) do
   end
 
   create_table "news", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "title"
     t.text     "summary"
     t.text     "content"
@@ -214,6 +356,29 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.string   "slug"
     t.boolean  "published"
     t.integer  "subcategory_id"
+    t.string   "record_type",        default: "news"
+    t.integer  "category_id"
+    t.boolean  "is_featured",        default: false
+  end
+
+  create_table "project_metadata", force: :cascade do |t|
+    t.string   "project_name"
+    t.string   "name"
+    t.string   "country_iso2"
+    t.string   "country_iso3"
+    t.string   "currency_singular"
+    t.string   "currency_plural"
+    t.string   "currency_code"
+    t.string   "currency_symbol"
+    t.integer  "num_households_in_hh"
+    t.integer  "num_households_in_mem"
+    t.integer  "member_level_interviews"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "num_members_in_mem"
+    t.string   "province"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -223,16 +388,6 @@ ActiveRecord::Schema.define(version: 20170921085749) do
     t.datetime "updated_at"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
     t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
-  end
-
-  create_table "subcategories", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "category_id"
-    t.string   "slug"
-    t.index ["category_id"], name: "index_subcategories_on_category_id", using: :btree
   end
 
   create_table "tagged_items", force: :cascade do |t|
@@ -248,10 +403,23 @@ ActiveRecord::Schema.define(version: 20170921085749) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "slug"
+    t.boolean  "is_featured", default: false
+    t.text     "description"
+    t.string   "image_url"
+    t.string   "title"
   end
 
-  add_foreign_key "libraries", "subcategories"
-  add_foreign_key "subcategories", "categories"
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "token"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["token"], name: "index_users_on_token", using: :btree
+  end
+
 end

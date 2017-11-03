@@ -1,0 +1,81 @@
+<% title 'i2i data portal' %>
+
+<div class="l-preview-country">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <div class="row">
+                  <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+                  <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
+                    Extract insights into new markets, including informal markets.
+                    Compare indicators across countries and time periods.
+                    <a href="#financial-diaries-dataset" data-turbolinks="false" class="js-anchor">Financial diaries,</a>
+                    <a href="#finscope-dataset" data-turbolinks="false" class="js-anchor">FinScope dataset.</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content" id="financial-diaries-dataset">
+    <div class="wrapper">
+      <% if @country_financial_diaries.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark">Financial Diaries</h3>
+              <p class="dataset-description">
+                The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and
+                ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %>
+                </span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %>
+                </span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the
+                <span><%= @country_financial_diaries[:province] %></span> region.<% end %> Please note that the Financial Diaries are not a nationally representative dataset.
+              </p>
+            </div>
+            <div class="grid-s-12">
+              <%# FD chart %>
+              <div class="c-widget -main _no-mobile" id="vis-main-chart"></div>
+              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile"></div>
+              <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
+                class: "c-button -sea datasetbutton", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @country_finscope.present? %>
+        <section class="dataset" id="finscope-dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark">FinScope</h3>
+              <p class="dataset-description">
+                The FinScope methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. FinScope methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
+              </p>
+              <%= link_to "Discover FinScope data", data_portal_y_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+                class: "c-button -sea datasetbutton", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
+    </div>
+  </div>
+  <div id="vis-tooltip" class="vg-tooltip"></div>
+  <div id="vis-custom-tooltip" class="vg-tooltip"></div>
+</div>

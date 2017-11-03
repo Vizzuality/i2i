@@ -11,13 +11,13 @@
 #
 
 class Category < ApplicationRecord
-  has_many :subcategories
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+  
   validates_presence_of :name
   validates_uniqueness_of :name
-  before_validation :generate_slug
 
-  private
-    def generate_slug
-      write_attribute(:slug, self.name.parameterize)
-    end
+  def should_generate_new_friendly_id?
+    name_changed?
+  end
 end

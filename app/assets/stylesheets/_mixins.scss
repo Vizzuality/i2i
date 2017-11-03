@@ -46,3 +46,25 @@
     border-right: 0;
   }
 }
+
+@mixin translate_content() {
+  padding-top: 50px;
+
+  @media #{$mq-laptop} {
+    padding-top: 50px;
+  }
+}
+
+@mixin header_veil($size: 50px) {
+  &:before {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $size;
+    background-color: $color-1;
+    content: '';
+    z-index: 1;
+  }
+}

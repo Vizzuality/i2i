@@ -1,20 +1,162 @@
 .c-footer {
-  padding: 30px 0 0;
 
-  @media #{$mq-tablet} {
-    padding: 0;
+  .footer-header {
+    padding: 40px 0;
+    background-image: asset-url('footer-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: $color-5;
+
+    .header-item {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 150px;
+
+      &.-contact-us {
+        &::before {
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: rgba($color-5, .2);
+          content: '';
+        }
+      }
+
+      &.-newsletter {
+        margin-bottom: 40px;
+      }
+
+      @media #{$mq-tablet} {
+        min-height: 250px;
+
+        &.-contact-us {
+          padding-left: 50px;
+
+          &::before {
+            bottom: 0;
+            left: -1%;
+            width: 1px;
+            height: 100%;
+          }
+        }
+
+        &.-newsletter {
+          margin-bottom: 0;
+          padding-right: 50px;
+        }
+      }
+    }
+
+    .text {
+      display: inline-block;
+      font-weight: $font-weight-semi-bold;
+      line-height: 22px;
+
+      &.-leading {
+        margin-top: 20px;
+      }
+
+      &.-highlight {
+        color: $color-5;
+        text-decoration: underline;
+      }
+
+      &.-button {
+        padding: 0;
+        cursor: pointer;
+      }
+
+      &.-twitterlink {
+        display: block;
+      }
+    }
   }
 
-  background-image: asset-url('footer-bg.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  .footer-content {
+    padding: 32px 0 0;
+    background: $color-5;
 
-  .container-logo-mobile {
-    display: flex;
-    justify-content: center;
+    .pre-footer {
+      position: relative;
 
-    @media #{$mq-tablet} {
-      display: none;
+      @media #{$mq-laptop} {
+        margin: 0 0 45px;
+      }
+    }
+
+    .social {
+
+      .title {
+        color: rgba($color-4, .5);
+        font-size: $font-size-small;
+      }
+
+      .social-list {
+        display: flex;
+        margin: 7px 0 0;
+
+        > .social-item {
+
+          &:not(:first-child) {
+            margin: 0 0 0 20px;
+          }
+
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 10px;
+            }
+          }
+
+          svg {
+            fill: rgba($color-4, .5);
+
+            &:hover {
+              fill: $color-4;
+            }
+          }
+        }
+
+        .social-link {
+          display: inline-block;
+          padding: 5px;
+
+          @media #{$mq-desktop} {
+            &:not(:first-child) {
+              margin: 0 0 0 15px;
+            }
+          }
+        }
+      }
+    }
+
+    .partners {
+      margin: 0 0 45px;
+
+      .title {
+        color: rgba($color-4, .5);
+        font-size: $font-size-small;
+      }
+
+      @media #{$mq-laptop} {
+        margin-bottom: 0;
+      }
+
+      @media #{$mq-desktop} {
+        margin-top: 0;
+      }
+
+      .partner-group {
+        margin: 45px 0 0;
+
+        @media #{$mq-desktop} {
+          margin: 0;
+        }
+      }
     }
   }
 
@@ -25,7 +167,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 35px 0 15px;
-    border-top: 1px solid rgba($color-1, .5);
+    border-top: 1px solid rgba($color-4, .2);
 
     @media #{$mq-tablet} {
       padding: 25px 0;
@@ -41,10 +183,7 @@
       flex-basis: 50%;
       flex-shrink: 0;
       margin-bottom: 20px;
-
-      @media #{$mq-tablet} {
-        flex-basis: 20%;
-      }
+      text-align: center;
 
       @media #{$mq-body-width} {
         flex-basis: auto;
@@ -53,65 +192,9 @@
       }
 
       a {
-        font-size: $font-size-xxs;
-        font-family: $font-family-2;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-small;
         color: $color-4;
-      }
-
-      > span {
-        position: relative;
-        padding: 0 20px 0 0;
-        font-size: $font-size-xs;
-        font-family: $font-family-2;
-        color: $color-2;
-        cursor: pointer;
-
-        // hack to keep tooltip open
-        &::before {
-          position: absolute;
-          bottom: 100%;
-          left: 0;
-          width: 100%;
-          height: 15px;
-          content: '';
-        }
-
-        &::after {
-          @include arrow(8px, 2px, $color-2, 'down');
-          position: absolute;
-          top: 50%;
-          transform: translate(10px, calc(-50% - 3px)) rotate(45deg);
-        }
-      }
-
-      &.-followus {
-        margin-right: 0;
-
-        @media #{$mq-body-width} {
-          margin-right: 20px;
-        }
-      }
-
-      &.-vizzuality {
-        flex-grow: 1;
-        margin-right: 0;
-        flex-basis: 100%;
-        margin-top: 20px;
-        text-align: center;
-        font-size: $font-size-s;
-        color: $color-4;
-
-        @media #{$mq-body-width} {
-          flex-basis: auto;
-          margin-top: 0;
-          text-align: right;
-        }
-
-        img {
-          display: inline-block;
-          width: 60px;
-          vertical-align: middle;
-        }
       }
     }
   }
@@ -120,24 +203,21 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    padding: 50px 0 20px;
-
-    @media #{$mq-tablet} {
-      padding: 60px 0;
-    }
+    padding: 10px 0 0;
 
     .partner-item {
-      flex-basis: 50%;
-      flex-shrink: 0;
-      flex-grow: 0;
-      margin-bottom: 30px;
-      overflow: hidden;
-      text-align: center;
 
-      @media #{$mq-tablet} {
-        flex-basis: 25%;
-        margin-bottom: 0;
+      &:not(:first-child) {
+        margin: 0 0 0 30px;
+      }
+
+      a  {
+        display: inline-block;
+        color: rgba($color-4, .5);
+
+        &:hover {
+          color: $color-4;
+        }
       }
 
       &:first-of-type {
@@ -156,15 +236,15 @@
 
       img {
         max-width: 100%;
+        filter: opacity(.5);
+
+        &:hover {
+          filter: opacity(1);
+        }
 
         @media #{$mq-tablet} {
-          max-width: auto;
+          width: auto;
         }
-      }
-
-      > .finscope-logo > img {
-        opacity: .6;
-        max-height: 68px;
       }
 
       > .mastercard-logo > img {
@@ -172,11 +252,11 @@
       }
 
       > .finmark-logo > img {
-        max-height: 68px;
+        max-height: 50px;
       }
 
       > .cenfri-logo > img {
-        max-height: 55px;
+        max-height: 34px;
         opacity: .8;
       }
 

@@ -1,0 +1,56 @@
+<div class="l-indicator-menu">
+  <ul class="indicator-menu js-filters">
+    <% @categories.each do |category| %>
+      <li class="indicator-item">
+        <%= check_box_tag(category[:value],
+          value = category[:value],
+          checked = @selectedCategories.find { |cat| cat['type'] == category[:value] && cat['visible'] == true }.present?,
+          options = {
+            class: "filterinput js-category-visibility"
+          }) %>
+        <label
+          class="visibility-indicator"
+        ></label>
+        <label
+          class="indicator-group-name"
+        > <%= category[:name] %> </label>
+          <label
+            class="indicator-selected js-gm-label"
+          data-parent="<%= category[:value] %>"
+        >
+          <% if (@selectedCategories.find { |cat| cat['type'] == category[:value] && cat['subcategory'] != nil }.present?) %>
+            <span>
+              <%= @selectedCategories.find { |cat| cat['type'] == category[:value] }['subcategory'] %>
+            </span>
+          <% else %>
+            <span>
+              <%= category[:name] %>
+            </span>
+          <% end %>
+        </label>
+        <ul class="c-submenu-list js-gm-menu">
+          <%# Default "all" option for all categories %>
+          <li class="submenu-item">
+            <span
+              class="literal js-category-child-option"
+              data-parent="<%= category[:value] %>"
+            >
+              All <%= category[:name] %>
+            </span>
+          </li>
+          <% category[:children].each do |children| %>
+            <li class="submenu-item <% if (@selectedCategories.find { |cat| cat['type'] == category[:value] && cat['subcategory'] == children[:value] }) %> -selected <%end %>">
+              <span
+                class="literal js-category-child-option"
+                data-parent="<%= category[:value] %>"
+                data-category="<%= children[:value] %>"
+              >
+                <%= children[:name] %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -3,24 +3,16 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  height: $card-height;
   margin: 0 0 $card-bottom-margin;
 
   background: $color-4;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
 
-  > a {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-
   .picture {
     display: flex;
     flex: 1;
     width: 100%;
-    height: 100%;
+    height: 140px;
 
     background-color: $color-1;
     background-repeat: no-repeat;
@@ -30,17 +22,11 @@
 
   .metadata {
     width: 100%;
-    padding: 30px;
+    padding: 25px;
     background-color: $color-4;
 
-    pointer-events: none;
-
-    .title {
-      line-height: 20px;
-
-      &:not(:first-child) {
-        margin: 10px 0 0;
-      }
+    > .title {
+      line-height: 28px;
     }
 
     > * + p  {
@@ -56,42 +42,59 @@
       align-items: flex-end;
       justify-content: space-between;
       margin: 15px 0 0;
-
-      > a {
-        pointer-events: all;
-      }
     }
   }
 
-  &.-horizontal {
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid $border-color;
+    padding: 15px 25px;
 
-    @media #{$mq-tablet} {
-      height: 280px;
-
-      > a {
-        flex-direction: row;
-      }
-
-      .picture {
-        width: 50%;
-        height: 100%;
-      }
-
-      .metadata {
-        width: 50%;
-      }
-
-      &.-reverse {
-        > a {
-          flex-direction: row-reverse;
-        }
-      }
+    .date {
+      font-size: $font-size-small;
+      font-weight: $font-weight-bold;
+      color: rgba($color-5, .3);
     }
 
-    @media #{$mq-laptop} {
-      height: 190px;
+    .card-category {
+      font-size: $font-size-small;
+      font-weight: $font-weight-bold;
+      color: $color-1;
+      letter-spacing: 1px;
     }
   }
+
+  // &.-horizontal {
+
+  //   @media #{$mq-tablet} {
+  //     height: 280px;
+
+  //     > a {
+  //       flex-direction: row;
+  //     }
+
+  //     .picture {
+  //       width: 50%;
+  //       height: 100%;
+  //     }
+
+  //     .metadata {
+  //       width: 50%;
+  //     }
+
+  //     &.-reverse {
+  //       > a {
+  //         flex-direction: row-reverse;
+  //       }
+  //     }
+  //   }
+
+  //   @media #{$mq-laptop} {
+  //     height: 190px;
+  //   }
+  // }
 
   &.-highlighted {
 

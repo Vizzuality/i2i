@@ -22,12 +22,20 @@ gem 'sass-rails', '~> 5.0'
 gem 'sparkpost_rails'
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 gem 'uglifier', '>= 1.3.0'
+gem 'activerecord-import', '~> 0.15.0'
+gem 'http'
+gem 'redis-rails'
+
+# CORS
+gem 'rack-cors'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-d3', '~> 3.5.16'
   gem 'rails-assets-datalib', '1.7.3'
   gem 'rails-assets-fuse'
   gem 'rails-assets-vega', '~> 2.6.5'
+  gem 'rails-assets-masonry', '~>4.2.0'
+  gem 'rails-assets-jquery.responsive-slides'
 end
 
 gem 'dotenv-rails', '~> 2.1'
@@ -45,11 +53,12 @@ gem 'ckeditor', github: 'galetahub/ckeditor'
 
 gem 'enumerate_it'
 gem 'valid_url'
+gem 'twitter'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug', platform: :mri
