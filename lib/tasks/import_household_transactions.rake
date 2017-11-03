@@ -374,4 +374,20 @@ namespace :db do
       ProjectMetadatum.find_by(name: province[0]).update_column(:province, province[1])
     end
   end
+
+  task create_missing_countries: :environment do
+    countries = [
+      ['Mexico', 'MEX'],
+      ['South Africa', 'ZAF'],
+      ['Botswana', 'BWA'],
+      ['Mauritius', 'MUS'],
+      ['Malawi', 'MWI'],
+      ['Namibia', 'NAM'],
+      ['Seychelles', 'SYC']
+    ]
+
+    countries.each do |country|
+      Country.find_or_create_by(name: country[0], iso: country[1])
+    end
+  end
 end
