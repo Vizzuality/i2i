@@ -1,8 +1,0 @@
-"project_id","project_name","start_date","end_date","name","country_iso2","country_iso3","currency_singular","currency_plural","currency_code","currency_symbol","num_households_in_hh","num_households_in_mem","num_members_in_mem","member_level_interviews"
-"34","India Financial Diaries","2012-09-03","2013-04-30","India","IN","IND","Indian Rupee","Rupees","INR","Rs","86","86","376","0"
-"35","Kenya Financial Diaries","2012-05-21","2014-01-31","Kenya","KE","KEN","Kenyan Shilling","Shillings","KES","Sh","298","298","871","1"
-"37","Mexico Financial Diaries","2013-01-15","2014-12-01","Mexico","MX","MEX","Mexican Peso","Pesos","MXN","$","186","186","681","1"
-"70","Smallholders Mozambique","2014-02-03","2015-12-31","Mozambique","MZ","MOZ","Metical","Meticais","MZN","MTn","93","93","238","1"
-"68","Smallholders Pakistan","2014-02-03","2015-12-31","Pakistan","PK","PAK","Pakistan Rupee","Rupees","PKR","₨","94","94","490","1"
-"71","Smallholders Tanzania","2014-02-03","2015-12-31","Tanzania","TZ","TZA","Tanzanian Shilling","Shillings","TZS","x/y","88","88","199","1"
-"32","South Africa GAFIS","2012-05-14","2013-01-18","South Africa","ZA","ZAF","South African Rand","Rand","ZAR","R","67","67","216","0"
