@@ -29,9 +29,11 @@ class DataPortalFinancialDiariesController < ApplicationController
       @household = filters['household'] || nil
       @type = filters['type'];
       @currentMainIncomes = @main_incomes[@type.to_sym]
+      @currentIncomeRanges = @income_ranges[@type.to_sym]
     else
       @type = 'households'
       @currentMainIncomes = @main_incomes[:households]
+      @currentIncomeRanges = @income_ranges[:households]
     end
 
     # common filters here
@@ -44,24 +46,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @income_tier_options = {
       name: 'income_tier',
       label: 'Income level',
-      children: [
-        {
-          name: '1',
-          value: '1'
-        },
-        {
-          name: '2',
-          value: '2'
-        },
-        {
-          name: '3',
-          value: '3'
-        },
-        {
-          name: '4',
-          value: '4'
-        }
-      ]
+      children: @currentIncomeRanges
     }
 
     if @type == 'households'

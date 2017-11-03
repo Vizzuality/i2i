@@ -11,7 +11,7 @@
             <% if (currentValue['value'] == 'all') %>
               <%= filter[:label] %>
             <% else %>
-              <%= filter[:children].find { |f| f[:name] == currentValue['value'].to_s }[:name] %>
+              <%= filter[:children].find { |f| f[:value] == currentValue['value']}[:name] %>
             <% end %>
           <% else %>
             <%= filter[:label] %>
