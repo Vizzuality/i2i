@@ -48,22 +48,6 @@
                 <%= children[:name] %>
               </span>
             </li>
-            <% category[:children].each do |children| %>
-              <li class="filterlistitem">
-                <span
-                  class="itemtitle js-category-option"
-                  data-parent="<%= category[:name] %>"
-                  data-category="<%= children[:name] %>"
-                >
-                  <%= children[:name] %>
-                </span>
-              </li>
-            <% end %>
-          </ul>
-        </liv>
-      <% end %>
-    </ul>
-  <% end %>
           <% end %>
         </ul>
       </li>
