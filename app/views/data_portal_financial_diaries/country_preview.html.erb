@@ -42,7 +42,11 @@
             <div class="grid-s-12 grid-m-8">
               <h3 class="title -big -dark">Financial Diaries</h3>
               <p class="dataset-description">
-                The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the <span><%= @country_financial_diaries[:province] %></span> region<% end %>. Please note that the Financial Diaries are not a nationally representative dataset.
+                The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and
+                ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %>
+                </span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %>
+                </span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the
+                <span><%= @country_financial_diaries[:province] %></span> region.<% end %> Please note that the Financial Diaries are not a nationally representative dataset.
               </p>
             </div>
             <div class="grid-s-12">
