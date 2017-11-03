@@ -103,7 +103,7 @@
           "income",
           "expense",
           "savings",
-          "credits"
+          "credit"
         ]
       }
     ],
@@ -818,6 +818,11 @@
                 "x2": {
                   "signal": "brush[1]"
                 }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "pointer"
+                }
               }
             }
           },
@@ -1192,6 +1197,11 @@
                 },
                 "y": {
                   "signal": "yBrush[1]"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "pointer"
                 }
               }
             }

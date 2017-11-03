@@ -105,7 +105,7 @@
         "income",
         "expense",
         "savings",
-        "credits"
+        "credit"
       ]
     }],
     "legends": [{
