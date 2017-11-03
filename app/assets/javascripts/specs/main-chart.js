@@ -110,7 +110,8 @@
     "legends": [
       {
         "stroke": "color",
-        "padding": 20,
+        "padding": 0,
+        "offset": 50,
         "orient": "bottom",
         "encode": {
           "legend": {},
@@ -151,7 +152,8 @@
       },
       {
         "stroke": "color",
-        "padding": 20,
+        "padding": 30,
+        "offset": 20,
         "orient": "bottom",
         "values": [
           "mean"
