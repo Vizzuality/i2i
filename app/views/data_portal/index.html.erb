@@ -1,126 +1,117 @@
 <% title 'i2i data portal' %>
 
 <div class="l-data-portal">
-  <div class="l-intro" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
-    <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: true }%>
-    </div>
-
-    <div class="l-title">
+  <div class="l-intro js-hero">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row">
-          <div class="c-hero">
-            <div class="grid-l-8">
-              <div class="row">
-                <h1 class="title -light -huge">i2i data portal</h1>
-                <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world. Extract insights into new markets, including informal markets. Compare indicators across countries and time periods.</p>
-              </div>
-            </div>
-            <!--<div class="grid-s-12 grid-l-8">
-              <div class="row">
-                <div class="l-data-stats">
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Datasets</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Household surveys</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
-                  <div class="grid-s-4 grid-l-3">
-                    <div class="data-stats-item">
-                      <span class="data-stats-title">Geospatial data</span>
-                      <span class="data-stats-value"></span>
-                    </div>
-                  </div>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-data.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-8">
+                <div class="row">
+                  <h1 class="title -light -huge">i2i data portal</h1>
+                  <p class="subtitle">
+                    Let the data speak to you. Delve into the latest financial inclusion datasets from around the world. Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <a href="#finscope-dataset" class="js-anchor">FinScope</a>, and then deepen your understanding of how low-income households manage their financial lives using <a href="#financial-diaries-dataset" class="js-anchor">financial diaries</a>.
+                  </p>
+                  <a href=".l-country-list" class="c-button -white -big js-anchor">select country</a>
                 </div>
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="wrapper">
-      <div class="l-card-grid">
-        <div class="row countries-list js-countries"></div>
-        <!--
-        <div class="row">
-          <div class="grid-s-12">
-            <div class="grid-footer">
-              <a href="#" class="c-button -medium -sea">Compare countries</a>
+      <section class="l-dataset -finscope" id="finscope-dataset">
+        <div class="row data-portal-row">
+          <div class="grid-s-12 grid-m-6">
+            <h3 class="title -big -dark">FinScope</h3>
+            <ul class="c-stats-list">
+              <li class="item">
+                <h4 class="description">Countries</h4>
+                <span class="value">14</span>
+              </li>
+              <li class="item -last">
+                <h4 class="description">Datasets</h4>
+                <span class="value">26</span>
+              </li>
+            </ul>
+            <p class="dataset-description">
+              FinScope consumer surveys (which are nationally representative surveys of adults in a particular country) demonstrate how people source their income and manage their financial lives. Providing a view on the levels of financial inclusion within a country, they are of value to policymakers and researchers who are looking to improve the functioning of financial markets.
+            </p>
+          </div>
+          <div class="grid-s-12 grid-m-5 offset-m-1">
+            <div class="datasetimagewrapper">
+              <%= image_tag('data-portal/data-portal-dashboard-1.jpg',
+                :alt => 'Data portal dashboard',
+                :class => 'datasetimage -right')
+              %>
             </div>
           </div>
         </div>
-        -->
-      </div>
-    </div>
-
-    <!-- This section needs its data (recent activity list) to be defined  -->
-    <!-- <section class="recent-activity">
-      <h2 class="title -dark -big">Recent activity</h2>
-      <div class="l-card-grid">
-        <div class="row">
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_1.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 1</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
+      </section>
+      <section class="l-dataset -financial-diaries" id="financial-diaries-dataset">
+        <div class="row data-portal-row -reverse">
+          <div class="grid-s-12 grid-m-6">
+            <div class="datasetimagewrapper">
+              <%= image_tag('data-portal/data-portal-dashboard-2.jpg',
+                :alt => 'Data portal dashboard',
+                :class => 'datasetimage -left')
+              %>
+            </div>
           </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_2.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 2</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
+          <div class="grid-s-12 grid-m-5 offset-m-1">
+            <h3 class="title -big -dark">Financial Diaries</h3>
+            <ul class="c-stats-list">
+              <li class="item">
+                <h4 class="description">Countries</h4>
+                <span class="value">6</span>
+              </li>
+              <li class="item -last">
+                <h4 class="description">Datasets</h4>
+                <span class="value">6</span>
+              </li>
+            </ul>
+            <p class="dataset-description">
+              Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.
+            </p>
           </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_3.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 3</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-          <div class="grid-s-12 grid-m-6 grid-l-3">
-            <article class="c-card">
-              <a href="#">
-                <div class="picture" style="background-image: url(<%= asset_path('placeholders/placeholder_4.jpg') %>)"></div>
-                <div class="metadata">
-                  <h4 class="title -dark -xs">Recent Activity 4</h4>
-                  <h4 class="title -sea -small">Sept 23, 2014</h4>
-                  <p>Lorem ipsum quisquam est qui dolorem ipsum quia dolor sit amet</p>
-                </div>
-              </a>
-            </article>
-          </div>
-
         </div>
-      </div>
-    </section> -->
+      </section>
+      <section class="l-country-list">
+        <header>
+          <h3 class="title -big -dark">Select country</h3>
+          <p>
+            Please click on the country’s flag below to view the datasets available for that country.
+          </p>
+        </header>
+        <div class="l-card-grid">
+          <div class="row">
+            <% @countries.each do |country| %>
+              <% if country.has_dataset %>
+                <div class="grid-s-6 grid-m-6 grid-l-4">
+                  <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
+                    <%= link_to 'Go to the ' + country[:name] + ' portal', data_portal_country_preview_path(country[:iso]), data: { turbolinks: false }  %>
+                    <span class="country-name"><%= country[:name] %></span>
+                  </article>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </div>
-
-<%= render partial: 'shared/contribute' %>
-<%= render partial: 'shared/newsletter' %>

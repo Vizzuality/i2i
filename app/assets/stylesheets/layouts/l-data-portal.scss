@@ -1,5 +1,12 @@
 .l-data-portal {
 
+  .c-hero {
+    .c-button {
+      position: relative;
+      margin-top: 40px;
+    }
+  }
+
   .l-data-stats {
     display: flex;
     margin: 10px 0 0;
@@ -36,17 +43,22 @@
   }
 
   .l-content {
-    transform: translate(0, -50px);
-
-    @media #{$mq-laptop} {
-      margin: 0 0 45px;
-    }
 
     section {
-      margin: 40px 0 0;
+      &:not(:first-child) {
+        margin: 40px 0 0;
 
-      @media #{$mq-laptop} {
-        margin: 85px 0 0;
+        @media #{$mq-laptop} {
+          margin: 85px 0 0;
+        }
+      }
+
+      &.l-country-list {
+        border-top: 1px solid rgba($color-1, .2);
+
+        > header {
+          margin: 75px 0 0;
+        }
       }
 
       .l-card-grid {
@@ -56,6 +68,26 @@
 
     .countries-list {
       min-height: 500px;
+    }
+  }
+
+
+
+  .data-portal-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.-reverse {
+      flex-direction: column-reverse;
+    }
+
+    @media #{$mq-tablet} {
+      flex-direction: row;
+
+      &.-reverse {
+        flex-direction: row;
+      }
     }
   }
 }

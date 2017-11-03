@@ -1,8 +1,5 @@
 .l-privacy-policy {
-
-  > .l-intro {
-    padding: 0 0 25px;
-  }
+  @include translate_content;
 
   .row {
     display: flex;

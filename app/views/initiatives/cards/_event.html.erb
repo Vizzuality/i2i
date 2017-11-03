@@ -1,0 +1,14 @@
+<article class="c-card">
+  <a href="<%= initiatives_show_path(event.record_type, event.slug, { entity: event.record_type }) %>" alt="<%= event.title %>">
+    <div class="picture" style="background-image: url(<%= event.image %>)"></div>
+  </a>
+  <div class="metadata">
+    <h4 class="title -dark -regular"><%= event.title %></h4>
+    <p><%= event.summary %></p>
+  </div>
+  <footer class="footer">
+    <h4 class="date"><%= DateHelper.beautify event.date %></h4>
+    <span class="card-category"><%= event.category.name %></span>
+  </footer>
+</article>
+

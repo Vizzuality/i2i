@@ -11,15 +11,28 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
-  get 'community' => 'community#index'
-
+  # Data Portal
   get 'data-portal' => 'data_portal#index'
+
+  # Data Portal - Financial Diaries
+  get 'data-portal/:iso/financial-diaries', to: 'data_portal_financial_diaries#index',
+                                            as: 'data_portal_financial_diaries'
+
+  # Data Portal - FinScope Data
   get 'data-portal/:iso/:year', to: 'data_portal#show',
                                 as: 'data_portal_y'
   get 'data-portal/indicator', to: 'data_portal/indicator#show',
                                as: 'data_portal_indicator'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
+
+  # Data Portal - Financial Diaries
+  get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
+                                                                             as: 'data_portal_country_preview'
+
+  # Data Portal - Financial Diaries - embed
+  get 'data-portal/:iso/financial-diaries/embed/:chart_type' => 'data_portal_financial_diaries_embed#index', to: 'data_portal_financial_diaries_embed#index',
+                                                                                           as: 'data_portal_financial_diaries_embed'
 
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
@@ -28,7 +41,41 @@ Rails.application.routes.draw do
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
 
+  get 'search' => 'searches#index'
+
   resource :contacts, only: :create
+
+  scope :format => true, :constraints => { :format => 'json' } do
+    post   "/login"       => "sessions#create"
+    delete "/logout"      => "sessions#destroy"
+  end
+
+  # Insights
+  get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
+  get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  get 'insights', to: 'insights#index'
+
+  # Initiatives
+  get 'initiatives/:tag/:slug', to: 'initiatives#show', as: 'initiatives_show'
+  get 'initiatives/:tag', to: 'initiatives#filter_index', as: 'initiatives_filter_index'
+  get 'initiatives', to: 'initiatives#index'
+
+  # Tools
+  get 'tools' => 'tools#index'
+
+  namespace :fdapi do
+    resources :household_transactions, only: [:index, :show]
+    resources :household_member_transactions, only: [:index, :show]
+    resources :category_usages, only: [:index, :show]
+    resources :project_metadata, only: [:index, :show]
+
+    get 'households/project_min_max/:project_name', to: 'project_metadata#project_min_max_households'
+    get 'members/project_min_max/:project_name', to: 'project_metadata#project_min_max_members'
+    get 'households/project_means/:project_name', to: 'project_metadata#project_means_households'
+    get 'members/project_means/:project_name', to: 'project_metadata#project_means_members'
+    get 'households/monthly_values/:project_name', to: 'household_transactions#monthly_values'
+    get 'members/monthly_values/:project_name', to: 'household_member_transactions#monthly_values'
+  end
 
   namespace :updates do
     get 'news/preview', to: 'news#preview'

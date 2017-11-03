@@ -1,0 +1,18 @@
+.l-dataset {
+  .datasetimage {
+    display: block;
+    width: 100%;
+  }
+
+  .datasetimagewrapper {
+    @media #{$mq-mobile} {
+      height: 300px;
+      overflow-y: hidden;
+    }
+
+    @media #{$mq-tablet} {
+      height: auto;
+      overflow: visible;
+    }
+  }
+}

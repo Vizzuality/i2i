@@ -28,6 +28,14 @@ class Member < ApplicationRecord
 
   validates_presence_of :name
 
+  def image_url
+    image.url
+  end
+
+  def blogs
+    Blog.author(name)
+  end
+
   private
     def generate_slug
       write_attribute(:slug, self.name.parameterize)

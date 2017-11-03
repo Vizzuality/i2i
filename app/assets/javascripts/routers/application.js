@@ -5,10 +5,7 @@ var Router = Backbone.Router.extend({
 
   routes: {
     '': '_homePage',
-    'news/:id(/)': '_newsPage',
-    'updates(/)': '_updatesPage',
-    'updates/events(/)': '_eventsPage',
-    'resources(/)(:category)': '_libraryPage',
+    'insights(/)(:category)': '_insightsPage',
     'about(/)': '_aboutPage',
     'terms-of-use(/)': '_termsOfUsePage'
   },
@@ -25,47 +22,35 @@ var Router = Backbone.Router.extend({
     new App.Page.HomePage();
   },
 
-  _newsPage: function () {
+  _insightsPage: function () {
     // Don't forget to stop the router on each route
     // otherwise you'll break the browser's back button
     Backbone.history.stop();
 
-    new App.Page.NewsPage();
+    new App.Page.InsightsPage();
   },
 
-  _updatesPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
+  _aboutPage: function (p) {
+    var params = (p || '')
+      .split('&')
+      .map(function (param) {
+        return {
+          name: param.split('=')[0],
+          value: param.split('=')[1]
+        };
+      })
+      .reduce(function (res, param) {
+        res[param.name] = param.value;
+        return res;
+      }, {});
 
-    new App.Page.UpdatesPage();
-  },
-
-  _eventsPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.EventsPage();
-  },
-
-  _libraryPage: function (category) {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.LibraryPage({
-      categories: gon.categories.categories,
-      selectedCategory: category
+    new App.Page.AboutPage({
+      memberModal: {
+        slug: params.member || null,
+        role: params.role || null
+      },
+      linkTo: params.linkTo
     });
-  },
-
-  _aboutPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.AboutPage();
   },
 
   _termsOfUsePage: function () {
@@ -78,16 +63,22 @@ var Router = Backbone.Router.extend({
 
 
 var init = function () {
-  var router = new Router();
+  App.Router.Application = new Router();
+
+  if(document.querySelector('html').classList.contains('_no-scroll')) {
+    document.querySelector('html').classList.remove('_no-scroll');
+  }
 
   // Don't touch these two lines without testing if the
-    // browser's back and forward buttons aren't broken
+  // browser's back and forward buttons aren't broken
   Backbone.history.stop();
   Backbone.history.start({ pushState: true });
 
   new App.View.MobileMenu();
-  new App.View.Footer();
   new App.View.Newsletter();
+  new App.View.Cards();
+  new App.Component.SocialNav();
+  new App.Component.FixedNav();
 };
 
 document.addEventListener('turbolinks:load', init);

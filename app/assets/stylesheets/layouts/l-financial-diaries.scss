@@ -1,0 +1,10 @@
+.l-financial-diaries {
+
+  .grid-footer {
+    display: flex;
+
+    &.-end {
+      justify-content: flex-end;
+    }
+  }
+}

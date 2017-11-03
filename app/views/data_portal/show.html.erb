@@ -13,29 +13,47 @@
       </header>
     </div>
   </div>
-  <div class="l-header">
+<!--   <div class="l-header">
     <div class="wrapper">
-      <%= render partial: 'shared/header', locals: { isCover: false }%>
+      <%#= render partial: 'shared/header', locals: { isCover: false } #%>
     </div>
-  </div>
+  </div> -->
 
-  <div class="l-intro">
-    <div class="l-title">
+  <div class="l-intro js-hero">
+    <div class="nav">
       <div class="wrapper">
-        <div class="row js-header">
-        </div>
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
-    <div class="l-switcher _no-desktop">
-      <div class="grid-s-8 grid-m-4 grid-l-3">
-        <div class="c-switcher js-tabs" role="tablist">
-          <button id="graphics-tab" class="switcher-option -current" name="graphics" role="tab" aria-controls="widgets-list" aria-selected="true">Graphics</button>
-          <button id="table-tab" class="switcher-option" name="table" role="tab" aria-controls="widgets-list" aria-selected="false" tabindex="-1">Table</button>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-12">
+                <div class="row js-header">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+<!--
+      <div class="l-switcher _no-desktop">
+        <div class="grid-s-8 grid-m-4 grid-l-3">
+          <div class="c-switcher js-tabs" role="tablist">
+            <button id="graphics-tab" class="switcher-option -current" name="graphics" role="tab" aria-controls="widgets-list" aria-selected="true">Graphics</button>
+            <button id="table-tab" class="switcher-option" name="table" role="tab" aria-controls="widgets-list" aria-selected="false" tabindex="-1">Table</button>
+          </div>
+        </div>
+      </div> -->
+    </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="wrapper">
       <div class="l-switcher _only-desktop">
@@ -72,6 +90,4 @@
       </div>
     </div>
   </div>
-  <%= render partial: 'shared/contribute' %>
-  <%= render partial: 'shared/newsletter' %>
 </div>

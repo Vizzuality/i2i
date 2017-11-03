@@ -1,18 +1,15 @@
 include ActiveAdminHelper
 
 ActiveAdmin.register News do
-
   config.per_page = 20
   config.sort_order = 'id_asc'
-
-  belongs_to :subcategory, optional: true
 
   filter :title
 
   scope :all, default: true
   Category.find_each do |c|
     scope c.name do |s|
-      s.where("subcategory_id in (#{c.subcategories.map{|x| x.id}.join(',')})")
+      s.where(category_id: c.id)
     end
   end
 
@@ -57,38 +54,36 @@ ActiveAdmin.register News do
 
     defaults :route_collection_name => 'news_index', :route_instance_name => 'news'
     def permitted_params
-      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link, :published, :subcategory_id,
+      params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link,
+                                :published, :category_id, :is_featured,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy]])
     end
   end
 
   index do
     selectable_column
-
-    column :subcategory
+    column :category
     column :title do |news|
       link_to news.title, admin_news_path(news)
     end
     column :published
+    column :is_featured
     column :summary
     column :updated_at
     actions
   end
 
-
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs 'News details' do
-      f.input :subcategory_id,
+      f.input :category_id,
               as: :select,
-              collection:
-                option_groups_from_collection_for_select(Category.all,
-                                                         :subcategories, :name,
-                                                         :id, :name, :id),
+              collection: Category.all,
               include_blank: false
       f.input :author, as: :select, collection: Member.all.pluck(:name)
       f.input :title
       f.input :published
+      f.input :is_featured
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
@@ -109,13 +104,14 @@ ActiveAdmin.register News do
 
   show do |ad|
     attributes_table do
+      row :category
       row :date do
       	ActiveAdminHelper.format_date(ad.date)
       end
-      row :subcategory
       row :title
       row :author
       row :published
+      row :is_featured
       row :summary
       row :tags do
         ActiveAdminHelper.tags_names(ad.tags)

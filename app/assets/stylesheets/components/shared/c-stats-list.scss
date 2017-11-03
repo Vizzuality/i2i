@@ -1,0 +1,26 @@
+.c-stats-list {
+  display: flex;
+  margin: 16px 0;
+
+  .item {
+    flex: 1;
+
+    &.-last {
+      flex: 2;
+    }
+  }
+
+  .description {
+    display: block;
+    margin-bottom: 4px;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+  }
+
+  .value {
+    display: block;
+    font-size: $font-size-xm;
+    font-weight: $font-weight-bold; 
+  }
+}

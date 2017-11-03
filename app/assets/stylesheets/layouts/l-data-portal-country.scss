@@ -87,13 +87,6 @@
   }
 
   .l-intro {
-    padding: 50px 0 0;
-    background-color: $color-1;
-
-    @media #{$mq-laptop} {
-      padding: 50px 0 75px;
-    }
-
     .l-title {
       .container {
         @media #{$mq-tablet} {
@@ -104,7 +97,7 @@
 
         .c-button {
           @media #{$mq-tablet} {
-            float: right;
+            position: relative;
           }
         }
       }
@@ -197,7 +190,7 @@
     .l-switcher {
       display: flex;
       justify-content: center;
-      padding: 20px 0 45px;
+      padding: 20px 0;
       background: rgba($color-5, .1);
 
       .c-switcher {
@@ -212,11 +205,6 @@
   }
 
   .l-content {
-    margin: -20px 0 0;
-
-    @media #{$mq-laptop} {
-      margin: -125px 0 90px;
-    }
 
     .l-switcher {
       .container {
@@ -305,18 +293,6 @@
           }
         }
       }
-    }
-  }
-
-  .finscope-logo {
-    position: relative;
-
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: auto;
-      height: 70px;
     }
   }
 }

@@ -1,0 +1,34 @@
+.c-app-logo {
+  display: flex;
+  align-items: center;
+
+  a {
+    display: inline-block;
+    margin-top: 10px;
+
+    > img {
+      width: 90px;
+      height: auto;
+    }
+  }
+
+  @media #{$mq-tablet} {
+    a {
+      > img {
+        width: auto;
+      }
+    }
+  }
+
+  &.-fixed {
+    a {
+      margin-top: 0;
+
+      > img {
+        width: 96px;
+        height: 38px;
+        margin: 0;
+    }
+    }
+  }
+}

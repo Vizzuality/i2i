@@ -3,14 +3,13 @@ services:
   db:
     image: postgres
     volumes:
-      - ./.data:/var/lib/postgresql/data
+      - ./.data/db:/var/lib/postgresql/data
   web:
     restart: always
     build:
       context: .
       dockerfile: Dockerfile-dev
     command: bundle exec rails server -b 0.0.0.0
-    env_file: .env
     environment:
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=postgres

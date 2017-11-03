@@ -23,8 +23,6 @@
 //= require templates/shared/social-tooltip
 //= require components/shared/tooltip
 //= require views/shared/mobile-menu
-//= require views/shared/social-tooltip
-//= require views/shared/footer
 //= require_tree ./pages/static_pages
 //= require routers/application
 

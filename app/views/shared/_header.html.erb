@@ -1,33 +1,38 @@
-<div class="c-header <% if isCover.present? %>-cover<% end %>">
+<% isFixed ||= false %>
+<% isCover ||= false %>
+
+<div class="c-header <% if isCover.present? %>-cover<% end %> <% if isFixed %>-fixed<% end %>">
   <div class="container">
-  	<div class="app-logo">
-  		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path %>
+  	<div class="c-app-logo <% if isFixed %>-fixed<% end %>">
+  		<%= link_to image_tag('/i2i-logo.svg', :alt => 'insight2impact'), root_path, data: { turbolinks: false } %>
   	</div>
     <nav class="c-nav" role="navigation">
       <ul class="nav-list">
-    		<li class="nav-item <% if controller.controller_name == 'data_portal' || controller.controller_name == 'report' %>-current <% end %>">
-          <%= link_to 'Data portal', data_portal_path %>
+    		<li class="nav-item
+          <% if
+            controller.controller_name == 'data_portal' || controller.controller_name == 'data_portal_financial_diaries' ||
+            controller.controller_name == 'report' %>-current <% end %>"
+        >
+          <%= link_to 'Data portal', data_portal_path, data: { turbolinks: false } %>
         </li>
-    		<li class="nav-item <% if current_page?(updates_path) || controller.controller_name == 'news' || controller.controller_name == 'events' || controller.controller_name == 'blogs' %> -current <% end%>">
-          <%= link_to 'News', updates_path %>
+    		<li class="nav-item <% if current_page?(insights_path) || controller.controller_name == 'insights' %> -current <% end%>">
+          <%= link_to 'Insights', insights_path, data: { turbolinks: false } %>
         </li>
-    		<li class="nav-item <% if current_page?(libraries_path) %> -current <% end%>">
-          <%= link_to 'Resources', libraries_path %>
+        <li class="nav-item <% if current_page?(initiatives_path) || controller.controller_name == 'initiatives' %> -current <% end%>">
+          <%= link_to 'Initiatives', initiatives_path, data: { turbolinks: false } %>
         </li>
-    		<li class="nav-item <% if current_page?(community_path) %> -current <% end%>">
-          <%= link_to 'Community', community_path %>
+        <li class="nav-item <% if current_page?(tools_path) %> -current <% end%>">
+          <%= link_to 'Tools', tools_path, data: { turbolinks: false } %>
         </li>
     		<li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
-          <%= link_to 'About', about_path %>
+          <%= link_to 'About', about_path, data: { turbolinks: false } %>
         </li>
       </ul>
     </nav>
-
     <button class="hamburguer js-btn-mobile-menu">
       <span class="ingredient"></span>
       <span class="ingredient"></span>
       <span class="ingredient"></span>
     </button>
-
   </div>
 </div>

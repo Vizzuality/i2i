@@ -1,0 +1,33 @@
+.vg-tooltip, .vg-tooltip.light-theme {
+  padding: 10px;
+  min-width: 200px;
+
+  font-family: $font-family-1;
+  font-size: 13px;
+  color: $color-5;
+
+  background-color: white;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+  border: 1px solid $border-color;
+
+  pointer-events: none;
+
+  table, tbody {
+    width: 100%;
+  }
+
+  td.key, td.value {
+    color: $color-5;
+    padding: 3px 5px;
+  }
+
+  td.key {
+    text-transform: capitalize;
+    text-align: left;
+  }
+
+  td.value {
+    font-weight: bold;
+    text-align: right;
+  }
+}
