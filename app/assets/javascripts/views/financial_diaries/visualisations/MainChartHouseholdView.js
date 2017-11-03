@@ -17,8 +17,9 @@
           },
           {
             title: 'Date',
-            value: 'date',
-            formatType: 'string'
+            field: 'date',
+            formatType: 'time',
+            format: '%Y-%m'
           }
         ]
       },
