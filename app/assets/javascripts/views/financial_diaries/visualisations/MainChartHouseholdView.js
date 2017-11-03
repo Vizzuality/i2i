@@ -10,13 +10,15 @@
       customTooltipOptions: {
         fields: [
           {
-            name: 'Date',
-            value: 'date'
+            title: 'Value',
+            value: 'value',
+            formatType: 'number',
+            format: "s"
           },
           {
-            name: 'Value',
-            value: 'value',
-            format: "s"
+            title: 'Date',
+            value: 'date',
+            formatType: 'string'
           }
         ]
       },
