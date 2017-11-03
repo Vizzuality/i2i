@@ -8,6 +8,8 @@
 
     el: '#vis-custom-tooltip',
 
+    template: JST['templates/financial_diaries/custom_tooltip'],
+
     initialize: function (settings) {
       this.options = Object.assign({}, this.defaults, settings);
     },
@@ -26,21 +28,26 @@
 
     setPosition: function(position) {
       var currentStyles = this.el.getAttribute('style');
-      var top  = position.y + "px";
-      var left = position.x + "px";
+      var top  = (position.y + 10) + "px";
+      var left = (position.x + 10) + "px";
 
       this.el.setAttribute("style", currentStyles + ";top: " + top + "; left: " + left);
     },
 
-    renderContent: function(item) {
-      var tableContent = '';
-
-      this.options.fields.forEach(function(field) {
+    parseFields: function(fields, item) {
+      return fields.map(function(field) {
         var value = field.format ? d3.format(field.format)(item[field.value]): item[field.value];
-        tableContent += '<tr><td>' + field.name + ': </td><td>' + value + '</td></tr>';
+        return {
+          title: field.title,
+          value: value
+        };
       });
+    },
 
-      this.$el.html('<table>' + tableContent + '</table>');
+    renderContent: function(item) {
+      this.$el.html(this.template({
+        fields: this.parseFields(this.options.fields, item)
+      }));
     }
 
   });
