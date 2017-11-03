@@ -10,6 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( data_portal.js )
 Rails.application.config.assets.precompile += %w( data_portal_financial_diaries.js )
+Rails.application.config.assets.precompile += %w( data_portal_financial_diaries_embed.js )
 Rails.application.config.assets.precompile += %w( exported_components.js )
 Rails.application.config.assets.precompile += %w( exported_components.css )
 

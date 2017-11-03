@@ -6,10 +6,11 @@ class DataPortalFinancialDiariesController < ApplicationController
       country.financial_diaries.present? && country[:iso] != country_iso
     }
     @country = Country.find_by(iso: country_iso)
+    @country_financial_diaries = @country.financial_diaries
     @categories = HouseholdTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @selectedCategories = [{
-      type: @categories.find { |cat| cat[:name] == "income" }[:name],
+      type: @categories.find { |cat| cat[:value] == "income" }[:value],
       subcategory: nil,
       visible: true
     }.stringify_keys]
@@ -32,9 +33,11 @@ class DataPortalFinancialDiariesController < ApplicationController
       @household = filters['household'] || nil
       @type = filters['type'];
       @currentMainIncomes = @main_incomes[@type.to_sym]
+      @currentIncomeRanges = @income_ranges[@type.to_sym]
     else
       @type = 'households'
       @currentMainIncomes = @main_incomes[:households]
+      @currentIncomeRanges = @income_ranges[:households]
     end
 
     # common filters here
@@ -47,24 +50,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @income_tier_options = {
       name: 'income_tier',
       label: 'Income level',
-      children: [
-        {
-          name: '1',
-          value: '1'
-        },
-        {
-          name: '2',
-          value: '2'
-        },
-        {
-          name: '3',
-          value: '3'
-        },
-        {
-          name: '4',
-          value: '4'
-        }
-      ]
+      children: @currentIncomeRanges
     }
 
     if @type == 'households'
@@ -138,6 +124,7 @@ class DataPortalFinancialDiariesController < ApplicationController
         @income_tier_options)
     end
 
+    gon.iso = country_iso;
     gon.project_name = project_name
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json
@@ -147,7 +134,11 @@ class DataPortalFinancialDiariesController < ApplicationController
   def country_preview
     @countries = Country.all
     @country = Country.find_by(iso: params[:iso])
+    project_name = ProjectMetadatum.find_by(country_iso3: params[:iso]).project_name
+
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
+
+    gon.project_name = project_name;
   end
 end

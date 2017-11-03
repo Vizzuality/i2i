@@ -34,6 +34,7 @@
         filters: params.p ? JSON.parse(window.atob(params.p)) : {}
       });
     }
+
   });
 
   var init = function () {
@@ -53,6 +54,7 @@
 
     new App.View.MobileMenu();
     new App.View.Newsletter();
+    new App.Component.FixedNav();
   };
 
   var getPreviousScroll = function() {

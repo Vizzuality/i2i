@@ -51,10 +51,11 @@
       },
       "range": {
         "category": [
-          "#F95E31",
-          "#915FC4",
-          "#83CB4D",
-          "#3DDFE7"
+          "#F95E31", // orange
+          "#a30d6f", // purple
+          "#84a62d", // green
+          "#1daac3", // blue
+          "#001d22" // gray
         ]
       }
     },
@@ -110,7 +111,8 @@
     "legends": [
       {
         "stroke": "color",
-        "padding": 20,
+        "padding": 0,
+        "offset": 50,
         "orient": "bottom",
         "encode": {
           "legend": {},
@@ -151,7 +153,8 @@
       },
       {
         "stroke": "color",
-        "padding": 20,
+        "padding": 30,
+        "offset": 20,
         "orient": "bottom",
         "values": [
           "mean"
@@ -482,7 +485,7 @@
                     "opacity": [
                       {
                         "test": "datum.value!=null && sort",
-                        "value": 0.2
+                        "value": 0.1
                       },
                       {
                         "value": 0
@@ -573,12 +576,12 @@
                       }
                     ],
                     "strokeWidth": {
-                      "value": 2
+                      "value": 3
                     },
                     "strokeDash": {
                       "value": [
-                        4,
-                        4
+                        9,
+                        6
                       ]
                     },
                     "zindex": {
@@ -613,8 +616,11 @@
             "fill": {
               "value": "transparent"
             },
+            "strokeOpacity": {
+              "value": 0.1
+            },
             "stroke": {
-              "value": "#efefef"
+              "value": "#001D22"
             }
           }
         },
@@ -808,7 +814,7 @@
                   "value": "#2F939C"
                 },
                 "fillOpacity": {
-                  "value": 0.2
+                  "value": 0.1
                 }
               },
               "update": {
@@ -817,6 +823,11 @@
                 },
                 "x2": {
                   "signal": "brush[1]"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "pointer"
                 }
               }
             }
@@ -950,20 +961,17 @@
             "x": {
               "value": 0
             },
-            "y": {
-              "value": 580
-            },
             "x2": {
               "signal": "width*1.1"
             },
+            "y": {
+              "value": 580.5
+            },
             "strokeOpacity": {
-              "value": 1
+              "value": 0.1
             },
             "strokeWidth": {
-              "value": 1
-            },
-            "stroke": {
-              "value": "#efefef"
+              "value": 0.5
             }
           }
         }
@@ -1183,7 +1191,7 @@
                   "value": "#2F939C"
                 },
                 "fillOpacity": {
-                  "value": 0.2
+                  "value": 0.1
                 }
               },
               "update": {
@@ -1192,6 +1200,11 @@
                 },
                 "y": {
                   "signal": "yBrush[1]"
+                }
+              },
+              "hover": {
+                "cursor": {
+                  "value": "pointer"
                 }
               }
             }

@@ -2,15 +2,18 @@
 
   'use strict';
 
-  App.Page.NewsPage = Backbone.View.extend({
+  App.Component.SocialNav = Backbone.View.extend({
 
     el: 'body',
 
     initialize: function () {
       // Functions binding
+
       this._onScroll = this._onScroll.bind(this);
 
       this._setVars();
+      if(!this.fixedHeader) return;
+
       this.setListeners();
 
       this._updateShareLinks();
@@ -25,16 +28,18 @@
     },
 
     _setVars: function () {
-      this.fixedHeader = document.querySelector('.js-fixed-header');
+      this.fixedHeader = document.querySelector('.js-social-nav');
+      if(!this.fixedHeader) return;
+
       this.fixedHeaderVisibility = false; // Is the header visible?
-      this.progressBar = this.fixedHeader.querySelector('.js-progress-bar');
+      this.progressBar = this.fixedHeader.querySelector('.js-social-nav-progress-bar');
       this.progressBarHeight = 60;
 
-      this.title = document.querySelector('.js-title');
+      this.title = document.querySelector('.js-social-nav-title');
       var titleRect = this.title.getBoundingClientRect()
       this.titleYPos = titleRect.top + titleRect.height;
 
-      this.news = document.querySelector('.js-news');
+      this.news = document.querySelector('.js-social-nav-content');
     },
 
     /**

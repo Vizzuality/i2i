@@ -51,10 +51,10 @@
       "range": {
         "category": [
           "#F95E31",
-          "#915FC4",
-          "#83CB4D",
-          "#3DDFE7",
-          "#bbbbbb"
+          "#a30d6f",
+          "#84a62d",
+          "#1daac3",
+          "#001d22"
         ]
       }
     },
@@ -303,7 +303,8 @@
     ],
     "legends": [{
       "fill": "color",
-      "padding": 4,
+      "padding": 0,
+      "offset": 30,
       "orient": "bottom",
       "encode": {
         "legend": {},
@@ -384,26 +385,29 @@
               "scale": "pos",
               "field": "subcategory"
             },
+            "y": {
+              "scale": "yscale",
+              "field": "y0",
+              "offset": 0
+            },
+            "y2": {
+              "scale": "yscale",
+              "field": "y1",
+              "offset": 0
+            },
             "width": {
               "scale": "pos",
               "band": 1,
-              "offset": 0.5
+              "offset": -1
             },
             "stroke": {
               "value": "white"
             },
             "strokeWidth": {
-              "value": 1
+              "value": 0
             },
-            "y": {
-              "scale": "yscale",
-              "field": "y0",
-              "offset": 0.5
-            },
-            "y2": {
-              "scale": "yscale",
-              "field": "y1",
-              "offset": 0.5
+            "strokeCap": {
+              "value": "square"
             },
             "fill": {
               "scale": "color",

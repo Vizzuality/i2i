@@ -22,6 +22,10 @@
   // financial diaries
   &.-main {
 
+    > .toolbar {
+      margin-top: 15px;
+    }
+
     .vega-bindings {
       display: flex;
       flex-wrap: wrap;
