@@ -365,7 +365,7 @@ namespace :db do
       ['Mexico', 'Puebla and Oaxaca states, and Mexico City outskirt'],
       ['Kenya', 'Nairobi, Makueni, Mombasa, Eldoret, Vihiga'],
       ['Pakistan', 'Two villages, Bahawalnagar district, in the south of the Punjab province'],
-      ['Tanzania', 'Two villages in Mbeya region'],
+      ['Tanzania', 'Two villages in Mbeya'],
       ['India', 'Varanasi and outskirts, Uttar Pradesh province'],
       ['Mozambique', 'Three villages in Rapale district, northern Nampula province']
     ]
