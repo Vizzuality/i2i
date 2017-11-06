@@ -41,13 +41,13 @@
 
     <div class="wrapper">
       <div class="row">
-        <div class="grid-s-12 grid-l-10 offset-l-1">
+        <div class="grid-s-12">
           <article class="c-article">
             <div class="wrapper">
               <div class="row">
                 <header class="c-article-header">
                   <div class="container">
-                    <div class="grid-s-12 grid-l-10">
+                    <div class="grid-s-12">
                       <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= news.title %></h1>
                       <span class="authorship">Written
@@ -60,25 +60,23 @@
                   </div>
                 </header>
               </div>
+              <section class="article-content js-social-nav-content">
+                <%if news.image.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= news.image %>)"></div>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="wrapper">
+                  <div class="row article-text">
+                    <div class="grid-s-12">
+                      <p><%= news.content.html_safe %></p>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
-
-            <section class="article-content js-social-nav-content">
-              <%if news.image.blank? != true %>
-                <div class="row">
-                  <div class="grid-s-12">
-                      <div class="article-image" style="background-image: url(<%= news.image %>)"></div>
-                  </div>
-                </div>
-              <% end %>
-
-              <div class="wrapper">
-                <div class="row article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-10">
-                    <p><%= news.content.html_safe %></p>
-                  </div>
-                </div>
-              </div>
-            </section>
           </article>
         </div>
       </div>
