@@ -1,13 +1,18 @@
 .c-modal-save-widget {
   position: relative;
-  height: 100%;
   overflow: hidden;
+  padding: 0 18px;
 
   > .c-widget {
     max-height: 600px;
-    height: 100%;
     margin: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  & + .modal-footer {
+    > .group-button {
+      display: flex;
+    }
   }
 }
