@@ -1,26 +1,25 @@
 namespace :db do
   desc 'Add default categories'
   task add_categories: :environment do
-    categories = [
-      { category: 'Publications',
-        subcategories: ['Notes', 'Frameworks', 'Proceedings',
-                        'Reports', 'i2i Communities'] },
-      { category: 'Videos',
-        subcategories: ['Presentations', 'Workshops',
-                        'Interviews', 'i2i Communities'] },
-      { category: 'Graphics',
-        subcategories: %w(Infographics Graphs Facts) },
-      { category: 'Presentations',
-        subcategories: ['Workshops', 'Events', 'i2i Communities'] }
+    ['Multimedia','Blog','Interviews','Articles','Publications'].each do |category|
+      Category.find_or_create_by(name: category)
+    end
+  end
+
+  desc 'Add default categories for blogs, events, news, libraries'
+  task add_default_category_for_insights: :environment do
+    insights = [
+      [Blog, Category.find_or_create_by(name: 'Blog')],
+      [News, Category.find_or_create_by(name: 'Articles')],
+      [Library, Category.find_or_create_by(name: 'Publications')],
+      [Event, Category.find_or_create_by(name: 'Articles')]
     ]
 
-    categories.each do |c|
-      category = Category.new name: c[:category]
-      c[:subcategories].each do |sc|
-        subcategory = Subcategory.new name: sc
-        category.subcategories << subcategory
+    insights.each do |klass, category|
+      klass.where(category: nil).each do |insight|
+        insight.category = category
+        insight.save
       end
-      category.save
     end
   end
 end
