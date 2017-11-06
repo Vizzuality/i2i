@@ -40,6 +40,6 @@ class InsightsController < ApplicationController
 
     rescue
       category = Category.find_by(slug: 'blog') || Category.first
-      redirect_to insights_filter_index_path('all') rescue nil
+      redirect_to insights_filter_index_path(category) rescue nil
   end
 end
