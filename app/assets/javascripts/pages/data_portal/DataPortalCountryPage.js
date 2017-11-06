@@ -402,8 +402,10 @@
      * Render the footer
      */
     _renderFooter: function () {
+      var countriesWithoutDownloadAll = ['BWA', 'IND', 'MUS', 'MWI', 'NAM', 'ZMB'];
+
       this.footerContainer.innerHTML = this.footerTemplate({
-        isZambia: this.options.iso === 'ZMB', // remove this in the future
+        hasDownload: !countriesWithoutDownloadAll.includes(this.options.iso), // remove this in the future
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.countryModel.get('url'),
