@@ -27,15 +27,27 @@ class Updates::EventsController < ApplicationController
         session[:data][:image] = image
       end
     end
-
-    @event = Event.new(session[:data])
-    @event.image.save unless session[:has_image]
-    @related_events = related_events
+    
+    @insight = Event.new(
+      title: session[:data]['title'],
+      author: session[:data]['author'],
+      url: session[:data]['url'],
+      summary: session[:data]['summary'],
+      content: session[:data]['content'],
+      date: session[:data]['date'],
+      published: session[:data]['published'],
+      custom_author: session[:data]['custom_author'],
+      category_id: session[:data]['category_id'],
+      is_featured: session[:data]['is_featured'],
+      image: session[:data]['image']
+    )
+    @insight.image.save unless session[:has_image]
+    @related = []
 
     session[:data] = nil
     session[:has_image] = nil
     session[:skip_image] = nil
-    render 'show'
+    render 'insights/show'
   end
 
   private
