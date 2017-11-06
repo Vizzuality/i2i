@@ -1,6 +1,15 @@
 .l-library {
   margin: 0 0 40px;
 
+  .initiatives-link {
+    margin: 0 0 10px;
+
+    font-size: $font-size-regular;
+    font-weight: $font-weight-bold;
+    color: $color-2;
+    text-transform: uppercase;
+  }
+
   .l-library-content-selector {
     $selector-spacing: 6px;
     display: flex;
