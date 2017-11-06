@@ -2,7 +2,7 @@ class InitiativesController < ApplicationController
   include Relatable
 
   def index
-    @featured_tags = Tag.featured
+    @featured_tags = Tag.featured.order(:position)
   end
 
   def filter_index

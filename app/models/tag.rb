@@ -26,6 +26,7 @@ class Tag < ApplicationRecord
   validates_presence_of :title, :if => :is_featured?, message: "must be present if tag is featured"
   validates_presence_of :image_url, :if => :is_featured?, message: "must be present if tag is featured"
   validates_presence_of :description, :if => :is_featured?, message: "must be present if tag is featured"
+  validates_presence_of :position, :if => :is_featured?, message: "must be present if tag is featured"
 
   scope :featured, -> { where is_featured: true }
 
