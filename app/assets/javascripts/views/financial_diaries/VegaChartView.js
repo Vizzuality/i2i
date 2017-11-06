@@ -146,10 +146,16 @@
 
       var self = this;
       var runtime = this.parseSpec(this.currentSpec);
+      var customLoadEvent;
+      if (window.CustomEvent) {
+        customLoadEvent = new CustomEvent('customLoad');
+      } else {
+        customLoadEvent = document.createEvent('CustomEvent');
+        customLoadEvent.initCustomEvent('customLoad', true, true);
+      }
 
       // Remove old event listeners
       if (this.chart) this.chart.finalize();
-
 
       // Rendering chart
       this.chart = new vega.View(runtime)
@@ -163,6 +169,7 @@
         // TODO: add a event to Vega when dom is ready
         setTimeout(function() {
           requestAnimationFrame(function() {
+            window.dispatchEvent(customLoadEvent);
             self.el.classList.remove('c-spinning-loader');
           });
         }, 1000);
