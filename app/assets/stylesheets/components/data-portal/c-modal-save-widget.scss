@@ -1,14 +1,14 @@
 .c-modal-save-widget {
-  position: relative;
-  overflow: hidden;
+  overflow: auto;
+  max-height: 500px;
   padding: 0 18px;
 
   @media #{$mq-tablet} {
+    max-height: none;
     padding: 0;
   }
 
   > .c-widget {
-    max-height: 600px;
     margin: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
