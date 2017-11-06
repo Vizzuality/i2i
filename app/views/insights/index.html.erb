@@ -50,7 +50,7 @@
             <div class="grid-s-12">
               <div class="grid-footer" id="show-more">
                 <% link_path = @category.present? ? @category.slug : 'all' %>
-                <%= link_to 'Show more', insights_filter_index_path(link_path, { offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                <%= link_to 'Show more', insights_filter_index_path(link_path, { offset: @offset }), :class => 'c-button -big -sea' %>
               </div>
             </div>
           <% end %>
