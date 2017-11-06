@@ -2,12 +2,18 @@
   margin: 0 0 40px;
 
   .initiatives-link {
+    position: relative;
     margin: 0 0 10px;
 
     font-size: $font-size-regular;
     font-weight: $font-weight-bold;
     color: $color-2;
     text-transform: uppercase;
+
+    &::before {
+      @include arrow(11px, 2px, $color-2, 'left');
+      margin-right: 10px;
+    }
   }
 
   .l-library-content-selector {
