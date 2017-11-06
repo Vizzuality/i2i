@@ -99,17 +99,18 @@
     _renderContent: function () {
       var modalDimension = this._getModalDimensions();
 
+
       // we assure the modal is completely displayed. This way focus won't center it
       if (modalDimension.offsets.top < document.body.scrollTop) {
         $('body').animate({
           // 52px is the height of the modal title
           scrollTop: modalDimension.offsets.top - 52
         }, 400, function () {
-          this.viewPortWidth >= 768 && this._renderWidget();
+          this._renderWidget();
           this._renderSlides();
         }.bind(this));
       } else {
-        this.viewPortWidth >= 768 && this._renderWidget();
+        this._renderWidget();
         this._renderSlides();
       }
     },
@@ -159,7 +160,6 @@
         el: this.el.querySelector('.js-widget-container'),
         onClick: onClick
       };
-
 
       switch(specToRender) {
         case 'main-chart':

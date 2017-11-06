@@ -257,8 +257,6 @@
         var isTabletOrHigher = window.innerWidth >= 768;
         var el = isTabletOrHigher ?
           document.querySelector('#vis-main-chart') : document.querySelector('#vis-main-chart-mobile');
-        var spec = isTabletOrHigher ?
-          'main-chart' : 'main-chart-mobile';
 
         var onClickHousehold = function(household) {
           if(!household) return;
@@ -275,7 +273,7 @@
           ),
           el: el,
           shareOptions: {
-            spec: spec,
+            spec: 'main-chart',
             customClass: '-main',
             onClick: function(household) {
               onClickHousehold(household);
