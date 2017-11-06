@@ -39,11 +39,11 @@
 
     range: {
       category: [
-        '#2F939C',
-        '#001D22',
-        '#EDC72F',
-        '#F95E31',
-        '#000'
+        "#F95E31", // orange
+        "#a30d6f", // purple
+        "#84a62d", // green
+        "#1daac3", // blue
+        "#001d22" // gray
       ]
     }
   };
