@@ -15,7 +15,7 @@
                 <header>
                   <div class="container">
                     <div class="grid-s-12">
-                      <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
+                      <%= link_to 'Events', insights_filter_index_path('events'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= event.title %></h1>
                       <span class="authorship">Written
                         <% unless event.author.blank? %>
