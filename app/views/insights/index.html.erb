@@ -29,6 +29,8 @@
         <div class="wrapper">
           <div class="row">
             <div class="selectors-container grid-12">
+              <%= link_to 'All', insights_filter_index_path('all'),
+                class: "content-selector #{'-current' if (!@category.present?)}" %>
               <% @categories.each do |category| %>
                 <%= link_to category.name, insights_filter_index_path(category.slug),
                 class: "content-selector #{'-current' if (@category && @category.slug == category.slug)}" %>
@@ -47,7 +49,8 @@
           <% if @morePaginationAvailable %>
             <div class="grid-s-12">
               <div class="grid-footer" id="show-more">
-                <%= link_to 'Show more', insights_filter_index_path(@category.slug, { offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                <% link_path = @category.present? ? @category.slug : 'all' %>
+                <%= link_to 'Show more', insights_filter_index_path(link_path, { offset: @offset }), :class => 'c-button -big -sea' %>
               </div>
             </div>
           <% end %>

@@ -27,14 +27,25 @@ class Updates::NewsController < ApplicationController
       end
     end
 
-    @news = News.new(session[:data])
-    @news.image.save unless session[:has_image]
-    @related_news = related_news
+    @insight = News.new(
+      title: session[:data]['title'],
+      author: session[:data]['author'],
+      summary: session[:data]['summary'],
+      content: session[:data]['content'],
+      date: session[:data]['date'],
+      issuu_link: session[:data]['issuu_link'],
+      published: session[:data]['published'],
+      category_id: session[:data]['category_id'],
+      is_featured: session[:data]['is_featured'],
+      image: session[:data]['image']
+    )
+    @insight.image.save unless session[:has_image]
+    @related = []
 
     session[:data] = nil
     session[:has_image] = nil
     session[:skip_image] = nil
-    render 'show'
+    render 'insights/show'
   end
 
   # GET /news/new

@@ -2,7 +2,7 @@ class InitiativesController < ApplicationController
   include Relatable
 
   def index
-    @featured_tags = Tag.featured
+    @featured_tags = Tag.featured.order(:position)
   end
 
   def filter_index
@@ -13,7 +13,7 @@ class InitiativesController < ApplicationController
     entities.each do |klass|
       records << klass.where(published: true).joins(:tags).where(tags: {slug: @tag.slug})
     end
-    
-    @insights = records.flatten
+
+    @insights = records.flatten.sort { |a, b| b.date <=> a.date }
   end
 end

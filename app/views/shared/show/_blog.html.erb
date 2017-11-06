@@ -14,8 +14,8 @@
               <div class="row">
                 <header>
                   <div class="container">
-                    <div class="grid-s-12 grid-l-10">
-                      <%= link_to 'Blog', updates_blogs_path, :class => 'index-link _no-mobile' %>
+                    <div class="grid-s-12">
+                      <%= link_to 'Blog', insights_filter_index_path('blogs'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= blog.title %></h1>
                       <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
                         <% unless blog.author.blank? %>
@@ -35,24 +35,21 @@
                   </div>
                 </header>
               </div>
-            </div>
-
-            <section class="article-content js-social-nav-content">
-              <%if blog.image.blank? != true %>
-                <div class="row">
-                  <div class="grid-s-12">
-                      <div class="article-image" style="background-image: url(<%= blog.image %>)"></div>
+              <section class="article-content js-social-nav-content">
+                <%if blog.image.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= blog.image %>)"></div>
+                    </div>
                   </div>
-                </div>
-              <% end %>
-              <div class="wrapper">
+                <% end %>
                 <div class="row article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-10">
+                  <div class="grid-s-12">
                     <%= blog.content.html_safe %>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </div>
           </article>
         </div>
       </div>

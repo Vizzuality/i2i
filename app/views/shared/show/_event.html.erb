@@ -14,8 +14,8 @@
               <div class="row">
                 <header>
                   <div class="container">
-                    <div class="grid-s-12 grid-l-10">
-                      <%= link_to 'Events', updates_events_path, :class => 'index-link _no-mobile' %>
+                    <div class="grid-s-12">
+                      <%= link_to 'Events', insights_filter_index_path('events'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= event.title %></h1>
                       <span class="authorship">Written
                         <% unless event.author.blank? %>
@@ -27,47 +27,45 @@
                   </div>
                 </header>
               </div>
-            </div>
 
-            <section class="article-content js-social-nav-content">
-              <%if event.image.blank? != true %>
-                <div class="row">
-                  <div class="grid-s-12">
-                      <div class="article-image" style="background-image: url(<%= event.image %>)"></div>
-                  </div>
-                </div>
-              <% end %>
-
-              <div class="wrapper">
-                <div class="row article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-8">
-                    <%= event.content.html_safe %>
-                  </div>
-                </div>
-
-                <div class="row article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-8">
-                    <% if event.documents.present? %>
-                      <ul class="link-list">
-                        <% event.documents.each do |document| %>
-                          <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= "#{document.name} (#{readable_file_size(document.file_file_size)})" %></a></li>
-                        <% end %>
-                      </ul>
-                    <% end %>
-                  </div>
-                </div>
-
-                <% if event.url.blank? != true %>
-                <div class="row">
-                  <div class="grid-s-12 grid-m-12 grid-l-12">
-                    <div class="footer-article">
-                      <a class="c-button -medium -sea" href="<%= event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
+              <section class="article-content js-social-nav-content">
+                <%if event.image.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= event.image %>)"></div>
                     </div>
                   </div>
-                </div>
                 <% end %>
-              </div>
-            </section>
+
+                  <div class="row article-text">
+                    <div class="grid-s-12">
+                      <%= event.content.html_safe %>
+                    </div>
+                  </div>
+
+                  <div class="row article-text">
+                    <div class="grid-s-12">
+                      <% if event.documents.present? %>
+                        <ul class="link-list">
+                          <% event.documents.each do |document| %>
+                            <li class="link-item"><a href="<%= document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= document.name %>">Download <%= "#{document.name} (#{readable_file_size(document.file_file_size)})" %></a></li>
+                          <% end %>
+                        </ul>
+                      <% end %>
+                    </div>
+                  </div>
+
+                <% if event.url.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12 grid-m-12 grid-l-12">
+                      <div class="footer-article">
+                        <a class="c-button -medium -sea" href="<%= event.url %>" target="_blank" ref="noopener noreferrer">More info</a>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </section>
+            </div>
           </article>
         </div>
       </div>

@@ -7,6 +7,7 @@ class InsightsController < ApplicationController
     records = []
 
     totals = {}
+    totals['all'] = 0;
     @categories.each do |category|
       size = 0
       size += Blog.published.where(category_id: category.id).size
@@ -15,16 +16,18 @@ class InsightsController < ApplicationController
       size += Library.published.where(category_id: category.id).size
 
       totals[category.name] = size
+      totals['all'] += size
     end
 
-    @total_insights = totals[@category.name]
+    entities.each { |klass| records << klass.where(published: true) }
+    insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
 
     if @category.present?
-      entities.each { |klass| records << klass.where(published: true) }
-      insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
+      @total_insights = totals[@category.name]
       @insights = insights.select { |r| r.category_id == @category.id }.take(page_quantity)
     else
-      @insights = []
+      @total_insights = totals['all']
+      @insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }.take(page_quantity)
     end
 
     if params[:offset].present?

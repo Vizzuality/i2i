@@ -2,8 +2,7 @@
   display: none;
 
   @media #{$mq-laptop} {
-    display: block;
-    // height: 100%;
+    display: flex;
   }
 
   &.-footer {
@@ -13,7 +12,6 @@
   > .nav-list {
     display: flex;
     align-items: center;
-    height: 100%;
 
     > .nav-item {
       display: flex;

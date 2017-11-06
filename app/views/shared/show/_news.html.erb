@@ -41,14 +41,14 @@
 
     <div class="wrapper">
       <div class="row">
-        <div class="grid-s-12 grid-l-10 offset-l-1">
+        <div class="grid-s-12">
           <article class="c-article">
             <div class="wrapper">
               <div class="row">
                 <header class="c-article-header">
                   <div class="container">
-                    <div class="grid-s-12 grid-l-8">
-                      <%= link_to 'News', updates_news_index_path, :class => 'index-link _no-mobile' %>
+                    <div class="grid-s-12">
+                      <%= link_to 'News', insights_filter_index_path('articles'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= news.title %></h1>
                       <span class="authorship">Written
                         <% unless news.author.blank? %>
@@ -60,25 +60,21 @@
                   </div>
                 </header>
               </div>
-            </div>
-
-            <section class="article-content js-social-nav-content">
-              <%if news.image.blank? != true %>
-                <div class="row">
-                  <div class="grid-s-12">
-                      <div class="article-image" style="background-image: url(<%= news.image %>)"></div>
+              <section class="article-content js-social-nav-content">
+                <%if news.image.blank? != true %>
+                  <div class="row">
+                    <div class="grid-s-12">
+                        <div class="article-image" style="background-image: url(<%= news.image %>)"></div>
+                    </div>
                   </div>
-                </div>
-              <% end %>
-
-              <div class="wrapper">
+                <% end %>
                 <div class="row article-text">
-                  <div class="grid-s-12 grid-m-10 grid-l-8">
+                  <div class="grid-s-12">
                     <p><%= news.content.html_safe %></p>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
+            </div>
           </article>
         </div>
       </div>

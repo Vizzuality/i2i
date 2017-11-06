@@ -19,8 +19,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: auto;
-    min-width: 880px;
+    width: 100%;
     // width: calc(100% - #{$wrapper-padding-mobile * 2});
     max-width: calc(100% - #{$wrapper-padding-mobile * 2});
     height: auto;
@@ -28,6 +27,8 @@
   }
 
   @media #{$mq-laptop} {
+    max-width: 880px;
+
     &.-newsletter {
       max-width: 600px;
     }
@@ -35,14 +36,19 @@
 
   > .modal-content {
     display: flex;
+    position: relative;
     flex-direction: column;
     height: 100%;
-    max-height: 80vh;
     outline: 0;
     background-color: $color-1;
 
     @media #{$mq-tablet} {
+      max-height: 80vh;
       background: none;
+    }
+
+    @media #{$mq-laptop} {
+      max-height: 70vh;
     }
   }
 

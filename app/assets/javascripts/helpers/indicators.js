@@ -23,7 +23,15 @@
       GHA: 'Ghana',
       KEN: 'Kenya',
       MOZ: 'Mozambique',
-      PAK: 'Pakistan'
+      PAK: 'Pakistan',
+      MUS: 'Mauritius',
+      SYC: 'Seychelles',
+      NAM: 'Namibia',
+      MWI: 'Malawi',
+      BWA: 'Botswana',
+      ZAF: 'South Africa',
+      MEX: 'Mexico',
+      IND: 'India'
     },
 
     /**
