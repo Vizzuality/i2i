@@ -7,6 +7,7 @@
 
   background-color: $color-4;
   box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+  overflow: hidden;
 
   > .title {
     margin: 0 0 20px;
@@ -49,7 +50,7 @@
       padding: 30px 15px 15px;
 
       @media #{$mq-tablet} {
-        padding: 85px 110px 85px 85px;
+        padding: 85px 85px 85px 60px;
       }
 
       .title {
@@ -79,10 +80,9 @@
       }
 
       .content {
-        padding: 30px 15px 15px;
-
         @media #{$mq-tablet} {
-          padding: 85px 85px 85px 110px;
+          padding-right: 60px;
+          padding-left: 85px;
         }
       }
     }
