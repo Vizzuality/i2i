@@ -6,61 +6,9 @@
     "width": 320,
     "height": 330,
     "padding": 0,
-    "background": "white",
     "autosize": {
       "type": "fit",
       "resize": true
-    },
-    "config": {
-      "axis": {
-        "domainWidth": 0,
-        "gridDash": [
-          1
-        ],
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "titleFont": "Open Sans",
-        "titleFontSize": 11,
-        "titleFontWeight": "normal",
-        "titleColor": "#001D22",
-        "ticks": false
-      },
-      "legend": {
-        "domainWidth": 0,
-        "gridDash": [
-          3
-        ],
-        "gridColor": "rgba(0, 29, 34, 0.1)",
-        "gridWidth": 0.5,
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "tickWidth": 0,
-        "tickColor": "rgba(0, 29, 34, 0.1)",
-        "strokeWidth": 10
-      },
-      "symbol": {
-        "size": 20
-      },
-      "line": {
-        "opacity": 1,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "area": {
-        "opacity": 0.5,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "range": {
-        "category": [
-          "#F95E31",
-          "#915FC4",
-          "#83CB4D",
-          "#5DD0E5"
-        ]
-      }
     },
     "data": [{
         "name": "table",
@@ -98,19 +46,31 @@
       }
     ],
     "scales": [{
-      "name": "color",
-      "type": "ordinal",
-      "range": "category",
-      "domain": [
-        "income",
-        "expense",
-        "savings",
-        "credit"
-      ]
-    }],
+        "name": "xOverview",
+        "type": "utc",
+        "range": "width",
+        "nice": true,
+        "domain": {
+          "data": "stats",
+          "field": "date"
+        }
+      },
+      {
+        "name": "color",
+        "type": "ordinal",
+        "range": "category",
+        "domain": [
+          "income",
+          "expense",
+          "savings",
+          "credits"
+        ]
+      }
+    ],
     "legends": [{
         "stroke": "color",
-        "padding": 5,
+        "padding": 15,
+        "offset": 30,
         "orient": "bottom",
         "encode": {
           "legend": {},
@@ -129,7 +89,8 @@
       },
       {
         "stroke": "color",
-        "padding": 20,
+        "padding": 15,
+        "offset": 35,
         "orient": "bottom",
         "values": [
           "mean"
@@ -180,19 +141,49 @@
     ],
     "signals": [{
         "name": "range_start",
-        "value": null,
+        "react": false,
+        "on": [{
+          "events": [{
+            "source": "window",
+            "type": "customLoad"
+          }],
+          "update": "utcFormat(data('stats')[0].date, '%Y-%m-%d')"
+        }],
         "bind": {
           "input": "date",
+          "min": "utcFormat(data('stats')[0].date, '%Y-%m-%d')",
+          "max": "utcFormat(data('stats')[1].date, '%Y-%m-%d')",
           "name": "Date Start"
         }
       },
       {
         "name": "range_end",
-        "value": null,
+        "react": false,
+        "on": [{
+          "events": [{
+            "source": "window",
+            "type": "customLoad"
+          }],
+          "update": "utcFormat(data('stats')[1].date, '%Y-%m-%d')"
+        }],
         "bind": {
           "input": "date",
+          "min": "utcFormat(data('stats')[0].date, '%Y-%m-%d')",
+          "max": "utcFormat(data('stats')[1].date, '%Y-%m-%d')",
           "name": "Date End"
         }
+      },
+      {
+        "name": "detailDomain",
+        "update": "[toDate(range_end), toDate(range_start)]",
+        "on": [{
+          "events": [{
+            "signal": "range_start"
+          }, {
+            "signal": "range_end"
+          }],
+          "update": "[toDate(range_end), toDate(range_start)]"
+        }]
       },
       {
         "name": "sort",
@@ -213,22 +204,6 @@
       {
         "name": "currency",
         "update": "data('stats')[0].unit"
-      },
-      {
-        "name": "detailDomain",
-        "on": [{
-            "events": {
-              "signal": "range_start"
-            },
-            "update": "span([range_start,range_end]) ? invert('xOverview', [range_start,range_end]) : null"
-          },
-          {
-            "events": {
-              "signal": "range_end"
-            },
-            "update": "span([range_start,range_end]) ? invert('xOverview', [range_start,range_end]) : null"
-          }
-        ]
       },
       {
         "name": "clickHousehold"
@@ -574,6 +549,5 @@
       ]
     }]
   };
-
 
 }).call(this, this.App);
