@@ -28,14 +28,26 @@ class Updates::BlogsController < ApplicationController
       end
     end
 
-    @post = Blog.new(session[:data])
-    @post.image.save unless session[:has_image]
-    @related_posts = related_posts
+    @insight = Blog.new(
+      title: session[:data]['title'],
+      author: session[:data]['author'],
+      workstream: session[:data]['workstream'],
+      summary: session[:data]['summary'],
+      content: session[:data]['content'],
+      date: session[:data]['date'],
+      issuu_link: session[:data]['issuu_link'],
+      published: session[:data]['published'],
+      custom_author: session[:data]['custom_author'],
+      category_id: session[:data]['category_id'],
+      image: session[:data]['image']
+    )
+    @insight.image.save unless session[:has_image]
+    @related = []
 
     session[:data] = nil
     session[:has_image] = nil
     session[:skip_image] = nil
-    render 'show'
+    render 'insights/show'
   end
 
   private
