@@ -3,61 +3,13 @@
 
   App.Specs.GroupedBarChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    "width": 800,
+    "width": 500,
     "height": 400,
     "autosize": {
       "type": "fit",
       "resize": true
     },
     "padding": 5,
-    "config": {
-      "axis": {
-        "domainWidth": 0,
-        "gridDash": [
-          1
-        ],
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "ticks": false
-      },
-      "legend": {
-        "domainWidth": 0,
-        "gridDash": [
-          3
-        ],
-        "gridColor": "rgba(0, 29, 34, 0.1)",
-        "gridWidth": 0.5,
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "tickWidth": 0,
-        "tickColor": "rgba(0, 29, 34, 0.1)",
-        "strokeWidth": 10
-      },
-      "symbol": {
-        "size": 20
-      },
-      "line": {
-        "opacity": 1,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "area": {
-        "opacity": 0.5,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "range": {
-        "category": [
-          "#F95E31",
-          "#a30d6f",
-          "#84a62d",
-          "#1daac3",
-          "#001d22"
-        ]
-      }
-    },
     "data": [{
         "name": "data",
         "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
@@ -155,10 +107,20 @@
           },
           {
             "type": "aggregate",
-            "groupby": ["date", "subcategory", "rank"],
-            "ops": ["sum"],
-            "fields": ["value"],
-            "as": ["value"]
+            "groupby": [
+              "date",
+              "subcategory",
+              "rank"
+            ],
+            "ops": [
+              "sum"
+            ],
+            "fields": [
+              "value"
+            ],
+            "as": [
+              "value"
+            ]
           },
           {
             "type": "impute",
@@ -301,48 +263,108 @@
         }
       }
     ],
+    "signals": [{
+        "name": "rows",
+        "description": "data required to update ",
+        "update": "width < 380 ? 3 : 1"
+      },
+      {
+        "name": "columns",
+        "description": "data required to update ",
+        "update": "width < 380 ? 2 : 5"
+      }
+    ],
     "legends": [{
-      "fill": "color",
-      "padding": 0,
-      "offset": 30,
-      "orient": "bottom",
-      "encode": {
-        "legend": {},
-        "labels": {
-          "interactive": false,
-          "update": {
-            "text": {
-              "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
-            },
-            "fontSize": {
-              "value": 12
-            },
-            "fill": {
-              "value": "black"
-            },
-            "y": {
-              "signal": "datum.index<6 ? 0 : 30"
-            },
-            "x": {
-              "signal": "datum.index<6 ? datum.index*(width/5.5)+10 : (datum.index-6)*(width/5.5)+10"
+        "fill": "color",
+        "padding": 5,
+        "orient": "bottom",
+        "encode": {
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "fill": {
+                "value": "black"
+              }
+
+            }
+          },
+          "symbols": {
+            "update": {
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
             }
           }
-        },
-        "symbols": {
-          "update": {
-            "y": {
-              "signal": "datum.index<6 ? 0 : 30"
-            },
-            "x": {
-              "signal": "datum.index<6 ? datum.index*(width/5.5) : (datum.index-6)*(width/5.5)"
-            },
-            "stroke": {
-              "value": "transparent"
+        }
+      },
+      {
+        "fill": "color",
+        "padding": 4,
+        "orient": "none",
+        "encode": {
+          "legend": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "height*1.25"
+              }
+            }
+          },
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
+
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "signal": "datum.index<columns ? 0 : 30*rows"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns)+10 : (datum.index-columns)*(width/columns)+10"
+              }
+            }
+          },
+          "symbols": {
+            "update": {
+              "y": {
+                "signal": "datum.index < columns ? 0 : 30"
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns) : (datum.index-columns)*(width/columns)"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
             }
           }
         }
       }
-    }],
+    ],
     "marks": [{
       "type": "group",
       "from": {
@@ -385,29 +407,26 @@
               "scale": "pos",
               "field": "subcategory"
             },
-            "y": {
-              "scale": "yscale",
-              "field": "y0",
-              "offset": 0
-            },
-            "y2": {
-              "scale": "yscale",
-              "field": "y1",
-              "offset": 0
-            },
             "width": {
               "scale": "pos",
               "band": 1,
-              "offset": -1
+              "offset": 0.5
             },
             "stroke": {
               "value": "white"
             },
             "strokeWidth": {
-              "value": 0
+              "value": 1
             },
-            "strokeCap": {
-              "value": "square"
+            "y": {
+              "scale": "yscale",
+              "field": "y0",
+              "offset": 0.5
+            },
+            "y2": {
+              "scale": "yscale",
+              "field": "y1",
+              "offset": 0.5
             },
             "fill": {
               "scale": "color",

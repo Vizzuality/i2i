@@ -3,58 +3,15 @@
 
   App.Specs.MainChartHousehold = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    "width": 800,
+    "width": 500,
     "height": 400,
-    "padding": 5,
-    "config": {
-      "axis": {
-        "domainWidth": 0,
-        "gridDash": [
-          1
-        ],
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "ticks": false
-      },
-      "legend": {
-        "domainWidth": 0,
-        "gridDash": [
-          3
-        ],
-        "gridColor": "rgba(0, 29, 34, 0.1)",
-        "gridWidth": 0.5,
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "tickWidth": 0,
-        "tickColor": "rgba(0, 29, 34, 0.1)",
-        "strokeWidth": 10
-      },
-      "symbol": {
-        "size": 20
-      },
-      "line": {
-        "opacity": 1,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "area": {
-        "opacity": 0.5,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "range": {
-        "category": [
-          "#F95E31",
-          "#915FC4",
-          "#83CB4D",
-          "#3DDFE7"
-        ]
-      }
+    "autosize": {
+      "type": "fit",
+      "resize": true
     },
+    "padding": 5,
     "data": [{
-        "name": "table",
+        "name": "data",
         "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
         "format": {
           "property": "data",
@@ -70,13 +27,107 @@
             "type": "formula",
             "as": "value",
             "expr": "abs(datum.value)"
+          }
+        ]
+      },
+      {
+        "name": "stats",
+        "source": "data",
+        "transform": [{
+            "type": "aggregate",
+            "groupby": [
+              "subcategory"
+            ],
+            "fields": [
+              "value"
+            ],
+            "ops": [
+              "sum"
+            ],
+            "as": [
+              "sum"
+            ]
+          },
+          {
+            "type": "window",
+            "sort": {
+              "field": "sum",
+              "order": "descending"
+            },
+            "ops": [
+              "row_number"
+            ],
+            "fields": [
+              null
+            ],
+            "as": [
+              "rank"
+            ]
+          },
+          {
+            "type": "collect",
+            "sort": {
+              "field": [
+                "rank"
+              ],
+              "order": [
+                "ascending"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "table",
+        "source": "data",
+        "transform": [{
+            "type": "lookup",
+            "from": "stats",
+            "key": "subcategory",
+            "fields": [
+              "subcategory"
+            ],
+            "values": [
+              "rank"
+            ],
+            "as": [
+              "rank"
+            ],
+            "default": null
+          },
+          {
+            "type": "formula",
+            "as": "subcategory",
+            "expr": "datum.rank < 5 ? datum.subcategory : 'Others'"
+          },
+          {
+            "type": "formula",
+            "as": "rank",
+            "expr": "datum.rank < 5 ? datum.rank : 5"
+          },
+          {
+            "type": "aggregate",
+            "groupby": [
+              "date",
+              "subcategory",
+              "rank"
+            ],
+            "ops": [
+              "sum"
+            ],
+            "fields": [
+              "value"
+            ],
+            "as": [
+              "value"
+            ]
           },
           {
             "type": "impute",
             "groupby": [
               "date"
             ],
-            "key": "category_type",
+            "key": "subcategory",
             "field": "value",
             "method": "value",
             "value": 0
@@ -86,16 +137,15 @@
             "field": "value",
             "groupby": [
               "date",
-              "category_type"
+              "subcategory",
+              "rank"
             ],
             "sort": {
               "field": [
                 "date",
-                "category_type",
                 "value"
               ],
               "order": [
-                "ascending",
                 "ascending",
                 "descending"
               ]
@@ -106,51 +156,17 @@
             ]
           },
           {
-            "type": "window",
-            "sort": {
-              "field": "y1",
-              "order": "ascending"
-            },
-            "groupby": ["date",
-              "category_type"
-            ],
-            "ops": ["row_number"],
-            "fields": [null],
-            "as": ["rank"]
-          },
-          {
             "type": "collect",
             "sort": {
               "field": [
                 "date",
-                "category_type",
-                "value"
+                "rank"
               ],
               "order": [
                 "ascending",
-                "ascending",
-                "descending"
+                "ascending"
               ]
             }
-          }
-        ]
-      },
-      {
-        "name": "stats",
-        "source": "table",
-        "transform": [{
-            "type": "aggregate",
-            "fields": ["subcategory"],
-            "groupby": ["date",
-              "category_type"
-            ],
-            "ops": ["count"],
-            "as": ["value"]
-          },
-          {
-            "type": "extent",
-            "field": "value",
-            "signal": "extent"
           }
         ]
       }
@@ -167,7 +183,7 @@
       },
       {
         "name": "yscale",
-        "type": "sqrt",
+        "type": "linear",
         "domain": {
           "fields": [{
               "data": "table",
@@ -187,13 +203,11 @@
       {
         "name": "color",
         "type": "ordinal",
-        "range": "category",
-        "domain": [
-          "income",
-          "expense",
-          "savings",
-          "credits"
-        ]
+        "domain": {
+          "data": "table",
+          "field": "subcategory"
+        },
+        "range": "category"
       }
     ],
     "axes": [{
@@ -214,7 +228,7 @@
           "labels": {
             "update": {
               "text": {
-                "signal": "timeFormat(datum.value, '%B')"
+                "signal": "timeFormat(datum.value, '%b')"
               }
             }
           },
@@ -247,50 +261,110 @@
             }
           }
         }
-
+      }
+    ],
+    "signals": [{
+        "name": "rows",
+        "description": "data required to update ",
+        "update": "width < 380 ? 3 : 1"
+      },
+      {
+        "name": "columns",
+        "description": "data required to update ",
+        "update": "width < 380 ? 2 : 5"
       }
     ],
     "legends": [{
-      "fill": "color",
-      "padding": 4,
-      "orient": "bottom",
-      "encode": {
-        "legend": {},
-        "labels": {
-          "interactive": false,
-          "update": {
-            "text": {
-              "signal": "upper(slice(datum.value, 0,1))+slice(datum.value, 1)"
-            },
-            "fontSize": {
-              "value": 12
-            },
-            "fill": {
-              "value": "black"
-            },
-            "y": {
-              "value": 0
-            },
-            "x": {
-              "signal": "datum.index*(width/8)+10"
+        "fill": "color",
+        "padding": 5,
+        "orient": "bottom",
+        "encode": {
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "fill": {
+                "value": "black"
+              }
+
+            }
+          },
+          "symbols": {
+            "update": {
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
             }
           }
-        },
-        "symbols": {
-          "update": {
-            "y": {
-              "value": 0
-            },
-            "x": {
-              "signal": "datum.index*(width/8)"
-            },
-            "stroke": {
-              "value": "transparent"
+        }
+      },
+      {
+        "fill": "color",
+        "padding": 4,
+        "orient": "none",
+        "encode": {
+          "legend": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "height*1.25"
+              }
+            }
+          },
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
+
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "signal": "datum.index<columns ? 0 : 30*rows"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns)+10 : (datum.index-columns)*(width/columns)+10"
+              }
+            }
+          },
+          "symbols": {
+            "update": {
+              "y": {
+                "signal": "datum.index < columns ? 0 : 30"
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns) : (datum.index-columns)*(width/columns)"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
             }
           }
         }
       }
-    }],
+    ],
     "marks": [{
       "type": "group",
       "from": {
@@ -318,7 +392,7 @@
         "range": "width",
         "domain": {
           "data": "facet",
-          "field": "category_type"
+          "field": "subcategory"
         }
       }],
       "marks": [{
@@ -331,7 +405,7 @@
           "enter": {
             "x": {
               "scale": "pos",
-              "field": "category_type"
+              "field": "subcategory"
             },
             "width": {
               "scale": "pos",
@@ -356,10 +430,10 @@
             },
             "fill": {
               "scale": "color",
-              "field": "category_type"
+              "field": "subcategory"
             },
             "fillOpacity": {
-              "signal": "clamp(1-(datum.rank/(extent[1])),0.1,1)"
+              "value": 1
             }
           }
         }

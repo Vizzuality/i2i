@@ -11,54 +11,6 @@
       "type": "fit",
       "resize": true
     },
-    "config": {
-      "axis": {
-        "domainWidth": 0,
-        "gridDash": [
-          1
-        ],
-        "labelFont": "Open Sans",
-        "labelFontSize": 11,
-        "labelColor": "#001D22",
-        "ticks": false
-      },
-      "legend": {
-        "domainWidth": 0,
-        "gridDash": [
-          3
-        ],
-        "gridColor": "rgba(0, 29, 34, 0.1)",
-        "gridWidth": 0.5,
-        "labelFont": "Open Sans",
-        "labelFontSize": 13,
-        "labelColor": "#001D22",
-        "tickWidth": 0,
-        "tickColor": "rgba(0, 29, 34, 0.1)",
-        "strokeWidth": 10
-      },
-      "symbol": {
-        "size": 20
-      },
-      "line": {
-        "opacity": 1,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "area": {
-        "opacity": 0.5,
-        "interpolate": "monotone",
-        "strokeWidth": 1
-      },
-      "range": {
-        "category": [
-          "#F95E31", // orange
-          "#a30d6f", // purple
-          "#84a62d", // green
-          "#1daac3", // blue
-          "#001d22" // gray
-        ]
-      }
-    },
     "data": [
       {
         "name": "table",
@@ -112,7 +64,7 @@
       {
         "stroke": "color",
         "padding": 0,
-        "offset": 50,
+        "offset": 40,
         "orient": "bottom",
         "encode": {
           "legend": {},
@@ -154,7 +106,7 @@
       {
         "stroke": "color",
         "padding": 30,
-        "offset": 20,
+        "offset": 5,
         "orient": "bottom",
         "values": [
           "mean"
