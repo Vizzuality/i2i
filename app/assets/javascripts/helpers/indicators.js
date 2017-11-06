@@ -30,7 +30,8 @@
       MWI: 'Malawi',
       BWA: 'Botswana',
       ZAF: 'South Africa',
-      MEX: 'Mexico'
+      MEX: 'Mexico',
+      IND: 'India'
     },
 
     /**
