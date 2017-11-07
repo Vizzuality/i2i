@@ -6,6 +6,10 @@
     "width": 800,
     "height": 400,
     "padding": 5,
+    "autosize": {
+      "type": "fit",
+      "resize": true
+    },
     "data": [{
         "name": "table",
         "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
@@ -204,108 +208,108 @@
       }
     ],
     "signals": [{
-      "name": "rows",
-      "description": "data required to update ",
-      "update": "width < 380 ? 3 : 1"
-    },
-    {
-      "name": "columns",
-      "description": "data required to update ",
-      "update": "width < 380 ? 2 : 5"
-    }
-  ],
+        "name": "rows",
+        "description": "data required to update ",
+        "update": "width < 380 ? 3 : 1"
+      },
+      {
+        "name": "columns",
+        "description": "data required to update ",
+        "update": "width < 380 ? 2 : 5"
+      }
+    ],
     "legends": [{
-      "fill": "color",
-      "padding": 5,
-      "orient": "bottom",
-      "encode": {
-        "labels": {
-          "update": {
-            "text": {
-              "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
-            },
-            "fontSize": {
-              "value": 12
-            },
-            "opacity": {
-              "signal": "width < 380 ? 1 : 0"
-            },
-            "fill": {
-              "value": "black"
-            }
+        "fill": "color",
+        "padding": 5,
+        "orient": "bottom",
+        "encode": {
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "fill": {
+                "value": "black"
+              }
 
+            }
+          },
+          "symbols": {
+            "update": {
+              "opacity": {
+                "signal": "width < 380 ? 1 : 0"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
+            }
           }
-        },
-        "symbols": {
-          "update": {
-            "opacity": {
-              "signal": "width < 380 ? 1 : 0"
-            },
-            "stroke": {
-              "value": "transparent"
+        }
+      },
+
+      {
+        "fill": "color",
+        "padding": 4,
+        "orient": "none",
+        "encode": {
+          "legend": {
+            "update": {
+              "x": {
+                "value": 0
+              },
+              "y": {
+                "signal": "height*1.25"
+              }
+            }
+          },
+          "labels": {
+            "update": {
+              "text": {
+                "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
+
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "signal": "datum.index<columns ? 0 : 30*rows"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns)+10 : (datum.index-columns)*(width/columns)+10"
+              }
+            }
+          },
+          "symbols": {
+            "update": {
+              "y": {
+                "signal": "datum.index < columns ? 0 : 30"
+              },
+              "opacity": {
+                "signal": "width < 380 ? 0 : 1"
+              },
+              "x": {
+                "signal": "datum.index<columns ? datum.index*(width/columns) : (datum.index-columns)*(width/columns)"
+              },
+              "stroke": {
+                "value": "transparent"
+              }
             }
           }
         }
       }
-    },
-
-    {
-      "fill": "color",
-      "padding": 4,
-      "orient": "none",
-      "encode": {
-        "legend": {
-          "update": {
-            "x": {
-              "value": 0
-            },
-            "y": {
-              "signal": "height*1.25"
-            }
-          }
-        },
-        "labels": {
-          "update": {
-            "text": {
-              "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
-
-            },
-            "fontSize": {
-              "value": 12
-            },
-            "opacity": {
-              "signal": "width < 380 ? 0 : 1"
-            },
-            "fill": {
-              "value": "black"
-            },
-            "y": {
-              "signal": "datum.index<columns ? 0 : 30*rows"
-            },
-            "x": {
-              "signal": "datum.index<columns ? datum.index*(width/columns)+10 : (datum.index-columns)*(width/columns)+10"
-            }
-          }
-        },
-        "symbols": {
-          "update": {
-            "y": {
-              "signal": "datum.index < columns ? 0 : 30"
-            },
-            "opacity": {
-              "signal": "width < 380 ? 0 : 1"
-            },
-            "x": {
-              "signal": "datum.index<columns ? datum.index*(width/columns) : (datum.index-columns)*(width/columns)"
-            },
-            "stroke": {
-              "value": "transparent"
-            }
-          }
-        }
-      }
-    }
-  ],
+    ],
     "marks": [{
       "type": "group",
       "from": {
