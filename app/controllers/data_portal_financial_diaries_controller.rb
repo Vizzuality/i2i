@@ -136,13 +136,5 @@ class DataPortalFinancialDiariesController < ApplicationController
     @country = Country.find_by(iso: params[:iso])
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
-
-    if @country_financial_diaries.present?
-      project_name = ProjectMetadatum.find_by(country_iso3: params[:iso]).project_name
-      gon.project_name = project_name;
-      gon.isFinancialDiaries = @country_financial_diaries.present?
-    end
-
-
   end
 end

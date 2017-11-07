@@ -15,8 +15,6 @@
           Turbolinks.visit('/data-portal/' + country);
         }
       });
-
-      if(gon.isFinancialDiaries) this._renderCharts();
     },
 
     _onClickAnchor: function (e) {
@@ -27,30 +25,6 @@
 
       $('html, body').animate({
         scrollTop: $(target).offset().top - 50
-      });
-    },
-
-    _renderCharts: function () {
-      var category = [{"category_type":"income","category_name":"ALL"}];
-      var params = {
-        project_name: gon.project_name,
-        categories: window.encodeURIComponent(JSON.stringify(category)),
-        api: FD_API_URL,
-        subFilters: ''
-      };
-
-      var isTabletOrHigher = window.innerWidth >= 768;
-      var el = isTabletOrHigher ?
-        document.querySelector('#vis-main-chart') : document.querySelector('#vis-main-chart-mobile');
-
-      new App.View.MainChartView({
-        params: Object.assign(
-          {},
-          params,
-          { title: 'Income' }
-        ),
-        el: el,
-        showToolbar: false
       });
     }
 
