@@ -43,7 +43,7 @@
         position: memberInfo.position,
         biography: memberInfo.biography,
         image: memberInfo.image_url,
-        blogs: memberInfo.blogs
+        blogs: memberInfo.blogs || []
       });
     },
 
