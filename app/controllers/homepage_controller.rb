@@ -9,6 +9,6 @@ class HomepageController < ApplicationController
     end
 
     @tweets = TwitterApi.get_tweets
-    @insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }[0..5]
+    @insights = records.flatten.sort { |a, b| b[:updated_at] <=> a[:updated_at] }[0..5]
   end
 end
