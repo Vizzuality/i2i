@@ -5,21 +5,23 @@
     <h4 class="title -sea -small member-position"><%= position %></h4>
     <div class="scroll-container">
       <div class="content">
-        <%= biography %>
-        <% if (blogs.length > 0) { %>
-          <div class="blogs">
-            <h5 class="title -dark -small">Blogs</h5>
-            <ul class="blog-link-list">
-              <% for(var i=0; i < blogs.length; i++) { %>
-                <li class="blog-link">
-                  <a href='/insights/blog/<%= blogs[i].slug %>?entity=blog'>
-                    <%= blogs[i].title %>
-                  </a>
-                </li>
-              <% } %>
-            </ul>
-          </div>
-        <% } %>
+        <div class="content-wrapper">
+          <%= biography %>
+          <% if (blogs.length > 0) { %>
+            <div class="blogs">
+              <h5 class="title -dark -small">Blogs</h5>
+              <ul class="blog-link-list">
+                <% for(var i=0; i < blogs.length; i++) { %>
+                  <li class="blog-link">
+                    <a href='/insights/blog/<%= blogs[i].slug %>?entity=blog'>
+                      <%= blogs[i].title %>
+                    </a>
+                  </li>
+                <% } %>
+              </ul>
+            </div>
+          <% } %>
+        </div>
       </div>
     </div>
   </div>

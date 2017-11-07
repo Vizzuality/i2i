@@ -76,13 +76,17 @@
     }
 
     > .content {
-      padding: 25px 0;
+      padding: 25px 0 300px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
 
       @media #{$mq-tablet} {
         max-height: 400px;
       }
+    }
+
+    .content-wrapper {
+      margin-bottom: 50px;
     }
 
     .blogs {
