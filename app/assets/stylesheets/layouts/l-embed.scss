@@ -20,6 +20,12 @@
       position: relative;
       width: 100%;
     }
+
+    &.-printable {
+      .vega-bindings {
+        display: none;
+      }
+    }
   }
 
   .logo {
