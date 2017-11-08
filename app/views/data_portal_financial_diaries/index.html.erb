@@ -85,7 +85,7 @@
         <div class="grid-s-12">
           <% if (dataAvailable) %>
             <%# category charts  %>
-            <% if @selectedCategories.select { |cat| cat['type'] == 'credits' && cat['visible'] == true }.present? %>
+            <% if @selectedCategories.select { |cat| cat['type'] == 'credit' && cat['visible'] == true }.present? %>
               <div class="c-widget" id="vis-grouped-bar-chart-credits"></div>
             <% end %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'income' && cat['visible'] == true }.present? %>
