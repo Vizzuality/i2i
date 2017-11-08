@@ -57,7 +57,7 @@ class Library < ApplicationRecord
     where(published: true)
      .joins(:category)
      .joins(:tags)
-     .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
+     .where("lower(libraries.title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
    end
 
