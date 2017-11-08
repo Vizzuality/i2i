@@ -86,7 +86,7 @@
           <% if (dataAvailable) %>
             <%# category charts  %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'credit' && cat['visible'] == true }.present? %>
-              <div class="c-widget" id="vis-grouped-bar-chart-credits"></div>
+              <div class="c-widget" id="vis-grouped-bar-chart-credit"></div>
             <% end %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'income' && cat['visible'] == true }.present? %>
               <div class="c-widget" id="vis-grouped-bar-chart-income"></div>
