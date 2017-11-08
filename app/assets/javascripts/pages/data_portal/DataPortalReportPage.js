@@ -106,7 +106,7 @@
      * @returns {DocumentFragment} containers
      */
     _createWidgetsContainer: function (count) {
-      var fragment = new DocumentFragment();
+      var fragment = document.createDocumentFragment();
 
       for (var i = 0, j = count; i < j; i++) {
         var div = document.createElement('div');
