@@ -38,7 +38,7 @@ module Fdapi
 
         sql_result.values.each do |values|
           case values[field_index[:category]]
-          when 'credits', 'savings'
+          when 'credit', 'savings'
             data << json_element('min', values[field_index[:min_rolling]],
                                  values[field_index[:category]],
                                  project_metadata.start_date.strftime('%Y-%m-%d'),
@@ -94,7 +94,7 @@ module Fdapi
 
         sql_result.values.each do |values|
           case values[field_index[:category]]
-          when 'credits', 'savings'
+          when 'credit', 'savings'
             data << json_element('min', values[field_index[:min_rolling]],
                                  values[field_index[:category]],
                                  project_metadata.start_date.strftime('%Y-%m-%d'),

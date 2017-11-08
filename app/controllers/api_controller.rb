@@ -1,7 +1,7 @@
 class ApiController < ActionController::Base
   def default_indicators
     {
-      'credits' => 'rolling_balance',
+      'credit' => 'rolling_balance',
       'savings' => 'rolling_balance',
       'income' => 'total_transaction_value',
       'expense' => 'total_transaction_value'
