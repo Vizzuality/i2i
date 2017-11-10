@@ -49,6 +49,16 @@
           color: $color-2;
         }
       }
+
+      &.-icon {
+        &::before {
+          content: none;
+        }
+
+        > a {
+          padding: 10px;
+        }
+      }
     }
   }
 }
