@@ -88,10 +88,11 @@
 
       this._removeEventListeners();
       this.remove();
-      this.html.classList.remove('_no-scroll');
-      this.body.classList.remove('_no-scroll');
 
-      $('html, body').scrollTop(this.scrollOffset);
+      $('html, body')
+        .removeClass('_no-scroll', !this.options.allowScroll)
+        .css({ 'top': '' })
+        .scrollTop(this.scrollOffset);
     },
 
     getFocusableElements: function () {
@@ -100,15 +101,15 @@
     },
 
     afterRender: function () {
-      this.scrollOffset = window.pageYOffset;
       // We focus the first focusable element of the modal
       if (this.focusableElements !== undefined && this.focusableElements.length) {
         this.focusableElements[0].focus()
       }
-      document.body.classList.add('_no-scroll');
     },
 
     render: function () {
+      this.scrollOffset = window.pageYOffset;
+
       $(this.body).append(this.$el.html(this.template({
         modalClass: this.options.modalClass,
         showTitle: this.options.showTitle,
@@ -126,8 +127,9 @@
       modalContent.setAttribute('aria-label', this.options.title);
       modalContent.setAttribute('tabindex', '0');
 
-      this.body.classList.toggle('_no-scroll', !this.options.allowScroll);
-      this.html.classList.toggle('_no-scroll', !this.options.allowScroll);
+      $('html, body')
+        .toggleClass('_no-scroll', !this.options.allowScroll)
+        .css({ top: -this.scrollOffset });
       // this.el.classList.toggle('-absolute', this.options.isAbsolute);
 
       // We attach the event listeners
