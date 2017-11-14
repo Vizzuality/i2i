@@ -17,9 +17,10 @@
 #  issuu_link         :string
 #  slug               :string
 #  published          :boolean
-#  record_type        :string           default("library")
 #  category_id        :integer
+#  record_type        :string           default("library")
 #  is_featured        :boolean          default(FALSE)
+#  position           :integer
 #
 
 class Library < ApplicationRecord

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: household_subcategory_incomes
+#
+#  id             :integer          not null, primary key
+#  project_name   :string
+#  household_name :string
+#  value          :float
+#  subcategory    :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class HouseholdSubcategoryIncome < ApplicationRecord
   scope :project_name, -> (project_name) { where(project_name: project_name) }
 

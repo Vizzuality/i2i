@@ -19,6 +19,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  num_members_in_mem      :integer
+#  province                :string
 #
 
 class ProjectMetadatum < ApplicationRecord
