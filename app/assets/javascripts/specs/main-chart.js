@@ -56,7 +56,7 @@
           "income",
           "expense",
           "savings",
-          "credits"
+          "credit"
         ]
       }
     ],
