@@ -1,8 +1,8 @@
 .c-switcher {
   display: flex;
   position: relative;
-  align-items: center;
-  height: 28px;
+  align-items: stretch;
+  padding: 1px;
   border-radius: 100px;
   background: rgba($color-6, .1);
 
@@ -14,9 +14,9 @@
     align-items: center;
     justify-content: center;
     // width: calc(50% - 15px);
-    height: calc(100% - 4px);
+    height: auto;
     margin: 0;
-    padding: 1px 15px 0;
+    padding: 2px 15px;
     border-radius: 100px;
 
     color: $color-2;

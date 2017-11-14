@@ -39,10 +39,10 @@
             <div class="grid-s-12">
               <div class="container">
                 <div class="row">
-                  <%# <div class="grid-s-12 grid-xl-4 offset-xl-1">
-                    <%= render partial: 'data_portal_financial_diaries/tabs'
-                  </div> %>
-                  <div class="grid-s-12 grid-xl-7- ">
+                  <div class="grid-s-12 grid-xl-4 offset-xl-1">
+                    <%= render partial: 'data_portal_financial_diaries/tabs' %>
+                  </div>
+                  <div class="grid-s-12 grid-xl-7">
                     <%= render partial: 'data_portal_financial_diaries/indicators' %>
                   </div>
                 </div>
@@ -57,14 +57,16 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="row">
-        <% unless @household.present? %>
+        <% unless @householdChart.present? %>
           <div class="grid-s-12">
             <%= render partial: 'data_portal_financial_diaries/demographic_filters' %>
           </div>
         <% end %>
-        <% if (@household.present?)%>
+        <% if (@householdChart.present?)%>
         <div class="grid-s-12">
-          <button class="c-button -outline -medium js-remove-household">See all households</button>
+          <button class="c-button -outline -medium js-remove-household">
+            See all <%= @type %>
+        </button>
         </div>
         <% end %>
       </div>
@@ -72,12 +74,12 @@
         <div class="grid-s-12">
           <% if (dataAvailable) %>
             <%# main chart %>
-            <% if (@household.present? == false) %>
-              <div class="c-widget -main _no-mobile" id="vis-main-chart"></div>
-              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile"></div>
+            <% if (@householdChart.present? == false) %>
+              <div class="c-widget -main _no-mobile" id="vis-main-chart-<%= @type %>"></div>
+              <div class="c-widget -main _no-tablet" id="vis-main-chart-mobile-<%= @type %>"></div>
             <% end %>
             <%# main chart - household detail %>
-            <% if (@household.present?) %> <div class="c-widget" id="vis-main-household-detail-chart"></div> <% end %>
+            <% if (@householdChart.present?) %> <div class="c-widget" id="vis-main-chart-details-<%= @type %>"></div> <% end %>
           <% else %>
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>
           <% end %>
@@ -86,16 +88,16 @@
           <% if (dataAvailable) %>
             <%# category charts  %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'credit' && cat['visible'] == true }.present? %>
-              <div class="c-widget" id="vis-grouped-bar-chart-credit"></div>
+              <div class="c-widget" id="vis-secondary-chart-credit"></div>
             <% end %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'income' && cat['visible'] == true }.present? %>
-              <div class="c-widget" id="vis-grouped-bar-chart-income"></div>
+              <div class="c-widget" id="vis-secondary-chart-income"></div>
             <% end %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'savings' && cat['visible'] == true }.present? %>
-              <div class="c-widget" id="vis-grouped-bar-chart-savings"></div>
+              <div class="c-widget" id="vis-secondary-chart-savings"></div>
             <% end %>
             <% if @selectedCategories.select { |cat| cat['type'] == 'expense' && cat['visible'] == true }.present? %>
-              <div class="c-widget" id="vis-grouped-bar-chart-expense"></div>
+              <div class="c-widget" id="vis-secondary-chart-expense"></div>
             <% end %>
           <% else %>
             <%= render partial: 'data_portal_financial_diaries/no_data_available' %>

@@ -1,7 +1,7 @@
 (function(App) {
   'use strict';
 
-  App.Specs.MainChart = {
+  App.Specs.Households.MainChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 700,
     "height": 640,

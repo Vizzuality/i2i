@@ -270,6 +270,7 @@
           {},
           this.options.params,
           { el: this.options.el },
+          { spec: this.options.spec },
           { shareOptions: this.options.shareOptions },
           { onClick: this.options.onClick || null }
         )

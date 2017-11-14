@@ -158,17 +158,27 @@
         ),
         showToolbar: false,
         el: this.el.querySelector('.js-widget-container'),
+        spec: this.options.widgetConfig.spec,
         onClick: onClick
       };
 
       switch(specToRender) {
-        case 'main-chart':
+        case 'households/main-chart':
           new App.View.MainChartView(widgetParams);
           break;
-        case 'main-chart-household':
+        case 'individuals/main-chart':
+          new App.View.MainChartView(widgetParams);
+          break;
+        case 'households/main-chart-details':
           new App.View.MainChartHouseholdView(widgetParams);
           break;
-        case 'grouped-bar-chart':
+        case 'individuals/main-chart-details':
+          new App.View.MainChartHouseholdView(widgetParams);
+          break;
+        case 'households/grouped-bar-chart':
+          new App.View.GroupedBarView(widgetParams);
+          break;
+        case 'individuals/grouped-bar-chart':
           new App.View.GroupedBarView(widgetParams);
           break;
         default:

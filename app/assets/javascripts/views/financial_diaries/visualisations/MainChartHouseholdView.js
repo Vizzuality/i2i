@@ -23,7 +23,7 @@
           format: '%Y-%m'
         }]
       },
-      spec: App.Specs.MainChartHousehold
+      spec: App.Specs.Households.MainChartDetails
     }
 
   });

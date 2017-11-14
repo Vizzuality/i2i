@@ -30,7 +30,9 @@ class DataPortalFinancialDiariesController < ApplicationController
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
       @selectedSubFilters = filters['subFilters'] || []
-      @household = filters['household'] || nil
+      @selectedSubFilters = @selectedSubFilters.map{ |selected| selected.symbolize_keys }
+
+      @householdChart = filters['detailsChart'] || nil
       @type = filters['type'];
       @currentMainIncomes = @main_incomes[@type.to_sym]
       @currentIncomeRanges = @income_ranges[@type.to_sym]
@@ -44,13 +46,13 @@ class DataPortalFinancialDiariesController < ApplicationController
     @main_income_options = {
       name: 'main_income',
       label: 'Main income type',
-      children: @currentMainIncomes
+      children: @currentMainIncomes || []
     }
 
     @income_tier_options = {
       name: 'income_tier',
       label: 'Income level',
-      children: @currentIncomeRanges
+      children: @currentIncomeRanges || []
     }
 
     if @type == 'households'
@@ -118,10 +120,9 @@ class DataPortalFinancialDiariesController < ApplicationController
 
 
       @filters.push(
-        @main_income_options,
         @gender_options,
-        @age_options,
-        @income_tier_options)
+        @age_options
+      )
     end
 
     gon.iso = country_iso;

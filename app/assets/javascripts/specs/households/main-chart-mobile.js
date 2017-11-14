@@ -1,7 +1,7 @@
 (function (App) {
   'use strict';
 
-  App.Specs.MainChartMobile = {
+  App.Specs.Households.MainChartMobile = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 320,
     "height": 330,
