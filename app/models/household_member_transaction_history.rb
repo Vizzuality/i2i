@@ -19,6 +19,7 @@
 #  deposits                        :float
 #  new_borrowing                   :float
 #  repayment                       :float
+#  date                            :datetime
 #
 
 class HouseholdMemberTransactionHistory < ApplicationRecord

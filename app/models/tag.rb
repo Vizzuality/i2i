@@ -11,6 +11,7 @@
 #  description :text
 #  image_url   :string
 #  title       :string
+#  position    :integer
 #
 
 class Tag < ApplicationRecord

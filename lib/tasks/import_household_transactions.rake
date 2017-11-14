@@ -7,7 +7,7 @@ namespace :db do
     csv_text = File.read('db/data/household_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     households = []
-    date_headers = csv.headers[11..75]
+    date_headers = csv.headers[10..74]
 
     csv.each do |row|
       households << HouseholdTransaction.new(
@@ -28,7 +28,7 @@ namespace :db do
 
     csv.each_with_index do |row, index|
       household_histories = []
-      row[11..75].each_with_index do |value, date_index|
+      row[10..74].each_with_index do |value, date_index|
         date = date_headers[date_index].split('-')
         year = date[0]
         month = date[1]
@@ -52,7 +52,7 @@ namespace :db do
     csv_text = File.read('db/data/household_member_transactions.csv')
     csv = CSV.parse(csv_text, :headers => true)
     household_members = []
-    date_headers = csv.headers[15..79]
+    date_headers = csv.headers[14..78]
 
     csv.each do |row|
       household_members << HouseholdMemberTransaction.new(
@@ -77,7 +77,7 @@ namespace :db do
 
     csv.each_with_index do |row, index|
       household_member_histories = []
-      row[15..79].each_with_index do |value, date_index|
+      row[14..78].each_with_index do |value, date_index|
         date = date_headers[date_index].split('-')
         year = date[0]
         month = date[1]
@@ -138,6 +138,19 @@ namespace :db do
     end
 
     CategoryUsage.import(category_usages)
+  end
+
+  task remove_resources_from_income: :environment do
+    households = HouseholdTransaction.where(category_type: 'income', subcategory: 'Resources')
+    members = HouseholdMemberTransaction.where(category_type: 'income', subcategory: 'Resources')
+
+    households.each(&:destroy)
+    members.each(&:destroy)
+  end
+
+  task change_credits_to_credit: :environment do
+    HouseholdTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
+    HouseholdMemberTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
   end
 
   # This is used to narrow down the number of subcategories present in records of category_type expense

@@ -4,12 +4,12 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string
-#  slug        :string
 #  description :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  slug        :string
+#  position    :integer
 #
-
 
 class CategorySerializer < ActiveModel::Serializer
   attributes :id, :name, :description

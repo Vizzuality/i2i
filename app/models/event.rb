@@ -18,9 +18,10 @@
 #  slug               :string
 #  published          :boolean
 #  custom_author      :string
-#  record_type        :string           default("event")
 #  category_id        :integer
+#  record_type        :string           default("event")
 #  is_featured        :boolean          default(FALSE)
+#  position           :integer
 #
 
 class Event < ApplicationRecord
@@ -56,7 +57,7 @@ class Event < ApplicationRecord
     where(published: true)
       .joins(:category)
       .joins(:tags)
-      .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
+      .where("lower(events.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
              "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
   end
 

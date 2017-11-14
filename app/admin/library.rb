@@ -32,7 +32,7 @@ ActiveAdmin.register Library do
     def permitted_params
       params.permit library: [:title, :summary, :id, :published, :category_id,
                               :image, :date, :url_resource, :is_featured,
-                              :video_url, :issuu_link,
+                              :video_url, :issuu_link, :position,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
                               document_attributes: [:file, :name, :id, :_destroy],
                               documented_item_attributes: [:document_id, :id, :_destroy]
@@ -65,6 +65,7 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :published
       f.input :is_featured
+      f.input :position, placeholder: 'For featured'
       f.input :summary
       f.input :date, as: :date_picker
       f.input :video_url
@@ -122,6 +123,7 @@ ActiveAdmin.register Library do
       row :title
       row :published
       row :is_featured
+      row :position
       row :summary
       row :tags do
       	ActiveAdminHelper.tags_names(ad.tags)

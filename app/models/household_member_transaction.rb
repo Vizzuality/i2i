@@ -17,6 +17,7 @@
 #  num_accounts         :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  total_income         :float
 #
 
 class HouseholdMemberTransaction < ApplicationRecord
@@ -24,7 +25,7 @@ class HouseholdMemberTransaction < ApplicationRecord
   include Categorizable
 
   has_one :project_metadatum, class_name: 'ProjectMetadatum', primary_key: :project_name, foreign_key: :project_name
-  has_many :household_member_transaction_histories
+  has_many :household_member_transaction_histories, dependent: :destroy
   has_many :household_member_transaction_histories_with_values, -> { with_values },
                                                    foreign_key: "household_member_transaction_id",
                                                    class_name: "HouseholdMemberTransactionHistory"

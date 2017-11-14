@@ -250,7 +250,7 @@
       var houseHoldTitle = household ? '(Household: ' + household + ')' : '';
 
       var mainChartTitle = categories.map(function(cat) {
-        return capitalize(cat.subcategory || cat.category_type === 'credits' ? 'Credit' :  cat.category_type);
+        return cat.subcategory ? capitalize(cat.subcategory) : capitalize(cat.category_type);
       }).join(', ');
 
       if(!household) {
@@ -304,7 +304,7 @@
           params: Object.assign(
             {},
             params,
-            { title: capitalize(category.category_type === 'credits' ? 'Credit' :  category.category_type) + ' by type' + ' ' + houseHoldTitle },
+            { title: capitalize(category.category_type) + ' by type' + ' ' + houseHoldTitle },
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },
             { household: household || '' }
           ),

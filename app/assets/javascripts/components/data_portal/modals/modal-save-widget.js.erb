@@ -209,7 +209,7 @@
 
     _renderSlides: function () {
       var slidesContainer = this.el.querySelector('.js-slider-container');
-      var fragment = new DocumentFragment();
+      var fragment = document.createDocumentFragment();
 
       this.slides.forEach(function (slide) {
         fragment.appendChild($(slide.view.render())[0]);

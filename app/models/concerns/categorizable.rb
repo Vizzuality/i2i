@@ -7,7 +7,7 @@ module Categorizable
 
   def default_indicators
     {
-      credits: :rolling_balance,
+      credit: :rolling_balance,
       savings: :rolling_balance,
       income: :total_transaction_value,
       expense: :total_transaction_value
@@ -23,8 +23,7 @@ module Categorizable
         children = where(project_name: project_name, category_type: type)
                     .pluck(:subcategory).uniq.compact.sort.map { |c| { name: c, value: c } }
 
-        category_name = type == 'credits' ? 'credit' : type                    
-        categories << { name: category_name, value: type, children: children }
+        categories << { name: type, value: type, children: children }
       end
 
       # Categories are sorted alphabetically, but income should be first

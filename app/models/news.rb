@@ -17,9 +17,10 @@
 #  issuu_link         :string
 #  slug               :string
 #  published          :boolean
-#  record_type        :string           default("news")
 #  category_id        :integer
+#  record_type        :string           default("news")
 #  is_featured        :boolean          default(FALSE)
+#  position           :integer
 #
 
 class News < ApplicationRecord
@@ -51,7 +52,7 @@ class News < ApplicationRecord
     where(published: true)
       .joins(:category)
       .joins(:tags)
-      .where("lower(title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
+      .where("lower(news.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
              "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
   end
 
