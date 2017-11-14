@@ -54,7 +54,7 @@ ActiveAdmin.register Event do
 
     def permitted_params
       params.permit(:id, event: [:title, :author, :url, :summary, :content, :id, :image, :date,
-                                 :published, :custom_author, :category_id, :is_featured,
+                                 :published, :custom_author, :category_id, :is_featured, :position,
                                  documents_attributes: [:file, :name, :id, :_destroy],
                                  tagged_items_attributes: [:tag_id, :id, :_destroy],
                                  documented_items_attributes: [:document_id, :id, :_destroy]])
@@ -87,6 +87,7 @@ ActiveAdmin.register Event do
       f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
       f.input :is_featured
+      f.input :position, placeholder: 'For featured'
       f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -122,6 +123,7 @@ ActiveAdmin.register Event do
       row :custom_author
       row :published
       row :is_featured
+      row :position
       row :url
       row :summary
       row :tags do
