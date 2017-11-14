@@ -23,13 +23,20 @@
     top: 25px;
     left: 0;
     bottom: 0;
+    right: 0;
     width: 100%;
-    text-indent: -9999px;
+    height: 100%;
+    opacity: 0;
 
     &.-open + .country-placeholder {
       &::after {
         @include arrow(20px, 4px, $color-2, 'up');
       }
+    }
+
+    // hide select IE default browser dropdown
+    &::-ms-expand {
+        display: none;
     }
   }
 
