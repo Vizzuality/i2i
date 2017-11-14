@@ -17,6 +17,7 @@
 #  num_accounts         :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  total_income         :float
 #
 
 class HouseholdMemberTransaction < ApplicationRecord

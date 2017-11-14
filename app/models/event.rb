@@ -18,9 +18,10 @@
 #  slug               :string
 #  published          :boolean
 #  custom_author      :string
-#  record_type        :string           default("event")
 #  category_id        :integer
+#  record_type        :string           default("event")
 #  is_featured        :boolean          default(FALSE)
+#  position           :integer
 #
 
 class Event < ApplicationRecord

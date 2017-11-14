@@ -19,9 +19,10 @@
 #  slug               :string
 #  published          :boolean
 #  custom_author      :string
-#  record_type        :string           default("blog")
 #  category_id        :integer
+#  record_type        :string           default("blog")
 #  is_featured        :boolean          default(FALSE)
+#  position           :integer
 #
 
 class Blog < ApplicationRecord
