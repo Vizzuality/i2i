@@ -1,10 +1,12 @@
 <div class="veil _no-mobile"></div>
 <div class="c-modal <%= modalClass %>">
-  <div id="modal-content" class="js-modal-content modal-content">
-    <% if (showTitle) { %>
-      <h1 class="modal-title"><%= title %></h1>
-    <% } %>
-    <%= content %>
-    <footer class="modal-footer"><%= footer %></footer>
+  <div id="modal-content-<%= title.toLowerCase().replace(/\s/g, '-') %>" class="js-modal-content modal-content">
+    <div class="content">
+      <% if (showTitle) { %>
+        <h1 class="modal-title"><%= title %></h1>
+      <% } %>
+      <%= content %>
+      <footer class="modal-footer"><%= footer %></footer>
+    </div>
   </div>
 </div>
