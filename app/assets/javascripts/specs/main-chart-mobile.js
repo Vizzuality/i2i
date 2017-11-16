@@ -10,40 +10,42 @@
       "type": "fit",
       "resize": true
     },
-    "data": [{
-        "name": "table",
-        "format": {
-          "type": "json",
-          "property": "data"
+    "data": [
+
+     {
+          "name": "table",
+          "format": {
+            "type": "json",
+            "property": "data"
+          },
+          "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %><%= subFilters %>"
         },
-        "url": "<%= api %>/household_transactions?categories=<%= categories %>&project_name=<%= project_name %><%= subFilters %>"
-      },
-      {
-        "name": "stats",
-        "url": "<%= api %>/households/project_min_max/<%= project_name %>?categories=<%= categories %>",
-        "format": {
-          "type": "json",
-          "property": "data",
-          "parse": {
-            "value": "number",
-            "date": "date"
+        {
+          "name": "stats",
+          "url": "<%= api %>/households/project_min_max/<%= project_name %>?categories=<%= categories %>",
+          "format": {
+            "type": "json",
+            "property": "data",
+            "parse": {
+              "value": "number",
+              "date": "date"
+            }
+          }
+        },
+        {
+          "name": "mean",
+          "url": "<%= api %>/households/project_means/<%= project_name %>?categories=<%= categories %>",
+          "format": {
+            "type": "json",
+            "property": "data",
+            "parse": {
+              "median": "number",
+              "max": "number",
+              "min": "number",
+              "date": "date"
+            }
           }
         }
-      },
-      {
-        "name": "mean",
-        "url": "<%= api %>/households/project_means/<%= project_name %>?categories=<%= categories %>",
-        "format": {
-          "type": "json",
-          "property": "data",
-          "parse": {
-            "median": "number",
-            "max": "number",
-            "min": "number",
-            "date": "date"
-          }
-        }
-      }
     ],
     "scales": [{
         "name": "xOverview",

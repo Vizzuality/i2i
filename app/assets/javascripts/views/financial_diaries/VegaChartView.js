@@ -3,7 +3,7 @@
 
   var gridColor = 'rgba(0, 29, 34, 0.1)';
   var fontColor = '#001D22';
-
+  var fontFamily ='system-ui';
   var vegaTheme = {
     background: 'white',
 
@@ -14,14 +14,19 @@
       gridColor: gridColor,
       gridWidth: 0.5,
 
-      labelFont: 'Open Sans',
+      labelFont: fontFamily,
       labelFontSize: 11,
       labelColor: fontColor,
 
       tickWidth: 0,
       tickColor: gridColor,
     },
+    legend: {
+      labelFont: fontFamily,
+      labelFontSize: 12,
+      labelColor: fontColor
 
+    },
     symbol: {
       size: 20
     },
@@ -39,6 +44,15 @@
 
     range: {
       category: [
+        //"#F95E31", // orange
+        "#FDD7CB",
+        "#a30d6f", // purple
+        //"#84a62d", // green
+        "#E0E9CA",
+        "#1daac3", // blue
+        "#001d22" // gray
+      ],
+      mean: [
         "#F95E31", // orange
         "#a30d6f", // purple
         "#84a62d", // green
@@ -166,19 +180,16 @@
         .resize()
         .run();
 
-      this.chart.runAfter(function() {
-        // TODO: add a event to Vega when dom is ready
-        setTimeout(function() {
-          requestAnimationFrame(function() {
-            window.dispatchEvent(customLoadEvent);
-            self.el.classList.remove('c-spinning-loader');
-          });
-        }, 1000);
-      });
+      this.chart.toCanvas().then(function() {
+        // dispatchs custom load event
+        window.dispatchEvent(customLoadEvent);
+        // removes spinner
+        this.el.classList.remove('c-spinning-loader');
+      }.bind(this));
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
-        var noAllowedNames = ['end0', 'end', 'yend0', 'yend', 'brush', 'yBrush'];
+        var noAllowedNames = ['end0', 'end', 'yend0', 'yend', 'brush', 'yBrush', 'detailIn'];
 
         this.chart.addEventListener('mousemove', function(event, item) {
           if (item && (item.mark.marktype === 'symbol' || item.mark.marktype === 'rect')) {
