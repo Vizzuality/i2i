@@ -14,7 +14,7 @@ ActiveAdmin.register Blog do
   end
 
   controller do
-    def created_at
+    def create
       if params[:commit] == 'Preview'
         if permitted_params['blog']['image'].present?
           image = permitted_params['blog']['image']
