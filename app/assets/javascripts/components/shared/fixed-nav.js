@@ -54,6 +54,6 @@
 
     _onScroll: _.throttle(function() {
       this.visibility();
-    }, 16),
+    }, 20),
   });
 }).call(this, this.App);
