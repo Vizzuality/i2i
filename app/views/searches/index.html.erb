@@ -24,7 +24,7 @@
                       <%= label_tag(:term, "Search for:", :class => '_is-visually-hidden') %>
                       <%= text_field_tag(:term, params[:term], :class => 'search-input', :placeholder => 'Type your search here') %>
                     </div>
-                    <%= button_tag("Search", :type => 'submit', :class => 'c-button -white -big search-submit') %>
+                    <%= button_tag("Search", :type => 'submit', :name => nil, :class => 'c-button -white -big search-submit') %>
                   <% end %>
               </div>
             </div>
