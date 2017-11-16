@@ -161,9 +161,18 @@
       // Rendering chart
       this.chart = new vega.View(runtime)
         .renderer(this.options.renderer)
-        .initialize(this.chartElement.get(0));
+        .initialize(this.chartElement.get(0))
+        .hover()
+        .resize();
 
-      this.chart.toCanvas().then(function() {
+      var chartRenderPromise = null;
+
+      if(this.options.renderer === 'svg') chartRenderPromise = this.chart.toSVG();
+      if(this.options.renderer === 'canvas') chartRenderPromise = this.chart.toCanvas();
+
+      if (!chartRenderPromise) return;
+
+      chartRenderPromise.then(function() {
         // dispatchs custom load event
         window.dispatchEvent(customLoadEvent);
         // removes spinner
