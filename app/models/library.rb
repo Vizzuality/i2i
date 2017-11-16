@@ -21,6 +21,7 @@
 #  record_type        :string           default("library")
 #  is_featured        :boolean          default(FALSE)
 #  position           :integer
+#  description        :text
 #
 
 class Library < ApplicationRecord

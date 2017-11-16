@@ -44,11 +44,11 @@
 
     range: {
       category: [
-        //"#F95E31", // orange
-        "#FDD7CB",
+        "#F95E31", // orange
+        //"#FDD7CB",
         "#a30d6f", // purple
-        //"#84a62d", // green
-        "#E0E9CA",
+        "#84a62d", // green
+        //"#E0E9CA",
         "#1daac3", // blue
         "#001d22" // gray
       ],
@@ -177,10 +177,17 @@
         .renderer(this.options.renderer)
         .initialize(this.chartElement.get(0))
         .hover()
-        .resize()
-        .run();
+        .resize();
 
-      this.chart.toCanvas().then(function() {
+      var chartRenderPromise = null;
+
+      if(this.options.renderer === 'svg') chartRenderPromise = this.chart.toSVG();
+      if(this.options.renderer === 'canvas') chartRenderPromise = this.chart.toCanvas();
+
+      if (!chartRenderPromise) return;
+
+      chartRenderPromise.then(function() {
+
         // dispatchs custom load event
         window.dispatchEvent(customLoadEvent);
         // removes spinner
