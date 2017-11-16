@@ -163,18 +163,21 @@
         .renderer(this.options.renderer)
         .initialize(this.chartElement.get(0))
         .hover()
-        .resize()
-        .run();
+        .resize();
 
-      this.chart.runAfter(function() {
-        // TODO: add a event to Vega when dom is ready
-        setTimeout(function() {
-          requestAnimationFrame(function() {
-            window.dispatchEvent(customLoadEvent);
-            self.el.classList.remove('c-spinning-loader');
-          });
-        }, 1000);
-      });
+      var chartRenderPromise = null;
+
+      if(this.options.renderer === 'svg') chartRenderPromise = this.chart.toSVG();
+      if(this.options.renderer === 'canvas') chartRenderPromise = this.chart.toCanvas();
+
+      if (!chartRenderPromise) return;
+
+      chartRenderPromise.then(function() {
+        // dispatchs custom load event
+        window.dispatchEvent(customLoadEvent);
+        // removes spinner
+        this.el.classList.remove('c-spinning-loader');
+      }.bind(this));
 
       // Interaction: Tooltip
       if (this.options.customTooltip) {
