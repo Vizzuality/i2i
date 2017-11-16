@@ -407,14 +407,14 @@
                               ],
                     "opacity": [{
                         "test": "sort",
-                        "value": 1
+                        "value": 0.2
                       },
                       {
                         "value": 0
                       }
                     ],
                     "strokeWidth": {
-                      "value": 0.5
+                      "value": 1
                     },
                     "strokeCap": {
                       "value": "round"
@@ -757,6 +757,9 @@
               },
               "encode": {
                 "update": {
+                  "opacity": {
+                    "value": 0.25
+                  },
                   "x": {
                     "scale": "xOverview",
                     "field": "date"
