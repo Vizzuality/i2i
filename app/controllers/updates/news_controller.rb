@@ -27,18 +27,35 @@ class Updates::NewsController < ApplicationController
       end
     end
 
-    @insight = News.new(
-      title: session[:data]['title'],
-      author: session[:data]['author'],
-      summary: session[:data]['summary'],
-      content: session[:data]['content'],
-      date: session[:data]['date'],
-      issuu_link: session[:data]['issuu_link'],
-      published: session[:data]['published'],
-      category_id: session[:data]['category_id'],
-      is_featured: session[:data]['is_featured'],
-      image: session[:data]['image']
-    )
+    saved_news = News.find_by(title: session[:data]['title'])
+
+    if saved_news.present?
+      saved_news.title = session[:data]['title']
+      saved_news.author = session[:data]['author']
+      saved_news.summary = session[:data]['summary']
+      saved_news.content = session[:data]['content']
+      saved_news.date = session[:data]['date']
+      saved_news.issuu_link = session[:data]['issuu_link']
+      saved_news.published = session[:data]['published']
+      saved_news.category_id = session[:data]['category_id']
+      saved_news.is_featured = session[:data]['is_featured']
+
+      @insight = saved_news
+    else
+      @insight = News.new(
+        title: session[:data]['title'],
+        author: session[:data]['author'],
+        summary: session[:data]['summary'],
+        content: session[:data]['content'],
+        date: session[:data]['date'],
+        issuu_link: session[:data]['issuu_link'],
+        published: session[:data]['published'],
+        category_id: session[:data]['category_id'],
+        is_featured: session[:data]['is_featured'],
+        image: session[:data]['image']
+      )
+    end
+
     @insight.image.save unless session[:has_image]
     @related = []
 
