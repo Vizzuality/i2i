@@ -28,8 +28,9 @@ class Updates::NewsController < ApplicationController
     end
 
     saved_news = News.find_by(title: session[:data]['title'])
+    image_changed = session[:data][:image].original_filename != saved_news.image.original_filename if saved_news.present?
 
-    if saved_news.present?
+    if saved_news.present? && !image_changed
       saved_news.title = session[:data]['title']
       saved_news.author = session[:data]['author']
       saved_news.summary = session[:data]['summary']

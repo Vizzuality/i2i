@@ -29,8 +29,9 @@ class Updates::EventsController < ApplicationController
     end
     
     saved_event = Event.find_by(title: session[:data]['title'])
+    image_changed = session[:data][:image].original_filename != saved_event.image.original_filename if saved_event.present?
 
-    if saved_event.present?
+    if saved_event.present? && !image_changed
       saved_event.title = session[:data]['title']
       saved_event.author = session[:data]['author']
       saved_event.url = session[:data]['url']

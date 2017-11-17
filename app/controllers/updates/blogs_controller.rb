@@ -29,8 +29,9 @@ class Updates::BlogsController < ApplicationController
     end
 
     saved_blog = Blog.find_by(title: session[:data]['title'])
+    image_changed = session[:data][:image].original_filename != saved_blog.image.original_filename if saved_blog.present?
 
-    if saved_blog.present?
+    if saved_blog.present? && !image_changed
       saved_blog.title = session[:data]['title']
       saved_blog.author = session[:data]['author']
       saved_blog.workstream = session[:data]['workstream']
