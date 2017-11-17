@@ -56,6 +56,7 @@ class Blog < ApplicationRecord
       .joins(:tags)
       .where("lower(blogs.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
              "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .distinct
   end
 
   def set_date
