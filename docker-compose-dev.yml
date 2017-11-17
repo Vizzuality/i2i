@@ -21,6 +21,7 @@ services:
       - "./:/usr/src/i2i"
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
+      - "./public/ckeditor_assets:/usr/src/i2i/public/ckeditor_assets"
     ports:
       - 3000:3000
     links:
