@@ -5,7 +5,7 @@
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 800,
     "height": 400,
-    "padding": 5,
+    "padding": 0,
     "autosize": {
       "type": "fit",
       "resize": true
@@ -149,7 +149,7 @@
           "income",
           "expense",
           "savings",
-          "credits"
+          "credit"
         ]
       }
     ],
@@ -171,7 +171,7 @@
           "labels": {
             "update": {
               "text": {
-                "signal": "timeFormat(datum.value, '%B')"
+                "signal": "timeFormat(datum.value, '%b')"
               }
             }
           },
@@ -228,16 +228,9 @@
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
               },
-              "fontSize": {
-                "value": 12
-              },
               "opacity": {
                 "signal": "width < 380 ? 1 : 0"
-              },
-              "fill": {
-                "value": "black"
               }
-
             }
           },
           "symbols": {
@@ -274,14 +267,8 @@
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
 
               },
-              "fontSize": {
-                "value": 12
-              },
               "opacity": {
                 "signal": "width < 380 ? 0 : 1"
-              },
-              "fill": {
-                "value": "black"
               },
               "y": {
                 "signal": "datum.index<columns ? 0 : 30*rows"
