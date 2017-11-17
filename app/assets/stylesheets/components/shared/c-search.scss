@@ -1,0 +1,67 @@
+.c-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 20px;
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid $color-4;
+  }
+
+  .search-icon {
+    color: $color-4;
+  }
+
+  .search-input {
+    flex: 1;
+    color: $color-4;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-bold;
+
+    &::placeholder {
+      color: $color-4;
+      font-size: $font-size-regular;
+      font-weight: $font-weight-bold;
+    }
+
+    //override browser default autocomplete
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus
+    &:-webkit-autofill {
+      transition: background-color 5000s ease-in-out 0s;
+      font-size: $font-size-regular;
+      font-weight: $font-weight-bold;
+      -webkit-box-shadow: 0 0 0px 1000px rgba($color-4, 0), inset;
+      -webkit-text-fill-color: $color-4;
+    }
+  }
+
+  .search-submit {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+@media #{$mq-tablet} {
+  .c-search {
+    flex-wrap: nowrap;
+    margin-top: 40px;
+
+    .search-box {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    .search-submit {
+      flex: inherit;
+      width: auto;
+      margin-top: 0;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<% title 'Search | i2i' %>
+<div class="l-library">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-insights.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-s-12 grid-m-12 grid-l-7">
+                <h1 class="title -highlight -huge">Search i2i</h1>
+                  <%= form_tag(search_path, :method => "get", :class => 'c-form c-search') do %>
+                    <div class="search-box">
+                      <svg class="icon search-icon"><use xlink:href="#icon-search"></use></svg>
+                      <%= label_tag(:term, "Search for:", :class => '_is-visually-hidden') %>
+                      <%= text_field_tag(:term, params[:term], :class => 'search-input', :placeholder => 'Type your search here') %>
+                    </div>
+                    <%= button_tag("Search", :type => 'submit', :name => nil, :class => 'c-button -white -big search-submit') %>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content">
+    <div class="l-card-grid">
+      <div class="wrapper">
+        <div class="row">
+          <div class="grid-s-12">
+            <% if !@records.nil? && @records.length > 0 %>
+              <%= render partial: 'shared/cards', locals: { insights: @records, route: 'insights' } %>
+            <% else %>
+              <% if params[:term].present? %>
+                <p>No search results for <strong><%= params[:term] %></strong></p>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
