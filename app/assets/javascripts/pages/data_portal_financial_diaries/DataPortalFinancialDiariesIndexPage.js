@@ -345,7 +345,7 @@
         });
       } else {
         // renders main chart with household detail
-        new App.View.MainChartHouseholdView({
+        new App.View.MainChartDetails({
           params: Object.assign(
             {},
             params,
