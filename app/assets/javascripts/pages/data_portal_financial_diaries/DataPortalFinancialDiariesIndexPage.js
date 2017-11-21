@@ -11,6 +11,49 @@
         type: 'households',
         categories: [],
         subFilters: []
+      },
+      selectors: {
+        mainChart: '#vis-main-chart-',
+        mainChartMobile: '#vis-main-chart-mobile-',
+        detailsChart: '#vis-main-chart-details-',
+      },
+      specs: {
+        households: {
+          mainChart: {
+            spec: App.Specs.Households.MainChart,
+            shareOption: 'households/main-chart'
+          },
+          mainChartMobile: {
+            spec: App.Specs.Households.MainChartMobile,
+            shareOption: 'households/main-chart-mobile'
+          },
+          mainChartSecondary:  {
+            spec: App.Specs.Households.MainChartDetails,
+            shareOption: 'households/main-chart-details'
+          },
+          secondaryChart: {
+            spec: App.Specs.Households.GroupedBarChart,
+            shareOption: 'households/grouped-bar-chart'
+          }
+        },
+        individuals: {
+          mainChart: {
+            spec: App.Specs.Individuals.MainChart,
+            shareOption: 'individuals/main-chart'
+          },
+          mainChartMobile: {
+            spec: App.Specs.Individuals.MainChartMobile,
+            shareOption: 'individuals/main-chart-mobile'
+          },
+          mainChartSecondary: {
+            spec: App.Specs.Individuals.MainChartDetails,
+            shareOption: 'individuals/main-chart-details'
+          },
+          secondaryChart: {
+            spec: App.Specs.Individuals.GroupedBarChart,
+            shareOption: 'individuals/grouped-bar-chart'
+          }
+        }
       }
     },
 
@@ -25,6 +68,7 @@
 
       this.iso = options.iso;
       this.year = options.year;
+      this.selectors = this.defaults.selectors;
 
       if (this.filterView) {
         this.filterView.removeEventListener();
@@ -48,7 +92,7 @@
       this._setVars();
       this._removeEventListeners();
       this._setEventListeners();
-      this._loadCharts();
+      this._loadCharts(this.filters.type);
     },
 
     _setVars: function() {
@@ -60,7 +104,6 @@
       this.removeHouseholdButton = document.querySelector('.js-remove-household');
       this.toggleMobileFiltersButton = document.querySelector('.js-toggle-filters');
       this.contentVeil = document.querySelector('.js-content-veil');
-
 
       // bindings
       this.onClickCategoryBinded = function(e) {
@@ -75,8 +118,8 @@
         this._onClickFilter(e);
       }.bind(this);
 
-      this.onClickRemoveHouseholdBinded = function() {
-        this._onRemoveHousehold();
+      this.onClickRemovedetailsChartBinded = function() {
+        this._onRemoveDetailsChart();
       }.bind(this);
     },
 
@@ -92,7 +135,7 @@
       $(this.categories).on('click', this.onClickCategoryBinded);
       $(this.visibilityCheckboxes).on('click', this.onChangeVisibilityBinded);
       $(this.demographicOptions).on('click', this.onClickDemographicFilterBinded);
-      $(this.removeHouseholdButton).on('click', this.onClickRemoveHouseholdBinded);
+      $(this.removeHouseholdButton).on('click', this.onClickRemovedetailsChartBinded);
       $(this.toggleMobileFiltersButton).on('click', this._onToggleMobileFilters.bind(this));
       $(this.tabs).on('click', this._onClickTab.bind(this));
     },
@@ -181,13 +224,17 @@
       this._updateFilters({ subFilters: subFilters });
     },
 
-    _onRemoveHousehold: function () {
-      this._updateFilters({ household: null });
+    _onRemoveDetailsChart: function () {
+      this._updateFilters({ detailsChart: null });
     },
 
     _onClickTab: function(e) {
       var type = e.currentTarget.getAttribute('data-type');
-      this._updateFilters({ type: type });
+      this._updateFilters({
+        type: type,
+        subFilters: [],
+        detailsChart: null
+       });
     },
 
     _onToggleMobileFilters: function() {
@@ -199,10 +246,10 @@
       var prevFilters = Object.assign({}, this.filters);
       this.filters = Object.assign({}, this.filters, newFilters);
       var filtersAreEqual = _.isEqual(prevFilters, this.filters);
-      if (!filtersAreEqual) this._onUpateURLParams();
+      if (!filtersAreEqual) this._onUpdateURLParams();
     },
 
-    _onUpateURLParams: function() {
+    _onUpdateURLParams: function() {
       var pathname = Backbone.history.location.pathname;
       var encodedParams = window.btoa(JSON.stringify(this.filters));
       var newURL = pathname + '?p=' + encodedParams;
@@ -210,26 +257,24 @@
       Turbolinks.visit(newURL);
     },
 
-    _loadCharts: function() {
-      var capitalize = App.Helper.Utils.capitalize;
-      var household = this.filters.household || null;
-      var categories = (this.filters.categories || [])
+    _getCategories: function() {
+      return (this.filters.categories || [])
         .filter(function(cat) { return cat.visible })
         .map(function(category) {
-
           if (category.subcategory) {
             return {
               category_type: category.type,
               subcategory: category.subcategory || null
             }
           }
-
           return {
             category_type: category.type,
             category_name: 'ALL'
           };
         });
+    },
 
+    _getSubFiltersString: function() {
       var subFiltersString = '';
       var subFilters = (this.filters.subFilters || [])
         .filter(function(filter) { return filter.value !== 'all' });
@@ -238,7 +283,14 @@
           filterString += '&' + f.type + '=' + f.value;
           if(index < this.filters.subFilters.length && this.filters.subFilters.lenght > 1) filterString += '&'
           subFiltersString += filterString;
-        }.bind(this))
+        }.bind(this));
+
+      return subFiltersString;
+    },
+
+    _loadCharts: function(type) {
+      var categories = this._getCategories();
+      var subFiltersString = this._getSubFiltersString();
 
       // common params for all charts
       var params = {
@@ -247,20 +299,28 @@
         subFilters: subFiltersString,
         api: FD_API_URL
       };
-      var houseHoldTitle = household ? '(Household: ' + household + ')' : '';
+
+      var specs = this.defaults.specs[type];
+
+      var capitalize = App.Helper.Utils.capitalize;
+      var detailsChart = this.filters.detailsChart || null;
+      var label = type === 'households' ? 'Household' : 'Individual';
+      var detailsChartTitle = detailsChart ? '(' + label + ': ' + detailsChart + ')' : '';
 
       var mainChartTitle = categories.map(function(cat) {
         return cat.subcategory ? capitalize(cat.subcategory) : capitalize(cat.category_type);
       }).join(', ');
 
-      if(!household) {
+      if(!detailsChart) {
         var isTabletOrHigher = window.innerWidth >= 768;
         var el = isTabletOrHigher ?
-          document.querySelector('#vis-main-chart') : document.querySelector('#vis-main-chart-mobile');
+          document.querySelector(this.selectors.mainChart + type) : document.querySelector(this.selectors.mainChartMobile + type);
+        var shareOption = isTabletOrHigher ? specs.mainChart.shareOption : specs.mainChartMobile.shareOption;
+        var spec = isTabletOrHigher ? specs.mainChart.spec : specs.mainChartMobile.spec;
 
-        var onClickHousehold = function(household) {
-          if(!household) return;
-          this._updateFilters({ household: household });
+        var onClickHousehold = function(detailsChart) {
+          if(!detailsChart) return;
+          this._updateFilters({ detailsChart: detailsChart });
         }.bind(this);
 
         // renders main chart
@@ -269,32 +329,34 @@
             {},
             params,
             { title: mainChartTitle },
-            { household: household }
+            { household: detailsChart }
           ),
           el: el,
           shareOptions: {
-            spec: 'main-chart',
+            spec: shareOption,
             customClass: '-main',
-            onClick: function(household) {
-              onClickHousehold(household);
+            onClick: function(detailsChart) {
+              onClickHousehold(detailsChart);
               window.scrollTo(0, 0);
             }
           },
+          spec: spec,
           onClick: onClickHousehold
         });
       } else {
         // renders main chart with household detail
-        new App.View.MainChartHouseholdView({
+        new App.View.MainChartDetails({
           params: Object.assign(
             {},
             params,
-            { household: household },
-            { title: mainChartTitle + ' ' + houseHoldTitle }
+            { household: detailsChart },
+            { title: mainChartTitle + ' ' + detailsChartTitle }
           ),
+          el: document.querySelector(this.selectors.detailsChart + type),
           shareOptions: {
-            spec: 'main-chart-household'
+            spec: specs.mainChartSecondary.shareOption
           },
-          el: document.querySelector('#vis-main-household-detail-chart')
+          spec: specs.mainChartSecondary.spec
         });
       }
 
@@ -304,14 +366,15 @@
           params: Object.assign(
             {},
             params,
-            { title: capitalize(category.category_type) + ' by type' + ' ' + houseHoldTitle },
+            { title: capitalize(category.category_type) + ' by type' + ' ' + detailsChartTitle },
             { categories: window.encodeURIComponent(JSON.stringify([{ category_type: category.category_type }])) },
-            { household: household || '' }
+            { household: detailsChart || '' }
           ),
-          el: document.querySelector('#vis-grouped-bar-chart-' + category.category_type),
+          el: document.querySelector('#vis-secondary-chart-' + category.category_type),
           shareOptions: {
-            spec: 'grouped-bar-chart'
-          }
+            spec: specs.secondaryChart.shareOption
+          },
+          spec: specs.secondaryChart.spec
         });
       });
     }

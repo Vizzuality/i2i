@@ -1,17 +1,17 @@
-(function(App) {
+(function (App) {
   'use strict';
 
-  App.Specs.GroupedBarChart = {
+  App.Specs.Households.MainChartDetails = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-    "width": 500,
-    "height": 350,
+    "width": 800,
+    "height": 400,
+    "padding": 0,
     "autosize": {
       "type": "fit",
       "resize": true
     },
-    "padding": 0,
     "data": [{
-        "name": "data",
+        "name": "table",
         "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
         "format": {
           "property": "data",
@@ -27,107 +27,13 @@
             "type": "formula",
             "as": "value",
             "expr": "abs(datum.value)"
-          }
-        ]
-      },
-      {
-        "name": "stats",
-        "source": "data",
-        "transform": [{
-            "type": "aggregate",
-            "groupby": [
-              "subcategory"
-            ],
-            "fields": [
-              "value"
-            ],
-            "ops": [
-              "sum"
-            ],
-            "as": [
-              "sum"
-            ]
-          },
-          {
-            "type": "window",
-            "sort": {
-              "field": "sum",
-              "order": "descending"
-            },
-            "ops": [
-              "row_number"
-            ],
-            "fields": [
-              null
-            ],
-            "as": [
-              "rank"
-            ]
-          },
-          {
-            "type": "collect",
-            "sort": {
-              "field": [
-                "rank"
-              ],
-              "order": [
-                "ascending"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "name": "table",
-        "source": "data",
-        "transform": [{
-            "type": "lookup",
-            "from": "stats",
-            "key": "subcategory",
-            "fields": [
-              "subcategory"
-            ],
-            "values": [
-              "rank"
-            ],
-            "as": [
-              "rank"
-            ],
-            "default": null
-          },
-          {
-            "type": "formula",
-            "as": "subcategory",
-            "expr": "datum.rank < 5 ? datum.subcategory : 'Others'"
-          },
-          {
-            "type": "formula",
-            "as": "rank",
-            "expr": "datum.rank < 5 ? datum.rank : 5"
-          },
-          {
-            "type": "aggregate",
-            "groupby": [
-              "date",
-              "subcategory",
-              "rank"
-            ],
-            "ops": [
-              "sum"
-            ],
-            "fields": [
-              "value"
-            ],
-            "as": [
-              "value"
-            ]
           },
           {
             "type": "impute",
             "groupby": [
               "date"
             ],
-            "key": "subcategory",
+            "key": "category_type",
             "field": "value",
             "method": "value",
             "value": 0
@@ -137,15 +43,16 @@
             "field": "value",
             "groupby": [
               "date",
-              "subcategory",
-              "rank"
+              "category_type"
             ],
             "sort": {
               "field": [
                 "date",
+                "category_type",
                 "value"
               ],
               "order": [
+                "ascending",
                 "ascending",
                 "descending"
               ]
@@ -156,35 +63,53 @@
             ]
           },
           {
+            "type": "window",
+            "sort": {
+              "field": "y1",
+              "order": "ascending"
+            },
+            "groupby": ["date",
+              "category_type"
+            ],
+            "ops": ["row_number"],
+            "fields": [null],
+            "as": ["rank"]
+          },
+          {
             "type": "collect",
             "sort": {
               "field": [
                 "date",
-                "rank"
+                "category_type",
+                "value"
               ],
               "order": [
                 "ascending",
-                "ascending"
+                "ascending",
+                "descending"
               ]
             }
           }
         ]
       },
       {
-        "name": "maxi",
+        "name": "stats",
         "source": "table",
         "transform": [{
             "type": "aggregate",
-            "fields": [
-              "value"
+            "fields": ["subcategory"],
+            "groupby": ["date",
+              "category_type"
             ],
-            "ops": [
-              "max"
-            ],
-            "as": [
-              "max"
-            ]
-          }]
+            "ops": ["count"],
+            "as": ["value"]
+          },
+          {
+            "type": "extent",
+            "field": "value",
+            "signal": "extent"
+          }
+        ]
       }
     ],
     "scales": [{
@@ -199,7 +124,7 @@
       },
       {
         "name": "yscale",
-        "type": "linear",
+        "type": "sqrt",
         "domain": {
           "fields": [{
               "data": "table",
@@ -219,11 +144,13 @@
       {
         "name": "color",
         "type": "ordinal",
-        "domain": {
-          "data": "table",
-          "field": "subcategory"
-        },
-        "range": "category"
+        "range": "category",
+        "domain": [
+          "income",
+          "expense",
+          "savings",
+          "credit"
+        ]
       }
     ],
     "axes": [{
@@ -243,11 +170,11 @@
         "encode": {
           "labels": {
             "update": {
-                "text": {
-                  "signal": "timeFormat(datum.value, '%b')"
-                }
+              "text": {
+                "signal": "timeFormat(datum.value, '%b')"
               }
-            },
+            }
+          },
           "domain": {
             "update": {
               "stroke": {
@@ -277,6 +204,7 @@
             }
           }
         }
+
       }
     ],
     "signals": [{
@@ -317,9 +245,10 @@
           }
         }
       },
+
       {
         "fill": "color",
-        "padding": 5,
+        "padding": 4,
         "orient": "none",
         "encode": {
           "legend": {
@@ -328,7 +257,7 @@
                 "value": 0
               },
               "y": {
-                "signal": "height * 1.25"
+                "signal": "height*1.25"
               }
             }
           },
@@ -336,6 +265,7 @@
             "update": {
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
+
               },
               "opacity": {
                 "signal": "width < 380 ? 0 : 1"
@@ -394,7 +324,7 @@
         "range": "width",
         "domain": {
           "data": "facet",
-          "field": "subcategory"
+          "field": "category_type"
         }
       }],
       "marks": [{
@@ -407,7 +337,7 @@
           "enter": {
             "x": {
               "scale": "pos",
-              "field": "subcategory"
+              "field": "category_type"
             },
             "width": {
               "scale": "pos",
@@ -432,46 +362,15 @@
             },
             "fill": {
               "scale": "color",
-              "field": "subcategory"
+              "field": "category_type"
             },
             "fillOpacity": {
-              "value": 1
+              "signal": "clamp(1-(datum.rank/(extent[1])),0.1,1)"
             }
           }
         }
       }]
-    },
-    {
-      "type": "text",
-      "encode": {
-        "enter": {
-          "x": {
-            "signal": "width/2"
-          },
-          "y": {
-            "signal": "height/2"
-          },
-          "fill": {
-            "value": "#000"
-          },
-          "align": {
-            "value":"center"
-          },
-          "fontSize": {
-            "value": 30
-            },
-          "text": {
-            "value": "No data"
-          }
-        },
-        "update": {
-          "opacity": {
-                "signal": "data('maxi')[0].max ==  0 ? 1 : 0"
-              },
-        }
-      }
-    }
-]
+    }]
   };
 
 }).call(this, this.App);

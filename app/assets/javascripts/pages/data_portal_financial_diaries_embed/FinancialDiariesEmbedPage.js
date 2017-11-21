@@ -12,11 +12,18 @@
     },
 
     _renderChart: function() {
+      var capitalize = App.Helper.Utils.capitalize;
       var commonParams = {
         project_name: gon.project_name,
         api: FD_API_URL
       };
       var isPrintable = this.options.print;
+
+      var chartProperty = this.options.chartType.split('-').map(function(word) {
+        return capitalize(word)
+      }).join('');
+
+      var datasetProperty = capitalize(this.options.dataset);
 
       var params = Object.assign(
         {},
@@ -28,6 +35,7 @@
             { title: this.options.params.title || '' }
           )},
         { el: this.el },
+        { spec: App.Specs[datasetProperty][chartProperty] },
         { showToolbar: false }
       );
 
@@ -35,8 +43,8 @@
         case 'main-chart':
           new App.View.MainChartView(params);
           break;
-        case 'main-chart-household':
-          new App.View.MainChartHouseholdView(params);
+        case 'main-chart-details':
+          new App.View.MainChartDetails(params);
           break;
         case 'grouped-bar-chart':
           new App.View.GroupedBarView(params);

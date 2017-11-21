@@ -1,7 +1,7 @@
 (function (App) {
   'use strict';
 
-  App.View.MainChartHouseholdView = App.View.VegaChartView.extend({
+  App.View.MainChartDetails = App.View.VegaChartView.extend({
 
     el: '#vis-main-household-detail-chart',
 
@@ -23,7 +23,7 @@
           format: '%Y-%m'
         }]
       },
-      spec: App.Specs.MainChartHousehold
+      spec: App.Specs.Households.MainChartDetails
     }
 
   });

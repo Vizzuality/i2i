@@ -2,14 +2,12 @@
   'use strict';
 
   var Router = Backbone.Router.extend({
-
     routes: {
-      'data-portal/:iso/financial-diaries/embed/:chart_type': 'index'
+      'data-portal/:iso/financial-diaries/embed/:dataset/:chart_type': 'index'
     },
 
-    index: function(iso, chartType, p) {
+    index: function(iso, dataset, chartType, p) {
       Backbone.history.stop();
-
       var params = (p || '')
         .split('&')
         .map(function (param) {
@@ -25,6 +23,7 @@
 
       new App.Page.FinancialDiariesEmbedPage({
         iso: iso,
+        dataset: dataset,
         chartType: chartType,
         params: params.p ? JSON.parse(window.atob(params.p)) : {},
         print: params.print ? true : false
