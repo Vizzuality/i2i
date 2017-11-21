@@ -30,7 +30,6 @@ class DataPortalFinancialDiariesController < ApplicationController
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
       @selectedSubFilters = filters['subFilters'] || []
-      @selectedSubFilters = @selectedSubFilters.map{ |selected| selected.symbolize_keys }
 
       @householdChart = filters['detailsChart'] || nil
       @type = filters['type'];
@@ -77,43 +76,28 @@ class DataPortalFinancialDiariesController < ApplicationController
       }
 
       @age_options = {
-        name: 'age',
+        name: 'age_range',
         label: 'Age',
         children: [
           {
             name: '18-25',
-            value: {
-              min_age: 18,
-              max_age: 25
-            }
+            value: 1
           },
           {
             name: '25-35',
-            value: {
-              min_age: 25,
-              max_age: 35
-            }
+            value: 2
           },
           {
             name: '35-45',
-            value: {
-              min_age: 35,
-              max_age: 45
-            }
+            value: 3
           },
           {
             name: '45-60',
-            value: {
-              min_age: 45,
-              max_age: 60
-            }
+            value: 4
           },
           {
             name: '>60',
-            value: {
-              min_age: 60,
-              max_age: 200
-            }
+            value: 5
           }
         ]
       }
