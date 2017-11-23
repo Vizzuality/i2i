@@ -30,6 +30,14 @@
         iso: iso,
         year: +year
       });
+
+      new App.Component.CountryPreview({
+        onChangeCountry: function (country) {
+          var iso = country.split('-')[0];
+          var latesYear = country.split('-')[1];
+          Turbolinks.visit('/data-portal/' + iso + '/' + latesYear);
+        }
+      });
     },
 
     indicator: function (p) {
