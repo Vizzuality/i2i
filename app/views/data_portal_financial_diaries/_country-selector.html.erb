@@ -1,12 +1,25 @@
 <div class="c-country-selector">
-  <% if  current_page?(data_portal_country_preview_path) %>
+  <% if current_page?(data_portal_country_preview_path) %>
     <%= link_to 'Go to the data portal', data_portal_path, :class => 'country-link' %>
-  <% elsif current_page?(data_portal_financial_diaries_path) %>
+  <% elsif current_page?(data_portal_financial_diaries_path) || current_page?(data_portal_y_path) %>
     <%= link_to 'Go to the ' + @country[:name] + ' data portal', data_portal_country_preview_path(@country[:iso]), :class => 'country-link' %>
   <% end %>
-  <%= select_tag "country",
-    options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }, @country[:iso]),
-    { class: 'country-selector js-country-selector' }
-  %>
+
+  <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) %>
+    <%= select_tag "country",
+      options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }, @country[:iso]),
+      { class: 'country-selector js-country-selector' }
+    %>
+  <% end %>
+
+  <% if @country.finscope %>
+    <% if current_page?(data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year])) %>
+      <%= select_tag "country",
+        options_for_select(@countries.collect{ |country| [country[:name], country[:iso] + "-" + country[:latest_year].to_s] }, @country[:iso]),
+        { class: 'country-selector js-country-selector' }
+      %>
+    <% end %>
+  <% end %>
+
   <h1 class="title -highlight -huge country-placeholder js-country-placeholder"><%= @country[:name] %></h1>
 </div>
