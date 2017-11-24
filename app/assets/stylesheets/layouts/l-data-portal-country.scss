@@ -88,9 +88,12 @@
 
   .l-intro {
     .l-title {
-      .container {
-        z-index: 3;
 
+      .js-header {
+        z-index: 3;
+      }
+
+      .container {
         @media #{$mq-tablet} {
           display: flex;
           align-items: center;
