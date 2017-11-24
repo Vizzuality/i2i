@@ -23,7 +23,8 @@
 
       return {
         population: population,
-        url: data && data.length && data[0].mapUrl || null
+        url: data && data.length && data[0].mapUrl || null,
+        downloadable: !!(year || {}).dataUrl
       };
     }
 
@@ -402,10 +403,8 @@
      * Render the footer
      */
     _renderFooter: function () {
-      var countriesWithoutDownloadAll = ['BWA', 'IND', 'MUS', 'MWI', 'NAM', 'ZMB'];
-
       this.footerContainer.innerHTML = this.footerTemplate({
-        hasDownload: !countriesWithoutDownloadAll.includes(this.options.iso), // remove this in the future
+        hasDownload: this.countryModel.get('downloadable'),
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.countryModel.get('url'),
