@@ -88,6 +88,11 @@
 
   .l-intro {
     .l-title {
+
+      .js-header {
+        z-index: 3;
+      }
+
       .container {
         @media #{$mq-tablet} {
           display: flex;
