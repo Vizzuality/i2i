@@ -30,7 +30,8 @@ class DataPortalFinancialDiariesController < ApplicationController
       filters = JSON.parse(Base64.decode64(params[:p]))
       @selectedCategories = filters['categories'] || []
       @selectedSubFilters = filters['subFilters'] || []
-      @household = filters['household'] || nil
+
+      @householdChart = filters['detailsChart'] || nil
       @type = filters['type'];
       @currentMainIncomes = @main_incomes[@type.to_sym]
       @currentIncomeRanges = @income_ranges[@type.to_sym]
@@ -44,13 +45,13 @@ class DataPortalFinancialDiariesController < ApplicationController
     @main_income_options = {
       name: 'main_income',
       label: 'Main income type',
-      children: @currentMainIncomes
+      children: @currentMainIncomes || []
     }
 
     @income_tier_options = {
       name: 'income_tier',
       label: 'Income level',
-      children: @currentIncomeRanges
+      children: @currentIncomeRanges || []
     }
 
     if @type == 'households'
@@ -75,53 +76,37 @@ class DataPortalFinancialDiariesController < ApplicationController
       }
 
       @age_options = {
-        name: 'age',
+        name: 'age_range',
         label: 'Age',
         children: [
           {
             name: '18-25',
-            value: {
-              min_age: 18,
-              max_age: 25
-            }
+            value: 1
           },
           {
             name: '25-35',
-            value: {
-              min_age: 25,
-              max_age: 35
-            }
+            value: 2
           },
           {
             name: '35-45',
-            value: {
-              min_age: 35,
-              max_age: 45
-            }
+            value: 3
           },
           {
             name: '45-60',
-            value: {
-              min_age: 45,
-              max_age: 60
-            }
+            value: 4
           },
           {
             name: '>60',
-            value: {
-              min_age: 60,
-              max_age: 200
-            }
+            value: 5
           }
         ]
       }
 
 
       @filters.push(
-        @main_income_options,
         @gender_options,
-        @age_options,
-        @income_tier_options)
+        @age_options
+      )
     end
 
     gon.iso = country_iso;

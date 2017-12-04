@@ -3,7 +3,7 @@ module Fdapi
     def index
       categories_filter = JSON.parse(params[:categories])
       cache_key = "household_member_transactions-" +
-                  "#{params.slice(:project_name, :household_name, :main_income, :gender, :max_age, :min_age, :income_tier).to_json}-" +
+                  "#{params.slice(:project_name, :household_name, :main_income, :gender, :age_range, :income_tier).to_json}-" +
                   "#{categories_filter}"
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
@@ -13,7 +13,34 @@ module Fdapi
                                     .merge(category))
                                     .includes(:household_member_transaction_histories_with_values)
 
-          transactions = transactions.where(age: params[:min_age]..params[:max_age]) if (params[:min_age].present? && params[:max_age])
+          if params[:age_range].present?
+            ages_ranges = {
+              '1' => {
+                min: 18,
+                max: 25
+              },
+              '2' => {
+                min: 25,
+                max: 35
+              },
+              '3' => {
+                min: 35,
+                max: 45
+              },
+              '4' => {
+                min: 45,
+                max: 60
+              },
+              '5' => {
+                min: 60,
+                max: 200
+              }
+            }
+
+            selected_range = ages_ranges[params[:age_range]]
+
+            transactions = transactions.where(age: selected_range[:min]..selected_range[:max])
+          end
 
           if params[:income_tier].present?
             members_within_tier = HouseholdMemberTransaction.members_within_tier(params[:project_name], params[:income_tier])

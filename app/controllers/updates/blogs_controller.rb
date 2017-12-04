@@ -28,19 +28,38 @@ class Updates::BlogsController < ApplicationController
       end
     end
 
-    @insight = Blog.new(
-      title: session[:data]['title'],
-      author: session[:data]['author'],
-      workstream: session[:data]['workstream'],
-      summary: session[:data]['summary'],
-      content: session[:data]['content'],
-      date: session[:data]['date'],
-      issuu_link: session[:data]['issuu_link'],
-      published: session[:data]['published'],
-      custom_author: session[:data]['custom_author'],
-      category_id: session[:data]['category_id'],
-      image: session[:data]['image']
-    )
+    saved_blog = Blog.find_by(title: session[:data]['title'])
+    image_changed = session[:data][:image].original_filename != saved_blog.image.original_filename if saved_blog.present?
+
+    if saved_blog.present? && !image_changed
+      saved_blog.title = session[:data]['title']
+      saved_blog.author = session[:data]['author']
+      saved_blog.workstream = session[:data]['workstream']
+      saved_blog.summary = session[:data]['summary']
+      saved_blog.content = session[:data]['content']
+      saved_blog.date = session[:data]['date']
+      saved_blog.issuu_link = session[:data]['issuu_link']
+      saved_blog.published = session[:data]['published']
+      saved_blog.custom_author = session[:data]['custom_author']
+      saved_blog.category_id = session[:data]['category_id']
+
+      @insight = saved_blog
+    else
+      @insight = Blog.new(
+        title: session[:data]['title'],
+        author: session[:data]['author'],
+        workstream: session[:data]['workstream'],
+        summary: session[:data]['summary'],
+        content: session[:data]['content'],
+        date: session[:data]['date'],
+        issuu_link: session[:data]['issuu_link'],
+        published: session[:data]['published'],
+        custom_author: session[:data]['custom_author'],
+        category_id: session[:data]['category_id'],
+        image: session[:data]['image']
+      )
+    end
+
     @insight.image.save unless session[:has_image]
     @related = []
 

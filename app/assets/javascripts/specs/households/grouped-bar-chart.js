@@ -1,15 +1,15 @@
-(function (App) {
+(function(App) {
   'use strict';
 
-  App.Specs.GroupedBarChart = {
+  App.Specs.Households.GroupedBarChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 500,
-    "height": 400,
+    "height": 350,
     "autosize": {
       "type": "fit",
       "resize": true
     },
-    "padding": 5,
+    "padding": 0,
     "data": [{
         "name": "data",
         "url": "<%= api %>/households/monthly_values/<%= project_name %>?categories=<%= categories %>&household=<%= household %>",
@@ -169,6 +169,22 @@
             }
           }
         ]
+      },
+      {
+        "name": "maxi",
+        "source": "table",
+        "transform": [{
+            "type": "aggregate",
+            "fields": [
+              "value"
+            ],
+            "ops": [
+              "max"
+            ],
+            "as": [
+              "max"
+            ]
+          }]
       }
     ],
     "scales": [{
@@ -227,11 +243,11 @@
         "encode": {
           "labels": {
             "update": {
-              "text": {
-                "signal": "timeFormat(datum.value, '%b')"
+                "text": {
+                  "signal": "timeFormat(datum.value, '%b')"
+                }
               }
-            }
-          },
+            },
           "domain": {
             "update": {
               "stroke": {
@@ -284,16 +300,9 @@
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),25,'right','...')"
               },
-              "fontSize": {
-                "value": 12
-              },
               "opacity": {
                 "signal": "width < 380 ? 1 : 0"
-              },
-              "fill": {
-                "value": "black"
               }
-
             }
           },
           "symbols": {
@@ -310,7 +319,7 @@
       },
       {
         "fill": "color",
-        "padding": 4,
+        "padding": 5,
         "orient": "none",
         "encode": {
           "legend": {
@@ -319,7 +328,7 @@
                 "value": 0
               },
               "y": {
-                "signal": "height*1.25"
+                "signal": "height * 1.25"
               }
             }
           },
@@ -327,16 +336,9 @@
             "update": {
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),13,'right','...')"
-
-              },
-              "fontSize": {
-                "value": 12
               },
               "opacity": {
                 "signal": "width < 380 ? 0 : 1"
-              },
-              "fill": {
-                "value": "black"
               },
               "y": {
                 "signal": "datum.index<columns ? 0 : 30*rows"
@@ -438,7 +440,38 @@
           }
         }
       }]
-    }]
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "width/2"
+          },
+          "y": {
+            "signal": "height/2"
+          },
+          "fill": {
+            "value": "#000"
+          },
+          "align": {
+            "value":"center"
+          },
+          "fontSize": {
+            "value": 30
+            },
+          "text": {
+            "value": "No data"
+          }
+        },
+        "update": {
+          "opacity": {
+                "signal": "data('maxi')[0].max ==  0 ? 1 : 0"
+              },
+        }
+      }
+    }
+]
   };
 
 }).call(this, this.App);

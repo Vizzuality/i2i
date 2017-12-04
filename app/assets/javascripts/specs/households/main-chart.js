@@ -1,7 +1,7 @@
-(function (App) {
+(function(App) {
   'use strict';
 
-  App.Specs.MainChart = {
+  App.Specs.Households.MainChart = {
     "$schema": "https://vega.github.io/schema/vega/v3.0.json",
     "width": 700,
     "height": 640,
@@ -11,8 +11,7 @@
       "type": "fit",
       "resize": true
     },
-    "data": [
-      {
+    "data": [{
         "name": "table",
         "format": {
           "type": "json",
@@ -47,21 +46,29 @@
         }
       }
     ],
-    "scales": [
-      {
-        "name": "color",
-        "type": "ordinal",
-        "range": "category",
-        "domain": [
-          "income",
-          "expense",
-          "savings",
-          "credit"
-        ]
-      }
-    ],
-    "legends": [
-      {
+    "scales": [{
+      "name": "color",
+      "type": "ordinal",
+      "range": "category",
+      "domain": [
+        "income",
+        "expense",
+        "savings",
+        "credit"
+      ]
+    },
+    {
+      "name": "colorM",
+      "type": "ordinal",
+      "range": "mean",
+      "domain": [
+        "income",
+        "expense",
+        "savings",
+        "credit"
+      ]
+    }],
+    "legends": [{
         "stroke": "color",
         "padding": 0,
         "offset": 40,
@@ -74,14 +81,11 @@
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
               },
-              "fill": {
-                "value": "black"
-              },
               "y": {
                 "signal": "datum.index<6 ? 0 : 30"
               },
               "x": {
-                "signal": "datum.index<6 ? datum.index*(width/8)+15 : (datum.index-6)*(width/8)+40"
+                "signal": "datum.index<6 ? datum.index*(width/6)+15 : (datum.index-6)*(width/6)+40"
               }
             }
           },
@@ -97,7 +101,7 @@
                 "signal": "datum.index<6 ? 0 : 30"
               },
               "x": {
-                "signal": "datum.index<6 ? datum.index*(width/8) : (datum.index-6)*(width/8)"
+                "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
               }
             }
           }
@@ -105,8 +109,8 @@
       },
       {
         "stroke": "color",
-        "padding": 30,
-        "offset": 5,
+        "padding": 0,
+        "offset": 40,
         "orient": "bottom",
         "values": [
           "mean"
@@ -119,14 +123,11 @@
               "text": {
                 "signal": "truncate(upper(slice(datum.value, 0,1))+slice(datum.value, 1),15,'right','...')"
               },
-              "fill": {
-                "value": "black"
-              },
               "y": {
                 "signal": "datum.index<6 ? 0 : 30"
               },
               "x": {
-                "signal": "datum.index<6 ? datum.index*(width/6)+15 : (datum.index-6)*(width/6)+30"
+                "signal": "datum.index<6 ? datum.index*(width/6)+30 : (datum.index-6)*(width/6)+45"
               }
             }
           },
@@ -148,7 +149,7 @@
                 ]
               },
               "x": {
-                "signal": "datum.index<6 ? datum.index*(width/6) : (datum.index-6)*(width/6)"
+                "signal": "datum.index<6 ? datum.index*(width/6)+15 : (datum.index-6)*(width/6) + 15"
               }
             }
           }
@@ -166,7 +167,7 @@
       },
       {
         "name": "sort2",
-        "value": true,
+        "value": true ,
         "bind": {
           "input": "checkbox",
           "name": "View mean"
@@ -193,8 +194,7 @@
         "name": "overHousehold"
       }
     ],
-    "marks": [
-      {
+    "marks": [{
         "type": "group",
         "name": "detail",
         "encode": {
@@ -212,8 +212,7 @@
             }
           }
         },
-        "scales": [
-          {
+        "scales": [{
             "name": "xDetail",
             "type": "utc",
             "range": "width",
@@ -245,8 +244,7 @@
             "zero": true
           }
         ],
-        "axes": [
-          {
+        "axes": [{
             "orient": "bottom",
             "scale": "xDetail",
             "labelOverlap": true,
@@ -267,22 +265,22 @@
           {
             "orient": "left",
             "scale": "yDetail",
-            "title":"title",
+            "title": "title",
             "domain": false,
-            "format":"s",
+            "format": "s",
             "grid": true,
             "zindex": 0,
             "encode": {
               "title": {
                 "interactive": false,
                 "update": {
-                  "x":{
-                    "value":-15
+                  "x": {
+                    "value": -15
                   },
-                  "y":{
-                    "value":-15
+                  "y": {
+                    "value": -15
                   },
-                  "angle":{"value":0},
+                  "angle": { "value": 0 },
                   "text": {
                     "signal": "currency"
                   }
@@ -291,32 +289,66 @@
             }
           }
         ],
-        "signals": [
-          {
+        "signals": [{
             "name": "clickHousehold",
             "description": "A date value that updates in response to mousemove.",
             "push": "outer",
-            "on": [
-              {
-                "events": "line:click,line:touchstart",
-                "update": "group().context.group.datum.household_name"
-              }
-            ]
+            "on": [{
+              "events": "line:click,line:touchstart",
+              "update": "group().context.group.datum.household_name"
+            }]
           },
           {
-            "name": "overHousehold",
-            "description": "tootip data.",
-            "push": "outer",
-            "on": [
-              {
-                "events": "line:mouseover, symbol:mouseover",
-                "update": "{item: group().context.group.datum, date: invert('xDetail',x()), position: xy()}"
-              }
-            ]
-          }
+                    "name": "focusW",
+                    "description": "event for color change",
+                    "value":true,
+                    "on": [
+                        {
+                            "events": "view:mouseenter",
+                            "update": "false"
+                        },
+                        {
+                            "events": "view:mouseleave",
+                            "update": "true"
+                        }
+                    ]
+                },
+                {
+                  "name": "overHousehold",
+                  "description": "tootip data.",
+                  "push": "outer",
+                  "on": [{
+                    "events": "line:mouseover, symbol:mouseover",
+                    "update": "{item: group().context.group.datum, date: invert('xDetail',x()), position: xy()}"
+                  }]
+                }
         ],
-        "marks": [
-          {
+        "marks": [{
+            "type": "rect",
+            "name":"detailIn",
+            "encode": {
+              "enter": {
+                "fill": {
+                  "value": "#939597"
+                  },
+                "opacity": {
+                  "value": 0
+                  },
+                "x": {
+                  "value": 0
+                    },
+                "y": {
+                  "value": 0
+                    },
+                "width": {
+                  "field":{"group": "width"} 
+                      },
+                "height": {
+                  "field":{"group": "height"} 
+                }
+                }
+              }
+          },{
             "name": "partitioned_saved",
             "type": "group",
             "from": {
@@ -343,9 +375,7 @@
                 }
               }
             },
-            "signal": [],
-            "marks": [
-              {
+            "marks": [{
                 "type": "line",
                 "from": {
                   "data": "partitioned_saved_data"
@@ -363,14 +393,19 @@
                     "defined": {
                       "signal": "datum.value!=null"
                     },
-                    "stroke": {
-                      "scale": "color",
-                      "field": {
-                        "parent": "category_type"
-                      }
-                    },
-                    "opacity": [
-                      {
+                    "stroke": [
+                                {
+                                    "test": "focusW",
+                                    "scale": "color",
+                                    "field": {
+                                        "parent": "category_type"
+                                    }
+                                },
+                                {
+                                    "value": "#ccc"
+                                }
+                              ],
+                    "opacity": [{
                         "test": "sort",
                         "value": 0.2
                       },
@@ -396,10 +431,17 @@
                       "value": "pointer"
                     },
                     "strokeWidth": {
-                      "value": 2
+                      "value": 2.5
                     },
-                    "opacity": [
-                      {
+                    "stroke": {
+                                    "test": "!focusW",
+                                    "scale": "color",
+                                    "field": {
+                                        "parent": "category_type"
+                                    }
+                                },
+                                
+                    "opacity": [{
                         "test": "sort",
                         "value": 1
                       },
@@ -428,14 +470,19 @@
                       "scale": "yDetail",
                       "field": "value"
                     },
-                    "fill": {
-                      "scale": "color",
-                      "field": {
-                        "parent": "category_type"
-                      }
-                    },
-                    "opacity": [
-                      {
+                    "fill": [
+                                        {
+                                            "test": "focusW",
+                                            "scale": "color",
+                                            "field": {
+                                                "parent": "category_type"
+                                            }
+                                        },
+                                        {
+                                            "value": "#ccc"
+                                        }
+                                    ],
+                    "opacity": [{
                         "test": "datum.value!=null && sort",
                         "value": 0.1
                       },
@@ -498,51 +545,48 @@
                 }
               }
             },
-            "marks": [
-              {
-                "type": "line",
-                "from": {
-                  "data": "mean_data"
-                },
-                "encode": {
-                  "update": {
-                    "x": {
-                      "scale": "xDetail",
-                      "field": "date"
-                    },
-                    "y": {
-                      "scale": "yDetail",
-                      "field": "median"
-                    },
-                    "stroke": {
-                      "scale": "color",
-                      "field": "category_type"
-                    },
-                    "opacity": [
-                      {
-                        "test": "sort2",
-                        "value": 1
-                      },
-                      {
-                        "value": 0
-                      }
-                    ],
-                    "strokeWidth": {
-                      "value": 3
-                    },
-                    "strokeDash": {
-                      "value": [
-                        9,
-                        6
-                      ]
-                    },
-                    "zindex": {
+            "marks": [{
+              "type": "line",
+              "from": {
+                "data": "mean_data"
+              },
+              "encode": {
+                "update": {
+                  "x": {
+                    "scale": "xDetail",
+                    "field": "date"
+                  },
+                  "y": {
+                    "scale": "yDetail",
+                    "field": "median"
+                  },
+                  "stroke": {
+                    "scale": "colorM",
+                    "field": "category_type"
+                  },
+                  "opacity": [{
+                      "test": "sort2",
                       "value": 1
+                    },
+                    {
+                      "value": 0
                     }
+                  ],
+                  "strokeWidth": {
+                    "value": 3
+                  },
+                  "strokeDash": {
+                    "value": [
+                      9,
+                      6
+                    ]
+                  },
+                  "zindex": {
+                    "value": 1
                   }
                 }
               }
-            ]
+            }]
           }
         ]
       },
@@ -576,12 +620,16 @@
             }
           }
         },
-        "signals": [
-          {
+        "signals": [{
             "name": "brush",
             "value": 0,
-            "on": [
-              {
+            "on": [{
+                "events": [{
+                  "source": "window",
+                  "type": "customLoad"
+                }],
+                "update": "[scale('xOverview',data('stats')[0].date),scale('xOverview',data('stats')[1].date)]"
+              },{
                 "events": "@overview:mousedown, @end:mousedown, @overview:touchstart, @end:touchstart",
                 "update": "[x()-80, x()-80]"
               },
@@ -600,48 +648,39 @@
           {
             "name": "anchor",
             "value": null,
-            "on": [
-              {
-                "events": "@brush:mousedown, @brush:touchstart",
-                "update": "slice(brush)"
-              }
-            ]
+            "on": [{
+              "events": "@brush:mousedown, @brush:touchstart",
+              "update": "slice(brush)"
+            }]
           },
           {
             "name": "xdown",
             "value": 0,
-            "on": [
-              {
-                "events": "@brush:mousedown, @brush:touchstart",
-                "update": "x()"
-              }
-            ]
+            "on": [{
+              "events": "@brush:mousedown, @brush:touchstart",
+              "update": "x()"
+            }]
           },
           {
             "name": "delta",
             "value": 0,
-            "on": [
-              {
-                "events": "[@brush:mousedown, window:mouseup] > window:mousemove!, [@brush:touchstart, window:touchend] > window:touchmove!",
-                "update": "x() - xdown"
-              }
-            ]
+            "on": [{
+              "events": "[@brush:mousedown, window:mouseup] > window:mousemove!, [@brush:touchstart, window:touchend] > window:touchmove!",
+              "update": "x() - xdown"
+            }]
           },
           {
             "name": "detailDomain",
             "push": "outer",
-            "on": [
-              {
-                "events": {
-                  "signal": "brush"
-                },
-                "update": "span(brush) ? invert('xOverview', brush) : null"
-              }
-            ]
+            "on": [{
+              "events": {
+                "signal": "brush"
+              },
+              "update": "span(brush) ? invert('xOverview', brush) : null"
+            }]
           }
         ],
-        "scales": [
-          {
+        "scales": [{
             "name": "xOverview",
             "type": "utc",
             "range": "width",
@@ -666,8 +705,7 @@
             "zero": true
           }
         ],
-        "axes": [
-          {
+        "axes": [{
             "orient": "bottom",
             "scale": "xOverview",
             "labelOverlap": true,
@@ -684,8 +722,7 @@
             }
           }
         ],
-        "marks": [
-          {
+        "marks": [{
             "name": "area_group",
             "type": "group",
             "from": {
@@ -712,38 +749,39 @@
                 }
               }
             },
-            "marks": [
-              {
-                "type": "area",
-                "interactive": false,
-                "from": {
-                  "data": "area_data"
-                },
-                "encode": {
-                  "update": {
-                    "x": {
-                      "scale": "xOverview",
-                      "field": "date"
-                    },
-                    "y": {
-                      "scale": "yOverview",
-                      "field": "min"
-                    },
-                    "y2": {
-                      "scale": "yOverview",
-                      "field": "max"
-                    },
-                    "fill": {
-                      "scale": "color",
-                      "field": "category_type"
-                    },
-                    "zindex": {
-                      "value": 1
-                    }
+            "marks": [{
+              "type": "area",
+              "interactive": false,
+              "from": {
+                "data": "area_data"
+              },
+              "encode": {
+                "update": {
+                  "opacity": {
+                    "value": 0.25
+                  },
+                  "x": {
+                    "scale": "xOverview",
+                    "field": "date"
+                  },
+                  "y": {
+                    "scale": "yOverview",
+                    "field": "min"
+                  },
+                  "y2": {
+                    "scale": "yOverview",
+                    "field": "max"
+                  },
+                  "fill": {
+                    "scale": "color",
+                    "field": "category_type"
+                  },
+                  "zindex": {
+                    "value": 1
                   }
                 }
               }
-            ]
+            }]
           },
           {
             "type": "rect",
@@ -950,12 +988,16 @@
             }
           }
         },
-        "signals": [
-          {
+        "signals": [{
             "name": "yBrush",
             "value": 0,
-            "on": [
-              {
+            "on": [{
+                "events": [{
+                  "source": "window",
+                  "type": "customLoad"
+                }],
+                "update": "[scale('yYOverview',data('stats')[0].value),scale('yYOverview',data('stats')[1].value)]"
+              },{
                 "events": "@yOverview:mousedown, @yend:mousedown, @yOverview:touchstart, @yend:touchstart",
                 "update": "[y(), y()]"
               },
@@ -974,48 +1016,39 @@
           {
             "name": "yanchor",
             "value": null,
-            "on": [
-              {
-                "events": "@yBrush:mousedown,@yBrush:touchstart",
-                "update": "slice(yBrush)"
-              }
-            ]
+            "on": [{
+              "events": "@yBrush:mousedown,@yBrush:touchstart",
+              "update": "slice(yBrush)"
+            }]
           },
           {
             "name": "ydown",
             "value": 0,
-            "on": [
-              {
-                "events": "@yBrush:mousedown,@yBrush:touchstart",
-                "update": "y()"
-              }
-            ]
+            "on": [{
+              "events": "@yBrush:mousedown,@yBrush:touchstart",
+              "update": "y()"
+            }]
           },
           {
             "name": "ydelta",
             "value": 0,
-            "on": [
-              {
-                "events": "[@yBrush:mousedown, window:mouseup] > window:mousemove!, [@yBrush:touchstart, window:touchend] > window:touchmove!",
-                "update": "y() - ydown"
-              }
-            ]
+            "on": [{
+              "events": "[@yBrush:mousedown, window:mouseup] > window:mousemove!, [@yBrush:touchstart, window:touchend] > window:touchmove!",
+              "update": "y() - ydown"
+            }]
           },
           {
             "name": "detailDomainY",
             "push": "outer",
-            "on": [
-              {
-                "events": {
-                  "signal": "yBrush"
-                },
-                "update": "span(yBrush) ? [invert('yYOverview', yBrush)[1],invert('yYOverview', yBrush)[0]] : null"
-              }
-            ]
+            "on": [{
+              "events": {
+                "signal": "yBrush"
+              },
+              "update": "span(yBrush) ? [invert('yYOverview', yBrush)[1],invert('yYOverview', yBrush)[0]] : null"
+            }]
           }
         ],
-        "scales": [
-          {
+        "scales": [{
             "name": "xYOverview",
             "type": "time",
             "range": [
@@ -1043,16 +1076,13 @@
             "zero": true
           }
         ],
-        "axes": [
-          {
-            "orient": "left",
-            "scale": "yYOverview",
-            "labels": false,
-            "ticks": false
-          }
-        ],
-        "marks": [
-          {
+        "axes": [{
+          "orient": "left",
+          "scale": "yYOverview",
+          "labels": false,
+          "ticks": false
+        }],
+        "marks": [{
             "name": "partitioned_saved",
             "type": "group",
             "from": {
@@ -1079,48 +1109,45 @@
                 }
               }
             },
-            "marks": [
-              {
-                "type": "symbol",
-                "from": {
-                  "data": "partitioned_saved_data"
-                },
-                "interactive": false,
-                "encode": {
-                  "update": {
-                    "x": {
-                      "scale": "xYOverview",
-                      "signal": "toDate(datum.date)"
+            "marks": [{
+              "type": "symbol",
+              "from": {
+                "data": "partitioned_saved_data"
+              },
+              "interactive": false,
+              "encode": {
+                "update": {
+                  "x": {
+                    "scale": "xYOverview",
+                    "signal": "toDate(datum.date)"
+                  },
+                  "y": {
+                    "scale": "yYOverview",
+                    "field": "value"
+                  },
+                  "fill": {
+                    "scale": "color",
+                    "field": {
+                      "parent": "category_type"
+                    }
+                  },
+                  "opacity": [{
+                      "test": "datum.value!=null",
+                      "value": 0.2
                     },
-                    "y": {
-                      "scale": "yYOverview",
-                      "field": "value"
-                    },
-                    "fill": {
-                      "scale": "color",
-                      "field": {
-                        "parent": "category_type"
-                      }
-                    },
-                    "opacity": [
-                      {
-                        "test": "datum.value!=null",
-                        "value": 0.2
-                      },
-                      {
-                        "value": 0
-                      }
-                    ],
-                    "size": {
-                      "value": 2
-                    },
-                    "zindex": {
+                    {
                       "value": 0
                     }
+                  ],
+                  "size": {
+                    "value": 2
+                  },
+                  "zindex": {
+                    "value": 0
                   }
                 }
               }
-            ]
+            }]
           },
           {
             "type": "rect",

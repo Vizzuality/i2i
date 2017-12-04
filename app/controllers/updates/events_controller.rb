@@ -28,19 +28,38 @@ class Updates::EventsController < ApplicationController
       end
     end
     
-    @insight = Event.new(
-      title: session[:data]['title'],
-      author: session[:data]['author'],
-      url: session[:data]['url'],
-      summary: session[:data]['summary'],
-      content: session[:data]['content'],
-      date: session[:data]['date'],
-      published: session[:data]['published'],
-      custom_author: session[:data]['custom_author'],
-      category_id: session[:data]['category_id'],
-      is_featured: session[:data]['is_featured'],
-      image: session[:data]['image']
-    )
+    saved_event = Event.find_by(title: session[:data]['title'])
+    image_changed = session[:data][:image].original_filename != saved_event.image.original_filename if saved_event.present?
+
+    if saved_event.present? && !image_changed
+      saved_event.title = session[:data]['title']
+      saved_event.author = session[:data]['author']
+      saved_event.url = session[:data]['url']
+      saved_event.summary = session[:data]['summary']
+      saved_event.content = session[:data]['content']
+      saved_event.date = session[:data]['date']
+      saved_event.published = session[:data]['published']
+      saved_event.custom_author = session[:data]['custom_author']
+      saved_event.category_id = session[:data]['category_id']
+      saved_event.is_featured = session[:data]['is_featured']
+
+      @insight = saved_event
+    else
+      @insight = Event.new(
+        title: session[:data]['title'],
+        author: session[:data]['author'],
+        url: session[:data]['url'],
+        summary: session[:data]['summary'],
+        content: session[:data]['content'],
+        date: session[:data]['date'],
+        published: session[:data]['published'],
+        custom_author: session[:data]['custom_author'],
+        category_id: session[:data]['category_id'],
+        is_featured: session[:data]['is_featured'],
+        image: session[:data]['image']
+      )
+    end
+
     @insight.image.save unless session[:has_image]
     @related = []
 
