@@ -57,7 +57,8 @@ ActiveAdmin.register Event do
                                  :published, :custom_author, :category_id, :is_featured, :position,
                                  documents_attributes: [:file, :name, :id, :_destroy],
                                  tagged_items_attributes: [:tag_id, :id, :_destroy],
-                                 documented_items_attributes: [:document_id, :id, :_destroy]])
+                                 documented_items_attributes: [:document_id, :id, :_destroy],
+                                 featured_position_attributes: [:id, :position, :_destroy]])
     end
   end
 
@@ -87,7 +88,9 @@ ActiveAdmin.register Event do
       f.input :custom_author, placeholder: 'This will take priority over author.'
       f.input :published
       f.input :is_featured
-      f.input :position, placeholder: 'For featured'
+      f.has_many :featured_position, allow_destroy: true, new_record: true, heading: 'Position (only for featured)' do |a|
+        a.input :position
+      end
       f.input :url
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
@@ -123,7 +126,9 @@ ActiveAdmin.register Event do
       row :custom_author
       row :published
       row :is_featured
-      row :position
+      row :position do
+        ActiveAdminHelper.position(ad.featured_position)
+      end
       row :url
       row :summary
       row :tags do
