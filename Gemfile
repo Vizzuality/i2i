@@ -44,6 +44,8 @@ gem 'dotenv-rails', '~> 2.1'
 
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
+gem 'acts_as_list'
+gem 'activeadmin-sortable'
 
 # File upload gems
 gem 'paperclip'

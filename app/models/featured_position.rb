@@ -11,6 +11,8 @@
 #
 
 class FeaturedPosition < ApplicationRecord
+  acts_as_list
+
   belongs_to :positionable, polymorphic: true
   validates_uniqueness_of :position
 end

@@ -33,6 +33,7 @@ class Library < ApplicationRecord
 
   has_one :featured_position, as: :positionable, dependent: :destroy
   accepts_nested_attributes_for :featured_position, allow_destroy: true
+  validates_presence_of :featured_position, if: :is_featured?, message: "must be present if featured"
 
   has_attached_file :image, styles: {thumb: '300x300>'}
   has_many :tagged_items, :as => :taggable, :dependent => :destroy

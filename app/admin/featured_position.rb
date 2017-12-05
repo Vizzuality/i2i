@@ -1,8 +1,9 @@
 ActiveAdmin.register FeaturedPosition do
-  config.per_page = 20
   config.sort_order = 'position_asc'
 
-  actions  :index, :edit, :show, :update, :destroy
+  actions  :index, :show, :destroy
+
+  sortable
 
   controller do
     def permitted_params
@@ -11,6 +12,7 @@ ActiveAdmin.register FeaturedPosition do
   end
 
   index do
+    sortable_handle_column
     selectable_column
     column :positionable
     column :position
