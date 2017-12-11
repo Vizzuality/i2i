@@ -15,4 +15,11 @@ class FeaturedPosition < ApplicationRecord
 
   belongs_to :positionable, polymorphic: true
   validates_uniqueness_of :position
+
+  after_destroy :remove_featured
+
+  def remove_featured
+    positionable.is_featured = false
+    positionable.save
+  end
 end
