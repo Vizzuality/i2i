@@ -31,6 +31,10 @@ class Blog < ApplicationRecord
 
   belongs_to :category, required: true
 
+  has_one :featured_position, as: :positionable, dependent: :destroy
+  accepts_nested_attributes_for :featured_position, allow_destroy: true
+  validates_presence_of :featured_position, if: :is_featured?, message: "must be present if featured"
+
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true

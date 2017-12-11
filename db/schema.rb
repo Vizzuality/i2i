@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116143604) do
+ActiveRecord::Schema.define(version: 20171205101211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,15 @@ ActiveRecord::Schema.define(version: 20171116143604) do
     t.string   "record_type",        default: "event"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
+  end
+
+  create_table "featured_positions", force: :cascade do |t|
+    t.integer  "position"
+    t.string   "positionable_type"
+    t.integer  "positionable_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["positionable_type", "positionable_id"], name: "index_featured_positions_on_positionable", using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

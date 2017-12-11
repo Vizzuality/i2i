@@ -4,7 +4,8 @@
     el: '.js-masonry-cards',
 
     options: {
-      itemSelector: '.js-masonry-item'
+      itemSelector: '.js-masonry-item',
+      horizontalOrder: true
     },
 
     initialize: function () {
