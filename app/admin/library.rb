@@ -66,9 +66,6 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :published
       f.input :is_featured
-      f.has_many :featured_position, allow_destroy: true, new_record: true, heading: 'Position (only for featured)' do |a|
-        a.input :position
-      end
       f.input :summary
       f.input :description
       f.input :date, as: :date_picker

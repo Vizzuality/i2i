@@ -85,9 +85,6 @@ ActiveAdmin.register News do
       f.input :title
       f.input :published
       f.input :is_featured
-      f.has_many :featured_position, allow_destroy: true, new_record: true, heading: 'Position (only for featured)' do |a|
-        a.input :position
-      end
       f.input :summary
       f.input :content, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       f.has_many :tagged_items, allow_destroy: true, new_record: true, heading: 'Tags' do |a|
