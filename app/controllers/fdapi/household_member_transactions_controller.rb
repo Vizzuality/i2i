@@ -5,9 +5,16 @@ module Fdapi
       cache_key = "household_member_transactions-" +
                   "#{params.slice(:project_name, :household_name, :main_income, :gender, :age_range, :income_tier).to_json}-" +
                   "#{categories_filter}"
+
+      selected_values = {}
       
       household_member_transactions = Rails.cache.fetch(cache_key) do
+
         categories_filter.map do |category|
+          if category['selected_value'].present?
+            selected_values[category['category_type']] = category.delete('selected_value')
+          end
+
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
           transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name, :gender)
                                     .merge(category))
@@ -67,7 +74,7 @@ module Fdapi
         end.flatten
       end
 
-      render json: household_member_transactions, adapter: :json, root: :data
+      render json: household_member_transactions, adapter: :json, root: :data, selected_values: selected_values
     end
 
     def monthly_values
