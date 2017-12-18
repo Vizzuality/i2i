@@ -41,15 +41,17 @@ class HouseholdTransaction < ApplicationRecord
     end
   end
 
-  def values
+  def values(selected_values)
     project = project_metadatum
     start_date = project.start_date
     end_date = project.end_date
 
-    household_transaction_histories_with_values.where(date: start_date..end_date).map do |history|
-      if history.send(indicator).present?
-        HouseholdTransactionHistorySerializer.new(history).serializable_hash.merge(
-          value: history.send(indicator)
+    household_transaction_histories_with_values.where(date: start_date..end_date).map do |test_history|
+      indicator = selected_values[self.category_type] || self.indicator
+
+      if test_history.send(indicator).present?
+        HouseholdTransactionHistorySerializer.new(test_history).serializable_hash.merge(
+          value: test_history.send(indicator)
         )
       end
     end.compact

@@ -19,4 +19,8 @@
 class HouseholdTransactionSerializer < ActiveModel::Serializer
   attributes :id, :project_name, :household_name, :category_type, :category_name,
              :subcategory, :num_accounts, :num_members, :num_adults, :values
+
+  def values
+    object.values(instance_options[:selected_values])
+  end
 end
