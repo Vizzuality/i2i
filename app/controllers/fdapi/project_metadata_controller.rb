@@ -125,6 +125,8 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_means_households-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
+      selected_values = {}
+
       result = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
         adapter = ActiveRecord::Base.connection
@@ -132,17 +134,22 @@ module Fdapi
         result = []
 
         household_transactions = categories_filter.map do |category|
+          if category['selected_value'].present?
+            selected_values[category['category_type']] = category.delete('selected_value')
+          end
+
           { category['category_type'] => HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category)) }
         end
 
         household_transactions.each do |household|
           category_type = household.keys.first
+          indicator = get_indicator(selected_values, category_type)
 
           histories[category_type] = adapter.execute("select * from household_transaction_histories
             where household_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
             and date >= '#{project_metadata.start_date}'
             and date <= '#{project_metadata.end_date}'
-            and #{default_indicators[category_type]} is not null")
+            and #{indicator} is not null")
         end
 
         sorted = {}
@@ -159,7 +166,9 @@ module Fdapi
         sorted.each do |category_type, value|
           value.each do |year, value|
             value.each do |month, histories|
-              values = histories.map { |h| h[default_indicators[category_type]] }
+              indicator = get_indicator(selected_values, category_type)
+
+              values = histories.map { |h| h[indicator] }
 
               result << {
                 category_type: category_type,
@@ -182,6 +191,8 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_means_members-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
+      selected_values = {}
+
       result = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
         adapter = ActiveRecord::Base.connection
@@ -189,17 +200,22 @@ module Fdapi
         result = []
 
         household_member_transactions = categories_filter.map do |category|
+          if category['selected_value'].present?
+            selected_values[category['category_type']] = category.delete('selected_value')
+          end
+
           { category['category_type'] => HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name).merge(category)) }
         end
 
         household_member_transactions.each do |household|
           category_type = household.keys.first
+          indicator = get_indicator(selected_values, category_type)
 
           histories[category_type] = adapter.execute("select * from household_member_transaction_histories
             where household_member_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
             and date >= '#{project_metadata.start_date}'
             and date <= '#{project_metadata.end_date}'
-            and #{default_indicators[category_type]} is not null")
+            and #{indicator} is not null")
         end
 
         sorted = {}
@@ -216,7 +232,9 @@ module Fdapi
         sorted.each do |category_type, value|
           value.each do |year, value|
             value.each do |month, histories|
-              values = histories.map { |h| h[default_indicators[category_type]] }
+              indicator = get_indicator(selected_values, category_type)
+
+              values = histories.map { |h| h[indicator] }
 
               result << {
                 category_type: category_type,
@@ -233,6 +251,10 @@ module Fdapi
       end
 
       render json: { data: result }
+    end
+
+    def get_indicator(selected_values, category_type)
+      selected_values[category_type] || default_indicators[category_type]
     end
 
     def json_element(operation, value, category, date, unit)
