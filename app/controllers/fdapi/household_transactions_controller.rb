@@ -64,7 +64,7 @@ module Fdapi
           grouped = transactions.group_by { |transaction| transaction.subcategory }
 
           grouped.each do |subcategory, transactions|
-            indicator = default_indicators[category_type]
+            indicator = category['selected_value'] || default_indicators[category_type]
 
             histories = transactions.map do |transaction|
               transaction
