@@ -21,6 +21,7 @@ class SearchesController < ApplicationController
       events = Event.search_fields(term)
       libraries = Library.search_fields(term)
 
+      @tags = Tag.all
       @categories = Category.all
       @records = (news + blogs + events + libraries)
     end
