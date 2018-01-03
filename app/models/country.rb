@@ -26,4 +26,10 @@ class Country < ApplicationRecord
   def financial_diaries
     ProjectMetadatum.find_by(country_iso3: iso)
   end
+
+  class << self
+    def finscope_country_list
+      FinscopeApi.get_countries
+    end
+  end
 end

@@ -1,9 +1,9 @@
 class SearchesController < ApplicationController
   def index
     term = params[:term].split(',').map(&:strip) rescue nil
+    tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
 
-    if !term || term.empty?
-
+    if !term && !tag_term
       records = []
 
       entities.each do |klass|
@@ -15,18 +15,43 @@ class SearchesController < ApplicationController
         [[a[:position] ? 0 : 1, a[:position]], b[:updated_at]] <=> [[b[:position] ? 0 : 1, b[:position]], a[:updated_at]]
       end[0..5]
     else
-      search_result = []
+      term_result = []
+      tag_result = []
 
-      term.each do |search_term|
-        search_result << News.search_fields(search_term)
-        search_result << Blog.search_fields(search_term)
-        search_result << Event.search_fields(search_term)
-        search_result << Library.search_fields(search_term)
+      if term
+        term.each do |search_term|
+          term_result << News.search_fields(search_term)
+          term_result << Blog.search_fields(search_term)
+          term_result << Event.search_fields(search_term)
+          term_result << Library.search_fields(search_term)
+        end
+
+        term_result.flatten!
+      end
+
+      if tag_term
+        tag_term.each do |search_term|
+          tag_result << News.search_tags(search_term)
+          tag_result << Blog.search_tags(search_term)
+          tag_result << Event.search_tags(search_term)
+          tag_result << Library.search_tags(search_term)
+        end
+
+        tag_result.flatten!
+      end
+
+      search_result =
+      if term && tag_term
+        term_result & tag_result
+      elsif term && !tag_term
+        term_result
+      elsif !term && tag_term
+        tag_result
       end
 
       @tags = Tag.all
       @categories = Category.all
-      @records = (search_result.flatten)
+      @records = (search_result.flatten.uniq)
     end
   end
 end
