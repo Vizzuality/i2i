@@ -40,8 +40,10 @@
                       <% if @term %>
                         <span><%= @term[0] %></span><%= @tag_term ? ',' : '' %>
                       <% end %>
-                      <% @tag_term.each do |tag_term| %>
-                        <span><%= tag_term %></span><%= tag_term != @tag_term.last ? ',' : '' %>
+                      <% if @tag_term %>
+                        <% @tag_term.each do |tag_term| %>
+                          <span><%= tag_term %></span><%= tag_term != @tag_term.last ? ',' : '' %>
+                        <% end %>
                       <% end %>
                     <% end %>
                   </div>
