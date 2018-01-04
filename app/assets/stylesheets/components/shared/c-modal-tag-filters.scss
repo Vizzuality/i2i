@@ -1,0 +1,13 @@
+.c-modal-tag-filters {
+    margin: 50px 30px;
+    background-color: $color-4;
+
+    .tags-container {
+        overflow-y: auto;
+        max-height: 75vh;
+        
+        @media #{$mq-tablet} {
+            max-height: 50vh;
+        }
+    }
+}

@@ -29,7 +29,9 @@
         // Modal footer
         footer: '',
         // Additional class to add to c-modal
-        modalClass: ''
+        modalClass: '',
+        isform: false,
+        form: {}
       }, this.defaults, options);
 
       // Binded functions
@@ -115,7 +117,9 @@
         showTitle: this.options.showTitle,
         title: this.options.title,
         content: this.options.content,
-        footer: this.options.footer
+        footer: this.options.footer,
+        isForm: this.options.isForm,
+        form: this.options.form
       })));
 
       // Element that had the focus when the modal opened

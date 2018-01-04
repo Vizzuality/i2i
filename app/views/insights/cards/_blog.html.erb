@@ -7,6 +7,15 @@
       <h4 class="title -dark -regular"><%= blog.title %></h4>
     </a>
     <p><%= blog.summary %></p>
+    <% if blog.tags.length > 0 %>
+      <div class="tags-container">
+        <% blog.tags.each do |tag| %>
+          <span>
+            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != blog.tags.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+  <% end %>
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify blog.date %></h4>
