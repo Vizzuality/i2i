@@ -39,7 +39,6 @@
         },
 
         _openFiltersModal: function() {
-            console.log('open filter');
             new App.View.SearchFiltersModal({selectedTags: this.tagTerm});
         }
     });
