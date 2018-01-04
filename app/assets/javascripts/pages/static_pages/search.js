@@ -12,7 +12,6 @@
             this.term = gon.term || [];
             this.tagTerm = gon.selected_tags || [];
             this._setEventListeners();
-            console.log(gon.selected_tags, 'loaded search page, this:', this.tagTerm)
         },
 
         _setEventListeners: function () {

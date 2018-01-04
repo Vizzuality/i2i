@@ -42,7 +42,7 @@
                       <% end %>
                       <% if @tag_term %>
                         <% @tag_term.each do |tag_term| %>
-                          <span><%= tag_term %></span><%= tag_term != @tag_term.last ? ',' : '' %>
+                          <span><%= tag_term.name %></span><%= tag_term != @tag_term.last ? ',' : '' %>
                         <% end %>
                       <% end %>
                     <% end %>

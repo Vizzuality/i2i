@@ -38,7 +38,7 @@ class SearchesController < ApplicationController
           tag_result << Library.search_tags(search_term)
         end
 
-        @tag_term = tag_term
+        @tag_term = TagsHelper.slugsToNames tag_term
         tag_result.flatten!
       end
 
