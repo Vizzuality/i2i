@@ -56,6 +56,13 @@
                         <% end %>
                         on <%= DateHelper.beautify news.date %>
                       </span>
+                      <div class="tags-container">
+                        <% @tags.each do |tag| %>
+                          <span>
+                            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
+                          </span>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
                 </header>
