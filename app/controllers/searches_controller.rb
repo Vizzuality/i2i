@@ -26,6 +26,7 @@ class SearchesController < ApplicationController
           term_result << Library.search_fields(search_term)
         end
 
+        @term = term
         term_result.flatten!
       end
 
@@ -37,6 +38,7 @@ class SearchesController < ApplicationController
           tag_result << Library.search_tags(search_term)
         end
 
+        @tag_term = TagsHelper.slugsToNames tag_term
         tag_result.flatten!
       end
 
@@ -49,9 +51,12 @@ class SearchesController < ApplicationController
         tag_result
       end
 
-      @tags = Tag.all
       @categories = Category.all
       @records = (search_result.flatten.uniq)
     end
+
+    gon.term = term
+    gon.selected_tags = tag_term
+    gon.tags = Tag.all
   end
 end

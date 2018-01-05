@@ -7,6 +7,15 @@
       <h4 class="title -dark -regular"><%= event.title %></h4>
     </a>
     <p><%= event.summary %></p>
+    <% if event.tags.length > 0 %>
+      <div class="tags-container">
+        <% event.tags.each do |tag| %>
+          <span>
+            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != event.tags.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify event.date %></h4>
