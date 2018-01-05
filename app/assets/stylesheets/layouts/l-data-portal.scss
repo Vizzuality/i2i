@@ -90,4 +90,32 @@
       }
     }
   }
+
+  .l-country-list.is-finscope {
+    .finscope {
+      display: block;
+    }
+
+    .financial-diaries {
+      display: none;
+    }
+
+    .financial-diaries.finscope {
+      display: block;;
+    }
+  }
+
+  .l-country-list.is-financial-diaries {
+    .financial-diaries {
+      display: block;
+    }
+
+    .finscope {
+      display: none;
+    }
+
+    .financial-diaries.finscope {
+      display: block;
+    }
+  }
 }

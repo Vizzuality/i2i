@@ -38,7 +38,7 @@
         <div class="row data-portal-row">
           <div class="grid-s-12 grid-m-6">
             <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark" onclick="showFinscope()">National Surveys</h3>
+              <h3 class="title -big -dark filter-finscope">National Surveys</h3>
             </a>
             <ul class="c-stats-list">
               <li class="item">
@@ -76,7 +76,7 @@
           </div>
           <div class="grid-s-12 grid-m-5 offset-m-1">
             <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark filter-financial-diaries" onclick="showFinancialDiaries()">Financial Diaries</h3>
+              <h3 class="title -big -dark filter-financial-diaries">Financial Diaries</h3>
             </a>
             <ul class="c-stats-list">
               <li class="item">
@@ -119,31 +119,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  function showFinancialDiaries() {
-    var finscope = document.getElementsByClassName('finscope');
-    var financialDiaries = document.getElementsByClassName('financial-diaries');
-
-    for(var i = 0; i < finscope.length; i++) {
-      finscope[i].style.display = 'none';
-    }
-
-    for(var i = 0; i < financialDiaries.length; i++) {
-      financialDiaries[i].style.display = 'block';
-    }
-  }
-
-  function showFinscope() {
-    var finscope = document.getElementsByClassName('finscope');
-    var financialDiaries = document.getElementsByClassName('financial-diaries');
-
-    for(var i = 0; i < financialDiaries.length; i++) {
-      financialDiaries[i].style.display = 'none';
-    }
-
-    for(var i = 0; i < finscope.length; i++) {
-      finscope[i].style.display = 'block';
-    }
-  }
-</script>
