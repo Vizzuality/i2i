@@ -65,7 +65,7 @@ class Blog < ApplicationRecord
   scope :search_tags, ->(term) do
     where(published: true)
      .joins(:tags)
-     .where("lower(tags.name) LIKE ?", "%#{term.downcase}%")
+     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
      .distinct
    end
 
