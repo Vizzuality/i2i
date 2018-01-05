@@ -62,14 +62,14 @@
           <div class="grid-s-12">
             <% if !@records.nil? && @records.length > 0 %>
               <h2 class="title heading -big -center -dark">Search results</h2>
-              <%= render partial: 'shared/cards', locals: { insights: @records, route: 'insights' } %>
+              <%= render partial: 'shared/cards', locals: { insights: @records } %>
             <% else %>
               <% if params[:term].present? || params[:tag_term].present? %>
                 <h2 class="title heading -big -center -dark">Search results</h2>
                 <p>No search results</p>
               <% else %>
                 <h2 class="title heading -big -center -dark">Recent publications</h2>
-                <%= render partial: 'shared/cards', locals: { insights: @insights, route: 'insights' }%>
+                <%= render partial: 'shared/cards', locals: { insights: @insights }%>
               <% end %>
             <% end %>
           </div>
