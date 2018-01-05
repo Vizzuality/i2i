@@ -6,7 +6,9 @@
     el: 'body',
 
     events: {
-      'click .js-anchor': '_onClickAnchor'
+      'click .js-anchor': '_onClickAnchor',
+      'click .filter-finscope': 'showFinscope',
+      'click .filter-financial-diaries': 'showFinancialDiaries'
     },
 
     _onClickAnchor: function (e) {
@@ -16,6 +18,18 @@
       $('html, body').animate({
         scrollTop: $(target).offset().top
       });
+    },
+
+    showFinscope: function() {
+      var list = this.$el.find('.l-country-list');
+      list.addClass("is-finscope");
+      list.removeClass("is-financial-diaries");
+    },
+
+    showFinancialDiaries: function() {
+      var list = this.$el.find('.l-country-list');
+      list.addClass("is-financial-diaries");
+      list.removeClass("is-finscope");
     }
   });
 
