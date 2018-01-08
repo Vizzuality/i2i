@@ -57,6 +57,6 @@ class SearchesController < ApplicationController
 
     gon.term = term
     gon.selected_tags = tag_term
-    gon.tags = Tag.all
+    gon.tags = Tag.all.order(:slug)
   end
 end
