@@ -11,8 +11,8 @@
             footer: '<button class="c-button -white -outline -medium js-cancel">Cancel</button><button type="submit" class="c-button -white -medium js-done">Done</button>',
             // Callback executed when the user presses the "Done" button
             // The callback gets passed the name of the selected chart,
-            tags: gon.tags || [],
             isForm: true,
+            tags: [],
             form: {
                 action: '/search',
                 id: 'tag-filters',
@@ -60,7 +60,7 @@
     
         render: function () {
             this.options.content = this.contentTemplate({
-                tags: this.options.tags,
+                tags: gon.tags || [],
                 selectedTags: this.options.selectedTags,
                 footer: this.options.footer
             });
