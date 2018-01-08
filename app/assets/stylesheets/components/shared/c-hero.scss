@@ -6,10 +6,8 @@
     margin-top: 50px;
   }
 
-  &.-search {
-    @media #{$mq-tablet} {
-      padding: 170px 0 75px;
-    }
+  @media #{$mq-tablet} {
+    padding: 170px 0 75px;
   }
 
   .subtitle {
