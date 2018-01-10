@@ -18,7 +18,7 @@
             <div class="l-search">
               <div class="c-hero -search">
                 <h1 class="title -highlight -huge">Search i2i</h1>
-                <div class="grid-s-12 grid-m-12 grid-l-7">
+                <div class="grid-s-12 grid-m-12 grid-l-10">
                   <%= form_tag(search_path, :method => "get", :class => 'c-form c-search', :id=> 'search-input') do %>
                     <div class="search-box">
                       <svg class="icon search-icon"><use xlink:href="#icon-search"></use></svg>
@@ -26,25 +26,30 @@
                       <%= text_field_tag(:term, params[:term], :class => 'search-input', :placeholder => 'Type your search here') %>
                     </div>
                     <%= button_tag("Search", :type => 'submit', :name => nil, :class => 'js-search-input c-button -white -big search-submit') %>
+                    <div class="search-filter">
+                      <button type="button" class="c-button -white js-search-filters">Filter</button>
+                    </div>
                   <% end %>
-                </div>
-                <div class="grid-s-12 grid-m-12 grid-l-5">
-                  <div class="search-filter">
-                    <button class="c-button -white js-search-filters">Filter</button>
-                  </div>
                 </div>
                 <div class="grid-s-12 grid-m-12 grid-l-12">
                   <div class="items-container">
                     <% if @records %>
-                      <span class="item-label">Showing:</span>
-                      <% if @term %>
-                        <span><%= @term[0] %></span><%= @tag_term ? ',' : '' %>
-                      <% end %>
-                      <% if @tag_term %>
-                        <% @tag_term.each do |tag_term| %>
-                          <span><%= tag_term.name %></span><%= tag_term != @tag_term.last ? ',' : '' %>
+                      <div class="items-row -leading">
+                        <% if @term %>
+                          <span class="item-label">Showing:</span>
+                          <span><%= @term[0] %></span>
                         <% end %>
-                      <% end %>
+                      </div>
+                      <div class="items-row">
+                        <% if @tag_term %>
+                          <span class="item-label">Filtered by:</span>
+                          <ul>
+                          <% @tag_term.each do |tag_term| %>
+                            <li><%= tag_term.name %></li><%= tag_term != @tag_term.last ? ',' : '' %>
+                          <% end %>
+                          </ul>
+                        <% end %>
+                      </div>
                     <% end %>
                   </div>
                 </div>
@@ -64,7 +69,7 @@
               <h2 class="title heading -big -center -dark">Search results</h2>
               <%= render partial: 'shared/cards', locals: { insights: @records } %>
             <% else %>
-              <% if params[:term].present? || params[:tag_term].present? %>
+              <% if @term || @tag_term %>
                 <h2 class="title heading -big -center -dark">Search results</h2>
                 <p>No search results</p>
               <% else %>

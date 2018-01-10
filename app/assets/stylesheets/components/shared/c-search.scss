@@ -49,23 +49,50 @@
     width: 100%;
     margin-top: 10px;
   }
-}
 
+  .search-filter {
+    margin-top: 10px;
+    width: 100%;
+
+    .c-button {
+      position: relative;
+      width: 100%;
+      min-width: 224px;
+      text-align: center;
+    }
+  }
+}
 
 @media #{$mq-tablet} {
   .c-search {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 
     .search-box {
-      flex: 1;
       margin-right: 20px;
+      margin-bottom: 10px;
     }
 
     .search-submit {
       flex: inherit;
       width: auto;
       margin-top: 0;
+    }
+
+    .search-filter {
+      margin-top: 0;
+      width: auto;
+      margin-left: 15px;
+    }
+  }
+}
+
+@media #{$mq-desktop} {
+  .c-search {
+    flex-wrap: nowrap;
+
+    .search-box {
+      flex: 1;
     }
   }
 }
