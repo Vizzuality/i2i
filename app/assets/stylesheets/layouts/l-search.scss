@@ -1,17 +1,4 @@
 .l-search {
-  .search-filter {
-    display: block;
-    text-align: left;
-    margin-top: 10px;
-
-    .c-button {
-      position: relative;
-      width: 100%;
-      min-width: 224px;
-      text-align: center;
-    }
-  }
-
   .title {
     margin-bottom: 40px;
   }
@@ -21,41 +8,32 @@
     font-weight: bold;
     min-height: 22px;
     color: $color-2;
+
+    .items-row {
+      display: flex;
+      margin-top: 10px;
+
+      &.-leading {
+       margin-top: 0; 
+      }
+    }
     
     .item-label {
       color: $color-4;
+      white-space: nowrap;
+      padding-right: 5px;
     }
   }
 }
 
 @media #{$mq-tablet} {
   .l-search {
-    .search-filter {
-      display: block;
-      text-align: left;
-      margin-top: 0;
-
-      .c-button {
-        position: relative;
-        display: inline-block;
-        width: auto;
-      }
-    }
- 
     .title {
       margin-bottom: 20px;
     }
 
     .items-container {
-      min-height: 67px;
-    }
-  }
-}
-
-@media #{$mq-desktop} {
-  .l-search {
-    .search-filter {
-      text-align: right;
+      min-height: 42px;
     }
   }
 }
