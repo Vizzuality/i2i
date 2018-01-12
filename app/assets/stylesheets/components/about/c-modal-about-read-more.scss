@@ -44,6 +44,20 @@
     }
   }
 
+  .link {
+    color: $color-1;
+    font-weight: $font-weight-light;
+  }
+
+  .title {
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    &.-leading {
+      margin-top: 0;
+    }
+  }
+
   @media #{$mq-tablet} {
     &::before {
       position: fixed;
