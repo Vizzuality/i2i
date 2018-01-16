@@ -1,0 +1,39 @@
+.l-search {
+  .title {
+    margin-bottom: 40px;
+  }
+
+  .items-container {
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 22px;
+    color: $color-2;
+
+    .items-row {
+      display: flex;
+      margin-top: 10px;
+
+      &.-leading {
+       margin-top: 0; 
+      }
+    }
+    
+    .item-label {
+      color: $color-4;
+      white-space: nowrap;
+      padding-right: 5px;
+    }
+  }
+}
+
+@media #{$mq-tablet} {
+  .l-search {
+    .title {
+      margin-bottom: 20px;
+    }
+
+    .items-container {
+      min-height: 42px;
+    }
+  }
+}

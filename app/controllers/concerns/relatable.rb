@@ -3,6 +3,7 @@ module Relatable
 
   def show
     @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
+    @tags = @insight.tags rescue nil
     @total_related = related(@insight).size;
 
     if params[:offset].present?

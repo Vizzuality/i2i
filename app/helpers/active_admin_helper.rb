@@ -3,6 +3,10 @@ module ActiveAdminHelper
 		tags.pluck(:name).join(', ')
   end
 
+  def self.position(featured_position)
+    featured_position.position rescue nil
+  end
+
   def self.format_date(date)
     date.strftime("%B %d, %Y")
   end

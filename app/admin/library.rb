@@ -35,7 +35,8 @@ ActiveAdmin.register Library do
                               :video_url, :issuu_link, :position, :description,
                               tagged_items_attributes: [:tag_id, :id, :_destroy],
                               document_attributes: [:file, :name, :id, :_destroy],
-                              documented_item_attributes: [:document_id, :id, :_destroy]
+                              documented_item_attributes: [:document_id, :id, :_destroy],
+                              featured_position_attributes: [:id, :position, :_destroy]
       ]
     end
   end
@@ -65,7 +66,6 @@ ActiveAdmin.register Library do
       f.input :title
       f.input :published
       f.input :is_featured
-      f.input :position, placeholder: 'For featured'
       f.input :summary
       f.input :description
       f.input :date, as: :date_picker
@@ -124,7 +124,9 @@ ActiveAdmin.register Library do
       row :title
       row :published
       row :is_featured
-      row :position
+      row :position do
+        ActiveAdminHelper.position(ad.featured_position)
+      end
       row :summary
       row :description
       row :tags do

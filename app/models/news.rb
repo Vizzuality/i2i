@@ -30,11 +30,15 @@ class News < ApplicationRecord
 
   belongs_to :category, required: true
 
+  has_one :featured_position, as: :positionable, dependent: :destroy
+  accepts_nested_attributes_for :featured_position, allow_destroy: true
+
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true
 
   after_initialize :set_date
+  after_save :needs_featured_position
 
   # Validations for paperclip
   has_attached_file :image, styles: {thumb: '300x300>'}
@@ -51,11 +55,17 @@ class News < ApplicationRecord
   scope :search_fields, ->(term) do
     where(published: true)
       .joins(:category)
-      .joins(:tags)
-      .where("lower(news.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
-             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .where("lower(news.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ?",
+             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
       .distinct
   end
+
+  scope :search_tags, ->(term) do
+    where(published: true)
+     .joins(:tags)
+     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
+     .distinct
+   end
 
   def set_date
     self.date ||= DateTime.now

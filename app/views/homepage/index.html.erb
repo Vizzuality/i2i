@@ -21,7 +21,7 @@
       <div class="wrapper">
         <h2 class="title heading -big -center -dark">News and insights</h2>
         <div class="row">
-          <%= render partial: 'shared/cards', locals: { insights: @insights, route: 'insights' }%>
+          <%= render partial: 'shared/cards', locals: { insights: @insights }%>
         </div>
         <div class="btn-container">
           <%= link_to 'See more', insights_path, class: 'c-button -sea -big' %>
@@ -52,7 +52,7 @@
                     <svg class="icon icon-finscope"><use xlink:href="#icon-finscope"></use></svg>
                   </div>
                   <div class="legend">
-                    <span class="legend-title">FinScope</span>
+                    <span class="legend-title">National Surveys</span>
                     <span class="legend-description">Datasets</span>
                   </div>
                 </div>

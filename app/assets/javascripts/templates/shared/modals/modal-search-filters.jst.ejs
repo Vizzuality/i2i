@@ -1,0 +1,18 @@
+<div class="tags-container">
+    <fieldset name="tags">
+        <% tags.forEach(function (tag) { %>
+            <div class="c-checkbox">
+                <input 
+                    type="checkbox" 
+                    value="<%= tag.slug %>" 
+                    id="<%= tag.slug %>" 
+                    class="js-option" 
+                    name="tag"
+                    <%= selectedTags.indexOf(tag.slug) !== -1 ? 'checked' : '' %>
+                >
+                <label for="<%= tag.slug %>"><%= tag.name %></label>
+            </div>
+        <% }) %>
+    </fieldset>
+</div>
+

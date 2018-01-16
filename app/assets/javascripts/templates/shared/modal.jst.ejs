@@ -4,7 +4,14 @@
     <% if (showTitle) { %>
       <h1 class="modal-title"><%= title %></h1>
     <% } %>
-    <%= content %>
-    <footer class="modal-footer"><%= footer %></footer>
+    <% if (isForm) { %>
+      <form class="<%= form.classes %>" id="<%= form.id %>" action="<%= form.action %>">
+          <%= content %>
+          <footer class="modal-footer"><%= footer %></footer>
+      </form>
+    <% } else { %>
+      <%= content %>
+      <footer class="modal-footer"><%= footer %></footer>
+    <% } %>
   </div>
 </div>

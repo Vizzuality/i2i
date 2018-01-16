@@ -106,7 +106,7 @@
         <% if @country.finscope.present? %>
           <div class="grid-s-12">
             <div class="grid-footer -end">
-              <%= link_to('Go to FinScope data', data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year]), { class: 'c-button -sea' }) %>
+              <%= link_to('Go to National Surveys data', data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year]), { class: 'c-button -sea' }) %>
             </div>
           </div>
         <% end %>

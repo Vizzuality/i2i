@@ -31,6 +31,9 @@ class Blog < ApplicationRecord
 
   belongs_to :category, required: true
 
+  has_one :featured_position, as: :positionable, dependent: :destroy
+  accepts_nested_attributes_for :featured_position, allow_destroy: true
+
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true
@@ -38,6 +41,7 @@ class Blog < ApplicationRecord
   has_attached_file :image, styles: {thumb: '300x300>'}
 
   after_initialize :set_date
+  after_save :needs_featured_position
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
@@ -53,11 +57,17 @@ class Blog < ApplicationRecord
   scope :search_fields, ->(term) do
     where(published: true)
       .joins(:category)
-      .joins(:tags)
-      .where("lower(blogs.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
-             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .where("lower(blogs.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ?",
+             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
       .distinct
   end
+
+  scope :search_tags, ->(term) do
+    where(published: true)
+     .joins(:tags)
+     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
+     .distinct
+   end
 
   def set_date
     self.date ||= DateTime.now
