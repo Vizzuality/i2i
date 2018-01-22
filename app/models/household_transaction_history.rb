@@ -25,6 +25,6 @@
 class HouseholdTransactionHistory < ApplicationRecord
   belongs_to :household_transaction
 
-  scope :with_values, -> { where.not(rolling_balance: nil).or(where.not(total_transaction_value: nil)).order([:year, :month]) }
+  scope :with_values, -> { where.not(value: nil).order([:year, :month]) }
   scope :with_indicator, -> (indicator) { where.not(indicator => nil) }
 end
