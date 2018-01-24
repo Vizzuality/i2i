@@ -13,29 +13,18 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_min_max_households-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
-      selected_values = {}
-
       data = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
 
         household_transactions = categories_filter.map do |category|
-          if category['selected_value'].present?
-            selected_values[category['category_type']] = category.delete('selected_value')
-          end
-
           HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category))
         end.flatten
-
-        categories_filter.pluck('category_type').each do |category_type|
-          unless selected_values[category_type].present?
-            selected_values[category_type] = default_indicators[category_type]
-          end
-        end
 
         adapter = ActiveRecord::Base.connection
 
         sql_result = adapter.execute("select household_transactions.category_type,
-            #{selected_values.values.map { |v| "min(#{v}), max(#{v})" }.join(', ')}
+            min(household_transaction_histories.rolling_balance), min(total_transaction_value),
+            max(household_transaction_histories.rolling_balance), max(total_transaction_value)
             from household_transaction_histories inner join household_transactions
             on household_transactions.id = household_transaction_histories.household_transaction_id
             where household_transactions.id in(#{household_transactions.pluck(:id).join(', ')})
@@ -44,25 +33,30 @@ module Fdapi
             group by household_transactions.category_type")
 
         data = []
-        field_index = { category: 0 }
-
-        selected_values.values.map do |v|
-          ["min_#{v}", "max_#{v}"]
-        end.flatten.each_with_index do |value, index|
-          field_index[value] = index + 1
-        end
+        field_index =
+          { category: 0, min_rolling: 1, min_total: 2, max_rolling: 3, max_total: 4}
 
         sql_result.values.each do |values|
-          data << json_element('min',
-                               values[field_index["min_#{selected_values[values.first]}"]],
-                               values.first,
-                               project_metadata.start_date.strftime('%Y-%m-%d'),
-                               project_metadata.currency_symbol)
-          data << json_element('max',
-                               values[field_index["max_#{selected_values[values.first]}"]],
-                               values.first,
-                               project_metadata.start_date.strftime('%Y-%m-%d'),
-                               project_metadata.currency_symbol)
+          case values[field_index[:category]]
+          when 'credit', 'savings'
+            data << json_element('min', values[field_index[:min_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+            data << json_element('max', values[field_index[:max_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+          when 'expense', 'income'
+            data << json_element('min', values[field_index[:min_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+            data << json_element('max', values[field_index[:max_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+          end
         end
 
         data
@@ -75,29 +69,18 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_min_max_members-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
-      selected_values = {}
-
       data = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
 
         household_member_transactions = categories_filter.map do |category|
-          if category['selected_value'].present?
-            selected_values[category['category_type']] = category.delete('selected_value')
-          end
-
           HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name).merge(category))
         end.flatten
-
-        categories_filter.pluck('category_type').each do |category_type|
-          unless selected_values[category_type].present?
-            selected_values[category_type] = default_indicators[category_type]
-          end
-        end
 
         adapter = ActiveRecord::Base.connection
 
         sql_result = adapter.execute("select household_member_transactions.category_type,
-            #{selected_values.values.map { |v| "min(#{v}), max(#{v})" }.join(', ')}
+            min(household_member_transaction_histories.rolling_balance), min(total_transaction_value),
+            max(household_member_transaction_histories.rolling_balance), max(total_transaction_value)
             from household_member_transaction_histories inner join household_member_transactions
             on household_member_transactions.id = household_member_transaction_histories.household_member_transaction_id
             where household_member_transactions.id in(#{household_member_transactions.pluck(:id).join(', ')})
@@ -106,25 +89,30 @@ module Fdapi
             group by household_member_transactions.category_type")
 
         data = []
-        field_index = { category: 0 }
-
-        selected_values.values.map do |v|
-          ["min_#{v}", "max_#{v}"]
-        end.flatten.each_with_index do |value, index|
-          field_index[value] = index + 1
-        end
+        field_index =
+          { category: 0, min_rolling: 1, min_total: 2, max_rolling: 3, max_total: 4}
 
         sql_result.values.each do |values|
-          data << json_element('min',
-                               values[field_index["min_#{selected_values[values.first]}"]],
-                               values.first,
-                               project_metadata.start_date.strftime('%Y-%m-%d'),
-                               project_metadata.currency_symbol)
-          data << json_element('max',
-                               values[field_index["max_#{selected_values[values.first]}"]],
-                               values.first,
-                               project_metadata.start_date.strftime('%Y-%m-%d'),
-                               project_metadata.currency_symbol)
+          case values[field_index[:category]]
+          when 'credit', 'savings'
+            data << json_element('min', values[field_index[:min_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+            data << json_element('max', values[field_index[:max_rolling]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+          when 'expense', 'income'
+            data << json_element('min', values[field_index[:min_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.start_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+            data << json_element('max', values[field_index[:max_total]],
+                                 values[field_index[:category]],
+                                 project_metadata.end_date.strftime('%Y-%m-%d'),
+                                 project_metadata.currency_symbol)
+          end
         end
 
         data
@@ -137,8 +125,6 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_means_households-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
-      selected_values = {}
-
       result = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
         adapter = ActiveRecord::Base.connection
@@ -146,22 +132,17 @@ module Fdapi
         result = []
 
         household_transactions = categories_filter.map do |category|
-          if category['selected_value'].present?
-            selected_values[category['category_type']] = category.delete('selected_value')
-          end
-
           { category['category_type'] => HouseholdTransaction.filter(params.slice(:project_name, :household_name).merge(category)) }
         end
 
         household_transactions.each do |household|
           category_type = household.keys.first
-          indicator = get_indicator(selected_values, category_type)
 
           histories[category_type] = adapter.execute("select * from household_transaction_histories
             where household_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
             and date >= '#{project_metadata.start_date}'
             and date <= '#{project_metadata.end_date}'
-            and #{indicator} is not null")
+            and #{default_indicators[category_type]} is not null")
         end
 
         sorted = {}
@@ -178,9 +159,7 @@ module Fdapi
         sorted.each do |category_type, value|
           value.each do |year, value|
             value.each do |month, histories|
-              indicator = get_indicator(selected_values, category_type)
-
-              values = histories.map { |h| h[indicator] }
+              values = histories.map { |h| h[default_indicators[category_type]] }
 
               result << {
                 category_type: category_type,
@@ -203,8 +182,6 @@ module Fdapi
       categories_filter = JSON.parse(params[:categories])
       cache_key = "project_means_members-#{params.slice(:project_name, :household_name).to_json}-#{categories_filter}"
 
-      selected_values = {}
-
       result = Rails.cache.fetch(cache_key) do
         project_metadata = ProjectMetadatum.find_by(project_name: params[:project_name])
         adapter = ActiveRecord::Base.connection
@@ -212,22 +189,17 @@ module Fdapi
         result = []
 
         household_member_transactions = categories_filter.map do |category|
-          if category['selected_value'].present?
-            selected_values[category['category_type']] = category.delete('selected_value')
-          end
-
           { category['category_type'] => HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name).merge(category)) }
         end
 
         household_member_transactions.each do |household|
           category_type = household.keys.first
-          indicator = get_indicator(selected_values, category_type)
 
           histories[category_type] = adapter.execute("select * from household_member_transaction_histories
             where household_member_transaction_id in (#{household.values.first.pluck(:id).join(', ')})
             and date >= '#{project_metadata.start_date}'
             and date <= '#{project_metadata.end_date}'
-            and #{indicator} is not null")
+            and #{default_indicators[category_type]} is not null")
         end
 
         sorted = {}
@@ -244,9 +216,7 @@ module Fdapi
         sorted.each do |category_type, value|
           value.each do |year, value|
             value.each do |month, histories|
-              indicator = get_indicator(selected_values, category_type)
-
-              values = histories.map { |h| h[indicator] }
+              values = histories.map { |h| h[default_indicators[category_type]] }
 
               result << {
                 category_type: category_type,
@@ -263,10 +233,6 @@ module Fdapi
       end
 
       render json: { data: result }
-    end
-
-    def get_indicator(selected_values, category_type)
-      selected_values[category_type] || default_indicators[category_type]
     end
 
     def json_element(operation, value, category, date, unit)
