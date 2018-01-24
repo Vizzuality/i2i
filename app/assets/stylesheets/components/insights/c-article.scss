@@ -5,6 +5,7 @@
 
   .c-article-header .container > div {
     border-bottom: 1px solid $border-color;
+    padding-bottom: 15px;
   }
 
   header {
@@ -29,9 +30,23 @@
       font-weight: bold;
     }
 
+    .tags-container {
+      color: $color-1;
+      font-family: $font-family-2;
+      font-size: $font-size-s;
+      font-weight: bold;     
+    }
+
+    .tag {
+      color: $color-1;
+      font-family: $font-family-2;
+      font-size: $font-size-s;
+      font-weight: bold;
+    }
+
     .authorship {
       display: block;
-      margin: 0 0 50px;
+      margin: 0 0 15px;
 
       color: $color-5;
       font-family: $font-family-2;
@@ -43,7 +58,7 @@
       }
 
       &.-has-workstream {
-        margin: 30px 0 0;
+        margin: 30px 0 15px;
       }
     }
 

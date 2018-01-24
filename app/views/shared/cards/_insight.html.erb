@@ -1,0 +1,24 @@
+<article class="c-card">
+  <a href="<%= insights_show_path(insight.category.slug, insight.slug, { entity: insight.record_type }) %>" alt="<%= insight.title %>">
+    <div class="picture" style="background-image: url(<%= insight.image %>)"></div>
+  </a>
+  <div class="metadata">
+    <a href="<%= insights_show_path(insight.category.slug, insight.slug, { entity: insight.record_type }) %>">
+      <h4 class="title -dark -regular"><%= insight.title %></h4>
+    </a>
+    <p><%= insight.summary %></p>
+    <% if insight.tags.length > 0 %>
+      <div class="tags-container">
+        <% insight.tags.each do |tag| %>
+          <span>
+            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != insight.tags.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <footer class="footer">
+    <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
+    <span class="card-category"><%= insight.category.name %></span>
+  </footer>  
+</article>

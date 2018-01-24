@@ -1,8 +1,7 @@
 <article class="c-card">
   <div class="picture" style="background-image: url(<%= library.image %>)"></div>
   <div class="metadata">
-    <h4 class="title -xs -dark"><%= library.title %></h4>
-    <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>
+    <h4 class="title -dark -regular"><%= library.title %></h4>
     <p><%= library.summary %></p>
     <div class="card-options">
       <% if (library.document.present? && library.document.file.present?) || library.url_resource.present? %>
@@ -18,8 +17,11 @@
       <% if library.video_url.present?%>
         <a href="<%= library.video_url %>" class="title -sea -small js-video" target="_blank" rel="noopener">Watch video</a>
       <% end %>
-      <span class="card-category"><%= library.category.name %></span>
     </div>
   </div>
+  <footer class="footer">
+    <h4 class="date"><%= DateHelper.beautify library.date %></h4>
+    <span class="card-category"><%= library.category.name %></span>
+  </footer>
 </article>
 

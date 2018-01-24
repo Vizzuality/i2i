@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0;
 
   .search-box {
     display: flex;
@@ -49,23 +49,50 @@
     width: 100%;
     margin-top: 10px;
   }
-}
 
+  .search-filter {
+    margin-top: 10px;
+    width: 100%;
+
+    .c-button {
+      position: relative;
+      width: 100%;
+      min-width: 224px;
+      text-align: center;
+    }
+  }
+}
 
 @media #{$mq-tablet} {
   .c-search {
-    flex-wrap: nowrap;
-    margin-top: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 
     .search-box {
-      flex: 1;
       margin-right: 20px;
+      margin-bottom: 10px;
     }
 
     .search-submit {
       flex: inherit;
       width: auto;
       margin-top: 0;
+    }
+
+    .search-filter {
+      margin-top: 0;
+      width: auto;
+      margin-left: 15px;
+    }
+  }
+}
+
+@media #{$mq-desktop} {
+  .c-search {
+    flex-wrap: nowrap;
+
+    .search-box {
+      flex: 1;
     }
   }
 }

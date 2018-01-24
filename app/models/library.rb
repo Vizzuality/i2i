@@ -62,9 +62,15 @@ class Library < ApplicationRecord
   scope :search_fields, ->(term) do
     where(published: true)
      .joins(:category)
+     .where("lower(libraries.title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ?",
+            "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+     .distinct
+   end
+
+   scope :search_tags, ->(term) do
+    where(published: true)
      .joins(:tags)
-     .where("lower(libraries.title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ? OR lower(tags.name) LIKE ?",
-            "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
      .distinct
    end
 

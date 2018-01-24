@@ -45,6 +45,22 @@
     }
   }
 
+  .tags-container {
+    color: $color-1;
+    font-family: $font-family-2;
+    font-size: $font-size-s;
+    font-weight: bold;
+    line-height: 1.75;
+    margin-top: 20px;
+  }
+
+  .tag {
+    color: $color-1;
+    font-family: $font-family-2;
+    font-size: $font-size-s;
+    font-weight: bold;
+  }
+
   .footer {
     display: flex;
     align-items: center;
