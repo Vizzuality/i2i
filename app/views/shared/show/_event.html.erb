@@ -24,10 +24,12 @@
                         on <%= DateHelper.beautify event.date %>
                       </span>
                       <div class="tags-container">
-                        <% @tags.each do |tag| %>
-                          <span>
-                            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
-                          </span>
+                        <% if @tags.present? %>
+                          <% @tags.each do |tag| %>
+                            <span>
+                              <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
+                            </span>
+                          <% end %>
                         <% end %>
                       </div>
                     </div>
