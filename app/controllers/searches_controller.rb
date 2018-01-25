@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
   def index
-    term = params[:term].split(',').map(&:strip) rescue nil
+    term = params[:term].class == Array ? params[:term].map(&:strip) : params[:term].split(',').map(&:strip) rescue nil
     tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
 
     if !term && !tag_term
