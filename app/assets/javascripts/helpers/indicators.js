@@ -31,7 +31,10 @@
       BWA: 'Botswana',
       ZAF: 'South Africa',
       MEX: 'Mexico',
-      IND: 'India'
+      IND: 'India',
+      BGD: 'Bangladesh',
+      NGC: 'Nigeria',
+      CIV: 'Côte d\'Ivoire'
     },
 
     /**
