@@ -367,7 +367,7 @@
         population: this._getReadablePopulation(),
         isCGAP: {
           'Bangladesh': 2016,
-          "Cote d’Ivoire": 2016,
+          'Côte d\'Ivoire': 2016,
           'Mozambique': 2015,
           'Nigeria': 2016,
           'Tanzania': 2016,
