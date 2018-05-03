@@ -52,7 +52,11 @@
     <div class="row">
       <div class="grid-s-12 grid-l-7">
         <div class="l-population">
-          <span class="title">Based on adult population of</span>
+          <% if (isCGAP) { %>
+            <span class="title">Based on smallholder farmers of</span>
+          <% } else { %>
+            <span class="title">Based on adult population of</span>
+          <% } %>
           <span class="number"><%= population %></span>
         </div>
       </div>
@@ -80,11 +84,19 @@
         </div>
       </div>
       <div class="grid-s-12 grid-l-5">
-        <% if (country === 'Tanzania') { %>
+        <% if (country === 'Tanzania' && year === 2017) { %>
           <div style="text-align: right">
             <img src="/images/logos/finscope.png" width="220" height="100">
           </div>
         <% } %>
+
+        <% if (isCGAP) { %>
+          <div style="text-align: right"></div>
+            <img src="/images/logos/CGAP_white.svg" width="220" height="100" style="float: right">
+            <div style="float: right; color: #ffffff; text-align: right">The CGAP datasets are not nationally representative, but segmented into smallholder farmers for this country.</div>
+          </div>
+        <% } %>
+
       </div>
     </div>
   </div>

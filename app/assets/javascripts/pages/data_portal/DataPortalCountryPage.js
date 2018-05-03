@@ -364,7 +364,15 @@
           ? this._getJurisdictionFilter().options[0]
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
-        population: this._getReadablePopulation()
+        population: this._getReadablePopulation(),
+        isCGAP: {
+          'Bangladesh': 2016,
+          "Cote d’Ivoire": 2016,
+          'Mozambique': 2015,
+          'Nigeria': 2016,
+          'Tanzania': 2016,
+          'Uganda': 2015
+        }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year
       });
 
       // We instantiate the tab views
