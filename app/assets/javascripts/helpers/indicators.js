@@ -33,7 +33,7 @@
       MEX: 'Mexico',
       IND: 'India',
       BGD: 'Bangladesh',
-      NGC: 'Nigeria',
+      NGA: 'Nigeria',
       CIV: 'Côte d\'Ivoire'
     },
 
