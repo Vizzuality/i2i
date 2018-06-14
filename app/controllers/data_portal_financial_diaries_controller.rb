@@ -7,7 +7,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     }
     @country = Country.find_by(iso: params[:iso])
     @country_financial_diaries = @country.financial_diaries
-    @categories = HouseholdTransaction.category_tree(project_name)
+    @categories = HouseholdTransaction.category_tree(project_name).present? ? HouseholdTransaction.category_tree(project_name) : HouseholdMemberTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
     @selectedCategories = [{
       type: @categories.find { |cat| cat[:value] == "income" }[:value],
