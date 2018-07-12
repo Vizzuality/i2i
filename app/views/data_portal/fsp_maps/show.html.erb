@@ -1,0 +1,44 @@
+<% content_for :head do %>
+  <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
+<% end %>
+
+<% title 'Data Portal' %>
+
+<div class="l-data-portal-country">
+  <div class="l-mobile-header _no-desktop js-mobile-header">
+    <div class="wrapper">
+      <header>
+        <span class="country-name js-country">–</span>
+        <button type="button" class="js-mobile-header-toggle">Toggle menu</button>
+      </header>
+    </div>
+  </div>
+
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-12">
+                <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
