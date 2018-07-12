@@ -19,11 +19,11 @@ default: &default
 
 development:
   <<: *default
-  database: i2i_dev_fd
+  database: i2i_development
 
 assets_compilation:
   <<: *default
-  database: i2i_dev_fd
+  database: i2i_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
