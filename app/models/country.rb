@@ -12,6 +12,8 @@
 class Country < ApplicationRecord
   include FinscopeApi
 
+  scope :all_except, ->(country) { where.not(id: country) }
+
   attr_accessor :has_finscope
   attr_accessor :has_financial_diaries
 
