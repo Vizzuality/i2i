@@ -2,6 +2,9 @@
   <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
 <% end %>
 
+<%= javascript_pack_tag 'fsp-maps' %>
+
+
 <% title 'Data Portal' %>
 
 <div class="l-data-portal-country">
@@ -39,6 +42,7 @@
         </div>
       </div>
     </div>
-  </div>
+
+    <div id="fsp-maps"></div>
   </div>
 </div>
