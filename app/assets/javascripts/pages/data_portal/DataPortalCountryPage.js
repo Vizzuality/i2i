@@ -90,12 +90,14 @@
      * Event handler executed when the window is scrolled
      */
     _onWindowScroll: function () {
-      var headerRect = this.headerContainer.getBoundingClientRect();
-      this.mobileHeaderContainer.classList.toggle('_is-hidden', headerRect.bottom > 0);
-
-      // We close the menu when it's hidden so when it appears again, it's closed
-      if (headerRect.bottom > 0) {
-        this.mobileHeaderContainer.classList.remove('-open');
+      if (this.headerContainer && this.mobileHeaderContainer) {
+        var headerRect = this.headerContainer.getBoundingClientRect();
+        this.mobileHeaderContainer.classList.toggle('_is-hidden', headerRect.bottom > 0);
+  
+        // We close the menu when it's hidden so when it appears again, it's closed
+        if (headerRect.bottom > 0) {
+          this.mobileHeaderContainer.classList.remove('-open');
+        }
       }
     },
 
@@ -342,10 +344,10 @@
     },
 
     render: function () {
-      this._renderHeader();
-      this._renderMobileHeader();
-      this._renderWidgets();
-      this._renderFooter();
+      if (this.headerContainer) this._renderHeader();
+      if (this.mobileHeaderContainer) this._renderMobileHeader();
+      if (this.widgetsContainer) this._renderWidgets();
+      if (this.footerContainer) this._renderFooter();
 
       this.setElement(this.el);
     },

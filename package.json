@@ -25,10 +25,17 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react_ujs": "^2.4.4"
+    "react-redux": "^5.0.7",
+    "react_ujs": "^2.4.4",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-thunk": "^2.3.0",
+    "redux-tools": "github:vizzuality/redux-tools#3.3.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^3.15.0",
