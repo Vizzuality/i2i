@@ -1,10 +1,8 @@
 <% content_for :head do %>
   <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
 <% end %>
-
-<%= javascript_pack_tag 'fsp-maps/index' %>
-<%= stylesheet_pack_tag 'fsp-maps/index' %>
-
 
 <% title 'Data Portal' %>
 
@@ -44,6 +42,7 @@
       </div>
     </div>
 
-    <div id="fsp-maps"></div>
+    <%= react_component("fsp-maps", { name: "Hello World 4563456" }) %>
+    
   </div>
 </div>
