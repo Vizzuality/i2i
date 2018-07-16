@@ -6,35 +6,28 @@ import PropTypes from 'prop-types'
 import { Provider } from 'react-redux';
 import { initStore } from './store';
 
-
 // Components
 import Sidebar from 'components/sidebar';
 
 const store = initStore();
 
-class Hello extends React.Component {
+export default class FSPMaps extends React.Component {
+  static defaultProps = {
+    name: 'David'
+  }
+
+  static propTypes = {
+    name: PropTypes.string
+  }
+
   render() {
     return (
       <Provider store={store}>
         <div>
+          {this.props.name}
           <Sidebar />
         </div>
       </Provider>
     );
   }
 }
-
-Hello.defaultProps = {
-  name: 'David'
-}
-
-Hello.propTypes = {
-  name: PropTypes.string
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Hello name="React" />,
-    document.getElementById('fsp-maps'),
-  )
-})
