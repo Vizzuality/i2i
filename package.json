@@ -22,8 +22,16 @@
     "url": "https://github.com/Vizzuality/i2i/issues"
   },
   "homepage": "https://github.com/Vizzuality/i2i#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "babel-preset-react": "^6.24.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react_ujs": "^2.4.4"
+  },
   "devDependencies": {
-    "eslint": "^3.15.0"
+    "eslint": "^3.15.0",
+    "webpack-dev-server": "2.11.2"
   }
 }
