@@ -6,11 +6,13 @@ import thunk from 'redux-thunk';
 import { handleModule } from 'redux-tools';
 
 // Components
+import * as fsp_maps from 'components/fsp-maps';
 import * as sidebar from 'components/sidebar';
 import * as intro from 'components/intro';
 
 
 const reducer = combineReducers({
+  common: handleModule(fsp_maps),
   sidebar: handleModule(sidebar),
   intro: handleModule(intro)
 });
