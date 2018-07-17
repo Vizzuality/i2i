@@ -7,10 +7,12 @@ import { handleModule } from 'redux-tools';
 
 // Components
 import * as sidebar from 'components/sidebar';
+import * as intro from 'components/intro';
 
 
 const reducer = combineReducers({
-  sidebar: handleModule(sidebar)
+  sidebar: handleModule(sidebar),
+  intro: handleModule(intro)
 });
 
 const initStore = (initialState = {}) =>
