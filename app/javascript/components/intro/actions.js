@@ -1,7 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
-
-// Constants
-import { INTRO_LABELS } from './constants';
+import Numeral from 'numeral';
 
 // SQL
 import INTRO_SQL from './sql/intro.sql';
@@ -17,7 +15,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://fsp-maps.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=API_KEY`)
+  return fetch(`https://fsp-maps.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=8kFyv1NsG2qllfDd972LJQ`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -26,22 +24,19 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
       dispatch(setIntroLoading(false));
       dispatch(setIntroError(null));
 
-      // dispatch(setIntro(data));
-      dispatch(setIntro([
-        { label: 'TOTAL POPULATION (2015)', percentage: null, value: '39,066,910' },
-        { label: 'RURAL POPULATION PERCENTAGE', percentage: '87.2%', value: '28,010,974' },
-        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', percentage: '71.7%', value: '28,010,974' },
-        { label: 'URBAN POPULATION PERCENTAGE:', percentage: '12.8%', value: '28,010,974' }
-      ]))
+      const dataRows = data.rows[0];
 
+      dispatch(setIntro([
+        { label: 'TOTAL POPULATION (2015)', value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
+        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: 'tbd', subvalue: 'tbd' },
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') }
+      ]));
     })
     .catch((err) => {
       dispatch(setIntroLoading(false));
       dispatch(setIntroError(err));
     });
-
 });
 
-export default {
-  setIntro
-};
+export default { setIntro };

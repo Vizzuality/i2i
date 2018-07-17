@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 class IntroComponent extends React.Component {
-  static propTypes = {
-    data: PropTypes.array.isRequired
-  }
+  static propTypes = { data: PropTypes.array.isRequired }
 
   componentWillMount() {
     this.props.fetchIntro();
@@ -17,23 +15,23 @@ class IntroComponent extends React.Component {
     const { data } = this.props;
 
     return (
-      <div className='c-fsp-intro'>
+      <div className="c-fsp-intro">
         <div className="wrapper">
-          <div className="row">          
+          <div className="row">
             {
-              data.map((item) => (
-                <div key={item['label']} className='grid-m-2'>
-                  <div className='intro-label'>{item['label']}</div>
+              data.map(item => (
+                <div key={item.label} className="grid-m-2">
+                  <div className="intro-label">{item.label}</div>
 
-                  {item['percentage'] &&
+                  {item.subvalue &&
                     <div>
-                      <div className='intro-main-value'>{item['percentage']}</div>
-                      <div className='intro-sub-value'>({item['value']})</div>
+                      <div className="intro-main-value">{item.value}</div>
+                      <div className="intro-sub-value">({item.subvalue})</div>
                     </div>
                   }
 
-                  {!item['percentage'] &&
-                    <div className='intro-main-value'>{item['value']}</div>
+                  {!item.subvalue &&
+                    <div className="intro-main-value">{item.value}</div>
                   }
                 </div>
               ))
