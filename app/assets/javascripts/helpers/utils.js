@@ -21,6 +21,24 @@ App.Helper.Utils = {
 
   capitalize: function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  },
 
+  replace: function (str, data) {
+    if (typeof str === 'string' && (data instanceof Array)) {
+      return str.replace(/({\d})/g, i => data[i.replace(/{/, '').replace(/}/, '')]);
+    } else if (typeof str === 'string' && (data instanceof Object)) {
+      for (const key in data) {
+        return str.replace(/({([^}]+)})/g, (i) => {
+          const key = i.replace(/{/, '').replace(/}/, '');
+          if (!data[key]) {
+            return i;
+          }
+
+          return data[key];
+        });
+      }
+    } else {
+      return false;
+    }
+  }
 };
