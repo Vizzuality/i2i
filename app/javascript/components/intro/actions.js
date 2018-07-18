@@ -28,9 +28,9 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
 
       dispatch(setIntro([
         { label: 'TOTAL POPULATION (2015)', value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
-        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
+        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
         { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: 'tbd', subvalue: 'tbd' },
-        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') }
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.urban_population).format('0,0') }
       ]));
     })
     .catch((err) => {
