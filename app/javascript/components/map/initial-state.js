@@ -1,0 +1,1 @@
+export default { open: true };
