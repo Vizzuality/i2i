@@ -18,24 +18,34 @@ class IntroComponent extends React.Component {
       <div className="c-fsp-intro">
         <div className="wrapper">
           <div className="row">
-            {
-              data.map(item => (
-                <div key={item.label} className="grid-m-2">
-                  <div className="intro-label">{item.label}</div>
-
-                  {item.subvalue &&
-                    <div>
+            <table
+              className="intro-table"
+            >
+              <thead>
+                <tr>
+                  {data.map(item => (
+                    <th key={item.label}>
+                      <div className="intro-label">
+                        {item.label}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {data.map(item => (
+                    <td key={item.label}>
                       <div className="intro-main-value">{item.value}</div>
-                      <div className="intro-sub-value">({item.subvalue})</div>
-                    </div>
-                  }
 
-                  {!item.subvalue &&
-                    <div className="intro-main-value">{item.value}</div>
-                  }
-                </div>
-              ))
-            }
+                      {!!item.subvalue &&
+                        <div className="intro-sub-value">({item.subvalue})</div>
+                      }
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
