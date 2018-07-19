@@ -1,12 +1,12 @@
 WITH b AS
     (SELECT the_geom
     FROM world_borders_hd AS b
-    WHERE b.iso_a3 = 'KEN'), u AS
+    WHERE b.iso_a3 = '{iso}'), u AS
     (SELECT u.the_geom
     FROM urban_areas AS u
     JOIN world_borders_hd AS b
         ON ST_Intersects(b.the_geom, u.the_geom)
-    WHERE b.iso_a3 = 'KEN')
+    WHERE b.iso_a3 = '{iso}')
 SELECT tot.pop AS total_population,
          urb.pop AS urban_population,
          round(((urb.pop/tot.pop)*100)::numeric,
@@ -33,4 +33,4 @@ FROM
     WHERE ST_Intersects(the_raster_webmercator, u.the_geom) ) AS urb,
     (SELECT total_population AS tot_pop_km
     FROM population_within_5km
-    WHERE iso = 'KEN' ) AS pop_km
+    WHERE iso = '{iso}' ) AS pop_km
