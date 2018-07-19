@@ -5,13 +5,12 @@ import classnames from 'classnames';
 // styles
 import './styles.scss';
 
-// actions
-import { setMenuItem } from '../actions';
-
 // components
 import MenuItemsComponent from 'components/sidebar/menu-items';
 
 class SidebarLayersComponent extends React.Component {
+  static propTypes = { setMenuItem: PropTypes.func.isRequired }
+
   render() {
     const layers = [
       { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
@@ -22,7 +21,7 @@ class SidebarLayersComponent extends React.Component {
     return (
       <MenuItemsComponent
         items={layers}
-        onSelectMenuItem={setMenuItem}
+        onSelectMenuItem={this.props.setMenuItem}
       />
     );
   }
