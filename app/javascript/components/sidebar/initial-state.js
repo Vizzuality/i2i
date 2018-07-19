@@ -1,3 +1,5 @@
 export default {
-  open: true
+  open: true,
+  selected: 'layers',
+  menuItem: ''
 };
