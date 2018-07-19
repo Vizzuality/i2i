@@ -15,7 +15,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://fsp-maps.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=8kFyv1NsG2qllfDd972LJQ`)
+  return fetch(`https://fsp-maps.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=jTwYZhHIEd2XRevQlhy3AA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -27,9 +27,9 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
       const dataRows = data.rows[0];
 
       dispatch(setIntro([
-        { label: 'TOTAL POPULATION (2015)', value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
+        { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
         { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
-        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: 'tbd', subvalue: 'tbd' },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.population_5km).format('0,0') },
         { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.urban_population).format('0,0') }
       ]));
     })
