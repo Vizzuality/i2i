@@ -5,7 +5,7 @@ module Fdapi
       cache_key = "household_member_transactions-" +
                   "#{params.slice(:project_name, :household_name, :main_income, :gender, :age_range, :income_tier).to_json}-" +
                   "#{categories_filter}"
-      
+
       household_member_transactions = Rails.cache.fetch(cache_key) do
         categories_filter.map do |category|
           category.merge!({ category_name: 'ALL' }) unless category['subcategory'].present?
@@ -73,9 +73,9 @@ module Fdapi
     def monthly_values
       project_name = params[:project_name]
       project_metadata = ProjectMetadatum.find_by(project_name: project_name)
-      household_name = params[:household]
+      person_code = params[:household]
       categories = JSON.parse(params[:categories])
-      cache_key = "member_monthly_values-#{project_name}-#{household_name}-#{categories}"
+      cache_key = "member_monthly_values-#{project_name}-#{person_code}-#{categories}"
 
       response = Rails.cache.fetch(cache_key) do
         response = []
@@ -88,8 +88,8 @@ module Fdapi
                           .project_name(project_name)
                           .category_type(category_type)
 
-          if household_name.present?
-            transactions = transactions.household_name(household_name)
+          if person_code.present?
+            transactions = transactions.person_code(person_code)
           end
 
           if category['subcategory'].present?

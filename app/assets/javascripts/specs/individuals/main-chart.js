@@ -299,7 +299,7 @@
             "on": [
               {
                 "events": "line:click,line:touchstart",
-                "update": "group().context.group.datum.household_name"
+                "update": "group().context.group.datum.person_code"
               }
             ]
           },
