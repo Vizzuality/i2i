@@ -1,4 +1,6 @@
 export default {
   sectorsData: [],
-  sectorTitles: []
+  sectorTitles: [],
+  selectedSector: '',
+  selectedTypes: {}
 };

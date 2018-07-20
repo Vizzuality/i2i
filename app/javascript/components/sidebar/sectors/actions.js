@@ -7,6 +7,8 @@ import SECTORS_SQL from './sql/sectors.sql';
 
 export const setSectors = createAction('SECTORS/setSectors');
 export const setSectorTitles = createAction('SECTORS/setSectorTitles');
+export const setSelectedSector = createAction('SECTORS/setSelectedSector');
+export const setSelectedType = createAction('SECTORS/setSelectedType');
 export const setSectorsLoading = createAction('SECTORS/setSectorsLoading');
 export const setSectorsError = createAction('SECTORS/setSectorsError');
 
