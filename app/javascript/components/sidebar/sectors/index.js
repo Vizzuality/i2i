@@ -9,6 +9,11 @@ import SectorsComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({ ...state.sectorsData }),
+  state => ({
+    sectorsData: state.sectors.sectorsData,
+    sectorTitles: state.sectors.sectorTitles,
+    selectedSector: state.sectors.selectedSector,
+    selectedTypes: state.sectors.selectedTypes
+  }),
   actions
 )(SectorsComponent);
