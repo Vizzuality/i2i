@@ -26,6 +26,7 @@
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
+    "lodash": "^4.17.10",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

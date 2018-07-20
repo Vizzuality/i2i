@@ -7,6 +7,7 @@ import './styles.scss';
 
 // components
 import MenuItemsComponent from 'components/sidebar/menu-items';
+import SectorsComponent from 'components/sidebar/sectors';
 
 class SidebarLayersComponent extends React.Component {
   static propTypes = { setMenuItem: PropTypes.func.isRequired }
@@ -18,11 +19,17 @@ class SidebarLayersComponent extends React.Component {
       { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
     ];
 
+    const { menuItem } = this.props;
+
     return (
-      <MenuItemsComponent
-        items={layers}
-        onSelectMenuItem={this.props.setMenuItem}
-      />
+      <div className="c-layers-menu-item">
+        <MenuItemsComponent
+          items={layers}
+          onSelectMenuItem={this.props.setMenuItem}
+        />
+
+        {menuItem === 'sectors' && <SectorsComponent />}
+      </div>
     );
   }
 }
