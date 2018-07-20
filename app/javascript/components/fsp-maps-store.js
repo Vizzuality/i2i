@@ -10,13 +10,15 @@ import * as fspMaps from 'components/fsp-maps';
 import * as intro from 'components/intro';
 import * as sidebar from 'components/sidebar';
 import * as map from 'components/map';
+import * as sectors from 'components/sidebar/sectors';
 
 
 const reducer = combineReducers({
   common: handleModule(fspMaps),
   intro: handleModule(intro),
   sidebar: handleModule(sidebar),
-  map: handleModule(map)
+  map: handleModule(map),
+  sectors: handleModule(sectors)
 });
 
 const initStore = (initialState = {}) =>

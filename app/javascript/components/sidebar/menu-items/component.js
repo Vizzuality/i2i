@@ -11,7 +11,6 @@ class MenuItemsComponent extends React.Component {
   }
 
   clickItem(item) {
-    console.log(item);
     this.props.onSelectMenuItem(item);
   }
 
