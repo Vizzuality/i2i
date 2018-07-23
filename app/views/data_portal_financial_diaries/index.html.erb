@@ -29,6 +29,17 @@
                   The Financial Diaries in <span><%= @country[:name] %></span> started on <span><%= @country_financial_diaries.start_date.strftime("%Y/%m") %></span> and ended on <span><%=@country_financial_diaries.end_date.strftime("%Y/%m") %></span>. The currency for this country is in <span><%= @country_financial_diaries.currency_singular %></span> <span>(<%= @country_financial_diaries.currency_symbol %>)</span>. The number of households interviewed was <span><%= @country_financial_diaries.num_households_in_hh %></span>, with <span><%= @country_financial_diaries.num_members_in_mem %></span> individual members.<% if @country_financial_diaries[:province].present? %> The survey was conducted in the <span><%= @country_financial_diaries[:province] %></span> region.<% end %> Please note that the Financial Diaries are not a nationally representative dataset.
                 </p>
               </div>
+
+              <div class="grid-l-4">
+                <% if @lift_countries.include?(@country[:name]) %>
+                  <div class="lift-logo-container">
+                    <div class="lift-logo-intro">Data supplied by</div>
+                    <div class=lift-logo-background></div>
+                    <div class="lift-logo-text">For further analysis, visit the L-IFT platform - <a href="http://www.lift-data.com" target="_blank" rel="noopener noreferer">http://www.lift-data.com</a></div>
+                  </div>
+                <% end %>
+              </div>
+
             </div>
           </div>
         </div>
