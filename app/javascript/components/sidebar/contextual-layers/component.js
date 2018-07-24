@@ -19,11 +19,12 @@ class ContextualLayersComponent extends React.Component {
 
   handleSelectedContextualLayer(contextualLayer) {
     let layers = this.props.selectedLayers;
+    const id = contextualLayer.id;
 
-    if (layers.includes(contextualLayer)) {
-      layers.splice(layers.indexOf(contextualLayer), 1);
+    if (layers.includes(id)) {
+      layers.splice(layers.indexOf(id), 1);
     } else {
-      layers = layers.concat([contextualLayer]);
+      layers = layers.concat([id]);
     }
 
     this.props.setSelectedLayers(layers);
