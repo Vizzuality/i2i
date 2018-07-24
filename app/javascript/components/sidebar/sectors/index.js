@@ -3,15 +3,17 @@ import * as actions from './actions';
 import * as reducers from './reducers';
 import initialState from './initial-state';
 
-import SidebarComponent from './component';
+import SectorsComponent from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    ...state.sidebar,
-    ...state.tabs
+    list: state.sectorLayers.list,
+    sectorTitles: state.sectorLayers.sectorTitles,
+    selectedSector: state.sectorLayers.selectedSector,
+    selectedLayers: state.sectorLayers.selectedLayers
   }),
   actions
-)(SidebarComponent);
+)(SectorsComponent);
