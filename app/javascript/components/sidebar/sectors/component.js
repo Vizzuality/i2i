@@ -22,7 +22,8 @@ class SectorsComponent extends React.Component {
     this.props.setSelectedSector(sector);
   }
 
-  handleSelectedType(sector, type) {
+  handleSelectedType(row) {
+    const { sector, type } = row;
     const types = this.props.selectedLayers;
 
     if (types[sector]) {
@@ -62,7 +63,8 @@ class SectorsComponent extends React.Component {
 
         <List
           rows={filteredSectorsData}
-          onSelectType={(sector, type) => this.handleSelectedType(sector, type)}
+          labelField="type"
+          onSelect={row => this.handleSelectedType(row)}
         />
       </div>
     );
