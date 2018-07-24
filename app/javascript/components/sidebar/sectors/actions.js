@@ -5,28 +5,28 @@ import uniq from 'lodash/uniq';
 // SQL
 import SECTORS_SQL from './sql/sectors.sql';
 
-export const setSectors = createAction('SECTORS/setSectors');
+export const setList = createAction('SECTORS/setList');
 export const setSectorTitles = createAction('SECTORS/setSectorTitles');
 export const setSelectedSector = createAction('SECTORS/setSelectedSector');
-export const setSelectedType = createAction('SECTORS/setSelectedType');
-export const setSectorsLoading = createAction('SECTORS/setSectorsLoading');
-export const setSectorsError = createAction('SECTORS/setSectorsError');
+export const setSelectedLayer = createAction('SECTORS/setSelectedLayer');
+export const setListLoading = createAction('SECTORS/setListLoading');
+export const setListError = createAction('SECTORS/setListError');
 
 export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;
   const { iso } = getState().common;
 
-  dispatch(setSectorsLoading(true));
+  dispatch(setListLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://fsp-maps.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=8kFyv1NsG2qllfDd972LJQ`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=T_1wJgFsnzgYfxKQgAM4ng`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
     })
     .then((data) => {
-      dispatch(setSectorsLoading(false));
-      dispatch(setSectorsError(null));
+      dispatch(setListLoading(false));
+      dispatch(setListError(null));
       const dataRows = data.rows.map(row => (
         {
           ...row,
@@ -37,12 +37,12 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
         row.sector
       )));
 
-      dispatch(setSectors(dataRows));
+      dispatch(setList(dataRows));
       dispatch(setSectorTitles(sectorTitles));
     })
     .catch((err) => {
-      dispatch(setSectorsLoading(false));
-      dispatch(setSectorsError(err));
+      dispatch(setListLoading(false));
+      dispatch(setListError(err));
     });
 });
 
