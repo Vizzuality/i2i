@@ -12,10 +12,10 @@ class SectorsComponent extends React.Component {
   static propTypes = {
     fetchSectors: PropTypes.func.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
-    setSelectedType: PropTypes.func.isRequired,
+    setSelectedLayer: PropTypes.func.isRequired,
     sectorTitles: PropTypes.array.isRequired,
-    sectorsData: PropTypes.array.isRequired,
-    selectedTypes: PropTypes.object.isRequired
+    list: PropTypes.array.isRequired,
+    selectedLayers: PropTypes.object.isRequired
   }
 
   componentWillMount() {
@@ -27,7 +27,7 @@ class SectorsComponent extends React.Component {
   }
 
   handleSelectedType(sector, type) {
-    const types = this.props.selectedTypes;
+    const types = this.props.selectedLayers;
     // types[sector] = types[sector] ? types[sector].includes(type) ? types[sector].splice(types[sector].indexOf(type), 1) : types[sector].concat([type]) : [type];
 
     if (types[sector]) {
@@ -40,17 +40,17 @@ class SectorsComponent extends React.Component {
       types[sector] = [type];
     }
 
-    this.props.setSelectedType(types);
+    this.props.setSelectedLayer(types);
   }
 
   render() {
-    const { sectorTitles, sectorsData, selectedSector } = this.props;
+    const { sectorTitles, list, selectedSector } = this.props;
     // const classNames = classnames({
     //   'c-sidebar': true,
     //   '-open': !!open
     // });
 
-    const filteredSectorsData = sectorsData.filter(sectorDatum => sectorDatum.sector === selectedSector);
+    const filteredSectorsData = list.filter(sectorDatum => sectorDatum.sector === selectedSector);
 
     return (
       <div className="c-sectors">

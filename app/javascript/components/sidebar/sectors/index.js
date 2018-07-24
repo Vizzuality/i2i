@@ -10,10 +10,10 @@ export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    sectorsData: state.sectors.sectorsData,
-    sectorTitles: state.sectors.sectorTitles,
-    selectedSector: state.sectors.selectedSector,
-    selectedTypes: state.sectors.selectedTypes
+    list: state.sectorLayers.list,
+    sectorTitles: state.sectorLayers.sectorTitles,
+    selectedSector: state.sectorLayers.selectedSector,
+    selectedLayers: state.sectorLayers.selectedLayers
   }),
   actions
 )(SectorsComponent);

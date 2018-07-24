@@ -18,7 +18,7 @@ const reducer = combineReducers({
   intro: handleModule(intro),
   sidebar: handleModule(sidebar),
   map: handleModule(map),
-  sectors: handleModule(sectors)
+  sectorLayers: handleModule(sectors)
 });
 
 const initStore = (initialState = {}) =>
