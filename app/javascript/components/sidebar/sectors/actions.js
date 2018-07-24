@@ -30,7 +30,34 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
       const dataRows = data.rows.map(row => (
         {
           ...row,
-          count: Numeral(row.count).format('0,0')
+          count: Numeral(row.count).format('0,0'),
+          layerConfig: {
+            body: {
+              layers: [
+                {
+                  options: {
+                    cartocss_version: '2.3.0',
+                    cartocss: '#gadm28_adm1{  polygon-fill: #3bb2d0;  polygon-opacity: 0;  line-color: #5CA2D1;  line-width: 0.5;  line-opacity: 1;}',
+                    sql: `SELECT st_asgeojson(the_geom), iso, sector, type FROM fsp_maps WHERE iso = '${iso}' AND sector in ('${row.sector}') AND type in ('${row.type}') ORDER BY sector, type`
+                  },
+                  type: 'cartodb'
+                }
+              ],
+              minzoom: 3,
+              maxzoom: 18
+            },
+            account: 'ikerey'
+          },
+          legendConfig: {
+            type: 'basic',
+            items: [
+              {
+                name: row.type,
+                color: '#5CA2D1'
+              }
+            ]
+          },
+          interactionConfig: {}
         }
       ));
       const sectorTitles = uniq(dataRows.map(row => (
