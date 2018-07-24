@@ -22,14 +22,19 @@ class ListComponent extends React.Component {
 
     return (
       <div className="c-list">
-        {rows.map(row => (
-          <button
-            key={row[labelField]}
-            onClick={() => this.clickItem(row)}
-          >
-            {`${row[labelField]} (${Numeral(row.count).format('0,0')})`}
-          </button>
-        ))}
+        {rows.map((row) => {
+          const label = row[labelField];
+          const count = !!row.count && Numeral(row.count).format('0,0');
+
+          return (
+            <button
+              key={label}
+              onClick={() => this.clickItem(row)}
+            >
+              {label} {!!count && `(${count})`}
+            </button>
+          );
+        })}
       </div>
     );
   }
