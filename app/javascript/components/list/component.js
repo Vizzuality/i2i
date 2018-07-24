@@ -9,24 +9,25 @@ import './styles.scss';
 class ListComponent extends React.Component {
   static propTypes = {
     rows: PropTypes.array.isRequired,
-    onSelectType: PropTypes.func.isRequired
+    labelField: PropTypes.string.isRequired,
+    onSelect: PropTypes.func.isRequired
   }
 
-  clickType(sector, type) {
-    this.props.onSelectType(sector, type);
+  clickItem(row) {
+    this.props.onSelect(row);
   }
 
   render() {
-    const { rows } = this.props;
+    const { rows, labelField } = this.props;
 
     return (
       <div className="c-list">
         {rows.map(row => (
           <button
-            key={row.type}
-            onClick={() => this.clickType(row.sector, row.type)}
+            key={row[labelField]}
+            onClick={() => this.clickItem(row)}
           >
-            { `${row.type} (${Numeral(row.count).format('0,0')})` }
+            {`${row[labelField]} (${Numeral(row.count).format('0,0')})`}
           </button>
         ))}
       </div>

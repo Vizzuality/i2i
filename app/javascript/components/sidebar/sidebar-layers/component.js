@@ -8,19 +8,27 @@ import './styles.scss';
 // components
 import MenuItemsComponent from 'components/sidebar/menu-items';
 import SectorsComponent from 'components/sidebar/sectors';
+import ContextualLayersComponent from 'components/sidebar/contextual-layers';
+
+const MENU_CONTENT = {
+  sectors: <SectorsComponent />,
+  contextual_layers: <ContextualLayersComponent />
+};
 
 class SidebarLayersComponent extends React.Component {
   static propTypes = {
     setMenuItem: PropTypes.func.isRequired,
-    fetchSectors: PropTypes.func.isRequired
+    fetchSectors: PropTypes.func.isRequired,
+    fetchContextualLayers: PropTypes.func.isRequired
   }
 
   componentWillMount() {
     this.props.fetchSectors();
+    this.props.fetchContextualLayers();
   }
 
   render() {
-    const layers = [
+    const layersTypes = [
       { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
       { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' },
       { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
@@ -31,11 +39,13 @@ class SidebarLayersComponent extends React.Component {
     return (
       <div className="c-layers-menu-item">
         <MenuItemsComponent
-          items={layers}
+          items={layersTypes}
           onSelectMenuItem={this.props.setMenuItem}
         />
 
-        {menuItem === 'sectors' && <SectorsComponent />}
+        {!!menuItem && React.cloneElement(
+          MENU_CONTENT[menuItem]
+        )}
       </div>
     );
   }
