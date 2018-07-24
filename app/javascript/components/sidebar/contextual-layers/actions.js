@@ -55,7 +55,10 @@ export const fetchContextualLayers = createThunkAction('SECTORS/fetchContextualL
         }
       ));
       const contextualLayerTitles = uniq(dataRows.map(row => (
-        { layer: row.layer }
+        {
+          layer: row.layer,
+          id: row.cartodb_id
+        }
       )));
 
       dispatch(setList(dataRows));
