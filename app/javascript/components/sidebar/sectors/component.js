@@ -18,17 +18,12 @@ class SectorsComponent extends React.Component {
     selectedLayers: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    this.props.fetchSectors();
-  }
-
   clickSector(sector) {
     this.props.setSelectedSector(sector);
   }
 
   handleSelectedType(sector, type) {
     const types = this.props.selectedLayers;
-    // types[sector] = types[sector] ? types[sector].includes(type) ? types[sector].splice(types[sector].indexOf(type), 1) : types[sector].concat([type]) : [type];
 
     if (types[sector]) {
       if (types[sector].includes(type)) {

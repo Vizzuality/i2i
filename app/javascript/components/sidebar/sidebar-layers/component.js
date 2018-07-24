@@ -10,7 +10,14 @@ import MenuItemsComponent from 'components/sidebar/menu-items';
 import SectorsComponent from 'components/sidebar/sectors';
 
 class SidebarLayersComponent extends React.Component {
-  static propTypes = { setMenuItem: PropTypes.func.isRequired }
+  static propTypes = {
+    setMenuItem: PropTypes.func.isRequired,
+    fetchSectors: PropTypes.func.isRequired
+  }
+
+  componentWillMount() {
+    this.props.fetchSectors();
+  }
 
   render() {
     const layers = [
