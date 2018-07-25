@@ -1,1 +1,1 @@
-SELECT layer, cartodb_id FROM layer_spec
+SELECT * FROM layer_spec
