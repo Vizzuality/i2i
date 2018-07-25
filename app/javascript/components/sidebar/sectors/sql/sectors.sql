@@ -1,7 +1,8 @@
 SELECT count(type),
          type,
          sector,
-         iso
+         iso,
+         type_id
 FROM fsp_maps
 WHERE iso = '{iso}'
-GROUP BY  sector, iso, type
+GROUP BY  sector, iso, type, type_id

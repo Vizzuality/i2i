@@ -2,5 +2,5 @@ export default {
   list: [],
   sectorTitles: [],
   selectedSector: '',
-  selectedLayers: {}
+  selectedLayers: []
 };

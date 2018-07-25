@@ -8,7 +8,7 @@ import SECTORS_SQL from './sql/sectors.sql';
 export const setList = createAction('SECTORS/setList');
 export const setSectorTitles = createAction('SECTORS/setSectorTitles');
 export const setSelectedSector = createAction('SECTORS/setSelectedSector');
-export const setSelectedLayer = createAction('SECTORS/setSelectedLayer');
+export const setSelectedLayers = createAction('SECTORS/setSelectedLayers');
 export const setListLoading = createAction('SECTORS/setListLoading');
 export const setListError = createAction('SECTORS/setListError');
 
@@ -19,7 +19,7 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
   dispatch(setListLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=9DwNIFD_vTbtO5no55TZog`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=FBqvmLoNs3frmfwsajHUeA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
