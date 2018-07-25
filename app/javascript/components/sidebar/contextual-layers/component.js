@@ -31,7 +31,7 @@ class ContextualLayersComponent extends React.Component {
   }
 
   render() {
-    const { contextualLayerTitles } = this.props;
+    const { list } = this.props;
     // const classNames = classnames({
     //   'c-sidebar': true,
     //   '-open': !!open
@@ -40,8 +40,8 @@ class ContextualLayersComponent extends React.Component {
     return (
       <div className="c-contextual-layers">
         <List
-          rows={contextualLayerTitles}
-          labelField="layer"
+          rows={list}
+          labelField="name"
           onSelect={contextualLayer => this.handleSelectedContextualLayer(contextualLayer)}
         />
       </div>
