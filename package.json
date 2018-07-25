@@ -26,6 +26,7 @@
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
+    "layer-manager": "^1.0.0",
     "lodash": "^4.17.10",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
@@ -37,12 +38,15 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "wri-api-components": "^2.0.5"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "babel-plugin-module-resolver": "^3.1.1",
     "eslint": "^4.9.0",
     "eslint-config-vizzuality": "^1.0.14",
+    "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",

@@ -21,6 +21,16 @@
       {
         "spec": true
       }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "components": "./app/javascript/components"
+        },
+        "cwd": "babelrc"
+      }
     ]
   ]
 }
