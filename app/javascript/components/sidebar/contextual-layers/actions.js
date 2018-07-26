@@ -33,6 +33,7 @@ export const fetchContextualLayers = createThunkAction('SECTORS/fetchContextualL
         {
           ...row,
           name: row.layer,
+          id: row.cartodb_id,
           provider: 'carto',
           layerConfig: {
             body: {

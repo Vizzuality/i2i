@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uniq from 'lodash/uniq';
 import classnames from 'classnames';
 
 // styles
@@ -36,7 +37,7 @@ class SectorsComponent extends React.Component {
   }
 
   render() {
-    const { sectorTitles, list, selectedSector } = this.props;
+    const { list, selectedSector } = this.props;
     // const classNames = classnames({
     //   'c-sidebar': true,
     //   '-open': !!open
@@ -47,7 +48,7 @@ class SectorsComponent extends React.Component {
     return (
       <div className="c-sectors">
         {
-          sectorTitles.map(sectorTitle => (
+          (uniq(list.map(sectorData => (sectorData.sector)))).map(sectorTitle => (
             <button
               key={sectorTitle}
               onClick={() => this.clickSector(sectorTitle)}
