@@ -1,11 +1,11 @@
 <% content_for :head do %>
   <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
-  
+
   <!-- LEAFLET -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
   <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js"></script>  
+  <script src="https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js"></script>
 
   <!-- COMPONENTS -->
   <%= javascript_pack_tag 'application' %>
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <%= react_component("fsp-maps-page", { iso: @iso }) %>
+    <%= react_component("fsp-maps-page", { iso: @iso, bbox: @country.bbox }) %>
 
   </div>
 </div>

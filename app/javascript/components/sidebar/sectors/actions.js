@@ -1,6 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
 import Numeral from 'numeral';
-import uniq from 'lodash/uniq';
 
 // SQL
 import SECTORS_SQL from './sql/sectors.sql';
