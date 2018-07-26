@@ -4,11 +4,11 @@ environment.config.merge({
   module: {
     rules: [
       {
-        test: /\.sql$/,
+        test: /\.(sql|cartocss)$/,
         use: 'raw-loader'
       }
     ]
-  }  
+  }
 })
 
 module.exports = environment
