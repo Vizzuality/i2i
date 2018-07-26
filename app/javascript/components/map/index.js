@@ -16,6 +16,7 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     ...state.sidebar,
+    ...state.common,
     activeLayers: getActiveLayers(state)
   }),
   actions
