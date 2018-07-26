@@ -4,6 +4,9 @@ import Numeral from 'numeral';
 // SQL
 import SECTORS_SQL from './sql/sectors.sql';
 
+// CSS
+import SECTORS_CSS from './cartocss/sectors.cartocss';
+
 export const setList = createAction('SECTORS/setList');
 export const setListLoading = createAction('SECTORS/setListLoading');
 export const setListError = createAction('SECTORS/setListError');
@@ -38,7 +41,7 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
                 {
                   options: {
                     cartocss_version: '2.3.0',
-                    cartocss: `#layer { marker-width: 7; marker-fill: ${row.color}; marker-fill-opacity: 0.9; marker-line-color: #FFFFFF; marker-line-width: 1; marker-line-opacity: 1; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}`,
+                    cartocss: replace(SECTORS_CSS, { color: row.color }),
                     sql: `SELECT st_asgeojson(the_geom), the_geom_webmercator, iso, sector, type FROM fsp_maps WHERE iso = '${iso}' AND sector in ('${row.sector}') AND type in ('${row.type}') ORDER BY sector, type`
                   },
                   type: 'cartodb'
