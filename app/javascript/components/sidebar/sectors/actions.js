@@ -6,7 +6,6 @@ import uniq from 'lodash/uniq';
 import SECTORS_SQL from './sql/sectors.sql';
 
 export const setList = createAction('SECTORS/setList');
-export const setSectorTitles = createAction('SECTORS/setSectorTitles');
 export const setSelectedSector = createAction('SECTORS/setSelectedSector');
 export const setSelectedLayers = createAction('SECTORS/setSelectedLayers');
 export const setListLoading = createAction('SECTORS/setListLoading');
@@ -60,12 +59,8 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
           interactionConfig: {}
         }
       ));
-      const sectorTitles = uniq(dataRows.map(row => (
-        row.sector
-      )));
 
       dispatch(setList(dataRows));
-      dispatch(setSectorTitles(sectorTitles));
     })
     .catch((err) => {
       dispatch(setListLoading(false));
