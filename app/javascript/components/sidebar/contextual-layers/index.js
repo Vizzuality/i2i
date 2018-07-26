@@ -11,7 +11,6 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     list: state.contextualLayers.list,
-    contextualLayerTitles: state.contextualLayers.contextualLayerTitles,
     selectedLayers: state.contextualLayers.selectedLayers
   }),
   actions

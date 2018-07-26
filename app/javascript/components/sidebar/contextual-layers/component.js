@@ -10,9 +10,7 @@ import List from 'components/list';
 
 class ContextualLayersComponent extends React.Component {
   static propTypes = {
-    fetchContextualLayers: PropTypes.func.isRequired,
     setSelectedLayers: PropTypes.func.isRequired,
-    contextualLayerTitles: PropTypes.array.isRequired,
     list: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired
   }
@@ -32,10 +30,6 @@ class ContextualLayersComponent extends React.Component {
 
   render() {
     const { list } = this.props;
-    // const classNames = classnames({
-    //   'c-sidebar': true,
-    //   '-open': !!open
-    // });
 
     return (
       <div className="c-contextual-layers">

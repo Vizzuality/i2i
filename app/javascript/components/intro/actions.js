@@ -15,7 +15,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=FBqvmLoNs3frmfwsajHUeA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=JzqdU3Jd0XboGF9Zdmt7WA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);

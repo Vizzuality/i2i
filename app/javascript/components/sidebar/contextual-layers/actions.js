@@ -12,11 +12,11 @@ export const setSelectedLayers = createAction('CONTEXTUAL_LAYERS/setSelectedLaye
 export const setListLoading = createAction('CONTEXTUAL_LAYERS/setListLoading');
 export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
 
-export const fetchContextualLayers = createThunkAction('SECTORS/fetchContextualLayers', () => (dispatch, getState) => {
+export const fetchContextualLayers = createThunkAction('CONTEXTUAL_LAYERS/fetchContextualLayers', () => (dispatch, getState) => {
   dispatch(setListLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=FBqvmLoNs3frmfwsajHUeA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=JzqdU3Jd0XboGF9Zdmt7WA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
