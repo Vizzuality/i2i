@@ -11,12 +11,14 @@ import './styles.scss';
 export default class FSPMaps extends React.Component {
   static propTypes = {
     iso: PropTypes.string.isRequired,
-    setIso: PropTypes.func.isRequired
+    setIso: PropTypes.func.isRequired,
+    setBBox: PropTypes.func.isRequired
   }
 
   componentWillMount() {
-    const { iso } = this.props;
+    const { iso, bbox } = this.props;
     this.props.setIso(iso);
+    this.props.setBBox(bbox);
   }
 
   render() {

@@ -36,12 +36,14 @@ const COUNTRY_MASK = {
 
 class SidebarComponent extends React.Component {
   static propTypes = {
+    activeLayers: PropTypes.array.isRequired,
     open: PropTypes.bool.isRequired,
-    activeLayers: PropTypes.array.isRequired
+    iso: PropTypes.string.isRequired,
+    bbox: PropTypes.array.isRequired
   }
 
   render() {
-    const { open, activeLayers } = this.props;
+    const { open, bbox, activeLayers } = this.props;
 
     const classNames = classnames({
       'c-map': true,
@@ -50,7 +52,13 @@ class SidebarComponent extends React.Component {
 
     return (
       <div className={classNames}>
-        <Map>
+        <Map
+          bounds={{
+            bbox,
+            options: {}
+          }}
+          scrollZoomEnabled={false}
+        >
           {map => (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
