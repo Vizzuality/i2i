@@ -16,7 +16,7 @@ export const fetchContextualLayers = createThunkAction('CONTEXTUAL_LAYERS/fetchC
   dispatch(setListLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=JzqdU3Jd0XboGF9Zdmt7WA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);

@@ -3759,9 +3759,9 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.0.tgz#3efdc598191bc1e20bcd16cec34bc20b5acedf04"
+layer-manager@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.1.tgz#db956768f1542748d0b3eac62c12b7cf3bc9300d"
   dependencies:
     bluebird "^3.5.1"
     wri-json-api-serializer "^1.0.1"

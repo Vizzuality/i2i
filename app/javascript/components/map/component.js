@@ -31,7 +31,7 @@ class SidebarComponent extends React.Component {
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {
                   activeLayers.map((layer, index) =>
-                    <Layer {...layer} zIndex={1000 - index} />)
+                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
                 }
               </LayerManager>
             </React.Fragment>
