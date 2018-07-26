@@ -3,20 +3,15 @@ import * as actions from './actions';
 import * as reducers from './reducers';
 import initialState from './initial-state';
 
-// Components
-import SidebarComponent from './component';
-
-// Selectors
-import { getActiveLayers } from './selectors';
-
+import ContextualLayersComponent from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    ...state.sidebar,
-    activeLayers: getActiveLayers(state)
+    list: state.contextualLayers.list,
+    selectedLayers: state.contextualLayers.selectedLayers
   }),
   actions
-)(SidebarComponent);
+)(ContextualLayersComponent);

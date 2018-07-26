@@ -6,11 +6,10 @@ import uniq from 'lodash/uniq';
 import SECTORS_SQL from './sql/sectors.sql';
 
 export const setList = createAction('SECTORS/setList');
-export const setSectorTitles = createAction('SECTORS/setSectorTitles');
-export const setSelectedSector = createAction('SECTORS/setSelectedSector');
-export const setSelectedLayer = createAction('SECTORS/setSelectedLayer');
 export const setListLoading = createAction('SECTORS/setListLoading');
 export const setListError = createAction('SECTORS/setListError');
+export const setSelectedSector = createAction('SECTORS/setSelectedSector');
+export const setSelectedLayers = createAction('SECTORS/setSelectedLayers');
 
 export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;
@@ -19,7 +18,7 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
   dispatch(setListLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=T_1wJgFsnzgYfxKQgAM4ng`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -27,18 +26,21 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
     .then((data) => {
       dispatch(setListLoading(false));
       dispatch(setListError(null));
+
       const dataRows = data.rows.map(row => (
         {
           ...row,
+          id: row.type_id,
           count: Numeral(row.count).format('0,0'),
+          provider: 'carto',
           layerConfig: {
             body: {
               layers: [
                 {
                   options: {
                     cartocss_version: '2.3.0',
-                    cartocss: '#gadm28_adm1{  polygon-fill: #3bb2d0;  polygon-opacity: 0;  line-color: #5CA2D1;  line-width: 0.5;  line-opacity: 1;}',
-                    sql: `SELECT st_asgeojson(the_geom), iso, sector, type FROM fsp_maps WHERE iso = '${iso}' AND sector in ('${row.sector}') AND type in ('${row.type}') ORDER BY sector, type`
+                    cartocss: `#layer { marker-width: 7; marker-fill: ${row.color}; marker-fill-opacity: 0.9; marker-line-color: #FFFFFF; marker-line-width: 1; marker-line-opacity: 1; marker-placement: point; marker-type: ellipse; marker-allow-overlap: true;}`,
+                    sql: `SELECT st_asgeojson(the_geom), the_geom_webmercator, iso, sector, type FROM fsp_maps WHERE iso = '${iso}' AND sector in ('${row.sector}') AND type in ('${row.type}') ORDER BY sector, type`
                   },
                   type: 'cartodb'
                 }
@@ -53,19 +55,15 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
             items: [
               {
                 name: row.type,
-                color: '#5CA2D1'
+                color: row.color
               }
             ]
           },
           interactionConfig: {}
         }
       ));
-      const sectorTitles = uniq(dataRows.map(row => (
-        row.sector
-      )));
 
       dispatch(setList(dataRows));
-      dispatch(setSectorTitles(sectorTitles));
     })
     .catch((err) => {
       dispatch(setListLoading(false));

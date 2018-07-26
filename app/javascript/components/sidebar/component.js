@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-// styles
-import './styles.scss';
-
 // components
 import Tabs from 'components/sidebar/tabs';
 import SidebarLayers from 'components/sidebar/sidebar-layers';
 import SidebarAnalysis from 'components/sidebar/sidebar-analysis';
+
+// styles
+import './styles.scss';
 
 const TABS = [
   { value: 'layers', label: 'Layers', component: <SidebarLayers /> },
@@ -16,10 +16,14 @@ const TABS = [
 ];
 
 class SidebarComponent extends React.Component {
-  static propTypes = { open: PropTypes.bool.isRequired }
+  static propTypes = {
+    open: PropTypes.bool.isRequired,
+    selected: PropTypes.string.isRequired,
+    setSelected: PropTypes.func.isRequired
+  }
 
   render() {
-    const { selected } = this.props;
+    const { selected, open } = this.props;
     const classNames = classnames({
       'c-sidebar': true,
       '-open': !!open
@@ -32,7 +36,7 @@ class SidebarComponent extends React.Component {
         <Tabs
           items={TABS}
           selected={this.props.selected}
-          onSelect={selected => this.props.setSelected(selected)}
+          onSelect={s => this.props.setSelected(s)}
         />
 
         {React.cloneElement(
