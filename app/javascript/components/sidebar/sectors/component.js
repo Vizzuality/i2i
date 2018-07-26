@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uniq from 'lodash/uniq';
-import classnames from 'classnames';
-
-// styles
-import './styles.scss';
 
 // components
 import List from 'components/list';
 
+// styles
+import './styles.scss';
+
 class SectorsComponent extends React.Component {
   static propTypes = {
-    fetchSectors: PropTypes.func.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
     setSelectedLayers: PropTypes.func.isRequired,
-    sectorTitles: PropTypes.array.isRequired,
     list: PropTypes.array.isRequired,
-    selectedLayers: PropTypes.array.isRequired
+    selectedLayers: PropTypes.array.isRequired,
+    selectedSector: PropTypes.string.isRequired
   }
 
   clickSector(sector) {
@@ -24,13 +22,13 @@ class SectorsComponent extends React.Component {
   }
 
   handleSelectedType(sectorLayer) {
-    let layers = this.props.selectedLayers;
+    const layers = [...this.props.selectedLayers];
     const id = sectorLayer.type_id;
 
     if (layers.includes(id)) {
       layers.splice(layers.indexOf(id), 1);
     } else {
-      layers = layers.concat([id]);
+      layers.push(id);
     }
 
     this.props.setSelectedLayers(layers);
@@ -38,10 +36,6 @@ class SectorsComponent extends React.Component {
 
   render() {
     const { list, selectedSector } = this.props;
-    // const classNames = classnames({
-    //   'c-sidebar': true,
-    //   '-open': !!open
-    // });
 
     const filteredSectorsData = list.filter(sectorDatum => sectorDatum.sector === selectedSector);
 
