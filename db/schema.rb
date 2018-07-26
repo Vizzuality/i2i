@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20180726142017) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -155,8 +155,8 @@ ActiveRecord::Schema.define(version: 20180726142017) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "event"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -308,8 +308,8 @@ ActiveRecord::Schema.define(version: 20180726142017) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "library"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -367,8 +367,8 @@ ActiveRecord::Schema.define(version: 20180726142017) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "news"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
