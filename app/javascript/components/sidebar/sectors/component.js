@@ -16,7 +16,7 @@ class SectorsComponent extends React.Component {
     setSelectedLayers: PropTypes.func.isRequired,
     sectorTitles: PropTypes.array.isRequired,
     list: PropTypes.array.isRequired,
-    selectedLayers: PropTypes.object.isRequired
+    selectedLayers: PropTypes.array.isRequired
   }
 
   clickSector(sector) {

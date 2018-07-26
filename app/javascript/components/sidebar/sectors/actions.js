@@ -30,6 +30,7 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
         {
           ...row,
           count: Numeral(row.count).format('0,0'),
+          provider: 'carto',
           layerConfig: {
             body: {
               layers: [
