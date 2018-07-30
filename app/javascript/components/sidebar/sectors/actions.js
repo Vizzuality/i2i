@@ -3,9 +3,12 @@ import Numeral from 'numeral';
 
 // SQL
 import SECTORS_SQL from './sql/sectors.sql';
+import VORONOID_LAYER_SQL from './sql/voronoid_layer.sql';
+import FSP_LAYER_SQL from './sql/fsp_layer.sql';
 
 // CSS
 import SECTORS_CSS from './cartocss/sectors.cartocss';
+import HEATMAP_CSS from './cartocss/heatmap.cartocss';
 
 export const setList = createAction('SECTORS/setList');
 export const setListLoading = createAction('SECTORS/setListLoading');
@@ -41,8 +44,8 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
                 {
                   options: {
                     cartocss_version: '2.3.0',
-                    cartocss: replace(SECTORS_CSS, { color: row.color }),
-                    sql: `SELECT st_asgeojson(the_geom), the_geom_webmercator, iso, sector, type FROM fsp_maps WHERE iso = '${iso}' AND sector in ('${row.sector}') AND type in ('${row.type}') ORDER BY sector, type`
+                    cartocss: replace(HEATMAP_CSS, { color: row.color }),
+                    sql: replace(FSP_LAYER_SQL, { iso, type: row.type, sector: row.sector })
                   },
                   type: 'cartodb'
                 }

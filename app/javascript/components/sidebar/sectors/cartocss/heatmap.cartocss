@@ -1,0 +1,19 @@
+Map {
+  -torque-frame-count: 1;
+  -torque-animation-duration: 30;
+  -torque-time-attribute: "cartodb_id";
+  -torque-aggregation-function: "count(1)";
+  -torque-resolution: 4;
+  -torque-data-aggregation: linear;
+}
+#layer {
+  marker-width: 25;
+  marker-fill: {color};
+  marker-fill-opacity: 1;
+  marker-file: url(https://cartodb-libs.global.ssl.fastly.net/cartodbui/assets/unversioned/images/alphamarker.png);
+  marker-allow-overlap: true;
+  marker-line-width: 1;
+  marker-line-color: #FFFFFF;
+  marker-line-opacity: 1;
+  image-filters: colorize-alpha(#4b2991,#932da3,#d43f96,#f7667c,#f89f77,#edd9a3);
+}
