@@ -44,7 +44,7 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
                 {
                   options: {
                     cartocss_version: '2.3.0',
-                    cartocss: replace(HEATMAP_CSS, { color: row.color }),
+                    cartocss: replace(SECTORS_CSS, { color: row.color }),
                     sql: replace(FSP_LAYER_SQL, { iso, type: row.type, sector: row.sector })
                   },
                   type: 'cartodb'
