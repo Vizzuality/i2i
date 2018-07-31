@@ -23,5 +23,5 @@ export default connect(
     selectedSectorLayers: state.sectorLayers.selectedLayers,
     selectedContextualLayers: state.contextualLayers.selectedLayers
   }),
-  { actions, setSelectedSectorLayers, setSelectedContextualLayers }
+  { ...actions, setSelectedSectorLayers, setSelectedContextualLayers }
 )(LegendComponent);

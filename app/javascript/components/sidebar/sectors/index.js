@@ -5,6 +5,9 @@ import initialState from './initial-state';
 
 import SectorsComponent from './component';
 
+// Actions
+import { setlayersSettings } from 'components/map/legend/actions';
+
 // Mandatory
 export { actions, reducers, initialState };
 
@@ -13,7 +16,8 @@ export default connect(
     list: state.sectorLayers.list,
     sectorTitles: state.sectorLayers.sectorTitles,
     selectedSector: state.sectorLayers.selectedSector,
-    selectedLayers: state.sectorLayers.selectedLayers
+    selectedLayers: state.sectorLayers.selectedLayers,
+    layersSettings: state.legend.layersSetting
   }),
-  actions
+  { ...actions, setlayersSettings }
 )(SectorsComponent);

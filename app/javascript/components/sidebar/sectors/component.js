@@ -10,11 +10,13 @@ import './styles.scss';
 
 class SectorsComponent extends React.Component {
   static propTypes = {
-    setSelectedSector: PropTypes.func.isRequired,
-    setSelectedLayers: PropTypes.func.isRequired,
     list: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
-    selectedSector: PropTypes.string.isRequired
+    layersSettings: PropTypes.array.isRequired,
+    selectedSector: PropTypes.string.isRequired,
+    setSelectedSector: PropTypes.func.isRequired,
+    setSelectedLayers: PropTypes.func.isRequired,
+    setlayersSettings: PropTypes.func.isRequired
   }
 
   clickSector(sector) {
@@ -26,7 +28,13 @@ class SectorsComponent extends React.Component {
     const id = sectorLayer.type_id;
 
     if (layers.includes(id)) {
+      const layersSettings = { ...this.props.layersSettings };
       layers.splice(layers.indexOf(id), 1);
+
+      layersSettings[id] =
+        { ...layersSettings[id], visibility: true, opacity: 1 };
+
+      this.props.setlayersSettings(layersSettings);
     } else {
       layers.push(id);
     }
