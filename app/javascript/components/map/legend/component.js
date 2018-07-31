@@ -22,22 +22,39 @@ class LegendComponent extends React.Component {
     activeLayerGroups: PropTypes.array.isRequired,
     selectedSectorLayers: PropTypes.array.isRequired,
     selectedContextualLayers: PropTypes.array.isRequired,
+    layersSettings: PropTypes.object.isRequired,
     setSelectedSectorLayers: PropTypes.func.isRequired,
-    setSelectedContextualLayers: PropTypes.func.isRequired
+    setSelectedContextualLayers: PropTypes.func.isRequired,
+    setlayersSettings: PropTypes.func.isRequired
+  }
+
+  onChangeVisibility = (l, visibility) => {
+    const layerId = l.type_id ? l.type_id : l.cartodb_id;
+    const layersSettings = { ...this.props.layersSettings };
+    layersSettings[layerId] = { ...layersSettings[layerId], visibility };
+
+    this.props.setlayersSettings(layersSettings);
   }
 
   onRemoveLayer = (l) => {
+    const layersSettings = { ...this.props.layersSettings };
     if (l.type_id) {
       const selectedLayers = [...this.props.selectedSectorLayers];
       const index = selectedLayers.indexOf(l.type_id);
       selectedLayers.splice(index, 1);
 
+      layersSettings[l.type_id] =
+        { ...layersSettings[l.type_id], visibility: true, opacity: 1 };
+      this.props.setlayersSettings(layersSettings);
       this.props.setSelectedSectorLayers(selectedLayers);
     } else {
       const selectedLayers = [...this.props.selectedContextualLayers];
       const index = selectedLayers.indexOf(l.cartodb_id);
       selectedLayers.splice(index, 1);
 
+      layersSettings[l.cartodb_id] =
+        { ...layersSettings[l.cartodb_id], visibility: true, opacity: 1 };
+      this.props.setlayersSettings(layersSettings);
       this.props.setSelectedContextualLayers(selectedLayers);
     }
   }
@@ -69,6 +86,7 @@ class LegendComponent extends React.Component {
                   <LegendItemButtonRemove />
                 </LegendItemToolbar>
               }
+              onChangeVisibility={this.onChangeVisibility}
               onRemoveLayer={this.onRemoveLayer}
             >
               <LegendItemTypes />

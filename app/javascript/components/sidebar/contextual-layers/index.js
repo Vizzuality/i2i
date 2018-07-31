@@ -5,13 +5,17 @@ import initialState from './initial-state';
 
 import ContextualLayersComponent from './component';
 
+// Actions
+import { setlayersSettings } from 'components/map/legend/actions';
+
 // Mandatory
 export { actions, reducers, initialState };
 
 export default connect(
   state => ({
     list: state.contextualLayers.list,
-    selectedLayers: state.contextualLayers.selectedLayers
+    selectedLayers: state.contextualLayers.selectedLayers,
+    layersSettings: state.legend.layersSetting
   }),
-  actions
+  { ...actions, setlayersSettings }
 )(ContextualLayersComponent);

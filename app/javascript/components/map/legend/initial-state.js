@@ -1,1 +1,4 @@
-export default { open: true };
+export default {
+  open: true,
+  layersSettings: {}
+};
