@@ -6,6 +6,9 @@ import { Map } from 'wri-api-components';
 import { LayerManager, Layer } from 'layer-manager/dist/react';
 import { PluginLeaflet } from 'layer-manager';
 
+// components
+import Legend from 'components/map/legend';
+
 // styles
 import './styles.scss';
 
@@ -77,6 +80,7 @@ class SidebarComponent extends React.Component {
             </React.Fragment>
             )}
         </Map>
+        <Legend />
       </div>
     );
   }

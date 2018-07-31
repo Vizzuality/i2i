@@ -35,7 +35,8 @@ export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dis
       const dataRows = data.rows.map(row => (
         {
           ...row,
-          id: row.type_id,
+          id: row.type_id.toString(),
+          name: row.type,
           count: Numeral(row.count).format('0,0'),
           provider: 'carto',
           layerConfig: {

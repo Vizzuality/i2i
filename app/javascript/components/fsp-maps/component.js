@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
+import { Icons } from 'wri-api-components';
 
 import './styles.scss';
 
@@ -28,6 +29,7 @@ export default class FSPMaps extends React.Component {
         <div className="fsp-maps-tool">
           <Sidebar />
           <Map />
+          <Icons />
         </div>
       </div>
     );
