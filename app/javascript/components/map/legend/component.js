@@ -30,7 +30,7 @@ class LegendComponent extends React.Component {
   }
 
   onChangeOpacity = debounce((l, opacity) => {
-    const layerId = l.type_id ? l.type_id : l.cartodb_id;
+    const layerId = l.id ? l.id : l.cartodb_id;
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], opacity };
 
@@ -38,7 +38,7 @@ class LegendComponent extends React.Component {
   }, 250)
 
   onChangeVisibility = (l, visibility) => {
-    const layerId = l.type_id ? l.type_id : l.cartodb_id;
+    const layerId = l.id ? l.id : l.cartodb_id;
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], visibility };
 
@@ -47,13 +47,13 @@ class LegendComponent extends React.Component {
 
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
-    if (l.type_id) {
+    if (l.id) {
       const selectedLayers = [...this.props.selectedSectorLayers];
-      const index = selectedLayers.indexOf(l.type_id);
+      const index = selectedLayers.indexOf(l.id);
       selectedLayers.splice(index, 1);
 
-      layersSettings[l.type_id] =
-        { ...layersSettings[l.type_id], visibility: true, opacity: 1 };
+      layersSettings[l.id] =
+        { ...layersSettings[l.id], visibility: true, opacity: 1 };
       this.props.setlayersSettings(layersSettings);
       this.props.setSelectedSectorLayers(selectedLayers);
     } else {
