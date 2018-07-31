@@ -18,7 +18,7 @@ export const getActiveLayers = createSelector(
     return layers.map(l => ({
       ...l,
       visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
-      opacity: 1
+      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1
     }));
   }
 );
@@ -37,7 +37,7 @@ export const getActiveLayerGroups = createSelector(
     return layers.map(l => ({
       dataset: l.id,
       visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
-      opacity: 1,
+      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
       layers: [{ ...l, active: true }]
     }));
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import debounce from 'lodash/debounce';
 
 import {
   Legend,
@@ -27,6 +28,14 @@ class LegendComponent extends React.Component {
     setSelectedContextualLayers: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
   }
+
+  onChangeOpacity = debounce((l, opacity) => {
+    const layerId = l.type_id ? l.type_id : l.cartodb_id;
+    const layersSettings = { ...this.props.layersSettings };
+    layersSettings[layerId] = { ...layersSettings[layerId], opacity };
+
+    this.props.setlayersSettings(layersSettings);
+  }, 250)
 
   onChangeVisibility = (l, visibility) => {
     const layerId = l.type_id ? l.type_id : l.cartodb_id;
@@ -86,6 +95,7 @@ class LegendComponent extends React.Component {
                   <LegendItemButtonRemove />
                 </LegendItemToolbar>
               }
+              onChangeOpacity={this.onChangeOpacity}
               onChangeVisibility={this.onChangeVisibility}
               onRemoveLayer={this.onRemoveLayer}
             >
