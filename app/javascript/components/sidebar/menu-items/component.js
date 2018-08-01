@@ -7,27 +7,26 @@ import './styles.scss';
 class MenuItemsComponent extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    onSelectMenuItem: PropTypes.func.isRequired
-  }
-
-  clickItem(item) {
-    this.props.onSelectMenuItem(item);
+    onSelect: PropTypes.func.isRequired
   }
 
   render() {
     const { items } = this.props;
 
     return (
-      <div className="c-sidebar-layers">
+      <div className="c-menu-items">
         {
           items.map(item => (
-            <div key={item.value}>
-              <button
-                className="title"
-                onClick={() => this.clickItem(item.value)}
-              >
+            <div
+              tabIndex="0"
+              role="button"
+              key={item.value}
+              className="menu-items-item"
+              onClick={() => this.props.onSelect(item.value)}
+            >
+              <h3 className="title">
                 {item.label}
-              </button>
+              </h3>
 
               <div className="description">
                 {item.text}
