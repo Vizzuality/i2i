@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-
-// styles
-import './styles.scss';
 
 // components
 import MenuItemsComponent from 'components/sidebar/menu-items';
 import SectorsComponent from 'components/sidebar/sectors';
 import ContextualLayersComponent from 'components/sidebar/contextual-layers';
+
+// styles
+import './styles.scss';
 
 const MENU_CONTENT = {
   sectors: <SectorsComponent />,
@@ -17,6 +16,7 @@ const MENU_CONTENT = {
 
 class SidebarLayersComponent extends React.Component {
   static propTypes = {
+    menuItem: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
     fetchSectors: PropTypes.func.isRequired,
     fetchContextualLayers: PropTypes.func.isRequired

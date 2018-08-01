@@ -8,5 +8,21 @@ export default {
   legend: {
     open: true,
     layersSettings: {}
+  },
+  sidebar: {
+    open: true,
+    selected: 'layers',
+    menuItem: ''
+  },
+  sectorLayers: {
+    list: [],
+    loading: false,
+    errors: null,
+    selectedSector: '',
+    selectedLayers: []
+  },
+  contextualLayers: {
+    list: [],
+    selectedLayers: []
   }
 };

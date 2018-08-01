@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
-import * as actions from './actions';
-import * as reducers from './reducers';
-import initialState from './initial-state';
-
-// Actions
-import { setlayersSettings } from 'components/fsp-maps/actions';
+import * as actions from 'components/fsp-maps/actions';
+import * as reducers from 'components/fsp-maps/reducers';
+import initialState from 'components/fsp-maps/initial-state';
 
 import ContextualLayersComponent from './component';
 
@@ -13,9 +10,9 @@ export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    list: state.contextualLayers.list,
-    selectedLayers: state.contextualLayers.selectedLayers,
+    list: state.fspMaps.contextualLayers.list,
+    selectedLayers: state.fspMaps.contextualLayers.selectedLayers,
     layersSettings: state.fspMaps.legend.layersSetting
   }),
-  { ...actions, setlayersSettings }
+  actions
 )(ContextualLayersComponent);

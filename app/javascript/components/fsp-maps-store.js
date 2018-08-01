@@ -7,16 +7,8 @@ import { handleModule } from 'redux-tools';
 
 // Components
 import * as fspMaps from 'components/fsp-maps';
-import * as sidebar from 'components/sidebar';
-import * as sectors from 'components/sidebar/sectors';
-import * as contextualLayers from 'components/sidebar/contextual-layers';
 
-const reducer = combineReducers({
-  fspMaps: handleModule(fspMaps),
-  sidebar: handleModule(sidebar),
-  sectorLayers: handleModule(sectors),
-  contextualLayers: handleModule(contextualLayers)
-});
+const reducer = combineReducers({ fspMaps: handleModule(fspMaps) });
 
 const initStore = (initialState = {}) =>
   createStore(

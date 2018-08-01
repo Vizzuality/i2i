@@ -14,7 +14,7 @@ export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    ...state.sidebar,
+    ...state.fspMaps.sidebar,
     ...state.fspMaps.common,
     activeLayers: getActiveLayers(state)
   }),
