@@ -25,14 +25,28 @@ class ListComponent extends React.Component {
         {rows.map((row) => {
           const label = row[labelField];
           const count = !!row.count && Numeral(row.count).format('0,0');
+          const switchClassName = classnames({
+            'item-button-switch': true,
+            '-checked': false // you should check that it's id is present in the selected layers from redux
+          });
 
           return (
-            <button
-              key={label}
-              onClick={() => this.clickItem(row)}
-            >
-              {label} {!!count && `(${count})`}
-            </button>
+            <div className="list-item">
+              <button
+                key={label}
+                className="list-item-button"
+                onClick={() => this.clickItem(row)}
+              >
+                <span className={switchClassName} />
+
+                <div>
+                  <h3 className="item-button-title">{label}</h3>
+                  {!!count && <h4 className="item-button-subtitle">({count})</h4>}
+                </div>
+
+              </button>
+            </div>
+
           );
         })}
       </div>

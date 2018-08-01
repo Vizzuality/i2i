@@ -65,17 +65,17 @@ class SidebarComponent extends React.Component {
           {map => (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
-                {
-                  activeLayers.map((layer, index) =>
-                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
-                }
-
                 <Layer
                   {...COUNTRY_MASK}
                   key="country-mask"
                   params={{ iso: this.props.iso }}
                   zIndex={1001}
                 />
+
+                {
+                  activeLayers.map((layer, index) =>
+                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
+                }
               </LayerManager>
             </React.Fragment>
             )}
