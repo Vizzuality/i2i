@@ -1,15 +1,37 @@
 .c-tabs {
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
+
+  > ul {
+    display: flex;
+    flex: 50% 0 0;
+
+    > li {
+      width: 100%;
+    }
+  }
 
   .tab {
-    background-color: #2f939c;
+    background-color: #00939B;
     color: #ffffff;
     text-align: center;
-    vertical-align: middle;
+    font-size: 16px;
+    padding: 18px 0;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken(#00939B, 5%);
+    }
   }
 
   .selected {
     background-color: #ffffff;
-    color: #000000;
+    color: #001D22;
+
+    &:hover {
+      background-color: #ffffff;
+    }
   }
 }
