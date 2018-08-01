@@ -10,8 +10,8 @@ export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    list: state.fspMaps.contextualLayers.list,
-    selectedLayers: state.fspMaps.contextualLayers.selectedLayers,
+    list: state.fspMaps.layers.list,
+    selectedLayers: state.fspMaps.layers.selectedLayers,
     layersSettings: state.fspMaps.legend.layersSetting
   }),
   actions

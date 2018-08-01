@@ -22,10 +22,10 @@ class LegendComponent extends React.Component {
     open: PropTypes.bool,
     layersSettings: PropTypes.object,
     activeLayerGroups: PropTypes.array.isRequired,
-    selectedSectorLayers: PropTypes.array.isRequired,
-    selectedContextualLayers: PropTypes.array.isRequired,
-    setSelectedSectorLayers: PropTypes.func.isRequired,
-    setSelectedContextualLayers: PropTypes.func.isRequired,
+    // selectedSectorLayers: PropTypes.array.isRequired,
+    // selectedContextualLayers: PropTypes.array.isRequired,
+    selectedLayers: PropTypes.array.isRequired,
+    setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
   }
 
@@ -47,8 +47,16 @@ class LegendComponent extends React.Component {
 
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
-    // FIx this with a type, currently it's never entering the else to remove the contextual layers.
-    if (l.id) {
+
+    // const selectedLayers = [...this.props.selectedLayers];
+    // const index = selectedLayers.indexOf(l.id);
+    // selectedLayers.splice(index, 1);
+    // layersSettings[l.id] =
+    //   { ...layersSettings[l.id], visibility: true, opacity: 1 };
+    // this.props.setlayersSettings(layersSettings);
+    // this.props.setSelectedLayersNew(selectedLayers);
+
+    if (l.layerType === 'sector') {
       const selectedLayers = [...this.props.selectedSectorLayers];
       const index = selectedLayers.indexOf(l.id);
       selectedLayers.splice(index, 1);
@@ -56,7 +64,7 @@ class LegendComponent extends React.Component {
       layersSettings[l.id] =
         { ...layersSettings[l.id], visibility: true, opacity: 1 };
       this.props.setlayersSettings(layersSettings);
-      this.props.setSelectedSectorLayers(selectedLayers);
+      this.props.setSelectedLayersNew(selectedLayers);
     } else {
       const selectedLayers = [...this.props.selectedContextualLayers];
       const index = selectedLayers.indexOf(l.cartodb_id);
@@ -65,7 +73,7 @@ class LegendComponent extends React.Component {
       layersSettings[l.cartodb_id] =
         { ...layersSettings[l.cartodb_id], visibility: true, opacity: 1 };
       this.props.setlayersSettings(layersSettings);
-      this.props.setSelectedContextualLayers(selectedLayers);
+      this.props.setSelectedLayersNew(selectedLayers);
     }
   }
 

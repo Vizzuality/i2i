@@ -15,7 +15,7 @@ class SectorsComponent extends React.Component {
     layersSettings: PropTypes.array.isRequired,
     selectedSector: PropTypes.string.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
-    setSelectedLayersSectors: PropTypes.func.isRequired,
+    setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
   }
 
@@ -25,7 +25,7 @@ class SectorsComponent extends React.Component {
 
   handleSelectedType(sectorLayer) {
     const layers = [...this.props.selectedLayers];
-    const id = sectorLayer.type_id;
+    const { id } = sectorLayer;
 
     if (layers.includes(id)) {
       const layersSettings = { ...this.props.layersSettings };
@@ -39,7 +39,7 @@ class SectorsComponent extends React.Component {
       layers.push(id);
     }
 
-    this.props.setSelectedLayersSectors(layers);
+    this.props.setSelectedLayersNew(layers);
   }
 
   render() {

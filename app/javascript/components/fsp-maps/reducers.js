@@ -72,5 +72,13 @@ export default {
   [actions.setSelectedLayers]: (state, { payload }) => {
     const contextualLayers = { ...state.contextualLayers, selectedLayers: payload };
     return { ...state, contextualLayers };
+  },
+  [actions.setLayersList]: (state, { payload }) => {
+    const layers = { ...state.layers, list: payload };
+    return { ...state, layers };
+  },
+  [actions.setSelectedLayersNew]: (state, { payload }) => {
+    const layers = { ...state.layers, selectedLayers: payload };
+    return { ...state, layers };
   }
 };
