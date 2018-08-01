@@ -1,4 +1,12 @@
 export default {
-  iso: '',
-  bbox: []
+  common: {
+    iso: '',
+    bbox: []
+  },
+  intro: { data: [] },
+  map: { open: true },
+  legend: {
+    open: true,
+    layersSettings: {}
+  }
 };

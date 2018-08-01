@@ -4,7 +4,7 @@ const sectorLayersList = state => state.sectorLayers.list;
 const selectedSectorLayers = state => state.sectorLayers.selectedLayers;
 const contextualLayersList = state => state.contextualLayers.list;
 const selectedContextualLayers = state => state.contextualLayers.selectedLayers;
-const layersSettings = state => state.legend.layersSettings;
+const layersSettings = state => state.fspMaps.legend.layersSettings;
 
 export const getActiveLayers = createSelector(
   [contextualLayersList, selectedContextualLayers, sectorLayersList, selectedSectorLayers, layersSettings],

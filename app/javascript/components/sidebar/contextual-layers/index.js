@@ -3,10 +3,10 @@ import * as actions from './actions';
 import * as reducers from './reducers';
 import initialState from './initial-state';
 
-import ContextualLayersComponent from './component';
-
 // Actions
-import { setlayersSettings } from 'components/map/legend/actions';
+import { setlayersSettings } from 'components/fsp-maps/actions';
+
+import ContextualLayersComponent from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
@@ -15,7 +15,7 @@ export default connect(
   state => ({
     list: state.contextualLayers.list,
     selectedLayers: state.contextualLayers.selectedLayers,
-    layersSettings: state.legend.layersSetting
+    layersSettings: state.fspMaps.legend.layersSetting
   }),
   { ...actions, setlayersSettings }
 )(ContextualLayersComponent);
