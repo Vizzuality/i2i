@@ -13,7 +13,7 @@ class ContextualLayersComponent extends React.Component {
     list: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.array.isRequired,
-    setSelectedLayers: PropTypes.func.isRequired,
+    setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
   }
 
@@ -30,10 +30,10 @@ class ContextualLayersComponent extends React.Component {
 
       this.props.setlayersSettings(layersSettings);
     } else {
-      layers.push(id);
+      layers.push(id.toString());
     }
 
-    this.props.setSelectedLayers(layers);
+    this.props.setSelectedLayersNew(layers);
   }
 
   render() {
@@ -42,7 +42,7 @@ class ContextualLayersComponent extends React.Component {
     return (
       <div className="c-contextual-layers">
         <List
-          rows={list}
+          rows={list.filter(l => l.layerType === 'contextual')}
           labelField="name"
           onSelect={contextualLayer => this.handleSelectedContextualLayer(contextualLayer)}
         />

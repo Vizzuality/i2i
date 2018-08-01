@@ -24,5 +24,9 @@ export default {
   contextualLayers: {
     list: [],
     selectedLayers: []
+  },
+  layers: {
+    list: [],
+    selectedLayers: []
   }
 };
