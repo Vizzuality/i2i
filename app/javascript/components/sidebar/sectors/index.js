@@ -14,7 +14,6 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     list: state.sectorLayers.list,
-    sectorTitles: state.sectorLayers.sectorTitles,
     selectedSector: state.sectorLayers.selectedSector,
     selectedLayers: state.sectorLayers.selectedLayers,
     layersSettings: state.legend.layersSetting
