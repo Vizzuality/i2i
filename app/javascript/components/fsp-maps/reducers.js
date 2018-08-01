@@ -32,5 +32,45 @@ export default {
   [actions.setlayersSettings]: (state, { payload }) => {
     const legend = { ...state.legend, layersSettings: payload };
     return { ...state, legend };
+  },
+  [actions.setOpenSidebar]: (state, { payload }) => {
+    const sidebar = { ...state.sidebar, open: payload };
+    return { ...state, sidebar };
+  },
+  [actions.setSelected]: (state, { payload }) => {
+    const sidebar = { ...state.sidebar, selected: payload };
+    return { ...state, sidebar };
+  },
+  [actions.setMenuItem]: (state, { payload }) => {
+    const sidebar = { ...state.sidebar, menuItem: payload };
+    return { ...state, sidebar };
+  },
+  [actions.setListSectors]: (state, { payload }) => {
+    const sectorLayers = { ...state.sectorLayers, list: payload };
+    return { ...state, sectorLayers };
+  },
+  [actions.setListLoadingSectors]: (state, { payload }) => {
+    const sectorLayers = { ...state.sectorLayers, loading: payload };
+    return { ...state, sectorLayers };
+  },
+  [actions.setListErrorSectors]: (state, { payload }) => {
+    const sectorLayers = { ...state.sectorLayers, error: payload };
+    return { ...state, sectorLayers };
+  },
+  [actions.setSelectedSector]: (state, { payload }) => {
+    const sectorLayers = { ...state.sectorLayers, selectedSector: payload };
+    return { ...state, sectorLayers };
+  },
+  [actions.setSelectedLayersSectors]: (state, { payload }) => {
+    const sectorLayers = { ...state.sectorLayers, selectedLayers: payload };
+    return { ...state, sectorLayers };
+  },
+  [actions.setList]: (state, { payload }) => {
+    const contextualLayers = { ...state.contextualLayers, list: payload };
+    return { ...state, contextualLayers };
+  },
+  [actions.setSelectedLayers]: (state, { payload }) => {
+    const contextualLayers = { ...state.contextualLayers, selectedLayers: payload };
+    return { ...state, contextualLayers };
   }
 };

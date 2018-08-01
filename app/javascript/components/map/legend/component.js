@@ -19,11 +19,11 @@ import './styles.scss';
 
 class LegendComponent extends React.Component {
   static propTypes = {
-    open: PropTypes.bool.isRequired,
+    open: PropTypes.bool,
+    layersSettings: PropTypes.object,
     activeLayerGroups: PropTypes.array.isRequired,
     selectedSectorLayers: PropTypes.array.isRequired,
     selectedContextualLayers: PropTypes.array.isRequired,
-    layersSettings: PropTypes.object.isRequired,
     setSelectedSectorLayers: PropTypes.func.isRequired,
     setSelectedContextualLayers: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
