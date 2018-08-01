@@ -18,7 +18,7 @@ export const setSelectedLayers = createAction('SECTORS/setSelectedLayers');
 
 export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;
-  const { iso } = getState().common;
+  const { iso } = getState().fspMaps.common;
 
   dispatch(setListLoading(true));
 

@@ -47,6 +47,7 @@ class LegendComponent extends React.Component {
 
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
+    // FIx this with a type, currently it's never entering the else to remove the contextual layers.
     if (l.id) {
       const selectedLayers = [...this.props.selectedSectorLayers];
       const index = selectedLayers.indexOf(l.id);

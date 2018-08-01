@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import * as actions from './actions';
-import * as reducers from './reducers';
-import initialState from './initial-state';
+import * as actions from 'components/fsp-maps/actions';
+import * as reducers from 'components/fsp-maps/reducers';
+import initialState from 'components/fsp-maps/initial-state';
 
 // Selectors
 import { getActiveLayerGroups } from 'components/map/selectors';

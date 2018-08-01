@@ -3,10 +3,10 @@ import * as actions from './actions';
 import * as reducers from './reducers';
 import initialState from './initial-state';
 
-import SectorsComponent from './component';
-
 // Actions
-import { setlayersSettings } from 'components/map/legend/actions';
+import { setlayersSettings } from 'components/fsp-maps/actions';
+
+import SectorsComponent from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
@@ -16,7 +16,7 @@ export default connect(
     list: state.sectorLayers.list,
     selectedSector: state.sectorLayers.selectedSector,
     selectedLayers: state.sectorLayers.selectedLayers,
-    layersSettings: state.legend.layersSetting
+    layersSettings: state.fspMaps.legend.layersSetting
   }),
   { ...actions, setlayersSettings }
 )(SectorsComponent);
