@@ -47,34 +47,14 @@ class LegendComponent extends React.Component {
 
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
+    const selectedLayers = [...this.props.selectedLayers];
+    const index = selectedLayers.indexOf(l.id);
+    selectedLayers.splice(index, 1);
 
-    // const selectedLayers = [...this.props.selectedLayers];
-    // const index = selectedLayers.indexOf(l.id);
-    // selectedLayers.splice(index, 1);
-    // layersSettings[l.id] =
-    //   { ...layersSettings[l.id], visibility: true, opacity: 1 };
-    // this.props.setlayersSettings(layersSettings);
-    // this.props.setSelectedLayersNew(selectedLayers);
-
-    if (l.layerType === 'sector') {
-      const selectedLayers = [...this.props.selectedSectorLayers];
-      const index = selectedLayers.indexOf(l.id);
-      selectedLayers.splice(index, 1);
-
-      layersSettings[l.id] =
-        { ...layersSettings[l.id], visibility: true, opacity: 1 };
-      this.props.setlayersSettings(layersSettings);
-      this.props.setSelectedLayersNew(selectedLayers);
-    } else {
-      const selectedLayers = [...this.props.selectedContextualLayers];
-      const index = selectedLayers.indexOf(l.cartodb_id);
-      selectedLayers.splice(index, 1);
-
-      layersSettings[l.cartodb_id] =
-        { ...layersSettings[l.cartodb_id], visibility: true, opacity: 1 };
-      this.props.setlayersSettings(layersSettings);
-      this.props.setSelectedLayersNew(selectedLayers);
-    }
+    layersSettings[l.id] =
+      { ...layersSettings[l.id], visibility: true, opacity: 1 };
+    this.props.setlayersSettings(layersSettings);
+    this.props.setSelectedLayersNew(selectedLayers);
   }
 
   render() {
