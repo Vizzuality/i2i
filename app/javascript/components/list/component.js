@@ -18,7 +18,7 @@ class ListComponent extends React.Component {
   }
 
   render() {
-    const { rows, labelField } = this.props;
+    const { rows, labelField, selectedLayers } = this.props;
 
     return (
       <div className="c-list">
@@ -27,7 +27,7 @@ class ListComponent extends React.Component {
           const count = !!row.count && Numeral(row.count).format('0,0');
           const switchClassName = classnames({
             'item-button-switch': true,
-            '-checked': false // you should check that it's id is present in the selected layers from redux
+            '-checked': selectedLayers.includes(row.id)
           });
 
           return (
