@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 class IntroComponent extends React.Component {
-  static propTypes = { data: PropTypes.array.isRequired }
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    fetchIntro: PropTypes.func.isRequired
+  }
 
   componentWillMount() {
     this.props.fetchIntro();

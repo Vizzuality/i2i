@@ -1,51 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+
+// components
+import MenuItems from 'components/sidebar/menu-items';
+import MenuItem from 'components/sidebar/menu-item';
+import Sectors from 'components/sidebar/sectors';
+import ContextualLayers from 'components/sidebar/contextual-layers';
 
 // styles
 import './styles.scss';
 
-// components
-import MenuItemsComponent from 'components/sidebar/menu-items';
-import SectorsComponent from 'components/sidebar/sectors';
-import ContextualLayersComponent from 'components/sidebar/contextual-layers';
-
 const MENU_CONTENT = {
-  sectors: <SectorsComponent />,
-  contextual_layers: <ContextualLayersComponent />
+  sectors: <Sectors />,
+  contextual_layers: <ContextualLayers />
 };
+
+const LAYER_TYPES = [
+  { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
+  { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' },
+  { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
+];
 
 class SidebarLayersComponent extends React.Component {
   static propTypes = {
+    menuItem: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
     fetchSectors: PropTypes.func.isRequired,
-    fetchContextualLayers: PropTypes.func.isRequired
+    fetchContextualLayers: PropTypes.func.isRequired,
+    fetchLayers: PropTypes.func.isRequired
   }
+
+  static defaultProps = { menuItem: '' }
 
   componentWillMount() {
     this.props.fetchSectors();
     this.props.fetchContextualLayers();
+    this.props.fetchLayers();
   }
 
   render() {
-    const layersTypes = [
-      { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-      { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' },
-      { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
-    ];
-
     const { menuItem } = this.props;
 
     return (
-      <div className="c-layers-menu-item">
-        <MenuItemsComponent
-          items={layersTypes}
-          onSelectMenuItem={this.props.setMenuItem}
-        />
+      <div className="c-sidebar-layers">
+        {!menuItem &&
+          <MenuItems
+            items={LAYER_TYPES}
+            onSelect={this.props.setMenuItem}
+          />
+        }
 
-        {!!menuItem && React.cloneElement(
-          MENU_CONTENT[menuItem]
-        )}
+        {!!menuItem &&
+          <MenuItem
+            item={LAYER_TYPES.find(lt => lt.value === menuItem)}
+            onBack={this.props.setMenuItem}
+          >
+            {!!MENU_CONTENT[menuItem] && React.cloneElement(MENU_CONTENT[menuItem])}
+          </MenuItem>
+        }
       </div>
     );
   }

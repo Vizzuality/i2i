@@ -18,21 +18,35 @@ class ListComponent extends React.Component {
   }
 
   render() {
-    const { rows, labelField } = this.props;
+    const { rows, labelField, selectedLayers } = this.props;
 
     return (
       <div className="c-list">
         {rows.map((row) => {
           const label = row[labelField];
           const count = !!row.count && Numeral(row.count).format('0,0');
+          const switchClassName = classnames({
+            'item-button-switch': true,
+            '-checked': selectedLayers.includes(row.id)
+          });
 
           return (
-            <button
-              key={label}
-              onClick={() => this.clickItem(row)}
-            >
-              {label} {!!count && `(${count})`}
-            </button>
+            <div className="list-item">
+              <button
+                key={label}
+                className="list-item-button"
+                onClick={() => this.clickItem(row)}
+              >
+                <span className={switchClassName} />
+
+                <div>
+                  <h3 className="item-button-title">{label}</h3>
+                  {!!count && <h4 className="item-button-subtitle">({count})</h4>}
+                </div>
+
+              </button>
+            </div>
+
           );
         })}
       </div>

@@ -6,6 +6,9 @@ import { Map } from 'wri-api-components';
 import { LayerManager, Layer } from 'layer-manager/dist/react';
 import { PluginLeaflet } from 'layer-manager';
 
+// components
+import Legend from 'components/map/legend';
+
 // styles
 import './styles.scss';
 
@@ -62,21 +65,22 @@ class SidebarComponent extends React.Component {
           {map => (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
-                {
-                  activeLayers.map((layer, index) =>
-                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
-                }
-
                 <Layer
                   {...COUNTRY_MASK}
                   key="country-mask"
                   params={{ iso: this.props.iso }}
                   zIndex={1001}
                 />
+
+                {
+                  activeLayers.map((layer, index) =>
+                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
+                }
               </LayerManager>
             </React.Fragment>
             )}
         </Map>
+        <Legend />
       </div>
     );
   }

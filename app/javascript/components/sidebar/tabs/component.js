@@ -7,13 +7,12 @@ import './styles.scss';
 
 class TabsComponent extends React.Component {
   static propTypes = {
+    items: PropTypes.array,
     selected: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired
   }
 
-  clickTab(tab) {
-    this.props.onSelect(tab);
-  }
+  static defaultProps = { items: [] }
 
   render() {
     const { selected, items } = this.props;
@@ -31,7 +30,7 @@ class TabsComponent extends React.Component {
                       selected: selected === item.value
                     })
                   }
-                  onClick={() => this.clickTab(item.value)}
+                  onClick={() => this.props.onSelect(item.value)}
                 >
                   {item.label}
                 </button>

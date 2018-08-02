@@ -1,20 +1,35 @@
 import { createSelector } from 'reselect';
 
-const sectorLayersList = state => state.sectorLayers.list;
-const selectedSectorLayers = state => state.sectorLayers.selectedLayers;
-const contextualLayersList = state => state.contextualLayers.list;
-const selectedContextualLayers = state => state.contextualLayers.selectedLayers;
+const layersList = state => state.fspMaps.layers.list;
+const selectedLayers = state => state.fspMaps.layers.selectedLayers;
+const layersSettings = state => state.fspMaps.legend.layersSettings;
 
 export const getActiveLayers = createSelector(
-  [contextualLayersList, selectedContextualLayers, sectorLayersList, selectedSectorLayers],
-  (_contextualLayersList, _selectedContextualLayers, _sectorLayersList, _selectedSectorLayers) => {
-    const activeContextualLayers = _contextualLayersList.filter(layer =>
-      _selectedContextualLayers.includes(layer.id));
-    const activeSectorLayers = _sectorLayersList.filter(layer =>
-      _selectedSectorLayers.includes(layer.type_id));
+  [layersList, selectedLayers, layersSettings],
+  (_layersList, _selectedLayers, _layersSettings) => {
+    const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
 
-    return [...activeContextualLayers, ...activeSectorLayers];
+    return activeLayers.map(l => ({
+      ...l,
+      visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
+      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1
+    }));
   }
 );
 
-export default { getActiveLayers };
+
+export const getActiveLayerGroups = createSelector(
+  [layersList, selectedLayers, layersSettings],
+  (_layersList, _selectedLayers, _layersSettings) => {
+    const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
+
+    return activeLayers.map(l => ({
+      dataset: l.id,
+      visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
+      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
+      layers: [{ ...l, active: true }]
+    }));
+  }
+);
+
+export default { getActiveLayers, getActiveLayerGroups };
