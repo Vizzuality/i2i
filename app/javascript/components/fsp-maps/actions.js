@@ -47,7 +47,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=fxBfIB36_CQPRDU13h1R2w`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -71,148 +71,10 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
     });
 });
 
-export const fetchSectors = createThunkAction('SECTORS/fetchSectors', () => (dispatch, getState) => {
-  const { replace } = window.App.Helper.Utils;
-  const { iso } = getState().fspMaps.common;
-
-  dispatch(setListLoadingSectors(true));
-
-  // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw new Error(response.statusText);
-    })
-    .then((data) => {
-      dispatch(setListLoadingSectors(false));
-      dispatch(setListErrorSectors(null));
-
-      const dataRows = data.rows.map(row => (
-        {
-          ...row,
-          id: row.type_id.toString(),
-          name: row.type,
-          count: Numeral(row.count).format('0,0'),
-          provider: 'carto',
-          layerConfig: {
-            body: {
-              layers: [
-                {
-                  options: {
-                    cartocss_version: '2.3.0',
-                    cartocss: replace(SECTORS_CSS, { color: row.color }),
-                    sql: replace(FSP_LAYER_SQL, { iso, type: row.type, sector: row.sector })
-                  },
-                  type: 'cartodb'
-                }
-              ],
-              minzoom: 3,
-              maxzoom: 18
-            },
-            account: 'ikerey'
-          },
-          legendConfig: {
-            type: 'basic',
-            items: [
-              {
-                name: row.type,
-                color: row.color
-              }
-            ]
-          },
-          interactionConfig: {}
-        }
-      ));
-
-      dispatch(setListSectors(dataRows));
-    })
-    .catch((err) => {
-      dispatch(setListLoadingSectors(false));
-      dispatch(setListErrorSectors(err));
-    });
-});
-
-export const fetchContextualLayers = createThunkAction('CONTEXTUAL_LAYERS/fetchContextualLayers', () => (dispatch, getState) => {
-  dispatch(setListLoading(true));
-
-  // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw new Error(response.statusText);
-    })
-    .then((data) => {
-      dispatch(setListLoading(false));
-      dispatch(setListError(null));
-
-      const dataRows = data.rows;
-      const cartoLayers = dataRows.filter(row => row.provider === 'cartodb');
-      const rwLayers = dataRows.filter(row => row.provider === 'rw_api');
-
-      const contextualLayers = cartoLayers.map(row => (
-        {
-          ...row,
-          name: row.layer,
-          id: row.cartodb_id,
-          provider: 'carto',
-          layerConfig: {
-            body: {
-              layers: [
-                {
-                  options: {
-                    cartocss_version: '2.3.0',
-                    cartocss: row.css,
-                    sql: row.queries
-                  },
-                  type: 'cartodb'
-                }
-              ],
-              minzoom: 3,
-              maxzoom: 18
-            },
-            account: 'ikerey'
-          },
-          legendConfig: {
-            type: 'basic',
-            items: [
-              {
-                name: row.layer,
-                color: '#5CA2D1'
-              }
-            ]
-          },
-          interactionConfig: {}
-        }
-      ));
-
-      const rwLayersPromises = rwLayers.map(row => fetch(`https://api.resourcewatch.org/v1/layer/${row.layer_id}`).then((r) => {
-        if (r.ok) {
-          return r.json();
-        }
-      }));
-
-      Promise.all(rwLayersPromises)
-        .then((data) => {
-          compact(data).forEach((d) => {
-            const serializedData = WRIJsonApiSerializer(d);
-            contextualLayers.push({
-              ...serializedData,
-              name: rwLayers.find(l => l.layer_id === serializedData.id).layer
-            });
-          });
-          dispatch(setList(contextualLayers));
-        });
-    })
-    .catch((err) => {
-      dispatch(setListLoading(false));
-      dispatch(setListError(err));
-    });
-});
-
 function getSectors(iso) {
   const { replace } = window.App.Helper.Utils;
 
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=fxBfIB36_CQPRDU13h1R2w`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -254,13 +116,12 @@ function getSectors(iso) {
           interactionConfig: {}
         }
       ));
-
       return dataRows;
     });
 }
 
 function getContextualLayers() {
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=dV-0c6EWgySmsfwRvcGQmA`)
+  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=fxBfIB36_CQPRDU13h1R2w`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -274,7 +135,7 @@ function getContextualLayers() {
           ...row,
           name: row.layer,
           layerType: 'contextual',
-          id: row.cartodb_id.toString(),
+          id: row.type_id.toString(),
           provider: 'carto',
           layerConfig: {
             body: {
@@ -329,16 +190,12 @@ function getContextualLayers() {
 
 export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
-  // const layersPromises = [dispatch(getSectors(iso)), dispatch(fetchContextualLayers())];
-  // getSectors(iso).then((data) => { console.log('data', data); });
-  // getContextualLayers().then((data) => { console.log('data', data); });
 
   Promise.all([getSectors(iso), getContextualLayers()])
     .then((data) => {
+      console.log(flatten(data));
       dispatch(setLayersList(flatten(data)));
     });
-
-  // console.log('test', layersPromises);
 });
 
 export default {
@@ -347,6 +204,5 @@ export default {
   setIntro,
   setOpenLegend,
   setlayersSettings,
-  fetchSectors,
-  fetchContextualLayers
+  setSelectedLayersNew
 };

@@ -14,17 +14,7 @@ export default {
     selected: 'layers',
     menuItem: ''
   },
-  sectorLayers: {
-    list: [],
-    loading: false,
-    errors: null,
-    selectedSector: '',
-    selectedLayers: []
-  },
-  contextualLayers: {
-    list: [],
-    selectedLayers: []
-  },
+  sectorLayers: { selectedSector: '' },
   layers: {
     list: [],
     selectedLayers: []

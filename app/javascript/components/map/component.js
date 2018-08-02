@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { Map } from 'wri-api-components';
+import { Map, MapControls, ZoomControl } from 'wri-api-components';
 import { LayerManager, Layer } from 'layer-manager/dist/react';
 import { PluginLeaflet } from 'layer-manager';
 
