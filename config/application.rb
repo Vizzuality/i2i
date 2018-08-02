@@ -6,8 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Webpacker::Compiler.watched_paths << 'node_modules'
-
 module I2i
   class Application < Rails::Application
     #config.active_job.queue_adapter = :sidekiq

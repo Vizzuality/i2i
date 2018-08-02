@@ -16,16 +16,13 @@ Rails.application.routes.draw do
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso/financial-diaries', to: 'data_portal_financial_diaries#index',
-  as: 'data_portal_financial_diaries'
-
-  # Data Portal - FSP maps
-  get 'data-portal/:iso/fsp-maps', to: 'data_portal/fsp_maps#show', as: 'fsp_maps'
+                                            as: 'data_portal_financial_diaries'
 
   # Data Portal - FinScope Data
   get 'data-portal/:iso/:year', to: 'data_portal#show',
-  as: 'data_portal_y'
+                                as: 'data_portal_y'
   get 'data-portal/indicator', to: 'data_portal/indicator#show',
-  as: 'data_portal_indicator'
+                               as: 'data_portal_indicator'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
 

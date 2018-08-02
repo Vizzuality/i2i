@@ -50,10 +50,6 @@ gem 'activeadmin-sortable'
 # File upload gems
 gem 'paperclip'
 
-# REACT
-gem 'webpacker', '~> 3.5'
-gem 'react-rails'
-
 # WYSIWYG
 gem 'ckeditor', github: 'galetahub/ckeditor'
 
