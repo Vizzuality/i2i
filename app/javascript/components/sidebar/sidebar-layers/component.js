@@ -25,16 +25,12 @@ class SidebarLayersComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
-    fetchSectors: PropTypes.func.isRequired,
-    fetchContextualLayers: PropTypes.func.isRequired,
     fetchLayers: PropTypes.func.isRequired
   }
 
   static defaultProps = { menuItem: '' }
 
   componentWillMount() {
-    this.props.fetchSectors();
-    this.props.fetchContextualLayers();
     this.props.fetchLayers();
   }
 
