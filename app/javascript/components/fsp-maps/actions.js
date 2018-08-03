@@ -71,7 +71,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
     });
 });
 
-function getSectors(iso) {
+function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;
 
   return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=fxBfIB36_CQPRDU13h1R2w`)
@@ -79,8 +79,18 @@ function getSectors(iso) {
       if (response.ok) return response.json();
     })
     .then((data) => {
-      const dataRows = data.rows.map(row => (
-        {
+      const dataRows = data.rows.map((row) => {
+        const layerSql = FSP_LAYER_SQL;
+        let layerCss = SECTORS_CSS;
+        if (layersSettings[row.type_id]) {
+          if (layersSettings[row.type_id].visualizationType) {
+            if (layersSettings[row.type_id].visualizationType === 'heatmap') {
+              layerCss = HEATMAP_CSS;
+            }
+          }
+        }
+
+        return {
           ...row,
           id: row.type_id.toString(),
           name: row.type,
@@ -93,8 +103,8 @@ function getSectors(iso) {
                 {
                   options: {
                     cartocss_version: '2.3.0',
-                    cartocss: replace(SECTORS_CSS, { color: row.color }),
-                    sql: replace(FSP_LAYER_SQL, { iso, type: row.type, sector: row.sector })
+                    cartocss: replace(layerCss, { color: row.color }),
+                    sql: replace(layerSql, { iso, type: row.type, sector: row.sector })
                   },
                   type: 'cartodb'
                 }
@@ -114,8 +124,8 @@ function getSectors(iso) {
             ]
           },
           interactionConfig: {}
-        }
-      ));
+        };
+      });
       return dataRows;
     });
 }
@@ -190,10 +200,10 @@ function getContextualLayers() {
 
 export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
+  const { layersSettings } = getState().fspMaps.legend;
 
-  Promise.all([getSectors(iso), getContextualLayers()])
+  Promise.all([getSectors(iso, layersSettings), getContextualLayers()])
     .then((data) => {
-      console.log(flatten(data));
       dispatch(setLayersList(flatten(data)));
     });
 });

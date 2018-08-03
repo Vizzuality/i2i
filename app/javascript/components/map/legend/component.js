@@ -8,11 +8,12 @@ import {
   LegendListItem,
   LegendItemToolbar,
   LegendItemTypes,
-  LegendItemButtonLayers,
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonRemove
 } from 'wri-api-components';
+
+import LegendLayers from './legend-layers';
 
 // styles
 import './styles.scss';
@@ -22,11 +23,23 @@ class LegendComponent extends React.Component {
     open: PropTypes.bool,
     layersSettings: PropTypes.object,
     activeLayerGroups: PropTypes.array.isRequired,
-    // selectedSectorLayers: PropTypes.array.isRequired,
-    // selectedContextualLayers: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
     setSelectedLayersNew: PropTypes.func.isRequired,
-    setlayersSettings: PropTypes.func.isRequired
+    setlayersSettings: PropTypes.func.isRequired,
+    fetchLayers: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    open: true,
+    layersSettings: {}
+  }
+
+  onChangeLegendLayer = (layerId, visualizationType) => {
+    const layersSettings = { ...this.props.layersSettings };
+    layersSettings[layerId] = { ...layersSettings[layerId], visualizationType, visibility: true };
+
+    this.props.setlayersSettings(layersSettings);
+    this.props.fetchLayers();
   }
 
   onChangeOpacity = debounce((l, opacity) => {
@@ -78,7 +91,10 @@ class LegendComponent extends React.Component {
               layerGroup={lg}
               toolbar={
                 <LegendItemToolbar>
-                  <LegendItemButtonLayers />
+                  <LegendLayers
+                    onClick={(layerId, visualizationType) => this.onChangeLegendLayer(layerId, visualizationType)}
+                    layerId={lg.dataset}
+                  />
                   <LegendItemButtonOpacity />
                   <LegendItemButtonVisibility />
                   <LegendItemButtonRemove />
