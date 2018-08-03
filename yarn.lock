@@ -3763,7 +3763,16 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@^1.0.9:
+layer-manager@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.10.tgz#f7343653f28bf29ad0232ee22e438f51559a3cab"
+  dependencies:
+    bluebird "^3.5.1"
+    immutable "^3.8.2"
+    lodash "^4.17.10"
+    wri-json-api-serializer "^1.0.1"
+
+layer-manager@^1.0.4:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.9.tgz#5bc98b23e75805bc12c9935f7a2ffb371dda1c93"
   dependencies:
@@ -6928,10 +6937,11 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-wri-api-components@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.0.5.tgz#18fc97004713540e1cb91f8b790751adb464ce16"
+wri-api-components@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.0.11.tgz#4b19ee283be3eac0dbf22f3f0fd36d839f599879"
   dependencies:
+    layer-manager "^1.0.4"
     prop-types "^15.6.2"
     rc-tooltip "3.7.0"
     react-css-modules "^4.7.1"

@@ -26,7 +26,7 @@
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
-    "layer-manager": "^1.0.9",
+    "layer-manager": "^1.0.10",
     "lodash": "^4.17.10",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
@@ -39,7 +39,7 @@
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
     "reselect": "^3.0.1",
-    "wri-api-components": "^2.0.5",
+    "wri-api-components": "^2.0.11",
     "wri-json-api-serializer": "^1.0.1"
   },
   "devDependencies": {
