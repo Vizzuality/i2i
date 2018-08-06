@@ -62,6 +62,7 @@
         {},
         this.defaults.filters,
         options.filters,
+        { type: options.filters.type || gon.type },
         { categories: options.filters.categories || gon.selectedCategories },
         { subFilters: options.filters.subFilters || gon.selectedSubFilters }
       );

@@ -1,4 +1,18 @@
-<div class="c-switcher">
-  <button type="button" data-type="households" class="js-content-tab switcher-option <% if (@type == 'households')%>-current<% end %>">Households (<%= @project_quantities[:number_households] %>)</button>
-  <button type="button" data-type="individuals" class="js-content-tab switcher-option <% if (@type == 'individuals')%>-current<% end %>">Individuals (<%= @project_quantities[:number_individuals] %>)</button>
+<div class="c-switcher <%= '-single' unless @has_households && @has_members %>">
+  <% if @has_households %>
+    <button
+      type="button"
+      data-type="households"
+      class="js-content-tab switcher-option <% if (@type == 'households')%>-current<% end %>">
+        Households (<%= @project_quantities[:number_households] %>)
+    </button>
+  <% end %>
+  <% if @has_members %>
+    <button
+      type="button"
+      data-type="individuals"
+      class="js-content-tab switcher-option <% if (@type == 'individuals')%>-current<% end %>">
+        Individuals (<%= @project_quantities[:number_individuals] %>)
+    </button>
+  <% end %>
 </div>

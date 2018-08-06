@@ -6,7 +6,6 @@
   border-radius: 100px;
   background: rgba($color-6, .1);
 
-
   > .switcher-option {
     display: inline-flex;
     position: relative;
@@ -39,6 +38,16 @@
       // padding: 1px 15px 0;
       background: $color-1;
       color: $color-4;
+    }
+  }
+
+  &.-single {
+    padding: 0px;
+
+    .switcher-option {
+      cursor: default;
+      left: 0px;
+      right: 0px;
     }
   }
 }
