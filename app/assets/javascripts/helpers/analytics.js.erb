@@ -4,7 +4,7 @@ App.Helper.Analytics = {
    */
   sendEvent: function () {
     var params = Array.prototype.slice.call(arguments);
-    params.unshift('send');
+    params.unshift('send', 'event');
 
     var func = <%= Rails.env.production? ? 'window.ga || function () {}' : 'console.log' %>;
     func.apply(func, params);

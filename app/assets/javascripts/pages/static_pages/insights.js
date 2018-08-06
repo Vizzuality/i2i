@@ -15,7 +15,7 @@
      * @param {Event} e event
      */
     _onClickDownload: function (e) {
-      var name = e.currentTarget.getAttribute('name');
+      var name = e.currentTarget.getAttribute('data-name');
       App.Helper.Analytics.sendEvent('Download', 'Download from i2i library', name);
     },
 
