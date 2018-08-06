@@ -1,7 +1,10 @@
 class DataPortalFinancialDiariesController < ApplicationController
   def index
     country_iso = params[:iso]
-    project_name = ProjectMetadatum.find_by(country_iso3: country_iso).project_name
+    project_metadatum = ProjectMetadatum.find_by(country_iso3: country_iso)
+    project_name = project_metadatum.project_name
+    @has_households = project_metadatum.num_households_in_hh.present?
+    @has_members = project_metadatum.num_members_in_mem.present?
     @countries = Country.all.select{ |country|
       country.financial_diaries.present? && country[:iso] != country_iso
     }
@@ -58,7 +61,7 @@ class DataPortalFinancialDiariesController < ApplicationController
        # households filters here
 
       @filters.push(@main_income_options, @income_tier_options)
-
+      @type = 'individuals' unless @has_households
     else
       # individuals filters here
 
@@ -111,6 +114,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     gon.iso = country_iso;
     gon.project_name = project_name
+    gon.type = @type
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json
     gon.selectedSubFilters = JSON.parse @selectedSubFilters.to_json
