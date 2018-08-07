@@ -71,7 +71,7 @@ class LegendComponent extends React.Component {
   }
 
   render() {
-    const { open, activeLayerGroups } = this.props;
+    const { open, activeLayerGroups, layersSettings } = this.props;
 
     const classNames = classnames({
       'c-legend': true,
@@ -94,6 +94,7 @@ class LegendComponent extends React.Component {
                   <LegendLayers
                     onClick={(layerId, visualizationType) => this.onChangeLegendLayer(layerId, visualizationType)}
                     layerId={lg.dataset}
+                    layersSettings={layersSettings}
                   />
                   <LegendItemButtonOpacity />
                   <LegendItemButtonVisibility />

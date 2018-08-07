@@ -16,7 +16,7 @@ class LegendLayersComponent extends React.Component {
   }
 
   render() {
-    const { layerId } = this.props;
+    const { layerId, layersSettings } = this.props;
 
     const layerVisualizations = [
       { label: 'Normal', value: 'normal' },
@@ -42,6 +42,7 @@ class LegendLayersComponent extends React.Component {
                 layerId={layerId}
                 list={layerVisualizations}
                 onChangeLayer={this.props.onClick}
+                layersSettings={layersSettings}
               />
             }
             overlayClassName="c-rc-tooltip -default"
