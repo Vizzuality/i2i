@@ -8,12 +8,11 @@ import styles from './styles.scss';
 
 class LegendLayersTooltip extends React.Component {
   static propTypes = {
-    // Layers
-    // layers: PropTypes.array.isRequired,
-    // activeLayer: PropTypes.object.isRequired,
-    // Callback to call when the layer changes with
-    // the ID of the dataset and the ID of the layer
-    // onChangeLayer: PropTypes.func.isRequired
+    list: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+    layerId: PropTypes.string.isRequired,
+    onChangeLayer: PropTypes.func.isRequired,
+    layersSettings: PropTypes.object.isRequired
   };
 
   render() {
