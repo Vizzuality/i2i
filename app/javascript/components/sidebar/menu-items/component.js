@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+// components
+import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 
 // styles
 import './styles.scss';
@@ -11,22 +15,25 @@ class MenuItemsComponent extends React.Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { items, onSelect } = this.props;
 
     return (
       <div className="c-menu-items">
         {
-          items.map(item => (
+          items.map((item, index) => (
             <div
               tabIndex="0"
               role="button"
               key={item.value}
-              className="menu-items-item"
-              onClick={() => this.props.onSelect(item.value)}
+              className={classnames('menu-items-item', { '-inline': index === 0 })}
+              onClick={() => onSelect(item.value)}
             >
-              <h3 className="title">
-                {item.label}
-              </h3>
+              <div className="item-header">
+                <h3 className="title">
+                  {item.label}
+                </h3>
+                {index === 0 && <ActiveLayersIndicator />}
+              </div>
 
               <div className="description">
                 {item.text}
