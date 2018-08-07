@@ -80,12 +80,17 @@ function getSectors(iso, layersSettings) {
     })
     .then((data) => {
       const dataRows = data.rows.map((row) => {
-        const layerSql = FSP_LAYER_SQL;
+        let layerSql = FSP_LAYER_SQL;
         let layerCss = SECTORS_CSS;
+
         if (layersSettings[row.type_id]) {
           if (layersSettings[row.type_id].visualizationType) {
             if (layersSettings[row.type_id].visualizationType === 'heatmap') {
               layerCss = HEATMAP_CSS;
+            }
+
+            if (layersSettings[row.type_id].visualizationType === 'voronoid') {
+              layerSql = VORONOID_LAYER_SQL;
             }
           }
         }
@@ -104,7 +109,7 @@ function getSectors(iso, layersSettings) {
                   options: {
                     cartocss_version: '2.3.0',
                     cartocss: replace(layerCss, { color: row.color }),
-                    sql: replace(layerSql, { iso, type: row.type, sector: row.sector })
+                    sql: replace(layerSql, { iso, type_id: row.type_id })
                   },
                   type: 'cartodb'
                 }

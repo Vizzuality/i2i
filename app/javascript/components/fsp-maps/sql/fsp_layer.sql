@@ -6,7 +6,6 @@ SELECT st_asgeojson(the_geom),
        cartodb_id
 FROM fsp_maps
 WHERE iso = '{iso}'
-       AND sector IN ('{sector}')
-       AND type IN ('{type}')
+       AND type_id = {type_id}
 ORDER BY  sector,
           type

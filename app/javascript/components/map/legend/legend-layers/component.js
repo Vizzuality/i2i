@@ -4,6 +4,9 @@ import classnames from 'classnames';
 
 import { Icon, Tooltip } from 'wri-api-components';
 
+// components
+import LegendLayersTooltip from './legend-layers-tooltip';
+
 // styles
 import './styles.scss';
 
@@ -15,10 +18,11 @@ class LegendLayersComponent extends React.Component {
   render() {
     const { layerId } = this.props;
 
-    // const classNames = classnames({
-    //   'c-map': true,
-    //   '-open': !!open
-    // });
+    const layerVisualizations = [
+      { label: 'Normal', value: 'normal' },
+      { label: 'Heatmap', value: 'heatmap' },
+      { label: 'Voronoid', value: 'voronoid' }
+    ];
 
     return (
       <div className="c-legend-layers">
@@ -31,11 +35,26 @@ class LegendLayersComponent extends React.Component {
           mouseLeaveDelay={0}
           destroyTooltipOnHide
         >
-          <button
-            onClick={() => this.props.onClick(layerId, 'heatmap')}
+          <Tooltip
+            overlay={
+              <LegendLayersTooltip
+                title="Visualizations"
+                layerId={layerId}
+                list={layerVisualizations}
+                onChangeLayer={this.props.onClick}
+              />
+            }
+            overlayClassName="c-rc-tooltip -default"
+            overlayStyle={{ color: '#fff' }}
+            placement="top"
+            trigger={['click']}
+            mouseLeaveDelay={0}
+            destroyTooltipOnHide
           >
-            <Icon name="icon-layers" className="-small" />
-          </button>
+            <button>
+              <Icon name="icon-layers" className="-small" />
+            </button>
+          </Tooltip>
         </Tooltip>
       </div>
     );
