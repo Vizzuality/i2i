@@ -39,6 +39,7 @@ export const setListLoading = createAction('CONTEXTUAL_LAYERS/setListLoading');
 export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
 export const setLayersList = createAction('LAYERS/setLayersList');
 export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
+export const setLayersOrder = createAction('LAYERS/setLayersOrder');
 
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;

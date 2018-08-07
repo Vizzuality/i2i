@@ -17,6 +17,7 @@ export default {
   sectorLayers: { selectedSector: '' },
   layers: {
     list: [],
-    selectedLayers: []
+    selectedLayers: [],
+    layersOrder: []
   }
 };

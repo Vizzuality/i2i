@@ -26,7 +26,8 @@ class LegendComponent extends React.Component {
     selectedLayers: PropTypes.array.isRequired,
     setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired,
-    fetchLayers: PropTypes.func.isRequired
+    fetchLayers: PropTypes.func.isRequired,
+    setLayersOrder: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -70,6 +71,10 @@ class LegendComponent extends React.Component {
     this.props.setSelectedLayersNew(selectedLayers);
   }
 
+  onChangeOrder = (layersOrder) => {
+    this.props.setLayersOrder(layersOrder);
+  }
+
   render() {
     const { open, activeLayerGroups, layersSettings } = this.props;
 
@@ -83,6 +88,7 @@ class LegendComponent extends React.Component {
         <Legend
           maxHeight={300}
           layerGroups={activeLayerGroups}
+          onChangeOrder={this.onChangeOrder}
         >
           {activeLayerGroups.map((lg, i) => (
             <LegendListItem

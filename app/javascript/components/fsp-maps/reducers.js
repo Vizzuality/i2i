@@ -80,5 +80,9 @@ export default {
   [actions.setSelectedLayersNew]: (state, { payload }) => {
     const layers = { ...state.layers, selectedLayers: payload };
     return { ...state, layers };
+  },
+  [actions.setLayersOrder]: (state, { payload }) => {
+    const layers = { ...state.layers, layersOrder: payload };
+    return { ...state, layers };
   }
 };
