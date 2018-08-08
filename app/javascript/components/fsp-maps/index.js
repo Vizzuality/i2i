@@ -9,6 +9,6 @@ import FSPMapsComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  null,
+  state => ({ modal: state.fspMaps.modal }),
   actions
 )(FSPMapsComponent);

@@ -1,0 +1,79 @@
+$max-width-modal: 700px;
+$max-width-modal-large: 1130px;
+$margin-modal: 25px;
+
+.ReactModal__Overlay {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+
+  &.ReactModal__Overlay--after-open {
+    background: rgba(#3b3a40, .9) !important;
+  }
+}
+
+.ReactModal__Html--open,
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.c-modal {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: $max-width-modal;
+  width: calc(100% - #{$margin-modal * 2});
+  transform: translate(-50%, -50%);
+  transition: transform 0.24s cubic-bezier(0.215, 0.61, 0.355, 1);
+  outline: none;
+
+  > .modal-container {
+    width: 100%;
+    height: 100%;
+
+    > .modal-header {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      transform: translate(50%, 0);
+      background: #fff;
+      box-shadow: 0 0 14px 4px rgba(0, 0, 0, .1);
+
+      > button {
+        display: inline-flex;
+        padding: 0;
+
+        > .modal-close-icon {
+          fill: #2F939C;
+          cursor: pointer;
+
+          &:hover {
+            fill: darken(#2F939C, 10%);
+          }
+        }
+      }
+    }
+
+    > .modal-content {
+      padding: 20px 80px;
+      background: #fff;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .15);
+
+      > .overflow-container {
+        overflow-y: auto;
+        max-height: calc(100vh / 2);
+        height: 100%;
+      }
+    }
+  }
+}

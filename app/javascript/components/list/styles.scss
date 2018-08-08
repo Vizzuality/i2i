@@ -1,101 +1,145 @@
 .c-list {
   flex: 1;
   height: 100%;
-  padding: 20px 30px 20px 55px;
-  
+  padding: 0 30px 20px 55px;
+
   .list-item {
-    background: #FFF;
-    margin: 5px 0 0;
-    
-    &:first-child {
-      margin: 0;
-    }
-  }
+    background: #fff;
+    border: 1px solid transparent;
 
-  .list-item-button {
-    display: flex;
-    padding: 5px 10px;
-    text-align: left;
-    color: #000000;
-    
-    > * {
-      margin: 0 8px 0 0;
-      &:last-child { margin: 0; }
-    }
-    
-    .item-button-title,
-    .item-button-subtitle {
-      font-size: 14px;
-      font-weight: normal;
+    &:not(:first-child) {
+      margin: 5px 0 0;
     }
 
-    .item-button-switch {
-      position: relative;
-      top: 2px;
-      display: inline-block;
-      box-sizing: border-box;
-      width: 22px;
-      height: 12px;
-      line-height: 10px;
-      vertical-align: middle;
-      border-radius: 10px 10px;
-      border: 1px solid #ccc;
-      background-color: #ccc;
+    .list-item-button {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 10px;
+      text-align: left;
+      color: #000;
       cursor: pointer;
-      transition: all 250ms cubic-bezier(0.35, 0, 0.25, 1);
 
-      &:after {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        left: 0px;
-        top: 0px;
-        border-radius: 50% 50%;
-        background-color: #fff;
-        content: " ";
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-        transform: scale(1);
-        transition: left 250ms cubic-bezier(0.35, 0, 0.25, 1);
-        animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
-        animation-duration: 250ms;
-        animation-name: rcSwitchOff;
+      > * {
+        &:not(:last-child) {
+          margin: 0 8px 0 0;
+        }
       }
 
-      &:hover:after {
-        transform: scale(1.1);
-        animation-name: rcSwitchOn;
+      .item-button-title,
+      .item-button-subtitle {
+        font-size: 14px;
+        font-weight: normal;
       }
 
-      &.-checked {
+      .switch-container {
+        display: flex;
+        align-items: baseline;
+
+        > .item-button-switch {
+          position: relative;
+          display: inline-block;
+          min-width: 22px;
+          height: 12px;
+          border-radius: 10px;
+          border: 1px solid rgba(#2F939C, .2);
+          background-color: #fff;
+          transition: all 250ms cubic-bezier(0.35, 0, 0.25, 1);
+          cursor: pointer;
+
+          &:after {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            left: 0px;
+            top: calc(50% - 5px);
+            border-radius: 50%;
+            background-color: rgba(#2F939C, .4);
+            content: '';
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+            transform: scale(1);
+            transition: left 250ms cubic-bezier(0.35, 0, 0.25, 1);
+            animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
+            animation-duration: 250ms;
+            animation-name: rcSwitchOff;
+          }
+
+          &:hover:after {
+            transform: scale(1.1);
+            animation-name: rcSwitchOn;
+          }
+        }
+
+        > .name-container {
+          margin: 0 0 0 10px;
+        }
+      }
+
+      > .btn-info {
+        position: relative;
+        padding: 7px;
+        height: 16px;
         border: 1px solid #2F939C;
-        background-color: #2F939C;
+        border-radius: 50%;
+        cursor: pointer;
 
-        &:after {
-          left: 11px;
+        > .icon-info {
+          fill: #2F939C;
+          position: absolute;
+          top: 50%;
+          left: calc(50% + 4px);
+          width: 12px;
+          height: 12px;
+          transform: translate(-50%, -50%);
+        }
+
+        &:hover {
+          background: #2F939C;
+
+          > .icon-info {
+            fill: #fff;
+          }
         }
       }
     }
 
-    @keyframes rcSwitchOn {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.25);
-      }
-      100% {
-        transform: scale(1.1);
-      }
-    }
+    &.-checked {
+      border-color: #2F939C;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .15);
 
-    @keyframes rcSwitchOff {
-      0% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
+      .switch-container {
+        > .item-button-switch {
+          border: 1px solid #2F939C;
+          background-color: #2F939C;
+
+          &:after {
+            left: 9px;
+            background-color: #fff;
+          }
+        }
       }
     }
+  }
+}
+
+@keyframes rcSwitchOn {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes rcSwitchOff {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 }

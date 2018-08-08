@@ -40,6 +40,9 @@ export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
 export const setLayersList = createAction('LAYERS/setLayersList');
 export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
 export const setLayersOrder = createAction('LAYERS/setLayersOrder');
+// modal
+export const setModal = createAction('MODAL/setModal');
+export const closeModal = createAction('MODAL/closeModal');
 
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;
@@ -220,5 +223,7 @@ export default {
   setIntro,
   setOpenLegend,
   setlayersSettings,
-  setSelectedLayersNew
+  setSelectedLayersNew,
+  setModal,
+  closeModal
 };
