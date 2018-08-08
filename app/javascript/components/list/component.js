@@ -20,7 +20,10 @@ class ListComponent extends React.Component {
     onClickInfo: null
   }
 
-  onClickInfo = item => this.props.onClickInfo && this.props.onClickInfo(item)
+  onClickInfo = (e, item) => {
+    e.stopPropagation();
+    if (this.props.onClickInfo) this.props.onClickInfo(item);
+  }
 
   clickItem(row) {
     this.props.onSelect(row);
@@ -41,27 +44,25 @@ class ListComponent extends React.Component {
 
           return (
             <div key={row.id} className={listItemClassName}>
-              <button
+              <div
                 key={label}
                 className="list-item-button"
                 onClick={() => this.clickItem(row)}
               >
-                <span className="item-button-switch" />
-
-                <div>
-                  <h3 className="item-button-title">{label}</h3>
-                  {!!count && <h4 className="item-button-subtitle">({count})</h4>}
+                <div className="switch-container">
+                  <span className="item-button-switch" />
+                  <div className="name-container">
+                    <h3 className="item-button-title">{label}</h3>
+                    {!!count && <h4 className="item-button-subtitle">({count})</h4>}
+                  </div>
                 </div>
-
-                <button className="btn-info" onClick={() => this.onClickInfo(row)}>
+                <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
                   <svg className="icon icon-info">
                     <use xlinkHref="#icon-info" />
                   </svg>
                 </button>
-
-              </button>
+              </div>
             </div>
-
           );
         })}
       </div>

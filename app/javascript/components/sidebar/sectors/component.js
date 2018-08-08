@@ -15,6 +15,7 @@ class SectorsComponent extends PureComponent {
     layersBySector: PropTypes.array,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.array.isRequired,
+    setModal: PropTypes.func.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
     setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
@@ -53,7 +54,7 @@ class SectorsComponent extends PureComponent {
   }
 
   render() {
-    const { sectors, selectedSector, layersBySector } = this.props;
+    const { sectors, selectedSector, layersBySector, setModal } = this.props;
 
     return (
       <div className="c-sectors">
@@ -71,6 +72,7 @@ class SectorsComponent extends PureComponent {
                     rows={layersBySector}
                     labelField="type"
                     onSelect={this.onSelectLayer}
+                    onClickInfo={e => setModal({ open: true, options: e })}
                   />}
             </div>
           )))
