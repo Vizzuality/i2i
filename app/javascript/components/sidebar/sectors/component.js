@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import uniq from 'lodash/uniq';
+import classnames from 'classnames';
 
 // components
 import List from 'components/list';
@@ -8,19 +8,30 @@ import List from 'components/list';
 // styles
 import './styles.scss';
 
-class SectorsComponent extends React.Component {
+class SectorsComponent extends PureComponent {
   static propTypes = {
-    list: PropTypes.array.isRequired,
+    sectors: PropTypes.array.isRequired,
+    selectedSector: PropTypes.string,
+    layersBySector: PropTypes.array,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.array.isRequired,
-    selectedSector: PropTypes.string.isRequired,
+    setModal: PropTypes.func.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
     setSelectedLayersNew: PropTypes.func.isRequired,
     setlayersSettings: PropTypes.func.isRequired
   }
 
+  static defaultProps = {
+    selectedSector: null,
+    layersBySector: []
+  }
+
+  onSelectLayer = row => this.handleSelectedType(row)
+
   clickSector(sector) {
-    this.props.setSelectedSector(sector);
+    const { selectedSector, setSelectedSector } = this.props;
+    const nextSector = sector === selectedSector ? null : sector;
+    setSelectedSector(nextSector);
   }
 
   handleSelectedType(sectorLayer) {
@@ -43,28 +54,29 @@ class SectorsComponent extends React.Component {
   }
 
   render() {
-    const { list, selectedSector } = this.props;
-
-    const filteredSectorsData = list.filter(sectorDatum => sectorDatum.sector === selectedSector);
+    const { sectors, selectedSector, layersBySector, setModal } = this.props;
 
     return (
       <div className="c-sectors">
         {
-          (uniq(list.map(sectorData => (sectorData.sector)))).map(sectorTitle => (
-            <button
-              key={sectorTitle}
-              onClick={() => this.clickSector(sectorTitle)}
-            >
-              {sectorTitle}
-            </button>
-          ))
+          (sectors.map(sectorTitle => (
+            <div key={sectorTitle}>
+              <div className={classnames('sectors-list', { '-open': selectedSector === sectorTitle })}>
+                <button onClick={() => this.clickSector(sectorTitle)}>
+                  {sectorTitle}
+                </button>
+              </div>
+              {!!layersBySector.length &&
+                selectedSector === sectorTitle &&
+                  <List
+                    rows={layersBySector}
+                    labelField="type"
+                    onSelect={this.onSelectLayer}
+                    onClickInfo={e => setModal({ open: true, options: e })}
+                  />}
+            </div>
+          )))
         }
-
-        <List
-          rows={filteredSectorsData}
-          labelField="type"
-          onSelect={row => this.handleSelectedType(row)}
-        />
       </div>
     );
   }

@@ -14,10 +14,14 @@ export default {
     selected: 'layers',
     menuItem: ''
   },
+  modal: {
+    open: false,
+    options: null
+  },
   sectorLayers: { selectedSector: '' },
   layers: {
     list: [],
-    selectedLayers: []
-  },
-  mapInteraction: {}
+    selectedLayers: [],
+    layersOrder: []
+  }
 };

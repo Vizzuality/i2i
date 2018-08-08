@@ -15,6 +15,7 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     ...state.fspMaps.legend,
+    ...state.fspMaps.layers,
     activeLayerGroups: getActiveLayerGroups(state),
     selectedLayers: state.fspMaps.layers.selectedLayers
   }),

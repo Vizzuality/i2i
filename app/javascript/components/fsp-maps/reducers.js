@@ -1,4 +1,5 @@
 import * as actions from './actions';
+import initialState from './initial-state';
 
 export default {
   [actions.setIso]: (state, { payload }) => {
@@ -80,5 +81,18 @@ export default {
   [actions.setSelectedLayersNew]: (state, { payload }) => {
     const layers = { ...state.layers, selectedLayers: payload };
     return { ...state, layers };
-  }
+  },
+  [actions.setLayersOrder]: (state, { payload }) => {
+    const layers = { ...state.layers, layersOrder: payload };
+    return { ...state, layers };
+  },
+  // modal
+  [actions.setModal]: (state, { payload }) => ({
+    ...state,
+    modal: {
+      ...state.modal,
+      ...payload
+    }
+  }),
+  [actions.closeModal]: state => ({ ...state, modal: initialState.modal })
 };

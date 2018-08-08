@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
+import Modal from 'components/modal';
 import { Icons } from 'wri-api-components';
 
 import './styles.scss';
@@ -30,6 +31,11 @@ export default class FSPMaps extends React.Component {
           <Sidebar />
           <Map />
           <Icons />
+          <Modal
+            appElement="#main"
+          >
+            {/* render here your components */}
+          </Modal>
         </div>
       </div>
     );
