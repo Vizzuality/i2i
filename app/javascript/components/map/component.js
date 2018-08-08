@@ -73,7 +73,7 @@ class SidebarComponent extends React.Component {
                 />
 
                 {
-                  activeLayers.map((layer, index) => <Layer key={layer.id} {...layer} zIndex={1000 + index} />)
+                  activeLayers.map((layer, index) => <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
                 }
               </LayerManager>
 
