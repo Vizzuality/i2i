@@ -4,7 +4,7 @@ import * as reducers from 'components/fsp-maps/reducers';
 import initialState from 'components/fsp-maps/initial-state';
 
 // Components
-import SidebarComponent from './component';
+import MapComponent from './component';
 
 // Selectors
 import { getActiveLayers } from './selectors';
@@ -19,4 +19,4 @@ export default connect(
     activeLayers: getActiveLayers(state)
   }),
   actions
-)(SidebarComponent);
+)(MapComponent);

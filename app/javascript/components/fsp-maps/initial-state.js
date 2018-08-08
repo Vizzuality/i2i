@@ -18,5 +18,6 @@ export default {
   layers: {
     list: [],
     selectedLayers: []
-  }
+  },
+  mapInteraction: {}
 };
