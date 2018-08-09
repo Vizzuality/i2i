@@ -14,7 +14,7 @@ class SectorsComponent extends PureComponent {
     selectedSector: PropTypes.string,
     layersBySector: PropTypes.array,
     selectedLayers: PropTypes.array.isRequired,
-    layersSettings: PropTypes.array.isRequired,
+    layersSettings: PropTypes.object.isRequired,
     setModal: PropTypes.func.isRequired,
     setSelectedSector: PropTypes.func.isRequired,
     setSelectedLayersNew: PropTypes.func.isRequired,
