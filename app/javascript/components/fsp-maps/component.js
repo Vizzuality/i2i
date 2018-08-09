@@ -13,6 +13,7 @@ import './styles.scss';
 export default class FSPMaps extends React.Component {
   static propTypes = {
     iso: PropTypes.string.isRequired,
+    bbox: PropTypes.array.isRequired,
     setIso: PropTypes.func.isRequired,
     setBBox: PropTypes.func.isRequired
   }

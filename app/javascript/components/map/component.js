@@ -45,6 +45,12 @@ class SidebarComponent extends React.Component {
     bbox: PropTypes.array.isRequired
   }
 
+  // TODO
+  onChangeBasemap = () => console.info('on change basemap - I am WIP!')
+
+  // TODO
+  onShare = () => console.info('on share - I am WIP!')
+
   render() {
     const { open, bbox, activeLayers } = this.props;
 
@@ -61,6 +67,7 @@ class SidebarComponent extends React.Component {
             options: {}
           }}
           scrollZoomEnabled={false}
+          customClass="custom-map"
         >
           {map => (
             <React.Fragment>
@@ -73,12 +80,22 @@ class SidebarComponent extends React.Component {
                 />
 
                 {
-                  activeLayers.map((layer, index) => <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
+                  activeLayers.map((layer, index) =>
+                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
                 }
               </LayerManager>
 
-              <MapControls>
-                <ZoomControl map={map} />
+              <MapControls customClass="custom-container-map-controls">
+                <ZoomControl map={map} customClass="custom-map-controls" />
+                <div className="custom-map-controls">
+                  <button onClick={this.onChangeBasemap}>
+                    <svg className="icon icon-basemap"><use xlinkHref="#icon-basemap" /></svg>
+                  </button>
+
+                  <button onClick={this.onShare}>
+                    <svg className="icon icon-share"><use xlinkHref="#icon-share" /></svg>
+                  </button>
+                </div>
               </MapControls>
             </React.Fragment>
             )}
