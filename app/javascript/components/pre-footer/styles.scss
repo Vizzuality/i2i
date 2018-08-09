@@ -1,0 +1,37 @@
+
+.c-pre-footer {
+  > .new-datasets {
+    padding: 55px 0;
+    background: #2F939C;
+
+    color: #fff;
+    text-align: center;
+
+    .row {
+      display: flex;
+      justify-content: center;
+
+      p {
+        margin: 15px 0 0;
+        color: #fff;
+      }
+
+      h3 {
+        position: relative;
+        font-size: 60px;
+        letter-spacing: -1.71px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 0);
+          width: 30px;
+          height: 2px;
+          background: #f8c500;
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
+import PreFooter from 'components/pre-footer';
 import Modal from 'components/modal';
 import { Icons } from 'wri-api-components';
 
@@ -37,6 +38,7 @@ export default class FSPMaps extends React.Component {
             <div>Sample content</div>
           </Modal>
         </div>
+        <PreFooter />
       </div>
     );
   }
