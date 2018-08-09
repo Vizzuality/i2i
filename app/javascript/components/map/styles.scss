@@ -37,6 +37,12 @@
           cursor: default;
         }
 
+        &:not(:disabled) {
+          &:hover {
+            background: darken(#fff, 5%);
+          }
+        }
+
         > svg {
           width: 12px;
           height: 12px;

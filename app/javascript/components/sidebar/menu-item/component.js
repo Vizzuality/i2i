@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-// components
-import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
-
 // styles
 import './styles.scss';
 
@@ -28,12 +25,6 @@ class MenuItemsComponent extends PureComponent {
           <h3 className="title">
             {item.label}
           </h3>
-
-          <ActiveLayersIndicator />
-
-          {/* <div className="description">
-            {item.text}
-          </div> */}
         </div>
 
         <div className="menu-item-content">

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
+import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Sectors from 'components/sidebar/sectors';
@@ -40,6 +41,9 @@ class SidebarLayersComponent extends React.Component {
 
     return (
       <div className="c-sidebar-layers">
+        <div className="active-layers-indicator-container">
+          <ActiveLayersIndicator />
+        </div>
         {!menuItem &&
           <MenuItems
             items={LAYER_TYPES}
