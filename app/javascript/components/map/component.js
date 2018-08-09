@@ -81,17 +81,19 @@ class MapComponent extends React.Component {
                       {...layer}
                       zIndex={1000 - index}
                       // Interaction
-                      interactivity={['name', 'type']}
-                      events={{
-                        click: (e) => {
-                          const { sourceTarget, target, ...info } = e;
+                      {...(layer.layerType === 'sector') && {
+                        interactivity: ['name', 'type'],
+                        events: {
+                          click: (e) => {
+                            const { sourceTarget, target, ...info } = e;
 
-                          this.props.setInteractions({
-                            [layer.id]: {
-                              ...info,
-                              id: layer.id
-                            }
-                          });
+                            this.props.setInteractions({
+                              [layer.id]: {
+                                ...info,
+                                id: layer.id
+                              }
+                            });
+                          }
                         }
                       }}
                     />))
