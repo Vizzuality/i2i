@@ -72,17 +72,24 @@ class SidebarComponent extends React.Component {
           {map => (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
-                <Layer
-                  {...COUNTRY_MASK}
-                  key="country-mask"
-                  params={{ iso: this.props.iso }}
-                  zIndex={1001}
-                />
+                {(layerManager) => {
+                  const countryMask = [{
+                    ...COUNTRY_MASK,
+                    params: { iso: this.props.iso },
+                    zIndex: 1001,
+                    layerManager
+                  }];
 
-                {
-                  activeLayers.map((layer, index) =>
-                    <Layer key={layer.id} {...layer} zIndex={1000 - index} />)
-                }
+                  return [...countryMask, ...activeLayers].map((layer, index) =>
+                    (
+                      <Layer
+                        key={layer.id}
+                        {...layer}
+                        zIndex={1000 - index}
+                        layerManager={layerManager}
+                      />
+                    ));
+                }}
               </LayerManager>
 
               <MapControls customClass="custom-container-map-controls">
