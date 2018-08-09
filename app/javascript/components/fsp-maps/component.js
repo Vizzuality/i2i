@@ -31,10 +31,9 @@ export default class FSPMaps extends React.Component {
           <Sidebar />
           <Map />
           <Icons />
-          <Modal
-            appElement="#main"
-          >
+          <Modal appElement="#main">
             {/* render here your components */}
+            <div>Sample content</div>
           </Modal>
         </div>
       </div>
