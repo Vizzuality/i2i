@@ -25,6 +25,7 @@ class SidebarLayersComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
+    layersSettings: PropTypes.object.isRequired,
     fetchLayers: PropTypes.func.isRequired
   }
 
@@ -35,7 +36,7 @@ class SidebarLayersComponent extends React.Component {
   }
 
   render() {
-    const { menuItem } = this.props;
+    const { menuItem, layersSettings } = this.props;
 
     return (
       <div className="c-sidebar-layers">
@@ -51,7 +52,8 @@ class SidebarLayersComponent extends React.Component {
             item={LAYER_TYPES.find(lt => lt.value === menuItem)}
             onBack={this.props.setMenuItem}
           >
-            {!!MENU_CONTENT[menuItem] && React.cloneElement(MENU_CONTENT[menuItem])}
+            {!!MENU_CONTENT[menuItem] &&
+              React.cloneElement(MENU_CONTENT[menuItem], { layersSettings })}
           </MenuItem>
         }
       </div>

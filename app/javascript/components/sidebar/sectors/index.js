@@ -17,7 +17,7 @@ export default connect(
     layersBySector: getLayersBySector(state),
     selectedSector: state.fspMaps.sectorLayers.selectedSector,
     selectedLayers: state.fspMaps.layers.selectedLayers,
-    layersSettings: state.fspMaps.legend.layersSetting
+    layersSettings: state.fspMaps.legend.layersSettings
   }),
   actions
 )(SectorsComponent);
