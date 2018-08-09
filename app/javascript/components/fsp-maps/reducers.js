@@ -86,6 +86,10 @@ export default {
     const layers = { ...state.layers, layersOrder: payload };
     return { ...state, layers };
   },
+  [actions.setInteractions]: (state, { payload }) => {
+    const interactions = { ...state.interactions, ...payload };
+    return { ...state, interactions };
+  },
   // modal
   [actions.setModal]: (state, { payload }) => ({
     ...state,

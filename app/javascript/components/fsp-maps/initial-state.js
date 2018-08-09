@@ -23,5 +23,6 @@ export default {
     list: [],
     selectedLayers: [],
     layersOrder: []
-  }
+  },
+  interactions: {}
 };

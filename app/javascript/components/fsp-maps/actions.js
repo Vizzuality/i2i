@@ -40,6 +40,7 @@ export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
 export const setLayersList = createAction('LAYERS/setLayersList');
 export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
 export const setLayersOrder = createAction('LAYERS/setLayersOrder');
+export const setInteractions = createAction('INTERACTIONS/setInteractions');
 // modal
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
