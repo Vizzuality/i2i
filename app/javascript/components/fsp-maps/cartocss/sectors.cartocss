@@ -1,5 +1,5 @@
 #layer {
-  marker-width: 7;
+  marker-width: 10;
   marker-fill: {color};
   marker-fill-opacity: 0.9;
   marker-line-color: #FFFFFF;

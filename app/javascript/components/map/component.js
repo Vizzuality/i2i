@@ -8,6 +8,7 @@ import { PluginLeaflet } from 'layer-manager';
 
 // components
 import Legend from 'components/map/legend';
+import Popup from 'components/map/popup';
 
 // styles
 import './styles.scss';
@@ -37,12 +38,13 @@ const COUNTRY_MASK = {
   interactionConfig: {}
 };
 
-class SidebarComponent extends React.Component {
+class MapComponent extends React.Component {
   static propTypes = {
     activeLayers: PropTypes.array.isRequired,
     open: PropTypes.bool.isRequired,
     iso: PropTypes.string.isRequired,
-    bbox: PropTypes.array.isRequired
+    bbox: PropTypes.array.isRequired,
+    setInteractions: PropTypes.func.isRequired
   }
 
   // TODO
@@ -87,6 +89,21 @@ class SidebarComponent extends React.Component {
                         {...layer}
                         zIndex={1000 - index}
                         layerManager={layerManager}
+                        {...(layer.layerType === 'sector') && {
+                          interactivity: ['name', 'type'],
+                          events: {
+                            click: (e) => {
+                              const { sourceTarget, target, ...info } = e;
+
+                              this.props.setInteractions({
+                                [layer.id]: {
+                                  ...info,
+                                  id: layer.id
+                                }
+                              });
+                            }
+                          }
+                        }}
                       />
                     ));
                 }}
@@ -104,6 +121,11 @@ class SidebarComponent extends React.Component {
                   </button>
                 </div>
               </MapControls>
+
+              <Popup
+                map={map}
+              />
+
             </React.Fragment>
             )}
         </Map>
@@ -113,4 +135,4 @@ class SidebarComponent extends React.Component {
   }
 }
 
-export default SidebarComponent;
+export default MapComponent;

@@ -3,7 +3,8 @@ SELECT st_asgeojson(the_geom),
        iso,
        sector,
        type,
-       cartodb_id
+       cartodb_id,
+       name
 FROM fsp_maps
 WHERE iso = '{iso}'
        AND type_id = {type_id}
