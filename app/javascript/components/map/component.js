@@ -47,6 +47,12 @@ class MapComponent extends React.Component {
     setInteractions: PropTypes.func.isRequired
   }
 
+  // TODO
+  onChangeBasemap = () => console.info('on change basemap - I am WIP!')
+
+  // TODO
+  onShare = () => console.info('on share - I am WIP!')
+
   render() {
     const { open, bbox, activeLayers } = this.props;
 
@@ -63,45 +69,57 @@ class MapComponent extends React.Component {
             options: {}
           }}
           scrollZoomEnabled={false}
+          customClass="custom-map"
         >
           {map => (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
-                <Layer
-                  {...COUNTRY_MASK}
-                  key="country-mask"
-                  params={{ iso: this.props.iso }}
-                  zIndex={1001}
-                />
+                {(layerManager) => {
+                  const countryMask = [{
+                    ...COUNTRY_MASK,
+                    params: { iso: this.props.iso },
+                    zIndex: 1001,
+                    layerManager
+                  }];
 
-                {
-                  activeLayers.map((layer, index) =>
-                    (<Layer
-                      key={layer.id}
-                      {...layer}
-                      zIndex={1000 - index}
-                      // Interaction
-                      {...(layer.layerType === 'sector') && {
-                        interactivity: ['name', 'type'],
-                        events: {
-                          click: (e) => {
-                            const { sourceTarget, target, ...info } = e;
+                  return [...countryMask, ...activeLayers].map((layer, index) =>
+                    (
+                      <Layer
+                        key={layer.id}
+                        {...layer}
+                        zIndex={1000 - index}
+                        layerManager={layerManager}
+                        {...(layer.layerType === 'sector') && {
+                          interactivity: ['name', 'type'],
+                          events: {
+                            click: (e) => {
+                              const { sourceTarget, target, ...info } = e;
 
-                            this.props.setInteractions({
-                              [layer.id]: {
-                                ...info,
-                                id: layer.id
-                              }
-                            });
+                              this.props.setInteractions({
+                                [layer.id]: {
+                                  ...info,
+                                  id: layer.id
+                                }
+                              });
+                            }
                           }
-                        }
-                      }}
-                    />))
-                }
+                        }}
+                      />
+                    ));
+                }}
               </LayerManager>
 
-              <MapControls>
-                <ZoomControl map={map} />
+              <MapControls customClass="custom-container-map-controls">
+                <ZoomControl map={map} customClass="custom-map-controls" />
+                <div className="custom-map-controls">
+                  <button onClick={this.onChangeBasemap}>
+                    <svg className="icon icon-basemap"><use xlinkHref="#icon-basemap" /></svg>
+                  </button>
+
+                  <button onClick={this.onShare}>
+                    <svg className="icon icon-share"><use xlinkHref="#icon-share" /></svg>
+                  </button>
+                </div>
               </MapControls>
 
               <Popup

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
+import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Sectors from 'components/sidebar/sectors';
@@ -25,6 +26,7 @@ class SidebarLayersComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
+    layersSettings: PropTypes.object.isRequired,
     fetchLayers: PropTypes.func.isRequired
   }
 
@@ -35,10 +37,13 @@ class SidebarLayersComponent extends React.Component {
   }
 
   render() {
-    const { menuItem } = this.props;
+    const { menuItem, layersSettings } = this.props;
 
     return (
       <div className="c-sidebar-layers">
+        <div className="active-layers-indicator-container">
+          <ActiveLayersIndicator />
+        </div>
         {!menuItem &&
           <MenuItems
             items={LAYER_TYPES}
@@ -51,7 +56,8 @@ class SidebarLayersComponent extends React.Component {
             item={LAYER_TYPES.find(lt => lt.value === menuItem)}
             onBack={this.props.setMenuItem}
           >
-            {!!MENU_CONTENT[menuItem] && React.cloneElement(MENU_CONTENT[menuItem])}
+            {!!MENU_CONTENT[menuItem] &&
+              React.cloneElement(MENU_CONTENT[menuItem], { layersSettings })}
           </MenuItem>
         }
       </div>

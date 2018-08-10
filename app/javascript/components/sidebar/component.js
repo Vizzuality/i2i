@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -15,11 +15,18 @@ const TABS = [
   { value: 'analysis', label: 'Analysis', component: <SidebarAnalysis /> }
 ];
 
-class SidebarComponent extends React.Component {
+class SidebarComponent extends PureComponent {
   static propTypes = {
     open: PropTypes.bool.isRequired,
     selected: PropTypes.string.isRequired,
-    setSelected: PropTypes.func.isRequired
+    setSelected: PropTypes.func.isRequired,
+    setOpenSidebar: PropTypes.func.isRequired
+  }
+
+  onToggleSidebar = () => {
+    const { setOpenSidebar, open } = this.props;
+
+    setOpenSidebar(!open);
   }
 
   render() {
@@ -39,9 +46,16 @@ class SidebarComponent extends React.Component {
           onSelect={s => this.props.setSelected(s)}
         />
 
-        {React.cloneElement(
-          SelectedComponent
-        )}
+        <div className="overflow-container">
+          {cloneElement(SelectedComponent)}
+        </div>
+
+        <button
+          className="toggle-btn"
+          onClick={this.onToggleSidebar}
+        >
+          <span className="arrow" />
+        </button>
       </div>
     );
   }

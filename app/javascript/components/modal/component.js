@@ -42,7 +42,7 @@ export class CustomModal extends PureComponent {
       <Modal
         {...modalProps}
         isOpen={modal.open}
-        onRequestClose={() => closeModal}
+        onRequestClose={closeModal}
         className={componentClass}
       >
         <div className="modal-container">

@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-// components
-import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
-
 // styles
 import './styles.scss';
 
@@ -32,7 +29,6 @@ class MenuItemsComponent extends React.Component {
                 <h3 className="title">
                   {item.label}
                 </h3>
-                {index === 0 && <ActiveLayersIndicator />}
               </div>
 
               <div className="description">
