@@ -17,34 +17,14 @@ import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import SECTORS_CSS from './cartocss/sectors.cartocss';
 import HEATMAP_CSS from './cartocss/heatmap.cartocss';
 
+// COMMON
 export const setIso = createAction('COMMON/setIso');
 export const setBBox = createAction('COMMON/setBBox');
+
+// INTRO
 export const setIntro = createAction('INTRO/setIntro');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
-export const setOpenMap = createAction('MAP/setOpenMap');
-export const setOpenLegend = createAction('LEGEND/setOpenLegend');
-export const setlayersSettings = createAction('LEGEND/setlayersSettings');
-export const setOpenSidebar = createAction('SIDEBAR/setOpenSidebar');
-export const setSelected = createAction('SIDEBAR/setSelected');
-export const setMenuItem = createAction('SIDEBAR-MENU/setMenuItem');
-export const setListSectors = createAction('SECTORS/setListSectors');
-export const setListLoadingSectors = createAction('SECTORS/setListLoadingSectors');
-export const setListErrorSectors = createAction('SECTORS/setListErrorSectors');
-export const setSelectedSector = createAction('SECTORS/setSelectedSector');
-export const setSelectedLayersSectors = createAction('SECTORS/setSelectedLayersSectors');
-export const setList = createAction('CONTEXTUAL_LAYERS/setList');
-export const setSelectedLayers = createAction('CONTEXTUAL_LAYERS/setSelectedLayers');
-export const setListLoading = createAction('CONTEXTUAL_LAYERS/setListLoading');
-export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
-export const setLayersList = createAction('LAYERS/setLayersList');
-export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
-export const setLayersOrder = createAction('LAYERS/setLayersOrder');
-export const setInteractions = createAction('INTERACTIONS/setInteractions');
-// modal
-export const setModal = createAction('MODAL/setModal');
-export const closeModal = createAction('MODAL/closeModal');
-
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;
   const { iso } = getState().fspMaps.common;
@@ -75,6 +55,39 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
       dispatch(setIntroError(err));
     });
 });
+
+// MAP
+export const setOpenMap = createAction('MAP/setOpenMap');
+export const setBasemap = createAction('MAP/setBasemap');
+export const setLabel = createAction('MAP/setLabel');
+
+// LEGEND
+export const setOpenLegend = createAction('LEGEND/setOpenLegend');
+export const setlayersSettings = createAction('LEGEND/setlayersSettings');
+
+// SIDEBAR
+export const setOpenSidebar = createAction('SIDEBAR/setOpenSidebar');
+export const setSelected = createAction('SIDEBAR/setSelected');
+export const setMenuItem = createAction('SIDEBAR-MENU/setMenuItem');
+
+// LAYERS
+export const setListSectors = createAction('SECTORS/setListSectors');
+export const setListLoadingSectors = createAction('SECTORS/setListLoadingSectors');
+export const setListErrorSectors = createAction('SECTORS/setListErrorSectors');
+export const setSelectedSector = createAction('SECTORS/setSelectedSector');
+export const setSelectedLayersSectors = createAction('SECTORS/setSelectedLayersSectors');
+export const setList = createAction('CONTEXTUAL_LAYERS/setList');
+export const setSelectedLayers = createAction('CONTEXTUAL_LAYERS/setSelectedLayers');
+export const setListLoading = createAction('CONTEXTUAL_LAYERS/setListLoading');
+export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
+export const setLayersList = createAction('LAYERS/setLayersList');
+export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
+export const setLayersOrder = createAction('LAYERS/setLayersOrder');
+export const setInteractions = createAction('INTERACTIONS/setInteractions');
+
+// MODAL
+export const setModal = createAction('MODAL/setModal');
+export const closeModal = createAction('MODAL/closeModal');
 
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;
@@ -217,14 +230,3 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
       dispatch(setLayersList(flatten(data)));
     });
 });
-
-export default {
-  setIso,
-  setBBox,
-  setIntro,
-  setOpenLegend,
-  setlayersSettings,
-  setSelectedLayersNew,
-  setModal,
-  closeModal
-};

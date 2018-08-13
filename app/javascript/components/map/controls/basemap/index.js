@@ -4,20 +4,12 @@ import * as reducers from 'components/fsp-maps/reducers';
 import initialState from 'components/fsp-maps/initial-state';
 
 // Components
-import MapComponent from './component';
-
-// Selectors
-import { getActiveLayers } from './selectors';
+import BasemapControlComponent from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({
-    ...state.fspMaps.sidebar,
-    ...state.fspMaps.common,
-    ...state.fspMaps.map,
-    activeLayers: getActiveLayers(state)
-  }),
+  state => ({ ...state.fspMaps.map }),
   actions
-)(MapComponent);
+)(BasemapControlComponent);

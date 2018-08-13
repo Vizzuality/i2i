@@ -13,6 +13,6 @@ import PopupComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({interaction: getInteraction(state)}),
+  state => ({ interaction: getInteraction(state) }),
   actions
 )(PopupComponent);

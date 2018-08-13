@@ -41,7 +41,7 @@
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
     "reselect": "^3.0.1",
-    "wri-api-components": "^2.0.11",
+    "wri-api-components": "^2.0.16",
     "wri-json-api-serializer": "^1.0.1"
   },
   "devDependencies": {
