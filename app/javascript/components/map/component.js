@@ -9,6 +9,7 @@ import { PluginLeaflet } from 'layer-manager';
 // components
 import Legend from 'components/map/legend';
 import Popup from 'components/map/popup';
+import BasemapControl from 'components/map/controls/basemap';
 
 import { BASEMAPS, LABELS, COUNTRY_MASK } from './constants';
 
@@ -97,11 +98,13 @@ class MapComponent extends React.Component {
               </LayerManager>
 
               <MapControls customClass="custom-container-map-controls">
-                <ZoomControl map={map} customClass="custom-map-controls" />
+                <ZoomControl
+                  map={map}
+                  customClass="custom-map-controls"
+                />
+
                 <div className="custom-map-controls">
-                  <button onClick={this.onChangeBasemap}>
-                    <svg className="icon icon-basemap"><use xlinkHref="#icon-basemap" /></svg>
-                  </button>
+                  <BasemapControl />
 
                   <button onClick={this.onShare}>
                     <svg className="icon icon-share"><use xlinkHref="#icon-share" /></svg>
