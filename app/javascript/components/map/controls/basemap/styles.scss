@@ -16,24 +16,28 @@
     margin: 0 0 5px;
   }
 
-  ul {
+  .basemap-control-list {
     display: block;
 
-    li {
+    .basemap-control-list-item {
       display: block;
       margin: 5px 0 0;
-      cursor: pointer;
 
       &:first-child {
         margin: 0;
       }
 
-      &:hover {
-        color: lighten(#2F939C, 20%);
-      }      
-
-      &.-selected {
-        color: #2F939C;
+      .list-item-button {
+        cursor: pointer;
+        outline: none;
+        
+        &:hover {
+          color: lighten(#2F939C, 20%);
+        }      
+  
+        &.-selected {
+          color: #2F939C;
+        }
       }
     }
   }

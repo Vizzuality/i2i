@@ -11,7 +11,9 @@ import './styles.scss';
 class BasemapControlComponent extends React.Component {
   static propTypes = {
     basemap: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    setBasemap: PropTypes.func.isRequired,
+    setLabel: PropTypes.func.isRequired
   }
 
   getOverlay = () => {
@@ -21,16 +23,23 @@ class BasemapControlComponent extends React.Component {
       <div className="c-basemap-control">
         <div className="control-container">
           <h4>Basemaps</h4>
-          <ul>
+          <ul className="basemap-control-list">
             {Object.keys(BASEMAPS).map((k) => {
-              const selectedClassName = classnames({ '-selected': BASEMAPS[k].id === basemap });
+              const selectedClassName = classnames({
+                'list-item-button': true,
+                '-selected': BASEMAPS[k].id === basemap
+              });
 
               return (
-                <li
-                  className={selectedClassName}
-                  onClick={() => this.props.setBasemap(BASEMAPS[k].id)}
-                >
-                  {BASEMAPS[k].label}
+                <li className="basemap-control-list-item">
+                  <div
+                    role="button"
+                    tabIndex="0"
+                    className={selectedClassName}
+                    onClick={() => this.props.setBasemap(BASEMAPS[k].id)}
+                  >
+                    {BASEMAPS[k].label}
+                  </div>
                 </li>
               );
             })}
@@ -39,16 +48,23 @@ class BasemapControlComponent extends React.Component {
 
         <div className="control-container">
           <h4>Labels</h4>
-          <ul>
+          <ul className="basemap-control-list">
             {Object.keys(LABELS).map((k) => {
-              const selectedClassName = classnames({ '-selected': LABELS[k].id === label });
+              const selectedClassName = classnames({
+                'list-item-button': true,
+                '-selected': LABELS[k].id === label
+              });
 
               return (
-                <li
-                  className={selectedClassName}
-                  onClick={() => this.props.setLabel(LABELS[k].id)}
-                >
-                  {LABELS[k].label}
+                <li className="basemap-control-list-item">
+                  <div
+                    role="button"
+                    tabIndex="0"
+                    className={selectedClassName}
+                    onClick={() => this.props.setLabel(LABELS[k].id)}
+                  >
+                    {LABELS[k].label}
+                  </div>
                 </li>
               );
             })}
