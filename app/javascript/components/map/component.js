@@ -10,6 +10,7 @@ import { PluginLeaflet } from 'layer-manager';
 import Legend from 'components/map/legend';
 import Popup from 'components/map/popup';
 import BasemapControl from 'components/map/controls/basemap';
+import ShareControl from 'components/map/controls/share';
 
 import { BASEMAPS, LABELS, COUNTRY_MASK } from './constants';
 
@@ -105,10 +106,7 @@ class MapComponent extends React.Component {
 
                 <div className="custom-map-controls">
                   <BasemapControl />
-
-                  <button onClick={this.onShare}>
-                    <svg className="icon icon-share"><use xlinkHref="#icon-share" /></svg>
-                  </button>
+                  <ShareControl />
                 </div>
               </MapControls>
 
