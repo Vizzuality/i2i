@@ -55,7 +55,7 @@ class MapComponent extends React.Component {
             url: LABELS[label].value,
             options: LABELS[label].options
           }}
-          {...!!bbox && !!bbox.lenght && {
+          {...!!bbox && !!bbox.length && {
             bounds: {
               bbox,
               options: {}
