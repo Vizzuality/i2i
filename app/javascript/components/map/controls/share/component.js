@@ -13,9 +13,6 @@ class ShareControlComponent extends React.Component {
   state = { shareModal: false }
 
   render() {
-    console.log(this.state.shareModal);
-
-
     return (
       <button
         onClick={() => this.setState({ shareModal: true })}

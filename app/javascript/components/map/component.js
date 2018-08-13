@@ -23,19 +23,15 @@ class MapComponent extends React.Component {
     open: PropTypes.bool.isRequired,
     iso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.object.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     setInteractions: PropTypes.func.isRequired
   }
 
-  // TODO
-  onChangeBasemap = () => console.info('on change basemap - I am WIP!')
-
-  // TODO
-  onShare = () => console.info('on share - I am WIP!')
-
   render() {
-    const { open, basemap, label, activeLayers, bbox } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox } = this.props;
 
     const classNames = classnames({
       'c-map': true,
@@ -45,6 +41,10 @@ class MapComponent extends React.Component {
     return (
       <div className={classNames}>
         <Map
+          mapOptions={{
+            zoom,
+            center
+          }}
           basemap={{
             url: BASEMAPS[basemap].value,
             options: BASEMAPS[basemap].options
@@ -56,6 +56,10 @@ class MapComponent extends React.Component {
           bounds={{
             bbox,
             options: {}
+          }}
+          events={{
+            zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
+            moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"
