@@ -36,12 +36,16 @@ export default class FSPMaps extends React.Component {
 
     this.props.setIso(iso);
 
-    if (!zoom && !lat && !lng) {
+    if (
+      typeof zoom === 'undefined' &&
+      typeof lat === 'undefined' &&
+      typeof lng === 'undefined'
+    ) {
       this.props.setBBox(bbox);
     }
 
-    if (zoom) this.props.setZoom(+zoom);
-    if (lat && lng) this.props.setCenter({ lat: +lat, lng: +lng });
+    if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);
+    if (typeof lat !== 'undefined' && typeof lng !== 'undefined') this.props.setCenter({ lat: +lat, lng: +lng });
   }
 
   componentDidUpdate() {
