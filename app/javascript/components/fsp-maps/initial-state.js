@@ -4,7 +4,11 @@ export default {
     bbox: []
   },
   intro: { data: [] },
-  map: { open: true },
+  map: {
+    open: true,
+    basemap: 'light',
+    label: 'none'
+  },
   legend: {
     open: true,
     layersSettings: {}

@@ -10,33 +10,10 @@ import { PluginLeaflet } from 'layer-manager';
 import Legend from 'components/map/legend';
 import Popup from 'components/map/popup';
 
+import { BASEMAPS, LABELS, COUNTRY_MASK } from './constants';
+
 // styles
 import './styles.scss';
-
-const COUNTRY_MASK = {
-  id: 'country-mask',
-  name: 'Country Mask',
-  provider: 'carto',
-  layerConfig: {
-    account: 'ikerey',
-    body: {
-      maxzoom: 19,
-      minzoom: 2,
-      layers: [
-        {
-          type: 'cartodb',
-          options: {
-            sql: 'SELECT * FROM world_borders_hd',
-            cartocss: "#layer{polygon-fill:#2f939c;polygon-opacity:.9;line-color:#2f939c;line-opacity:.1;line-width:0}#layer[iso_a3='{{iso}}']{polygon-fill:#FFF;polygon-opacity:0;line-opacity:1}",
-            cartocss_version: '2.3.0'
-          }
-        }
-      ]
-    }
-  },
-  legendConfig: {},
-  interactionConfig: {}
-};
 
 class MapComponent extends React.Component {
   static propTypes = {
@@ -44,6 +21,8 @@ class MapComponent extends React.Component {
     open: PropTypes.bool.isRequired,
     iso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
+    basemap: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     setInteractions: PropTypes.func.isRequired
   }
 
@@ -54,7 +33,7 @@ class MapComponent extends React.Component {
   onShare = () => console.info('on share - I am WIP!')
 
   render() {
-    const { open, bbox, activeLayers } = this.props;
+    const { open, basemap, label, activeLayers, bbox } = this.props;
 
     const classNames = classnames({
       'c-map': true,
@@ -64,6 +43,14 @@ class MapComponent extends React.Component {
     return (
       <div className={classNames}>
         <Map
+          basemap={{
+            url: BASEMAPS[basemap].value,
+            options: BASEMAPS[basemap].options
+          }}
+          label={{
+            url: LABELS[label].value,
+            options: LABELS[label].options
+          }}
           bounds={{
             bbox,
             options: {}
