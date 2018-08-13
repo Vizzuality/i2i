@@ -2,6 +2,7 @@ import * as actions from './actions';
 import initialState from './initial-state';
 
 export default {
+  // COMMON
   [actions.setIso]: (state, { payload }) => {
     const common = { ...state.common, iso: payload };
     return { ...state, common };
@@ -10,6 +11,8 @@ export default {
     const common = { ...state.common, bbox: payload };
     return { ...state, common };
   },
+
+  // INTRO
   [actions.setIntro]: (state, { payload }) => {
     const intro = { ...state.intro, data: payload };
     return { ...state, intro };
@@ -22,10 +25,25 @@ export default {
     const intro = { ...state.intro, error: payload };
     return { ...state, intro };
   },
+
+  // MAP
   [actions.setOpenMap]: (state, { payload }) => {
     const map = { ...state.map, open: payload };
     return { ...state, map };
   },
+
+  [actions.setBasemap]: (state, { payload }) => {
+    const map = { ...state.map, basemap: payload };
+    return { ...state, map };
+  },
+
+  [actions.setLabel]: (state, { payload }) => {
+    const map = { ...state.map, label: payload };
+    return { ...state, map };
+  },
+
+
+  // LEGEND
   [actions.setOpenLegend]: (state, { payload }) => {
     const legend = { ...state.legend, open: payload };
     return { ...state, legend };
@@ -34,6 +52,8 @@ export default {
     const legend = { ...state.legend, layersSettings: payload };
     return { ...state, legend };
   },
+
+  // SIDEBAR
   [actions.setOpenSidebar]: (state, { payload }) => {
     const sidebar = { ...state.sidebar, open: payload };
     return { ...state, sidebar };
@@ -46,6 +66,8 @@ export default {
     const sidebar = { ...state.sidebar, menuItem: payload };
     return { ...state, sidebar };
   },
+
+  // LAYERS
   [actions.setListSectors]: (state, { payload }) => {
     const sectorLayers = { ...state.sectorLayers, list: payload };
     return { ...state, sectorLayers };
@@ -90,7 +112,8 @@ export default {
     const interactions = { ...state.interactions, ...payload };
     return { ...state, interactions };
   },
-  // modal
+
+  // MODAL
   [actions.setModal]: (state, { payload }) => ({
     ...state,
     modal: {
