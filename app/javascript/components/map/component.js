@@ -38,6 +38,8 @@ class MapComponent extends React.Component {
       '-open': !!open
     });
 
+    console.log(bbox, center);
+
     return (
       <div className={classNames}>
         <Map
@@ -53,9 +55,11 @@ class MapComponent extends React.Component {
             url: LABELS[label].value,
             options: LABELS[label].options
           }}
-          bounds={{
-            bbox,
-            options: {}
+          {...!!bbox && !!bbox.lenght && {
+            bounds: {
+              bbox,
+              options: {}
+            }
           }}
           events={{
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },

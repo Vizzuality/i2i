@@ -18,13 +18,30 @@ export default class FSPMaps extends React.Component {
     iso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
     setIso: PropTypes.func.isRequired,
-    setBBox: PropTypes.func.isRequired
+    setBBox: PropTypes.func.isRequired,
+    setZoom: PropTypes.func.isRequired,
+    setCenter: PropTypes.func.isRequired
   }
 
   componentWillMount() {
     const { iso, bbox } = this.props;
+
+    // LOCATION PARAMS
+    const { location } = window;
+    const {
+      lat,
+      lng,
+      zoom
+    } = qs.parse(location.search);
+
     this.props.setIso(iso);
-    this.props.setBBox(bbox);
+
+    if (!zoom && !lat && !lng) {
+      this.props.setBBox(bbox);
+    }
+
+    if (zoom) this.props.setZoom(+zoom);
+    if (lat && lng) this.props.setCenter({ lat: +lat, lng: +lng });
   }
 
   componentDidUpdate() {
