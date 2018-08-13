@@ -44,6 +44,10 @@ export const setInteractions = createAction('INTERACTIONS/setInteractions');
 // modal
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
+// Analysis
+export const setNearby = createAction('ANALYSIS/setNearby');
+export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
+export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { replace } = window.App.Helper.Utils;

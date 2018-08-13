@@ -24,5 +24,10 @@ export default {
     selectedLayers: [],
     layersOrder: []
   },
-  interactions: {}
+  interactions: {},
+  analysis: {
+    nearby: { location: {} },
+    areaOfInterest: {},
+    jurisdiction: {}
+  }
 };

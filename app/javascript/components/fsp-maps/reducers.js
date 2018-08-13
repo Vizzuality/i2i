@@ -98,5 +98,18 @@ export default {
       ...payload
     }
   }),
-  [actions.closeModal]: state => ({ ...state, modal: initialState.modal })
+  [actions.closeModal]: state => ({ ...state, modal: initialState.modal }),
+  // Analysis
+  [actions.setNearby]: (state, { payload }) => {
+    const analysis = { ...state.analysis, nearby: payload };
+    return { ...state, analysis };
+  },
+  [actions.setAreaOfInterest]: (state, { payload }) => {
+    const analysis = { ...state.analysis, areaOfInterest: payload };
+    return { ...state, analysis };
+  },
+  [actions.setJurisdiction]: (state, { payload }) => {
+    const analysis = { ...state.analysis, jurisdiction: payload };
+    return { ...state, analysis };
+  }
 };
