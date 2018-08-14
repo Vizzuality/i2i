@@ -9,7 +9,10 @@ class DataPortalFinancialDiariesController < ApplicationController
       country.financial_diaries.present? && country[:iso] != country_iso
     }
     @country = Country.find_by(iso: params[:iso])
-    @lift_countries = ['Uganda', 'Ghana']
+    @lift_countries = [
+      { name: 'Uganda', url: 'http://www.lift-fedu.com/' },
+      { name: 'Ghana', url: 'http://www.lift-data.com/' }
+    ]
     @country_financial_diaries = @country.financial_diaries
     @categories = HouseholdTransaction.category_tree(project_name).present? ? HouseholdTransaction.category_tree(project_name) : HouseholdMemberTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)

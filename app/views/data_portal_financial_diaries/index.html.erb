@@ -31,11 +31,11 @@
               </div>
 
               <div class="grid-l-4">
-                <% if @lift_countries.include?(@country[:name]) %>
+                <% if @lift_countries.any? { |lift| lift[:name] == @country[:name] } %>
                   <div class="lift-logo-container">
                     <div class="lift-logo-intro">Data supplied by</div>
                     <div class=lift-logo-background></div>
-                    <div class="lift-logo-text">For further analysis, visit the L-IFT platform - <a href="http://www.lift-data.com" target="_blank" rel="noopener noreferer">http://www.lift-data.com</a></div>
+                    <div class="lift-logo-text">For further analysis, visit the L-IFT platform - <a href="<%= @lift_countries.find { |c| c[:name] == @country[:name] }[:url] %>" target="_blank" rel="noopener noreferer"><%= @lift_countries.find { |c| c[:name] == @country[:name] }[:url] %></a></div>
                   </div>
                 <% end %>
               </div>
