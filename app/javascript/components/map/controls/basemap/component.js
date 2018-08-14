@@ -31,7 +31,10 @@ class BasemapControlComponent extends React.Component {
               });
 
               return (
-                <li className="basemap-control-list-item">
+                <li
+                  key={BASEMAPS[k].id}
+                  className="basemap-control-list-item"
+                >
                   <div
                     role="button"
                     tabIndex="0"
@@ -56,7 +59,10 @@ class BasemapControlComponent extends React.Component {
               });
 
               return (
-                <li className="basemap-control-list-item">
+                <li
+                  key={LABELS[k].id}
+                  className="basemap-control-list-item"
+                >
                   <div
                     role="button"
                     tabIndex="0"

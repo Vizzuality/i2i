@@ -10,6 +10,7 @@ import { PluginLeaflet } from 'layer-manager';
 import Legend from 'components/map/legend';
 import Popup from 'components/map/popup';
 import BasemapControl from 'components/map/controls/basemap';
+import ShareControl from 'components/map/controls/share';
 
 import { BASEMAPS, LABELS, COUNTRY_MASK } from './constants';
 
@@ -22,28 +23,30 @@ class MapComponent extends React.Component {
     open: PropTypes.bool.isRequired,
     iso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.object.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     setInteractions: PropTypes.func.isRequired
   }
 
-  // TODO
-  onChangeBasemap = () => console.info('on change basemap - I am WIP!')
-
-  // TODO
-  onShare = () => console.info('on share - I am WIP!')
-
   render() {
-    const { open, basemap, label, activeLayers, bbox } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox } = this.props;
 
     const classNames = classnames({
       'c-map': true,
       '-open': !!open
     });
 
+    console.log(bbox, center);
+
     return (
       <div className={classNames}>
         <Map
+          mapOptions={{
+            zoom,
+            center
+          }}
           basemap={{
             url: BASEMAPS[basemap].value,
             options: BASEMAPS[basemap].options
@@ -52,9 +55,15 @@ class MapComponent extends React.Component {
             url: LABELS[label].value,
             options: LABELS[label].options
           }}
-          bounds={{
-            bbox,
-            options: {}
+          {...!!bbox && !!bbox.length && {
+            bounds: {
+              bbox,
+              options: {}
+            }
+          }}
+          events={{
+            zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
+            moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"
@@ -105,10 +114,7 @@ class MapComponent extends React.Component {
 
                 <div className="custom-map-controls">
                   <BasemapControl />
-
-                  <button onClick={this.onShare}>
-                    <svg className="icon icon-share"><use xlinkHref="#icon-share" /></svg>
-                  </button>
+                  <ShareControl />
                 </div>
               </MapControls>
 

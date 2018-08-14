@@ -31,6 +31,7 @@
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
+    "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-modal": "^3.5.1",
@@ -41,7 +42,7 @@
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
     "reselect": "^3.0.1",
-    "wri-api-components": "^2.0.16",
+    "wri-api-components": "^2.0.17",
     "wri-json-api-serializer": "^1.0.1"
   },
   "devDependencies": {

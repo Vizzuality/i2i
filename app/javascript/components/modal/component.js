@@ -9,45 +9,43 @@ import './styles.scss';
 export class CustomModal extends PureComponent {
   static propTypes = {
     // http://reactcommunity.org/react-modal/accessibility/#app-element
-    appElement: PropTypes.string.isRequired,
-    modal: PropTypes.object.isRequired,
-    children: PropTypes.any.isRequired,
     className: PropTypes.string,
-    customClass: PropTypes.string,
-    closeModal: PropTypes.func.isRequired
+    open: PropTypes.bool.isRequired,
+    children: PropTypes.any.isRequired,
+    onClose: PropTypes.func.isRequired
   };
 
-  static defaultProps = {
-    className: null,
-    customClass: null
-  };
+  static defaultProps = { className: null };
 
   componentDidMount() {
-    Modal.setAppElement(this.props.appElement);
+    Modal.setAppElement('body');
   }
 
   render() {
     const {
       className,
-      customClass,
-      modal,
-      closeModal,
+      open,
+      onClose,
       children,
-      appElement,
       ...modalProps
     } = this.props;
-    const componentClass = classnames('c-modal', { [className]: !!className });
+
+    const classNames = classnames({
+      'c-modal': true,
+      [className]: !!className
+    });
 
     return (
       <Modal
         {...modalProps}
-        isOpen={modal.open}
-        onRequestClose={closeModal}
-        className={componentClass}
+        bodyOpenClassName="-no-scroll"
+        className={classNames}
+        isOpen={open}
+        onRequestClose={e => e.stopPropagation() || onClose()}
       >
         <div className="modal-container">
           <header className="modal-header">
-            <button onClick={closeModal}>
+            <button onClick={e => e.stopPropagation() || onClose()}>
               <svg className="icon modal-close-icon"><use xlinkHref="#icon-cross" /></svg>
             </button>
           </header>

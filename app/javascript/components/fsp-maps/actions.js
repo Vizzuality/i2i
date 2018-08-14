@@ -58,6 +58,8 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
 
 // MAP
 export const setOpenMap = createAction('MAP/setOpenMap');
+export const setZoom = createAction('MAP/setZoom');
+export const setCenter = createAction('MAP/setCenter');
 export const setBasemap = createAction('MAP/setBasemap');
 export const setLabel = createAction('MAP/setLabel');
 
