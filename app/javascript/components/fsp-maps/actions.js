@@ -19,6 +19,7 @@ import HEATMAP_CSS from './cartocss/heatmap.cartocss';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
+export const setShortIso = createAction('COMMON/setShortIso');
 export const setBBox = createAction('COMMON/setBBox');
 
 // INTRO

@@ -7,6 +7,10 @@ export default {
     const common = { ...state.common, iso: payload };
     return { ...state, common };
   },
+  [actions.setShortIso]: (state, { payload }) => {
+    const common = { ...state.common, shortIso: payload };
+    return { ...state, common };
+  },
   [actions.setBBox]: (state, { payload }) => {
     const common = { ...state.common, bbox: payload };
     return { ...state, common };

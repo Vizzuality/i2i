@@ -14,14 +14,17 @@ import './styles.scss';
 export default class FSPMaps extends React.Component {
   static propTypes = {
     iso: PropTypes.string.isRequired,
+    shortIso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
     setIso: PropTypes.func.isRequired,
+    setShortIso: PropTypes.func.isRequired,
     setBBox: PropTypes.func.isRequired
   }
 
   componentWillMount() {
-    const { iso, bbox } = this.props;
+    const { iso, shortIso, bbox } = this.props;
     this.props.setIso(iso);
+    this.props.setShortIso(shortIso);
     this.props.setBBox(bbox);
   }
 

@@ -1,6 +1,7 @@
 export default {
   common: {
     iso: '',
+    shortIso: '',
     bbox: []
   },
   intro: { data: [] },
