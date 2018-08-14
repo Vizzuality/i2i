@@ -31,11 +31,8 @@
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
-<<<<<<< HEAD
     "rc-slider": "^8.6.1",
-=======
     "query-string": "^6.1.0",
->>>>>>> origin/feature/fsp-maps
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-geosuggest": "^2.8.0",
