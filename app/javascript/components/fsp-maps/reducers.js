@@ -36,6 +36,16 @@ export default {
     return { ...state, map };
   },
 
+  [actions.setZoom]: (state, { payload }) => {
+    const map = { ...state.map, zoom: payload };
+    return { ...state, map };
+  },
+
+  [actions.setCenter]: (state, { payload }) => {
+    const map = { ...state.map, center: payload };
+    return { ...state, map };
+  },
+
   [actions.setBasemap]: (state, { payload }) => {
     const map = { ...state.map, basemap: payload };
     return { ...state, map };

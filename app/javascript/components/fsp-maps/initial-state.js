@@ -7,6 +7,8 @@ export default {
   intro: { data: [] },
   map: {
     open: true,
+    zoom: 3,
+    center: { lat: 0, lng: 0 },
     basemap: 'light',
     label: 'none'
   },
