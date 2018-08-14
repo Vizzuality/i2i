@@ -1,6 +1,5 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 // Components
 import Geosuggest from 'react-geosuggest';
@@ -36,6 +35,10 @@ class NearbyComponent extends PureComponent {
     this.onToggleSearchInput(false);
   }
 
+  onRangeSelect = (value) => {
+    this.props.setNearby({ ...this.props.nearby, time: value });
+  }
+
   onKeyDown = (e) => {
     if (e.keyCode === 27) {
       this.onToggleSearchInput(false);
@@ -58,7 +61,7 @@ class NearbyComponent extends PureComponent {
           min={1}
           max={1200}
           defaultValue={30}
-          onAfterChange={value => console.log(value)}
+          onAfterChange={this.onRangeSelect}
         />
       </div>
     );

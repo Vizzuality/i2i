@@ -33,7 +33,10 @@ export default {
   },
   interactions: {},
   analysis: {
-    nearby: { location: {} },
+    nearby: {
+      location: {},
+      time: ''
+    },
     areaOfInterest: {},
     jurisdiction: {}
   }
