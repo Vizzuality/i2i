@@ -48,7 +48,7 @@ export const COUNTRY_MASK = {
   name: 'Country Mask',
   provider: 'carto',
   layerConfig: {
-    account: 'ikerey',
+    account: 'i2i-admin',
     body: {
       maxzoom: 19,
       minzoom: 2,

@@ -33,7 +33,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=fxBfIB36_CQPRDU13h1R2w`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=r34IWv-707jXZG60W4nlgg`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -100,7 +100,7 @@ export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;
 
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=fxBfIB36_CQPRDU13h1R2w`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=r34IWv-707jXZG60W4nlgg`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -143,7 +143,7 @@ function getSectors(iso, layersSettings) {
               minzoom: 3,
               maxzoom: 18
             },
-            account: 'ikerey'
+            account: 'i2i-admin'
           },
           legendConfig: {
             type: 'basic',
@@ -162,7 +162,7 @@ function getSectors(iso, layersSettings) {
 }
 
 function getContextualLayers() {
-  return fetch(`https://ikerey.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=fxBfIB36_CQPRDU13h1R2w`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=r34IWv-707jXZG60W4nlgg`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -193,7 +193,7 @@ function getContextualLayers() {
               minzoom: 3,
               maxzoom: 18
             },
-            account: 'ikerey'
+            account: 'i2i-admin'
           },
           legendConfig: {
             type: 'basic',
