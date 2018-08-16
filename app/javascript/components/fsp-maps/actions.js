@@ -16,6 +16,7 @@ import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 // CSS
 import SECTORS_CSS from './cartocss/sectors.cartocss';
 import HEATMAP_CSS from './cartocss/heatmap.cartocss';
+import VORONOID_LAYER_CSS from './cartocss/voronoid.cartocss';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
@@ -33,7 +34,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=r34IWv-707jXZG60W4nlgg`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -100,7 +101,7 @@ export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;
 
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=r34IWv-707jXZG60W4nlgg`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -117,6 +118,7 @@ function getSectors(iso, layersSettings) {
 
             if (layersSettings[row.type_id].visualizationType === 'voronoid') {
               layerSql = VORONOID_LAYER_SQL;
+              layerCss = VORONOID_LAYER_CSS;
             }
           }
         }
@@ -162,7 +164,7 @@ function getSectors(iso, layersSettings) {
 }
 
 function getContextualLayers() {
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=r34IWv-707jXZG60W4nlgg`)
+  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
     .then((response) => {
       if (response.ok) return response.json();
     })
