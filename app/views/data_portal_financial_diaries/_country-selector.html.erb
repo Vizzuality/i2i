@@ -5,9 +5,16 @@
     <%= link_to 'Go to the ' + @country[:name] + ' data portal', data_portal_country_preview_path(@country[:iso]), :class => 'country-link' %>
   <% end %>
 
-  <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) || current_page?(fsp_maps_path) %>
+  <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) %>
     <%= select_tag "country",
       options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }, @country[:iso]),
+      { class: 'country-selector js-country-selector' }
+    %>
+  <% end %>
+
+  <% if current_page?(fsp_maps_path) %>
+    <%= select_tag "country",
+      options_for_select(@countries.collect{ |country| [country[:name], country[:iso] + "-fsp-maps"] }, @country[:iso]),
       { class: 'country-selector js-country-selector' }
     %>
   <% end %>
