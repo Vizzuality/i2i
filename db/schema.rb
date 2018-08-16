@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171205101211) do
+ActiveRecord::Schema.define(version: 20180816101959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,10 +111,12 @@ ActiveRecord::Schema.define(version: 20171205101211) do
   end
 
   create_table "countries", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "name"
     t.string   "iso"
+    t.string   "bbox",       default: [],              array: true
+    t.string   "short_iso"
   end
 
   create_table "documented_items", force: :cascade do |t|
@@ -390,6 +392,7 @@ ActiveRecord::Schema.define(version: 20171205101211) do
     t.datetime "updated_at",              null: false
     t.integer  "num_members_in_mem"
     t.string   "province"
+    t.text     "custom_text"
   end
 
   create_table "sessions", force: :cascade do |t|
