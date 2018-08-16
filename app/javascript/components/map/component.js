@@ -38,8 +38,6 @@ class MapComponent extends React.Component {
       '-open': !!open
     });
 
-    console.log(bbox, center);
-
     return (
       <div className={classNames}>
         <Map
@@ -79,30 +77,29 @@ class MapComponent extends React.Component {
                     layerManager
                   }];
 
-                  return [...countryMask, ...activeLayers].map((layer, index) =>
-                    (
-                      <Layer
-                        key={layer.id}
-                        {...layer}
-                        zIndex={1000 - index}
-                        layerManager={layerManager}
-                        {...(layer.layerType === 'sector') && {
-                          interactivity: ['name', 'type'],
-                          events: {
-                            click: (e) => {
-                              const { sourceTarget, target, ...info } = e;
+                  return [...countryMask, ...activeLayers].map((layer, index) => (
+                    <Layer
+                      key={layer.id}
+                      {...layer}
+                      zIndex={1000 - index}
+                      layerManager={layerManager}
+                      {...(layer.layerType === 'sector') && {
+                        interactivity: layer.interactivity,
+                        events: {
+                          click: (e) => {
+                            const { sourceTarget, target, ...info } = e;
 
-                              this.props.setInteractions({
-                                [layer.id]: {
-                                  ...info,
-                                  id: layer.id
-                                }
-                              });
-                            }
+                            this.props.setInteractions({
+                              [layer.id]: {
+                                ...info,
+                                id: layer.id
+                              }
+                            });
                           }
-                        }}
-                      />
-                    ));
+                        }
+                      }}
+                    />
+                  ));
                 }}
               </LayerManager>
 

@@ -34,11 +34,20 @@ export const getActiveLayers = createSelector(
     const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
-    const mapped = activeLayers.map(l => ({
-      ...l,
-      visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
-      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1
-    }));
+    const mapped = activeLayers.map((l) => {
+      let interactivity = ['name', 'type'];
+
+      if (_layersSettings[l.id] && _layersSettings[l.id].visualizationType && _layersSettings[l.id].visualizationType === 'voronoid') {
+        interactivity = null;
+      }
+
+      return {
+        ...l,
+        visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
+        opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
+        interactivity
+      };
+    });
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);
 
