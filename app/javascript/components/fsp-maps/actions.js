@@ -19,6 +19,7 @@ import HEATMAP_CSS from './cartocss/heatmap.cartocss';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
+export const setShortIso = createAction('COMMON/setShortIso');
 export const setBBox = createAction('COMMON/setBBox');
 
 // INTRO
@@ -90,6 +91,11 @@ export const setInteractions = createAction('INTERACTIONS/setInteractions');
 // MODAL
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
+
+// Analysis
+export const setNearby = createAction('ANALYSIS/setNearby');
+export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
+export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;

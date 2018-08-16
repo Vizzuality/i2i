@@ -7,6 +7,9 @@
   <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js"></script>
 
+  <!-- GOOGLE -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>
+
   <!-- COMPONENTS -->
   <%= javascript_pack_tag 'application' %>
   <%= stylesheet_pack_tag 'application' %>
@@ -50,7 +53,7 @@
       </div>
     </div>
 
-    <%= react_component("fsp-maps-page", { iso: @iso, bbox: @country.bbox }) %>
+    <%= react_component("fsp-maps-page", { iso: @iso, shortIso: @country.short_iso, bbox: @country.bbox }) %>
 
   </div>
 </div>

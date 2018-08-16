@@ -1,6 +1,7 @@
 export default {
   common: {
     iso: '',
+    shortIso: '',
     bbox: []
   },
   intro: { data: [] },
@@ -30,5 +31,13 @@ export default {
     selectedLayers: [],
     layersOrder: []
   },
-  interactions: {}
+  interactions: {},
+  analysis: {
+    nearby: {
+      location: {},
+      time: ''
+    },
+    areaOfInterest: {},
+    jurisdiction: {}
+  }
 };

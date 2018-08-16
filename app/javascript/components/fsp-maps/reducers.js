@@ -7,6 +7,10 @@ export default {
     const common = { ...state.common, iso: payload };
     return { ...state, common };
   },
+  [actions.setShortIso]: (state, { payload }) => {
+    const common = { ...state.common, shortIso: payload };
+    return { ...state, common };
+  },
   [actions.setBBox]: (state, { payload }) => {
     const common = { ...state.common, bbox: payload };
     return { ...state, common };
@@ -131,5 +135,18 @@ export default {
       ...payload
     }
   }),
-  [actions.closeModal]: state => ({ ...state, modal: initialState.modal })
+  [actions.closeModal]: state => ({ ...state, modal: initialState.modal }),
+  // Analysis
+  [actions.setNearby]: (state, { payload }) => {
+    const analysis = { ...state.analysis, nearby: payload };
+    return { ...state, analysis };
+  },
+  [actions.setAreaOfInterest]: (state, { payload }) => {
+    const analysis = { ...state.analysis, areaOfInterest: payload };
+    return { ...state, analysis };
+  },
+  [actions.setJurisdiction]: (state, { payload }) => {
+    const analysis = { ...state.analysis, jurisdiction: payload };
+    return { ...state, analysis };
+  }
 };

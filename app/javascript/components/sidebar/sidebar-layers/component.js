@@ -38,20 +38,21 @@ class SidebarLayersComponent extends React.Component {
 
   render() {
     const { menuItem, layersSettings } = this.props;
+    const availableMenuItems = LAYER_TYPES.map(t => t.value);
 
     return (
       <div className="c-sidebar-layers">
         <div className="active-layers-indicator-container">
           <ActiveLayersIndicator />
         </div>
-        {!menuItem &&
+        {(!menuItem || !availableMenuItems.includes(menuItem)) &&
           <MenuItems
             items={LAYER_TYPES}
             onSelect={this.props.setMenuItem}
           />
         }
 
-        {!!menuItem &&
+        {(!!menuItem && availableMenuItems.includes(menuItem)) &&
           <MenuItem
             item={LAYER_TYPES.find(lt => lt.value === menuItem)}
             onBack={this.props.setMenuItem}

@@ -16,15 +16,17 @@ export default class FSPMaps extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
     iso: PropTypes.string.isRequired,
+    shortIso: PropTypes.string.isRequired,
     bbox: PropTypes.array.isRequired,
     setIso: PropTypes.func.isRequired,
+    setShortIso: PropTypes.func.isRequired,
     setBBox: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired
   }
 
   componentWillMount() {
-    const { iso, bbox } = this.props;
+    const { iso, shortIso, bbox } = this.props;
 
     // LOCATION PARAMS
     const { location } = window;
@@ -35,6 +37,7 @@ export default class FSPMaps extends React.Component {
     } = qs.parse(location.search);
 
     this.props.setIso(iso);
+    this.props.setShortIso(shortIso);
 
     if (
       typeof zoom === 'undefined' &&
