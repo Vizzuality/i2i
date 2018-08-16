@@ -35,7 +35,8 @@ export default {
   analysis: {
     nearby: {
       location: {},
-      time: ''
+      time: 30,
+      area: {}
     },
     areaOfInterest: {},
     jurisdiction: {}

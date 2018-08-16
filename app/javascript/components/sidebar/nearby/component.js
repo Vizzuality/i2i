@@ -9,7 +9,8 @@ class NearbyComponent extends PureComponent {
   static propTypes = {
     nearby: PropTypes.object,
     shortIso: PropTypes.string.isRequired,
-    setNearby: PropTypes.func.isRequired
+    setNearby: PropTypes.func.isRequired,
+    fetchNearbyArea: PropTypes.func.isRequired
   }
 
   static defaultProps = { nearby: {} }
@@ -30,6 +31,7 @@ class NearbyComponent extends PureComponent {
       this.props.setNearby({ ...this.props.nearby, location: {} });
     } else {
       this.props.setNearby({ ...this.props.nearby, location: e });
+      this.props.fetchNearbyArea();
     }
 
     this.onToggleSearchInput(false);
@@ -37,6 +39,7 @@ class NearbyComponent extends PureComponent {
 
   onRangeSelect = (value) => {
     this.props.setNearby({ ...this.props.nearby, time: value });
+    this.props.fetchNearbyArea();
   }
 
   onKeyDown = (e) => {
