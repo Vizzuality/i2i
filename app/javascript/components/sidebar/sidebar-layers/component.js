@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Sectors from 'components/sidebar/sectors';
 import ContextualLayers from 'components/sidebar/contextual-layers';
+import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 
 // styles
 import './styles.scss';
