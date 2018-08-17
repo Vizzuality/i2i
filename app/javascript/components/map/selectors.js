@@ -5,6 +5,7 @@ const layersList = state => state.fspMaps.layers.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
 const layersSettings = state => state.fspMaps.legend.layersSettings;
 const layersOrder = state => state.fspMaps.layers.layersOrder;
+const nearbyArea = state => state.fspMaps.analysis.nearby.area;
 
 function getSortedLayers(allLayersOrder, mapped) {
   let sortedLayers = [];
@@ -29,8 +30,8 @@ function getSortedLayers(allLayersOrder, mapped) {
 }
 
 export const getActiveLayers = createSelector(
-  [layersList, selectedLayers, layersSettings, layersOrder],
-  (_layersList, _selectedLayers, _layersSettings, _layersOrder) => {
+  [layersList, selectedLayers, layersSettings, layersOrder, nearbyArea],
+  (_layersList, _selectedLayers, _layersSettings, _layersOrder, _nearbyArea) => {
     const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
@@ -50,6 +51,17 @@ export const getActiveLayers = createSelector(
     });
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);
+
+    if (_nearbyArea.features) {
+      sortedLayers.unshift({
+        id: 'nearby',
+        provider: 'leaflet',
+        layerConfig: {
+          body: _nearbyArea.features,
+          type: 'geoJSON'
+        }
+      });
+    }
 
     return sortedLayers;
   }

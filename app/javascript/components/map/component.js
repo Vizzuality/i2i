@@ -27,7 +27,9 @@ class MapComponent extends React.Component {
     center: PropTypes.object.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    setInteractions: PropTypes.func.isRequired
+    setInteractions: PropTypes.func.isRequired,
+    setCenter: PropTypes.func.isRequired,
+    setZoom: PropTypes.func.isRequired
   }
 
   render() {
