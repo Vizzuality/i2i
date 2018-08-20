@@ -9,6 +9,7 @@ import { PluginLeaflet } from 'layer-manager';
 // components
 import Legend from 'components/map/legend';
 import Popup from 'components/map/popup';
+import DrawingManager from 'components/map/drawing-manager';
 import BasemapControl from 'components/map/controls/basemap';
 import ShareControl from 'components/map/controls/share';
 
@@ -19,15 +20,16 @@ import './styles.scss';
 
 class MapComponent extends React.Component {
   static propTypes = {
-    activeLayers: PropTypes.array.isRequired,
-    open: PropTypes.bool.isRequired,
     iso: PropTypes.string.isRequired,
-    bbox: PropTypes.array.isRequired,
-    zoom: PropTypes.number.isRequired,
-    center: PropTypes.object.isRequired,
-    area: PropTypes.object.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    zoom: PropTypes.number.isRequired,
+    open: PropTypes.bool.isRequired,
+    drawing: PropTypes.bool.isRequired,
+    center: PropTypes.object.isRequired,
+    area: PropTypes.object.isRequired,
+    activeLayers: PropTypes.array.isRequired,
+    bbox: PropTypes.array.isRequired,
     setInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired
@@ -114,6 +116,8 @@ class MapComponent extends React.Component {
                   ));
                 }}
               </LayerManager>
+
+              <DrawingManager map={map} />
 
               <MapControls customClass="custom-container-map-controls">
                 <ZoomControl

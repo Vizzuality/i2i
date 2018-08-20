@@ -93,10 +93,8 @@ export const setInteractions = createAction('INTERACTIONS/setInteractions');
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
 
-// Analysis
+// Analysis - nearby
 export const setNearby = createAction('ANALYSIS/setNearby');
-export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
-export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
   const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
   const { time } = getState().fspMaps.analysis.nearby;
@@ -111,6 +109,15 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       dispatch(setNearby({ ...getState().fspMaps.analysis.nearby, area: data }));
     });
 });
+
+// Analysis - area of interest
+export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
+export const setAreaOfInterestArea = createAction('ANALYSIS/setAreaOfInterestArea');
+export const setDrawing = createAction('ANALYSIS/setDrawing');
+export const setClearing = createAction('ANALYSIS/setClearing');
+
+// Analysis - jurisdiction
+export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;

@@ -38,7 +38,11 @@ export default {
       time: 30,
       area: {}
     },
-    areaOfInterest: {},
+    areaOfInterest: {
+      drawing: false,
+      clearing: false,
+      area: {}
+    },
     jurisdiction: {}
   }
 };
