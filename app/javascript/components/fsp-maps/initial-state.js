@@ -10,7 +10,7 @@ export default {
     zoom: 3,
     center: { lat: 0, lng: 0 },
     basemap: 'light',
-    label: 'none'
+    label: 'dark'
   },
   legend: {
     open: true,
