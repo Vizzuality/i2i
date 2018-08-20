@@ -34,7 +34,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -95,13 +95,40 @@ export const closeModal = createAction('MODAL/closeModal');
 
 // Analysis
 export const setNearby = createAction('ANALYSIS/setNearby');
+export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
+export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
 export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
+export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
+  const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
+  const { time } = getState().fspMaps.analysis.nearby;
+  const location = `${lng},${lat}`;
+  const seconds = time * 60;
+
+  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${location}&range=${seconds}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw response;
+    })
+    .then((data) => {
+      dispatch(setNearby({ ...getState().fspMaps.analysis.nearby, area: data }));
+    })
+    .catch((err) => {
+      if (err && typeof err.json === 'function') {
+        err.json()
+          .then((errs) => {
+            dispatch(setNearbyError(errs));
+          });
+      } else {
+        dispatch(setNearbyError(err));
+      }
+    });
+});
 
 function getSectors(iso, layersSettings) {
   const { replace } = window.App.Helper.Utils;
 
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -164,7 +191,7 @@ function getSectors(iso, layersSettings) {
 }
 
 function getContextualLayers() {
-  return fetch(`https://i2i-admin.carto.com/api/v2/sql?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=h3pTO3tY0gQQg_Cog3EJGw`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })

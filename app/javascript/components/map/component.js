@@ -25,13 +25,16 @@ class MapComponent extends React.Component {
     bbox: PropTypes.array.isRequired,
     zoom: PropTypes.number.isRequired,
     center: PropTypes.object.isRequired,
+    area: PropTypes.object.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    setInteractions: PropTypes.func.isRequired
+    setInteractions: PropTypes.func.isRequired,
+    setCenter: PropTypes.func.isRequired,
+    setZoom: PropTypes.func.isRequired
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, area } = this.props;
 
     const classNames = classnames({
       'c-map': true,
@@ -77,7 +80,16 @@ class MapComponent extends React.Component {
                     layerManager
                   }];
 
-                  return [...countryMask, ...activeLayers].map((layer, index) => (
+                  const nearbyArea = area.features ? [{
+                    id: 'nearby',
+                    provider: 'leaflet',
+                    layerConfig: {
+                      body: area.features,
+                      type: 'geoJSON'
+                    }
+                  }] : [];
+
+                  return [...countryMask, ...nearbyArea, ...activeLayers].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}
