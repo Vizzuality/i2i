@@ -10,12 +10,18 @@ class NearbyComponent extends PureComponent {
     nearby: PropTypes.object,
     shortIso: PropTypes.string.isRequired,
     setNearby: PropTypes.func.isRequired,
+    setNearbyArea: PropTypes.func.isRequired,
+    setNearbyError: PropTypes.func.isRequired,
     fetchNearbyArea: PropTypes.func.isRequired
   }
 
   static defaultProps = { nearby: {} }
 
   state = { showSearchInput: false };
+
+  componentWillUnmount() {
+    this.props.setNearbyError(null);
+  }
 
   // UI EVENTS
   onToggleSearchInput = (to) => {
@@ -48,11 +54,22 @@ class NearbyComponent extends PureComponent {
     }
   }
 
+  clearNearbyArea = () => {
+    this.props.setNearbyArea({});
+  }
+
   render() {
     const { shortIso } = this.props;
+    const { error } = this.props.nearby;
 
     return (
       <div className="c-nearby">
+        {!!error &&
+          <div className="nearby-error">
+            Error building area
+          </div>
+        }
+
         <Geosuggest
           ref={(r) => { this.geosuggest = r; }}
           onSuggestSelect={this.onSuggestSelect}
@@ -66,6 +83,12 @@ class NearbyComponent extends PureComponent {
           defaultValue={30}
           onAfterChange={this.onRangeSelect}
         />
+
+        <button
+          onClick={() => this.clearNearbyArea()}
+        >
+          Clear
+        </button>
       </div>
     );
   }
