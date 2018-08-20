@@ -95,6 +95,8 @@ export const closeModal = createAction('MODAL/closeModal');
 
 // Analysis - nearby
 export const setNearby = createAction('ANALYSIS/setNearby');
+export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
+export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
   const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
   const { time } = getState().fspMaps.analysis.nearby;
@@ -104,9 +106,20 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
   return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${location}&range=${seconds}`)
     .then((response) => {
       if (response.ok) return response.json();
+      throw response;
     })
     .then((data) => {
       dispatch(setNearby({ ...getState().fspMaps.analysis.nearby, area: data }));
+    })
+    .catch((err) => {
+      if (err && typeof err.json === 'function') {
+        err.json()
+          .then((errs) => {
+            dispatch(setNearbyError(errs));
+          });
+      } else {
+        dispatch(setNearbyError(err));
+      }
     });
 });
 

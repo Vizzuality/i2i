@@ -168,5 +168,15 @@ export default {
   [actions.setJurisdiction]: (state, { payload }) => {
     const analysis = { ...state.analysis, jurisdiction: payload };
     return { ...state, analysis };
+  },
+  [actions.setNearbyError]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, error: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+  [actions.setNearbyArea]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, area: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
   }
 };

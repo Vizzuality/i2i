@@ -36,7 +36,8 @@ export default {
     nearby: {
       location: {},
       time: 30,
-      area: {}
+      area: {},
+      error: null
     },
     areaOfInterest: {
       drawing: false,
