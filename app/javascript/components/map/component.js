@@ -23,6 +23,7 @@ class MapComponent extends React.Component {
     iso: PropTypes.string.isRequired,
     basemap: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    menuItem: PropTypes.string.isRequired,
     zoom: PropTypes.number.isRequired,
     open: PropTypes.bool.isRequired,
     areaOfInterest: PropTypes.object.isRequired,
@@ -36,7 +37,7 @@ class MapComponent extends React.Component {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem } = this.props;
     const { area: nearbyArea } = this.props.nearby;
 
     const classNames = classnames({
@@ -83,7 +84,7 @@ class MapComponent extends React.Component {
                     layerManager
                   }];
 
-                  const nearbyAreaLayer = nearbyArea.features ? [{
+                  const nearbyAreaLayer = (nearbyArea.features && menuItem == 'nearby') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
                     layerConfig: {
