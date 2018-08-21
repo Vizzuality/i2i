@@ -1,0 +1,7 @@
+#layer {
+ polygon-fill: ramp([area_km2], (#f6d2a9, #f3aa84, #ea8171, #d55d6a, #b13f64), jenks);
+ polygon-opacity: 0.7;
+ line-width: 1;
+ line-color: ramp([area_km2], (#f6d2a9, #f3aa84, #ea8171, #d55d6a, #b13f64), jenks);
+ line-opacity: 1;
+}

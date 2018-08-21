@@ -1,0 +1,53 @@
+.c-map {
+  flex: 1;
+  height: 100%;
+
+  .custom-map {
+    z-index: 0;
+  }
+
+  .custom-container-map-controls {
+    > ul {
+      > li {
+        border: 0;
+        border-radius: none;
+        background: none;
+        box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, .09)
+      }
+    }
+
+    .custom-map-controls {
+      > button {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        background: #fff;
+
+        cursor: pointer;
+
+        &:not(:first-child) {
+          margin: 1px 0 0;
+        }
+
+        &:disabled {
+          cursor: default;
+        }
+
+        &:not(:disabled) {
+          &:hover {
+            background: darken(#fff, 5%);
+          }
+        }
+
+        > svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
+  }
+}

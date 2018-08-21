@@ -7,10 +7,13 @@
 #  updated_at :datetime         not null
 #  name       :string
 #  iso        :string
+#  bbox       :string           default([]), is an Array
 #
 
 class Country < ApplicationRecord
   include FinscopeApi
+
+  scope :all_except, ->(country) { where.not(id: country) }
 
   attr_accessor :has_finscope
   attr_accessor :has_financial_diaries

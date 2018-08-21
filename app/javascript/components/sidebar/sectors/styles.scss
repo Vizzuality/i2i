@@ -1,0 +1,87 @@
+// https://davidwalsh.name/css-triangles
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
+
+  @if($direction == 'up') {
+    border-top: 0;
+    border-left: $size solid transparent;  /* left arrow slant */
+    border-right: $size solid transparent; /* right arrow slant */
+    border-bottom: $size solid $color; /* bottom, add background color here */
+  }
+
+  @if($direction == 'right') {
+    border-bottom: $size solid transparent;  /* left arrow slant */
+    border-top: $size solid transparent; /* right arrow slant */
+    border-left: $size solid $color; /* bottom, add background color here */
+  }
+
+  @if($direction == 'down') {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  }
+
+  @if($direction == 'left') {
+    border-bottom: $size solid transparent;  /* left arrow slant */
+	  border-top: $size solid transparent; /* right arrow slant */
+	  border-right: $size solid $color; /* bottom, add background color here */
+  }
+}
+
+.c-sectors {
+  padding: 0 0 75px;
+
+  .sectors-list {
+    position: relative;
+    padding: 20px 30px 20px 55px;
+
+    &:not(:first-child) {
+      border-top: 2px solid #eee;
+    }
+
+    &:after {
+      @include triangle(6px, #2F939C, 'down');
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 35px;
+      transform: translate(0, -50%);
+    }
+
+    &.-open {
+      &:after {
+        @include triangle(6px, #2F939C, 'up');
+      }
+    }
+
+    > button {
+      display: flex;
+      width: 100%;
+      padding: 0 25px 0 20px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  }
+
+  .country-report {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 0 20px;
+    background: linear-gradient(180deg, rgba(245,248,248,0) 0%, #F5F8F8 100%);
+
+    > .country-report-btn {
+
+      &:hover {
+        opacity: 1;
+        background: lighten(#2f939c, 5%);
+      }
+    }
+  }
+}

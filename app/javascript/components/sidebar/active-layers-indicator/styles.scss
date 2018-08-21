@@ -1,0 +1,19 @@
+.c-active-layers-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+
+  > .active-layers-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin: 0 0 0 10px;
+    border-radius: 50%;
+    background: #3B3A40;
+    font-weight: 700;
+    color: #fff;
+  }
+}
