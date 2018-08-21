@@ -34,7 +34,7 @@ class AreaOfInterestComponent extends PureComponent {
 
         {!isEmpty(area) &&
           <button
-            onClick={() => this.onClear()}
+            onClick={this.onClear}
           >
             Clear
           </button>

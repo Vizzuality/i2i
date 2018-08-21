@@ -36,7 +36,9 @@ class DrawingManagerComponent extends PureComponent {
     const { drawing: nextDrawing, clearing } = this.props;
 
     if (clearing) {
-      this.layer.remove();
+      if (this.layer) {
+        this.layer.remove();
+      }
       this.props.setAreaOfInterestArea({});
       this.props.setClearing(false);
     }
