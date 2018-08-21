@@ -1,12 +1,18 @@
 class DataPortalFinancialDiariesController < ApplicationController
   def index
     country_iso = params[:iso]
-    project_name = ProjectMetadatum.find_by(country_iso3: country_iso).project_name
+    project_metadatum = ProjectMetadatum.find_by(country_iso3: country_iso)
+    project_name = project_metadatum.project_name
+    @has_households = project_metadatum.num_households_in_hh.present?
+    @has_members = project_metadatum.num_members_in_mem.present?
     @countries = Country.all.select{ |country|
       country.financial_diaries.present? && country[:iso] != country_iso
     }
     @country = Country.find_by(iso: params[:iso])
-    @lift_countries = ['Uganda', 'Ghana']
+    @lift_countries = [
+      { name: 'Uganda', url: 'http://www.lift-fedu.com/' },
+      { name: 'Ghana', url: 'http://www.lift-data.com/' }
+    ]
     @country_financial_diaries = @country.financial_diaries
     @categories = HouseholdTransaction.category_tree(project_name).present? ? HouseholdTransaction.category_tree(project_name) : HouseholdMemberTransaction.category_tree(project_name)
     @project_quantities = ProjectMetadatum.quantities(country_iso)
@@ -59,7 +65,7 @@ class DataPortalFinancialDiariesController < ApplicationController
        # households filters here
 
       @filters.push(@main_income_options, @income_tier_options)
-
+      @type = 'individuals' unless @has_households
     else
       # individuals filters here
 
@@ -112,6 +118,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     gon.iso = country_iso;
     gon.project_name = project_name
+    gon.type = @type
     gon.categories = JSON.parse @categories.to_json
     gon.selectedCategories = JSON.parse @selectedCategories.to_json
     gon.selectedSubFilters = JSON.parse @selectedSubFilters.to_json
