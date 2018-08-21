@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180814093310) do
+ActiveRecord::Schema.define(version: 20180821105053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20180814093310) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.string   "record_type",        default: "blog"
     t.integer  "category_id"
+    t.string   "record_type",        default: "blog"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -111,12 +111,13 @@ ActiveRecord::Schema.define(version: 20180814093310) do
   end
 
   create_table "countries", force: :cascade do |t|
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "name"
     t.string   "iso"
-    t.string   "bbox",       default: [],              array: true
+    t.string   "bbox",         default: [],                 array: true
     t.string   "short_iso"
+    t.boolean  "has_fsp_maps", default: false
   end
 
   create_table "documented_items", force: :cascade do |t|
@@ -156,8 +157,8 @@ ActiveRecord::Schema.define(version: 20180814093310) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.string   "record_type",        default: "event"
     t.integer  "category_id"
+    t.string   "record_type",        default: "event"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -309,8 +310,8 @@ ActiveRecord::Schema.define(version: 20180814093310) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "record_type",        default: "library"
     t.integer  "category_id"
+    t.string   "record_type",        default: "library"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -368,8 +369,8 @@ ActiveRecord::Schema.define(version: 20180814093310) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "record_type",        default: "news"
     t.integer  "category_id"
+    t.string   "record_type",        default: "news"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -392,6 +393,7 @@ ActiveRecord::Schema.define(version: 20180814093310) do
     t.datetime "updated_at",              null: false
     t.integer  "num_members_in_mem"
     t.string   "province"
+    t.text     "custom_text"
   end
 
   create_table "sessions", force: :cascade do |t|
