@@ -10,7 +10,9 @@ import { DRAWING_OPTIONS } from './constants';
 class DrawingManagerComponent extends PureComponent {
   static propTypes = {
     map: PropTypes.object.isRequired,
+    menuItem: PropTypes.string.isRequired,
     drawing: PropTypes.bool.isRequired,
+    clearing: PropTypes.bool.isRequired,
     setDrawing: PropTypes.func.isRequired,
     setClearing: PropTypes.func.isRequired,
     setAreaOfInterestArea: PropTypes.func.isRequired
@@ -33,7 +35,13 @@ class DrawingManagerComponent extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { drawing: prevDrawing } = prevProps;
-    const { drawing: nextDrawing, clearing } = this.props;
+    const { drawing: nextDrawing, clearing, menuItem } = this.props;
+    const opacity = menuItem !== 'area_of_interest' ? 0 : 1;
+    const fillOpacity = menuItem !== 'area_of_interest' ? 0 : 0.2;
+
+    if (this.layer) {
+      this.layer.setStyle({ opacity, fillOpacity });
+    }
 
     if (clearing) {
       if (this.layer) {
