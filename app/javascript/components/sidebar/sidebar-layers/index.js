@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setOpen, setSelected, setMenuItem, fetchLayers } from 'components/fsp-maps/actions';
+import { setOpenSidebar, setSelected, setMenuItem, fetchLayers } from 'components/fsp-maps/actions';
 
 import SidebarLayersComponent from './component';
 
@@ -8,5 +8,5 @@ export default connect(
     ...state.fspMaps.sidebar,
     layersSettings: state.fspMaps.legend.layersSettings
   }),
-  { setOpen, setSelected, setMenuItem, fetchLayers }
+  { setOpenSidebar, setSelected, setMenuItem, fetchLayers }
 )(SidebarLayersComponent);
