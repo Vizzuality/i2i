@@ -37,7 +37,13 @@ export const getActiveLayers = createSelector(
     const mapped = activeLayers.map((l) => {
       let interactivity = ['name', 'type'];
 
+      // If layer is present and visualization type is voronoid, turn off interactivity
       if (_layersSettings[l.id] && _layersSettings[l.id].visualizationType && _layersSettings[l.id].visualizationType === 'voronoid') {
+        interactivity = null;
+      }
+
+      // If layer if anything  other than a sectors type, turn off interactivity
+      if (l.layerType !== 'sectors') {
         interactivity = null;
       }
 
