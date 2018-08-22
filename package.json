@@ -45,9 +45,7 @@
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
     "reselect": "^3.0.1",
     "wri-api-components": "^2.0.17",
-    "wri-json-api-serializer": "^1.0.1"
-  },
-  "devDependencies": {
+    "wri-json-api-serializer": "^1.0.1",
     "babel-eslint": "^8.2.6",
     "babel-plugin-module-resolver": "^3.1.1",
     "eslint": "^4.9.0",
