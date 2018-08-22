@@ -136,15 +136,45 @@ export default {
     }
   }),
   [actions.closeModal]: state => ({ ...state, modal: initialState.modal }),
-  // Analysis
+
+  // Analysis - nearby
   [actions.setNearby]: (state, { payload }) => {
     const analysis = { ...state.analysis, nearby: payload };
     return { ...state, analysis };
   },
+  [actions.setNearbyError]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, error: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+  [actions.setNearbyArea]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, area: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+
+  // Analysis - area of interest
   [actions.setAreaOfInterest]: (state, { payload }) => {
     const analysis = { ...state.analysis, areaOfInterest: payload };
     return { ...state, analysis };
   },
+  [actions.setAreaOfInterestArea]: (state, { payload }) => {
+    const areaOfInterest = { ...state.analysis.areaOfInterest, area: payload };
+    const analysis = { ...state.analysis, areaOfInterest };
+    return { ...state, analysis };
+  },
+  [actions.setDrawing]: (state, { payload }) => {
+    const areaOfInterest = { ...state.analysis.areaOfInterest, drawing: payload };
+    const analysis = { ...state.analysis, areaOfInterest };
+    return { ...state, analysis };
+  },
+  [actions.setClearing]: (state, { payload }) => {
+    const areaOfInterest = { ...state.analysis.areaOfInterest, clearing: payload };
+    const analysis = { ...state.analysis, areaOfInterest };
+    return { ...state, analysis };
+  },
+
+  // Analysis - jurisdiction
   [actions.setJurisdiction]: (state, { payload }) => {
     const analysis = { ...state.analysis, jurisdiction: payload };
     return { ...state, analysis };

@@ -10,7 +10,7 @@ export default {
     zoom: 3,
     center: { lat: 0, lng: 0 },
     basemap: 'light',
-    label: 'none'
+    label: 'dark'
   },
   legend: {
     open: true,
@@ -39,7 +39,11 @@ export default {
       area: {},
       error: null
     },
-    areaOfInterest: {},
+    areaOfInterest: {
+      drawing: false,
+      clearing: false,
+      area: {}
+    },
     jurisdiction: {}
   }
 };
