@@ -5,7 +5,7 @@ ENV RAILS_ENV production
 ENV RACK_ENV production
 
 # Install dependencies
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | -E bash -
 RUN apt-get update && apt-get install -y \
       build-essential \
       imagemagick \
