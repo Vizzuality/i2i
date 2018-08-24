@@ -3954,20 +3954,20 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@^1.0.16:
-  version "1.0.16"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.16.tgz#a29676643512849d3b78c2119cd3a127515c2f5b"
-  dependencies:
-    bluebird "^3.5.1"
-    lodash "^4.17.10"
-    wri-json-api-serializer "^1.0.1"
-
 layer-manager@^1.0.4:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.9.tgz#5bc98b23e75805bc12c9935f7a2ffb371dda1c93"
   dependencies:
     bluebird "^3.5.1"
     immutable "^3.8.2"
+    lodash "^4.17.10"
+    wri-json-api-serializer "^1.0.1"
+
+layer-manager@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.0.tgz#605682edad189b10c96409f9e6646dd3021877c6"
+  dependencies:
+    bluebird "^3.5.1"
     lodash "^4.17.10"
     wri-json-api-serializer "^1.0.1"
 
