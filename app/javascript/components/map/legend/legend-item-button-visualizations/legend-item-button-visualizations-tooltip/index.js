@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
 
 // Styles
-import styles from './styles.scss';
+import './styles.scss';
 
-class LegendLayersTooltip extends React.Component {
+class LegendItemButtonVisualizationsTooltip extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
@@ -19,36 +18,32 @@ class LegendLayersTooltip extends React.Component {
     const { title, list, layerId, layersSettings } = this.props;
 
     return (
-      <div className="c-legend-item-button-layers-tooltip">
+      <div className="c-legend-item-button-visualizations-tooltip">
         {title}
 
-        <ul className="layers-list">
+        <div className="visualization-list">
           {list.map((l) => {
-            let isActive = false;
-
-            if (layersSettings.hasOwnProperty(layerId)) {
-              isActive = layersSettings[layerId].visualizationType === l.value;
-            } else {
-              isActive = l.value === 'normal';
-            }
+            const current = layersSettings[layerId] ? layersSettings[layerId].visualizationType : 'normal';
 
             return (
-              <li
+              <div
+                role="button"
+                tabIndex="-1"
                 key={l.value}
                 className={classnames({
-                  'layers-list-item': true,
-                  '-active': isActive
+                  'visualization-list-item': true,
+                  '-active': l.value === current
                 })}
                 onClick={() => this.props.onChangeLayer(layerId, l.value)}
               >
                 {l.label}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     );
   }
 }
 
-export default CSSModules(LegendLayersTooltip, styles, { allowMultiple: true });
+export default LegendItemButtonVisualizationsTooltip;

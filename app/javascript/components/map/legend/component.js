@@ -13,7 +13,7 @@ import {
   LegendItemButtonRemove
 } from 'wri-api-components';
 
-import LegendLayers from './legend-layers';
+import LegendItemButtonVisualizations from './legend-item-button-visualizations';
 
 // styles
 import './styles.scss';
@@ -35,7 +35,7 @@ class LegendComponent extends React.Component {
     layersSettings: {}
   }
 
-  onChangeLegendLayer = (layerId, visualizationType) => {
+  onChangeLegendLayerVisualization = (layerId, visualizationType) => {
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], visualizationType, visibility: true };
 
@@ -97,8 +97,8 @@ class LegendComponent extends React.Component {
               layerGroup={lg}
               toolbar={
                 <LegendItemToolbar>
-                  <LegendLayers
-                    onClick={(layerId, visualizationType) => this.onChangeLegendLayer(layerId, visualizationType)}
+                  <LegendItemButtonVisualizations
+                    onClick={(layerId, visualizationType) => this.onChangeLegendLayerVisualization(layerId, visualizationType)}
                     layerId={lg.dataset}
                     layersSettings={layersSettings}
                   />

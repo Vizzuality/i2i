@@ -1,0 +1,43 @@
+.c-legend-item-button-visualizations-tooltip {
+  .visualization-list {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    
+    > * {
+      margin: 8px / 2 0 0;
+      &:first-child {
+        margin: 0;
+      }
+    }
+    
+    .visualization-list-item {
+      position: relative;
+      cursor: pointer;
+      padding-left: 8px * 2;
+      outline: none;
+
+      &:before {
+        display: none;
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        background: #2f939c;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        color: #2f939c;
+      }
+
+      &.-active {
+        &:before {
+          display: block;
+        }
+      }
+    }
+  }
+}
