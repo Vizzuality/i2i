@@ -43,7 +43,7 @@ export const getActiveLayers = createSelector(
       }
 
       // If layer if anything  other than a sectors type, turn off interactivity
-      if (l.layerType !== 'sectors') {
+      if (l.layerType !== 'sector') {
         interactivity = null;
       }
 
