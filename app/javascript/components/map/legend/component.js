@@ -97,11 +97,13 @@ class LegendComponent extends React.Component {
               layerGroup={lg}
               toolbar={
                 <LegendItemToolbar>
-                  <LegendLayers
-                    onClick={(layerId, visualizationType) => this.onChangeLegendLayer(layerId, visualizationType)}
-                    layerId={lg.dataset}
-                    layersSettings={layersSettings}
-                  />
+                  {lg.layerType !== 'contextual' &&
+                    <LegendLayers
+                      onClick={(layerId, visualizationType) => this.onChangeLegendLayer(layerId, visualizationType)}
+                      layerId={lg.dataset}
+                      layersSettings={layersSettings}
+                    />
+                  }
                   <LegendItemButtonOpacity />
                   <LegendItemButtonVisibility />
                   <LegendItemButtonRemove />
