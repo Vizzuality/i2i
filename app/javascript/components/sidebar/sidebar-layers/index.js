@@ -6,7 +6,8 @@ import SidebarLayersComponent from './component';
 export default connect(
   state => ({
     ...state.fspMaps.sidebar,
-    layersSettings: state.fspMaps.legend.layersSettings
+    layersSettings: state.fspMaps.legend.layersSettings,
+    selectedLayers: state.fspMaps.layers.selectedLayers
   }),
   { setOpenSidebar, setSelected, setMenuItem, fetchLayers }
 )(SidebarLayersComponent);
