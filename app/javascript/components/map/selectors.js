@@ -43,7 +43,7 @@ export const getActiveLayers = createSelector(
       }
 
       // If layer if anything  other than a sectors type, turn off interactivity
-      if (l.layerType !== 'sectors') {
+      if (l.layerType !== 'sector') {
         interactivity = null;
       }
 
@@ -72,7 +72,8 @@ export const getActiveLayerGroups = createSelector(
       id: l.id,
       visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
       opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
-      layers: [{ ...l, active: true }]
+      layers: [{ ...l, active: true }],
+      layerType: l.layerType
     }));
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);
