@@ -29,8 +29,6 @@ export const getWidgets = createSelector(
         geojson = _areaOfInterestArea;
       }
 
-      // console.log('geojson', geojson);
-
       const queryValues = {
         iso: `'${_iso}'`,
         account: cartoAccount,
@@ -45,10 +43,6 @@ export const getWidgets = createSelector(
         const queryReplacement = { [queryParam]: queryValues[queryParam] };
         editableQuery = replace(editableQuery, queryReplacement);
       });
-
-      console.log('queryValues', queryValues);
-      console.log('paramsConfig', paramsConfig);
-      console.log('editableQuery', editableQuery);
 
       return {
         id,
