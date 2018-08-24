@@ -48,7 +48,7 @@ export const COUNTRY_MASK = {
   name: 'Country Mask',
   provider: 'carto',
   layerConfig: {
-    account: 'i2i-admin',
+    account: window.FSP_CARTO_ACCOUNT,
     body: {
       maxzoom: 19,
       minzoom: 2,

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 
 import { Map, MapControls, ZoomControl } from 'wri-api-components';
 import { LayerManager, Layer } from 'layer-manager/dist/react';
@@ -84,11 +85,11 @@ class MapComponent extends React.Component {
                     layerManager
                   }];
 
-                  const nearbyAreaLayer = (nearbyArea.features && menuItem == 'nearby') ? [{
+                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
                     layerConfig: {
-                      body: nearbyArea.features,
+                      body: nearbyArea,
                       type: 'geoJSON'
                     }
                   }] : [];

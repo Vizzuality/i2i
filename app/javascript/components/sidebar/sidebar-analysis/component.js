@@ -38,10 +38,15 @@ const ANALYSIS_TYPES = [
 class SidebarAnalysisComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
-    setMenuItem: PropTypes.func.isRequired
+    setMenuItem: PropTypes.func.isRequired,
+    fetchWidgets: PropTypes.func.isRequired
   }
 
   static defaultProps = { menuItem: '' }
+
+  componentWillMount() {
+    this.props.fetchWidgets();
+  }
 
   render() {
     const { menuItem } = this.props;

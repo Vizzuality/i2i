@@ -12,6 +12,7 @@ import SECTORS_SQL from './sql/sectors.sql';
 import VORONOID_LAYER_SQL from './sql/voronoid_layer.sql';
 import FSP_LAYER_SQL from './sql/fsp_layer.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
+import WIDGETS_SQL from './sql/widgets.sql';
 
 // CSS
 import SECTORS_CSS from './cartocss/sectors.cartocss';
@@ -93,9 +94,22 @@ export const setInteractions = createAction('INTERACTIONS/setInteractions');
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
 
+// Widgets
+export const setWidgetsList = createAction('WIDGETS/setWidgetsList');
+export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dispatch, getState) => {
+  fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(WIDGETS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setWidgetsList(data.rows));
+    });
+});
+
 // Analysis - nearby
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
+export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
 export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
   const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
@@ -109,7 +123,11 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       throw response;
     })
     .then((data) => {
-      dispatch(setNearby({ ...getState().fspMaps.analysis.nearby, area: data }));
+      dispatch(setNearbyArea(data.features[0].geometry));
+      dispatch(setNearbyCenter({
+        lng: data.features[0].properties.center[0],
+        lat: data.features[0].properties.center[1]
+      }));
     })
     .catch((err) => {
       if (err && typeof err.json === 'function') {
@@ -179,7 +197,7 @@ function getSectors(iso, layersSettings) {
               minzoom: 3,
               maxzoom: 18
             },
-            account: 'i2i-admin'
+            account: window.FSP_CARTO_ACCOUNT
           },
           legendConfig: {
             type: 'basic',
@@ -229,7 +247,7 @@ function getContextualLayers() {
               minzoom: 3,
               maxzoom: 18
             },
-            account: 'i2i-admin'
+            account: window.FSP_CARTO_ACCOUNT
           },
           legendConfig: {
             type: 'basic',

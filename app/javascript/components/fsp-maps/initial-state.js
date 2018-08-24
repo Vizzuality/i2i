@@ -37,7 +37,8 @@ export default {
       location: {},
       time: 30,
       area: {},
-      error: null
+      error: null,
+      center: {}
     },
     areaOfInterest: {
       drawing: false,
@@ -45,5 +46,6 @@ export default {
       area: {}
     },
     jurisdiction: {}
-  }
+  },
+  widgets: { list: {} }
 };

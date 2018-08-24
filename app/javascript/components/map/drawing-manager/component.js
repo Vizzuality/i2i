@@ -28,7 +28,7 @@ class DrawingManagerComponent extends PureComponent {
 
     this.props.map.on('pm:create', (e) => {
       this.layer = e.layer;
-      this.props.setAreaOfInterestArea(e.layer.toGeoJSON());
+      this.props.setAreaOfInterestArea(e.layer.toGeoJSON().geometry);
       this.props.setDrawing(false);
     });
   }

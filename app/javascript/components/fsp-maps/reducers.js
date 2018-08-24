@@ -152,6 +152,11 @@ export default {
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
   },
+  [actions.setNearbyCenter]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, center: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
 
   // Analysis - area of interest
   [actions.setAreaOfInterest]: (state, { payload }) => {
@@ -188,5 +193,11 @@ export default {
     const nearby = { ...state.analysis.nearby, area: payload };
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
+  },
+
+  // Widgets
+  [actions.setWidgetsList]: (state, { payload }) => {
+    const widgets = { ...state.widgets, list: payload };
+    return { ...state, widgets };
   }
 };
