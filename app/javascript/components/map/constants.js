@@ -132,8 +132,28 @@ export const SECTOR_CONFIGS = {
       type: 'choropleth',
       items: [
         {
-          name: l.type,
-          color: l.color
+          name: 'Very Low',
+          color: 'rgba(0, 255, 255, 0.7)' // cyan
+        },
+        {
+          name: 'Low',
+          color: 'rgba(0, 0, 255, 0.7)' // blue
+        },
+        {
+          name: 'Medium Low',
+          color: 'rgba(0, 128, 0, 0.7)' // green
+        },
+        {
+          name: 'Medium High',
+          color: 'rgba(255, 255, 0, 0.7)' // yellow
+        },
+        {
+          name: 'High',
+          color: 'rgba(255, 165, 0, 0.7)' // orange
+        },
+        {
+          name: 'Very High',
+          color: 'rgba(255, 0, 0, 0.7)' // red
         }
       ]
     },
@@ -161,8 +181,24 @@ export const SECTOR_CONFIGS = {
       type: 'choropleth',
       items: [
         {
-          name: l.type,
-          color: l.color
+          name: 'Very CLose',
+          color: '#f6d2a9'
+        },
+        {
+          name: 'Close',
+          color: '#f3aa84'
+        },
+        {
+          name: 'Medium',
+          color: '#ea8171'
+        },
+        {
+          name: 'Far',
+          color: '#d55d6a'
+        },
+        {
+          name: 'Very Far',
+          color: '#b13f64'
         }
       ]
     },
