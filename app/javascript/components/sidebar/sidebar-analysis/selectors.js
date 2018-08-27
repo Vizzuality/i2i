@@ -12,13 +12,19 @@ export const getWidgets = createSelector(
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _areaOfInterestArea) => {
     const widgets = _rawWidgets.map((row) => {
       const { replace } = window.App.Helper.Utils;
-      const { cartodb_id: id, widget_config: widgetConfigWrap } = row;
+      const {
+        cartodb_id: id,
+        widget_config: widgetConfigWrap,
+        analysis_name: analysisName,
+        analysis_type: analysisType
+      } = row;
       const { widgetConfig } = widgetConfigWrap;
       const { params_config: paramsConfig, sql_query: sqlQuery } = widgetConfig;
       const { area: nearbyArea, center } = _nearby;
       const { lng, lat } = center;
       const typeIds = _selectedLayers;
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
+      const cartoApiKey = window.FSP_CARTO_API_KEY;
 
       let editableQuery = sqlQuery;
       let geojson;
@@ -46,7 +52,9 @@ export const getWidgets = createSelector(
 
       return {
         id,
-        query: editableQuery
+        analysisName,
+        analysisType,
+        query: `${editableQuery}&api_key=${cartoApiKey}`
       };
     });
 
