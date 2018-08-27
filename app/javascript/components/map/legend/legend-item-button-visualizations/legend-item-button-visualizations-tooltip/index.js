@@ -23,7 +23,7 @@ class LegendItemButtonVisualizationsTooltip extends React.Component {
 
         <div className="visualization-list">
           {list.map((l) => {
-            const current = layersSettings[layerId] ? layersSettings[layerId].visualizationType : 'normal';
+            const current = (layersSettings[layerId] && typeof layersSettings[layerId].visualizationType !== 'undefined') ? layersSettings[layerId].visualizationType : 'normal';
 
             return (
               <div

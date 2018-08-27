@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FSPMaps from 'components/fsp-maps';
 
 // Styles
-import 'wri-api-components/dist/components.css';
+import 'wri-api-components/dist/bundle.css';
 
 // Redux
 import { Provider } from 'react-redux';
