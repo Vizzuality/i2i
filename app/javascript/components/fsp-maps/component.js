@@ -7,6 +7,7 @@ import qs from 'query-string';
 import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
+import Widget from 'components/widget';
 import PreFooter from 'components/pre-footer';
 import { Icons } from 'wri-api-components';
 
@@ -70,6 +71,8 @@ export default class FSPMaps extends React.Component {
     return (
       <div className="c-fsp-maps">
         <Intro />
+
+        <Widget />
 
         <div className="fsp-maps-tool">
           <Sidebar />

@@ -79,7 +79,7 @@
      * Event handler executed when the data is fetched
      */
     _onFetch: function () {
-      var data = this.model.get('data');
+      var data = this.model.get('data') || this.model.get('rows') || [];
       if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
       // If the indicator doesn't have any data, we also want to send an event
@@ -90,7 +90,8 @@
         data: data
       });
 
-      var indicatorCategory = this._getIndicator().category;
+      var indicator = this._getIndicator() || {};
+      var indicatorCategory = indicator.category;
 
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
@@ -434,16 +435,18 @@
         .then(function () {
           // We create a new model each time we request the data because the
           // model options eventually changed
-          this.model = new App.Model.ChartWidgetModel({
-            id: this.options.id,
-            iso: this.options.iso,
-            year: this.options.year,
-            indicator: this._getIndicator(),
-            filters: this.options.filters,
-            analysisIndicatorId: this.options.analysisIndicator,
-            compareIndicators: this.options.compareIndicators,
-            expanded: this.options.chart === 'table'
-          });
+          this.model = new App.Model.ChartWidgetModel(
+            _.extend({}, this.options, {
+              id: this.options.id,
+              iso: this.options.iso,
+              year: this.options.year,
+              indicator: this._getIndicator(),
+              filters: this.options.filters,
+              analysisIndicatorId: this.options.analysisIndicator,
+              compareIndicators: this.options.compareIndicators,
+              expanded: this.options.chart === 'table'
+            })
+          );
 
           this.model.fetch()
             .done(this._onFetch.bind(this))
@@ -473,7 +476,8 @@
     _getAvailableCharts: function () {
       return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
         var chart = this._getChartConfig(chartName);
-        return !chart.categories || chart.categories.indexOf(this._getIndicator().category) !== -1;
+        var indicator = this._getIndicator() || {};
+        return !chart.categories || chart.categories.indexOf(indicator.category) !== -1;
       }, this);
     },
 

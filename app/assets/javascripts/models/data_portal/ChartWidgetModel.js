@@ -29,6 +29,7 @@
         compareIndicators: null,
         // Whether or not the detailed data must be fetch
         // NOTE: not compatible with the analysis or compare mode
+        fspId: null,
         expanded: false
       }, options);
 
@@ -60,6 +61,14 @@
           )
         }, this);
       }
+
+      if (this.options.fspId) {
+        this.fspMapsModel = new App.Model.FSPModel(
+          {},
+          _.extend({}, this.options, { id: this.options.fspId })
+        );
+      }
+
     },
 
     /**
@@ -136,6 +145,17 @@
       }, this).reduce(function (res, data) {
         return res.concat(data);
       }, []);
+
+      return res;
+    },
+
+
+    _joinFspPartials: function () {
+      // List of all the partial indicators
+      var partialIndicators = Array.prototype.slice.call(arguments);
+      var res = _.extend({}, partialIndicators[0], { data: [] });
+
+      res.data = this.fspMapsModel.get('data');
 
       return res;
     },
@@ -261,6 +281,14 @@
           .then(this._fetchComparePartials.bind(this))
           // We finally join the data
           .then(this._joinComparePartials.bind(this))
+          .done(function (data) {
+            this.set(data)
+            deferred.resolve.apply(this, arguments);
+          }.bind(this))
+          .fail(deferred.reject);
+      } else if (this.fspMapsModel) {
+        this.fspMapsModel.fetch()
+          .then(this._joinFspPartials.bind(this))
           .done(function (data) {
             this.set(data)
             deferred.resolve.apply(this, arguments);
