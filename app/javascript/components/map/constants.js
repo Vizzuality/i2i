@@ -1,3 +1,14 @@
+import { replace } from 'layer-manager';
+
+// SQL
+import VORONOID_LAYER_SQL from 'components/fsp-maps/sql/voronoid_layer.sql';
+import FSP_LAYER_SQL from 'components/fsp-maps/sql/fsp_layer.sql';
+
+// CSS
+import SECTORS_CSS from 'components/fsp-maps/cartocss/sectors.cartocss';
+import HEATMAP_CSS from 'components/fsp-maps/cartocss/heatmap.cartocss';
+import VORONOID_LAYER_CSS from 'components/fsp-maps/cartocss/voronoid.cartocss';
+
 export const BASEMAPS = {
   light: {
     id: 'light',
@@ -66,4 +77,95 @@ export const COUNTRY_MASK = {
   },
   legendConfig: {},
   interactionConfig: {}
+};
+
+export const SECTOR_CONFIGS = {
+  normal: (l, iso) => ({
+    interactivity: ['name', 'type'],
+    layerConfig: {
+      body: {
+        layers: [
+          {
+            options: {
+              cartocss_version: '2.3.0',
+              cartocss: replace(SECTORS_CSS, { color: l.color }),
+              sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
+            },
+            type: 'cartodb'
+          }
+        ],
+        minzoom: 3,
+        maxzoom: 18
+      },
+      account: 'i2i-admin'
+    },
+    legendConfig: {
+      type: 'basic',
+      items: [
+        {
+          name: l.type,
+          color: l.color
+        }
+      ]
+    },
+    interactionConfig: {}
+  }),
+  heatmap: (l, iso) => ({
+    layerConfig: {
+      body: {
+        layers: [
+          {
+            options: {
+              cartocss_version: '2.3.0',
+              cartocss: replace(HEATMAP_CSS, { color: l.color }),
+              sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
+            },
+            type: 'cartodb'
+          }
+        ],
+        minzoom: 3,
+        maxzoom: 18
+      },
+      account: 'i2i-admin'
+    },
+    legendConfig: {
+      type: 'choropleth',
+      items: [
+        {
+          name: l.type,
+          color: l.color
+        }
+      ]
+    },
+    interactionConfig: {}
+  }),
+  voronoid: (l, iso) => ({
+    layerConfig: {
+      body: {
+        layers: [
+          {
+            options: {
+              cartocss_version: '2.3.0',
+              cartocss: replace(VORONOID_LAYER_CSS, { color: l.color }),
+              sql: replace(VORONOID_LAYER_SQL, { iso, type_id: l.type_id })
+            },
+            type: 'cartodb'
+          }
+        ],
+        minzoom: 3,
+        maxzoom: 18
+      },
+      account: 'i2i-admin'
+    },
+    legendConfig: {
+      type: 'choropleth',
+      items: [
+        {
+          name: l.type,
+          color: l.color
+        }
+      ]
+    },
+    interactionConfig: {}
+  })
 };

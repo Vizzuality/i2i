@@ -10,7 +10,7 @@
       <ul class="nav-list">
     		<li class="nav-item
           <% if
-            controller.controller_name == 'data_portal' || controller.controller_name == 'data_portal_financial_diaries' ||
+            controller.controller_name == 'data_portal' || controller.controller_name == 'data_portal_financial_diaries' || controller.controller_name == 'fsp_maps' ||
             controller.controller_name == 'report' %>-current <% end %>"
         >
           <%= link_to 'Data portal', data_portal_path, data: { turbolinks: false } %>

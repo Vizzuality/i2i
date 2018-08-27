@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
 // styles
-// import './styles.scss';
+import './styles.scss';
 
 class AreaOfInterestComponent extends PureComponent {
   static propTypes = {
@@ -34,6 +34,7 @@ class AreaOfInterestComponent extends PureComponent {
 
         {!isEmpty(area) &&
           <button
+            className="c-button -sea"
             onClick={this.onClear}
           >
             Clear

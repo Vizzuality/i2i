@@ -25,8 +25,9 @@ const LAYER_TYPES = [
 class SidebarLayersComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
-    setMenuItem: PropTypes.func.isRequired,
+    selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.object.isRequired,
+    setMenuItem: PropTypes.func.isRequired,
     fetchLayers: PropTypes.func.isRequired
   }
 
@@ -37,14 +38,16 @@ class SidebarLayersComponent extends React.Component {
   }
 
   render() {
-    const { menuItem, layersSettings } = this.props;
+    const { menuItem, selectedLayers, layersSettings } = this.props;
     const availableMenuItems = LAYER_TYPES.map(t => t.value);
 
     return (
       <div className="c-sidebar-layers">
-        <div className="active-layers-indicator-container">
-          <ActiveLayersIndicator />
-        </div>
+        {!!selectedLayers.length &&
+          <div className="active-layers-indicator-container">
+            <ActiveLayersIndicator />
+          </div>
+        }
         {(!menuItem || !availableMenuItems.includes(menuItem)) &&
           <MenuItems
             items={LAYER_TYPES}

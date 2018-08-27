@@ -1,23 +1,21 @@
 export const DRAWING_STYLES = {
-  color: 'red',
-  fillColor: 'orange',
+  color: '#2F939C',
+  fillColor: '#2F939C',
   fillOpacity: 0.7,
   strokeLinecap: 'round',
   strokeLinejoin: 'round'
-}
+};
 
 export const DRAWING_OPTIONS = {
   snappable: true,
   // Styles
-  templineStyle: {
-    ...DRAWING_STYLES
-  },
+  templineStyle: { ...DRAWING_STYLES },
   hintlineStyle: {
     ...DRAWING_STYLES,
-    dashArray: [5, 5],
+    dashArray: [5, 5]
   },
   pathOptions: DRAWING_STYLES,
-  
+
   cursorMarker: true,
   markerStyle: {
     opacity: 0.5,

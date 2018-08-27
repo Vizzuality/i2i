@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import { Icon, Tooltip } from 'wri-api-components';
 
 // components
-import LegendLayersTooltip from './legend-layers-tooltip';
+import LegendItemButtonVisualizationsTooltip from './legend-item-button-visualizations-tooltip';
 
 // styles
 import './styles.scss';
 
 class LegendLayersComponent extends React.Component {
   static propTypes = {
-    // activeLayers: PropTypes.array.isRequired
+    layerId: PropTypes.string.isRequired,
+    layersSettings: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired
   }
 
   render() {
-    const { layerId, layersSettings } = this.props;
+    const { layerId, layersSettings, onClick } = this.props;
 
     const layerVisualizations = [
       { label: 'Normal', value: 'normal' },
@@ -25,7 +26,7 @@ class LegendLayersComponent extends React.Component {
     ];
 
     return (
-      <div className="c-legend-layers">
+      <div className="c-legend-item-button-visualizations">
         <Tooltip
           overlay="Visualizations"
           overlayClassName="c-rc-tooltip -default"
@@ -37,11 +38,11 @@ class LegendLayersComponent extends React.Component {
         >
           <Tooltip
             overlay={
-              <LegendLayersTooltip
+              <LegendItemButtonVisualizationsTooltip
                 title="Visualizations"
                 layerId={layerId}
                 list={layerVisualizations}
-                onChangeLayer={this.props.onClick}
+                onChangeLayer={onClick}
                 layersSettings={layersSettings}
               />
             }
@@ -52,8 +53,11 @@ class LegendLayersComponent extends React.Component {
             mouseLeaveDelay={0}
             destroyTooltipOnHide
           >
-            <button>
-              <Icon name="icon-layers" className="-small" />
+            <button
+              type="button"
+              className="wri_api__c-legend-button"
+            >
+              <Icon name="icon-layers" className="-small" style={{ fill: '#717171' }} />
             </button>
           </Tooltip>
         </Tooltip>

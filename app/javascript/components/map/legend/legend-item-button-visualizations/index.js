@@ -4,12 +4,12 @@ import * as reducers from 'components/fsp-maps/reducers';
 import initialState from 'components/fsp-maps/initial-state';
 
 // Components
-import LegendLayers from './component';
+import LegendItemButtonVisualizations from './component';
 
 // Mandatory
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({}),
+  null,
   actions
-)(LegendLayers);
+)(LegendItemButtonVisualizations);

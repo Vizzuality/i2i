@@ -1,6 +1,10 @@
 import { createSelector } from 'reselect';
 import difference from 'lodash/difference';
+import { replace } from 'layer-manager';
 
+import { SECTOR_CONFIGS } from './constants';
+
+const iso = state => state.fspMaps.common.iso;
 const layersList = state => state.fspMaps.layers.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
 const layersSettings = state => state.fspMaps.legend.layersSettings;
@@ -29,29 +33,21 @@ function getSortedLayers(allLayersOrder, mapped) {
 }
 
 export const getActiveLayers = createSelector(
-  [layersList, selectedLayers, layersSettings, layersOrder],
-  (_layersList, _selectedLayers, _layersSettings, _layersOrder) => {
+  [iso, layersList, selectedLayers, layersSettings, layersOrder],
+  (_iso, _layersList, _selectedLayers, _layersSettings, _layersOrder) => {
     const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
     const mapped = activeLayers.map((l) => {
-      let interactivity = ['name', 'type'];
-
-      // If layer is present and visualization type is voronoid, turn off interactivity
-      if (_layersSettings[l.id] && _layersSettings[l.id].visualizationType && _layersSettings[l.id].visualizationType === 'voronoid') {
-        interactivity = null;
-      }
-
-      // If layer if anything  other than a sectors type, turn off interactivity
-      if (l.layerType !== 'sectors') {
-        interactivity = null;
-      }
+      const visualizationType = (_layersSettings[l.id] && typeof _layersSettings[l.id].visualizationType !== 'undefined') ? _layersSettings[l.id].visualizationType : 'normal';
+      const opacity = (_layersSettings[l.id] && typeof _layersSettings[l.id].opacity !== 'undefined') ? _layersSettings[l.id].opacity : 1;
+      const visibility = (_layersSettings[l.id] && typeof _layersSettings[l.id].visibility !== 'undefined') ? _layersSettings[l.id].visibility : true;
 
       return {
         ...l,
-        visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
-        opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
-        interactivity
+        ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](l, _iso) },
+        visibility,
+        opacity
       };
     });
 
@@ -62,18 +58,27 @@ export const getActiveLayers = createSelector(
 );
 
 export const getActiveLayerGroups = createSelector(
-  [layersList, selectedLayers, layersSettings, layersOrder],
-  (_layersList, _selectedLayers, _layersSettings, _layersOrder) => {
+  [iso, layersList, selectedLayers, layersSettings, layersOrder],
+  (_iso, _layersList, _selectedLayers, _layersSettings, _layersOrder) => {
     const activeLayers = _layersList.filter(layer => _selectedLayers.includes(layer.id));
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
-    const mapped = activeLayers.map(l => ({
-      dataset: l.id,
-      id: l.id,
-      visibility: _layersSettings[l.id] ? _layersSettings[l.id].visibility : true,
-      opacity: (_layersSettings[l.id] && _layersSettings[l.id].opacity) ? _layersSettings[l.id].opacity : 1,
-      layers: [{ ...l, active: true }]
-    }));
+    const mapped = activeLayers.map((l) => {
+      const visualizationType = (_layersSettings[l.id] && typeof _layersSettings[l.id].visualizationType !== 'undefined') ? _layersSettings[l.id].visualizationType : 'normal';
+
+      return {
+        dataset: l.id,
+        id: l.id,
+        visibility: (_layersSettings[l.id] && typeof _layersSettings[l.id].visibility !== 'undefined') ? _layersSettings[l.id].visibility : true,
+        opacity: (_layersSettings[l.id] && typeof _layersSettings[l.id].opacity !== 'undefined') ? _layersSettings[l.id].opacity : 1,
+        layers: [{
+          ...l,
+          ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](l, _iso) },
+          active: true
+        }],
+        layerType: l.layerType
+      };
+    });
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);
 
