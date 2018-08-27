@@ -78,12 +78,12 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const countryMask = [{
-                    ...COUNTRY_MASK,
-                    params: { iso: this.props.iso },
-                    zIndex: 1001,
-                    layerManager
-                  }];
+                  // const countryMask = [{
+                  //  ...COUNTRY_MASK,
+                  //  params: { iso: this.props.iso },
+                  //  zIndex: 1001,
+                  //  layerManager
+                  // }];
 
                   const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
                     id: 'nearby',
@@ -94,7 +94,7 @@ class MapComponent extends React.Component {
                     }
                   }] : [];
 
-                  return [...countryMask, ...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
+                  return [...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}

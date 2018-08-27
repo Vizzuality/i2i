@@ -181,7 +181,7 @@ export const SECTOR_CONFIGS = {
       type: 'choropleth',
       items: [
         {
-          name: 'Very CLose',
+          name: 'Very Close',
           color: '#f6d2a9'
         },
         {
