@@ -13,8 +13,9 @@ class WidgetWrapperComponent extends React.Component {
     const chartOptions = {
       el: this.widgetElement,
       iso,
+      title: 'The title',
       chart: 'pie',
-      url: 'https://i2i-admin.carto.com/api/v2/sql?q=WITH b as (SELECT st_setsrid(st_geomfromgeojson(\'{ "type":"Polygon", "coordinates": [[[32.069092, 1.658704], [32.398682, -0.027466], [34.123535, 0.626208], [32.069092, 1.658704]]] }\'),4326) as the_geom) SELECT count(*) as access_points, m.iso, m.sector, m.type FROM fsp_maps as m, b WHERE ST_Intersects(b.the_geom, m.the_geom) and m.type_id in (136) GROUP BY m.iso, m.sector, m.type&api_key=59d0d3f8df199951f80ea077178815179acc090a',
+      url: 'https://i2i-admin.carto.com/api/v2/sql?q=WITH%20b%20as%20(SELECT%20st_setsrid(st_geomfromgeojson(%27%7B%22type%22:%22Polygon%22,%22coordinates%22:%5B%5B%5B35.7275390625,-1.8014609294680355%5D,%5B38.60595703125,-1.8014609294680355%5D,%5B38.60595703125,-0.08789059053082422%5D,%5B35.7275390625,-0.08789059053082422%5D,%5B35.7275390625,-1.8014609294680355%5D%5D%5D%7D%27),4326)%20as%20the_geom)%20SELECT%20round((points.count*1./tot.count*1.)*100,%201)%20as%20access_points_percentage,%20points.iso,%20points.sector,%20points.type%20FROM%20(SELECT%20count(*),%20m.iso,%20m.sector,%20m.type%20FROM%20fsp_maps%20as%20m,%20b%20WHERE%20ST_Intersects(b.the_geom,%20m.the_geom)%20and%20m.type_id%20in%20(40,51,58,62,67)%20GROUP%20BY%20m.iso,%20m.sector,%20m.type%20)%20as%20points,%20(SELECT%20count(*)%20FROM%20fsp_maps%20as%20m,%20b%20WHERE%20ST_Intersects(b.the_geom,%20m.the_geom)%20and%20type_id%20in%20(40,51,58,62,67)%20)%20as%20tot',
       fspId: 12341234
     };
 

@@ -21,7 +21,10 @@
     parse: function (data) {
       var d = {
         title: this.options.title,
-        data: data.rows
+        data: data.rows.map(r => ({
+          percentage: r.access_points_percentage,
+          label: r.type
+        }))
       };
 
       return d;
