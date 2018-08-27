@@ -39,7 +39,7 @@ export const getWidgets = createSelector(
         iso: `'${_iso}'`,
         account: cartoAccount,
         type_ids: `(${typeIds.join()})`,
-        geojson: JSON.stringify(geojson),
+        geojson: `'${JSON.stringify(geojson)}'`,
         lng,
         lat
       };
