@@ -9,14 +9,7 @@ import WRIJsonApiSerializer from 'wri-json-api-serializer';
 // SQL
 import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
-import VORONOID_LAYER_SQL from './sql/voronoid_layer.sql';
-import FSP_LAYER_SQL from './sql/fsp_layer.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
-
-// CSS
-import SECTORS_CSS from './cartocss/sectors.cartocss';
-import HEATMAP_CSS from './cartocss/heatmap.cartocss';
-import VORONOID_LAYER_CSS from './cartocss/voronoid.cartocss';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
@@ -132,7 +125,7 @@ export const setClearing = createAction('ANALYSIS/setClearing');
 // Analysis - jurisdiction
 export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
 
-function getSectors(iso, layersSettings) {
+function getSectors(iso) {
   const { replace } = window.App.Helper.Utils;
 
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
@@ -140,59 +133,14 @@ function getSectors(iso, layersSettings) {
       if (response.ok) return response.json();
     })
     .then((data) => {
-      const dataRows = data.rows.map((row) => {
-        let layerSql = FSP_LAYER_SQL;
-        let layerCss = SECTORS_CSS;
-
-        if (layersSettings[row.type_id]) {
-          if (layersSettings[row.type_id].visualizationType) {
-            if (layersSettings[row.type_id].visualizationType === 'heatmap') {
-              layerCss = HEATMAP_CSS;
-            }
-
-            if (layersSettings[row.type_id].visualizationType === 'voronoid') {
-              layerSql = VORONOID_LAYER_SQL;
-              layerCss = VORONOID_LAYER_CSS;
-            }
-          }
-        }
-
-        return {
-          ...row,
-          id: row.type_id.toString(),
-          name: row.type,
-          layerType: 'sector',
-          count: Numeral(row.count).format('0,0'),
-          provider: 'carto',
-          layerConfig: {
-            body: {
-              layers: [
-                {
-                  options: {
-                    cartocss_version: '2.3.0',
-                    cartocss: replace(layerCss, { color: row.color }),
-                    sql: replace(layerSql, { iso, type_id: row.type_id })
-                  },
-                  type: 'cartodb'
-                }
-              ],
-              minzoom: 3,
-              maxzoom: 18
-            },
-            account: 'i2i-admin'
-          },
-          legendConfig: {
-            type: 'basic',
-            items: [
-              {
-                name: row.type,
-                color: row.color
-              }
-            ]
-          },
-          interactionConfig: {}
-        };
-      });
+      const dataRows = data.rows.map(row => ({
+        ...row,
+        id: row.type_id.toString(),
+        name: row.type,
+        layerType: 'sector',
+        count: Numeral(row.count).format('0,0'),
+        provider: 'carto'
+      }));
       return dataRows;
     });
 }

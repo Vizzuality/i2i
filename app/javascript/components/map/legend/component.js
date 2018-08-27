@@ -40,7 +40,6 @@ class LegendComponent extends React.Component {
     layersSettings[layerId] = { ...layersSettings[layerId], visualizationType, visibility: true };
 
     this.props.setlayersSettings(layersSettings);
-    this.props.fetchLayers();
   }
 
   onChangeOpacity = debounce((l, opacity) => {
@@ -67,6 +66,7 @@ class LegendComponent extends React.Component {
 
     layersSettings[l.id] =
       { ...layersSettings[l.id], visibility: true, opacity: 1 };
+
     this.props.setlayersSettings(layersSettings);
     this.props.setSelectedLayersNew(selectedLayers);
   }
