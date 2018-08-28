@@ -35,7 +35,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "layer-manager": "^1.1.0",
+    "layer-manager": "^1.1.2",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",

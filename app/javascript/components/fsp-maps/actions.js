@@ -3,6 +3,7 @@ import { replace } from 'layer-manager';
 import Numeral from 'numeral';
 import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
+import isEmpty from 'lodash/isEmpty';
 import Promise from 'bluebird';
 
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
@@ -198,12 +199,15 @@ export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
 export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
 export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
-  const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
-  const { time } = getState().fspMaps.analysis.nearby;
-  const location = `${lng},${lat}`;
+  const { time, location } = getState().fspMaps.analysis.nearby;
+  if (isEmpty(location) || !time) {
+    return false;
+  }
+
+  const { lat, lng } = location.location;
   const seconds = time * 60;
 
-  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${location}&range=${seconds}`)
+  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
     .then((response) => {
       if (response.ok) return response.json();
       throw response;
