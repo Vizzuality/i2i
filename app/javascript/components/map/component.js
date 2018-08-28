@@ -30,6 +30,7 @@ class MapComponent extends React.Component {
     areaOfInterest: PropTypes.object.isRequired,
     center: PropTypes.object.isRequired,
     nearby: PropTypes.object.isRequired,
+    jurisdiction: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
     bbox: PropTypes.array.isRequired,
     setLayersInteractions: PropTypes.func.isRequired,
@@ -40,6 +41,7 @@ class MapComponent extends React.Component {
   render() {
     const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem } = this.props;
     const { area: nearbyArea } = this.props.nearby;
+    const { area: jurisdictionArea } = this.props.jurisdiction;
 
     const classNames = classnames({
       'c-map': true,
@@ -94,7 +96,16 @@ class MapComponent extends React.Component {
                     }
                   }] : [];
 
-                  return [...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
+                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction') ? [{
+                    id: 'jurisdiction',
+                    provider: 'leaflet',
+                    layerConfig: {
+                      body: jurisdictionArea,
+                      type: 'geoJSON'
+                    }
+                  }] : [];
+
+                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}

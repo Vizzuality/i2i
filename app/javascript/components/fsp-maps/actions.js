@@ -11,6 +11,8 @@ import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
+import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
+import JURISDICTION_GEOMETRY_SQL from './sql/jurisdiction-geometry.sql';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
@@ -175,11 +177,9 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
 });
 
 
-
 // MODAL
 export const setModal = createAction('MODAL/setModal');
 export const closeModal = createAction('MODAL/closeModal');
-
 
 
 // Widgets
@@ -236,4 +236,36 @@ export const setDrawing = createAction('ANALYSIS/setDrawing');
 export const setClearing = createAction('ANALYSIS/setClearing');
 
 // Analysis - jurisdiction
-export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
+export const setJurisdictionSelected = createAction('ANALYSIS/setJurisdictionSelected');
+export const setJurisdictionsList = createAction('ANALYSIS/setJurisdictionsList');
+export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
+export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions', () => (dispatch, getState) => {
+  const { replace } = window.App.Helper.Utils;
+  const { iso } = getState().fspMaps.common;
+  const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
+
+  fetch(`${window.FSP_CARTO_API}?q=${jurisdictionsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setJurisdictionsList(data.rows));
+    });
+});
+
+export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdictionArea', () => (dispatch, getState) => {
+  const { replace } = window.App.Helper.Utils;
+  const { selectedJurisdiction } = getState().fspMaps.analysis.jurisdiction;
+  const { value: jurisdictionId } = selectedJurisdiction;
+  const jurisdictionAreaSql = encodeURIComponent(
+    replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })
+  );
+
+  fetch(`${window.FSP_CARTO_API}?q=${jurisdictionAreaSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setJurisdictionArea(JSON.parse(data.rows[0].st_asgeojson)));
+    });
+});

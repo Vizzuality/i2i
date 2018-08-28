@@ -156,18 +156,19 @@ export default {
   },
 
   // Analysis - jurisdiction
-  [actions.setJurisdiction]: (state, { payload }) => {
-    const analysis = { ...state.analysis, jurisdiction: payload };
+  [actions.setJurisdictionsList]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, list: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
-  [actions.setNearbyError]: (state, { payload }) => {
-    const nearby = { ...state.analysis.nearby, error: payload };
-    const analysis = { ...state.analysis, nearby };
+  [actions.setJurisdictionSelected]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, selectedJurisdiction: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
-  [actions.setNearbyArea]: (state, { payload }) => {
-    const nearby = { ...state.analysis.nearby, area: payload };
-    const analysis = { ...state.analysis, nearby };
+  [actions.setJurisdictionArea]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, area: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
 
