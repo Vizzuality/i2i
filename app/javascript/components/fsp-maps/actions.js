@@ -1,4 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
+import { replace } from 'layer-manager';
 import Numeral from 'numeral';
 import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
@@ -24,7 +25,6 @@ export const setIntro = createAction('INTRO/setIntro');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
-  const { replace } = window.App.Helper.Utils;
   const { iso } = getState().fspMaps.common;
 
   dispatch(setIntroLoading(true));
@@ -79,8 +79,6 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  const { replace } = window.App.Helper.Utils;
-
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
@@ -240,7 +238,6 @@ export const setJurisdictionSelected = createAction('ANALYSIS/setJurisdictionSel
 export const setJurisdictionsList = createAction('ANALYSIS/setJurisdictionsList');
 export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
 export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions', () => (dispatch, getState) => {
-  const { replace } = window.App.Helper.Utils;
   const { iso } = getState().fspMaps.common;
   const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
 
@@ -254,7 +251,6 @@ export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions
 });
 
 export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdictionArea', () => (dispatch, getState) => {
-  const { replace } = window.App.Helper.Utils;
   const { selectedJurisdiction } = getState().fspMaps.analysis.jurisdiction;
   const { value: jurisdictionId } = selectedJurisdiction;
   const jurisdictionAreaSql = encodeURIComponent(

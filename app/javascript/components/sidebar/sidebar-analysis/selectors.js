@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { replace } from 'layer-manager';
 
 const rawWidgets = state => state.fspMaps.widgets.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
@@ -12,7 +13,6 @@ export const getWidgets = createSelector(
   [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea],
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea) => {
     const widgets = _rawWidgets.map((row) => {
-      const { replace } = window.App.Helper.Utils;
       const {
         cartodb_id: id,
         widget_config: widgetConfigWrap,
