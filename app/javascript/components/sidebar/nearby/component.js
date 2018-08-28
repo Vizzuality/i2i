@@ -54,13 +54,9 @@ class NearbyComponent extends PureComponent {
     }
   }
 
-  clearNearbyArea = () => {
-    this.props.setNearbyArea({});
-  }
-
   render() {
     const { shortIso } = this.props;
-    const { error } = this.props.nearby;
+    const { time, error } = this.props.nearby;
 
     return (
       <div className="c-nearby">
@@ -79,35 +75,50 @@ class NearbyComponent extends PureComponent {
           </label>
 
           <Geosuggest
+            ref={(r) => { this.geosuggest = r; }}
+            id="nearby-geosuggest"
             className="c-geosuggest"
             placeholder="Introduce location"
-            id="nearby-geosuggest"
-            ref={(r) => { this.geosuggest = r; }}
+            country={shortIso}
+            autoActivateFirstSuggest
+            autoComplete="off"
             onSuggestSelect={this.onSuggestSelect}
             onKeyDown={this.onKeyDown}
-            country={shortIso}
           />
         </div>
 
         <div className="c-field">
           <label htmlFor="nearby-time">
-            Time:
+            Time: {time} minutes
           </label>
 
           <Range
+            trackStyle={[
+              { backgroundColor: '#2F939C' },
+              { backgroundColor: 'grey' }
+            ]}
+            handleStyle={[
+              { backgroundColor: '#2F939C', width: '14px', height: '14px', border: 0 }
+            ]}
+            activeDotStyle={{ display: 'none' }}
+            dotStyle={{ display: 'none' }}
+            marks={{
+              1: {
+                label: '1',
+                style: { fontSize: 12 }
+              },
+              720: {
+                label: '720',
+                style: { fontSize: 12 }
+              }
+            }}
             id="nearby-time"
             min={1}
-            max={1200}
-            defaultValue={30}
+            max={720}
+            value={time}
             onAfterChange={this.onRangeSelect}
           />
         </div>
-
-        <button
-          onClick={() => this.clearNearbyArea()}
-        >
-          Clear
-        </button>
       </div>
     );
   }

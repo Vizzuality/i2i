@@ -78,20 +78,9 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  // const countryMask = [{
-                  //  ...COUNTRY_MASK,
-                  //  params: { iso: this.props.iso },
-                  //  zIndex: 1001,
-                  //  layerManager
-                  // }];
-
                   const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
-                    params: {
-                      ...nearbyArea,
-                      time: nearbyTime
-                    },
                     layerConfig: {
                       body: nearbyArea,
                       type: 'geoJSON'
