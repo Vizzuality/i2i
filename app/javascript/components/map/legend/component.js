@@ -24,9 +24,8 @@ class LegendComponent extends React.Component {
     layersSettings: PropTypes.object,
     activeLayerGroups: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
-    setSelectedLayersNew: PropTypes.func.isRequired,
-    setlayersSettings: PropTypes.func.isRequired,
-    fetchLayers: PropTypes.func.isRequired,
+    setLayersSelected: PropTypes.func.isRequired,
+    setLayersSettings: PropTypes.func.isRequired,
     setLayersOrder: PropTypes.func.isRequired
   }
 
@@ -39,7 +38,7 @@ class LegendComponent extends React.Component {
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], visualizationType, visibility: true };
 
-    this.props.setlayersSettings(layersSettings);
+    this.props.setLayersSettings(layersSettings);
   }
 
   onChangeOpacity = debounce((l, opacity) => {
@@ -47,7 +46,7 @@ class LegendComponent extends React.Component {
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], opacity };
 
-    this.props.setlayersSettings(layersSettings);
+    this.props.setLayersSettings(layersSettings);
   }, 250)
 
   onChangeVisibility = (l, visibility) => {
@@ -55,7 +54,7 @@ class LegendComponent extends React.Component {
     const layersSettings = { ...this.props.layersSettings };
     layersSettings[layerId] = { ...layersSettings[layerId], visibility };
 
-    this.props.setlayersSettings(layersSettings);
+    this.props.setLayersSettings(layersSettings);
   }
 
   onRemoveLayer = (l) => {
@@ -67,8 +66,8 @@ class LegendComponent extends React.Component {
     layersSettings[l.id] =
       { ...layersSettings[l.id], visibility: true, opacity: 1 };
 
-    this.props.setlayersSettings(layersSettings);
-    this.props.setSelectedLayersNew(selectedLayers);
+    this.props.setLayersSettings(layersSettings);
+    this.props.setLayersSelected(selectedLayers);
   }
 
   onChangeOrder = (layersOrder) => {

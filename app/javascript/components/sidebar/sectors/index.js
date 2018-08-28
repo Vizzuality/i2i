@@ -16,9 +16,9 @@ export default connect(
   state => ({
     sectors: getSectors(state),
     layersBySector: getLayersBySector(state),
-    selectedSector: state.fspMaps.sectorLayers.selectedSector,
+    selectedSector: state.fspMaps.layers.selectedSector,
     selectedLayers: state.fspMaps.layers.selectedLayers,
-    layersSettings: state.fspMaps.legend.layersSettings,
+    layersSettings: state.fspMaps.layers.layersSettings,
     activeLayers: getActiveLayers(state)
   }),
   actions

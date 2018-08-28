@@ -32,7 +32,7 @@ class MapComponent extends React.Component {
     nearby: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
     bbox: PropTypes.array.isRequired,
-    setInteractions: PropTypes.func.isRequired,
+    setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired
   }
@@ -106,7 +106,7 @@ class MapComponent extends React.Component {
                           click: (e) => {
                             const { sourceTarget, target, ...info } = e;
 
-                            this.props.setInteractions({
+                            this.props.setLayersInteractions({
                               [layer.id]: {
                                 ...info,
                                 id: layer.id

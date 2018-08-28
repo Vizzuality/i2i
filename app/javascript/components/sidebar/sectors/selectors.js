@@ -3,7 +3,7 @@ import compact from 'lodash/compact';
 import uniq from 'lodash/uniq';
 
 const layers = state => state.fspMaps.layers.list;
-const selectedSector = state => state.fspMaps.sectorLayers.selectedSector;
+const selectedSector = state => state.fspMaps.layers.selectedSector;
 
 export const getSectors = createSelector(
   [layers],
