@@ -13,8 +13,7 @@ export default {
     label: 'dark'
   },
   legend: {
-    open: true,
-    layersSettings: {}
+    open: true
   },
   sidebar: {
     open: true,
@@ -25,11 +24,12 @@ export default {
     open: false,
     options: null
   },
-  sectorLayers: { selectedSector: '' },
   layers: {
     list: [],
     selectedLayers: [],
-    layersOrder: []
+    selectedSector: '',
+    layersOrder: [],
+    layersSettings: {}
   },
   interactions: {},
   analysis: {

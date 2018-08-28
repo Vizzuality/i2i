@@ -13,27 +13,29 @@ class ContextualLayersComponent extends React.Component {
     list: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.array.isRequired,
-    setSelectedLayersNew: PropTypes.func.isRequired,
-    setlayersSettings: PropTypes.func.isRequired
+    setLayersSelected: PropTypes.func.isRequired,
+    setLayersSettings: PropTypes.func.isRequired
   }
 
   handleSelectedContextualLayer(contextualLayer) {
     const layers = [...this.props.selectedLayers];
+    const layersSettings = { ...this.props.layersSettings };
     const { id } = contextualLayer;
 
     if (layers.includes(id)) {
-      const layersSettings = { ...this.props.layersSettings };
       layers.splice(layers.indexOf(id), 1);
-
-      layersSettings[id] =
-        { ...layersSettings[id], visibility: true, opacity: 1 };
-
-      this.props.setlayersSettings(layersSettings);
+      delete layersSettings[id];
     } else {
       layers.push(id.toString());
+      layersSettings[id] = {
+        ...layersSettings[id],
+        visibility: true,
+        opacity: 1
+      };
     }
-
-    this.props.setSelectedLayersNew(layers);
+      
+    this.props.setLayersSettings(layersSettings);
+    this.props.setLayersSelected(layers);
   }
 
   render() {
