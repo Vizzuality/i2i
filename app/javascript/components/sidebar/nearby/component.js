@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import { Range } from 'wri-api-components';
 import Geosuggest from 'react-geosuggest';
-import Range from './range';
 
 class NearbyComponent extends PureComponent {
   static propTypes = {
@@ -70,19 +70,38 @@ class NearbyComponent extends PureComponent {
           </div>
         }
 
-        <Geosuggest
-          ref={(r) => { this.geosuggest = r; }}
-          onSuggestSelect={this.onSuggestSelect}
-          onKeyDown={this.onKeyDown}
-          country={shortIso}
-        />
+        <p>Search to view Financial Service locations within a given location</p>
 
-        <Range
-          min={1}
-          max={1200}
-          defaultValue={30}
-          onAfterChange={this.onRangeSelect}
-        />
+
+        <div className="c-field">
+          <label htmlFor="nearby-geosuggest">
+            Search location:
+          </label>
+
+          <Geosuggest
+            className="c-geosuggest"
+            placeholder="Introduce location"
+            id="nearby-geosuggest"
+            ref={(r) => { this.geosuggest = r; }}
+            onSuggestSelect={this.onSuggestSelect}
+            onKeyDown={this.onKeyDown}
+            country={shortIso}
+          />
+        </div>
+
+        <div className="c-field">
+          <label htmlFor="nearby-time">
+            Time:
+          </label>
+
+          <Range
+            id="nearby-time"
+            min={1}
+            max={1200}
+            defaultValue={30}
+            onAfterChange={this.onRangeSelect}
+          />
+        </div>
 
         <button
           onClick={() => this.clearNearbyArea()}

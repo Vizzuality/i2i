@@ -1,0 +1,40 @@
+.c-field {
+  label {
+    font-weight: 600;
+    color: #000;
+    font-size: 14px;
+    display: block;
+    position: relative;
+    margin-bottom: 5px;
+  }
+
+  .field-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > input,
+    > textarea,
+    > select,
+    .input {
+      display: inline-block;
+      box-shadow: none;
+      outline: none;
+      padding: 5px 10px;
+      margin: 0;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      color: #000;
+      border-radius: 4px;
+      border: 1px solid #2F939C;
+    }
+
+    > input::placeholder,
+    > textarea::placeholder,
+    > select::placeholder,
+    .input::placeholder {
+      color: rgba(#000, .6);
+    }
+  }
+}

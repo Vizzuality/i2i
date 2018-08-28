@@ -39,7 +39,7 @@ class MapComponent extends React.Component {
 
   render() {
     const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem } = this.props;
-    const { area: nearbyArea } = this.props.nearby;
+    const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
 
     const classNames = classnames({
       'c-map': true,
@@ -88,6 +88,10 @@ class MapComponent extends React.Component {
                   const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
+                    params: {
+                      ...nearbyArea,
+                      time: nearbyTime
+                    },
                     layerConfig: {
                       body: nearbyArea,
                       type: 'geoJSON'
