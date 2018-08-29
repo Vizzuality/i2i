@@ -154,12 +154,14 @@ function getContextualLayers() {
         .then((data) => {
           compact(data).forEach((d) => {
             const serializedData = WRIJsonApiSerializer(d);
+
             contextualLayers.push({
               ...serializedData,
               name: rwLayers.find(l => l.layer_id === serializedData.id).layer,
               layerType: 'contextual'
             });
           });
+
           return contextualLayers;
         });
     });

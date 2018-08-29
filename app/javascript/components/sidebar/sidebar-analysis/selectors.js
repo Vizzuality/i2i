@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { replace } from 'layer-manager';
+import intersection from 'lodash/intersection';
 
 const rawWidgets = state => state.fspMaps.widgets.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
@@ -12,7 +13,24 @@ const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
 export const getWidgets = createSelector(
   [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea],
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea) => {
-    const widgets = _rawWidgets.map((row) => {
+    const filteredRawWidgets = _rawWidgets.filter((widget) => {
+      const { analysis_type: analysisType, type_id: typeId } = widget;
+
+      if (typeId) {
+        const widgetLayers = typeId.split(',');
+        const hasLayer = intersection(widgetLayers, _selectedLayers).length;
+
+        if (hasLayer && analysisType.includes(_selectedMenuItem)) {
+          return widget;
+        }
+      } else if (analysisType.includes(_selectedMenuItem)) {
+        return widget;
+      }
+
+      return null;
+    });
+
+    const widgets = filteredRawWidgets.map((row) => {
       const {
         cartodb_id: id,
         widget_config: widgetConfigWrap,
@@ -21,6 +39,7 @@ export const getWidgets = createSelector(
         output: widgetType,
         provider
       } = row;
+
       const { widgetConfig } = widgetConfigWrap;
       const { params_config: paramsConfig, sql_query: sqlQuery, sql_query_param: sqlQueryParam, url } = widgetConfig;
       const { area: nearbyArea, center } = _nearby;
@@ -56,11 +75,11 @@ export const getWidgets = createSelector(
         editableQuery = replace(editableQuery, queryReplacement);
       });
 
-      const bodyParams = { [sqlQueryParam]: editableQuery };
+      const bodyParams = {
+        [sqlQueryParam]: editableQuery,
+        ...(provider === 'cartodb') && { api_key: cartoApiKey }
+      };
 
-      if (provider === 'cartodb') {
-        bodyParams.api_key = cartoApiKey;
-      }
 
       return {
         id,
