@@ -39,7 +39,7 @@ class MapComponent extends React.Component {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab } = this.props;
     const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
     const { area: jurisdictionArea } = this.props.jurisdiction;
 
@@ -80,7 +80,7 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
+                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
                     layerConfig: {
@@ -89,7 +89,7 @@ class MapComponent extends React.Component {
                     }
                   }] : [];
 
-                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction') ? [{
+                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
                     id: 'jurisdiction',
                     provider: 'leaflet',
                     layerConfig: {
