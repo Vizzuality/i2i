@@ -26,14 +26,14 @@ class ContextualLayersComponent extends React.Component {
       layers.splice(layers.indexOf(id), 1);
       delete layersSettings[id];
     } else {
-      layers.push(id.toString());
+      layers.unshift(id.toString());
       layersSettings[id] = {
         ...layersSettings[id],
         visibility: true,
         opacity: 1
       };
     }
-      
+
     this.props.setLayersSettings(layersSettings);
     this.props.setLayersSelected(layers);
   }

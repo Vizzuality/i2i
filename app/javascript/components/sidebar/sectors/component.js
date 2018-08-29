@@ -47,7 +47,7 @@ class SectorsComponent extends PureComponent {
       layers.splice(layers.indexOf(id), 1);
       delete layersSettings[id];
     } else {
-      layers.push(id.toString());
+      layers.unshift(id.toString());
       layersSettings[id] = {
         ...layersSettings[id],
         visibility: true,
