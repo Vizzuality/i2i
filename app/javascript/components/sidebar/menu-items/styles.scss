@@ -42,6 +42,14 @@
       border-top: 2px solid #EEE;
     }
 
+    &:hover {
+      > .item-header {
+        > .title {
+          text-decoration: underline;
+        }
+      }
+    }
+
     > .item-header {
       display: flex;
       flex-direction: column;

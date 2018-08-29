@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
 // styles
-// import './styles.scss';
+import './styles.scss';
 
 class JurisdictionComponent extends PureComponent {
   static propTypes = {
