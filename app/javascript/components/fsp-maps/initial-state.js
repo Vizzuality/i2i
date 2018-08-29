@@ -12,10 +12,7 @@ export default {
     basemap: 'light',
     label: 'dark'
   },
-  legend: {
-    open: true,
-    layersSettings: {}
-  },
+  legend: { open: true },
   sidebar: {
     open: true,
     selected: 'layers',
@@ -25,11 +22,12 @@ export default {
     open: false,
     options: null
   },
-  sectorLayers: { selectedSector: '' },
   layers: {
     list: [],
     selectedLayers: [],
-    layersOrder: []
+    selectedSector: '',
+    layersOrder: [],
+    layersSettings: {}
   },
   interactions: {},
   analysis: {
@@ -45,7 +43,11 @@ export default {
       clearing: false,
       area: {}
     },
-    jurisdiction: {}
+    jurisdiction: {
+      list: [],
+      selectedJurisdiction: {},
+      area: {}
+    }
   },
-  widgets: { list: {} }
+  widgets: { list: [] }
 };

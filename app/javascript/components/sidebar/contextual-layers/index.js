@@ -12,7 +12,7 @@ export default connect(
   state => ({
     list: state.fspMaps.layers.list,
     selectedLayers: state.fspMaps.layers.selectedLayers,
-    layersSettings: state.fspMaps.legend.layersSetting
+    layersSettings: state.fspMaps.layers.layersSettings
   }),
   actions
 )(ContextualLayersComponent);

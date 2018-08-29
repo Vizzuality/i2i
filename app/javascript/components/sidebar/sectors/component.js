@@ -17,9 +17,9 @@ class SectorsComponent extends PureComponent {
     layersSettings: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
     setModal: PropTypes.func.isRequired,
-    setSelectedSector: PropTypes.func.isRequired,
-    setSelectedLayersNew: PropTypes.func.isRequired,
-    setlayersSettings: PropTypes.func.isRequired
+    setLayersSectorSelected: PropTypes.func.isRequired,
+    setLayersSelected: PropTypes.func.isRequired,
+    setLayersSettings: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -32,28 +32,32 @@ class SectorsComponent extends PureComponent {
   onClickCountryReport = () => console.info('on country report – I am WIP!')
 
   clickSector(sector) {
-    const { selectedSector, setSelectedSector } = this.props;
+    const { selectedSector, setLayersSectorSelected } = this.props;
     const nextSector = sector === selectedSector ? null : sector;
-    setSelectedSector(nextSector);
+    setLayersSectorSelected(nextSector);
   }
 
   handleSelectedType(sectorLayer) {
     const layers = [...this.props.selectedLayers];
+    const layersSettings = { ...this.props.layersSettings };
     const { id } = sectorLayer;
 
+
     if (layers.includes(id)) {
-      const layersSettings = { ...this.props.layersSettings };
       layers.splice(layers.indexOf(id), 1);
-
-      layersSettings[id] =
-        { ...layersSettings[id], visibility: true, opacity: 1 };
-
-      this.props.setlayersSettings(layersSettings);
+      delete layersSettings[id];
     } else {
-      layers.push(id);
+      layers.push(id.toString());
+      layersSettings[id] = {
+        ...layersSettings[id],
+        visibility: true,
+        opacity: 1,
+        visualizationType: 'normal'
+      };
     }
 
-    this.props.setSelectedLayersNew(layers);
+    this.props.setLayersSettings(layersSettings);
+    this.props.setLayersSelected(layers);
   }
 
   render() {

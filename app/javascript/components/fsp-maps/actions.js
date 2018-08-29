@@ -1,7 +1,9 @@
 import { createAction, createThunkAction } from 'redux-tools';
+import { replace } from 'layer-manager';
 import Numeral from 'numeral';
 import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
+import isEmpty from 'lodash/isEmpty';
 import Promise from 'bluebird';
 
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
@@ -11,6 +13,8 @@ import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
+import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
+import JURISDICTION_GEOMETRY_SQL from './sql/jurisdiction-geometry.sql';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
@@ -22,7 +26,6 @@ export const setIntro = createAction('INTRO/setIntro');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
-  const { replace } = window.App.Helper.Utils;
   const { iso } = getState().fspMaps.common;
 
   dispatch(setIntroLoading(true));
@@ -61,7 +64,7 @@ export const setLabel = createAction('MAP/setLabel');
 
 // LEGEND
 export const setOpenLegend = createAction('LEGEND/setOpenLegend');
-export const setlayersSettings = createAction('LEGEND/setlayersSettings');
+
 
 // SIDEBAR
 export const setOpenSidebar = createAction('SIDEBAR/setOpenSidebar');
@@ -69,83 +72,14 @@ export const setSelected = createAction('SIDEBAR/setSelected');
 export const setMenuItem = createAction('SIDEBAR-MENU/setMenuItem');
 
 // LAYERS
-export const setListSectors = createAction('SECTORS/setListSectors');
-export const setListLoadingSectors = createAction('SECTORS/setListLoadingSectors');
-export const setListErrorSectors = createAction('SECTORS/setListErrorSectors');
-export const setSelectedSector = createAction('SECTORS/setSelectedSector');
-export const setSelectedLayersSectors = createAction('SECTORS/setSelectedLayersSectors');
-export const setList = createAction('CONTEXTUAL_LAYERS/setList');
-export const setSelectedLayers = createAction('CONTEXTUAL_LAYERS/setSelectedLayers');
-export const setListLoading = createAction('CONTEXTUAL_LAYERS/setListLoading');
-export const setListError = createAction('CONTEXTUAL_LAYERS/setListError');
 export const setLayersList = createAction('LAYERS/setLayersList');
-export const setSelectedLayersNew = createAction('LAYERS/setSelectedLayersNew');
+export const setLayersSelected = createAction('LAYERS/setLayersSelected');
+export const setLayersSectorSelected = createAction('SECTORS/setLayersSectorSelected');
 export const setLayersOrder = createAction('LAYERS/setLayersOrder');
-export const setInteractions = createAction('INTERACTIONS/setInteractions');
-
-// MODAL
-export const setModal = createAction('MODAL/setModal');
-export const closeModal = createAction('MODAL/closeModal');
-
-// Widgets
-export const setWidgetsList = createAction('WIDGETS/setWidgetsList');
-export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dispatch, getState) => {
-  fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(WIDGETS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
-    .then((data) => {
-      dispatch(setWidgetsList(data.rows));
-    });
-});
-
-// Analysis - nearby
-export const setNearby = createAction('ANALYSIS/setNearby');
-export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
-export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
-export const setNearbyError = createAction('ANALYSIS/setNearbyError');
-export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
-  const { lat, lng } = getState().fspMaps.analysis.nearby.location.location;
-  const { time } = getState().fspMaps.analysis.nearby;
-  const location = `${lng},${lat}`;
-  const seconds = time * 60;
-
-  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${location}&range=${seconds}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw response;
-    })
-    .then((data) => {
-      dispatch(setNearbyArea(data.features[0].geometry));
-      dispatch(setNearbyCenter({
-        lng: data.features[0].properties.center[0],
-        lat: data.features[0].properties.center[1]
-      }));
-    })
-    .catch((err) => {
-      if (err && typeof err.json === 'function') {
-        err.json()
-          .then((errs) => {
-            dispatch(setNearbyError(errs));
-          });
-      } else {
-        dispatch(setNearbyError(err));
-      }
-    });
-});
-
-// Analysis - area of interest
-export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
-export const setAreaOfInterestArea = createAction('ANALYSIS/setAreaOfInterestArea');
-export const setDrawing = createAction('ANALYSIS/setDrawing');
-export const setClearing = createAction('ANALYSIS/setClearing');
-
-// Analysis - jurisdiction
-export const setJurisdiction = createAction('ANALYSIS/setJurisdiction');
+export const setLayersInteractions = createAction('INTERACTIONS/setLayersInteractions');
+export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  const { replace } = window.App.Helper.Utils;
-
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
@@ -233,10 +167,105 @@ function getContextualLayers() {
 
 export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
-  const { layersSettings } = getState().fspMaps.legend;
+  const { layersSettings } = getState().fspMaps.layers;
 
   Promise.all([getSectors(iso, layersSettings), getContextualLayers()])
     .then((data) => {
       dispatch(setLayersList(flatten(data)));
+    });
+});
+
+
+// MODAL
+export const setModal = createAction('MODAL/setModal');
+export const closeModal = createAction('MODAL/closeModal');
+
+
+// Widgets
+export const setWidgetsList = createAction('WIDGETS/setWidgetsList');
+export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dispatch, getState) => {
+  fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(WIDGETS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setWidgetsList(data.rows));
+    });
+});
+
+// Analysis - nearby
+export const setNearby = createAction('ANALYSIS/setNearby');
+export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
+export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
+export const setNearbyError = createAction('ANALYSIS/setNearbyError');
+export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
+  const { time, location } = getState().fspMaps.analysis.nearby;
+  if (isEmpty(location) || !time) {
+    return false;
+  }
+
+  const { lat, lng } = location.location;
+  const seconds = time * 60;
+
+  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw response;
+    })
+    .then((data) => {
+      dispatch(setNearbyArea(data.features[0].geometry));
+      dispatch(setNearbyCenter({
+        lng: data.features[0].properties.center[0],
+        lat: data.features[0].properties.center[1]
+      }));
+    })
+    .catch((err) => {
+      if (err && typeof err.json === 'function') {
+        err.json()
+          .then((errs) => {
+            dispatch(setNearbyError(errs));
+          });
+      } else {
+        dispatch(setNearbyError(err));
+      }
+    });
+});
+
+// Analysis - area of interest
+export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
+export const setAreaOfInterestArea = createAction('ANALYSIS/setAreaOfInterestArea');
+export const setDrawing = createAction('ANALYSIS/setDrawing');
+export const setClearing = createAction('ANALYSIS/setClearing');
+
+// Analysis - jurisdiction
+export const setJurisdictionSelected = createAction('ANALYSIS/setJurisdictionSelected');
+export const setJurisdictionsList = createAction('ANALYSIS/setJurisdictionsList');
+export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
+export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+  const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
+
+  fetch(`${window.FSP_CARTO_API}?q=${jurisdictionsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setJurisdictionsList(data.rows));
+    });
+});
+
+export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdictionArea', () => (dispatch, getState) => {
+  const { selectedJurisdiction } = getState().fspMaps.analysis.jurisdiction;
+  const { value: jurisdictionId } = selectedJurisdiction;
+  const jurisdictionAreaSql = encodeURIComponent(
+    replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })
+  );
+
+  fetch(`${window.FSP_CARTO_API}?q=${jurisdictionAreaSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      dispatch(setJurisdictionArea(JSON.parse(data.rows[0].st_asgeojson)));
     });
 });

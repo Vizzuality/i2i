@@ -30,16 +30,18 @@ class MapComponent extends React.Component {
     areaOfInterest: PropTypes.object.isRequired,
     center: PropTypes.object.isRequired,
     nearby: PropTypes.object.isRequired,
+    jurisdiction: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
     bbox: PropTypes.array.isRequired,
-    setInteractions: PropTypes.func.isRequired,
+    setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem } = this.props;
-    const { area: nearbyArea } = this.props.nearby;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab } = this.props;
+    const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
+    const { area: jurisdictionArea } = this.props.jurisdiction;
 
     const classNames = classnames({
       'c-map': true,
@@ -78,14 +80,7 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const countryMask = [{
-                    ...COUNTRY_MASK,
-                    params: { iso: this.props.iso },
-                    zIndex: 1001,
-                    layerManager
-                  }];
-
-                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby') ? [{
+                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
                     id: 'nearby',
                     provider: 'leaflet',
                     layerConfig: {
@@ -94,7 +89,16 @@ class MapComponent extends React.Component {
                     }
                   }] : [];
 
-                  return [...countryMask, ...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
+                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
+                    id: 'jurisdiction',
+                    provider: 'leaflet',
+                    layerConfig: {
+                      body: jurisdictionArea,
+                      type: 'geoJSON'
+                    }
+                  }] : [];
+
+                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}
@@ -106,7 +110,7 @@ class MapComponent extends React.Component {
                           click: (e) => {
                             const { sourceTarget, target, ...info } = e;
 
-                            this.props.setInteractions({
+                            this.props.setLayersInteractions({
                               [layer.id]: {
                                 ...info,
                                 id: layer.id

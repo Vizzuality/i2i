@@ -7,14 +7,14 @@
 
   <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) %>
     <%= select_tag "country",
-      options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }, @country[:iso]),
+      options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }.sort, @country[:iso]),
       { class: 'country-selector js-country-selector' }
     %>
   <% end %>
 
   <% if current_page?(fsp_maps_path) %>
     <%= select_tag "country",
-      options_for_select(@countries.collect{ |country| [country[:name], country[:iso] + "-fsp-maps"] }, @country[:iso]),
+      options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }.sort, @country[:iso]),
       { class: 'country-selector js-country-selector' }
     %>
   <% end %>
@@ -22,7 +22,7 @@
   <% if @country.finscope %>
     <% if current_page?(data_portal_y_path(@country.finscope[:iso], @country.finscope[:latest_year])) %>
       <%= select_tag "country",
-        options_for_select(@countries.collect{ |country| [country[:name], country[:iso] + "-" + country[:latest_year].to_s] }, @country[:iso]),
+        options_for_select(@countries.collect{ |country| [country[:name], country[:iso] + "-" + country[:latest_year].to_s] }.sort, @country[:iso] + "-" + @country_latest_year),
         { class: 'country-selector js-country-selector' }
       %>
     <% end %>

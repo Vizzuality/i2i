@@ -18,8 +18,8 @@ const MENU_CONTENT = {
 
 const LAYER_TYPES = [
   { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-  { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' },
-  { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
+  { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' }
+  // { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
 ];
 
 class SidebarLayersComponent extends React.Component {
@@ -27,15 +27,10 @@ class SidebarLayersComponent extends React.Component {
     menuItem: PropTypes.string,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.object.isRequired,
-    setMenuItem: PropTypes.func.isRequired,
-    fetchLayers: PropTypes.func.isRequired
+    setMenuItem: PropTypes.func.isRequired
   }
 
   static defaultProps = { menuItem: '' }
-
-  componentWillMount() {
-    this.props.fetchLayers();
-  }
 
   render() {
     const { menuItem, selectedLayers, layersSettings } = this.props;

@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import { Range } from 'wri-api-components';
 import Geosuggest from 'react-geosuggest';
-import Range from './range';
 
 class NearbyComponent extends PureComponent {
   static propTypes = {
@@ -43,7 +43,12 @@ class NearbyComponent extends PureComponent {
     this.onToggleSearchInput(false);
   }
 
-  onRangeSelect = (value) => {
+  onChange = (value) => {
+    console.log(value);
+    // this.props.setNearby({ ...this.props.nearby, time: value });
+  }
+
+  onAfterChange = (value) => {
     this.props.setNearby({ ...this.props.nearby, time: value });
     this.props.fetchNearbyArea();
   }
@@ -54,13 +59,9 @@ class NearbyComponent extends PureComponent {
     }
   }
 
-  clearNearbyArea = () => {
-    this.props.setNearbyArea({});
-  }
-
   render() {
     const { shortIso } = this.props;
-    const { error } = this.props.nearby;
+    const { time, error } = this.props.nearby;
 
     return (
       <div className="c-nearby">
@@ -70,25 +71,58 @@ class NearbyComponent extends PureComponent {
           </div>
         }
 
-        <Geosuggest
-          ref={(r) => { this.geosuggest = r; }}
-          onSuggestSelect={this.onSuggestSelect}
-          onKeyDown={this.onKeyDown}
-          country={shortIso}
-        />
+        <p>Search to view Financial Service locations within a given location</p>
 
-        <Range
-          min={1}
-          max={1200}
-          defaultValue={30}
-          onAfterChange={this.onRangeSelect}
-        />
 
-        <button
-          onClick={() => this.clearNearbyArea()}
-        >
-          Clear
-        </button>
+        <div className="c-field">
+          <label htmlFor="nearby-geosuggest">
+            Search location:
+          </label>
+
+          <Geosuggest
+            ref={(r) => { this.geosuggest = r; }}
+            id="nearby-geosuggest"
+            className="c-geosuggest"
+            placeholder="Introduce location"
+            country={shortIso}
+            autoActivateFirstSuggest
+            autoComplete="off"
+            onSuggestSelect={this.onSuggestSelect}
+            onKeyDown={this.onKeyDown}
+          />
+        </div>
+
+        <div className="c-field">
+          <label htmlFor="nearby-time">
+            Time: {time} minutes
+          </label>
+
+          <Range
+            // Styles
+            railStyle={{ background: 'repeating-linear-gradient(90deg, #2F939C, #2F939C 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+            trackStyle={{ backgroundColor: '#2F939C', height: 1 }}
+            handleStyle={{ backgroundColor: '#2F939C', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
+            activeDotStyle={{ display: 'none' }}
+            dotStyle={{ display: 'none' }}
+
+            marks={{
+              1: {
+                label: '1',
+                style: { fontSize: 10 }
+              },
+              720: {
+                label: '720',
+                style: { fontSize: 10 }
+              }
+            }}
+            id="nearby-time"
+            min={1}
+            max={720}
+            value={time}
+            onChange={this.onChange}
+            onAfterChange={this.onAfterChange}
+          />
+        </div>
       </div>
     );
   }

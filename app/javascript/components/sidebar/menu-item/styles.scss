@@ -39,6 +39,7 @@
     // align-items: center;
     padding: 20px 30px 15px 55px;
     cursor: pointer;
+    outline: none;
 
     .title {
       position: relative;
@@ -55,6 +56,12 @@
         left: 0;
         transform: rotate(45deg) translate(-50%, -50%);
         margin: 0 10px 0 0;
+      }
+    }
+
+    &:hover {
+      .title {
+        text-decoration: underline;
       }
     }
   }

@@ -26,20 +26,21 @@ class AreaOfInterestComponent extends PureComponent {
 
     return (
       <div className="c-area-of-interest">
-        <button
-          onClick={() => this.toggleDrawing(drawing)}
-        >
-          { drawing ? 'Cancel' : 'Create Area' }
-        </button>
+        <p>Create an area of interest and know more information about it, <span>click on the “create area” button below</span> to know more information.</p>
 
-        {!isEmpty(area) &&
+        <div className="button-container">
           <button
-            className="c-button -sea"
-            onClick={this.onClear}
+            className="c-button -small -white"
+            onClick={() => {
+              if (isEmpty(area)) this.toggleDrawing(drawing);
+              if (!isEmpty(area)) this.onClear();
+            }}
           >
-            Clear
+            {drawing && 'Cancel'}
+            {!drawing && isEmpty(area) && 'Create Area'}
+            {!drawing && !isEmpty(area) && 'Clear'}
           </button>
-        }
+        </div>
       </div>
     );
   }

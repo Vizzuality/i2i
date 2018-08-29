@@ -7,7 +7,7 @@ import { SECTOR_CONFIGS } from './constants';
 const iso = state => state.fspMaps.common.iso;
 const layersList = state => state.fspMaps.layers.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
-const layersSettings = state => state.fspMaps.legend.layersSettings;
+const layersSettings = state => state.fspMaps.layers.layersSettings;
 const layersOrder = state => state.fspMaps.layers.layersOrder;
 
 function getSortedLayers(allLayersOrder, mapped) {

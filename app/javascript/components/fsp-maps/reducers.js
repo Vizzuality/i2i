@@ -62,10 +62,6 @@ export default {
     const legend = { ...state.legend, open: payload };
     return { ...state, legend };
   },
-  [actions.setlayersSettings]: (state, { payload }) => {
-    const legend = { ...state.legend, layersSettings: payload };
-    return { ...state, legend };
-  },
 
   // SIDEBAR
   [actions.setOpenSidebar]: (state, { payload }) => {
@@ -82,39 +78,15 @@ export default {
   },
 
   // LAYERS
-  [actions.setListSectors]: (state, { payload }) => {
-    const sectorLayers = { ...state.sectorLayers, list: payload };
-    return { ...state, sectorLayers };
-  },
-  [actions.setListLoadingSectors]: (state, { payload }) => {
-    const sectorLayers = { ...state.sectorLayers, loading: payload };
-    return { ...state, sectorLayers };
-  },
-  [actions.setListErrorSectors]: (state, { payload }) => {
-    const sectorLayers = { ...state.sectorLayers, error: payload };
-    return { ...state, sectorLayers };
-  },
-  [actions.setSelectedSector]: (state, { payload }) => {
-    const sectorLayers = { ...state.sectorLayers, selectedSector: payload };
-    return { ...state, sectorLayers };
-  },
-  [actions.setSelectedLayersSectors]: (state, { payload }) => {
-    const sectorLayers = { ...state.sectorLayers, selectedLayers: payload };
-    return { ...state, sectorLayers };
-  },
-  [actions.setList]: (state, { payload }) => {
-    const contextualLayers = { ...state.contextualLayers, list: payload };
-    return { ...state, contextualLayers };
-  },
-  [actions.setSelectedLayers]: (state, { payload }) => {
-    const contextualLayers = { ...state.contextualLayers, selectedLayers: payload };
-    return { ...state, contextualLayers };
-  },
   [actions.setLayersList]: (state, { payload }) => {
     const layers = { ...state.layers, list: payload };
     return { ...state, layers };
   },
-  [actions.setSelectedLayersNew]: (state, { payload }) => {
+  [actions.setLayersSectorSelected]: (state, { payload }) => {
+    const layers = { ...state.layers, selectedSector: payload };
+    return { ...state, layers };
+  },
+  [actions.setLayersSelected]: (state, { payload }) => {
     const layers = { ...state.layers, selectedLayers: payload };
     return { ...state, layers };
   },
@@ -122,7 +94,11 @@ export default {
     const layers = { ...state.layers, layersOrder: payload };
     return { ...state, layers };
   },
-  [actions.setInteractions]: (state, { payload }) => {
+  [actions.setLayersSettings]: (state, { payload }) => {
+    const layers = { ...state.layers, layersSettings: payload };
+    return { ...state, layers };
+  },
+  [actions.setLayersInteractions]: (state, { payload }) => {
     const interactions = { ...state.interactions, ...payload };
     return { ...state, interactions };
   },
@@ -180,18 +156,19 @@ export default {
   },
 
   // Analysis - jurisdiction
-  [actions.setJurisdiction]: (state, { payload }) => {
-    const analysis = { ...state.analysis, jurisdiction: payload };
+  [actions.setJurisdictionsList]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, list: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
-  [actions.setNearbyError]: (state, { payload }) => {
-    const nearby = { ...state.analysis.nearby, error: payload };
-    const analysis = { ...state.analysis, nearby };
+  [actions.setJurisdictionSelected]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, selectedJurisdiction: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
-  [actions.setNearbyArea]: (state, { payload }) => {
-    const nearby = { ...state.analysis.nearby, area: payload };
-    const analysis = { ...state.analysis, nearby };
+  [actions.setJurisdictionArea]: (state, { payload }) => {
+    const jurisdiction = { ...state.analysis.jurisdiction, area: payload };
+    const analysis = { ...state.analysis, jurisdiction };
     return { ...state, analysis };
   },
 
