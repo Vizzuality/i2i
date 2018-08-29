@@ -12,7 +12,7 @@ class ContextualLayersComponent extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     selectedLayers: PropTypes.array.isRequired,
-    layersSettings: PropTypes.array.isRequired,
+    layersSettings: PropTypes.object.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired
   }
