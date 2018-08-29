@@ -19,6 +19,7 @@ export default connect(
     ...state.fspMaps.map,
     nearby: state.fspMaps.analysis.nearby,
     areaOfInterest: state.fspMaps.analysis.areaOfInterest,
+    jurisdiction: state.fspMaps.analysis.jurisdiction,
     activeLayers: getActiveLayers(state)
   }),
   actions

@@ -27,7 +27,8 @@ export default class FSPMaps extends React.Component {
     setZoom: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
-    setLayersSettings: PropTypes.func.isRequired
+    setLayersSettings: PropTypes.func.isRequired,
+    fetchJurisdictions: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -44,6 +45,7 @@ export default class FSPMaps extends React.Component {
 
     this.props.setIso(iso);
     this.props.setShortIso(shortIso);
+    this.props.fetchJurisdictions();
 
     if (
       typeof zoom === 'undefined' &&
@@ -65,7 +67,7 @@ export default class FSPMaps extends React.Component {
         }), {});
 
         this.props.setLayersSettings(parsedLayerGroups);
-        this.props.setLayersSelected(layerGroups.map(lg => lg.id));        
+        this.props.setLayersSelected(layerGroups.map(lg => lg.id));
       } catch (error) {
         console.error(error);
       }

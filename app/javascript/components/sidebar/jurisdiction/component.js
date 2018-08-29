@@ -1,21 +1,46 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 
 // styles
 // import './styles.scss';
 
 class JurisdictionComponent extends PureComponent {
-  static propTypes = {}
+  static propTypes = {
+    options: PropTypes.array.isRequired,
+    selectedOption: PropTypes.object.isRequired,
+    fetchJurisdictionArea: PropTypes.func.isRequired,
+    setJurisdictionSelected: PropTypes.func.isRequired
+  }
 
-  static defaultProps = {}
+  componentWillMount() {
+    const { options, selectedOption } = this.props;
+
+    if (selectedOption) {
+      if (!options.find(option => option.value === selectedOption.value)) {
+        this.props.setJurisdictionSelected({});
+      }
+    }
+  }
+
+  handleChange = (selectedJurisdiction) => {
+    // Juri ID - selectedJurisdiction.value
+    this.props.setJurisdictionSelected(selectedJurisdiction);
+    this.props.fetchJurisdictionArea();
+  }
 
   render() {
-    const {} = this.props;
+    const { options, selectedOption } = this.props;
 
     return (
       <div className="c-jurisdiction">
-        Jurisdiction
+        <Select
+          value={isEmpty(selectedOption) ? null : selectedOption}
+          onChange={this.handleChange}
+          options={options}
+          placeholder="Select Jurisdiction..."
+        />
       </div>
     );
   }

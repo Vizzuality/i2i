@@ -12,9 +12,7 @@ export default {
     basemap: 'light',
     label: 'dark'
   },
-  legend: {
-    open: true
-  },
+  legend: { open: true },
   sidebar: {
     open: true,
     selected: 'layers',
@@ -45,7 +43,11 @@ export default {
       clearing: false,
       area: {}
     },
-    jurisdiction: {}
+    jurisdiction: {
+      list: [],
+      selectedJurisdiction: {},
+      area: {}
+    }
   },
   widgets: { list: {} }
 };
