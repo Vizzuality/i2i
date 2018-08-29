@@ -39,6 +39,7 @@ export const getWidgets = createSelector(
         output: widgetType,
         provider
       } = row;
+
       const { widgetConfig } = widgetConfigWrap;
       const { params_config: paramsConfig, sql_query: sqlQuery, sql_query_param: sqlQueryParam, url } = widgetConfig;
       const { area: nearbyArea, center } = _nearby;
@@ -74,11 +75,11 @@ export const getWidgets = createSelector(
         editableQuery = replace(editableQuery, queryReplacement);
       });
 
-      const bodyParams = { [sqlQueryParam]: editableQuery };
+      const bodyParams = {
+        [sqlQueryParam]: editableQuery,
+        ...(provider === 'cartodb') && { api_key: cartoApiKey }
+      };
 
-      if (provider === 'cartodb') {
-        bodyParams.api_key = cartoApiKey;
-      }
 
       return {
         id,
