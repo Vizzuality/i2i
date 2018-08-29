@@ -17,10 +17,11 @@ export const getWidgets = createSelector(
         cartodb_id: id,
         widget_config: widgetConfigWrap,
         analysis_name: analysisName,
-        analysis_type: analysisType
+        analysis_type: analysisType,
+        provider
       } = row;
       const { widgetConfig } = widgetConfigWrap;
-      const { params_config: paramsConfig, sql_query: sqlQuery } = widgetConfig;
+      const { params_config: paramsConfig, sql_query: sqlQuery, sql_query_param: sqlQueryParam, url } = widgetConfig;
       const { area: nearbyArea, center } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
       const { lng, lat } = center;
@@ -54,11 +55,18 @@ export const getWidgets = createSelector(
         editableQuery = replace(editableQuery, queryReplacement);
       });
 
+      const bodyParams = { [sqlQueryParam]: editableQuery };
+
+      if (provider === 'cartodb') {
+        bodyParams.api_key = cartoApiKey;
+      }
+
       return {
         id,
         analysisName,
         analysisType,
-        query: `${editableQuery}&api_key=${cartoApiKey}`
+        url,
+        body: bodyParams
       };
     });
 
