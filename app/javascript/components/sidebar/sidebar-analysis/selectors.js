@@ -18,6 +18,7 @@ export const getWidgets = createSelector(
         widget_config: widgetConfigWrap,
         analysis_name: analysisName,
         analysis_type: analysisType,
+        output: widgetType,
         provider
       } = row;
       const { widgetConfig } = widgetConfigWrap;
@@ -66,7 +67,8 @@ export const getWidgets = createSelector(
         analysisName,
         analysisType,
         url,
-        body: bodyParams
+        body: bodyParams,
+        type: widgetType
       };
     });
 
