@@ -28,6 +28,8 @@ export default class FSPMaps extends React.Component {
     setCenter: PropTypes.func.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired,
+    fetchLayers: PropTypes.func.isRequired,
+    fetchWidgets: PropTypes.func.isRequired,
     fetchJurisdictions: PropTypes.func.isRequired
   }
 
@@ -45,6 +47,10 @@ export default class FSPMaps extends React.Component {
 
     this.props.setIso(iso);
     this.props.setShortIso(shortIso);
+
+    // Fetch
+    this.props.fetchLayers();
+    this.props.fetchWidgets();
     this.props.fetchJurisdictions();
 
     if (

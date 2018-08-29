@@ -27,15 +27,10 @@ class SidebarLayersComponent extends React.Component {
     menuItem: PropTypes.string,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.object.isRequired,
-    setMenuItem: PropTypes.func.isRequired,
-    fetchLayers: PropTypes.func.isRequired
+    setMenuItem: PropTypes.func.isRequired
   }
 
   static defaultProps = { menuItem: '' }
-
-  componentWillMount() {
-    this.props.fetchLayers();
-  }
 
   render() {
     const { menuItem, selectedLayers, layersSettings } = this.props;

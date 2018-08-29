@@ -49,5 +49,5 @@ export default {
       area: {}
     }
   },
-  widgets: { list: {} }
+  widgets: { list: [] }
 };

@@ -43,7 +43,12 @@ class NearbyComponent extends PureComponent {
     this.onToggleSearchInput(false);
   }
 
-  onRangeSelect = (value) => {
+  onChange = (value) => {
+    console.log(value);
+    // this.props.setNearby({ ...this.props.nearby, time: value });
+  }
+
+  onAfterChange = (value) => {
     this.props.setNearby({ ...this.props.nearby, time: value });
     this.props.fetchNearbyArea();
   }
@@ -93,30 +98,29 @@ class NearbyComponent extends PureComponent {
           </label>
 
           <Range
-            trackStyle={[
-              { backgroundColor: '#2F939C' },
-              { backgroundColor: 'grey' }
-            ]}
-            handleStyle={[
-              { backgroundColor: '#2F939C', width: '14px', height: '14px', border: 0 }
-            ]}
+            // Styles
+            railStyle={{ background: 'repeating-linear-gradient(90deg, #2F939C, #2F939C 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+            trackStyle={{ backgroundColor: '#2F939C', height: 1 }}
+            handleStyle={{ backgroundColor: '#2F939C', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
             activeDotStyle={{ display: 'none' }}
             dotStyle={{ display: 'none' }}
+
             marks={{
               1: {
                 label: '1',
-                style: { fontSize: 12 }
+                style: { fontSize: 10 }
               },
               720: {
                 label: '720',
-                style: { fontSize: 12 }
+                style: { fontSize: 10 }
               }
             }}
             id="nearby-time"
             min={1}
             max={720}
             value={time}
-            onAfterChange={this.onRangeSelect}
+            onChange={this.onChange}
+            onAfterChange={this.onAfterChange}
           />
         </div>
       </div>

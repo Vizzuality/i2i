@@ -36,6 +36,7 @@
   .menu-items-item {
     padding: 20px 30px 20px 55px;
     cursor: pointer;
+    outline: none;
 
     &:not(:first-child) {
       border-top: 2px solid #EEE;
