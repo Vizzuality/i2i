@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
 // Components
 import { Range } from 'wri-api-components';
@@ -9,10 +10,12 @@ class NearbyComponent extends PureComponent {
   static propTypes = {
     nearby: PropTypes.object,
     shortIso: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    selectedLayers: PropTypes.array.isRequired,
     setNearby: PropTypes.func.isRequired,
-    setNearbyArea: PropTypes.func.isRequired,
     setNearbyError: PropTypes.func.isRequired,
-    fetchNearbyArea: PropTypes.func.isRequired
+    fetchNearbyArea: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired
   }
 
   static defaultProps = { nearby: {} }
@@ -60,8 +63,8 @@ class NearbyComponent extends PureComponent {
   }
 
   render() {
-    const { shortIso } = this.props;
-    const { time, error, location } = this.props.nearby;
+    const { shortIso, active: analysisActive, selectedLayers } = this.props;
+    const { time, error, location, area } = this.props.nearby;
 
     return (
       <div className="c-nearby">
@@ -124,6 +127,17 @@ class NearbyComponent extends PureComponent {
             onAfterChange={this.onAfterChange}
           />
         </div>
+
+        {(!!selectedLayers.length && !isEmpty(area)) &&
+          <div className="button-container -analysis-report">
+            <button
+              className="c-button -small -sea"
+              onClick={() => this.props.setAnalysisActive(!analysisActive)}
+            >
+              Analysis Report
+            </button>
+          </div>
+        }
       </div>
     );
   }

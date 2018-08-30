@@ -6,7 +6,8 @@ import NearbyComponent from './component';
 export default connect(
   state => ({
     ...state.fspMaps.analysis,
-    ...state.fspMaps.common
+    ...state.fspMaps.common,
+    selectedLayers: state.fspMaps.layers.selectedLayers
   }),
   actions
 )(NearbyComponent);

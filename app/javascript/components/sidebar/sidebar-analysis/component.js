@@ -40,8 +40,7 @@ class SidebarAnalysisComponent extends React.Component {
   static propTypes = {
     active: PropTypes.bool.isRequired,
     menuItem: PropTypes.string,
-    setMenuItem: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired
+    setMenuItem: PropTypes.func.isRequired
   }
 
   static defaultProps = { menuItem: '' }
@@ -68,8 +67,6 @@ class SidebarAnalysisComponent extends React.Component {
               React.cloneElement(MENU_CONTENT[menuItem])}
           </MenuItem>
         }
-
-        <button onClick={() => this.props.setAnalysisActive(!active)}>Toogle Active!!!!!!!</button>
 
         {active &&
           <AnalysisResult />

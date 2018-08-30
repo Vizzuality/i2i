@@ -9,6 +9,7 @@ import { getWidgets } from './selectors';
 export default connect(
   state => ({
     ...state.fspMaps.sidebar,
+    analysisActive: state.fspMaps.analysis.active,
     widgets: getWidgets(state)
   }),
   actions
