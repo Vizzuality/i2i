@@ -83,11 +83,11 @@ export const getWidgets = createSelector(
 
       return {
         id,
-        analysisName,
-        analysisType,
+        title: analysisName,
         url,
         body: bodyParams,
-        type: widgetType
+        type: analysisType,
+        chart: widgetType
       };
     });
 

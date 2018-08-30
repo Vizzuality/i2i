@@ -195,6 +195,9 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
     });
 });
 
+// Analysis
+export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
+
 // Analysis - nearby
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');

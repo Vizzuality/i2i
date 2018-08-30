@@ -70,6 +70,20 @@
       }
     },
     {
+      name: 'stacked bar value',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.STRANDS],
+      ratio: 0.2,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
       name: 'radial',
       acceptedStatTypes: [
         ['nominal'],

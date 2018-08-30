@@ -9,6 +9,9 @@ import SidebarComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({ ...state.fspMaps.sidebar }),
+  state => ({
+    ...state.fspMaps.sidebar,
+    ...state.fspMaps.analysis
+  }),
   actions
 )(SidebarComponent);

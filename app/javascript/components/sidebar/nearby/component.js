@@ -61,7 +61,7 @@ class NearbyComponent extends PureComponent {
 
   render() {
     const { shortIso } = this.props;
-    const { time, error } = this.props.nearby;
+    const { time, error, location } = this.props.nearby;
 
     return (
       <div className="c-nearby">
@@ -83,6 +83,7 @@ class NearbyComponent extends PureComponent {
             ref={(r) => { this.geosuggest = r; }}
             id="nearby-geosuggest"
             className="c-geosuggest"
+            initialValue={location.label}
             placeholder="Introduce location"
             country={shortIso}
             autoActivateFirstSuggest

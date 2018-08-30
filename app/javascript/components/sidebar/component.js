@@ -19,7 +19,9 @@ class SidebarComponent extends PureComponent {
   static propTypes = {
     open: PropTypes.bool.isRequired,
     selected: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
     setSelected: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired,
     setOpenSidebar: PropTypes.func.isRequired
   }
 
@@ -30,9 +32,10 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { selected, open } = this.props;
+    const { selected, open, active } = this.props;
     const classNames = classnames({
       'c-sidebar': true,
+      '-big': active,
       '-open': !!open
     });
 
@@ -43,7 +46,10 @@ class SidebarComponent extends PureComponent {
         <Tabs
           items={TABS}
           selected={this.props.selected}
-          onSelect={s => this.props.setSelected(s)}
+          onSelect={(s) => {
+            this.props.setSelected(s);
+            this.props.setAnalysisActive(false);
+          }}
         />
 
         <div className="overflow-container">

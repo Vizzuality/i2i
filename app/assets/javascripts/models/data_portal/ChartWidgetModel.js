@@ -18,6 +18,8 @@
         year: null,
         // Information about the indicator
         indicator: null,
+        // Fetch via post
+        body: {},
         // List of filters
         // See _filters in App.Page.DataPortalCountryPage to see their format
         filters: [],
@@ -287,7 +289,7 @@
           }.bind(this))
           .fail(deferred.reject);
       } else if (this.fspMapsModel) {
-        this.fspMapsModel.fetch()
+        this.fspMapsModel.fetch({ data: this.options.body, type: 'POST' })
           .then(this._joinFspPartials.bind(this))
           .done(function (data) {
             this.set(data)

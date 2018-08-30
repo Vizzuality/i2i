@@ -441,6 +441,7 @@
               iso: this.options.iso,
               year: this.options.year,
               indicator: this._getIndicator(),
+              body: this.options.body,
               filters: this.options.filters,
               analysisIndicatorId: this.options.analysisIndicator,
               compareIndicators: this.options.compareIndicators,
@@ -562,7 +563,7 @@
      * @returns {function}
      */
     _getChartTemplate: function () {
-      var chartName = this.options.chart.replace(' ', '-');
+      var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
       return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
     },

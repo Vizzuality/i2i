@@ -109,8 +109,6 @@ export default class FSPMaps extends React.Component {
       <div className="c-fsp-maps">
         <Intro />
 
-        <Widget />
-
         <div className="fsp-maps-tool">
           <Sidebar />
           <Map />
