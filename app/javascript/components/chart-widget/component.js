@@ -36,7 +36,7 @@ class ChartWidgetWrapperComponent extends React.Component {
 
   render() {
     return (
-      <div ref={(w) => { this.widgetElement = w; }} className="c-widget-element" />
+      <div ref={(w) => { this.widgetElement = w; }} className="c-chart-widget-element" />
     );
   }
 }
