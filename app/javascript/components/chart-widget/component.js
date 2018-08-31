@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // styles
 import './styles.scss';
 
-class WidgetWrapperComponent extends React.Component {
+class ChartWidgetWrapperComponent extends React.Component {
   static propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     title: PropTypes.string.isRequired,
@@ -41,4 +41,4 @@ class WidgetWrapperComponent extends React.Component {
   }
 }
 
-export default WidgetWrapperComponent;
+export default ChartWidgetWrapperComponent;
