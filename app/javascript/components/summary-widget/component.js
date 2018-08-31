@@ -6,7 +6,6 @@ import './styles.scss';
 
 class SummaryWidgetWrapperComponent extends React.Component {
   static propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     body: PropTypes.object.isRequired
@@ -16,8 +15,9 @@ class SummaryWidgetWrapperComponent extends React.Component {
     const { url, body } = this.props;
 
     fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(body)
+      method: 'post',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: Object.keys(body).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`).join('&')
     })
       .then((response) => {
         if (response.ok) return response.json();
