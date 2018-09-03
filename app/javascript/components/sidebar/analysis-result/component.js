@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import SummaryWidget from 'components/summary-widget';
 import Widget from 'components/widget';
 
 // styles
@@ -33,13 +32,7 @@ class AnalysisResultComponent extends React.Component {
           </h3>
         </div>
 
-        {widgets.map((w) => {
-          if (w.chart === 'summary') {
-            return <SummaryWidget key={w.id} {...w} />;
-          }
-
-          return <Widget key={w.id} {...w} />;
-        })}
+        {widgets.map(w => <Widget key={w.id} {...w} />)}
       </div>
     );
   }
