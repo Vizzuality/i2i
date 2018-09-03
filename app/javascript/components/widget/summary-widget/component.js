@@ -11,10 +11,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
     widgetData: PropTypes.array.isRequired
   }
 
-  state = {
-    widgetData: [],
-    loading: true
-  };
+  state = { widgetData: [] };
 
   componentDidMount() {
     const { widgetData } = this.props;
@@ -25,14 +22,13 @@ class SummaryWidgetWrapperComponent extends React.Component {
         { label: 'TOTAL POPULATION', value: Numeral(datum.total_population).format('0,0'), subvalue: null },
         { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(datum.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.rural_population).format('0,0') },
         { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(datum.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.urban_population).format('0,0') }
-      ],
-      loading: false
+      ]
     });
   }
 
   render() {
     const { title } = this.props;
-    const { widgetData, loading } = this.state;
+    const { widgetData } = this.state;
 
     return (
       <div className="c-summary-widget-element">
@@ -40,36 +36,34 @@ class SummaryWidgetWrapperComponent extends React.Component {
           {title}
         </div>
 
-        {!loading &&
-          <table
-            className="widget-table"
-          >
-            <thead>
-              <tr>
-                {widgetData.map(item => (
-                  <th key={item.label}>
-                    <div className="widget-label">
-                      {item.label}
-                    </div>
-                  </th>
+        <table
+          className="widget-table"
+        >
+          <thead>
+            <tr>
+              {widgetData.map(item => (
+                <th key={item.label}>
+                  <div className="widget-label">
+                    {item.label}
+                  </div>
+                </th>
                 ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {widgetData.map(item => (
-                  <td key={item.label}>
-                    <div className="widget-main-value">{item.value}</div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {widgetData.map(item => (
+                <td key={item.label}>
+                  <div className="widget-main-value">{item.value}</div>
 
-                    {!!item.subvalue &&
-                      <div className="widget-sub-value">({item.subvalue})</div>
+                  {!!item.subvalue &&
+                  <div className="widget-sub-value">({item.subvalue})</div>
                     }
-                  </td>
+                </td>
                 ))}
-              </tr>
-            </tbody>
-          </table>
-        }
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }

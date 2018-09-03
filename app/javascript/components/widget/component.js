@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
+import { Spinner } from 'wri-api-components';
 import SummaryWidget from './summary-widget';
 import ChartWidget from './chart-widget';
 // import WidgetText from '...'
@@ -43,14 +44,19 @@ class WidgetWrapperComponent extends React.Component {
 
     return (
       <div className="c-widget-element">
-        {!loading && chart === 'summary' ? <SummaryWidget key={id} widgetData={widgetData} {...this.props} /> : null }
+        {loading && <Spinner position="relative" />}
+
+        {!loading && chart === 'summary' &&
+          <SummaryWidget key={id} widgetData={widgetData} {...this.props} />
+        }
+
         {
-          (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) ?
+          (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) &&
             <ChartWidget
               key={id}
               widgetData={widgetData}
               {...this.props}
-            /> : null
+            />
         }
       </div>
     );

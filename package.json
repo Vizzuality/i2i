@@ -57,7 +57,7 @@
     "reselect": "^3.0.1",
     "vega-lib": "^4.2.0",
     "webpack-dev-server": "2.11.2",
-    "wri-api-components": "^2.1.8",
+    "wri-api-components": "^2.1.10",
     "wri-json-api-serializer": "^1.0.1"
   }
 }

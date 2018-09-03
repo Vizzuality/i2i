@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 // Components
 import { VegaChart } from 'wri-api-components';
-// import { Spinner } from 'wri-api-components';
 
 // Constants
 import { PIE_SPEC, BAR_SPEC, GROUPED_BAR_SPEC, STACKED_BAR_SPEC } from './constants';
@@ -18,13 +17,15 @@ class ChartWidgetWrapperComponent extends React.Component {
     widgetData: PropTypes.array.isRequired
   }
 
-  state = { loading: true };
-
   componentDidMount() {
-    this.setState({ loading: false });
+    this.forceUpdate();
   }
 
   getSpec(chart) {
+    if (!this.widgetElement) {
+      return null;
+    }
+
     const { widgetData } = this.props;
 
     if (chart === 'pie') {
@@ -40,14 +41,16 @@ class ChartWidgetWrapperComponent extends React.Component {
 
   render() {
     const { title, chart } = this.props;
-    const { loading } = this.state;
+    const spec = this.getSpec(chart);
 
     return (
       <div ref={(r) => { this.widgetElement = r; }} className="c-chart-widget-element">
         <div className="widget-title">
           {title}
 
-          {!loading && <VegaChart spec={this.getSpec(chart)} />}
+          {spec &&
+            <VegaChart spec={spec} />
+          }
         </div>
       </div>
     );
