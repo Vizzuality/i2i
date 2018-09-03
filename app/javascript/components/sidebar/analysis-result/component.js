@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import SummaryWidget from 'components/summary-widget';
-import ChartWidget from 'components/chart-widget';
+import Widget from 'components/widget';
 
 // styles
 import './styles.scss';
@@ -38,7 +38,7 @@ class AnalysisResultComponent extends React.Component {
             return <SummaryWidget key={w.id} {...w} />;
           }
 
-          return <ChartWidget key={w.id} {...w} />;
+          return <Widget key={w.id} {...w} />;
         })}
       </div>
     );
