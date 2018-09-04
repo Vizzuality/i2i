@@ -2,7 +2,7 @@ export const PIE_SPEC = (widgetData, width) => ({
   $schema: 'https://vega.github.io/schema/vega/v4.json',
   width,
   height: 200,
-  config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCCCCC'] } },
+  config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
   data: [
     {
       name: 'table',
@@ -10,6 +10,7 @@ export const PIE_SPEC = (widgetData, width) => ({
       transform: [
         {
           type: 'window',
+          sort: { field: 'value', order: 'descending' },
           ops: ['row_number'],
           as: ['rank']
         },
@@ -20,7 +21,7 @@ export const PIE_SPEC = (widgetData, width) => ({
         },
         {
           type: 'aggregate',
-          groupby: ['category'],
+          groupby: ['category', 'unit'],
           ops: ['sum'],
           fields: ['value'],
           as: ['value']
@@ -30,6 +31,13 @@ export const PIE_SPEC = (widgetData, width) => ({
           field: 'value',
           startAngle: 0,
           endAngle: 6.29
+        },
+        {
+          type: 'collect',
+          sort: {
+            field: 'value',
+            order: 'descending'
+          }
         }
       ]
     }
@@ -56,6 +64,7 @@ export const PIE_SPEC = (widgetData, width) => ({
       from: { data: 'table' },
       encode: {
         enter: {
+          tooltip: { signal: '{ Category: datum.category, Value: datum.value + datum.unit }' },
           fill: { scale: 'c', field: 'category' },
           x: { signal: 'width / 2' },
           y: { signal: 'height / 2' }
@@ -68,7 +77,7 @@ export const PIE_SPEC = (widgetData, width) => ({
           innerRadius: { signal: 'width > height ? height / 3 : width / 3' },
           outerRadius: { signal: 'width > height ? height / 2 : width / 2' }
         },
-        hover: { opacity: { value: 0.8 } }
+        hover: { opacity: { value: 0.75 } }
       }
     }
   ],
@@ -99,7 +108,7 @@ export const BAR_SPEC = (widgetData, width) => ({
   width,
   height: 200,
   padding: 5,
-
+  config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
   data: [
     {
       name: 'table',
@@ -155,7 +164,8 @@ export const BAR_SPEC = (widgetData, width) => ({
       labelAlign: 'right',
       bandPosition: 0.5,
       ticks: false,
-      offset: 6
+      offset: 6,
+      title: 'Year'
     },
     {
       orient: 'left',
@@ -165,7 +175,8 @@ export const BAR_SPEC = (widgetData, width) => ({
       grid: true,
       format: 's',
       tickCount: 6,
-      offset: 6
+      offset: 6,
+      title: 'Total transaction value ($)'
     }
   ],
   marks: [
@@ -174,6 +185,7 @@ export const BAR_SPEC = (widgetData, width) => ({
       from: { data: 'table' },
       encode: {
         enter: {
+          tooltip: { signal: '{ Category: datum.category, Value: datum.value + datum.unit }' },
           x: {
             scale: 'xscale',
             field: 'label'
@@ -195,7 +207,7 @@ export const BAR_SPEC = (widgetData, width) => ({
           fill: { value: '#2f939c' },
           opacity: { value: 1 }
         },
-        hover: { opacity: { value: 0.8 } }
+        hover: { opacity: { value: 0.75 } }
       }
     }
   ]
@@ -204,19 +216,68 @@ export const BAR_SPEC = (widgetData, width) => ({
 export const STACKED_BAR_SPEC = (widgetData, width) => ({
   $schema: 'https://vega.github.io/schema/vega/v4.json',
   width,
-  height: 100,
+  height: 60,
   padding: 5,
+
+  config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
+
+  signals: [
+    {
+      name: 'titleName',
+      description: 'A date value that updates in response to mousemove.',
+      update: "data('title')[0].unit"
+    }
+  ],
 
   data: [
     {
+      name: 'input',
+      values: widgetData
+    },
+    {
       name: 'table',
-      values: widgetData,
+      source: 'input',
       transform: [
+        {
+          type: 'window',
+          sort: { field: 'value', order: 'descending' },
+          ops: ['row_number'],
+          as: ['rank']
+        },
+        {
+          type: 'formula',
+          as: 'category',
+          expr: "datum.rank < 14 ? datum.label : 'Others'"
+        },
+        {
+          type: 'aggregate',
+          groupby: ['category', 'unit'],
+          ops: ['sum'],
+          fields: ['value'],
+          as: ['value']
+        },
         {
           type: 'stack',
           groupby: ['unit'],
           field: 'value',
           sort: { field: 'value', order: 'ascending' }
+        },
+        {
+          type: 'collect',
+          sort: {
+            field: 'value',
+            order: 'descending'
+          }
+        }
+      ]
+    },
+    {
+      name: 'title',
+      source: 'input',
+      transform: [
+        {
+          type: 'aggregate',
+          groupby: ['unit']
         }
       ]
     }
@@ -242,7 +303,7 @@ export const STACKED_BAR_SPEC = (widgetData, width) => ({
       name: 'color',
       type: 'ordinal',
       range: 'category',
-      domain: { data: 'table', field: 'label' }
+      domain: { data: 'table', field: 'category' }
     }
   ],
 
@@ -253,7 +314,8 @@ export const STACKED_BAR_SPEC = (widgetData, width) => ({
       domain: false,
       ticks: false,
       grid: true,
-      format: 's'
+      format: 's',
+      title: { signal: 'titleName' }
     },
     {
       orient: 'left',
@@ -279,14 +341,15 @@ export const STACKED_BAR_SPEC = (widgetData, width) => ({
       from: { data: 'table' },
       encode: {
         enter: {
+          tooltip: { signal: '{ Category: datum.category, Value: datum.value }' },
           y: { scale: 'y', field: 'unit' },
           height: { scale: 'y', band: 1, offset: 0 },
           x: { scale: 'x', field: 'y1' },
           x2: { scale: 'x', field: 'y0' },
-          fill: { scale: 'color', field: 'label' }
+          fill: { scale: 'color', field: 'category' }
         },
         update: { fillOpacity: { value: 1 } },
-        hover: { fillOpacity: { value: 0.8 } }
+        hover: { fillOpacity: { value: 0.75 } }
       }
     }
   ]
@@ -295,13 +358,38 @@ export const STACKED_BAR_SPEC = (widgetData, width) => ({
 export const GROUPED_BAR_SPEC = (widgetData, width) => ({
   $schema: 'https://vega.github.io/schema/vega/v4.json',
   width,
-  height: 100,
+  height: 60,
   padding: 5,
+
+  config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
+
   data: [
     {
+      name: 'input',
+      values: widgetData
+    },
+    {
       name: 'table',
-      values: widgetData,
+      source: 'input',
       transform: [
+        {
+          type: 'window',
+          sort: { field: 'value', order: 'descending' },
+          ops: ['row_number'],
+          as: ['rank']
+        },
+        {
+          type: 'formula',
+          as: 'category',
+          expr: "datum.rank < 14 ? datum.label : 'Others'"
+        },
+        {
+          type: 'aggregate',
+          groupby: ['category', 'unit'],
+          ops: ['sum'],
+          fields: ['value'],
+          as: ['value']
+        },
         {
           type: 'window',
           sort: { field: 'value', order: 'ascending' },
@@ -309,7 +397,11 @@ export const GROUPED_BAR_SPEC = (widgetData, width) => ({
           fields: ['value'],
           as: ['sd']
         },
-        { type: 'formula', as: 'x', expr: 'datum.sd==null ? 0 : datum.sd' },
+        {
+          type: 'formula',
+          as: 'x',
+          expr: 'datum.sd==null ? 0 : datum.sd'
+        },
         {
           type: 'collect',
           sort: {
@@ -318,8 +410,26 @@ export const GROUPED_BAR_SPEC = (widgetData, width) => ({
           }
         }
       ]
+    },
+    {
+      name: 'title',
+      source: 'input',
+      transform: [
+        {
+          type: 'aggregate',
+          groupby: ['title']
+        }
+      ]
     }
   ],
+
+  signals: [
+    {
+      name: 'titleName',
+      update: "data('title')[0].title"
+    }
+  ],
+
   scales: [
     {
       name: 'y',
@@ -340,7 +450,7 @@ export const GROUPED_BAR_SPEC = (widgetData, width) => ({
       name: 'color',
       type: 'ordinal',
       range: 'category',
-      domain: { data: 'table', field: 'label' }
+      domain: { data: 'table', field: 'category' }
     }
   ],
   axes: [
@@ -350,7 +460,8 @@ export const GROUPED_BAR_SPEC = (widgetData, width) => ({
       domain: false,
       ticks: false,
       grid: true,
-      format: 's'
+      format: 's',
+      title: { signal: 'titleName' }
     },
     {
       orient: 'left',
@@ -374,14 +485,15 @@ export const GROUPED_BAR_SPEC = (widgetData, width) => ({
       from: { data: 'table' },
       encode: {
         enter: {
+          tooltip: { signal: '{ Category: datum.category, Value: datum.value }' },
           y: { scale: 'y', field: 'unit' },
           height: { scale: 'y', band: 1, offset: 0 },
           x: { scale: 'x', field: 'x' },
           x2: { scale: 'x', field: 'value' },
-          fill: { scale: 'color', field: 'label' }
+          fill: { scale: 'color', field: 'category' }
         },
         update: { fillOpacity: { value: 1 } },
-        hover: { fillOpacity: { value: 0.8 } }
+        hover: { fillOpacity: { value: 0.75 } }
       }
     }
   ]

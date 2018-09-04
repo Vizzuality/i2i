@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import { VegaChart } from 'wri-api-components';
+import * as vegaTooltip from 'vega-tooltip';
 
 // Constants
 import { PIE_SPEC, BAR_SPEC, GROUPED_BAR_SPEC, STACKED_BAR_SPEC } from './constants';
@@ -42,6 +43,7 @@ class ChartWidgetWrapperComponent extends React.Component {
   render() {
     const { title, chart } = this.props;
     const spec = this.getSpec(chart);
+    const handler = new vegaTooltip.Handler();
 
     return (
       <div ref={(r) => { this.widgetElement = r; }} className="c-chart-widget-element">
@@ -49,7 +51,10 @@ class ChartWidgetWrapperComponent extends React.Component {
           {title}
 
           {spec &&
-            <VegaChart spec={spec} />
+            <VegaChart
+              spec={spec}
+              tooltip={handler.call}
+            />
           }
         </div>
       </div>
