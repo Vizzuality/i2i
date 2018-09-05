@@ -40,13 +40,17 @@ class SidebarAnalysisComponent extends React.Component {
   static propTypes = {
     active: PropTypes.bool.isRequired,
     menuItem: PropTypes.string,
+    selected: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired
   }
 
-  static defaultProps = { menuItem: '' }
+  static defaultProps = {
+    menuItem: '',
+    selected: ''
+  }
 
   render() {
-    const { menuItem, active } = this.props;
+    const { menuItem, active, selected } = this.props;
     const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
 
     return (
@@ -55,6 +59,7 @@ class SidebarAnalysisComponent extends React.Component {
           <MenuItems
             items={ANALYSIS_TYPES}
             onSelect={this.props.setMenuItem}
+            selected={selected}
           />
         }
 

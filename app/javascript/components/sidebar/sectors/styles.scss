@@ -66,23 +66,4 @@
       font-size: 14px;
     }
   }
-
-  .country-report {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 0 0 20px;
-    background: linear-gradient(180deg, rgba(245,248,248,0) 0%, #F5F8F8 100%);
-
-    > .country-report-btn {
-
-      &:hover {
-        opacity: 1;
-        background: lighten(#2f939c, 5%);
-      }
-    }
-  }
 }

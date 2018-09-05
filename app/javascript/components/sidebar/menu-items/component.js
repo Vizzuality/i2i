@@ -7,12 +7,17 @@ import './styles.scss';
 
 class MenuItemsComponent extends React.Component {
   static propTypes = {
+    selected: PropTypes.string,
     items: PropTypes.array.isRequired,
     onSelect: PropTypes.func.isRequired
   }
 
+  static defaultProps = { selected: '' }
+
+  onClickCountryReport = () => console.info('on country report – I am WIP!')
+
   render() {
-    const { items, onSelect } = this.props;
+    const { items, onSelect, selected } = this.props;
 
     return (
       <div className="c-menu-items">
@@ -36,6 +41,17 @@ class MenuItemsComponent extends React.Component {
               </div>
             </div>
           ))
+        }
+
+        {selected === 'analysis' &&
+          <div className="country-report">
+            <button
+              className="c-button -medium -sea country-report-btn"
+              onClick={this.onClickCountryReport}
+            >
+              Country Report
+            </button>
+          </div>
         }
       </div>
     );
