@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { MapPopup } from 'wri-api-components';
 
+import './styles.scss';
+
 class PopupComponent extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
@@ -17,36 +19,42 @@ class PopupComponent extends React.Component {
     const { name, type } = data || {};
 
     return (
-      <div className="c-map-popup">
-        <MapPopup
-          map={map}
-          latlng={data ? latlng : null}
-          data={data}
-        >
-          <table>
-            <tbody>
-              {!!name &&
-              <tr>
-                <td>
-                  Name
-                </td>
-                <td>
-                  {name}
-                </td>
-              </tr>}
-              {!!type &&
-              <tr>
-                <td>
-                  Type
-                </td>
-                <td>
-                  {type}
-                </td>
-              </tr>}
-            </tbody>
-          </table>
-        </MapPopup>
-      </div>
+      <MapPopup
+        map={map}
+        latlng={data ? latlng : null}
+        data={data}
+      >
+        <div className="c-map-popup">
+          <div className="popup-content">
+            <table className="popup-table">
+              <tbody>
+                {!!type &&
+                  <tr
+                    className="dc"
+                    key={type}
+                  >
+                    <td className="dt">
+                    Type:
+                    </td>
+                    <td className="dd">{type}</td>
+                  </tr>
+                }
+                {!!name &&
+                  <tr
+                    className="dc"
+                    key={name}
+                  >
+                    <td className="dt">
+                      Name:
+                    </td>
+                    <td className="dd">{name}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </MapPopup>
     );
   }
 }
