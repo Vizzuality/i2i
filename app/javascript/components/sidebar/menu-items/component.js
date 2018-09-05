@@ -53,13 +53,22 @@ class MenuItemsComponent extends React.Component {
         }
 
         {selected === 'analysis' &&
-          <div className="country-report">
-            <button
-              className="c-button -medium -sea country-report-btn"
-              onClick={this.onClickCountryReport}
-            >
-              Country Report
-            </button>
+          <div
+            tabIndex="0"
+            role="button"
+            className="menu-items-item"
+            key="country"
+            onClick={this.onClickCountryReport}
+          >
+            <div className="item-header">
+              <h3 className="title">
+               Country Report
+              </h3>
+            </div>
+
+            <div className="description">
+              Countrywide analysis.
+            </div>
           </div>
         }
       </div>
