@@ -96,7 +96,7 @@ export const getWidgets = createSelector(
       };
     });
 
-    return widgets;
+    return widgets.sort((w1, w2) => w1.id - w2.id);
   }
 );
 

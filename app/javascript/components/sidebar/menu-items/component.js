@@ -9,12 +9,21 @@ class MenuItemsComponent extends React.Component {
   static propTypes = {
     selected: PropTypes.string,
     items: PropTypes.array.isRequired,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func
   }
 
-  static defaultProps = { selected: '' }
+  static defaultProps = {
+    selected: '',
+    setAnalysisActive: () => {}
+  }
 
-  onClickCountryReport = () => console.info('on country report – I am WIP!')
+  onClickCountryReport = () => {
+    if (this.props.selected === 'analysis') {
+      this.props.onSelect('country');
+      this.props.setAnalysisActive(true);
+    }
+  }
 
   render() {
     const { items, onSelect, selected } = this.props;
