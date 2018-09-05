@@ -2,6 +2,10 @@ export const PIE_SPEC = (widgetData, width) => ({
   $schema: 'https://vega.github.io/schema/vega/v4.json',
   width,
   height: 200,
+  autosize: {
+    type: 'fit',
+    contains: 'padding'
+  },
   config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
   data: [
     {
@@ -107,6 +111,10 @@ export const BAR_SPEC = (widgetData, width) => ({
   $schema: 'https://vega.github.io/schema/vega/v4.json',
   width,
   height: 200,
+  autosize: {
+    type: 'fit',
+    contains: 'padding'
+  },
   padding: 5,
   config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
   data: [
@@ -218,9 +226,7 @@ export const STACKED_BAR_SPEC = (widgetData, width) => ({
   width,
   height: 60,
   padding: 5,
-
   config: { range: { category: ['#2f939c', '#97c9ce', '#001d22', '#f9d031', '#f95e31', '#FCAE98', '#633AE8', '#E4D081', '#00D9C6', '#B9A86C', '#7B0051', '#B685C9', '#076270', '#CCC'] } },
-
   signals: [
     {
       name: 'titleName',
