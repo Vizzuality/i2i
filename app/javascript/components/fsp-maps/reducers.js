@@ -113,6 +113,12 @@ export default {
   }),
   [actions.closeModal]: state => ({ ...state, modal: initialState.modal }),
 
+  // ANALYSIS
+  [actions.setAnalysisActive]: (state, { payload }) => {
+    const analysis = { ...state.analysis, active: payload };
+    return { ...state, analysis };
+  },
+
   // Analysis - nearby
   [actions.setNearby]: (state, { payload }) => {
     const analysis = { ...state.analysis, nearby: payload };

@@ -31,6 +31,7 @@ export default {
   },
   interactions: {},
   analysis: {
+    active: false,
     nearby: {
       location: {},
       time: 30,

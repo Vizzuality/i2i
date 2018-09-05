@@ -9,9 +9,13 @@ import './styles.scss';
 class JurisdictionComponent extends PureComponent {
   static propTypes = {
     options: PropTypes.array.isRequired,
+    selectedLayers: PropTypes.array.isRequired,
+    analysisActive: PropTypes.bool.isRequired,
     selectedOption: PropTypes.object.isRequired,
+    area: PropTypes.object.isRequired,
     fetchJurisdictionArea: PropTypes.func.isRequired,
-    setJurisdictionSelected: PropTypes.func.isRequired
+    setJurisdictionSelected: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -31,7 +35,7 @@ class JurisdictionComponent extends PureComponent {
   }
 
   render() {
-    const { options, selectedOption } = this.props;
+    const { options, selectedOption, analysisActive, selectedLayers, area } = this.props;
 
     return (
       <div className="c-jurisdiction">
@@ -41,6 +45,17 @@ class JurisdictionComponent extends PureComponent {
           options={options}
           placeholder="Select Jurisdiction..."
         />
+
+        {(!!selectedLayers.length && !isEmpty(area)) &&
+          <div className="button-container -analysis-report">
+            <button
+              className="c-button -small -sea"
+              onClick={() => this.props.setAnalysisActive(!analysisActive)}
+            >
+              Analysis Report
+            </button>
+          </div>
+        }
       </div>
     );
   }

@@ -15,7 +15,7 @@
 
   .rc-slider {
     height: auto;
-    
+
     &:before,
     &:after {
       content: "";
@@ -36,5 +36,11 @@
       right: 0;
       margin: 0 0 0 1px;
     }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

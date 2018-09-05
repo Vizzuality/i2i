@@ -42,6 +42,10 @@
   transform: translate(-100%, 0);
   transition: transform .24s cubic-bezier(0.445, 0.050, 0.550, 0.950);
 
+  &.-big {
+    width: 50%;
+  }
+
   .overflow-container {
     overflow-x: hidden;
     overflow-y: auto;

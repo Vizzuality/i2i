@@ -9,13 +9,17 @@ const selectedMenuItem = state => state.fspMaps.sidebar.menuItem;
 const nearby = state => state.fspMaps.analysis.nearby;
 const jurisdiction = state => state.fspMaps.analysis.jurisdiction;
 const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
+const allLayersList = state => state.fspMaps.layers.list;
 
 export const getWidgets = createSelector(
-  [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea],
-  (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea) => {
+  [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea, allLayersList],
+  (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
+    const sectorLayers = _allLayersList.filter(layer => _selectedLayers.includes(layer.id) && layer.layerType === 'sector');
+
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
       const { analysis_type: analysisType, type_id: typeId } = widget;
 
+      // If the widget has a type_id in carto, it means it's a contextual layer widget.
       if (typeId) {
         const widgetLayers = typeId.split(',');
         const hasLayer = intersection(widgetLayers, _selectedLayers).length;
@@ -24,7 +28,9 @@ export const getWidgets = createSelector(
           return widget;
         }
       } else if (analysisType.includes(_selectedMenuItem)) {
-        return widget;
+        if (sectorLayers.length) {
+          return widget;
+        }
       }
 
       return null;
@@ -45,7 +51,7 @@ export const getWidgets = createSelector(
       const { area: nearbyArea, center } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
       const { lng, lat } = center;
-      const typeIds = _selectedLayers;
+      const typeIds = sectorLayers.map(layer => layer.id);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 
@@ -80,14 +86,13 @@ export const getWidgets = createSelector(
         ...(provider === 'cartodb') && { api_key: cartoApiKey }
       };
 
-
       return {
         id,
-        analysisName,
-        analysisType,
+        title: analysisName,
         url,
         body: bodyParams,
-        type: widgetType
+        type: analysisType,
+        chart: widgetType
       };
     });
 

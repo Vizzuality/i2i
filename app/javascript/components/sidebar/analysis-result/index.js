@@ -1,13 +1,16 @@
 import { connect } from 'react-redux';
 import * as actions from 'components/fsp-maps/actions';
 
-import AreaOfInterestComponent from './component';
+import AnalysisResultComponent from './component';
+
+// Selectors
+import { getWidgets } from './selectors';
 
 export default connect(
   state => ({
-    ...state.fspMaps.analysis.areaOfInterest,
+    ...state.fspMaps.sidebar,
     analysisActive: state.fspMaps.analysis.active,
-    selectedLayers: state.fspMaps.layers.selectedLayers
+    widgets: getWidgets(state)
   }),
   actions
-)(AreaOfInterestComponent);
+)(AnalysisResultComponent);

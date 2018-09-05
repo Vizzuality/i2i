@@ -8,9 +8,12 @@ import './styles.scss';
 class AreaOfInterestComponent extends PureComponent {
   static propTypes = {
     area: PropTypes.object.isRequired,
+    selectedLayers: PropTypes.array.isRequired,
     drawing: PropTypes.bool.isRequired,
+    analysisActive: PropTypes.bool.isRequired,
     setClearing: PropTypes.func.isRequired,
-    setAreaOfInterest: PropTypes.func.isRequired
+    setAreaOfInterest: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired
   }
 
   onClear = () => {
@@ -22,7 +25,7 @@ class AreaOfInterestComponent extends PureComponent {
   }
 
   render() {
-    const { drawing, area } = this.props;
+    const { drawing, area, analysisActive, selectedLayers } = this.props;
 
     return (
       <div className="c-area-of-interest">
@@ -41,6 +44,17 @@ class AreaOfInterestComponent extends PureComponent {
             {!drawing && !isEmpty(area) && 'Clear'}
           </button>
         </div>
+
+        {(!!selectedLayers.length && !isEmpty(area)) &&
+          <div className="button-container -analysis-report">
+            <button
+              className="c-button -small -sea"
+              onClick={() => this.props.setAnalysisActive(!analysisActive)}
+            >
+              Analysis Report
+            </button>
+          </div>
+        }
       </div>
     );
   }

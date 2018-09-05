@@ -45,8 +45,8 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
       dispatch(setIntro([
         { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
         { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
-        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.population_5km).format('0,0') },
-        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.urban_population).format('0,0') }
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage / 100).format('0.0%')}`, subvalue: Numeral(dataRows.population_5km).format('0,0') }
       ]));
     })
     .catch((err) => {
@@ -194,6 +194,9 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
       dispatch(setWidgetsList(data.rows));
     });
 });
+
+// Analysis
+export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
 // Analysis - nearby
 export const setNearby = createAction('ANALYSIS/setNearby');
