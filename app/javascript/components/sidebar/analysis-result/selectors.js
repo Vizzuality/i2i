@@ -17,7 +17,7 @@ export const getWidgets = createSelector(
     const sectorLayers = _allLayersList.filter(layer => _selectedLayers.includes(layer.id) && layer.layerType === 'sector');
 
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
-      const { analysis_type: analysisType, type_id: typeId } = widget;
+      const { analysis_type: analysisType, type_id: typeId, output } = widget;
 
       // If the widget has a type_id in carto, it means it's a contextual layer widget.
       if (typeId) {
@@ -28,7 +28,9 @@ export const getWidgets = createSelector(
           return widget;
         }
       } else if (analysisType.includes(_selectedMenuItem)) {
-        if (sectorLayers.length) {
+        if (output === 'summary') {
+          return widget;
+        } else if (sectorLayers.length) {
           return widget;
         }
       }
