@@ -40,13 +40,18 @@ class SidebarAnalysisComponent extends React.Component {
   static propTypes = {
     active: PropTypes.bool.isRequired,
     menuItem: PropTypes.string,
-    setMenuItem: PropTypes.func.isRequired
+    selected: PropTypes.string,
+    setMenuItem: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired
   }
 
-  static defaultProps = { menuItem: '' }
+  static defaultProps = {
+    menuItem: '',
+    selected: ''
+  }
 
   render() {
-    const { menuItem, active } = this.props;
+    const { menuItem, active, selected, setMenuItem, setAnalysisActive } = this.props;
     const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
 
     return (
@@ -54,14 +59,16 @@ class SidebarAnalysisComponent extends React.Component {
         {(!active && (!menuItem || !availableMenuItems.includes(menuItem))) &&
           <MenuItems
             items={ANALYSIS_TYPES}
-            onSelect={this.props.setMenuItem}
+            onSelect={setMenuItem}
+            selected={selected}
+            setAnalysisActive={setAnalysisActive}
           />
         }
 
         {(!active && (!!menuItem && availableMenuItems.includes(menuItem))) &&
           <MenuItem
             item={ANALYSIS_TYPES.find(at => at.value === menuItem)}
-            onBack={this.props.setMenuItem}
+            onBack={setMenuItem}
           >
             {!!MENU_CONTENT[menuItem] &&
               React.cloneElement(MENU_CONTENT[menuItem])}

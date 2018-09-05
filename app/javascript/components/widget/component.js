@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 
 // Components
 import { Spinner } from 'wri-api-components';
@@ -22,7 +23,22 @@ class WidgetWrapperComponent extends React.Component {
   state = { widgetData: [], loading: true };
 
   componentDidMount() {
+    this.fetchWidget();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { url: prevUrl, body: prevBody } = prevProps;
+    const { url: nextUrl, body: nextBody } = this.props;
+
+    if ((prevUrl !== nextUrl) || !isEqual(prevBody, nextBody)) {
+      this.fetchWidget();
+    }
+  }
+
+  fetchWidget = () => {
     const { url, body } = this.props;
+
+    this.setState({ loading: true });
 
     fetch(url, {
       method: 'post',
@@ -35,6 +51,9 @@ class WidgetWrapperComponent extends React.Component {
       .then((data) => {
         const widgetData = data.rows;
         this.setState({ widgetData, loading: false });
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
       });
   }
 

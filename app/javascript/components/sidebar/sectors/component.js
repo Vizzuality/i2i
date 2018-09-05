@@ -90,15 +90,6 @@ class SectorsComponent extends PureComponent {
             </Fragment>
           )))
         }
-        {!!activeLayers.length &&
-          <div className="country-report">
-            <button
-              className="c-button -medium -sea country-report-btn"
-              onClick={this.onClickCountryReport}
-            >
-              Country Report
-            </button>
-          </div>}
       </div>
     );
   }
