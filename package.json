@@ -55,9 +55,11 @@
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
     "reselect": "^3.0.1",
+    "tslib": "^1.9.3",
     "vega-lib": "^4.2.0",
+    "vega-tooltip": "^0.13.0",
     "webpack-dev-server": "2.11.2",
-    "wri-api-components": "^2.1.8",
+    "wri-api-components": "^2.1.10",
     "wri-json-api-serializer": "^1.0.1"
   }
 }

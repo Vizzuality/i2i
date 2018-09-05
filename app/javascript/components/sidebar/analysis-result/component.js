@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import ChartWidget from 'components/chart-widget';
+import Widget from 'components/widget';
 
 // styles
 import './styles.scss';
@@ -32,7 +32,7 @@ class AnalysisResultComponent extends React.Component {
           </h3>
         </div>
 
-        {widgets.map(w => <ChartWidget key={w.id} {...w} />)}
+        {widgets.map(w => <Widget key={w.id} {...w} />)}
       </div>
     );
   }
