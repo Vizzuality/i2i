@@ -29,8 +29,6 @@ class SectorsComponent extends PureComponent {
 
   onSelectLayer = row => this.handleSelectedType(row)
 
-  onClickCountryReport = () => console.info('on country report – I am WIP!')
-
   clickSector(sector) {
     const { selectedSector, setLayersSectorSelected } = this.props;
     const nextSector = sector === selectedSector ? null : sector;
