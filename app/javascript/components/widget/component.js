@@ -61,15 +61,16 @@ class WidgetWrapperComponent extends React.Component {
     const { chart, id } = this.props;
     const { widgetData, loading } = this.state;
 
-    return (
-      <div className="c-widget-element">
-        {loading && <Spinner position="relative" />}
+    if (widgetData.length) {
+      return (
+        <div className="c-widget-element">
+          {loading && <Spinner position="relative" />}
 
-        {!loading && chart === 'summary' &&
+          {!loading && chart === 'summary' &&
           <SummaryWidget key={id} widgetData={widgetData} {...this.props} />
         }
 
-        {
+          {
           (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) &&
             <ChartWidget
               key={id}
@@ -77,8 +78,10 @@ class WidgetWrapperComponent extends React.Component {
               {...this.props}
             />
         }
-      </div>
-    );
+        </div>
+      );
+    }
+    return null;
   }
 }
 
