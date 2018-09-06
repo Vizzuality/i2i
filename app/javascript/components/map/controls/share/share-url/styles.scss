@@ -1,0 +1,31 @@
+.c-share-url {
+  position: relative;
+  min-height: rem(40);
+
+  h3 {
+    font-weight: 600;
+    margin: 30px 0px;
+  }
+
+  .url-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    >.url {
+      display: block;
+      width: 100%;
+      padding-bottom: rem(7);
+      font-size: 16px;
+      color: #2f939c;
+      cursor: text;
+      border: 0;
+      border-bottom: 1px solid rgba(#2f939c, 0.3);
+    }
+
+    >.c-button {
+      margin-top: 30px;
+    }
+  }
+}

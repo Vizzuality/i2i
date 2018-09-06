@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 // Components
 import Modal from 'components/modal';
+import ShareUrl from 'components/map/controls/share/share-url';
 
 import './styles.scss';
 
@@ -25,7 +26,7 @@ class ShareControlComponent extends React.Component {
             this.setState({ shareModal: false });
           }}
         >
-          Share!!!!!
+          <ShareUrl />
         </Modal>
       </button>
     );
