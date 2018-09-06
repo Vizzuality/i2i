@@ -26,7 +26,8 @@ class LegendComponent extends React.Component {
     selectedLayers: PropTypes.array.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired,
-    setLayersOrder: PropTypes.func.isRequired
+    setLayersOrder: PropTypes.func.isRequired,
+    fetchVoronoidLegends: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -72,6 +73,19 @@ class LegendComponent extends React.Component {
 
   onChangeOrder = (layersOrder) => {
     this.props.setLayersOrder(layersOrder);
+  }
+
+  componentDidMount() {
+    this.props.fetchVoronoidLegends();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selectedLayers: prevSelectedLayers, list: prevList } = prevProps;
+    const { selectedLayers: nextSelectedLayers } = this.props;
+
+    if ((prevSelectedLayers !== nextSelectedLayers) || !prevList.length) {
+      this.props.fetchVoronoidLegends();
+    }
   }
 
   render() {

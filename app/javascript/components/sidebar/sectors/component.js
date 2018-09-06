@@ -40,7 +40,6 @@ class SectorsComponent extends PureComponent {
     const layersSettings = { ...this.props.layersSettings };
     const { id } = sectorLayer;
 
-
     if (layers.includes(id)) {
       layers.splice(layers.indexOf(id), 1);
       delete layersSettings[id];
