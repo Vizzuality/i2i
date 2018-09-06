@@ -42,6 +42,11 @@ class MapComponent extends React.Component {
     const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab } = this.props;
     const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
     const { area: jurisdictionArea } = this.props.jurisdiction;
+    const polygonAreaStyle = {
+      color: '#2F939C',
+      fillColor: '#2F939C',
+      fillOpacity: 0.5
+    };
 
     const classNames = classnames({
       'c-map': true,
@@ -85,7 +90,8 @@ class MapComponent extends React.Component {
                     provider: 'leaflet',
                     layerConfig: {
                       body: nearbyArea,
-                      type: 'geoJSON'
+                      type: 'geoJSON',
+                      options: { style: polygonAreaStyle }
                     }
                   }] : [];
 
@@ -94,7 +100,8 @@ class MapComponent extends React.Component {
                     provider: 'leaflet',
                     layerConfig: {
                       body: jurisdictionArea,
-                      type: 'geoJSON'
+                      type: 'geoJSON',
+                      options: { style: polygonAreaStyle }
                     }
                   }] : [];
 
