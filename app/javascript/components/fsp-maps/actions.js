@@ -15,7 +15,6 @@ import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
 import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
 import JURISDICTION_GEOMETRY_SQL from './sql/jurisdiction-geometry.sql';
-import VORONOID_LEGEND_VALUES_SQL from './sql/voronoid_legend_values.sql';
 
 // COMMON
 export const setIso = createAction('COMMON/setIso');
@@ -175,28 +174,6 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
     .then((data) => {
       dispatch(setLayersList(flatten(data)));
     });
-});
-
-export const fetchVoronoidLegends = createThunkAction('LAYERS/fetchVoronoidLegend', () => (dispatch, getState) => {
-  const { selectedLayers, layersSettings, list: layersList } = getState().fspMaps.layers;
-  const selectedSectorLayers = layersList.filter(layer => layer.layerType === 'sector' && selectedLayers.includes(layer.id));
-  const selectedSectorLayersIds = selectedSectorLayers.map(layer => layer.id);
-
-  selectedSectorLayersIds.map((layerId) => {
-    fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(VORONOID_LEGEND_VALUES_SQL, { type_id: layerId }))}&api_key=${window.FSP_CARTO_API_KEY}`)
-      .then((response) => {
-        if (response.ok) return response.json();
-      })
-      .then((data) => {
-        dispatch(setLayersSettings({
-          ...layersSettings,
-          [layerId]: {
-            ...layersSettings[layerId],
-            voronoidLegend: data.rows.map(r => r.bucket)
-          }
-        }));
-      });
-  });
 });
 
 // MODAL

@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import difference from 'lodash/difference';
-import { replace } from 'layer-manager';
 
 import { SECTOR_CONFIGS } from './constants';
 
@@ -73,11 +72,11 @@ export const getActiveLayerGroups = createSelector(
       const visualizationType = (layerSetting && typeof layerSetting.visualizationType !== 'undefined') ? layerSetting.visualizationType : 'normal';
       const sectorConfigParams = {
         l,
-        iso: _iso,
-        voronoidLegend: layerSetting.voronoidLegend
+        visualizationType,
+        iso: _iso
       };
 
-      return {
+      const config = {
         dataset: l.id,
         id: l.id,
         visibility: (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true,
@@ -89,6 +88,8 @@ export const getActiveLayerGroups = createSelector(
         }],
         layerType: l.layerType
       };
+
+      return config;
     });
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);

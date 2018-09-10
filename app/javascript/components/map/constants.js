@@ -2,6 +2,7 @@ import { replace } from 'layer-manager';
 
 // SQL
 import VORONOID_LAYER_SQL from 'components/fsp-maps/sql/voronoid_layer.sql';
+import VORONOID_LEGEND_VALUES_SQL from 'components/fsp-maps/sql/voronoid_legend_values.sql';
 import FSP_LAYER_SQL from 'components/fsp-maps/sql/fsp_layer.sql';
 
 // CSS
@@ -168,7 +169,8 @@ export const SECTOR_CONFIGS = {
     };
   },
   voronoid: (params) => {
-    const { l, iso, voronoidLegend } = params;
+    const { l, iso, visualizationType } = params;
+    const { id: layerid } = l;
 
     const layerConfig = {
       layerConfig: {
@@ -188,36 +190,45 @@ export const SECTOR_CONFIGS = {
         },
         account: 'i2i-admin'
       },
-      interactionConfig: {}
-    };
-
-    if (voronoidLegend) {
-      layerConfig.legendConfig = {
+      interactionConfig: {},
+      legendConfig: {
         type: 'choropleth',
+        params: { visualizationType },
         items: [
           {
-            name: (voronoidLegend && `<${voronoidLegend[0]} km\u00B2`),
+            name: 'Very Close',
             color: '#f6d2a9'
           },
           {
-            name: (voronoidLegend && `<${voronoidLegend[1]} km\u00B2`),
+            name: 'Close',
             color: '#f3aa84'
           },
           {
-            name: (voronoidLegend && `<${voronoidLegend[2]} km\u00B2`),
+            name: 'Medium',
             color: '#ea8171'
           },
           {
-            name: (voronoidLegend && `<${voronoidLegend[3]} km\u00B2`),
+            name: 'Far',
             color: '#d55d6a'
           },
           {
-            name: (voronoidLegend && `<${voronoidLegend[4]} km\u00B2`),
+            name: 'Very Far',
             color: '#b13f64'
           }
-        ]
-      };
-    }
+        ],
+        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(VORONOID_LEGEND_VALUES_SQL, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
+        dataParse: ((activeLayer, data) => {
+          const { legendConfig } = activeLayer;
+
+          const parsedValues = data.rows.map(r => `<${r.bucket} km\u00B2`);
+          parsedValues.forEach((value, index) => {
+            legendConfig.items[index].name = value;
+          });
+
+          return activeLayer;
+        })
+      }
+    };
 
     return layerConfig;
   }
