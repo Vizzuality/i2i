@@ -2,6 +2,7 @@ import { replace } from 'layer-manager';
 
 // SQL
 import VORONOID_LAYER_SQL from 'components/fsp-maps/sql/voronoid_layer.sql';
+import VORONOID_LEGEND_VALUES_SQL from 'components/fsp-maps/sql/voronoid_legend_values.sql';
 import FSP_LAYER_SQL from 'components/fsp-maps/sql/fsp_layer.sql';
 
 // CSS
@@ -80,128 +81,155 @@ export const COUNTRY_MASK = {
 };
 
 export const SECTOR_CONFIGS = {
-  normal: (l, iso) => ({
-    interactivity: ['name', 'type'],
-    layerConfig: {
-      body: {
-        layers: [
+  normal: (params) => {
+    const { l, iso } = params;
+
+    return {
+      interactivity: ['name', 'type'],
+      layerConfig: {
+        body: {
+          layers: [
+            {
+              options: {
+                cartocss_version: '2.3.0',
+                cartocss: replace(SECTORS_CSS, { color: l.color }),
+                sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
+              },
+              type: 'cartodb'
+            }
+          ],
+          minzoom: 3,
+          maxzoom: 18
+        },
+        account: 'i2i-admin'
+      },
+      legendConfig: {
+        type: 'basic',
+        items: [
           {
-            options: {
-              cartocss_version: '2.3.0',
-              cartocss: replace(SECTORS_CSS, { color: l.color }),
-              sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
-            },
-            type: 'cartodb'
+            name: l.type,
+            color: l.color
+          }
+        ]
+      },
+      interactionConfig: {}
+    };
+  },
+  heatmap: (params) => {
+    const { l, iso } = params;
+
+    return {
+      layerConfig: {
+        body: {
+          layers: [
+            {
+              options: {
+                cartocss_version: '2.3.0',
+                cartocss: replace(HEATMAP_CSS, { color: l.color }),
+                sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
+              },
+              type: 'cartodb'
+            }
+          ],
+          minzoom: 3,
+          maxzoom: 18
+        },
+        account: 'i2i-admin'
+      },
+      legendConfig: {
+        type: 'choropleth',
+        items: [
+          {
+            name: 'Very Low',
+            color: 'rgba(0, 255, 255, 0.7)' // cyan
+          },
+          {
+            name: 'Low',
+            color: 'rgba(0, 0, 255, 0.7)' // blue
+          },
+          {
+            name: 'Medium Low',
+            color: 'rgba(0, 128, 0, 0.7)' // green
+          },
+          {
+            name: 'Medium High',
+            color: 'rgba(255, 255, 0, 0.7)' // yellow
+          },
+          {
+            name: 'High',
+            color: 'rgba(255, 165, 0, 0.7)' // orange
+          },
+          {
+            name: 'Very High',
+            color: 'rgba(255, 0, 0, 0.7)' // red
+          }
+        ]
+      },
+      interactionConfig: {}
+    };
+  },
+  voronoid: (params) => {
+    const { l, iso, visualizationType } = params;
+    const { id: layerid } = l;
+
+    const layerConfig = {
+      layerConfig: {
+        body: {
+          layers: [
+            {
+              options: {
+                cartocss_version: '2.3.0',
+                cartocss: replace(VORONOID_LAYER_CSS, { color: l.color }),
+                sql: replace(VORONOID_LAYER_SQL, { iso, type_id: l.type_id })
+              },
+              type: 'cartodb'
+            }
+          ],
+          minzoom: 3,
+          maxzoom: 18
+        },
+        account: 'i2i-admin'
+      },
+      interactionConfig: {},
+      legendConfig: {
+        type: 'choropleth',
+        params: { visualizationType },
+        items: [
+          {
+            name: 'Very Close',
+            color: '#f6d2a9'
+          },
+          {
+            name: 'Close',
+            color: '#f3aa84'
+          },
+          {
+            name: 'Medium',
+            color: '#ea8171'
+          },
+          {
+            name: 'Far',
+            color: '#d55d6a'
+          },
+          {
+            name: 'Very Far',
+            color: '#b13f64'
           }
         ],
-        minzoom: 3,
-        maxzoom: 18
-      },
-      account: 'i2i-admin'
-    },
-    legendConfig: {
-      type: 'basic',
-      items: [
-        {
-          name: l.type,
-          color: l.color
-        }
-      ]
-    },
-    interactionConfig: {}
-  }),
-  heatmap: (l, iso) => ({
-    layerConfig: {
-      body: {
-        layers: [
-          {
-            options: {
-              cartocss_version: '2.3.0',
-              cartocss: replace(HEATMAP_CSS, { color: l.color }),
-              sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id })
-            },
-            type: 'cartodb'
-          }
-        ],
-        minzoom: 3,
-        maxzoom: 18
-      },
-      account: 'i2i-admin'
-    },
-    legendConfig: {
-      type: 'choropleth',
-      items: [
-        {
-          name: 'Very Low',
-          color: 'rgba(0, 255, 255, 0.7)' // cyan
-        },
-        {
-          name: 'Low',
-          color: 'rgba(0, 0, 255, 0.7)' // blue
-        },
-        {
-          name: 'Medium Low',
-          color: 'rgba(0, 128, 0, 0.7)' // green
-        },
-        {
-          name: 'Medium High',
-          color: 'rgba(255, 255, 0, 0.7)' // yellow
-        },
-        {
-          name: 'High',
-          color: 'rgba(255, 165, 0, 0.7)' // orange
-        },
-        {
-          name: 'Very High',
-          color: 'rgba(255, 0, 0, 0.7)' // red
-        }
-      ]
-    },
-    interactionConfig: {}
-  }),
-  voronoid: (l, iso) => ({
-    layerConfig: {
-      body: {
-        layers: [
-          {
-            options: {
-              cartocss_version: '2.3.0',
-              cartocss: replace(VORONOID_LAYER_CSS, { color: l.color }),
-              sql: replace(VORONOID_LAYER_SQL, { iso, type_id: l.type_id })
-            },
-            type: 'cartodb'
-          }
-        ],
-        minzoom: 3,
-        maxzoom: 18
-      },
-      account: 'i2i-admin'
-    },
-    legendConfig: {
-      type: 'choropleth',
-      items: [
-        {
-          name: 'Very Close',
-          color: '#f6d2a9'
-        },
-        {
-          name: 'Close',
-          color: '#f3aa84'
-        },
-        {
-          name: 'Medium',
-          color: '#ea8171'
-        },
-        {
-          name: 'Far',
-          color: '#d55d6a'
-        },
-        {
-          name: 'Very Far',
-          color: '#b13f64'
-        }
-      ]
-    },
-    interactionConfig: {}
-  })
+        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(VORONOID_LEGEND_VALUES_SQL, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
+        dataParse: ((activeLayer, data) => {
+          const { legendConfig } = activeLayer;
+
+          const parsedValues = data.rows.map(r => `<${r.bucket} km\u00B2`);
+          parsedValues.forEach((value, index) => {
+            legendConfig.items[index].name = value;
+          });
+
+          return activeLayer;
+        })
+      }
+    };
+
+    return layerConfig;
+  }
 };

@@ -65,7 +65,6 @@ export const setLabel = createAction('MAP/setLabel');
 // LEGEND
 export const setOpenLegend = createAction('LEGEND/setOpenLegend');
 
-
 // SIDEBAR
 export const setOpenSidebar = createAction('SIDEBAR/setOpenSidebar');
 export const setSelected = createAction('SIDEBAR/setSelected');
@@ -176,7 +175,6 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
       dispatch(setLayersList(flatten(data)));
     });
 });
-
 
 // MODAL
 export const setModal = createAction('MODAL/setModal');

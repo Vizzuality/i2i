@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import difference from 'lodash/difference';
-import { replace } from 'layer-manager';
 
 import { SECTOR_CONFIGS } from './constants';
 
@@ -39,13 +38,18 @@ export const getActiveLayers = createSelector(
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
     const mapped = activeLayers.map((l) => {
-      const visualizationType = (_layersSettings[l.id] && typeof _layersSettings[l.id].visualizationType !== 'undefined') ? _layersSettings[l.id].visualizationType : 'normal';
-      const opacity = (_layersSettings[l.id] && typeof _layersSettings[l.id].opacity !== 'undefined') ? _layersSettings[l.id].opacity : 1;
-      const visibility = (_layersSettings[l.id] && typeof _layersSettings[l.id].visibility !== 'undefined') ? _layersSettings[l.id].visibility : true;
+      const layerSetting = _layersSettings[l.id];
+      const visualizationType = (layerSetting && typeof layerSetting.visualizationType !== 'undefined') ? layerSetting.visualizationType : 'normal';
+      const opacity = (layerSetting && typeof layerSetting.opacity !== 'undefined') ? layerSetting.opacity : 1;
+      const visibility = (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true;
+      const sectorConfigParams = {
+        l,
+        iso: _iso
+      };
 
       return {
         ...l,
-        ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](l, _iso) },
+        ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](sectorConfigParams) },
         visibility,
         opacity
       };
@@ -64,20 +68,28 @@ export const getActiveLayerGroups = createSelector(
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
     const mapped = activeLayers.map((l) => {
-      const visualizationType = (_layersSettings[l.id] && typeof _layersSettings[l.id].visualizationType !== 'undefined') ? _layersSettings[l.id].visualizationType : 'normal';
+      const layerSetting = _layersSettings[l.id];
+      const visualizationType = (layerSetting && typeof layerSetting.visualizationType !== 'undefined') ? layerSetting.visualizationType : 'normal';
+      const sectorConfigParams = {
+        l,
+        visualizationType,
+        iso: _iso
+      };
 
-      return {
+      const config = {
         dataset: l.id,
         id: l.id,
-        visibility: (_layersSettings[l.id] && typeof _layersSettings[l.id].visibility !== 'undefined') ? _layersSettings[l.id].visibility : true,
-        opacity: (_layersSettings[l.id] && typeof _layersSettings[l.id].opacity !== 'undefined') ? _layersSettings[l.id].opacity : 1,
+        visibility: (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true,
+        opacity: (layerSetting && typeof layerSetting.opacity !== 'undefined') ? layerSetting.opacity : 1,
         layers: [{
           ...l,
-          ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](l, _iso) },
+          ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](sectorConfigParams) },
           active: true
         }],
         layerType: l.layerType
       };
+
+      return config;
     });
 
     const sortedLayers = getSortedLayers(allLayersOrder, mapped);

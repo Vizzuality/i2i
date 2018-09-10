@@ -3470,10 +3470,6 @@ ignore@^3.3.3:
   version "3.3.10"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.10.tgz#0a97fb876986e8081c631160f8f9f389157f0043"
 
-immutable@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
-
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -3996,18 +3992,17 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@^1.0.4:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.0.9.tgz#5bc98b23e75805bc12c9935f7a2ffb371dda1c93"
+layer-manager@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.4.tgz#3439d4ccfa515876d84a96512a5822caefa13b77"
   dependencies:
     bluebird "^3.5.1"
-    immutable "^3.8.2"
     lodash "^4.17.10"
     wri-json-api-serializer "^1.0.1"
 
-layer-manager@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.2.tgz#8a4c4d25ffc95ea80c8d5294095c8b7b14fc18ac"
+layer-manager@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.5.tgz#7b12a5ec233b05423cb49ada651a4f07a2a64585"
   dependencies:
     bluebird "^3.5.1"
     lodash "^4.17.10"
@@ -7529,12 +7524,12 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-wri-api-components@^2.1.10:
-  version "2.1.10"
-  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.1.10.tgz#fc7747b5a88a815ac9f20489db74dc1fccb66133"
+wri-api-components@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.2.0.tgz#5423de6aae54e6d77fc3fa45f237a42f862b3ba0"
   dependencies:
     classnames "^2.2.6"
-    layer-manager "^1.0.4"
+    layer-manager "^1.1.5"
     lodash "^4.17.10"
     prop-types "^15.6.2"
     rc-slider "^8.6.1"
