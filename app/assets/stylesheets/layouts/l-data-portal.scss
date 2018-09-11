@@ -92,29 +92,31 @@
   }
 
   .l-country-list.is-finscope {
-    .finscope {
-      display: block;
-    }
-
-    .financial-diaries {
+    .country-button {
       display: none;
     }
 
-    .financial-diaries.finscope {
+    .country-button.finscope {
       display: block;
     }
   }
 
   .l-country-list.is-financial-diaries {
-    .financial-diaries {
-      display: block;
-    }
-
-    .finscope {
+    .country-button {
       display: none;
     }
 
-    .financial-diaries.finscope {
+    .country-button.financial-diaries {
+      display: block;
+    }
+  }
+
+  .l-country-list.is-geospatial {
+    .country-button {
+      display: none;
+    }
+
+    .country-button.geospatial {
       display: block;
     }
   }

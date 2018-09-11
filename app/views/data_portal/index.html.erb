@@ -100,7 +100,7 @@
         <div class="row data-portal-row">
           <div class="grid-s-12 grid-m-6">
             <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark filter-finscope">Geospatial data</h3>
+              <h3 class="title -big -dark filter-geospatial">Geospatial data</h3>
             </a>
             <ul class="c-stats-list">
               <li class="item">
@@ -138,7 +138,7 @@
           <div class="row">
             <% @countries.each do |country| %>
               <% if country.has_dataset %>
-                <div class="grid-s-6 grid-m-6 grid-l-4 <%= 'financial-diaries' if country.financial_diaries.present? %> <%= 'finscope' if country.finscope.present? %>">
+                <div class="grid-s-6 grid-m-6 grid-l-4 country-button <%= 'financial-diaries' if country.financial_diaries.present? %> <%= 'finscope' if country.finscope.present? %> <%= 'geospatial' if country.geospatial.present? %>">
                   <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
                     <%= link_to 'Go to the ' + country[:name] + ' portal', data_portal_country_preview_path(country[:iso]), data: { turbolinks: false }  %>
                     <span class="country-name"><%= country[:name] %></span>
