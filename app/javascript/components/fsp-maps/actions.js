@@ -20,6 +20,7 @@ import JURISDICTION_GEOMETRY_SQL from './sql/jurisdiction-geometry.sql';
 export const setIso = createAction('COMMON/setIso');
 export const setShortIso = createAction('COMMON/setShortIso');
 export const setBBox = createAction('COMMON/setBBox');
+export const setLatestyear = createAction('COMMON/setLatestyear');
 
 // INTRO
 export const setIntro = createAction('INTRO/setIntro');

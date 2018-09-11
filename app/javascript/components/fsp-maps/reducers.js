@@ -15,6 +15,10 @@ export default {
     const common = { ...state.common, bbox: payload };
     return { ...state, common };
   },
+  [actions.setLatestyear]: (state, { payload }) => {
+    const common = { ...state.common, latestYear: payload };
+    return { ...state, common };
+  },
 
   // INTRO
   [actions.setIntro]: (state, { payload }) => {

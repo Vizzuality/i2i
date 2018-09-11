@@ -34,7 +34,7 @@ export default class FSPMaps extends React.Component {
   }
 
   componentWillMount() {
-    const { iso, shortIso, bbox } = this.props;
+    const { iso, shortIso, bbox, latestYear } = this.props;
 
     // LOCATION PARAMS
     const { location } = window;
@@ -47,6 +47,7 @@ export default class FSPMaps extends React.Component {
 
     this.props.setIso(iso);
     this.props.setShortIso(shortIso);
+    this.props.setLatestyear(latestYear);
 
     // Fetch
     this.props.fetchLayers();
