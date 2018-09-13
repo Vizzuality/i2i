@@ -18,7 +18,7 @@ const MENU_CONTENT = {
 
 const LAYER_TYPES = [
   { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-  { value: 'contextual_layers', label: 'Contextual layers', text: 'Bring other useful data layers to your map.' }
+  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.' }
   // { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
 ];
 
