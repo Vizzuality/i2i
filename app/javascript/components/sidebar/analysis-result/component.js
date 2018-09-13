@@ -37,10 +37,10 @@ class AnalysisResultComponent extends React.Component {
 
         {widgets.map(w => <Widget key={w.id} {...w} />)}
 
-        <NationalSurveysEmbed
+        {latestYear && <NationalSurveysEmbed
           iso={iso}
           latestYear={latestYear}
-        />
+        />}
       </div>
     );
   }

@@ -52,7 +52,7 @@ class NationalSurveysEmbedComponent extends PureComponent {
               title="credit_strand"
               height="500"
               width="100%"
-              src={`http://${window.location.hostname}/data-portal/indicator?p=${this.getParams(w.id, iso, latestYear, w.shape)}&source=fsp_maps`}
+              src={`http://${window.location.hostname}:3000/data-portal/indicator?p=${this.getParams(w.id, iso, latestYear, w.shape)}&source=fsp_maps`}
             />))
         }
       </div>

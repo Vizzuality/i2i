@@ -21,9 +21,11 @@ export default class FSPMaps extends React.Component {
     map: PropTypes.object.isRequired,
     layers: PropTypes.object.isRequired,
     bbox: PropTypes.array.isRequired,
+    latestYear: PropTypes.number,
     setIso: PropTypes.func.isRequired,
     setShortIso: PropTypes.func.isRequired,
     setBBox: PropTypes.func.isRequired,
+    setLatestyear: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
@@ -32,6 +34,8 @@ export default class FSPMaps extends React.Component {
     fetchWidgets: PropTypes.func.isRequired,
     fetchJurisdictions: PropTypes.func.isRequired
   }
+
+  static defaultProps = { latestYear: null }
 
   componentWillMount() {
     const { iso, shortIso, bbox, latestYear } = this.props;

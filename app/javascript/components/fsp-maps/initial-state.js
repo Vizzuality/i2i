@@ -2,7 +2,8 @@ export default {
   common: {
     iso: '',
     shortIso: '',
-    bbox: []
+    bbox: [],
+    latestYear: null
   },
   intro: { data: [] },
   map: {
