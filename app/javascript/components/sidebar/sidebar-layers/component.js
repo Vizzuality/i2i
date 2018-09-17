@@ -6,6 +6,7 @@ import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Sectors from 'components/sidebar/sectors';
 import ContextualLayers from 'components/sidebar/contextual-layers';
+import NationalSurveys from 'components/sidebar/national-surveys';
 import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 
 // styles
@@ -13,13 +14,14 @@ import './styles.scss';
 
 const MENU_CONTENT = {
   sectors: <Sectors />,
-  contextual_layers: <ContextualLayers />
+  contextual_layers: <ContextualLayers />,
+  national_surveys: <NationalSurveys />
 };
 
 const LAYER_TYPES = [
   { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.' }
-  // { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
+  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.' },
+  { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
 ];
 
 class SidebarLayersComponent extends React.Component {
