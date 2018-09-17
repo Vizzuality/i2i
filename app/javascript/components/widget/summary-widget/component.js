@@ -8,22 +8,27 @@ import './styles.scss';
 class SummaryWidgetWrapperComponent extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    widgetData: PropTypes.array.isRequired
+    widgetData: PropTypes.array.isRequired,
+    menuItem: PropTypes.string.isRequired,
+    fetchIntro: PropTypes.func.isRequired,
+    setIntro: PropTypes.func.isRequired
   }
 
   state = { widgetData: [] };
 
   componentDidMount() {
-    const { widgetData } = this.props;
+    const { widgetData, menuItem } = this.props;
     const datum = widgetData[0];
+    const newData = [
+      { label: 'TOTAL POPULATION', value: Numeral(datum.total_population).format('0,0'), subvalue: null },
+      { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(datum.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.rural_population).format('0,0') },
+      { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(datum.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.urban_population).format('0,0') }
+    ];
 
-    this.setState({
-      widgetData: [
-        { label: 'TOTAL POPULATION', value: Numeral(datum.total_population).format('0,0'), subvalue: null },
-        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(datum.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.rural_population).format('0,0') },
-        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(datum.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.urban_population).format('0,0') }
-      ]
-    });
+    this.setState({ widgetData: newData });
+
+    // Maintain the country summary data updated with the one from the analysis.
+    menuItem === 'country' ? this.props.fetchIntro() : this.props.setIntro(newData);
   }
 
   render() {
