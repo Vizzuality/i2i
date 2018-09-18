@@ -31,7 +31,7 @@ export const getWidgets = createSelector(
       } else if (analysisType.includes(_selectedMenuItem)) {
         if (output === 'summary') {
           return widget;
-        } else if (sectorLayers.length) {
+        } else if (sectorLayers.length || analysisType === 'country') {
           return widget;
         }
       }
