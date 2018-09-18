@@ -233,3 +233,91 @@ export const SECTOR_CONFIGS = {
     return layerConfig;
   }
 };
+
+export const FINANCIAL_DIARIES_MARKERS = [
+  {
+    options: { title: 'Mbeya region' },
+    coordinates: [-7.992813, 33.495351],
+    url: 'http://i2ifacility.org/data-portal/TZA/financial-diaries'
+  },
+  {
+    options: { title: 'Makueni, Nairobi' },
+    coordinates: [-1.284044, 36.779093],
+    url: 'http://i2ifacility.org/data-portal/KEN/financial-diaries'
+  },
+  {
+    options: { title: 'Mombasa, Eldoret, Vihiga region' },
+    coordinates: [0.514404, 35.269766],
+    url: 'http://i2ifacility.org/data-portal/KEN/financial-diaries'
+  },
+  {
+    options: { title: 'Varanasi, India' },
+    coordinates: [25.322598, 82.974629],
+    url: 'http://i2ifacility.org/data-portal/IND/financial-diaries'
+  },
+  {
+    options: { title: 'Uttar Pradesh province region, India' },
+    coordinates: [27.824179, 79.635077],
+    url: 'http://i2ifacility.org/data-portal/IND/financial-diaries'
+  },
+  {
+    options: { title: 'Western: Mbarara, Ntungamo' },
+    coordinates: [-0.606721, 30.655043],
+    url: 'http://i2ifacility.org/data-portal/UGA/financial-diaries'
+  },
+  {
+    options: { title: 'Sheema Central: Kayunga, Mukono, Buikwe' },
+    coordinates: [1.189765, 33.253945],
+    url: 'http://i2ifacility.org/data-portal/UGA/financial-diaries'
+  },
+  {
+    options: { title: 'Eastern: Iganga, Jinja, Mayuge ' },
+    coordinates: [0.604623, 33.471393],
+    url: 'http://i2ifacility.org/data-portal/UGA/financial-diaries'
+  },
+  {
+    options: { title: 'Eastern: Mbale, Manafwa, Tororo region' },
+    coordinates: [1.078656, 34.180055],
+    url: 'http://i2ifacility.org/data-portal/UGA/financial-diaries'
+  },
+  {
+    options: { title: 'Jinja, Iganga, Mayuge' },
+    coordinates: [0.448214, 33.202995],
+    url: 'http://i2ifacility.org/data-portal/GHA/financial-diaries'
+  },
+  {
+    options: { title: 'Navrongo, Ghana' },
+    coordinates: [10.893911, -1.091423],
+    url: 'http://i2ifacility.org/data-portal/GHA/financial-diaries'
+  },
+  {
+    options: { title: 'Rapale district, Mozambique' },
+    coordinates: [-15.062591, 39.193418],
+    url: 'http://i2ifacility.org/data-portal/MOZ/financial-diaries'
+  },
+  {
+    options: { title: 'Northern Nampula, Mozambique ' },
+    coordinates: [-15.048694, 39.222509],
+    url: 'http://i2ifacility.org/data-portal/MOZ/financial-diaries'
+  },
+  {
+    options: { title: 'Bahawalnagar district,' },
+    coordinates: [30.004260, 73.241266],
+    url: 'http://i2ifacility.org/data-portal/PAK/financial-diaries'
+  },
+  {
+    options: { title: 'Puebla, Mexico' },
+    coordinates: [19.041323, -98.206012],
+    url: 'http://i2ifacility.org/data-portal/MEX/financial-diaries'
+  },
+  {
+    options: { title: 'Mexico City outskirt region' },
+    coordinates: [19.435319, -99.140826],
+    url: 'http://i2ifacility.org/data-portal/MEX/financial-diaries'
+  },
+  {
+    options: { title: 'Africa	Johannesburg' },
+    coordinates: [-26.204456, 28.045197],
+    url: 'http://i2ifacility.org/data-portal/ZAF/financial-diaries'
+  }
+];

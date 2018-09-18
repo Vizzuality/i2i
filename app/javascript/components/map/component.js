@@ -14,7 +14,10 @@ import DrawingManager from 'components/map/drawing-manager';
 import BasemapControl from 'components/map/controls/basemap';
 import ShareControl from 'components/map/controls/share';
 
-import { BASEMAPS, LABELS, COUNTRY_MASK } from './constants';
+// Images
+import BookIcon from 'images/data-portal/book.svg';
+
+import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
 // styles
 import './styles.scss';
@@ -105,7 +108,27 @@ class MapComponent extends React.Component {
                     }
                   }] : [];
 
-                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers].map((layer, index) => (
+                  const financialIconsLayer = [{
+                    id: 'financial-icons',
+                    provider: 'leaflet',
+                    layerConfig: {
+                      body: FINANCIAL_DIARIES_MARKERS.map(m => L.marker(
+                          m.coordinates,
+                          {
+                            ...m.options,
+                            icon: L.icon({
+                              iconUrl: BookIcon,
+                              iconSize: [16, 16]
+                            })
+                          }
+                        )
+                        .on('click', () => window.open(m.url))),
+                      parse: false,
+                      type: 'featureGroup'
+                    }
+                  }];
+
+                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers, ...financialIconsLayer].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}
