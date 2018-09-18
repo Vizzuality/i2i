@@ -56,11 +56,11 @@ class ListComponent extends React.Component {
                     {!!count && <h4 className="item-button-subtitle">({count})</h4>}
                   </div>
                 </div>
-                <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
+                {/* <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
                   <svg className="icon icon-info">
                     <use xlinkHref="#icon-info" />
                   </svg>
-                </button>
+                </button> */}
               </div>
             </div>
           );
