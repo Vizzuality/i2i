@@ -15,6 +15,7 @@ export const getWidgets = createSelector(
   [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea, allLayersList],
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
     const sectorLayers = _allLayersList.filter(layer => _selectedLayers.includes(layer.id) && layer.layerType === 'sector');
+    const allSectorLayers = _allLayersList.filter(layer => layer.layerType === 'sector');
 
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
       const { analysis_type: analysisType, type_id: typeId, output } = widget;
@@ -53,7 +54,7 @@ export const getWidgets = createSelector(
       const { area: nearbyArea, center } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
       const { lng, lat } = center;
-      const typeIds = sectorLayers.map(layer => layer.id);
+      const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.id) : sectorLayers.map(layer => layer.id);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 
