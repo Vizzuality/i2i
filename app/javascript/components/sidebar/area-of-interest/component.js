@@ -11,6 +11,7 @@ class AreaOfInterestComponent extends PureComponent {
     selectedLayers: PropTypes.array.isRequired,
     drawing: PropTypes.bool.isRequired,
     analysisActive: PropTypes.bool.isRequired,
+    fetchIntro: PropTypes.func.isRequired,
     setClearing: PropTypes.func.isRequired,
     setAreaOfInterest: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired
@@ -18,6 +19,7 @@ class AreaOfInterestComponent extends PureComponent {
 
   onClear = () => {
     this.props.setClearing(true);
+    this.props.fetchIntro();
   }
 
   toggleDrawing = (value) => {
