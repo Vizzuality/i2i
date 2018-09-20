@@ -3996,17 +3996,9 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.5.tgz#7b12a5ec233b05423cb49ada651a4f07a2a64585"
-  dependencies:
-    bluebird "^3.5.1"
-    lodash "^4.17.10"
-    wri-json-api-serializer "^1.0.1"
-
-layer-manager@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.6.tgz#802313b04d0e005551ee14ddbc6bcf4dabc5e8d4"
+layer-manager@1.1.7, layer-manager@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.7.tgz#e9d91d4e5cfbe8f9ba4e8f7b4af6cdb79d096723"
   dependencies:
     bluebird "^3.5.1"
     lodash "^4.17.10"
@@ -7525,12 +7517,12 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-wri-api-components@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.2.2.tgz#3534b7632013b5ef5141204928da0396bb4c0411"
+wri-api-components@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.2.5.tgz#ecbf6417c81133d503e44a81c9bef31c5cf01aa8"
   dependencies:
     classnames "^2.2.6"
-    layer-manager "^1.1.5"
+    layer-manager "1.1.7"
     lodash "^4.17.10"
     prop-types "^15.6.2"
     rc-slider "^8.6.1"

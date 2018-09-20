@@ -37,7 +37,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "isomorphic-fetch": "^2.2.1",
-    "layer-manager": "^1.1.6",
+    "layer-manager": "^1.1.7",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
@@ -61,7 +61,7 @@
     "vega-lib": "^4.2.0",
     "vega-tooltip": "^0.13.0",
     "webpack-dev-server": "2.11.2",
-    "wri-api-components": "^2.2.2",
+    "wri-api-components": "^2.2.5",
     "wri-json-api-serializer": "^1.0.1"
   }
 }
