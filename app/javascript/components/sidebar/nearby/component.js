@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
 // Components
-import Range from 'wri-api-components/dist/form';
+import { Range } from 'wri-api-components/dist/form';
 import Geosuggest from 'react-geosuggest';
 
 class NearbyComponent extends PureComponent {
