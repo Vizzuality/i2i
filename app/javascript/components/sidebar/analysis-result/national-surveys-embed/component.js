@@ -55,6 +55,20 @@ class NationalSurveysEmbedComponent extends PureComponent {
               src={`http://${window.location.hostname}/data-portal/indicator?p=${this.getParams(w.id, iso, latestYear, w.shape)}&source=fsp_maps`}
             />))
         }
+
+        <div className="button-container">
+          <button
+            className="c-button -small -white"
+            onClick={() => {
+              window.open(
+                `http://${window.location.hostname}/data-portal/${iso}/${latestYear}`,
+                '_blank'
+              );
+            }}
+          >
+            View National Surveys
+          </button>
+        </div>
       </div>
     );
   }
