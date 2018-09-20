@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
-import { Map, MapControls, ZoomControl } from 'wri-api-components';
+import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
 import { LayerManager, Layer } from 'layer-manager/dist/react';
 import { PluginLeaflet } from 'layer-manager';
 

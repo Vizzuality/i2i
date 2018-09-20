@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import { VegaChart } from 'wri-api-components';
+import { VegaChart } from 'wri-api-components/dist/widgets';
 import * as vegaTooltip from 'vega-tooltip';
 
 // Constants

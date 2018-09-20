@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 
 // Components
-import { Spinner } from 'wri-api-components';
+import Spinner from 'wri-api-components/dist/spinner';
 import SummaryWidget from './summary-widget';
 import ChartWidget from './chart-widget';
 // import WidgetText from '...'

@@ -28,6 +28,7 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
+    "es6-promise": "^4.2.5",
     "eslint": "^4.9.0",
     "eslint-config-vizzuality": "^1.0.14",
     "eslint-import-resolver-babel-module": "^4.0.0",
@@ -35,12 +36,13 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
+    "isomorphic-fetch": "^2.2.1",
     "layer-manager": "^1.1.6",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
-    "query-string": "^6.1.0",
+    "query-string": "5.1.1",
     "raw-loader": "^0.5.1",
     "rc-slider": "^8.6.1",
     "react": "^16.4.1",
@@ -59,7 +61,7 @@
     "vega-lib": "^4.2.0",
     "vega-tooltip": "^0.13.0",
     "webpack-dev-server": "2.11.2",
-    "wri-api-components": "^2.2.0",
+    "wri-api-components": "^2.2.2",
     "wri-json-api-serializer": "^1.0.1"
   }
 }

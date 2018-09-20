@@ -10,7 +10,7 @@ import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
 import PreFooter from 'components/pre-footer';
-import { Icons } from 'wri-api-components';
+import Icons from 'wri-api-components/dist/icons';
 
 import './styles.scss';
 

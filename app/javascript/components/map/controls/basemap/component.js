@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { Tooltip } from 'wri-api-components';
+import Tooltip from 'wri-api-components/dist/tooltip';
 
 import { BASEMAPS, LABELS } from 'components/map/constants';
 

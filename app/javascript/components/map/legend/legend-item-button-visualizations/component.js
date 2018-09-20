@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon, Tooltip } from 'wri-api-components';
+import Icon from 'wri-api-components/dist/icon';
+import Tooltip from 'wri-api-components/dist/tooltip';
 
 // components
 import LegendItemButtonVisualizationsTooltip from './legend-item-button-visualizations-tooltip';

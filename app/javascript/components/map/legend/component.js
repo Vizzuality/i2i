@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import debounce from 'lodash/debounce';
 
-import {
-  Legend,
+import Legend, {
   LegendListItem,
   LegendItemToolbar,
   LegendItemTypes,
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonRemove
-} from 'wri-api-components';
+} from 'wri-api-components/dist/legend';
 
 import LegendItemButtonVisualizations from './legend-item-button-visualizations';
 

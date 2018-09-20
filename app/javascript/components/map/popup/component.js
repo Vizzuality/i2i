@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { MapPopup } from 'wri-api-components';
+import { MapPopup } from 'wri-api-components/dist/map';
 
 import './styles.scss';
 
