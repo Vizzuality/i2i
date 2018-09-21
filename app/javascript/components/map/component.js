@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
-import { LayerManager, Layer } from 'layer-manager/dist/react';
+import { LayerManager, Layer } from 'layer-manager/lib/react';
 import { PluginLeaflet } from 'layer-manager';
 
 // components

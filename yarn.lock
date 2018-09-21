@@ -965,6 +965,12 @@ babel-plugin-transform-regenerator@^6.22.0:
   dependencies:
     regenerator-transform "^0.10.0"
 
+babel-plugin-transform-runtime@^6.23.0:
+  version "6.23.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-runtime/-/babel-plugin-transform-runtime-6.23.0.tgz#88490d446502ea9b8e7efb0fe09ec4d99479b1ee"
+  dependencies:
+    babel-runtime "^6.22.0"
+
 babel-plugin-transform-strict-mode@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-strict-mode/-/babel-plugin-transform-strict-mode-6.24.1.tgz#d5faf7aa578a65bbe591cf5edae04a0c67020758"
@@ -1147,6 +1153,10 @@ block-stream@*:
 bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+
+bluebird@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.2.tgz#1be0908e054a751754549c270489c1505d4ab15a"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
@@ -1429,6 +1439,12 @@ center-align@^0.1.1:
   dependencies:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
+
+"chainsaw@>=0.0.7 <0.1":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/chainsaw/-/chainsaw-0.0.9.tgz#11a05102d1c4c785b6d0415d336d5a3a1612913e"
+  dependencies:
+    traverse ">=0.3.0 <0.4"
 
 chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
@@ -3314,6 +3330,12 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+"hashish@>=0.0.2 <0.1":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/hashish/-/hashish-0.0.4.tgz#6d60bc6ffaf711b6afd60e426d077988014e6554"
+  dependencies:
+    traverse ">=0.2.4"
+
 hawk@~3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/hawk/-/hawk-3.1.3.tgz#078444bd7c1640b0fe540d2c9b73d59678e8e1c4"
@@ -3996,12 +4018,13 @@ last-call-webpack-plugin@^2.1.2:
     lodash "^4.17.4"
     webpack-sources "^1.0.1"
 
-layer-manager@1.1.7, layer-manager@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.7.tgz#e9d91d4e5cfbe8f9ba4e8f7b4af6cdb79d096723"
+layer-manager@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.10.0.tgz#53b566c0c23eb63076ec09ca9af08723e2683316"
   dependencies:
-    bluebird "^3.5.1"
+    bluebird "^3.5.2"
     lodash "^4.17.10"
+    prop-types "^15.6.2"
     wri-json-api-serializer "^1.0.1"
 
 lazy-cache@^1.0.3:
@@ -6031,6 +6054,12 @@ remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
 
+remove@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/remove/-/remove-0.1.5.tgz#095ffd827d65c9f41ad97d33e416a75811079955"
+  dependencies:
+    seq ">= 0.3.5"
+
 repeat-element@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.2.tgz#ef089a178d1483baae4d93eb98b4f9e4e11d990a"
@@ -6308,6 +6337,13 @@ send@0.16.2:
     on-finished "~2.3.0"
     range-parser "~1.2.0"
     statuses "~1.4.0"
+
+"seq@>= 0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/seq/-/seq-0.3.5.tgz#ae02af3a424793d8ccbf212d69174e0c54dffe38"
+  dependencies:
+    chainsaw ">=0.0.7 <0.1"
+    hashish ">=0.0.2 <0.1"
 
 serialize-javascript@^1.4.0:
   version "1.5.0"
@@ -6890,6 +6926,18 @@ tough-cookie@~2.3.0, tough-cookie@~2.3.3:
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
   dependencies:
     punycode "^1.4.1"
+
+transform-runtime@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/transform-runtime/-/transform-runtime-0.0.0.tgz#e714d9b69211dd9537939d50e3aa5788c442b85c"
+
+traverse@>=0.2.4:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
+
+"traverse@>=0.3.0 <0.4":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.3.9.tgz#717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9"
 
 trim-newlines@^1.0.0:
   version "1.0.0"
@@ -7517,12 +7565,12 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-wri-api-components@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.2.5.tgz#ecbf6417c81133d503e44a81c9bef31c5cf01aa8"
+wri-api-components@2.2.7-alpha.2:
+  version "2.2.7-alpha.2"
+  resolved "https://registry.yarnpkg.com/wri-api-components/-/wri-api-components-2.2.7-alpha.2.tgz#09d65598cf5466452c284ee36e602fb32f77082c"
   dependencies:
     classnames "^2.2.6"
-    layer-manager "1.1.7"
+    layer-manager "^1.10.0"
     lodash "^4.17.10"
     prop-types "^15.6.2"
     rc-slider "^8.6.1"

@@ -26,6 +26,7 @@
     "@rails/webpacker": "3.5",
     "babel-eslint": "^8.2.6",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
     "es6-promise": "^4.2.5",
@@ -37,7 +38,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "isomorphic-fetch": "^2.2.1",
-    "layer-manager": "^1.1.7",
+    "layer-manager": "^1.10.0",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
@@ -56,12 +57,14 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
     "redux-tools": "github:vizzuality/redux-tools#3.3.0",
+    "remove": "^0.1.5",
     "reselect": "^3.0.1",
+    "transform-runtime": "^0.0.0",
     "tslib": "^1.9.3",
     "vega-lib": "^4.2.0",
     "vega-tooltip": "^0.13.0",
     "webpack-dev-server": "2.11.2",
-    "wri-api-components": "^2.2.5",
+    "wri-api-components": "2.2.7-alpha.2",
     "wri-json-api-serializer": "^1.0.1"
   }
 }
