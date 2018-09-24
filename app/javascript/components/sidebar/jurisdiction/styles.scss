@@ -1,0 +1,21 @@
+.c-jurisdiction {
+  padding: 0px 30px 20px 55px;
+
+  > * {
+    margin: 40px 0 0;
+
+    &:first-child {
+      margin: 0;
+    }
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

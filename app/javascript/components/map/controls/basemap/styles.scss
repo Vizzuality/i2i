@@ -1,0 +1,44 @@
+.c-basemap-control {
+  .control-container {
+    margin: 8px 0 0;
+    padding: 8px 0 0;
+    border-top: 1px solid #EEE;
+
+    &:first-child {
+      margin: 0;
+      padding: 0;
+      border-top: none;
+    }
+  }
+
+  h4 {
+    font-size: 18px;
+    margin: 0 0 5px;
+  }
+
+  .basemap-control-list {
+    display: block;
+
+    .basemap-control-list-item {
+      display: block;
+      margin: 5px 0 0;
+
+      &:first-child {
+        margin: 0;
+      }
+
+      .list-item-button {
+        cursor: pointer;
+        outline: none;
+        
+        &:hover {
+          color: lighten(#2F939C, 20%);
+        }      
+  
+        &.-selected {
+          color: #2F939C;
+        }
+      }
+    }
+  }
+}

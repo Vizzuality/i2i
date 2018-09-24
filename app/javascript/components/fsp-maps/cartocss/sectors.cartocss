@@ -1,0 +1,11 @@
+#layer {
+  marker-width: 10;
+  marker-fill: {color};
+  marker-fill-opacity: 0.9;
+  marker-line-color: #FFFFFF;
+  marker-line-width: 1;
+  marker-line-opacity: 1;
+  marker-placement: point;
+  marker-type: ellipse;
+  marker-allow-overlap: true;
+}

@@ -1,0 +1,42 @@
+.c-chart-widget-element {
+  font-family: Arial, sans-serif;
+  position: relative;
+  min-height: 250px;
+
+  .widget-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .widget-table {
+
+    td,
+    th {
+      padding: 0 30px 0 0;
+      vertical-align: baseline;
+      max-width: 170px;
+
+      &:last-child {
+        padding: 0;
+      }
+    }
+
+    .widget-label {
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .widget-main-value {
+      font-size: 22px;
+    }
+
+    .widget-sub-value {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  }
+}

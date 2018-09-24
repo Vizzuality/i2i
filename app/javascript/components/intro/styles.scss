@@ -1,0 +1,36 @@
+.c-fsp-intro {
+  background: #2f939c;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 0 0 40px;
+
+  .intro-table {
+    td, th {
+      padding: 0 30px 0 0;
+      vertical-align: baseline;
+      max-width: 170px;
+
+      &:last-child {
+        padding: 0;
+      }
+    }
+
+    .intro-label {
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .intro-main-value {
+      font-size: 22px;
+    }
+
+    .intro-sub-value {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+  }
+}

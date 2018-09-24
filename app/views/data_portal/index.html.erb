@@ -64,6 +64,7 @@
           </div>
         </div>
       </section>
+
       <section class="l-dataset -financial-diaries" id="financial-diaries-dataset">
         <div class="row data-portal-row -reverse">
           <div class="grid-s-12 grid-m-6">
@@ -94,6 +95,38 @@
           </div>
         </div>
       </section>
+
+      <section class="l-dataset -finscope" id="finscope-dataset">
+        <div class="row data-portal-row">
+          <div class="grid-s-12 grid-m-6">
+            <a href=".l-country-list" class="js-anchor">
+              <h3 class="title -big -dark filter-geospatial">Geospatial data</h3>
+            </a>
+            <ul class="c-stats-list">
+              <li class="item">
+                <h4 class="description">Countries</h4>
+                <span class="value">7</span>
+              </li>
+              <li class="item -last">
+                <h4 class="description">Datasets</h4>
+                <span class="value">24</span>
+              </li>
+            </ul>
+            <p class="dataset-description">
+              "Geospatial" indicates that the data has a geographic component to it. This means that the records in a dataset have locational information tied to them, such as geographic data in the form of coordinates, address, city or ZIP code. GIS data is a powerful tool that gives a user the ability to view data at a country/jurisdiction level. We’ve partnered with global data providers (such as Resource watch, AIDData and Humanitarian Data Exchange) to give you useful contextual layers, overlaid with financial access points and agricultural points.
+            </p>
+          </div>
+          <div class="grid-s-12 grid-m-5 offset-m-1">
+            <div class="datasetimagewrapper">
+              <%= image_tag('data-portal/data-portal-dashboard-3.png',
+                :alt => 'Data portal dashboard',
+                :class => 'datasetimage -right')
+              %>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="l-country-list">
         <header>
           <h3 class="title -big -dark">Select country</h3>
@@ -105,7 +138,7 @@
           <div class="row">
             <% @countries.each do |country| %>
               <% if country.has_dataset %>
-                <div class="grid-s-6 grid-m-6 grid-l-4 <%= 'financial-diaries' if country.financial_diaries.present? %> <%= 'finscope' if country.finscope.present? %>">
+                <div class="grid-s-6 grid-m-6 grid-l-4 country-button <%= 'financial-diaries' if country.financial_diaries.present? %> <%= 'finscope' if country.finscope.present? %> <%= 'geospatial' if country.geospatial.present? %>">
                   <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
                     <%= link_to 'Go to the ' + country[:name] + ' portal', data_portal_country_preview_path(country[:iso]), data: { turbolinks: false }  %>
                     <span class="country-name"><%= country[:name] %></span>

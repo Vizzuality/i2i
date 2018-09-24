@@ -5,9 +5,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     project_name = project_metadatum.project_name
     @has_households = project_metadatum.num_households_in_hh.present?
     @has_members = project_metadatum.num_members_in_mem.present?
-    @countries = Country.all.select{ |country|
-      country.financial_diaries.present? && country[:iso] != country_iso
-    }
+    @countries = Country.all.select { |country| country.financial_diaries.present? }
     @country = Country.find_by(iso: params[:iso])
     @lift_countries = [
       { name: 'Uganda', url: 'http://www.lift-fedu.com/' },
