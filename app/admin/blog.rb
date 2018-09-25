@@ -14,44 +14,6 @@ ActiveAdmin.register Blog do
   end
 
   controller do
-    def create
-      if params[:commit] == 'Preview'
-        if permitted_params['blog']['image'].present?
-          image = permitted_params['blog']['image']
-          image.tempfile.binmode
-          image.tempfile = Base64.encode64(image.tempfile.read)
-        else
-          session[:skip_image] = true
-        end
-
-        session[:data] = permitted_params['blog']
-
-        redirect_to updates_blogs_preview_path
-      else
-        super
-      end
-    end
-
-    def update
-      if params[:commit] == 'Preview'
-        session[:data] = permitted_params['blog']
-
-        if permitted_params['blog']['image'].present?
-          image = permitted_params['blog']['image']
-          image.tempfile.binmode
-          image.tempfile = Base64.encode64(image.tempfile.read)
-        else
-          image = Blog.find_by(slug: permitted_params[:id]).image
-          session[:data][:image] = image
-          session[:has_image] = true
-        end
-
-        redirect_to updates_blogs_preview_path
-      else
-        super
-      end
-    end
-
     def permitted_params
       params.permit(:id, blog: [:title, :author, :workstream, :summary, :content, :id, :image, :date,
                     :issuu_link, :published, :custom_author, :category_id, :is_featured, :position,
@@ -73,7 +35,9 @@ ActiveAdmin.register Blog do
     column :date do |blog|
       ActiveAdminHelper.format_date(blog.date)
     end
-    actions
+    actions do |blog|
+      item 'Preview', insights_show_path(category: 'blog', slug: blog.slug, entity: 'blog', preview: true), class: 'member_link'
+    end
   end
 
   form multipart: true do |f|
@@ -102,7 +66,7 @@ ActiveAdmin.register Blog do
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end
-    f.submit "Preview"
+
     f.actions
   end
 
