@@ -86,4 +86,4 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+# gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
