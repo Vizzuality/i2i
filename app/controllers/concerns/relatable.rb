@@ -2,7 +2,11 @@ module Relatable
   extend ActiveSupport::Concern
 
   def show
-    @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
+    if params[:preview]
+      @insight = params[:entity].capitalize.constantize.friendly.find(params[:slug]) rescue nil
+    else
+      @insight = params[:entity].capitalize.constantize.published.friendly.find(params[:slug]) rescue nil
+    end
     @tags = @insight.tags rescue nil
     @total_related = related(@insight).size;
 
