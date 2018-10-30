@@ -2,16 +2,22 @@
 #
 # Table name: countries
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  name       :string
-#  iso        :string
-#  bbox       :string           default([]), is an Array
+#  id           :integer          not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  name         :string
+#  iso          :string
+#  bbox         :string           default([]), is an Array
+#  short_iso    :string
+#  has_fsp_maps :boolean          default(FALSE)
 #
 
 class Country < ApplicationRecord
   include FinscopeApi
+
+  validates :name, presence: true
+  validates :iso, presence: true
+  validates :short_iso, presence: true
 
   scope :all_except, ->(country) { where.not(id: country) }
 
