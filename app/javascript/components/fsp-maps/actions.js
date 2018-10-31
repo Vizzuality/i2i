@@ -16,6 +16,9 @@ import WIDGETS_SQL from './sql/widgets.sql';
 import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
 import JURISDICTION_GEOMETRY_SQL from './sql/jurisdiction-geometry.sql';
 
+// CONSTANTS
+import { LAYERS_INFO } from './constants';
+
 // COMMON
 export const setIso = createAction('COMMON/setIso');
 export const setShortIso = createAction('COMMON/setShortIso');
@@ -89,10 +92,12 @@ function getSectors(iso) {
         ...row,
         id: row.type_id.toString(),
         name: row.type,
+        info: LAYERS_INFO[row.type],
         layerType: 'sector',
         count: Numeral(row.count).format('0,0'),
         provider: 'carto'
       }));
+
       return dataRows;
     });
 }
@@ -111,6 +116,7 @@ function getContextualLayers() {
         {
           ...row,
           name: row.layer,
+          info: LAYERS_INFO[row.layer],
           layerType: 'contextual',
           id: row.type_id.toString(),
           provider: 'carto',
@@ -158,6 +164,7 @@ function getContextualLayers() {
             contextualLayers.push({
               ...serializedData,
               name: rwLayers.find(l => l.layer_id === serializedData.id).layer,
+              info: LAYERS_INFO[rwLayers.find(l => l.layer_id === serializedData.id).layer],
               layerType: 'contextual'
             });
           });

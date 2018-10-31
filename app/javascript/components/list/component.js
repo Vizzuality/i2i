@@ -6,6 +6,10 @@ import classnames from 'classnames';
 // styles
 import './styles.scss';
 
+// Components
+import Modal from 'components/modal';
+import LayerInfo from 'components/list/layer-info';
+
 class ListComponent extends React.Component {
   static propTypes = {
     rows: PropTypes.array.isRequired,
@@ -15,6 +19,15 @@ class ListComponent extends React.Component {
     onClickInfo: PropTypes.func
   }
 
+  state = {
+    infoModal: false,
+    info: {
+      text: null,
+      url: null,
+      name: null
+    }
+  }
+
   static defaultProps = {
     selectedLayers: [],
     onClickInfo: null
@@ -22,6 +35,7 @@ class ListComponent extends React.Component {
 
   onClickInfo = (e, item) => {
     e.stopPropagation();
+    this.setState({ infoModal: true, info: item.info })
     if (this.props.onClickInfo) this.props.onClickInfo(item);
   }
 
@@ -31,6 +45,7 @@ class ListComponent extends React.Component {
 
   render() {
     const { rows, labelField, selectedLayers } = this.props;
+    const { url, text } = this.state.info;
 
     return (
       <div className="c-list">
@@ -56,15 +71,29 @@ class ListComponent extends React.Component {
                     {!!count && <h4 className="item-button-subtitle">({count})</h4>}
                   </div>
                 </div>
-                {/* <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
-                  <svg className="icon icon-info">
-                    <use xlinkHref="#icon-info" />
-                  </svg>
-                </button> */}
+                {row.info &&
+                  <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
+                    <svg className="icon icon-info">
+                      <use xlinkHref="#icon-info" />
+                    </svg>
+                  </button>
+                }
               </div>
             </div>
           );
         })}
+
+        <Modal
+          open={this.state.infoModal}
+          onClose={() => {
+            this.setState({ infoModal: false });
+          }}
+        >
+          <LayerInfo
+            text={text}
+            url={url}
+          />
+        </Modal>
       </div>
     );
   }
