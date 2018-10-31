@@ -67,26 +67,35 @@ and repeat first command:
 docker-compose -f docker-compose-dev.yml up --build
 ```
 
+## Adding new national surveys
+
+- Post the data to the node api
+- Create the country on the application if the country doesn't exist
+- Add the country flag as a `svg` to `public/images/flags/ISO.svg`
+
 ## Importing financial diaries data (csv)
 
-Financial diaries data will be sent in four individual `.csv` files, if the names in the files don't match the ones shown beneath, please change accordingly:
+The csvs must be properly formatted with the columns containing descriptive data (eg: `category_name`, `subcategory`), these columns will vary depending on the type of data being imported (`houshold_transactions` or `household_member_transactions`). The values must have a date header (eg: `2017-12`) and it's content must be 10 values separated by a colon: `160:40:0:160:null:0:null:null:null:null`.
 
-`Household Transactions.csv`
+Values can be `0`, `null`, or a `float`.
 
-`Household Member Transactions.csv`
+The 10 values correspond respectively to:
 
-`Projects Meta Data.csv`
+    total_transaction_value
+    avg_value
+    min_value
+    max_value
+    rolling_balance
+    business_expenses
+    withdrawals
+    deposits
+    new_borrowing
+    repayment
 
-`Category Statistics and Usage.csv`
+Everything is imported locally using rake tasks, the tasks that read from files read them from `db/data/...` so you just want to replace/rename your file or the path.
 
-These files must then be uploaded to the server on the `db` folder manually to maintain them private. For each file, a single rake task should be run respectively, order doesn't matter:
+Another important thing to change on the tasks is to look for the places accessing the values columns by index (eg: `row[10..74]`), this changes from dataset to dataset so just set the indexes to match the first column with a date to the last one.
 
-`rake db:import_household_transactions`
+The tasks are all in a single filed named `import_financial_diaries`, the commented tasks at the bottom were originally created to address specific problems with the first ever dataset, so it shouldn't be part of the flow, the csv should be properlly populated to begin with.
 
-`import_household_member_transactions`
-
-`import_project_metadata`
-
-`import_category_usage`
-
-The imports don't update the data, it creates completely new records based on the new `.csv` files, if there's and already existing set of records for these entities, then please be sure to remove the old ones otherwise the data will be partially duplicated and/or completely mixed. This cleanup should be included in the tasks once the financial diaries data structure is settled.
+The import is made locally against a backup of the production database to test if it all works, and then you can restore the whole database or just the financial diaries tables.
