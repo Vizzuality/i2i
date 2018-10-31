@@ -20,6 +20,7 @@
 #  updated_at              :datetime         not null
 #  num_members_in_mem      :integer
 #  province                :string
+#  custom_text             :text
 #
 
 class ProjectMetadatumSerializer < ActiveModel::Serializer

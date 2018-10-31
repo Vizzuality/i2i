@@ -140,48 +140,6 @@ namespace :db do
     CategoryUsage.import(category_usages)
   end
 
-  task remove_resources_from_income: :environment do
-    households = HouseholdTransaction.where(category_type: 'income', subcategory: 'Resources')
-    members = HouseholdMemberTransaction.where(category_type: 'income', subcategory: 'Resources')
-
-    households.each(&:destroy)
-    members.each(&:destroy)
-  end
-
-  task change_credits_to_credit: :environment do
-    HouseholdTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
-    HouseholdMemberTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
-  end
-
-  # This is used to narrow down the number of subcategories present in records of category_type expense
-  task update_expenses_subcategories: :environment do
-    households = HouseholdTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
-    members = HouseholdMemberTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
-    usage = CategoryUsage.where(category_type: 'expense')
-    p 'Starting update'
-
-    ActiveRecord::Base.transaction do
-      households.each do |household|
-        household.subcategory = household.category_name
-        household.save
-      end
-      p 'Household Transactions queued'
-
-      members.each do |member|
-        member.subcategory = member.category_name
-        member.save
-      end
-
-      usage.each do |cat|
-        cat.subcategory = cat.category_name
-        cat.save
-      end
-
-      p 'Household Member Transactions queued'
-    end
-    p 'Saved'
-  end
-
   task create_histories_values: :environment do
     histories = HouseholdTransactionHistory.where.not(value: nil)
 
@@ -222,26 +180,6 @@ namespace :db do
     end
   end
 
-  task remove_unwanted_categories: :environment do
-    hh = HouseholdTransaction.where(category_type: nil)
-    hh_histories = HouseholdTransactionHistory.where(household_transaction_id: hh.pluck(:id))
-    hm = HouseholdMemberTransaction.where(category_type: nil)
-    hm_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm.pluck(:id))
-    hh_insurance = HouseholdTransaction.where(category_type: 'insurance')
-    hh_insurance_histories = HouseholdTransactionHistory.where(household_transaction_id: hh_insurance.pluck(:id))
-    hm_insurance = HouseholdMemberTransaction.where(category_type: 'insurance')
-    hm_insurance_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm_insurance.pluck(:id))
-
-    hh.each(&:destroy)
-    hh_histories.each(&:destroy)
-    hm.each(&:destroy)
-    hm_histories.each(&:destroy)
-    hh_insurance.each(&:destroy)
-    hh_insurance_histories.each(&:destroy)
-    hm_insurance.each(&:destroy)
-    hm_insurance_histories.each(&:destroy)
-  end
-
   task calculate_household_subcategory_income: :environment do
     transactions = HouseholdTransaction.where(category_type: 'income').where.not(subcategory: 'Resources').where.not(subcategory: nil)
 
@@ -273,25 +211,6 @@ namespace :db do
     end
   end
 
-  task update_project_start_and_end_date: :environment do
-    dates = [
-      ['India Financial Diaries', '2013-02-01', '2013-06-01'],
-      ['Kenya Financial Diaries', '2012-10-01', '2013-08-01'],
-      ['Smallholders Mozambique', '2014-07-01', '2015-06-01'],
-      ['Smallholders Pakistan', '2014-07-01', '2015-06-01'],
-      ['Smallholders Tanzania', '2014-07-01', '2015-05-01'],
-      ['South Africa GAFIS', '2012-12-01', '2013-06-01'],
-      ['Mexico Financial Diaries', '2014-04-01', '2014-11-01']
-    ]
-
-    dates.each do |info|
-      project = ProjectMetadatum.find_by(project_name: info[0])
-      project.start_date = info[1]
-      project.end_date = info[2]
-      project.save
-    end
-  end
-
   task add_dates_to_histories: :environment do
     dates = HouseholdTransactionHistory.all.pluck(:month, :year).uniq
     dates.each do |date|
@@ -301,22 +220,6 @@ namespace :db do
     dates = HouseholdMemberTransactionHistory.all.pluck(:month, :year).uniq
     dates.each do |date|
       HouseholdMemberTransactionHistory.where(month: date[0], year: date[1]).update_all(date: "#{date[1]}-#{date[0].to_s.rjust(2, '0')}-01")
-    end
-  end
-
-  task update_currency_symbols: :environment do
-    values = [
-      ['India Financial Diaries', '₹'],
-      ['Kenya Financial Diaries', 'KSh'],
-      ['Mexico Financial Diaries', 'Mex$'],
-      ['Smallholders Mozambique', 'MT'],
-      ['Smallholders Pakistan', 'Rs'],
-      ['Smallholders Tanzania', 'TSh'],
-      ['South Africa GAFIS', 'R']
-    ]
-
-    values.each do |value|
-      ProjectMetadatum.find_by(project_name: value[0]).update_column(:currency_symbol, value[1])
     end
   end
 
@@ -373,34 +276,131 @@ namespace :db do
     end
   end
 
-  task add_province_to_project_metadata: :environment do
-    provinces = [
-      ['Mexico', 'Puebla and Oaxaca states, and Mexico City outskirt'],
-      ['Kenya', 'Nairobi, Makueni, Mombasa, Eldoret, Vihiga'],
-      ['Pakistan', 'Two villages, Bahawalnagar district, in the south of the Punjab province'],
-      ['Tanzania', 'Two villages in Mbeya'],
-      ['India', 'Varanasi and outskirts, Uttar Pradesh province'],
-      ['Mozambique', 'Three villages in Rapale district, northern Nampula province']
-    ]
+  # task remove_resources_from_income: :environment do
+  #   households = HouseholdTransaction.where(category_type: 'income', subcategory: 'Resources')
+  #   members = HouseholdMemberTransaction.where(category_type: 'income', subcategory: 'Resources')
 
-    provinces.each do |province|
-      ProjectMetadatum.find_by(name: province[0]).update_column(:province, province[1])
-    end
-  end
+  #   households.each(&:destroy)
+  #   members.each(&:destroy)
+  # end
 
-  task create_missing_countries: :environment do
-    countries = [
-      ['Mexico', 'MEX'],
-      ['South Africa', 'ZAF'],
-      ['Botswana', 'BWA'],
-      ['Mauritius', 'MUS'],
-      ['Malawi', 'MWI'],
-      ['Namibia', 'NAM'],
-      ['Seychelles', 'SYC']
-    ]
+  # task change_credits_to_credit: :environment do
+  #   HouseholdTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
+  #   HouseholdMemberTransaction.where(category_type: 'credits').update_all(category_type: 'credit')
+  # end
 
-    countries.each do |country|
-      Country.find_or_create_by(name: country[0], iso: country[1])
-    end
-  end
+  # This is used to narrow down the number of subcategories present in records of category_type expense
+  # task update_expenses_subcategories: :environment do
+  #   households = HouseholdTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
+  #   members = HouseholdMemberTransaction.where.not(category_name: 'ALL').where(category_type: 'expense')
+  #   usage = CategoryUsage.where(category_type: 'expense')
+  #   p 'Starting update'
+
+  #   ActiveRecord::Base.transaction do
+  #     households.each do |household|
+  #       household.subcategory = household.category_name
+  #       household.save
+  #     end
+  #     p 'Household Transactions queued'
+
+  #     members.each do |member|
+  #       member.subcategory = member.category_name
+  #       member.save
+  #     end
+
+  #     usage.each do |cat|
+  #       cat.subcategory = cat.category_name
+  #       cat.save
+  #     end
+
+  #     p 'Household Member Transactions queued'
+  #   end
+  #   p 'Saved'
+  # end
+
+  # task remove_unwanted_categories: :environment do
+  #   hh = HouseholdTransaction.where(category_type: nil)
+  #   hh_histories = HouseholdTransactionHistory.where(household_transaction_id: hh.pluck(:id))
+  #   hm = HouseholdMemberTransaction.where(category_type: nil)
+  #   hm_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm.pluck(:id))
+  #   hh_insurance = HouseholdTransaction.where(category_type: 'insurance')
+  #   hh_insurance_histories = HouseholdTransactionHistory.where(household_transaction_id: hh_insurance.pluck(:id))
+  #   hm_insurance = HouseholdMemberTransaction.where(category_type: 'insurance')
+  #   hm_insurance_histories = HouseholdMemberTransactionHistory.where(household_member_transaction_id: hm_insurance.pluck(:id))
+
+  #   hh.each(&:destroy)
+  #   hh_histories.each(&:destroy)
+  #   hm.each(&:destroy)
+  #   hm_histories.each(&:destroy)
+  #   hh_insurance.each(&:destroy)
+  #   hh_insurance_histories.each(&:destroy)
+  #   hm_insurance.each(&:destroy)
+  #   hm_insurance_histories.each(&:destroy)
+  # end
+
+  # task update_project_start_and_end_date: :environment do
+  #   dates = [
+  #     ['India Financial Diaries', '2013-02-01', '2013-06-01'],
+  #     ['Kenya Financial Diaries', '2012-10-01', '2013-08-01'],
+  #     ['Smallholders Mozambique', '2014-07-01', '2015-06-01'],
+  #     ['Smallholders Pakistan', '2014-07-01', '2015-06-01'],
+  #     ['Smallholders Tanzania', '2014-07-01', '2015-05-01'],
+  #     ['South Africa GAFIS', '2012-12-01', '2013-06-01'],
+  #     ['Mexico Financial Diaries', '2014-04-01', '2014-11-01']
+  #   ]
+
+  #   dates.each do |info|
+  #     project = ProjectMetadatum.find_by(project_name: info[0])
+  #     project.start_date = info[1]
+  #     project.end_date = info[2]
+  #     project.save
+  #   end
+  # end
+
+  # task update_currency_symbols: :environment do
+  #   values = [
+  #     ['India Financial Diaries', '₹'],
+  #     ['Kenya Financial Diaries', 'KSh'],
+  #     ['Mexico Financial Diaries', 'Mex$'],
+  #     ['Smallholders Mozambique', 'MT'],
+  #     ['Smallholders Pakistan', 'Rs'],
+  #     ['Smallholders Tanzania', 'TSh'],
+  #     ['South Africa GAFIS', 'R']
+  #   ]
+
+  #   values.each do |value|
+  #     ProjectMetadatum.find_by(project_name: value[0]).update_column(:currency_symbol, value[1])
+  #   end
+  # end
+
+  # task add_province_to_project_metadata: :environment do
+  #   provinces = [
+  #     ['Mexico', 'Puebla and Oaxaca states, and Mexico City outskirt'],
+  #     ['Kenya', 'Nairobi, Makueni, Mombasa, Eldoret, Vihiga'],
+  #     ['Pakistan', 'Two villages, Bahawalnagar district, in the south of the Punjab province'],
+  #     ['Tanzania', 'Two villages in Mbeya'],
+  #     ['India', 'Varanasi and outskirts, Uttar Pradesh province'],
+  #     ['Mozambique', 'Three villages in Rapale district, northern Nampula province']
+  #   ]
+
+  #   provinces.each do |province|
+  #     ProjectMetadatum.find_by(name: province[0]).update_column(:province, province[1])
+  #   end
+  # end
+
+  # task create_missing_countries: :environment do
+  #   countries = [
+  #     ['Mexico', 'MEX'],
+  #     ['South Africa', 'ZAF'],
+  #     ['Botswana', 'BWA'],
+  #     ['Mauritius', 'MUS'],
+  #     ['Malawi', 'MWI'],
+  #     ['Namibia', 'NAM'],
+  #     ['Seychelles', 'SYC']
+  #   ]
+
+  #   countries.each do |country|
+  #     Country.find_or_create_by(name: country[0], iso: country[1])
+  #   end
+  # end
 end
