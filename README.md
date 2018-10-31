@@ -99,3 +99,7 @@ Another important thing to change on the tasks is to look for the places accessi
 The tasks are all in a single filed named `import_financial_diaries`, the commented tasks at the bottom were originally created to address specific problems with the first ever dataset, so it shouldn't be part of the flow, the csv should be properlly populated to begin with.
 
 The import is made locally against a backup of the production database to test if it all works, and then you can restore the whole database or just the financial diaries tables.
+
+## Deploy
+
+Has to be done from within the server, inside of the project's folder execute the file named `start_docker.sh`.
