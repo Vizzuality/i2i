@@ -67,6 +67,33 @@ and repeat first command:
 docker-compose -f docker-compose-dev.yml up --build
 ```
 
+## Application summary
+
+The application is a rails project including an admin, the front originally built with backbone and react for the latest part (fsp maps).
+
+The site could be divided in two parts, the insights and the datasets.
+
+`Insights` are managed on the admin.
+
+There are three types of dataset:
+
+- National surveys
+    - Data is posted and read from [this API](https://github.com/Vizzuality/i2i-api).
+    - Display the data through widgets using the backbone views.
+- Financial diaries
+    - It's stored on the db from a csv import.
+    - Displays data using vega and consumes data from the internal `fdapi` endpoints.
+- Fsp maps
+    - Shows layers on a map using react and redux.
+
+Staging: i2i.vizzuality.com
+Production: i2ifacility.org
+
+`i2i` -> Rails app (Docker name: `i2i_web`)
+`i2i-api` -> Node api for the national surveys (Docker name: `i2i-api_prod`)
+
+You can access the docker containers by using `docker ps` to get the id and then `docker exec -it ID bash`.
+
 ## Adding new national surveys
 
 - Post the data to the node api
@@ -105,6 +132,8 @@ The import is made locally against a backup of the production database to test i
 These are geospatial data layers, they are separated in `Sector` and `Contextual` layers, on the site you can find the contextual under Additional Data.
 
 Sector layers are served from Carto, while Contextual layers come from both Carto and the Resource Watch api.
+
+Be sure to have the `wri-api-components` on version `wri-api-components@2.2.7-alpha.2` because it's the version that has specific configurations for internet explorer. Otherwise the map won't appear.
 
 ##### Adding custom descriptions
 
