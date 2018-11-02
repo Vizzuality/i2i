@@ -70,7 +70,7 @@ docker-compose -f docker-compose-dev.yml up --build
 ## Adding new national surveys
 
 - Post the data to the node api
-- Create the country on the application if the country doesn't exist
+- Create the country on the application if the country doesn't exist, it can be created from the admin
 - Add the country flag as a `svg` to `public/images/flags/ISO.svg`
 
 ## Importing financial diaries data (csv)
@@ -99,6 +99,16 @@ Another important thing to change on the tasks is to look for the places accessi
 The tasks are all in a single filed named `import_financial_diaries`, the commented tasks at the bottom were originally created to address specific problems with the first ever dataset, so it shouldn't be part of the flow, the csv should be properlly populated to begin with.
 
 The import is made locally against a backup of the production database to test if it all works, and then you can restore the whole database or just the financial diaries tables.
+
+##  FSP maps
+
+These are geospatial data layers, they are separated in `Sector` and `Contextual` layers, on the site you can find the contextual under Additional Data.
+
+Sector layers are served from Carto, while Contextual layers come from both Carto and the Resource Watch api.
+
+##### Adding custom descriptions
+
+Follow the instructions on `app/javascript/components/fsp-maps/constants.js`, this will enable an `i` button on the layers list that will trigger a modal with the layer's description and an url.
 
 ## Deploy
 
