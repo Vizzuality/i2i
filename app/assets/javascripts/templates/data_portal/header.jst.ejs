@@ -97,6 +97,27 @@
           </div>
         <% } %>
 
+        <% if (isUNCDF) { %>
+          <div style="text-align: right"></div>
+            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
+            <img src="/images/logos/uncdf_white.svg" width="220" height="100" style="float: right">
+          </div>
+        <% } %>
+
+        <% if (isAFR) { %>
+          <div style="text-align: right"></div>
+            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
+            <img src="/images/logos/afr_white.svg" width="220" height="100" style="float: right">
+          </div>
+        <% } %>
+
+        <% if (!(isAFR || isUNCDF || isCGAP)) { %>
+          <div style="text-align: right"></div>
+            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
+            <img src="/images/logos/finscope.svg" width="220" height="100" style="float: right">
+          </div>
+        <% } %>
+
       </div>
     </div>
   </div>

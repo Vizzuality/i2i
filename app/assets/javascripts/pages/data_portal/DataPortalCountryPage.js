@@ -93,7 +93,7 @@
       if (this.headerContainer && this.mobileHeaderContainer) {
         var headerRect = this.headerContainer.getBoundingClientRect();
         this.mobileHeaderContainer.classList.toggle('_is-hidden', headerRect.bottom > 0);
-  
+
         // We close the menu when it's hidden so when it appears again, it's closed
         if (headerRect.bottom > 0) {
           this.mobileHeaderContainer.classList.remove('-open');
@@ -367,6 +367,12 @@
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         population: this._getReadablePopulation(),
+        isUNCDF: {
+          'Myanmar': 2018
+        }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
+        isAFR: {
+          'Rwanda': [2008, 2012, 2016]
+        }[App.Helper.Indicators.COUNTRIES[this.options.iso]].includes(this.options.year),
         isCGAP: {
           'Bangladesh': 2016,
           'Côte d\'Ivoire': 2016,
