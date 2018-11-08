@@ -370,9 +370,8 @@
         isUNCDF: {
           'Myanmar': 2018
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
-        isAFR: {
-          'Rwanda': [2008, 2012, 2016]
-        }[App.Helper.Indicators.COUNTRIES[this.options.iso]].includes(this.options.year),
+        isAFR: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Rwanda' &&
+          [2008, 2012, 2016].includes(this.options.year),
         isCGAP: {
           'Bangladesh': 2016,
           'Côte d\'Ivoire': 2016,
