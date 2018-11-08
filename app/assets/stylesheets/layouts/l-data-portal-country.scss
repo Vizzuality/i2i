@@ -11,7 +11,7 @@
     left: 0;
     padding: 15px 0;
     background: $color-1;
-    box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+    box-shadow: 0 2px 3px 0 rgba($color-6, 0.15);
     z-index: 1;
 
     header {
@@ -29,7 +29,7 @@
       }
 
       button {
-        @include arrow(8px, 2px, $color-4, 'down');
+        @include arrow(8px, 2px, $color-4, "down");
         padding: 0;
         transform: translate(-3px, -50%) rotate(45deg);
         text-indent: -10000px;
@@ -88,7 +88,6 @@
 
   .l-intro {
     .l-title {
-
       .js-header {
         z-index: 3;
       }
@@ -110,7 +109,7 @@
       .title-placeholder {
         max-width: 250px;
         height: 50px;
-        background-color: rgba($color-3, .5);
+        background-color: rgba($color-3, 0.5);
       }
 
       .filters-placeholder > .c-tag {
@@ -133,9 +132,11 @@
         max-width: 610px;
         height: 12px;
         margin-bottom: 10px;
-        background-color: rgba($color-3, .5);
+        background-color: rgba($color-3, 0.5);
 
-        &:last-of-type { margin-bottom: 0; }
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
     }
 
@@ -196,7 +197,7 @@
       display: flex;
       justify-content: center;
       padding: 20px 0;
-      background: rgba($color-5, .1);
+      background: rgba($color-5, 0.1);
 
       .c-switcher {
         max-width: 175px;
@@ -207,10 +208,24 @@
         }
       }
     }
+
+    .l-supplied-by {
+      text-align: right;
+
+      p {
+        color: $color-4;
+        font-style: italic;
+      }
+
+      img {
+        display: inline-block;
+        max-height: 100px;
+        max-width: 300px;
+      }
+    }
   }
 
   .l-content {
-
     .l-switcher {
       .container {
         display: flex;
@@ -220,7 +235,6 @@
     }
 
     .l-indicator-grid {
-
       // We want the cards to have the same height and the wigdet's toolbar
       // to be aligned at the bottom
       .widgets-list {
@@ -289,7 +303,7 @@
           margin: 10px 0;
 
           &:not([disabled]) {
-            box-shadow: 0 2px 3px 0 rgba($color-6, .15);
+            box-shadow: 0 2px 3px 0 rgba($color-6, 0.15);
           }
 
           @media #{$mq-laptop} {

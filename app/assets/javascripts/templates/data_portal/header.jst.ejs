@@ -84,40 +84,31 @@
         </div>
       </div>
       <div class="grid-s-12 grid-l-5">
+        <div class="l-supplied-by">
         <% if (country === 'Tanzania' && year === 2017) { %>
-          <div style="text-align: right">
-            <img src="/images/logos/finscope.png" width="220" height="100">
-          </div>
+          <img src="/images/logos/finscope.png" alt="Finscope" />
         <% } %>
 
         <% if (isCGAP) { %>
-          <div style="text-align: right"></div>
-            <img src="/images/logos/CGAP_white.svg" width="220" height="100" style="float: right">
-            <div style="float: right; color: #ffffff; text-align: right">The following dataset is nationally representative of smallholder farmers for this country.</div>
-          </div>
+            <img src="/images/logos/CGAP_white.svg" alt="CGAP" />
+            <p>The following dataset is nationally representative of smallholder farmers for this country.</p>
         <% } %>
 
         <% if (isUNCDF) { %>
-          <div style="text-align: right"></div>
-            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
-            <img src="/images/logos/uncdf_white.svg" width="220" height="100" style="float: right">
-          </div>
+            <p>Data supplied by</p>
+            <img src="/images/logos/uncdf_white.svg" alt="UNCDF" />
         <% } %>
 
         <% if (isAFR) { %>
-          <div style="text-align: right"></div>
-            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
-            <img src="/images/logos/afr_white.svg" width="220" height="100" style="float: right">
-          </div>
+            <p>Data supplied by</p>
+            <img src="/images/logos/afr_white.svg" alt="AFR" />
         <% } %>
 
         <% if (!(isAFR || isUNCDF || isCGAP)) { %>
-          <div style="text-align: right"></div>
-            <div style="float: right; color: #ffffff; text-align: right">Data supplied by</div>
-            <img src="/images/logos/finscope.svg" width="220" height="100" style="float: right">
-          </div>
+            <p>Data supplied by</p>
+            <img src="/images/logos/finscope.svg" alt="Finscope" />
         <% } %>
-
+        </div>
       </div>
     </div>
   </div>
