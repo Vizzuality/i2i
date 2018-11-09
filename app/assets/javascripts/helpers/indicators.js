@@ -34,7 +34,8 @@
       IND: 'India',
       BGD: 'Bangladesh',
       NGA: 'Nigeria',
-      CIV: 'Côte d\'Ivoire'
+      CIV: 'Côte d\'Ivoire',
+      MMR: 'Myanmar'
     },
 
     /**

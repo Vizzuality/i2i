@@ -87,24 +87,20 @@
         <div class="l-supplied-by">
         <% if (country === 'Tanzania' && year === 2017) { %>
           <img src="/images/logos/finscope.png" alt="Finscope" />
-        <% } %>
 
-        <% if (isCGAP) { %>
+        <% } else if (isCGAP) { %>
             <img src="/images/logos/CGAP_white.svg" alt="CGAP" />
             <p>The following dataset is nationally representative of smallholder farmers for this country.</p>
-        <% } %>
 
-        <% if (isUNCDF) { %>
+        <% } else if (isUNCDF) { %>
             <p>Data supplied by</p>
             <img src="/images/logos/uncdf_white.svg" alt="UNCDF" />
-        <% } %>
 
-        <% if (isAFR) { %>
+        <% } else if (isAFR) { %>
             <p>Data supplied by</p>
             <img src="/images/logos/afr_white.svg" alt="AFR" />
-        <% } %>
 
-        <% if (!(isAFR || isUNCDF || isCGAP)) { %>
+        <% } else { %>
             <p>Data supplied by</p>
             <img src="/images/logos/finscope.svg" alt="Finscope" class="-width" />
         <% } %>
