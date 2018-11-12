@@ -86,23 +86,31 @@
       <div class="grid-s-12 grid-l-5">
         <div class="l-supplied-by">
         <% if (country === 'Tanzania' && year === 2017) { %>
-          <img src="/images/logos/finscope.png" alt="Finscope" />
+          <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
+            <img src="/images/logos/finscope.png" alt="Finscope" />
+          </a>
 
         <% } else if (isCGAP) { %>
+
             <img src="/images/logos/CGAP_white.svg" alt="CGAP" />
             <p>The following dataset is nationally representative of smallholder farmers for this country.</p>
 
         <% } else if (isUNCDF) { %>
             <p>Data supplied by</p>
-            <img src="/images/logos/uncdf_white.svg" alt="UNCDF" />
+            <a href="http://www.uncdf.org/" target="_blank">
+              <img src="/images/logos/uncdf_white.svg" alt="UNCDF" />
+            </a>
 
         <% } else if (isAFR) { %>
             <p>Data supplied by</p>
-            <img src="/images/logos/afr_white.svg" alt="AFR" />
-
+            <a href="http://www.afr.rw/" target="_blank">
+              <img src="/images/logos/afr_white.svg" alt="AFR" />
+            </a>
         <% } else { %>
             <p>Data supplied by</p>
-            <img src="/images/logos/finscope.svg" alt="Finscope" class="-width" />
+            <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
+              <img src="/images/logos/finscope.svg" alt="Finscope" class="-width" />
+            </a>
         <% } %>
         </div>
       </div>
