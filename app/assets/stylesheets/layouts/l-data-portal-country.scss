@@ -213,8 +213,10 @@
       text-align: right;
 
       p {
+        margin-bottom: 15px;
         color: $color-4;
         font-style: italic;
+        font-size: $font-size-small;
       }
 
       img {
@@ -224,6 +226,20 @@
         &.-width {
           width: 300px;
           height: auto;
+        }
+
+        &.-small-width {
+          width: 150px;
+          height: auto;
+        }
+
+        &.-left {
+          border-right: 1px solid $color-4;
+          padding-right: 15px;
+        }
+  
+        &.-right {
+          padding-left: 15px;
         }
       }
     }
