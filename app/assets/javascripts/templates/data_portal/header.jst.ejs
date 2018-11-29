@@ -96,10 +96,15 @@
             <p>The following dataset is nationally representative of smallholder farmers for this country.</p>
 
         <% } else if (isUNCDF) { %>
-            <p>Data supplied by</p>
-            <a href="http://www.uncdf.org/" target="_blank">
-              <img src="/images/logos/uncdf_white.svg" alt="UNCDF" />
-            </a>
+            <p>Data developed in partnership by</p>
+            <div class="flex">
+              <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
+                <img src="/images/logos/fmt_white.svg" alt="Finscope" class="-left -small-width" />
+              </a>
+              <a href="http://www.uncdf.org/" target="_blank">
+                <img src="/images/logos/uncdf_white.svg" alt="UNCDF" class="-right"/>
+              </a>
+          </div>
 
         <% } else if (isAFR) { %>
             <p>Data supplied by</p>
