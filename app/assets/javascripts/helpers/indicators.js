@@ -35,7 +35,10 @@
       BGD: 'Bangladesh',
       NGA: 'Nigeria',
       CIV: 'Côte d\'Ivoire',
-      MMR: 'Myanmar'
+      MMR: 'Myanmar',
+      KHM: 'Cambodia',
+      LAO: 'Laos',
+      NPL: 'Nepal'
     },
 
     /**
