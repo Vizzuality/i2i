@@ -367,8 +367,14 @@
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         population: this._getReadablePopulation(),
+        isFSD: {
+          'Zambia': 2015
+        }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isUNCDF: {
-          'Myanmar': 2018
+          'Myanmar': 2018,
+          'Cambodia': 2015,
+          'Laos': 2014,
+          'Nepal': 2014
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isAFR: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Rwanda' &&
           [2008, 2012, 2016].includes(this.options.year),
