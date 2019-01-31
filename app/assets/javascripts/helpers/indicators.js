@@ -38,7 +38,8 @@
       MMR: 'Myanmar',
       KHM: 'Cambodia',
       LAO: 'Laos',
-      NPL: 'Nepal'
+      NPL: 'Nepal',
+      HTI: 'Haiti'
     },
 
     /**
