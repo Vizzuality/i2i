@@ -1,4 +1,4 @@
-FROM ruby:2.3.3
+FROM ruby:2.5.3
 MAINTAINER David Inga <david.inga@vizzuality.com>
 
 ENV RAILS_ENV production
