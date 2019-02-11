@@ -4,6 +4,11 @@
   flex-direction: column;
   z-index: 2;
 
+  .info {
+    margin-top: 20px;
+    color: white;
+  }
+
   .country-link {
     display: inline-block;
     position: relative;
