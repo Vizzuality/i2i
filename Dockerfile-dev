@@ -1,27 +1,10 @@
-FROM ruby:2.3.3
+FROM ruby:2.5.3-alpine
 
-ENV RAILS_ENV development
-ENV RACK_ENV development
-
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-      build-essential \
-      imagemagick \
-      bash \
-      git \
-      nodejs \
-      tzdata \
-      libxml2-dev \
-      libxslt-dev \
-      postgresql postgresql-contrib \
-      --no-install-recommends \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && gem install bundler --no-ri --no-rdoc \
-    && mkdir -p /usr/src/i2i
+RUN apk update && apk add --no-cache \
+  build-base bash git nodejs yarn postgresql-dev imagemagick tzdata
 
 WORKDIR /usr/src/i2i
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-RUN bundle install --jobs 20 --retry 5
-ADD . /usr/src/i2i
+COPY Gemfile Gemfile.lock package.json yarn.lock ./
+RUN bundle install --jobs `expr $(cat /proc/cpuinfo | grep -c "cpu cores") - 1` --retry 3
+RUN yarn install && yarn cache clean
+ADD . ./

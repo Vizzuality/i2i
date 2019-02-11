@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.3.3'
+ruby '2.5.3'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'autoprefixer-rails', '~> 6.7'
@@ -59,7 +59,7 @@ gem 'ckeditor', github: 'galetahub/ckeditor'
 
 gem 'enumerate_it'
 gem 'valid_url'
-gem 'twitter'
+gem 'twitter', '~> 6.2.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
