@@ -1,7 +1,7 @@
 ActiveAdmin.register Country do
   controller do
     def permitted_params
-      params.permit country: [:name, :iso, :short_iso]
+      params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw]
     end
   end
 
@@ -29,6 +29,7 @@ ActiveAdmin.register Country do
       f.input :name
       f.input :iso
       f.input :short_iso
+      f.input :bbox_raw, label: 'Bounding box'
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end

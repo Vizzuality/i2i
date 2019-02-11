@@ -23,6 +23,7 @@ class Country < ApplicationRecord
 
   attr_accessor :has_finscope
   attr_accessor :has_financial_diaries
+  attr_accessor :bbox_raw
 
   def has_dataset
     financial_diaries.present? || finscope.present? || geospatial.present?
@@ -38,6 +39,15 @@ class Country < ApplicationRecord
 
   def geospatial
     has_fsp_maps
+  end
+
+  def bbox_raw
+    self.bbox.join(",") unless self.bbox.nil?
+  end
+
+  def bbox_raw=(values)
+    self.bbox = []
+    self.bbox = values.split(",")
   end
 
   class << self
