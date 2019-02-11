@@ -29,4 +29,8 @@
   <% end %>
 
   <h1 class="title -highlight -huge country-placeholder js-country-placeholder"><%= @country[:name] %></h1>
+
+  <% if current_page?(fsp_maps_path) && @country.iso === 'HTI' %>
+    <p class="info">Map data is from 2018</p>
+  <% end %>
 </div>
