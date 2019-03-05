@@ -141,4 +141,4 @@ Follow the instructions on `app/javascript/components/fsp-maps/constants.js`, th
 
 ## Deploy
 
-Has to be done from within the server, inside of the project's folder execute the file named `start_docker.sh`.
+Has to be done from within the server, inside of the project's folder execute the file named `start-docker.sh`.
