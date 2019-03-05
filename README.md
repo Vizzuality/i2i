@@ -153,5 +153,5 @@ ssh ubuntu@i2ifacility.org
 Has to be done from within the server, inside of the project's folder execute the file named `start_docker.sh`.
 
 ```
-cd projects/i2i && ./start_docker.sh
+cd projects/i2i && ./start-docker.sh
 ```
