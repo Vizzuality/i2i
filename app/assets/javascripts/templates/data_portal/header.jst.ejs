@@ -86,7 +86,7 @@
       <div class="grid-s-12 grid-l-5">
         <div class="l-supplied-by">
         <% if (country === 'Tanzania' && year === 2017) { %>
-          <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
+          <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank" rel="noopener noreferrer">
             <img src="/images/logos/finscope.png" alt="Finscope" />
           </a>
 
@@ -98,30 +98,34 @@
         <% } else if (isUNCDF) { %>
             <p>Data developed in partnership by</p>
             <div class="flex">
-              <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
+              <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank" rel="noopener noreferrer">
                 <img src="/images/logos/fmt_white.svg" alt="Finscope" class="-left -small-width" />
               </a>
-              <a href="http://www.uncdf.org/" target="_blank">
+              <a href="http://www.uncdf.org/" target="_blank" rel="noopener noreferrer">
                 <img src="/images/logos/uncdf_white.svg" alt="UNCDF" class="-right"/>
               </a>
           </div>
 
         <% } else if (isAFR) { %>
             <p>Data supplied by</p>
-            <a href="http://www.afr.rw/" target="_blank">
+            <a href="http://www.afr.rw/" target="_blank" rel="noopener noreferrer">
               <img src="/images/logos/afr_white.svg" alt="AFR" />
             </a>
         <% } else if (isFSD) { %>
             <p>Data supplied by</p>
-            <a href="http://www.afr.rw/" target="_blank">
+            <a href="http://www.afr.rw/" target="_blank" rel="noopener noreferrer">
               <img src="/images/logos/FSDZ_white.svg" alt="AFR" />
+            </a>
+        <% } else if (isHaiti) { %>
+            <p>Data supplied by</p>
+            <a href="https://www.usaid.gov/" target="_blank" rel="noopener noreferrer">
+              <img src="/images/logos/USAID.svg" alt="USAID" class="-width" />
             </a>
         <% } else { %>
             <p>Data supplied by</p>
-            <!-- <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank">
-              <img src="/images/logos/finscope.svg" alt="Finscope" class="-width" />
-            </a> -->
-            <img src="/images/logos/USAID.svg" alt="USAID" class="-width" />
+            <a href="http://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank" rel="noopener noreferrer">
+              <img src="/images/logos/fmt_white.svg" alt="Finscope" class="-width" />
+            </a>
         <% } %>
         </div>
       </div>

@@ -385,7 +385,8 @@
           'Nigeria': 2016,
           'Tanzania': 2016,
           'Uganda': 2015
-        }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year
+        }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
+        isHaiti: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Haiti'
       });
 
       // We instantiate the tab views
