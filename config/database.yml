@@ -32,10 +32,9 @@ test:
   <<: *default
   database: i2i_test
 
-staging:
-  <<: *default
-  database: i2i_staging
-
-production:
+production: &production
   <<: *default
   database: i2i_prod
+
+staging:
+  <<: *production
