@@ -19,7 +19,7 @@ class PreFooter extends PureComponent {
                   <p>
                     If you have your own geospatial data that you would like to
                     deposit on the i2i platform to enhance financial inclusion
-                    in Africa and Asia, please email us on <a href="mailto:info@i2ifacility.org">info@i2ifacility.org</a>.
+                    in Africa and Asia, please email us on <a href="mailto:${process.env.I2I_MAIL}">{process.env.I2I_MAIL}</a>.
                     We will then contact you with the next steps. In the near
                     future, you will be able to log in and upload your data
                     directly onto our platform.
