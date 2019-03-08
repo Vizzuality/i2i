@@ -8,8 +8,8 @@ class DataPortalFinancialDiariesController < ApplicationController
     @countries = Country.all.select { |country| country.financial_diaries.present? }
     @country = Country.find_by(iso: params[:iso])
     @lift_countries = [
-      { name: 'Uganda', url: 'http://www.lift-fedu.com/' },
-      { name: 'Ghana', url: 'http://www.lift-data.com/' }
+      { name: 'Uganda', url: 'https://www.lift-fedu.com/' },
+      { name: 'Ghana', url: 'https://www.lift-data.com/' }
     ]
     @country_financial_diaries = @country.financial_diaries
     @categories = HouseholdTransaction.category_tree(project_name).present? ? HouseholdTransaction.category_tree(project_name) : HouseholdMemberTransaction.category_tree(project_name)
