@@ -40,7 +40,7 @@ Because we need to be able to share some components outside the project, there i
 
 In order to compile those assets, run `RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret rake assets:precompile`. This will place all precompiled asssets in `public` folder. Once done, run `rake non_digested RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret`. This task will create duplicate of current compiled files but removing its hash, making it easier to manage. For example: `exported_componentes#mfnhf21378kjashjads1234.js` would be `exported_componentes.js`
 
-## Using docker for development (recommended)
+## Using docker for development
 
 Just run next command:
 
@@ -160,14 +160,12 @@ Follow the instructions on `app/javascript/components/fsp-maps/constants.js`, th
 
 ## Deploy
 
-Connect using SSH to the server.
+Deploying requires SSH access to the server. It's highly recommended that you use RSA keys instead of username+password access.
+
+Deployment is handled by [Capistrano](https://capistranorb.com/), and requires you to have `ruby` configured on your local machine. 
+
+To deploy to a server, use the following command from your local terminal:
 
 ```
-ssh ubuntu@i2ifacility.org
-```
-
-Has to be done from within the server, inside of the project's folder execute the file named `start_docker.sh`.
-
-```
-cd projects/i2i && ./start-docker.sh
+cap <production|staging> deploy
 ```
