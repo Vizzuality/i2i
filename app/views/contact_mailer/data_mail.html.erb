@@ -7,7 +7,7 @@
 <h1>Insight2Impact data</h1>
 <p> You've requested the data for <%= @contact.country %> in the year <%= @contact.year %></p>
 <p>
-  It's available in this link: http://i2i.vizzuality.com/api/v1/country/<%= @contact.country%>/<%= @contact.year %>/download
+  It's available in this link: <%= ENV['API_URL'] %>/country/<%= @contact.country%>/<%= @contact.year %>/download
 </p>
 </body>
 </html>
