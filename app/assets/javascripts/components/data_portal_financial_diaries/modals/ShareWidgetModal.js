@@ -60,7 +60,7 @@
 
       var urls = {
         embed_link: '<iframe height="' + embedHeight + '" width="1090" src="' + embedUrl + '" style="border:0;"></iframe>',
-        facebook: 'http://www.facebook.com/sharer.php?u=' + widgetURL,
+        facebook: 'https://www.facebook.com/sharer.php?u=' + widgetURL,
         page_link: widgetURL,
         twitter: 'https://twitter.com/intent/tweet?url=' + widgetURL
       };
