@@ -105,7 +105,7 @@ There are three types of dataset:
 - Fsp maps
     - Shows layers on a map using react and redux.
 
-Staging: i2i.vizzuality.com
+Staging: staging.i2ifacility.org
 Production: i2ifacility.org
 
 `i2i` -> Rails app (Docker name: `i2i_web`)

@@ -112,11 +112,11 @@
             </p>
             <p>
               Launched in 2015, i2i is jointly hosted by <a
-              href="http://cenfri.org/">Cenfri</a> and <a
-              href="http://www.finmark.org.za/">FinMark Trust</a> and is funded by the
-              <a href="http://www.gatesfoundation.org/">Bill &amp; Melinda Gates
+              href="https://cenfri.org/">Cenfri</a> and <a
+              href="https://www.finmark.org.za/">FinMark Trust</a> and is funded by the
+              <a href="https://www.gatesfoundation.org/">Bill &amp; Melinda Gates
               Foundation</a> in partnership with <a
-              href="http://www.mastercardfdn.org/">The MasterCard Foundation</a>.
+              href="https://www.mastercardfdn.org/">The MasterCard Foundation</a>.
             </p>
           </div>
         </div>
@@ -238,7 +238,7 @@
                         <span class="address-field">400 16th Road (cnr New Road)</span>
                         <span class="address-field">Randjespark (Midrand)</span>
                         <a class="address-field" href="tel:+27 11 315 9197" alt="FinMark Trust contact phone">+27 11 315 9197</a>
-                        <a class="address-link" alt="Cenfri email" href="mailto:info@i2ifacility.org">info@i2ifacility.org</a>
+                        <a class="address-link" alt="Cenfri email" href="mailto:<%= ENV['I2I_MAIL'] %>"><%= ENV['I2I_MAIL'] %></a>
                       </div>
                     </address>
                   </div>
@@ -255,7 +255,7 @@
                         <span class="address-field">99 Jip de Jager Drive</span>
                         <span class="address-field">Bellville, Cape Town</span>
                         <a class="address-field" href="tel:+27 21 913 9510" alt="Cenfri contact phone">+27 21 913 9510</a>
-                        <a class="address-link" alt="Cenfri email" href="mailto:info@i2ifacility.org">info@i2ifacility.org</a>
+                        <a class="address-link" alt="Cenfri email" href="mailto:<%= ENV['I2I_MAIL'] %>"><%= ENV['I2I_MAIL'] %></a>
                       </div>
                     </address>
                   </div>
@@ -273,52 +273,52 @@
 
                    <input type=hidden name="oid" value="00D0Y000002FWyG">
                    <input type=hidden name="retURL" value="">
-                   
+
                    <div class="custom-row">
                    <label for="first_name">First Name</label><br>
                    <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" />
 				   </div>
-				   
+
 				   <div class="custom-row">
 				   <label for="last_name">Last Name</label><br>
 				   <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
 				   </div>
-				   
+
 				   <div class="custom-row">
 				   <label for="email">Email</label><br>
 				   <input  id="email" maxlength="80" name="email" size="20" type="text" />
 				   </div>
-				   
-				   
+
+
 				   <div class="custom-row">
 				   <label for="title">Title</label><br>
 				   <input  id="title" maxlength="40" name="title" size="20" type="text" />
 				   </div>
-				   
-				   
+
+
 				   <div class="custom-row">
 				   <label for="company">Company</label><br>
 				   <input id="company" maxlength="40" name="company" size="20" type="text" />
 				   </div>
-				   
-				   
+
+
 				   <div class="custom-row">
 				   <label for="country">Country</label><br>
 				   <input  id="country" maxlength="40" name="country" size="20" type="text" />
 				    </div>
-				    
-				    
+
+
 				    <div class="custom-row">
 				   <label for="Message">Message</label><br>
 				   <textarea  id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft"></textarea>
 				    </div>
-				    
+
 				    <br>
 				    <input type="submit" name="submit" class="c-button">
-              
+
               </form>
-              
-      
+
+
               </div>
             </div>
           </div>
