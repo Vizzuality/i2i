@@ -55,7 +55,7 @@ gem 'webpacker', '~> 3.5'
 gem 'react-rails'
 
 # WYSIWYG
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor', '4.2.4'
 
 gem 'enumerate_it'
 gem 'valid_url'
