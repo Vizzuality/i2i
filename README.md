@@ -73,6 +73,22 @@ It's recommended to run all tasks to avoid missing data.
 Once done with task running, just run the container:
 
 ```
+docker exec -it [container-id] bash
+```
+
+Once in run as many task as you need from `lib/tasks` folder:
+
+```
+rake db:[task-name]
+```
+
+To have countries available you will need to run the `sample` task at least. Run `rake db:sample`.
+
+It's recommended to run all tasks to avoid missing data.
+
+Once done with task running, just run the container:
+
+```
 docker-compose -f docker-compose-dev.yml up
 ```
 
@@ -169,3 +185,4 @@ To deploy to a server, use the following command from your local terminal:
 ```
 cap <production|staging> deploy
 ```
+
