@@ -28,7 +28,7 @@
           <%= link_to 'About', about_path, data: { turbolinks: false } %>
         </li>
         <% if current_user %>
-          <li class="nav-item <% if current_page?(account_path) %> -current <% end%>">
+          <li class="nav-item <% if current_page?(account_path) || current_page?(datasets_path) %> -current <% end%>">
             <%= link_to current_user.name_or_email, account_path, data: { turbolinks: false } %>
           </li>
         <% else %>

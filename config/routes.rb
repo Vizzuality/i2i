@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # User Account Details
   get 'account', to: 'users#edit'
   resources :users, only: %i(update)
+  resources :datasets, only: %i(index)
 
   # Data Portal
   get 'data-portal' => 'data_portal#index'
