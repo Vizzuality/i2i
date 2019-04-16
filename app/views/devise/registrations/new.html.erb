@@ -8,33 +8,47 @@
   </div>
 
   <div class="l-content">
-    <h2>Sign up</h2>
+    <div class="wrapper">
+      <div class="row">
+        <div class="grid-s-12">
+          <div class="l-form-contact" style="display: flex; justify-content: center;">
+            <div class="grid-s-8 grid-m-6">
+              <h2>Sign up</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "c-form contact-form" }) do |f| %>
+                <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :email, 'EMAIL' %><br />
-        <%= f.email_field :email, autofocus: true %>
+                <div class="field custom-row">
+                  <%= f.label :email, 'EMAIL' %><br />
+                  <%= f.email_field :email, autofocus: true %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :password, 'PASSWORD' %><br />
+                  <%= f.password_field :password, autocomplete: "off" %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :password_confirmation, 'REPEAT PASSWORD' %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                </div>
+
+                <br/>
+
+                <div class="actions">
+                  <%= f.submit "Register" %>
+                </div>
+              <% end %>
+
+              <br/>
+
+              <%- if controller_name != 'sessions' %>
+                <%= link_to "I have an account", new_session_path(resource_name) %><br />
+              <% end -%>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="field">
-        <%= f.label :password, 'PASSWORD' %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation, 'REPEAT PASSWORD' %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit "Register" %>
-      </div>
-    <% end %>
-
-    <%- if controller_name != 'sessions' %>
-      <%= link_to "I have an account", new_session_path(resource_name) %><br />
-    <% end -%>
+    </div>
   </div>
 </div>
