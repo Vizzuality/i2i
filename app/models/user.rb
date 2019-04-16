@@ -12,7 +12,8 @@
 #
 
 class User < ApplicationRecord
-  has_secure_password
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  
   has_secure_token
 
   # This method is not available in has_secure_token
