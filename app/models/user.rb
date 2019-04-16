@@ -30,4 +30,8 @@ class User < ApplicationRecord
       user
     end
   end
+  
+  def name_or_email
+    name.presence || email
+  end
 end
