@@ -28,8 +28,8 @@
           <%= link_to 'About', about_path, data: { turbolinks: false } %>
         </li>
         <% if current_user %>
-          <li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
-            <%= link_to current_user.name_or_email, destroy_user_session_path, method: :delete, data: { turbolinks: false } %>
+          <li class="nav-item <% if current_page?(account_path) %> -current <% end%>">
+            <%= link_to current_user.name_or_email, account_path, data: { turbolinks: false } %>
           </li>
         <% else %>
           <li class="nav-item <% if devise_controller? %> -current<% end%>">
