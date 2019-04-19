@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190415145058) do
+ActiveRecord::Schema.define(version: 20190419090806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -394,6 +394,15 @@ ActiveRecord::Schema.define(version: 20190415145058) do
     t.integer  "num_members_in_mem"
     t.string   "province"
     t.text     "custom_text"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name",       default: "", null: false
+    t.string   "iso",        default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "slug",                    null: false
+    t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
