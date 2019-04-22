@@ -1,25 +1,47 @@
-<h2>Change your password</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+<div class="l-homepage">
+  <div class="l-intro js-hero" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header' , locals: { isFixed: true } %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  <div class="l-content">
+    <div class="wrapper">
+      <div class="row">
+        <div class="grid-s-12">
+          <div class="l-form-contact" style="display: flex; justify-content: center;">
+            <div class="grid-s-8 grid-m-6">
+              <h2>Reset password</h2>
+              <p>
+                Type your new password:
+              </p>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "c-form contact-form" }) do |f| %>
+                <%= devise_error_messages! %>
+                <%= f.hidden_field :reset_password_token %>
 
-<%= render "devise/shared/links" %>
+                <div class="field custom-row">
+                  <%= f.label :password, "NEW PASSWORD" %><br />
+                  <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :password_confirmation, "CONFIRM NEW PASSWORD" %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                </div>
+
+                <br/>
+
+                <div class="actions">
+                  <%= f.submit "Save and login" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
