@@ -1,5 +1,7 @@
+require 'uploaders/partner_logo_uploader'
+
 class Partner < ApplicationRecord
-  include ImageUploader[:logo]
+  include PartnerLogoUploader[:logo]
   
   validates :name, presence: true
   

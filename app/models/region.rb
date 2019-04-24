@@ -1,4 +1,4 @@
-require 'shrine/image_uploader'
+require 'uploaders/image_uploader'
 
 class Region < ApplicationRecord
   extend FriendlyId
