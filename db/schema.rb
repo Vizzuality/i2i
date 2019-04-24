@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190419090806) do
+ActiveRecord::Schema.define(version: 20190423200210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,24 @@ ActiveRecord::Schema.define(version: 20190419090806) do
     t.string   "bbox",         default: [],                 array: true
     t.string   "short_iso"
     t.boolean  "has_fsp_maps", default: false
+  end
+
+  create_table "country_partners", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "partner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_country_partners_on_country_id", using: :btree
+    t.index ["partner_id"], name: "index_country_partners_on_partner_id", using: :btree
+  end
+
+  create_table "country_regions", force: :cascade do |t|
+    t.integer  "region_id"
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_country_regions_on_country_id", using: :btree
+    t.index ["region_id"], name: "index_country_regions_on_region_id", using: :btree
   end
 
   create_table "documented_items", force: :cascade do |t|
@@ -375,6 +393,13 @@ ActiveRecord::Schema.define(version: 20190419090806) do
     t.integer  "position"
   end
 
+  create_table "partners", force: :cascade do |t|
+    t.string   "name",       default: "", null: false
+    t.text     "logo_data"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "project_metadata", force: :cascade do |t|
     t.string   "project_name"
     t.string   "name"
@@ -396,12 +421,23 @@ ActiveRecord::Schema.define(version: 20190419090806) do
     t.text     "custom_text"
   end
 
+  create_table "region_partners", force: :cascade do |t|
+    t.integer  "region_id"
+    t.integer  "partner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_id"], name: "index_region_partners_on_partner_id", using: :btree
+    t.index ["region_id"], name: "index_region_partners_on_region_id", using: :btree
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string   "name",       default: "", null: false
     t.string   "iso",        default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "slug",                    null: false
+    t.text     "flag_data"
+    t.text     "logo_data"
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 

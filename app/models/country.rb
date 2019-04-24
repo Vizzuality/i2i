@@ -25,6 +25,12 @@ class Country < ApplicationRecord
   attr_accessor :has_financial_diaries
   attr_accessor :bbox_raw
 
+  has_many :country_regions, dependent: :destroy
+  has_many :regions, through: :country_regions
+  
+  has_many :country_partners
+  has_many :partners, through: :country_partners
+  
   def has_dataset
     financial_diaries.present? || finscope.present? || geospatial.present?
   end

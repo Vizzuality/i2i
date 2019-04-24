@@ -25,14 +25,34 @@
                   </div>
 
 
-                  <p class="subtitle">Coutries included into this dashboard:
-                    <%# if @region.countries.any? %>
-                      <%# render 'country_tag', collection: @region.countries %>
+                  <p class="subtitle">
+                    Coutries included into this dashboard:
+                  </p>
+                  <p class="subtitle">
+                    <% if @countries.any? %>
+                      <%= render partial: 'country', collection: @countries %>
+                    <% end %>
                   </p>
 
                   <p class="subtitle">Data depositors:
-
+                    <p class="subtitle">
+                      <% if @partners.any? %>
+                        <%= render partial: 'partner', collection: @partners %>
+                      <% end %>
+                    </p>
                   </p>
+
+                  <% if @region.logo.present? %>
+                    <p>
+                      <%= image_tag @region.logo_url(:thumb) %>
+                    </p>
+                  <% end %>
+
+                  <% if @region.flag.present? %>
+                    <p>
+                      <%= image_tag @region.flag_url(:thumb) %>
+                    </p>
+                  <% end %>
                 </div>
               </div>
             </div>
