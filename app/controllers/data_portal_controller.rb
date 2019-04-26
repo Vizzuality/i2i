@@ -1,6 +1,6 @@
 class DataPortalController < ApplicationController
   def index
-    @countries = Country.all
+    @countries = Country.ordered_by_name
   end
 
   def show

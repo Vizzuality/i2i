@@ -20,6 +20,7 @@ class Country < ApplicationRecord
   validates :short_iso, presence: true
 
   scope :all_except, ->(country) { where.not(id: country) }
+  scope :ordered_by_name, -> { order(:name) }
 
   attr_accessor :has_finscope
   attr_accessor :has_financial_diaries
