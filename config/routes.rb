@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get 'account', to: 'users#edit'
   resources :users, only: %i(update)
   resources :datasets, only: %i(index)
+  
+  # Regions
+  get 'region/:iso', to: 'regions#show', as: :regions
 
   # Data Portal
   get 'data-portal' => 'data_portal#index'

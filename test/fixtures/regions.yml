@@ -1,0 +1,9 @@
+europe:
+  name: 'Europe'
+  iso: 'EU'
+  slug: 'eu'
+
+africa:
+  name: 'Africa'
+  iso: 'AFR'
+  slug: 'afr'

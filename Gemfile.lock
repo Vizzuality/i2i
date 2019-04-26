@@ -122,6 +122,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.4)
     connection_pool (2.2.2)
+    content_disposition (1.0.0)
     crass (1.0.4)
     devise (4.6.0)
       bcrypt (~> 3.0)
@@ -135,6 +136,8 @@ GEM
     dotenv-rails (2.6.0)
       dotenv (= 2.6.0)
       railties (>= 3.2, < 6.0)
+    down (4.8.0)
+      addressable (~> 2.5)
     ejs (1.1.1)
     enumerate_it (1.7.0)
       activesupport (>= 3.0.0)
@@ -167,6 +170,9 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
+    image_processing (1.9.0)
+      mini_magick (>= 4.9.3, < 5)
+      ruby-vips (>= 2.0.13, < 3)
     inherited_resources (1.9.0)
       actionpack (>= 4.2, < 5.3)
       has_scope (~> 0.6)
@@ -211,6 +217,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
     mimemagic (0.3.3)
+    mini_magick (4.9.3)
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -322,6 +329,8 @@ GEM
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
+    ruby-vips (2.0.13)
+      ffi (~> 1.9)
     sass (3.7.3)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -333,6 +342,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shrine (2.16.0)
+      content_disposition (~> 1.0)
+      down (~> 4.1)
     simple_oauth (0.3.1)
     sparkpost_rails (1.5.1)
       rails (>= 4.0, < 5.3)
@@ -425,6 +437,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   gon
   http
+  image_processing (~> 1.0)
   jbuilder (~> 2.5)
   jquery-rails
   letter_opener
@@ -444,6 +457,7 @@ DEPENDENCIES
   react-rails
   redis-rails
   sass-rails (~> 5.0)
+  shrine (~> 2.0)
   sparkpost_rails
   spring
   spring-watcher-listen (~> 2.0.0)
