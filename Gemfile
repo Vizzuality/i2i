@@ -49,6 +49,8 @@ gem 'activeadmin-sortable'
 
 # File upload gems
 gem 'paperclip'
+gem "shrine", "~> 2.0"
+gem "image_processing", "~> 1.0"
 
 # REACT
 gem 'webpacker', '~> 3.5'

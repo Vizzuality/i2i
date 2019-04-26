@@ -1,0 +1,5 @@
+<% if country.has_dataset %>
+  <%= link_to country.name, data_portal_country_preview_path(country.iso) %>
+<% else %>
+  <%= country.name %>
+<% end %>
