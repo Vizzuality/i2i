@@ -1,0 +1,22 @@
+<div class="tags-container">
+    <div class="row">
+        <div class="grid-6">
+        </div>
+    </div>
+    <ul name="tags">
+        <% attachments.forEach(function (attachment) { %>
+            <li class="c-checkbox">
+                <input
+                    type="checkbox"
+                    value="<%= attachment.filename %>"
+                    id="<%= attachment.filename %>"
+                    class="js-option"
+                    name="attachment"
+                >
+                <label for="<%= attachment.filename %>"><%= attachment.filename %></label>
+            </li>
+        <% }) %>
+    </fieldset>
+</div>
+
+

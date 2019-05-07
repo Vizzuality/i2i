@@ -1,6 +1,6 @@
-<% title 'i2i Data Portal' %>
+<% title 'i2i National Surveys' %>
 
-<div class="l-data-portal l-library">
+<div class="l-national-surveys l-library">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -57,11 +57,17 @@
       </div>
     </div>
   </div>
+
   <div class="l-content">
     <div class="wrapper">
-      <%= render partial: 'countries_list', locals: { countries: @countries } %>
-      <%= render partial: 'regions_list', locals: { regions: @regions } %>
-      <%= render partial: 'additional_data' %>
+      <%= render partial: 'data_portal/description',
+                 locals: {
+                   section_title: 'Geospatial Data',
+                   description: '"Geospatial" indicates that the data has a geographic component to it. This means that the records in a dataset have locational information tied to them, such as geographic data in the form of coordinates, address, city or ZIP code. GIS data is a powerful tool that gives a user the ability to view data at a country/jurisdiction level. We’ve partnered with global data providers (such as <a href="https://resourcewatch.org/" target="_blank">Resource watch</a>, AIDData and Humanitarian Data Exchange) to give you useful contextual layers, overlaid with financial access points and agricultural points.'
+                 } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @countries } %>
+      <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'data_portal/additional_data' %>
     </div>
   </div>
 </div>

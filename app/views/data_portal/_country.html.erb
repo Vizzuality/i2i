@@ -1,0 +1,16 @@
+<% if country.has_dataset %>
+  <div class="grid-s-6 grid-m-6 grid-l-3 country-button">
+    <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
+      <%= link_to 'Go to the ' + country[:name] + ' portal',
+                  data_portal_country_preview_path(country[:iso]),
+                  data: { turbolinks: false }  %>
+      <div class="country-icons">
+        <%= inline_svg('logos/national_surveys.svg', class: "icon #{('active' if country[:has_finscope])}") %>
+        <%= inline_svg('logos/financial_diaries.svg', class: "icon #{('active' if country[:has_national_diaries])}") %>
+        <%= inline_svg('logos/geospatial_data.svg', class: "icon #{('active' if country[:has_fsp_maps])}") %>
+      </div>
+
+      <span class="country-name"><%= country[:name] %></span>
+    </article>
+  </div>
+<% end %>

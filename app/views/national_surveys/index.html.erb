@@ -1,6 +1,6 @@
-<% title 'i2i Data Portal' %>
+<% title 'i2i National Surveys' %>
 
-<div class="l-data-portal l-library">
+<div class="l-national-surveys l-library">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -57,11 +57,17 @@
       </div>
     </div>
   </div>
+
   <div class="l-content">
     <div class="wrapper">
-      <%= render partial: 'countries_list', locals: { countries: @countries } %>
-      <%= render partial: 'regions_list', locals: { regions: @regions } %>
-      <%= render partial: 'additional_data' %>
+      <%= render partial: 'data_portal/description',
+                 locals: {
+                   section_title: 'National Surveys',
+                   description: 'The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.'
+                 } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @countries } %>
+      <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'data_portal/additional_data' %>
     </div>
   </div>
 </div>

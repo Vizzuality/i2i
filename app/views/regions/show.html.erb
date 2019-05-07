@@ -1,6 +1,6 @@
 <% title "i2i #{@region.name}" %>
 
-<div class="l-preview-country">
+<div class="l-regions-page">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -12,40 +12,49 @@
         <%= render partial: 'shared/header', locals: { isFixed: true } %>
       </div>
     </div>
-    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>);">
+
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
-            <div class="c-hero">
-              <div class="grid-l-8">
+            <div class="c-hero" style="padding-bottom: 70px !important;">
+              <div class="grid-l-12">
                 <div class="row">
                   <div class="c-country-selector">
-                    <%= link_to 'Go to the data portal', data_portal_path, :class => 'country-link' %>
-                    <h1 class="title -highlight -huge"><%= [@region.iso, @region.name].join(' ') %></h1>
+                    <%= link_to 'data portal', data_portal_path, class: 'country-link' %>
+                    <h1 class="title -highlight -huge"><%= [@region.iso, @region.name, "Dashboard"].join(' ') %></h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid-l-12">
+                <div class="row">
+                  <div class="grid-l-9 grid-m-9">
+                    <p class="subtitle">
+                      Countries included into this dashboard:
+                    </p>
+                    <p class="subtitle -close">
+                    <div class="countries-list">
+                      <% if @countries.any? %>
+                        <%= render partial: 'country', collection: @countries %>
+                      <% end %>
+                    </div>
+
+                    </p>
+
+                    <p class="subtitle">
+                      Data depositors:
+                    </p>
+
+                    <% if @partners.any? %>
+                      <%= render partial: 'partner', collection: @partners %>
+                    <% end %>
                   </div>
 
-
-                  <p class="subtitle">
-                    Coutries included into this dashboard:
-                  </p>
-                  <p class="subtitle">
-                    <% if @countries.any? %>
-                      <%= render partial: 'country', collection: @countries %>
-                    <% end %>
-                  </p>
-
-                  <p class="subtitle">Data depositors:
-                    <p class="subtitle">
-                      <% if @partners.any? %>
-                        <%= render partial: 'partner', collection: @partners %>
-                      <% end %>
-                    </p>
-                  </p>
-
-                  <% if @region.logo.present? %>
-                    <p>
-                      <%= image_tag @region.logo_url(:thumb) %>
-                    </p>
+                  <% if @region.logo_url(:thumb).present? %>
+                    <div class="grid-l-3 grid-m-3" style="padding-top: 30px;">
+                      <%= image_tag @region.logo_url(:thumb), style: 'max-height: 182px; max-width: 182px;' %>
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -57,6 +66,11 @@
   </div>
   <div class="l-content">
     <div class="wrapper">
+      <div class="row">
+        <%= render partial: 'downloads', downloads: @downloads %>
+        <%= render partial: 'publications', publications: @publications %>
+        <%= render partial: 'widgets' %>
+      </div>
     </div>
   </div>
 </div>

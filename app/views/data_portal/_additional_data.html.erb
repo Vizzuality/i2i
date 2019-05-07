@@ -1,0 +1,111 @@
+<div class="row additional-data-title">
+  <div class="grid-s-12 grid-m-6 grid-l-4">
+    <h2 class="additional-data-header">More data</h2>
+  </div>
+</div>
+
+<div class="row additional-data-cards">
+  <div class="js-masonry-cards">
+    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+      <article class="c-card">
+        <%= image_tag('data-portal/data-portal-surveys.jpg',
+                      alt: 'Data portal dashboard',
+                      class: 'datasetimage') %>
+
+        <div class="card-content">
+          <h3 class="title -big -dark filter-finscope">National Surveys</h3>
+
+          <ul class="c-stats-list">
+            <li class="item">
+              <h4 class="value">31</h4>
+              <span class="description">Countries</span>
+            </li>
+            <li class="item -last">
+              <h4 class="value">50</h4>
+              <span class="description">Datasets</span>
+            </li>
+          </ul>
+
+          <p class="dataset-description">
+            National Surveys (which are nationally representative surveys of adults in a particular country) demonstrate how people source their income and manage their financial lives. Providing a view on the levels of financial inclusion within a country, they are of value to policymakers and researchers who are looking to improve the functioning of financial markets.
+          </p>
+
+          <div class="grid-s-12 grid-m-10 grid-l-10 discover-button">
+            <%= link_to "Check National Surveys",
+                        national_surveys_path,
+                        class: "c-button -sea dataset-button",
+                        data: { turbolinks: false } %>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+      <article class="c-card">
+        <%= image_tag('data-portal/data-portal-diaries.jpg',
+                      alt: 'Data portal dashboard',
+                      class: 'datasetimage') %>
+
+        <div class="card-content">
+          <h3 class="title -big -dark filter-finscope">Financial Diaries</h3>
+
+          <ul class="c-stats-list">
+            <li class="item">
+              <h4 class="value">12</h4>
+              <span class="description">Countries</span>
+            </li>
+            <li class="item -last">
+              <h4 class="value">14</h4>
+              <span class="description">Datasets</span>
+            </li>
+          </ul>
+
+          <p class="dataset-description">
+            Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.
+          </p>
+
+          <div class="grid-s-12 grid-m-10 grid-l-10 discover-button">
+            <%= link_to "Check Financial Diaries",
+                        financial_diaries_path,
+                        class: "c-button -sea dataset-button",
+                        data: { turbolinks: false } %>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+      <article class="c-card">
+        <%= image_tag('data-portal/data-portal-geospatial.jpg',
+                      alt: 'Data portal dashboard',
+                      class: 'datasetimage') %>
+
+        <div class="card-content">
+          <h3 class="title -big -dark filter-finscope">Geospatial Data</h3>
+
+          <ul class="c-stats-list">
+            <li class="item">
+              <h4 class="value">9</h4>
+              <span class="description">Countries</span>
+            </li>
+            <li class="item -last">
+              <h4 class="value">24</h4>
+              <span class="description">Datasets</span>
+            </li>
+          </ul>
+
+          <p class="dataset-description">
+            "Geospatial" indicates that the data has a geographic component to it. This means that the records in a dataset have locational information tied to them, such as geographic data in the form of coordinates, address, city or ZIP code. GIS data is a powerful tool that gives a user the ability to view data at a country/jurisdiction level. We’ve partnered with global data providers (such as <a href="https://resourcewatch.org/" target="_blank">Resource watch</a>, AIDData and Humanitarian Data Exchange) to give you useful contextual layers, overlaid with financial access points and agricultural points.
+          </p>
+
+          <div class="grid-s-12 grid-m-10 grid-l-10 discover-button">
+            <%= link_to "Check Geospatial Data",
+                        geospatial_data_path,
+                        class: "c-button -sea dataset-button",
+                        data: { turbolinks: false } %>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

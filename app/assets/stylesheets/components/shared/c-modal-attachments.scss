@@ -1,0 +1,25 @@
+.c-modal-attachments {
+  margin: 50px 30px;
+  background-color: $color-4;
+
+  .downloads-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    > div {
+      flex-basis: 100%;
+
+      @media #{$mq-tablet} {
+        flex-basis: 50%;
+      }
+    }
+
+    overflow-y: auto;
+    max-height: 75vh;
+
+    @media #{$mq-tablet} {
+      max-height: 50vh;
+    }
+  }
+}

@@ -1,6 +1,6 @@
-<% title 'i2i Data Portal' %>
+<% title 'i2i National Surveys' %>
 
-<div class="l-data-portal l-library">
+<div class="l-national-surveys l-library">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -57,11 +57,17 @@
       </div>
     </div>
   </div>
+
   <div class="l-content">
     <div class="wrapper">
-      <%= render partial: 'countries_list', locals: { countries: @countries } %>
-      <%= render partial: 'regions_list', locals: { regions: @regions } %>
-      <%= render partial: 'additional_data' %>
+      <%= render partial: 'data_portal/description',
+                 locals: {
+                   section_title: 'Financial Diaries',
+                   description: 'Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.'
+                 } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @countries } %>
+      <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'data_portal/additional_data' %>
     </div>
   </div>
 </div>

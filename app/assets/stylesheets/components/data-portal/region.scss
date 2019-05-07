@@ -1,0 +1,35 @@
+.l-regions-list {
+  margin: 0 0 60px 0 !important;
+
+  .section-header {
+    padding: 30px 0;
+  }
+
+  .regions-box {
+    margin: 0;
+  }
+}
+
+.region-button {
+  > .c-flag {
+    height: 230px;
+    background-color: #fff;
+
+    > .region-name {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-family: $font-family-1;
+      font-size: $font-size-s;
+      font-weight: $font-weight-bold;
+      text-shadow: 0 1px rgba($color-6, .4);
+      text-transform: uppercase;
+      pointer-events: none;
+
+      @media #{$mq-tablet} {
+        bottom: 20px;
+        left: 20px;
+      }
+    }
+  }
+}

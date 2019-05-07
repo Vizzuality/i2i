@@ -1,0 +1,15 @@
+<section class="l-country-list">
+  <div>
+    <h2 class="section-header">
+      Countries
+    </h2>
+
+    <%#= render partial: 'regional_filter' %>
+  </div>
+
+  <div class="l-card-grid countries-list">
+    <div class="row">
+      <%= render partial: 'data_portal/country', collection: countries %>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,20 @@
+<!--<div class="country-label">-->
+  <%# if country.has_dataset %>
+    <%#= link_to country.country.name, data_portal_country_preview_path(country.country.iso), class: 'country-name' %>
+  <%# else %>
+    <%#= country.country.name %>
+  <%# end %>
+<!--</div>-->
+
 <% if country.has_dataset %>
-  <%= link_to country.name, data_portal_country_preview_path(country.iso) %>
+  <%= link_to data_portal_country_preview_path(country.country.iso), class: 'country-link' do %>
+    <div class="country-name">
+      <%= country.country.name %>
+    </div>
+  <% end %>
 <% else %>
-  <%= country.name %>
+  <div class="country-name">
+    <%= country.country.name %>
+  </div>
 <% end %>
+

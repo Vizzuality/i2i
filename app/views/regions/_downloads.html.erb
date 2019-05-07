@@ -1,0 +1,19 @@
+<div class="grid-l-6 grid-m-6 grid-s-12" style="margin-bottom: 20px;">
+  <div style="background-color: #ffffff; padding: 25px 30px 30px 30px;">
+    <div class="header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h3 class="title" style="font-size: 24px; line-height: 30px;"">
+        Downloads
+      </h3>
+
+      <div class="more-downloads-button c-button" style="padding: 1px 15px; color: #257B83; display: flex; align-items: center; font-size: 12px; line-height: 17px;">
+        More downloads
+      </div>
+    </div>
+
+    <div class="row">
+      <%= render partial: 'regions/attachment_row', collection: [OpenStruct.new(filename: 'testing file name', year: 2019),
+                                                         OpenStruct.new(filename: 'testing file name 2', year: 2018),
+                                                         OpenStruct.new(filename: 'testing file name 3', year: 2017)], as: :attachment, locals: { viewable: false } %>
+    </div>
+  </div>
+</div>
