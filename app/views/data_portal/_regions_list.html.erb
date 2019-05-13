@@ -1,0 +1,17 @@
+<% if regions.any? %>
+  <section class="l-regions-list">
+    <div class="row">
+      <div class="grid-s-12 grid-m-6 grid-l-4">
+        <h2 class="section-header">
+          Regions
+        </h2>
+      </div>
+    </div>
+
+    <div class="regions-box">
+      <div class="row">
+        <%= render partial: 'data_portal/region', collection: regions %>
+      </div>
+    </div>
+  </section>
+<% end %>

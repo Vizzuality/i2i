@@ -1,0 +1,12 @@
+<div class="grid-12" style="margin-bottom: 10px">
+  <span>
+    <%=  "#{attachment.filename} #{attachment.year} – " %>
+  </span>
+
+  <%= link_to 'Download', '#', class: '', style: 'color: #2F939C; font-size: 16px; line-height: 30px; text-decoration: underline; font-weight: 700', target: '_blank' %>
+
+  <% if viewable %>
+    <%= link_to 'View', '#', class: '', style: 'margin-left: 10px; color: #2F939C; font-size: 16px; line-height: 30px; text-decoration: underline; font-weight: 700', target: '_blank' %>
+  <% end %>
+
+</div>

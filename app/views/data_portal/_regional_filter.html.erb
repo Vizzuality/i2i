@@ -1,0 +1,18 @@
+<div class="select-context">
+  <ul>
+    <li>
+      <div class="c-radio-button" style="background-color: rgba(47,147,156,0.1)">
+        <input type="radio" id="year-worldwide" name="year" value="worldwide" class="js-year" />
+        <label for="year-worldwide">Worldwide</label>
+      </div>
+    </li>
+    <% @regions.each do |region| %>
+      <li>
+        <div class="c-radio-button" style="background-color: rgba(47,147,156,0.1)">
+          <input type="radio" id="year-<%= region.name %>" name="year" value="<%= region.name %>" class="js-year" />
+          <label for="year-<%= region.name %>"><%= region.name %></label>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

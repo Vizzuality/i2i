@@ -106,6 +106,7 @@
     Backbone.history.stop();
     Backbone.history.start({ pushState: true });
 
+    new App.View.Cards();
     new App.View.MobileMenu();
     new App.View.Newsletter();
     new App.Component.FixedNav();

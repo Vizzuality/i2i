@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
   # Data Portal
   get 'data-portal' => 'data_portal#index'
+  resources :national_surveys, only: :index
+  resources :financial_diaries, only: :index
+  resources :geospatial_data, only: :index
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso/financial-diaries', to: 'data_portal_financial_diaries#index',

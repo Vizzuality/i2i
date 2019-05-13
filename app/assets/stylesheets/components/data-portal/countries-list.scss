@@ -1,0 +1,52 @@
+.l-country-list {
+  margin-bottom: 60px;
+  border-top: 0 !important;
+
+  .section-header {
+    padding: 20px 0;
+  }
+
+  .countries-list {
+    margin: 0 !important;
+
+    .country-button {
+      > .c-flag {
+        height: 153px;
+        background-color: #f5f8f8;
+
+        > .country-name {
+          left: 20px;
+          bottom: 20px;
+        }
+
+        > .country-icons {
+          display: flex;
+          position: absolute;
+          bottom: 40px;
+          left: 20px;
+        }
+
+        svg.icon {
+          width: 15px;
+          height: 15px;
+          margin-right: 4px;
+          opacity: 0.1;
+
+          path {
+            fill:  #fff;
+          }
+
+          &.active {
+            opacity: 1;
+          }
+
+          &.-large {
+            width: 52px;
+            height: 52px;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+  }
+}

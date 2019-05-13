@@ -16,21 +16,86 @@
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
-            <div class="c-hero">
-              <div class="grid-l-8">
+            <div class="c-hero" style="padding-bottom: 50px;">
+              <div class="grid-l-8 grid-m-8">
                 <div class="row">
                   <%= render partial: 'data_portal_financial_diaries/country-selector' %>
-                  <p class="subtitle">Let the data speak to you. Delve into new financial inclusion datasets from around the world.
-                    Extract insights into new markets, including informal markets.
-                    Compare indicators across countries and time periods.
-                    <%if @country_financial_diaries %>
-                      <a href="#financial-diaries-dataset" data-turbolinks="false" class="js-anchor">Financial diaries</a>
-                    <% end %>
-                    <%if @country_financial_diaries && @country_finscope %>,<% end %>
-                    <%if @country_finscope %><a href="#finscope-dataset" data-turbolinks="false" class="js-anchor">National Surveys dataset</a><% end %>.
-                  </p>
                 </div>
               </div>
+
+              <div class="grid-12">
+                <div class="row">
+                  <div class="grid-l-8 grid-m-8">
+                    <div class="row">
+                      <!-- TODO: Check if country does export -->
+                      <% if true %>
+                        <p class="subtitle">
+                          Exports:
+                          <span style="color: #fff; font-weight: 400;">
+                            <!-- TODO: Change real exports -->
+                            <%= ['gold', 'cashew nuts', 'coffee', 'cotton'].join(', ').capitalize %>
+                          </span>
+                        </p>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px">
+                  <div class="grid-l-8 grid-m-8">
+                    <div class="row">
+                      <% if @partners.any? %>
+                        <p class="subtitle" style="margin-top: 0">
+                          Data depositors:
+                        </p>
+
+                        <%= render partial: 'regions/partner', collection: @partners %>
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <!-- TODO: Check if capital and additional capital data is present -->
+                  <% if true %>
+                    <div class="grid-l-4 grid-m-4" style="padding-top: 10px; display: flex;">
+                      <div style="display: flex; flex-direction: column;">
+                        <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 24px; line-height: 30px; font-weight: 700;">
+                          <!-- TODO: Change to real data <%#= @country.capital %>-->
+                          Dodoma
+                        </h3>
+
+                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                          Official capital
+                        </p>
+
+                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                          <!-- TODO: Change to real data <%#= "#{@country.formatted_capital_population}" %>-->
+                          Population: 2.08 M
+                        </p>
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; margin-left: 36px">
+                        <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 24px; line-height: 30px; font-weight: 700;">
+                          <!-- TODO: Change to real data <%#= @country.another_capital %>-->
+                          Dodoma 2
+                        </h3>
+
+                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                          Another capital
+                        </p>
+
+                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                          <!-- TODO: Change to real data <%#= "#{@country.formatted_another_capital_population}" %>-->
+                          Population: 3.45 M
+                        </p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+
+
+
             </div>
           </div>
         </div>
@@ -39,6 +104,14 @@
   </div>
   <div class="l-content">
     <div class="wrapper">
+      <section>
+        <div class="row">
+          <%= render partial: 'regions/downloads', downloads: @downloads %>
+          <%= render partial: 'regions/publications', publications: @publications %>
+          <%= render partial: 'regions/widgets' %>
+        </div>
+      </section>
+
       <% if @country_financial_diaries.present? %>
         <section class="dataset">
           <div class="row">

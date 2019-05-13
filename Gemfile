@@ -59,6 +59,9 @@ gem 'react-rails'
 # WYSIWYG
 gem 'ckeditor', '4.2.4'
 
+# SVG
+gem 'inline_svg'
+
 gem 'enumerate_it'
 gem 'valid_url'
 gem 'twitter', '~> 6.2.0'

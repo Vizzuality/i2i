@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>GeospatialData</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z M8,2 C5.78857143,2 4,3.878 4,6.2 C4,9.35 8,14 8,14 C8,14 12,9.35 12,6.2 C12,3.878 10.2114286,2 8,2 Z M8,8 C6.896,8 6,7.104 6,6 C6,4.896 6.896,4 8,4 C9.104,4 10,4.896 10,6 C10,7.104 9.104,8 8,8 Z" id="GeospatialData" fill="#000000"></path>
+    </g>
+</svg>
