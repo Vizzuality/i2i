@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190423200210) do
+ActiveRecord::Schema.define(version: 20190515071715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -120,6 +120,42 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.boolean  "has_fsp_maps", default: false
   end
 
+  create_table "countries_blogs", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "blog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_countries_blogs_on_blog_id", using: :btree
+    t.index ["country_id"], name: "index_countries_blogs_on_country_id", using: :btree
+  end
+
+  create_table "countries_events", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_events_on_country_id", using: :btree
+    t.index ["event_id"], name: "index_countries_events_on_event_id", using: :btree
+  end
+
+  create_table "countries_libraries", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "library_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_libraries_on_country_id", using: :btree
+    t.index ["library_id"], name: "index_countries_libraries_on_library_id", using: :btree
+  end
+
+  create_table "countries_news", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "news_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_news_on_country_id", using: :btree
+    t.index ["news_id"], name: "index_countries_news_on_news_id", using: :btree
+  end
+
   create_table "country_partners", force: :cascade do |t|
     t.integer  "country_id"
     t.integer  "partner_id"
@@ -153,7 +189,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "name"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.integer  "file_file_size"
+    t.bigint   "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -165,7 +201,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -175,8 +211,8 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "event"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -320,7 +356,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.text     "summary"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "url_resource"
@@ -328,8 +364,8 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "library"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -363,7 +399,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "role"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "slug"
     t.datetime "created_at",         null: false
@@ -380,15 +416,15 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "news"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -441,8 +477,7 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
-  create_table "sessions", id: false, force: :cascade do |t|
-    t.serial   "id",         null: false
+  create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"

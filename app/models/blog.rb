@@ -34,6 +34,8 @@ class Blog < ApplicationRecord
   has_one :featured_position, as: :positionable, dependent: :destroy
   accepts_nested_attributes_for :featured_position, allow_destroy: true
 
+  has_many :countries_blogs
+  has_many :countries, through: :countries_blogs
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true

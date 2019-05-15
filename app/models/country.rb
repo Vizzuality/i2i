@@ -32,6 +32,15 @@ class Country < ApplicationRecord
   has_many :country_partners
   has_many :partners, through: :country_partners
   
+  has_many :countries_blogs
+  has_many :countries_events
+  has_many :countries_libraries
+  has_many :countries_news
+  has_many :blogs, through: :countries_blogs
+  has_many :events, through: :countries_events
+  has_many :libraries, through: :countries_libraries
+  has_many :news, through: :countries_news
+
   def has_dataset
     financial_diaries.present? || finscope.present? || geospatial.present?
   end
