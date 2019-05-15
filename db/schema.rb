@@ -417,6 +417,17 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.index ["region_id"], name: "index_libraries_regions_on_region_id", using: :btree
   end
 
+  create_table "links", force: :cascade do |t|
+    t.string   "name"
+    t.string   "url",        default: "", null: false
+    t.integer  "country_id"
+    t.integer  "region_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["country_id"], name: "index_links_on_country_id", using: :btree
+    t.index ["region_id"], name: "index_links_on_region_id", using: :btree
+  end
+
   create_table "member_income_tiers", force: :cascade do |t|
     t.float    "min"
     t.float    "max"

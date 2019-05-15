@@ -41,6 +41,9 @@ class Country < ApplicationRecord
   has_many :libraries, through: :countries_libraries
   has_many :news, through: :countries_news
 
+  has_many :links, dependent: :destroy
+  accepts_nested_attributes_for :links
+
   def has_dataset
     financial_diaries.present? || finscope.present? || geospatial.present?
   end

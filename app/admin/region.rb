@@ -8,7 +8,8 @@ ActiveAdmin.register Region do
   
   controller do
     def permitted_params
-      params.permit(:id, region: [:name, :iso, :flag, :logo, country_ids: [], partner_ids: []])
+      params.permit(:id, region: [:name, :iso, :flag, :logo, country_ids: [], partner_ids: [],
+                                  links_attributes: [:id, :name, :url, :_destroy]])
     end
     
     def scoped_collection
@@ -38,6 +39,11 @@ ActiveAdmin.register Region do
 
       f.input :logo, as: :hidden, input_html: { value: f.object.cached_logo_data }
       f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo_url(:thumb)) : content_tag(:span, 'No image yet')
+
+      f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
+        link_form.input :name
+        link_form.input :url
+      end
       
       f.input :countries, as: :check_boxes, collection: Country.pluck(:name, :id)
       f.input :partners, as: :check_boxes, collection: Partner.pluck(:name, :id)
