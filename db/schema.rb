@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190515071715) do
+ActiveRecord::Schema.define(version: 20190515114648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 20190515071715) do
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
+  end
+
+  create_table "blogs_regions", force: :cascade do |t|
+    t.integer  "blog_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_blogs_regions_on_blog_id", using: :btree
+    t.index ["region_id"], name: "index_blogs_regions_on_region_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -215,6 +224,15 @@ ActiveRecord::Schema.define(version: 20190515071715) do
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
+  end
+
+  create_table "events_regions", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_events_regions_on_event_id", using: :btree
+    t.index ["region_id"], name: "index_events_regions_on_region_id", using: :btree
   end
 
   create_table "featured_positions", force: :cascade do |t|
@@ -371,6 +389,15 @@ ActiveRecord::Schema.define(version: 20190515071715) do
     t.text     "description"
   end
 
+  create_table "libraries_regions", force: :cascade do |t|
+    t.integer  "library_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_libraries_regions_on_library_id", using: :btree
+    t.index ["region_id"], name: "index_libraries_regions_on_region_id", using: :btree
+  end
+
   create_table "member_income_tiers", force: :cascade do |t|
     t.float    "min"
     t.float    "max"
@@ -427,6 +454,15 @@ ActiveRecord::Schema.define(version: 20190515071715) do
     t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
+  end
+
+  create_table "news_regions", force: :cascade do |t|
+    t.integer  "news_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["news_id"], name: "index_news_regions_on_news_id", using: :btree
+    t.index ["region_id"], name: "index_news_regions_on_region_id", using: :btree
   end
 
   create_table "partners", force: :cascade do |t|

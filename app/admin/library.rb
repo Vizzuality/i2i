@@ -37,12 +37,13 @@ ActiveAdmin.register Library do
                               document_attributes: [:file, :name, :id, :_destroy],
                               documented_item_attributes: [:document_id, :id, :_destroy],
                               featured_position_attributes: [:id, :position, :_destroy],
-                              country_ids: []
+                              country_ids: [],
+                              region_ids: []
       ]
     end
 
     def scoped_collection
-      super.includes(:countries)
+      super.includes(:countries, :regions)
     end
   end
 
@@ -56,6 +57,7 @@ ActiveAdmin.register Library do
     column :is_featured
     column :summary
     column :countries
+    column :regions
     column :updated_at
     actions
   end
@@ -115,6 +117,7 @@ ActiveAdmin.register Library do
       end
 
       f.input :countries, as: :check_boxes, collection: Country.pluck(:name, :id)
+      f.input :regions, as: :check_boxes, collection: Region.pluck(:name, :id)
 
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
@@ -148,6 +151,7 @@ ActiveAdmin.register Library do
 				end
       end
       row :countries
+      row :regions
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end

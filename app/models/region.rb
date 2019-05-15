@@ -15,6 +15,15 @@ class Region < ApplicationRecord
   has_many :region_partners, dependent: :destroy
   has_many :partners, through: :region_partners
   
+  has_many :blogs_regions, dependent: :destroy
+  has_many :events_regions, dependent: :destroy
+  has_many :libraries_regions, dependent: :destroy
+  has_many :news_regions, dependent: :destroy
+  has_many :blogs, through: :blogs_regions
+  has_many :events, through: :events_regions
+  has_many :libraries, through: :libraries_regions
+  has_many :news, through: :news_regions
+  
   def should_generate_new_friendly_id?
     iso_changed? || super
   end

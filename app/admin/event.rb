@@ -21,11 +21,12 @@ ActiveAdmin.register Event do
                                  tagged_items_attributes: [:tag_id, :id, :_destroy],
                                  documented_items_attributes: [:document_id, :id, :_destroy],
                                  featured_position_attributes: [:id, :position, :_destroy],
-                                 country_ids: []])
+                                 country_ids: [],
+                                 region_ids: []])
     end
 
     def scoped_collection
-      super.includes(:countries)
+      super.includes(:countries, :regions)
     end
   end
 
@@ -39,6 +40,7 @@ ActiveAdmin.register Event do
     column :is_featured
     column :summary
     column :countries
+    column :regions
     column :updated_at
     actions do |event|
       item 'Preview', insights_show_path(category: 'event', slug: event.slug, entity: 'event', preview: true), class: 'member_link'
@@ -71,6 +73,7 @@ ActiveAdmin.register Event do
           "#{a.object.file_file_name}" : content_tag(:span, 'No PDF yet')
       end
       f.input :countries, as: :check_boxes, collection: Country.pluck(:name, :id)
+      f.input :regions, as: :check_boxes, collection: Region.pluck(:name, :id)
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
@@ -113,6 +116,7 @@ ActiveAdmin.register Event do
         end
       end
       row :countries
+      row :regions
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end

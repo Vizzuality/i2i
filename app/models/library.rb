@@ -38,6 +38,10 @@ class Library < ApplicationRecord
 
   has_many :countries_libraries
   has_many :countries, through: :countries_libraries
+
+  has_many :libraries_regions, dependent: :destroy
+  has_many :regions, through: :libraries_regions
+  
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true

@@ -19,11 +19,12 @@ ActiveAdmin.register Blog do
                     :issuu_link, :published, :custom_author, :category_id, :is_featured, :position,
                     tagged_items_attributes: [:tag_id, :id, :_destroy],
                     featured_position_attributes: [:id, :position, :_destroy],
-                    country_ids: []])
+                    country_ids: [],
+                    region_ids: []])
     end
 
     def scoped_collection
-      super.includes(:countries)
+      super.includes(:countries, :regions)
     end
   end
 
@@ -37,6 +38,7 @@ ActiveAdmin.register Blog do
     column :published
     column :is_featured
     column :countries
+    column :regions
     column :updated_at
     column :date do |blog|
       ActiveAdminHelper.format_date(blog.date)
@@ -67,6 +69,7 @@ ActiveAdmin.register Blog do
       f.input :date, as: :date_picker
       f.input :issuu_link
       f.input :countries, as: :check_boxes, collection: Country.pluck(:name, :id)
+      f.input :regions, as: :check_boxes, collection: Region.pluck(:name, :id)
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       # Will preview the image when the object is edited
@@ -99,6 +102,7 @@ ActiveAdmin.register Blog do
       end
       row :issuu_link
       row :countries
+      row :regions
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end
