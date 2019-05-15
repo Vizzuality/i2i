@@ -8,12 +8,12 @@
             <li class="c-checkbox download-item">
                 <input
                     type="checkbox"
-                    value="<%= attachment.filename %>"
-                    id="<%= attachment.filename %>"
+                    value="<%= attachment.title %>"
+                    id="<%= attachment.id %>"
                     class="js-option"
                     name="attachment"
                 >
-                <label for="<%= attachment.filename %>"><%= attachment.filename %></label>
+                <label for="<%= attachment.id %>"><%= attachment.title %></label>
             </li>
         <% }) %>
     </ul>

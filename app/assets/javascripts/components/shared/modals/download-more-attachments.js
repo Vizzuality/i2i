@@ -35,8 +35,8 @@
       this.options.content = this.contentTemplate({
         attachments: this.options.attachments.map(function (attachment) {
           return {
-            filename: attachment.table.filename,
-            year: attachment.table.year
+            title: attachment.table.title,
+            id: attachment.table.id
           }
         })
       });

@@ -67,8 +67,14 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="row">
-        <%= render partial: 'downloads', downloads: @downloads %>
-        <%= render partial: 'publications', publications: @publications %>
+        <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
+                                                   show_downloads_modal: @region_carrier.show_downloads_modal?,
+                                                   modal_downloads: @region_carrier.modal_downloads.to_json }  %>
+
+        <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
+                                                      has_more_publications: @region_carrier.more_publications_visible?,
+                                                      downloads: @region_carrier.downloadable_publications.to_json }%>
+
         <%= render partial: 'widgets' %>
       </div>
     </div>

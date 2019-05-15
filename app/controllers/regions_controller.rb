@@ -18,11 +18,7 @@ class RegionsController < ApplicationController
     }
     
     @partners = @region.partners.order(:name)
-    @downloads = []
 
-    @additional_downloads = [OpenStruct.new(filename: 'testing file name', year: 2015),
-                             OpenStruct.new(filename: 'testing file name 2', year: 2014),
-                             OpenStruct.new(filename: 'testing file name 3', year: 2013)]
-    gon.more_downloads = @additional_downloads
+    @region_carrier = RegionCarrier.new(@region)
   end
 end
