@@ -1,15 +1,16 @@
 <% title "i2i #{@region.name}" %>
 
 <div class="l-regions-page">
+  <div class="fixed-nav js-fixed-nav">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isFixed: true } %>
+    </div>
+  </div>
+
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
         <%= render partial: 'shared/header', locals: { isCover: true } %>
-      </div>
-    </div>
-    <div class="fixed-nav js-fixed-nav">
-      <div class="wrapper">
-        <%= render partial: 'shared/header', locals: { isFixed: true } %>
       </div>
     </div>
     <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>);">
@@ -64,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="l-content">
+  <div class="l-content" style="position: relative; z-index: 9; margin-top: -20px; padding-top: 0">
     <div class="wrapper">
       <div class="row">
         <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
