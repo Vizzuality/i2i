@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190423200210) do
+ActiveRecord::Schema.define(version: 20190516143215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.integer  "position"
   end
 
+  create_table "blogs_regions", force: :cascade do |t|
+    t.integer  "blog_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_blogs_regions_on_blog_id", using: :btree
+    t.index ["region_id"], name: "index_blogs_regions_on_region_id", using: :btree
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -118,6 +127,42 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.string   "bbox",         default: [],                 array: true
     t.string   "short_iso"
     t.boolean  "has_fsp_maps", default: false
+  end
+
+  create_table "countries_blogs", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "blog_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_id"], name: "index_countries_blogs_on_blog_id", using: :btree
+    t.index ["country_id"], name: "index_countries_blogs_on_country_id", using: :btree
+  end
+
+  create_table "countries_events", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_events_on_country_id", using: :btree
+    t.index ["event_id"], name: "index_countries_events_on_event_id", using: :btree
+  end
+
+  create_table "countries_libraries", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "library_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_libraries_on_country_id", using: :btree
+    t.index ["library_id"], name: "index_countries_libraries_on_library_id", using: :btree
+  end
+
+  create_table "countries_news", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "news_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_news_on_country_id", using: :btree
+    t.index ["news_id"], name: "index_countries_news_on_news_id", using: :btree
   end
 
   create_table "country_partners", force: :cascade do |t|
@@ -181,6 +226,15 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.integer  "position"
   end
 
+  create_table "events_regions", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_events_regions_on_event_id", using: :btree
+    t.index ["region_id"], name: "index_events_regions_on_region_id", using: :btree
+  end
+
   create_table "featured_positions", force: :cascade do |t|
     t.integer  "position"
     t.string   "positionable_type"
@@ -200,6 +254,25 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "gross_domestic_product_by_regions", force: :cascade do |t|
+    t.string   "region"
+    t.string   "country"
+    t.integer  "year"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gross_domestic_product_by_sectors", force: :cascade do |t|
+    t.string   "sector"
+    t.string   "region"
+    t.string   "country"
+    t.integer  "year"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "household_income_tiers", force: :cascade do |t|
@@ -335,6 +408,15 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.text     "description"
   end
 
+  create_table "libraries_regions", force: :cascade do |t|
+    t.integer  "library_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_libraries_regions_on_library_id", using: :btree
+    t.index ["region_id"], name: "index_libraries_regions_on_region_id", using: :btree
+  end
+
   create_table "member_income_tiers", force: :cascade do |t|
     t.float    "min"
     t.float    "max"
@@ -393,11 +475,30 @@ ActiveRecord::Schema.define(version: 20190423200210) do
     t.integer  "position"
   end
 
+  create_table "news_regions", force: :cascade do |t|
+    t.integer  "news_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["news_id"], name: "index_news_regions_on_news_id", using: :btree
+    t.index ["region_id"], name: "index_news_regions_on_region_id", using: :btree
+  end
+
   create_table "partners", force: :cascade do |t|
     t.string   "name",       default: "", null: false
     t.text     "logo_data"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "populations", force: :cascade do |t|
+    t.string   "region"
+    t.string   "country"
+    t.string   "gender"
+    t.integer  "year"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "project_metadata", force: :cascade do |t|

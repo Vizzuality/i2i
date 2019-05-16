@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  region: MyString
+  country: MyString
+  gender: MyString
+  year: 1
+  value: 1.5
+
+two:
+  region: MyString
+  country: MyString
+  gender: MyString
+  year: 1
+  value: 1.5

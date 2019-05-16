@@ -1,0 +1,2 @@
+class GrossDomesticProductBySector < ApplicationRecord
+end
