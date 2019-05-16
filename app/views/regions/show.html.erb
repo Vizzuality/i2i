@@ -67,7 +67,7 @@
   </div>
   <div class="l-content" style="position: relative; z-index: 9; margin-top: -20px; padding-top: 0">
     <div class="wrapper">
-      <div class="row">
+      <div class="row" style="display: flex; flex-wrap: wrap;">
         <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
                                                    show_downloads_modal: @region_carrier.show_downloads_modal?,
                                                    modal_downloads: @region_carrier.modal_downloads.to_json }  %>
@@ -75,7 +75,8 @@
         <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
                                                       has_more_publications: @region_carrier.more_publications_visible?,
                                                       downloads: @region_carrier.downloadable_publications.to_json }%>
-
+      </div>
+      <div class="row">
         <%= render partial: 'widgets' %>
       </div>
     </div>
