@@ -106,8 +106,8 @@
     <div class="wrapper">
       <section>
         <div class="row">
-          <%= render partial: 'regions/downloads', downloads: @downloads %>
-          <%= render partial: 'regions/publications', publications: @publications %>
+          <%= render partial: 'regions/downloads', locals: { downloads: @downloads, show_downloads_modal: false } %>
+          <%= render partial: 'regions/publications', locals: { has_more_publications: false, publications: @publications } %>
           <%= render partial: 'regions/widgets' %>
         </div>
       </section>
