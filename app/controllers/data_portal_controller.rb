@@ -2,8 +2,8 @@ class DataPortalController < ApplicationController
   def index
     @countries_db = Country.ordered_by_name
     @finscope_countries = Country.finscope_country_list.map { |country_hash| country_hash[:iso] }
-    
-    @countries = @countries_db.each_with_object([]) do |country, acc|
+
+    @worldwide_countries = @countries_db.each_with_object([]) do |country, acc|
       has_finscope = @finscope_countries.include?(country.iso)
       has_national_diaries = country.financial_diaries.present?
       has_fsp_maps = country.has_fsp_maps
@@ -20,20 +20,18 @@ class DataPortalController < ApplicationController
         )
       end
     end
-    
-    regional_hash = Hash[Region.pluck(:id).product([[]])]
-    
-    @regions = Region.all
-    # TODO: Improve query
-    @regions.each do |region|
-      region.countries.each do |country|
-        has_finscope = @finscope_countries.include?(country.iso)
-        has_national_diaries = country.financial_diaries.present?
-        has_fsp_maps = country.has_fsp_maps
-        has_dataset = has_finscope || has_national_diaries || has_fsp_maps
+
+    @regional_countries = CountryRegion.joins(:country).includes(:country).each_with_object({}) do |country_region, acc|
+      country = country_region.country
+      
+      has_finscope = @finscope_countries.include?(country.iso)
+      has_national_diaries = country.financial_diaries.present?
+      has_fsp_maps = country.has_fsp_maps
+      has_dataset = has_finscope || has_national_diaries || has_fsp_maps
   
-        if has_dataset
-          country_hash = OpenStruct.new(
+      if has_dataset
+        if acc.has_key?(country_region.region_id)
+          acc[country_region.region_id].push OpenStruct.new(
             name: country.name,
             iso: country.iso,
             has_dataset: has_dataset,
@@ -41,15 +39,21 @@ class DataPortalController < ApplicationController
             has_national_diaries: country.financial_diaries.present?,
             has_fsp_maps: country.has_fsp_maps
           )
-
-          regional_hash[region.id].push(country_hash)
+        else
+          acc[country_region.region_id] = [OpenStruct.new(
+            name: country.name,
+            iso: country.iso,
+            has_dataset: has_dataset,
+            has_finscope: @finscope_countries.include?(country.iso),
+            has_national_diaries: country.financial_diaries.present?,
+            has_fsp_maps: country.has_fsp_maps
+          )]
         end
       end
     end
-    throw regional_hash.each { |k, v| regional_hash[k] = v.uniq }
     
-    
-    @regions_hash = regional_hash
+    @regions_hash = @regional_countries.each { |k, v| @regional_countries[k] = v.sort_by { |country| country.name } }
+    @regions = Region.all
   end
 
   def show

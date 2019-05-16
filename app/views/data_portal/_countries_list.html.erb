@@ -4,7 +4,7 @@
       Countries
     </h2>
 
-    <%= render partial: 'regional_filter' %>
+    <%= render partial: 'data_portal/regional_filter' %>
   </div>
 
   <div class="l-card-grid countries-list region-worldwide">
@@ -13,7 +13,6 @@
     </div>
   </div>
 
-
   <% regions_hash.each do |(region_id, countries_list)| %>
     <div class="l-card-grid countries-list region-<%= region_id %>" style="display: none">
       <div class="row">
@@ -21,6 +20,4 @@
       </div>
     </div>
   <% end %>
-
-
 </section>
