@@ -2,7 +2,7 @@
   <div class="grid-s-6 grid-m-6 grid-l-3 country-button">
     <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
       <%= link_to 'Go to the ' + country[:name] + ' portal',
-                  data_portal_country_preview_path(country[:iso]),
+                  country.link,
                   data: { turbolinks: false }  %>
       <div class="country-icons">
         <%= inline_svg("logos/#{country.icon.to_s}.svg", class: 'icon -large active') %>
