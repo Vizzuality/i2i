@@ -1,7 +1,10 @@
 ActiveAdmin.register Country do
   controller do
     def permitted_params
-      params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw, region_ids: [], partner_ids: []]
+      params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw,
+                              region_ids: [],
+                              partner_ids: [],
+                              links_attributes: [:id, :name, :url, :_destroy]]
     end
   end
 
@@ -41,6 +44,11 @@ ActiveAdmin.register Country do
       f.input :short_iso
       f.input :bbox_raw, label: 'Bounding box'
 
+      f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
+        link_form.input :name
+        link_form.input :url
+      end
+      
       f.input :regions, as: :check_boxes, collection: Region.pluck(:name, :id)
       f.input :partners, as: :check_boxes, collection: Partner.pluck(:name, :id)
       

@@ -106,8 +106,14 @@
     <div class="wrapper">
       <section>
         <div class="row">
-          <%= render partial: 'regions/downloads', locals: { downloads: @downloads, show_downloads_modal: false } %>
-          <%= render partial: 'regions/publications', locals: { has_more_publications: false, publications: @publications } %>
+          <%= render partial: 'regions/downloads',
+                     locals: { downloads: @country_carrier.downloads,
+                               show_downloads_modal: @country_carrier.show_downloads_modal?,
+                               modal_downloads: @country_carrier.modal_downloads.to_json } %>
+          <%= render partial: 'regions/publications',
+                     locals: { publications: @country_carrier.publications,
+                               has_more_publications: @country_carrier.more_publications_visible?,
+                               downloads: @country_carrier.downloadable_publications.to_json } %>
           <%= render partial: 'regions/widgets' %>
         </div>
       </section>

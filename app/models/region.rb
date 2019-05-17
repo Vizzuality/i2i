@@ -24,6 +24,9 @@ class Region < ApplicationRecord
   has_many :libraries, through: :libraries_regions
   has_many :news, through: :news_regions
   
+  has_many :links, dependent: :destroy
+  accepts_nested_attributes_for :links
+  
   def should_generate_new_friendly_id?
     iso_changed? || super
   end

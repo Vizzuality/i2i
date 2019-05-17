@@ -129,5 +129,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @country_financial_diaries = @country.financial_diaries
     
     @partners = Partner.all
+    
+    @country_carrier = CountryCarrier.new(@country)
   end
 end

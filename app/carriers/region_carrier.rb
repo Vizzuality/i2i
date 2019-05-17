@@ -10,17 +10,15 @@ class RegionCarrier
   end
   
   def downloads
-    []
+    region.links.first(4)
   end
   
   def show_downloads_modal?
-    true
+    region.links.count > 4
   end
   
   def modal_downloads
-    [OpenStruct.new(title: 'testing file name', id: 1),
-     OpenStruct.new(title: 'testing file name 2', id: 2),
-     OpenStruct.new(title: 'testing file name 3', id: 3)]
+    region.links.map { |link| OpenStruct.new(id: link.id, title: link.name ) }
   end
   
   def more_publications_visible?
