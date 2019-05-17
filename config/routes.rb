@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  
+
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   #end
 
   root 'homepage#index'
-  
+
   # User Account Details
   get 'account', to: 'users#edit'
   resources :users, only: %i(update)
   resources :datasets, only: %i(index)
-  
+
   # Regions
   get 'region/:iso', to: 'regions#show', as: :regions
 
@@ -91,6 +91,13 @@ Rails.application.routes.draw do
     get 'members/project_means/:project_name', to: 'project_metadata#project_means_members'
     get 'households/monthly_values/:project_name', to: 'household_transactions#monthly_values'
     get 'members/monthly_values/:project_name', to: 'household_member_transactions#monthly_values'
+  end
+
+  namespace :dpapi do
+    get 'population/:code', to: 'population#index'
+    get 'gdp_by_region/:code', to: 'gdp#by_region'
+    get 'gdp_by_country/:iso', to: 'gdp#by_country'
+    get 'gdp_by_country_over_time/:iso', to: 'gdp#by_country_over_time'
   end
 
   namespace :updates do
