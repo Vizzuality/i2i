@@ -1,25 +1,69 @@
 .c-modal-attachments {
-  margin: 50px 30px;
+  padding: 20px 15px;
   background-color: $color-4;
 
   .downloads-container {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-
-    > div {
-      flex-basis: 100%;
-
-      @media #{$mq-tablet} {
-        flex-basis: 50%;
-      }
-    }
-
+    flex-direction: column;
     overflow-y: auto;
     max-height: 75vh;
 
     @media #{$mq-tablet} {
       max-height: 50vh;
+    }
+
+    > .downloads-label {
+      line-height: 30px;
+      font-size: $font-size-regular;
+      font-weight: $font-weight-bold;
+      padding: 0 0 15px 15px;
+    }
+
+    > .downloads-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      > .download-item {
+        flex-basis: 100%;
+        padding-right: 15px;
+
+        &.c-checkbox {
+          label {
+            padding: 2px 15px 3px 48px;
+            font-size: $font-size-regular;
+            font-weight: $font-weight-light;
+            line-height: 30px;
+            cursor: pointer;
+
+            &::before {
+              display: inline-block;
+              position: absolute;
+              top: 10px;
+              left: 15px;
+              width: 15px;
+              height: 15px;
+              border: 1px solid $color-1;
+              content: '';
+            }
+
+            &:hover {
+              background-color: rgba($color-1, .1);
+            }
+          }
+
+          input[type='checkbox']:checked + label {
+            background-color: rgba($color-1, .1);
+          }
+
+          &:hover {
+            background-color: initial;
+          }
+        }
+
+        @media #{$mq-tablet} {
+          flex-basis: 50%;
+        }
+      }
     }
   }
 }

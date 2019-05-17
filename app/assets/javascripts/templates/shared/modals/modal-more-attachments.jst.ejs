@@ -1,22 +1,22 @@
-<div class="tags-container">
-    <div class="row">
-        <div class="grid-6">
-        </div>
-    </div>
-    <ul name="tags">
+<div class="downloads-container">
+    <p class="downloads-label">
+      Select files to download
+    </p>
+
+    <ul class="downloads-list">
         <% attachments.forEach(function (attachment) { %>
-            <li class="c-checkbox">
+            <li class="c-checkbox download-item">
                 <input
                     type="checkbox"
-                    value="<%= attachment.filename %>"
-                    id="<%= attachment.filename %>"
+                    value="<%= attachment.title %>"
+                    id="<%= attachment.id %>"
                     class="js-option"
                     name="attachment"
                 >
-                <label for="<%= attachment.filename %>"><%= attachment.filename %></label>
+                <label for="<%= attachment.id %>"><%= attachment.title %></label>
             </li>
         <% }) %>
-    </fieldset>
+    </ul>
 </div>
 
 

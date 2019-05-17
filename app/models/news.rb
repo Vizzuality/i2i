@@ -33,6 +33,12 @@ class News < ApplicationRecord
   has_one :featured_position, as: :positionable, dependent: :destroy
   accepts_nested_attributes_for :featured_position, allow_destroy: true
 
+  has_many :countries_news
+  has_many :countries, through: :countries_news
+
+  has_many :news_regions, dependent: :destroy
+  has_many :regions, through: :news_regions
+  
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true

@@ -19,7 +19,13 @@ ActiveAdmin.register News do
       params.permit(:id, news: [:title, :author, :summary, :content, :id, :image, :date, :issuu_link,
                                 :published, :category_id, :is_featured, :position,
                                 tagged_items_attributes: [:tag_id, :id, :_destroy],
-                                featured_position_attributes: [:id, :position, :_destroy]])
+                                featured_position_attributes: [:id, :position, :_destroy],
+                                country_ids: [],
+                                region_ids: []])
+    end
+    
+    def scoped_collection
+      super.includes(:countries, :regions)
     end
   end
 
@@ -32,6 +38,8 @@ ActiveAdmin.register News do
     column :published
     column :is_featured
     column :summary
+    column :countries
+    column :regions
     column :updated_at
     actions do |news|
       item 'Preview', insights_show_path(category: 'news', slug: news.slug, entity: 'news', preview: true), class: 'member_link'
@@ -58,6 +66,9 @@ ActiveAdmin.register News do
       f.input :image, as: :file, hint: f.object.image.present? ? \
         image_tag(f.object.image.url(:thumb)) : content_tag(:span, 'No image yet')
       f.input :issuu_link
+      f.input :countries, as: :check_boxes, collection: Country.pluck(:name, :id)
+      f.input :regions, as: :check_boxes, collection: Region.pluck(:name, :id)
+
       # Will preview the image when the object is edited
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
@@ -86,6 +97,8 @@ ActiveAdmin.register News do
       end
       row :content
       row :issuu_link
+      row :countries
+      row :regions
       row :image do
         image_tag(ad.image.url(:thumb)) unless ad.image.blank?
       end

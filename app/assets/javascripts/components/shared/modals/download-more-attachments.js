@@ -6,7 +6,13 @@
       title: 'Download',
       showTitle: true,
       footer: '<span></span><button type="button" class="c-button -medium -white js-close">Close</button>',
-      attachments: []
+      attachments: [],
+      isForm: true,
+      form: {
+        action: '/batch_download',
+        id: 'batch_download',
+        classes: 'c-modal-attachments'
+      }
     },
 
     events: function () {
@@ -29,8 +35,8 @@
       this.options.content = this.contentTemplate({
         attachments: this.options.attachments.map(function (attachment) {
           return {
-            filename: attachment.table.filename,
-            year: attachment.table.year
+            title: attachment.table.title,
+            id: attachment.table.id
           }
         })
       });
