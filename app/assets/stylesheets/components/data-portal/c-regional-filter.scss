@@ -1,0 +1,54 @@
+.c-regional-filter {
+  padding: 20px 0;
+
+
+  > ul {
+    //display: flex;
+    //flex-wrap: wrap;
+
+    > li {
+      //flex-basis: 100%;
+      //padding-right: 15px;
+
+      > .c-radio-button {
+        label {
+          padding: 2px 15px 3px 48px;
+          font-size: $font-size-regular;
+          font-weight: $font-weight-light;
+          line-height: 30px;
+          cursor: pointer;
+
+          &::before {
+            display: inline-block;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 15px;
+            height: 15px;
+            border: 1px solid $color-1;
+            content: '';
+          }
+
+          &:hover {
+            background-color: rgba($color-1, .1);
+          }
+
+
+        }
+
+        input[type='radio']:checked + label {
+          background-color: rgba(47,147,156,0.1);
+        }
+
+        &:hover {
+          background-color: initial;
+        }
+
+      }
+
+      //@media #{$mq-tablet} {
+      //  flex-basis: 50%;
+      //}
+    }
+  }
+}

@@ -65,7 +65,7 @@
                    section_title: 'Financial Diaries',
                    description: 'Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.'
                  } %>
-      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @countries } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
       <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
       <%= render partial: 'data_portal/additional_data' %>
     </div>
