@@ -1,17 +1,19 @@
 <% title 'i2i data portal' %>
 
 <div class="l-preview-country">
+  <div class="fixed-nav js-fixed-nav">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isFixed: true } %>
+    </div>
+  </div>
+
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
         <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
-    <div class="fixed-nav js-fixed-nav">
-      <div class="wrapper">
-        <%= render partial: 'shared/header', locals: { isFixed: true } %>
-      </div>
-    </div>
+
     <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
       <div class="l-title">
         <div class="wrapper">
@@ -102,10 +104,10 @@
       </div>
     </div>
   </div>
-  <div class="l-content">
+  <div class="l-content" style="position: relative; z-index: 9; margin-top: -20px; padding-top: 0">
     <div class="wrapper">
       <section>
-        <div class="row">
+        <div class="row" style="display: flex; flex-wrap: wrap;">
           <%= render partial: 'regions/downloads',
                      locals: { downloads: @country_carrier.downloads,
                                show_downloads_modal: @country_carrier.show_downloads_modal?,
@@ -114,6 +116,8 @@
                      locals: { publications: @country_carrier.publications,
                                has_more_publications: @country_carrier.more_publications_visible?,
                                downloads: @country_carrier.downloadable_publications.to_json } %>
+        </div>
+        <div class="row">
           <%= render partial: 'regions/widgets' %>
         </div>
       </section>

@@ -128,7 +128,7 @@ class DataPortalFinancialDiariesController < ApplicationController
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
     
-    @partners = Partner.all
+    @partners = @country.partners.order(:name)
     
     @country_carrier = CountryCarrier.new(@country)
   end
