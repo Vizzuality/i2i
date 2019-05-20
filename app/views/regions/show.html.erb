@@ -69,10 +69,12 @@
     <div class="wrapper">
       <div class="row" style="display: flex; flex-wrap: wrap;">
         <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
+                                                   iso: @region_carrier.iso,
                                                    show_downloads_modal: @region_carrier.show_downloads_modal?,
                                                    modal_downloads: @region_carrier.modal_downloads.to_json }  %>
 
         <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
+                                                      iso: @region_carrier.iso,
                                                       has_more_publications: @region_carrier.more_publications_visible?,
                                                       downloads: @region_carrier.downloadable_publications.to_json }%>
       </div>

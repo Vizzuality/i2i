@@ -18,7 +18,7 @@ class CountryCarrier
   end
   
   def modal_downloads
-    country.links.map { |link| OpenStruct.new(id: link.id, title: link.name ) }
+    country.links.map { |link| OpenStruct.new(id: link.id, title: link.name, url: link.url ) }
   end
   
   def more_publications_visible?

@@ -1,6 +1,8 @@
 class RegionCarrier
   attr_reader :region, :publications
   
+  delegate :iso, to: :region
+  
   def initialize(region)
     @region = region
   end
@@ -18,7 +20,7 @@ class RegionCarrier
   end
   
   def modal_downloads
-    region.links.map { |link| OpenStruct.new(id: link.id, title: link.name ) }
+    region.links.map { |link| OpenStruct.new(id: link.id, title: link.name, url: link.url ) }
   end
   
   def more_publications_visible?
