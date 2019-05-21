@@ -18,14 +18,16 @@ class ContactMailer < ApplicationMailer
     
     @links_block = ""
     links.each do |link|
-      @links_block << "<p><a href=\"#{link}\" target='_blank' download='true'>#{link}</a></p><br>"
+      @links_block << "<p><a href=\"#{link}\" target='_blank' download='true'>#{link}</a></p>"
     end
     
     data = {
       template_id: 'country-batch-download',
-      substitution_data: { country: @contact.country },
-      dynamic_html: {
-        links_block: @links_block
+      substitution_data: {
+        country: @contact.country,
+        dynamic_html: {
+          links_block: @links_block
+        },
       }
     }
   
