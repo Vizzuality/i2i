@@ -20,17 +20,52 @@
 
                 <div class="field custom-row">
                   <%= f.label :email, 'EMAIL' %><br />
-                  <%= f.email_field :email, autofocus: true %>
+                  <%= f.email_field :email, required: true, autofocus: true %>
                 </div>
 
                 <div class="field custom-row">
                   <%= f.label :password, 'PASSWORD' %><br />
-                  <%= f.password_field :password, autocomplete: "off" %>
+                  <%= f.password_field :password, required: true, autocomplete: "off" %>
                 </div>
 
                 <div class="field custom-row">
                   <%= f.label :password_confirmation, 'REPEAT PASSWORD' %><br />
-                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                  <%= f.password_field :password_confirmation, required: true, autocomplete: "off" %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :name, 'NAME' %><br />
+                  <%= f.text_field :name %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :surname, 'SURNAME' %><br />
+                  <%= f.text_field :surname %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :company, 'INSTITUTION/COMPANY' %><br />
+                  <%= f.text_field :company %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :position, 'POSITION' %><br />
+                  <%= f.text_field :position %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :city, 'CITY' %><br />
+                  <%= f.text_field :city %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :country, 'COUNTRY' %><br />
+                  <%= f.text_field :country %>
+                </div>
+
+                <div class="field custom-row">
+                  <%= f.label :attribution, 'ATTRIBUTION' %><br />
+                  <%= f.text_field :attribution %>
                 </div>
 
                 <br/>

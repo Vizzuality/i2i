@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190516143215) do
+ActiveRecord::Schema.define(version: 20190521001411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "name"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.integer  "file_file_size"
+    t.bigint   "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -220,8 +220,8 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "event"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -393,7 +393,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.text     "summary"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "url_resource"
@@ -401,8 +401,8 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "library"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -456,7 +456,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "role"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "slug"
     t.datetime "created_at",         null: false
@@ -473,15 +473,15 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "news"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -553,8 +553,7 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
-  create_table "sessions", id: false, force: :cascade do |t|
-    t.serial   "id",         null: false
+  create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
@@ -596,6 +595,12 @@ ActiveRecord::Schema.define(version: 20190516143215) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string   "surname"
+    t.string   "company"
+    t.string   "position"
+    t.string   "city"
+    t.string   "country"
+    t.string   "attribution"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["token"], name: "index_users_on_token", using: :btree

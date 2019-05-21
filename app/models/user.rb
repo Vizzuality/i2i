@@ -4,6 +4,12 @@
 #
 #  id                     :integer          not null, primary key
 #  name                   :string
+#  surname                :string
+#  company                :string
+#  position               :string
+#  city                   :string
+#  country                :string
+#  attribution            :string
 #  token                  :string
 #  email                  :string
 #  encrypted_password     :string
@@ -32,6 +38,10 @@ class User < ApplicationRecord
   end
   
   def name_or_email
-    name.presence || email
+    full_name.presence || email
+  end
+  
+  def full_name
+    [name, surname].join(' ')
   end
 end

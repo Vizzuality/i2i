@@ -1,0 +1,32 @@
+.l-account {
+  .account-form-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 0 0;
+
+    @media #{$mq-tablet} {
+      margin: 100px 0 0 0;
+    }
+  }
+
+  .account-form {
+    > .custom-row {
+      display: flex;
+      flex-direction: column;
+
+      &:not(:first-child) {
+        margin: 22px 0 0;
+      }
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-size: 13px;
+      line-height: 18px;
+      color: #257B83;
+      font-family: $font-family-1;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+    }
+  }
+}
