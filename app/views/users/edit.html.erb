@@ -1,6 +1,6 @@
 <% title 'Account | i2i' %>
 
-<div class="l-library">
+<div class="l-library l-account">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -44,22 +44,52 @@
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
-          <div class="l-form-contact" style="display: flex; justify-content: center;">
+          <div class="account-form-wrapper">
             <div class="grid-s-12 grid-m-8">
 
-              <%= form_for current_user, url: user_url(current_user), method: :patch, html: { class: "c-form contact-form" } do |f| %>
+              <%= form_for current_user, url: user_url(current_user), method: :patch, html: { class: "c-form account-form" } do |f| %>
                 <div class="custom-row">
                   <%= f.label :name, 'NAME' %>
-                  <br />
                   <%= f.text_field :name %>
                 </div>
 
                 <div class="custom-row">
+                  <%= f.label :surname, 'SURNAME' %>
+                  <%= f.text_field :surname %>
+                </div>
+
+                <div class="custom-row">
                   <%= f.label :email, 'EMAIL' %>
-                  <br />
                   <%= f.email_field :email, disabled: true, readonly: true %>
                 </div>
 
+                <div class="custom-row">
+                  <%= f.label :company, 'INSTITUTION/COMPANY' %>
+                  <%= f.text_field :company %>
+                </div>
+
+                <div class="custom-row">
+                  <%= f.label :position, 'POSITION' %>
+                  <%= f.text_field :position %>
+                </div>
+
+                <div class="custom-row">
+                  <%= f.label :city, 'CITY' %>
+                  <%= f.text_field :city %>
+                </div>
+
+                <div class="custom-row">
+                  <%= f.label :country, 'COUNTRY' %>
+                  <%= f.text_field :country %>
+                </div>
+
+                <div class="custom-row">
+                  <%= f.label :attribution, 'ATTRIBUTION' %>
+                  <%= f.text_field :attribution %>
+                </div>
+
+                <br />
+                <br />
                 <br />
                 <%= f.submit "Save", class: "c-button" %>
               <% end %>

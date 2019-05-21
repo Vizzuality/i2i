@@ -1,6 +1,15 @@
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 4
-  permit_params :email, :name, :password, :password_confirmation
+  permit_params :email,
+                :name,
+                :password,
+                :password_confirmation,
+                :surname,
+                :company,
+                :position,
+                :city,
+                :country,
+                :attribution
   
   controller do
     def update
@@ -17,20 +26,38 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :name
+    column :surname
+    column :company
+    column :position
+    column :city
+    column :country
+    column :attribution
     column :email
     column :created_at
     actions
   end
   
   filter :email
+  filter :company
+  filter :position
+  filter :city
+  filter :country
+  filter :attribution
   filter :created_at
   
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs "User Details" do
       f.input :name
+      f.input :surname
       f.input :email
       f.input :password
       f.input :password_confirmation
+
+      f.input :company
+      f.input :position
+      f.input :city
+      f.input :country, as: :string
+      f.input :attribution
     end
     f.actions
   end
