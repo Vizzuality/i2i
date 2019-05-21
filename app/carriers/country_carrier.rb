@@ -22,7 +22,7 @@ class CountryCarrier
   end
   
   def more_publications_visible?
-    downloadable_publications.any?
+    downloadable_publications.count > 4
   end
   
   def downloadable_publications
