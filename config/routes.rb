@@ -42,6 +42,9 @@ Rails.application.routes.draw do
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
 
+  # Data Portal - FinScope Data for regions
+   get 'data-portal/region/:iso/:year', to: 'data_portal#show_by_region'
+
   # Data Portal - Financial Diaries
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
                                                                              as: 'data_portal_country_preview'

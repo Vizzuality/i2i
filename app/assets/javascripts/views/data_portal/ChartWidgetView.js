@@ -80,6 +80,7 @@
      */
     _onFetch: function () {
       var data = this.model.get('data') || this.model.get('rows') || [];
+      console.log(data)
       if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
       // If the indicator doesn't have any data, we also want to send an event
@@ -445,7 +446,8 @@
               filters: this.options.filters,
               analysisIndicatorId: this.options.analysisIndicator,
               compareIndicators: this.options.compareIndicators,
-              expanded: this.options.chart === 'table'
+              expanded: this.options.chart === 'table',
+              isRegion: this.options.isRegion,
             })
           );
 

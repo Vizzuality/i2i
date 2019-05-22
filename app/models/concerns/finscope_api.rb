@@ -10,4 +10,16 @@ module FinscopeApi
       }
     end
   end
+
+  def self.get_regions
+    response = JSON.parse(HTTP.get("#{ENV['API_URL']}/region?lastyear=true").body.to_s)
+
+    response.map do |region|
+      {
+        iso: region['iso'],
+        name: region['name'],
+        latest_year: region['year'][0]['year']
+      }
+    end
+  end
 end

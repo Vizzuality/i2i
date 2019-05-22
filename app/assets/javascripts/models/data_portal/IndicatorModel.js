@@ -23,12 +23,14 @@
         // See _filters in App.Page.DataPortalCountryPage to see their format
         filters: [],
         // Whether or not the detailed data must be fetch
-        expanded: false
+        expanded: false,
+        isRegion: false,
       }, options);
     },
 
     url: function() {
-      var url =  API_URL + '/indicator/' + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
+      var pathname = this.options.isRegion ? 'indicator-region' : 'indicator';
+      var url =  API_URL + '/' + pathname + '/' + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
 
       if (this.options.filters.length) {
         var filters = this.options.filters.map(function (filter) {
