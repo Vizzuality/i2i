@@ -20,7 +20,8 @@
     events: function () {
       return _.extend({}, App.Component.Modal.prototype.events, {
         'click .js-close': 'onCloseModal',
-        'click .js-download': '_onSubmit'
+        'click .js-download': '_onSubmit',
+        'click .download-item': '_onChange'
       });
     },
 
@@ -38,7 +39,9 @@
           return {
             title: attachment.table.title,
             id: attachment.table.id,
-            url: attachment.table.url
+            url: attachment.table.url,
+            html_class: attachment.table.html_class,
+            zip: attachment.table.zip
           }
         }),
         termsLink: '<%= terms_of_use_path %>'
@@ -52,6 +55,19 @@
       e.preventDefault();
       this._sendRequest();
       this.constructor.__super__.onCloseModal.apply(this);
+    },
+
+    _onChange: function (e) {
+      e.preventDefault();
+      isChecked = $(e.currentTarget).find("input").prop('checked');
+
+      $attachmentId = $(e.currentTarget).find('input').attr('id');
+      $similarApiDownloads = $(e.currentTarget).closest('.downloads-list').find("." + $attachmentId + ":hidden");
+
+      $(e.currentTarget).find("input").prop('checked', !isChecked);
+
+      if ($similarApiDownloads.length > 0)
+        $similarApiDownloads.find('input').prop('checked', !isChecked)
     },
 
     /**

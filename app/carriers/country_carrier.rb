@@ -5,21 +5,32 @@ class CountryCarrier
     @country = country
   end
   
-  def publications
-    @publications ||= WrapCountriesPublications.new(country.id).perform
-    @publications.first(4)
-  end
-  
   def downloads
-    country.links.first(4)
+    @downloads = FindCountryDownloads.new(country).perform
+    @downloads.first(4)
   end
   
   def show_downloads_modal?
-    country.links.count > 4
+    @downloads.count > 4
   end
   
   def modal_downloads
-    country.links.map { |link| OpenStruct.new(id: link.id, title: link.name, url: link.url ) }
+    @downloads_modal = FindCountryDownloads.new(country).perform
+  
+    @downloads_modal.map do |download|
+      OpenStruct.new(
+        id: download.id || "api-#{download.name}",
+        title: download.name,
+        url: download.url,
+        html_class: download.html_class,
+        zip: download.zip
+      )
+    end
+  end
+
+  def publications
+    @publications ||= WrapCountriesPublications.new(country.id).perform
+    @publications.first(4)
   end
   
   def more_publications_visible?
