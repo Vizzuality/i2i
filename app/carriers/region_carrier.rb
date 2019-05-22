@@ -9,6 +9,7 @@ class RegionCarrier
   
   def publications
     @publications ||= FindRegionPublications.new(region.id).perform
+    @publications.first(4)
   end
   
   def downloads
@@ -24,14 +25,16 @@ class RegionCarrier
   end
   
   def more_publications_visible?
-    downloadable_publications.count > 4
+    @publications.count > 4
   end
   
   def downloadable_publications
-    libraries = region.libraries.includes(:document).merge(Library.published.featured).all.select do |library|
-      library.document&.file.present? || library.url_resource.present?
+    @publications.map do |publication|
+      OpenStruct.new(
+        id: "#{publication.record_type}-#{publication.id}-#{publication.slug}",
+        title: publication.title,
+        url: publication.url
+      )
     end
-    
-    libraries.map { |library| OpenStruct.new(id: library.id, title: library.title ) }
   end
 end

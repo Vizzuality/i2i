@@ -2,7 +2,7 @@ class Wrappers::BasePublicationWrapper
   attr_reader :publication
   
   delegate :url_helpers, to: 'Rails.application.routes'
-  delegate :title, :category, :slug, to: :publication
+  delegate :id, :record_type, :title, :category, :slug, to: :publication
   
   def initialize(publication)
     @publication = publication
@@ -37,6 +37,10 @@ class Wrappers::BasePublicationWrapper
   end
 
   def video_link
+    nil
+  end
+  
+  def url
     nil
   end
 end

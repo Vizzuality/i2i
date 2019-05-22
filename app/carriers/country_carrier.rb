@@ -7,6 +7,7 @@ class CountryCarrier
   
   def publications
     @publications ||= WrapCountriesPublications.new(country.id).perform
+    @publications.first(4)
   end
   
   def downloads
@@ -22,14 +23,16 @@ class CountryCarrier
   end
   
   def more_publications_visible?
-    downloadable_publications.count > 4
+    @publications.count > 4
   end
   
   def downloadable_publications
-    libraries = country.libraries.includes(:document).merge(Library.published.featured).all.select do |library|
-      library.document&.file.present? || library.url_resource.present?
+    @publications.map do |publication|
+      OpenStruct.new(
+        id: "#{publication.record_type}-#{publication.id}-#{publication.slug}",
+        title: publication.title,
+        url: publication.url
+      )
     end
-    
-    libraries.map { |library| OpenStruct.new(id: library.id, title: library.title ) }
   end
 end

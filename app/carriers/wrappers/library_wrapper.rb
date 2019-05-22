@@ -28,4 +28,25 @@ class Wrappers::LibraryWrapper < Wrappers::BasePublicationWrapper
   def title_has_link?
     false
   end
+
+  def url
+    if document&.file.present?
+      URI.join(absolute_root_url, document.file.url).to_s
+    elsif url_resource.present?
+      url_resource
+    elsif view_link_visible?
+      view_link
+    else
+      video_link
+    end
+  end
+  
+  private
+  
+  def absolute_root_url
+    url_helpers.root_url(
+      host: ActionMailer::Base.default_url_options[:host],
+      port: ActionMailer::Base.default_url_options[:port]
+    )
+  end
 end
