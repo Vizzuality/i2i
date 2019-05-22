@@ -15,8 +15,16 @@
       <% end%>
     </div>
 
-    <div class="row">
-      <%= render partial: 'regions/download_link', collection: downloads %>
-    </div>
+    <% if downloads.any? %>
+      <div class="row">
+        <%= render partial: 'regions/download_link', collection: downloads %>
+      </div>
+    <% else %>
+      <div class="row">
+        <p>
+          No download links available.
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>
