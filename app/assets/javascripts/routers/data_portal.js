@@ -7,6 +7,7 @@
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
       'data-portal/region/:iso/:year': 'region',
+      'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
       'data-portal/report': 'report'
     },

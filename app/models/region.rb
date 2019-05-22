@@ -42,4 +42,10 @@ class Region < ApplicationRecord
   def iso_id_candidates
     [:iso, [:iso, :name]]
   end
+
+  class << self
+    def finscope_region_list
+      FinscopeApi.get_regions
+    end
+  end
 end

@@ -1,6 +1,6 @@
 <% title "i2i #{@region.name}" %>
 
-<div class="l-regions-page">
+<div class="l-preview-country l-regions-page">
   <div class="fixed-nav js-fixed-nav">
     <div class="wrapper">
       <%= render partial: 'shared/header', locals: { isFixed: true } %>
@@ -67,20 +67,37 @@
   </div>
   <div class="l-content" style="position: relative; z-index: 9; margin-top: -20px; padding-top: 0">
     <div class="wrapper">
-      <div class="row" style="display: flex; flex-wrap: wrap;">
-        <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
-                                                   iso: @region_carrier.iso,
-                                                   show_downloads_modal: @region_carrier.show_downloads_modal?,
-                                                   modal_downloads: @region_carrier.modal_downloads.to_json }  %>
+      <section>
+        <div class="row" style="display: flex; flex-wrap: wrap;">
+          <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
+                                                    iso: @region_carrier.iso,
+                                                    show_downloads_modal: @region_carrier.show_downloads_modal?,
+                                                    modal_downloads: @region_carrier.modal_downloads.to_json }  %>
 
-        <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
-                                                      iso: @region_carrier.iso,
-                                                      has_more_publications: @region_carrier.more_publications_visible?,
-                                                      downloads: @region_carrier.downloadable_publications.to_json }%>
-      </div>
-      <div class="row">
-        <%= render partial: 'widgets' %>
-      </div>
+          <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
+                                                        iso: @region_carrier.iso,
+                                                        has_more_publications: @region_carrier.more_publications_visible?,
+                                                        downloads: @region_carrier.downloadable_publications.to_json }%>
+        </div>
+        <div class="row">
+          <%= render partial: 'widgets' %>
+        </div>
+      </section>
+
+      <% if @finscope_countries.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark" id="finscope-dataset">National Surveys</h3>
+              <p class="dataset-description">
+                The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
+              </p>
+              <%= link_to "Discover National Surveys data", data_portal_y_region_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+                class: "c-button -sea dataset-button", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
     </div>
   </div>
 </div>
