@@ -6,7 +6,10 @@
       </h3>
 
       <% if has_more_publications %>
-        <div class="more-publications-button c-button" data-downloads="<%= downloads %>" style="padding: 1px 15px; color: #257B83; display: flex; align-items: center; font-size: 12px; line-height: 17px;">
+        <div class="more-publications-button c-button"
+             data-iso="<%= iso %>"
+             data-downloads="<%= downloads %>"
+             style="padding: 1px 15px; color: #257B83; display: flex; align-items: center; font-size: 12px; line-height: 17px;">
           More publications
         </div>
       <% end %>
