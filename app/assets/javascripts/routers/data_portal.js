@@ -6,6 +6,7 @@
     routes: {
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
+      'data-portal/region/:iso/:year': 'region',
       'data-portal/indicator': 'indicator',
       'data-portal/report': 'report'
     },
@@ -37,6 +38,26 @@
           // It's a kind of magic
           var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
           Turbolinks.visit('/data-portal/' + iso + '/' + latesYear);
+        }
+      });
+    },
+
+    region: function (iso, year) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      new App.Page.DataPortalRegionPage({
+        iso: iso,
+        year: +year
+      });
+
+      new App.Component.CountryPreview({
+        onChangeCountry: function (country) {
+          var iso = country.split('-')[0];
+          // It's a kind of magic
+          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
+          Turbolinks.visit('/data-portal/region/' + iso + '/' + latesYear);
         }
       });
     },

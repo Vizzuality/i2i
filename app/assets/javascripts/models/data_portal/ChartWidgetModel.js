@@ -32,7 +32,8 @@
         // Whether or not the detailed data must be fetch
         // NOTE: not compatible with the analysis or compare mode
         fspId: null,
-        expanded: false
+        expanded: false,
+        isRegion: false,
       }, options);
 
       this.indicatorModel = new App.Model.IndicatorModel({}, this.options);
