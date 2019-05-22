@@ -59,7 +59,9 @@ Rails.application.routes.draw do
 
   get 'search' => 'searches#index'
 
-  resource :contacts, only: :create
+  resource :contacts, only: :create do
+    post :batch_download
+  end
 
   scope :format => true, :constraints => { :format => 'json' } do
     post   "/login"       => "sessions#create"

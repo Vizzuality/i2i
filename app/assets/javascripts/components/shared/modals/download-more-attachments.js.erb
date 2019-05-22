@@ -1,0 +1,102 @@
+<% environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+
+(function (App) {
+  App.Component.DownloadMoreAttachments = App.Component.Modal.extend({
+    contentTemplate: JST['templates/shared/modals/modal-more-attachments'],
+
+    defaults: {
+      title: 'Download',
+      showTitle: true,
+      footer: '<button class="c-button -white -outline -medium js-close">Cancel</button><button type="submit" class="c-button -white -medium js-download">Download</button>',
+      attachments: [],
+      isForm: true,
+      form: {
+        action: '/batch_download',
+        id: 'batch_download',
+        classes: 'c-modal-attachments'
+      }
+    },
+
+    events: function () {
+      return _.extend({}, App.Component.Modal.prototype.events, {
+        'click .js-close': 'onCloseModal',
+        'click .js-download': '_onSubmit'
+      });
+    },
+
+    initialize: function (options) {
+      this.constructor.__super__.initialize.call(this, options);
+      this._generateContent(options);
+    },
+
+    /**
+     * Generate the content of the modal
+     */
+    _generateContent: function (options) {
+      this.options.content = this.contentTemplate({
+        attachments: options.attachments.map(function (attachment) {
+          return {
+            title: attachment.table.title,
+            id: attachment.table.id,
+            url: attachment.table.url
+          }
+        }),
+        termsLink: '<%= terms_of_use_path %>'
+      });
+      this.options.iso = options.iso
+
+      this.constructor.__super__.render.apply(this);
+    },
+
+    _onSubmit: function (e) {
+      e.preventDefault();
+      this._sendRequest();
+      this.constructor.__super__.onCloseModal.apply(this);
+    },
+
+    /**
+     * Sends email request
+     */
+    _sendRequest: function() {
+      data = $('form').serializeArray();
+      data.push({ name: 'country', value: this.options.iso });
+
+      $.post({
+        url: "<%= batch_download_contacts_path %>",
+        data: data
+      })
+    },
+
+    /**
+     * Validates if email is filled properly and terms and conditions are accepted
+     */
+    _validationForm: function () {
+      if (this.emailField.checkValidity() && this.termsCheckbox.checked) {
+        this.continueButton.removeAttribute('disabled');
+      } else {
+        this.continueButton.setAttribute('disabled', 'disabled');
+      }
+    },
+
+    afterRender: function () {
+      this.constructor.__super__.afterRender.apply(this);
+      this._setFormVars();
+      this._setFormEventListeners();
+      this._validationForm();
+    },
+
+    _setFormVars: function () {
+      this.form = this.el.querySelector('form');
+
+      this.emailField = this.form.querySelector('.js-email');
+      this.termsCheckbox = this.form.querySelector('.js-terms');
+      this.continueButton = this.el.querySelector('.js-download');
+    },
+
+    _setFormEventListeners: function () {
+      this.emailField.addEventListener('keyup', this._validationForm.bind(this));
+      this.termsCheckbox.addEventListener('change', this._validationForm.bind(this));
+    },
+
+  });
+}).call(this, this.App);

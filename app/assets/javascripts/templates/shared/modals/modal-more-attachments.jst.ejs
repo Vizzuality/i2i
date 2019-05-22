@@ -8,15 +8,27 @@
             <li class="c-checkbox download-item">
                 <input
                     type="checkbox"
-                    value="<%= attachment.title %>"
+                    value="<%= attachment.url %>"
                     id="<%= attachment.id %>"
                     class="js-option"
-                    name="attachment"
+                    name="links[]"
                 >
                 <label for="<%= attachment.id %>"><%= attachment.title %></label>
             </li>
         <% }) %>
     </ul>
+
+    <div class="email-container">
+      <p class="description">Please read and agree to the terms of use, insert your email below and you will get an email with the requested links.</p>
+
+      <input type="email" name="email" id="email" class="js-email" placeholder="E-mail address" required />
+    </div>
+
+    <div class="terms-container">
+      <input type="checkbox" name="terms" id="terms-and-conditions" class="js-terms" /><label for="terms-and-conditions">I accept to the <a href="<%= termsLink %>" target="_blank" rel="noopener noreferrer">terms and conditions.
+        <svg class="icon icon-external-open"><use xlink:href="#icon-external-open"></use></svg></a>
+      </span>
+    </div>
 </div>
 
 

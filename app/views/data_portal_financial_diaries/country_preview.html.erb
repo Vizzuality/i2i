@@ -110,10 +110,12 @@
         <div class="row" style="display: flex; flex-wrap: wrap;">
           <%= render partial: 'regions/downloads',
                      locals: { downloads: @country_carrier.downloads,
+                               iso: @country.iso,
                                show_downloads_modal: @country_carrier.show_downloads_modal?,
                                modal_downloads: @country_carrier.modal_downloads.to_json } %>
           <%= render partial: 'regions/publications',
                      locals: { publications: @country_carrier.publications,
+                               iso: @country.iso,
                                has_more_publications: @country_carrier.more_publications_visible?,
                                downloads: @country_carrier.downloadable_publications.to_json } %>
         </div>
