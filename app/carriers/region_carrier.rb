@@ -7,31 +7,44 @@ class RegionCarrier
     @region = region
   end
   
-  def publications
-    @publications ||= FindRegionPublications.new(region.id).perform
-  end
-  
   def downloads
-    region.links.first(4)
+    @downloads = FindRegionDownloads.new(region).perform
+    @downloads.first(4)
   end
   
   def show_downloads_modal?
-    region.links.count > 4
+    @downloads.count > 4
   end
   
   def modal_downloads
-    region.links.map { |link| OpenStruct.new(id: link.id, title: link.name, url: link.url ) }
+    @downloads_modal = FindRegionDownloads.new(region).perform
+    @downloads_modal.map do |download|
+      OpenStruct.new(
+        id: download.id || "api-#{download.name}",
+        title: download.name,
+        url: download.url,
+        html_class: download.html_class,
+        zip: download.zip
+      )
+    end
+  end
+
+  def publications
+    @publications ||= FindRegionPublications.new(region.id).perform
+    @publications.first(4)
   end
   
   def more_publications_visible?
-    downloadable_publications.count > 4
+    @publications.count > 4
   end
   
   def downloadable_publications
-    libraries = region.libraries.includes(:document).merge(Library.published.featured).all.select do |library|
-      library.document&.file.present? || library.url_resource.present?
+    @publications.map do |publication|
+      OpenStruct.new(
+        id: "#{publication.record_type}-#{publication.id}-#{publication.slug}",
+        title: publication.title,
+        url: publication.url
+      )
     end
-    
-    libraries.map { |library| OpenStruct.new(id: library.id, title: library.title ) }
   end
 end

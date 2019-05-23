@@ -15,10 +15,20 @@
       <% end %>
     </div>
 
-    <div class="row">
-      <%= render partial: 'regions/publication_row',
-                 collection: publications,
-                 as: :attachment %>
-    </div>
+    <% if publications.any? %>
+      <div class="row">
+        <%= render partial: 'regions/publication_row',
+                   collection: publications,
+                   as: :attachment %>
+      </div>
+    <% else %>
+      <div class="row">
+        <p>
+          No publications available.
+        </p>
+      </div>
+    <% end %>
+
+
   </div>
 </div>

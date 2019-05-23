@@ -5,16 +5,29 @@
 
     <ul class="downloads-list">
         <% attachments.forEach(function (attachment) { %>
-            <li class="c-checkbox download-item">
-                <input
-                    type="checkbox"
-                    value="<%= attachment.url %>"
-                    id="<%= attachment.id %>"
-                    class="js-option"
-                    name="links[]"
-                >
-                <label for="<%= attachment.id %>"><%= attachment.title %></label>
-            </li>
+            <% if (attachment.zip) { %>
+              <li class="c-checkbox download-item <%= attachment.html_class %>" style="display: none; visibility: hidden;">
+                              <input
+                                  type="checkbox"
+                                  value="<%= attachment.url %>"
+                                  id="<%= attachment.id %>"
+                                  class="js-option"
+                                  name="links[]"
+                              >
+                              <label for="<%= attachment.id %>"><%= attachment.title %></label>
+                          </li>
+            <% } else { %>
+              <li class="c-checkbox download-item <%= attachment.html_class %>">
+                  <input
+                      type="checkbox"
+                      value="<%= attachment.url %>"
+                      id="<%= attachment.id %>"
+                      class="js-option"
+                      name="links[]"
+                  >
+                  <label for="<%= attachment.id %>"><%= attachment.title %></label>
+              </li>
+            <% } %>
         <% }) %>
     </ul>
 
