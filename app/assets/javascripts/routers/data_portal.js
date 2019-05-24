@@ -89,7 +89,7 @@
     },
 
     indicatorEmbed: function(iso, year, queryParams) {
-      var params = queryParams
+      var params = queryParams ? queryParams
         .split('&')
         .map(function (param) {
           return {
@@ -100,7 +100,7 @@
         .reduce(function (res, param) {
           res[param.name] = param.value;
           return res;
-        }, {});
+        }, {}) : null;
       new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year, q: params });
     },
 
