@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import { format } from 'd3-format';
 import groupBy from 'lodash/groupBy';
@@ -64,6 +64,8 @@ class RegionGDPOverTime extends PureComponent {
             tickLine={false}
             tickFormatter={numberFormat}
             style={{ fontSize: 11 }}
+            padding={{ top: 30 }}
+            label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
           />
           <CartesianGrid strokeDasharray="3 3" />
           {data.countries.map((key, i) => (
@@ -76,6 +78,7 @@ class RegionGDPOverTime extends PureComponent {
               stackId="year"
             />
           ))}
+          <Tooltip formatter={value => numberFormat(value)} />
           <Legend />
         </AreaChart>
       </ResponsiveContainer>

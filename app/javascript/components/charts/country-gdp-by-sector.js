@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Legend } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import groupBy from 'lodash/groupBy';
+import { format } from 'd3-format';
 
 const bucket = ['#2F939C', '#001D22', '#F9D031', '#F95E31'];
-
+const numberFormat = format('.2s');
 
 class CountryGDPBySector extends PureComponent {
   static serialize = (data) => {
@@ -48,13 +49,18 @@ class CountryGDPBySector extends PureComponent {
     return (
       <ResponsiveContainer width="100%" height={180}>
         <BarChart layout="vertical" data={data.years} stackOffset="expand">
-          <XAxis type="number" hide />
+          <XAxis
+            type="number"
+            hide
+            unit="$"
+            label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
+          />
           <YAxis
             axisLine={false}
             type="category"
             dataKey="year"
             tickLine={false}
-            style={{ fontSize: 11 }}
+            style={{ fontSize: 11, fontWeight: 'bold' }}
           />
           {data.sectors.map((key, i) => (
             <Bar
@@ -65,6 +71,7 @@ class CountryGDPBySector extends PureComponent {
               stackId="year"
             />
           ))}
+          <Tooltip formatter={value => numberFormat(value)} />
           <Legend />
         </BarChart>
       </ResponsiveContainer>

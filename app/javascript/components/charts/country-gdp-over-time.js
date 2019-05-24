@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import { format } from 'd3-format';
 
@@ -51,7 +51,8 @@ class CountryGDPOverTime extends PureComponent {
             tickFormatter={numberFormat}
             style={{ fontSize: 11 }}
             tick={{ position: 'insideRight' }}
-            label={{ position: 'insideRight' }}
+            padding={{ top: 30 }}
+            label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
           />
           <CartesianGrid strokeDasharray="3 3" />
           <Line
@@ -59,6 +60,7 @@ class CountryGDPOverTime extends PureComponent {
             stroke={bucket[0]}
             dot={{ strokeWidth: 1 }}
           />
+          <Tooltip formatter={value => [numberFormat(value), null]} />
         </LineChart>
       </ResponsiveContainer>
     );

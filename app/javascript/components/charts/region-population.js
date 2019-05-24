@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import { format } from 'd3-format';
 import groupBy from 'lodash/groupBy';
@@ -79,6 +79,7 @@ class RegionPopulation extends PureComponent {
             />
           ))}
           <Legend />
+          <Tooltip formatter={value => numberFormat(value)} />
         </LineChart>
       </ResponsiveContainer>
     );
