@@ -124,6 +124,26 @@
         </div>
       </section>
 
+      <% if @country_finscope.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark" id="finscope-dataset">National Surveys</h3>
+              <p class="dataset-description">
+                The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
+              </p>
+            </div>
+
+            <iframe src="/data-portal/indicator/embed/<%= params[:iso] %>/<%= @country_finscope[:latest_year] %>" width="100%" height="530"></iframe>
+
+            <div class="grid-12" style="margin-bottom: 20px;">
+              <%= link_to "Discover National Surveys data", data_portal_y_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+                class: "c-button -sea dataset-button", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
+
       <% if @country_financial_diaries.present? %>
         <section class="dataset">
           <div class="row">
@@ -140,23 +160,21 @@
                   <span><%= @country_financial_diaries[:province] %></span> region.<% end %> Please note that the Financial Diaries are not a nationally representative dataset.
                 <% end %>
               </p>
-              <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
-                class: "c-button -sea dataset-button", data: { turbolinks: false } %>
             </div>
-          </div>
-        </section>
-      <% end %>
 
-      <% if @country_finscope.present? %>
-        <section class="dataset">
-          <div class="row">
-            <div class="grid-s-12 grid-m-8">
-              <h3 class="title -big -dark" id="finscope-dataset">National Surveys</h3>
-              <p class="dataset-description">
-                The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
-              </p>
-              <%= link_to "Discover National Surveys data", data_portal_y_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+            <div class="grid-12" style="margin-bottom: 20px;">
+              <div style="box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15); background-color: #ffffff; padding: 25px 30px 30px 30px;">
+                <div class="header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                  <h3 class="title" style="font-size: 24px; line-height: 30px;">
+                    Savings
+                  </h3>
+                </div>
+                <div>
+                  Chart here
+                </div>
+                <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
                 class: "c-button -sea dataset-button", data: { turbolinks: false } %>
+              </div>
             </div>
           </div>
         </section>

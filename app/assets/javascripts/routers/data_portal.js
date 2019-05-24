@@ -9,6 +9,7 @@
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
+      'data-portal/indicator/embed/:iso/:year': 'indicatorEmbed',
       'data-portal/report': 'report'
     },
 
@@ -85,6 +86,10 @@
         encodedState: params.p || null,
         print: params.print || false
       });
+    },
+
+    indicatorEmbed: function(iso, year) {
+      new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year });
     },
 
     report: function (params) {

@@ -19,8 +19,14 @@ class CountryGDPOverTime extends PureComponent {
   componentDidMount() {
     const { iso } = this.props;
     axios.get(`/dpapi/gdp_by_country_over_time/${iso}`)
-      .then(({ data }) => (data && data.length) && this.setState({ data }))
-      .catch(() => this.setState({ loaded: true }));
+      .then(({ data }) => {
+        if (data && data.length) {
+          this.setState({ data, loaded: true });
+        } else {
+          this.setState({ data: null, loaded: true });
+        }
+      })
+      .catch(() => this.setState({ data: null, loaded: true }));
   }
 
   render() {
