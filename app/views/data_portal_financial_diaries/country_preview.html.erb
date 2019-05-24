@@ -162,19 +162,11 @@
               </p>
             </div>
 
+            <iframe src="/data-portal/<%= params[:iso] %>/financial-diaries/embed/individuals/main-chart?p=eyJjYXRlZ29yaWVzIjoiJTVCJTdCJTIyY2F0ZWdvcnlfdHlwZSUyMiUzQSUyMmluY29tZSUyMiUyQyUyMmNhdGVnb3J5X25hbWUlMjIlM0ElMjJBTEwlMjIlN0QlNUQiLCJzdWJGaWx0ZXJzIjoiIiwidGl0bGUiOiJJbmNvbWUifQ==&no_logo=true" width="100%" height="840"></iframe>
+
             <div class="grid-12" style="margin-bottom: 20px;">
-              <div style="box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15); background-color: #ffffff; padding: 25px 30px 30px 30px;">
-                <div class="header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                  <h3 class="title" style="font-size: 24px; line-height: 30px;">
-                    Savings
-                  </h3>
-                </div>
-                <div>
-                  Chart here
-                </div>
-                <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
+              <%= link_to "Discover Financial Diaries", data_portal_financial_diaries_path(@country[:iso]),
                 class: "c-button -sea dataset-button", data: { turbolinks: false } %>
-              </div>
             </div>
           </div>
         </section>
