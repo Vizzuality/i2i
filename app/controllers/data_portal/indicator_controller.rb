@@ -7,6 +7,10 @@ class DataPortal::IndicatorController < ApplicationController
     render :layout => 'embed'
   end
 
+  def embed
+    render :layout => 'embed'
+  end
+
   private
 
   def allow_iframe_requests

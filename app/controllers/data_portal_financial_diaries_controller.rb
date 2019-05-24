@@ -123,13 +123,13 @@ class DataPortalFinancialDiariesController < ApplicationController
   end
 
   def country_preview
-    @countries = Country.all
+    @countries = Country.all.map(&:finscope).compact
     @country = Country.find_by(iso: params[:iso])
     @country_finscope = @country.finscope
     @country_financial_diaries = @country.financial_diaries
-    
+
     @partners = @country.partners.order(:name)
-    
+
     @country_carrier = CountryCarrier.new(@country)
   end
 end

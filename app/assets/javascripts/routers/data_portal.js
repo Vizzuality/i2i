@@ -9,6 +9,7 @@
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
+      'data-portal/indicator/embed/:iso/:year': 'indicatorEmbed',
       'data-portal/report': 'report'
     },
 
@@ -85,6 +86,22 @@
         encodedState: params.p || null,
         print: params.print || false
       });
+    },
+
+    indicatorEmbed: function(iso, year, queryParams) {
+      var params = queryParams ? queryParams
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {}) : null;
+      new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year, q: params });
     },
 
     report: function (params) {
