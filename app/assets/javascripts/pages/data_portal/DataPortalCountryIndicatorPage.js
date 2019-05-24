@@ -79,7 +79,7 @@
         el: this.widgetContainer,
         showToolbar: false,
         // autoResize: !this.options.print,
-        showDetails: true,
+        showDetails: !(this.options.q && this.options.q.region),
         isRegion: (this.options.q && this.options.q.region)
       }, this.options._state);
 
