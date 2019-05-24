@@ -12,8 +12,9 @@
       i: null,
       c: 'radial',
       f: [],
-      'an': null,
-      'cp': null
+      an: null,
+      cp: null,
+      q: null
     },
 
     initialize: function (options) {
@@ -78,12 +79,12 @@
         el: this.widgetContainer,
         showToolbar: false,
         // autoResize: !this.options.print,
-        showDetails: true
+        showDetails: true,
+        isRegion: (this.options.q && this.options.q.region)
       }, this.options._state);
 
-      console.log(options)
-
       var widget = new App.View.ChartWidgetView(options);
+
       this.listenTo(widget, 'data:sync', this._onWidgetSync);
       this.listenTo(widget, 'chart:render', this._onChartRender);
     },

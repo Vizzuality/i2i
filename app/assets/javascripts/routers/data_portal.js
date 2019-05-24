@@ -88,8 +88,20 @@
       });
     },
 
-    indicatorEmbed: function(iso, year) {
-      new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year });
+    indicatorEmbed: function(iso, year, queryParams) {
+      var params = queryParams
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {});
+      new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year, q: params });
     },
 
     report: function (params) {
