@@ -9,7 +9,7 @@ class DatasetsController < ApplicationController
     # [["Health", "health"], ["Finance", "finance"], ["Agriculture", "agriculture"], ["Education", "education"], ["Other", "other"]]
     @categories = Dataset.categories.map {|name, _| [name.humanize, name] }
     
-    @countries = Country.where(has_fsp_maps: true)
+    @countries = Country.all
     @latest_year = @country.finscope[:latest_year] rescue nil
     
     @datasets = current_user.datasets

@@ -13,7 +13,7 @@ class NewDataset extends React.Component {
       const countryOptions = this.props.countries.map(country => { return { value: country.id, label: country.name }; });
       const categoryOptions = this.props.categories.map(category => { return { value: category[1], label: category[0] }; });
 
-      const selectedCountry = countryOptions.find(country => country.id === this.props.dataset.country)
+      const selectedCountry = countryOptions.find(country => country.value === this.props.dataset.country_id)
       const selectedCategory = categoryOptions.find(category => category.value === this.props.dataset.category)
       let filename = null;
 
