@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190527111103) do
+ActiveRecord::Schema.define(version: 20190527125957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 20190527111103) do
     t.index ["region_id"], name: "index_blogs_regions_on_region_id", using: :btree
   end
 
+  create_table "capital_cities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "population"
+    t.string   "country_iso"
+    t.string   "capital_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -109,6 +118,13 @@ ActiveRecord::Schema.define(version: 20190527111103) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+  end
+
+  create_table "commodities", force: :cascade do |t|
+    t.string   "country_iso"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "contacts", force: :cascade do |t|

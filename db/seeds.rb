@@ -25,7 +25,7 @@ if Population.all.count == 0
     t.save
   end
 
-  puts "There are now #{Population.count} rows in the transactions table"
+  puts "There are now #{Population.count} rows in the Population table"
 end
 
 # GDP for data portal
@@ -39,7 +39,7 @@ if GrossDomesticProductByRegion.all.count == 0
     t.save
   end
 
-  puts "There are now #{GrossDomesticProductByRegion.count} rows in the transactions table"
+  puts "There are now #{GrossDomesticProductByRegion.count} rows in the GrossDomesticProductByRegion table"
 end
 
 if GrossDomesticProductBySector.all.count == 0
@@ -53,5 +53,29 @@ if GrossDomesticProductBySector.all.count == 0
     t.save
   end
 
-  puts "There are now #{GrossDomesticProductBySector.count} rows in the transactions table"
+  puts "There are now #{GrossDomesticProductBySector.count} rows in the GrossDomesticProductBySector table"
+end
+
+if CapitalCity.all.count == 0
+  CSV.foreach('lib/seeds/capital.csv', headers: true, encoding: 'ISO-8859-1', col_sep: ',') do |row, i|
+    t = CapitalCity.new
+    t.name = row['capital_city']
+    t.country_iso = row['iso']
+    t.population = row['population']
+    t.capital_type = row['capital_type']
+    t.save
+  end
+
+  puts "There are now #{CapitalCity.count} rows in the CapitalCity table"
+end
+
+if Commodity.all.count == 0
+  CSV.foreach('lib/seeds/commodities.csv', headers: true, encoding: 'ISO-8859-1', col_sep: ',') do |row, i|
+    t = Commodity.new
+    t.country_iso = row['iso']
+    t.description = row['description']
+    t.save
+  end
+
+  puts "There are now #{Commodity.count} rows in the Commodity table"
 end
