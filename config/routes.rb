@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :users, only: %i(update)
 
   # User Datasets
-  resources :datasets, only: %i(index create destroy update)
+  resources :datasets, only: %i(index create destroy update) do
+    put :publish, on: :member
+  end
 
   # Regions
   get 'region/:iso', to: 'regions#show', as: :regions

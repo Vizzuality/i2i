@@ -2,11 +2,13 @@ import React from 'react';
 
 class Dataset extends React.Component {
   render() {
+    const showPublishButton = this.props.dataset.status === 'unpublished';
+
     return (
       <div>
         <div className="status-row">
           <div className="status">
-            Unpublished
+            {this.props.dataset.status}
           </div>
           <div className="publish-icon"></div>
         </div>
@@ -22,10 +24,15 @@ class Dataset extends React.Component {
                   onClick={() => this.props.handleDelete(this.props.dataset.id)}>
             Delete
           </button>
-          <button className="action-button publish-button"
-                  onClick={() => console.log("Publish button clicked")}>
-            Publish
-          </button>
+
+          { showPublishButton &&
+            <button
+              className="action-button publish-button"
+              onClick={() => this.props.handlePublish(this.props.dataset)}
+            >
+              Publish
+            </button>
+          }
         </div>
 
       </div>
