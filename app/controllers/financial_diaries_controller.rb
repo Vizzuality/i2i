@@ -1,8 +1,9 @@
 class FinancialDiariesController < ApplicationController
   def index
     @countries_db = Country.ordered_by_name.select { |c| c.financial_diaries.present? }
-    @regions = Region.joins(:country_regions).where(country_regions: { country_id: @countries_db.pluck(:id) }).uniq
-    
+    @regions = []
+    # @regions = Region.joins(:country_regions).where(country_regions: { country_id: @countries_db.pluck(:id) }).uniq
+
     @worldwide_countries = @countries_db.each_with_object([]) do |country, acc|
       acc.push OpenStruct.new(
         name: country.name,
@@ -15,7 +16,7 @@ class FinancialDiariesController < ApplicationController
 
     @regional_countries = CountryRegion.joins(:country).includes(:country).each_with_object({}) do |country_region, acc|
       country = country_region.country
-      
+
       if country.financial_diaries.present?
         if acc.has_key?(country_region.region_id)
           acc[country_region.region_id].push OpenStruct.new(
@@ -37,6 +38,7 @@ class FinancialDiariesController < ApplicationController
       end
     end
 
-    @regions_hash = @regional_countries.each { |k, v| @regional_countries[k] = v.sort_by { |country| country.name } }
+    @regions_hash = []
+    # @regions_hash = @regional_countries.each { |k, v| @regional_countries[k] = v.sort_by { |country| country.name } }
   end
 end
