@@ -1,22 +1,22 @@
 class CountryCarrier
   attr_reader :country, :publications
-  
+
   def initialize(country)
     @country = country
   end
-  
+
   def downloads
     @downloads = FindCountryDownloads.new(country).perform
     @downloads.first(4)
   end
-  
+
   def show_downloads_modal?
     @downloads.count > 4
   end
-  
+
   def modal_downloads
     @downloads_modal = FindCountryDownloads.new(country).perform
-  
+
     @downloads_modal.map do |download|
       OpenStruct.new(
         id: download.id || "api-#{download.name}",
@@ -32,11 +32,11 @@ class CountryCarrier
     @publications ||= WrapCountriesPublications.new(country.id).perform
     @publications.first(4)
   end
-  
+
   def more_publications_visible?
     @publications.count > 4
   end
-  
+
   def downloadable_publications
     @publications.map do |publication|
       OpenStruct.new(
