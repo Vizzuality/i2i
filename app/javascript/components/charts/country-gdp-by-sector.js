@@ -71,7 +71,7 @@ class CountryGDPBySector extends PureComponent {
               stackId="year"
             />
           ))}
-          <Tooltip formatter={value => numberFormat(value)} />
+          <Tooltip formatter={value => numberFormat(value)} cursor={false} />
           <Legend />
         </BarChart>
       </ResponsiveContainer>
