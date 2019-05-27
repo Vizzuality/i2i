@@ -159,7 +159,16 @@ class SidebarComponent extends PureComponent {
 
 
           {this.state.editMode &&
-            <NewDataset handleFormSubmit={this.handleFormSubmit} handleBackButton={this.handleBackButton} handleMultipartUpdate={this.handleMultipartUpdate} handleUpdate={this.handleUpdate} editMode={this.state.editMode} categories={this.props.categories} countries={this.props.countries} dataset={this.state.editMode ? this.state.editableDataset : undefined}/>
+            <NewDataset
+              handleFormSubmit={this.handleFormSubmit}
+              handleBackButton={this.handleBackButton}
+              handleMultipartUpdate={this.handleMultipartUpdate}
+              handleUpdate={this.handleUpdate}
+              editMode={this.state.editMode}
+              categories={this.props.categories}
+              countries={this.props.countries}
+              dataset={this.state.editMode ? this.state.editableDataset : undefined}
+            />
           }
         </div>
 

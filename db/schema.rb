@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524143615) do
+ActiveRecord::Schema.define(version: 20190527084320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,14 +184,13 @@ ActiveRecord::Schema.define(version: 20190524143615) do
   end
 
   create_table "datasets", force: :cascade do |t|
-    t.integer  "category_id"
     t.integer  "country_id"
     t.integer  "user_id"
-    t.string   "name",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",                   null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.text     "file_data"
-    t.index ["category_id"], name: "index_datasets_on_category_id", using: :btree
+    t.integer  "category",   default: 0, null: false
     t.index ["country_id"], name: "index_datasets_on_country_id", using: :btree
     t.index ["user_id"], name: "index_datasets_on_user_id", using: :btree
   end

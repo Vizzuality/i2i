@@ -4,7 +4,11 @@ class DatasetsController < ApplicationController
   def index
     @iso = 'GHA'
     @country = Country.find_by(iso: @iso)
-    @categories = Category.all
+    
+    # Categories enum for select:
+    # [["Health", "health"], ["Finance", "finance"], ["Agriculture", "agriculture"], ["Education", "education"], ["Other", "other"]]
+    @categories = Dataset.categories.map {|name, _| [name.humanize, name] }
+    
     @countries = Country.where(has_fsp_maps: true)
     @latest_year = @country.finscope[:latest_year] rescue nil
     
@@ -36,6 +40,6 @@ class DatasetsController < ApplicationController
   private
   
   def dataset_params
-    params.require(:dataset).permit(:id, :name, :country_id, :category_id, :file)
+    params.require(:dataset).permit(:id, :name, :country_id, :category, :file)
   end
 end
