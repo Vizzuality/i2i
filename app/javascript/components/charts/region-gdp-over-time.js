@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
+import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import { format } from 'd3-format';
 import groupBy from 'lodash/groupBy';
+import maxBy from 'lodash/maxBy';
 
 const numberFormat = format('.2s');
 
@@ -20,7 +21,7 @@ class RegionGDPOverTime extends PureComponent {
     const result = {
       countries: countryKeys,
       years: Object.keys(dataByYear).map((key) => {
-        const d = { year: key };
+        const d = { year: key, max: maxBy(dataByYear[key], 'value').value };
         countryKeys.forEach((k, i) => {
           d[k] = dataByYear[key][i].value;
         });
@@ -52,7 +53,7 @@ class RegionGDPOverTime extends PureComponent {
 
     return (
       <ResponsiveContainer width="100%" height={440}>
-        <AreaChart data={data.years}>
+        <LineChart data={data.years}>
           <XAxis
             dataKey="year"
             style={{ fontSize: 11, fontWeight: 'bold' }}
@@ -60,6 +61,7 @@ class RegionGDPOverTime extends PureComponent {
             tick={{ dy: 10 }}
           />
           <YAxis
+            dataKey="max"
             axisLine={false}
             tickLine={false}
             tickFormatter={numberFormat}
@@ -69,18 +71,18 @@ class RegionGDPOverTime extends PureComponent {
           />
           <CartesianGrid strokeDasharray="3 3" />
           {data.countries.map((key, i) => (
-            <Area
+            <Line
               key={key}
               dataKey={key}
               stroke={colorScale(i)}
               fill={colorScale(i)}
-              type="monotone"
+              dot={{ strokeWidth: 1 }}
               stackId="year"
             />
           ))}
           <Tooltip formatter={value => numberFormat(value)} />
           <Legend />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     );
   }

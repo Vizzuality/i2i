@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import { format } from 'd3-format';
 import groupBy from 'lodash/groupBy';
-import maxBy from 'lodash/maxBy';
 
 const numberFormat = format('.2s');
 
@@ -21,7 +20,7 @@ class RegionPopulation extends PureComponent {
     const result = {
       countries: countryKeys,
       years: Object.keys(dataByYear).map((key) => {
-        const d = { year: key, max: maxBy(dataByYear[key], 'value').value };
+        const d = { year: key };
         countryKeys.forEach((k, i) => {
           d[k] = dataByYear[key][i].value;
         });
@@ -53,7 +52,7 @@ class RegionPopulation extends PureComponent {
 
     return (
       <ResponsiveContainer width="100%" height={440}>
-        <LineChart data={data.years}>
+        <AreaChart data={data.years}>
           <XAxis
             dataKey="year"
             style={{ fontSize: 11, fontWeight: 'bold' }}
@@ -61,7 +60,6 @@ class RegionPopulation extends PureComponent {
             tick={{ dy: 10 }}
           />
           <YAxis
-            dataKey="max"
             axisLine={false}
             tickLine={false}
             tickFormatter={numberFormat}
@@ -69,18 +67,18 @@ class RegionPopulation extends PureComponent {
           />
           <CartesianGrid strokeDasharray="3 3" />
           {data.countries.map((key, i) => (
-            <Line
+            <Area
               key={key}
-              dot={{ strokeWidth: 1 }}
               dataKey={key}
               stroke={colorScale(i)}
               fill={colorScale(i)}
+              type="monotone"
               stackId="year"
             />
           ))}
           <Legend />
           <Tooltip formatter={value => numberFormat(value)} />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     );
   }
