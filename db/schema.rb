@@ -200,14 +200,13 @@ ActiveRecord::Schema.define(version: 20190527125957) do
   end
 
   create_table "datasets", force: :cascade do |t|
-    t.integer  "category_id"
     t.integer  "country_id"
     t.integer  "user_id"
-    t.string   "name",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",                   null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.text     "file_data"
-    t.index ["category_id"], name: "index_datasets_on_category_id", using: :btree
+    t.integer  "category",   default: 0, null: false
     t.index ["country_id"], name: "index_datasets_on_country_id", using: :btree
     t.index ["user_id"], name: "index_datasets_on_user_id", using: :btree
   end

@@ -11,10 +11,10 @@ class NewDataset extends React.Component {
 
     if (this.props.editMode && this.props.dataset ) {
       const countryOptions = this.props.countries.map(country => { return { value: country.id, label: country.name }; });
-      const categoryOptions = this.props.categories.map(category => { return { value: category.id, label: category.name }; });
+      const categoryOptions = this.props.categories.map(category => { return { value: category[1], label: category[0] }; });
 
-      const selectedCountry = countryOptions.find(country => country.id === this.props.dataset.country)
-      const selectedCategory = categoryOptions.find(category => category.id === this.props.dataset.category)
+      const selectedCountry = countryOptions.find(country => country.value === this.props.dataset.country_id)
+      const selectedCategory = categoryOptions.find(category => category.value === this.props.dataset.category)
       let filename = null;
 
       if (this.props.dataset.file_data) {
@@ -73,7 +73,7 @@ class NewDataset extends React.Component {
     const formData = new FormData();
     formData.append('dataset[name]', this.state.name);
     formData.append('dataset[country_id]', this.state.selectedCountry.value);
-    formData.append('dataset[category_id]', this.state.selectedCategory.value);
+    formData.append('dataset[category]', this.state.selectedCategory.value);
 
     const file = this.state.selectedFile;
     if (file) {
@@ -97,7 +97,7 @@ class NewDataset extends React.Component {
       let name = this.state.name;
       let country = this.state.selectedCountry.value;
       let category = this.state.selectedCategory.value;
-      let dataset = { id: id, name: name, category_id: category, country_id: country };
+      let dataset = { id: id, name: name, category: category, country_id: country };
       this.props.handleUpdate(dataset);
     }
   }
@@ -117,7 +117,7 @@ class NewDataset extends React.Component {
   render() {
     const { selectedCountry, selectedCategory } = this.state;
     const countryOptions = this.props.countries.map(country => ({ value: country.id, label: country.name }));
-    const categoryOptions = this.props.categories.map(category => ({ value: category.id, label: category.name }));
+    const categoryOptions = this.props.categories.map(category => ({ value: category[1], label: category[0] }));
 
     const title = this.props.editMode && this.props.dataset ? 'Edit dataset' : 'Upload dataset';
     const description = 'Check expected format of this CSV template to upload a valid file.';

@@ -3,7 +3,8 @@ require 'uploaders/dataset_uploader'
 class Dataset < ApplicationRecord
   include DatasetUploader[:file]
   
-  belongs_to :category
+  enum category: [:health, :finance, :agriculture, :education, :other]
+
   belongs_to :country
   belongs_to :user
   
