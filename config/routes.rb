@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   # User Account Details
   get 'account', to: 'users#edit'
   resources :users, only: %i(update)
-  resources :datasets, only: %i(index)
+
+  # User Datasets
+  resources :datasets, only: %i(index create destroy update)
 
   # Regions
   get 'region/:iso', to: 'regions#show', as: :regions

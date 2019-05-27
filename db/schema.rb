@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190521001411) do
+ActiveRecord::Schema.define(version: 20190524143615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -183,6 +183,19 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.index ["region_id"], name: "index_country_regions_on_region_id", using: :btree
   end
 
+  create_table "datasets", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "country_id"
+    t.integer  "user_id"
+    t.string   "name",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "file_data"
+    t.index ["category_id"], name: "index_datasets_on_category_id", using: :btree
+    t.index ["country_id"], name: "index_datasets_on_country_id", using: :btree
+    t.index ["user_id"], name: "index_datasets_on_user_id", using: :btree
+  end
+
   create_table "documented_items", force: :cascade do |t|
     t.string   "documentable_type"
     t.integer  "documentable_id"
@@ -198,7 +211,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.string   "name"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.integer  "file_file_size"
+    t.bigint   "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -210,7 +223,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -220,8 +233,8 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "event"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -393,7 +406,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.text     "summary"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "url_resource"
@@ -401,8 +414,8 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "library"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -456,7 +469,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.string   "role"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "slug"
     t.datetime "created_at",         null: false
@@ -473,15 +486,15 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "news"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -553,8 +566,7 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
-  create_table "sessions", id: false, force: :cascade do |t|
-    t.serial   "id",         null: false
+  create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
