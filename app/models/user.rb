@@ -25,6 +25,8 @@ class User < ApplicationRecord
   
   has_secure_token
 
+  has_many :datasets
+  
   # This method is not available in has_secure_token
   def invalidate_token
     self.update_columns(token: nil)
