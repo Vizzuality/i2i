@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
-import { format } from 'd3-format';
+import numeral from 'numeral';
 import groupBy from 'lodash/groupBy';
 import maxBy from 'lodash/maxBy';
 
-const numberFormat = format('.2s');
+const formatNumber = n => n && numeral(n).format('$0,0.000a').toUpperCase();
 
 function colorScale(n) {
   const colors = ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e', '#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc', '#e67300', '#8b0707', '#651067', '#329262', '#5574a6', '#3b3eac'];
@@ -64,7 +64,7 @@ class RegionGDPOverTime extends PureComponent {
             dataKey="max"
             axisLine={false}
             tickLine={false}
-            tickFormatter={numberFormat}
+            tickFormatter={formatNumber}
             style={{ fontSize: 11 }}
             padding={{ top: 30 }}
             label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
@@ -80,7 +80,7 @@ class RegionGDPOverTime extends PureComponent {
               stackId="year"
             />
           ))}
-          <Tooltip formatter={value => numberFormat(value)} />
+          <Tooltip formatter={value => formatNumber(value)} />
           <Legend />
         </LineChart>
       </ResponsiveContainer>

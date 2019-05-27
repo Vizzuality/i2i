@@ -4,10 +4,10 @@ import axios from 'axios';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import groupBy from 'lodash/groupBy';
-import { format } from 'd3-format';
+import numeral from 'numeral';
 
 const bucket = ['#2F939C', '#001D22', '#F9D031', '#F95E31'];
-const numberFormat = format('.2s');
+const formatNumber = n => numeral(n).format('$0,0.000a').toUpperCase();
 
 class CountryGDPBySector extends PureComponent {
   static serialize = (data) => {
@@ -71,7 +71,7 @@ class CountryGDPBySector extends PureComponent {
               stackId="year"
             />
           ))}
-          <Tooltip formatter={value => numberFormat(value)} cursor={false} />
+          <Tooltip formatter={value => formatNumber(value)} cursor={false} />
           <Legend />
         </BarChart>
       </ResponsiveContainer>

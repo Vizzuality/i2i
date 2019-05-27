@@ -614,7 +614,7 @@
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
-        height: chartDimensions.height
+        height: chartDimensions.height + 30
       });
     },
 

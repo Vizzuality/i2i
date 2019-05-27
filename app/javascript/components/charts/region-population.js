@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
-import { format } from 'd3-format';
+import numeral from 'numeral';
 import groupBy from 'lodash/groupBy';
 
-const numberFormat = format('.2s');
+const formatNumber = n => numeral(n).format('0,0.0a').toUpperCase();
 
 function colorScale(n) {
   const colors = ['#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477', '#66aa00', '#b82e2e', '#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc', '#e67300', '#8b0707', '#651067', '#329262', '#5574a6', '#3b3eac'];
@@ -62,7 +62,7 @@ class RegionPopulation extends PureComponent {
           <YAxis
             axisLine={false}
             tickLine={false}
-            tickFormatter={numberFormat}
+            tickFormatter={formatNumber}
             style={{ fontSize: 11 }}
           />
           <CartesianGrid strokeDasharray="3 3" />
@@ -77,7 +77,7 @@ class RegionPopulation extends PureComponent {
             />
           ))}
           <Legend />
-          <Tooltip formatter={value => numberFormat(value)} />
+          <Tooltip formatter={value => formatNumber(value)} />
         </AreaChart>
       </ResponsiveContainer>
     );
