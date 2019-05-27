@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import DatasetsList from 'components/datasets_list/component';
-import NewDataset from 'components/datasets/form/component';
+import DatasetsList from 'components/datasets/datasets_list/component';
+import DatasetForm from 'components/datasets/form/component';
 
 import './styles.scss';
 
@@ -10,8 +10,10 @@ import './styles.scss';
 class SidebarComponent extends PureComponent {
   static propTypes = {
     open: PropTypes.bool.isRequired,
-    active: PropTypes.bool.isRequired
-  }
+    datasets: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired,
+    countries: PropTypes.array.isRequired
+  };
 
   constructor(props) {
     super(props);
@@ -23,7 +25,7 @@ class SidebarComponent extends PureComponent {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewDataset = this.addNewDataset.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.deleteFruit = this.deleteFruit.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
@@ -33,25 +35,34 @@ class SidebarComponent extends PureComponent {
   }
 
   handleDelete(id) {
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
-    fetch(`/datasets/${id}`,
-    { method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf } })
-      .then((response) => { this.deleteFruit(id); });
+    fetch(
+      `/datasets/${id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
+      }
+    )
+      .then(response => this.deleteItem(id));
   }
 
   handleUpdate(dataset) {
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
-    fetch(`/datasets/${dataset.id}`,
+    fetch(
+      `/datasets/${dataset.id}`,
       {
         method: 'PUT',
-        body: JSON.stringify({ dataset: dataset }),
+        body: JSON.stringify({ dataset }),
         headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
-      }).then((response) => {
-      this.updateDataset(dataset);
-      this.setState({ editMode: !this.state.editMode });
-    });
+      }
+    )
+      .then(response => response.json())
+      .then((data) => {
+        this.updateDataset(data);
+        this.setState({ editMode: !this.state.editMode, editableDataset: null });
+      });
   }
 
   handlePublish(dataset) {
@@ -63,30 +74,41 @@ class SidebarComponent extends PureComponent {
         headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
       })
       .then(response => response.json())
-      .then((datasetJson) => {
-        this.updateDataset(datasetJson);
+      .then((data) => {
+        this.updateDataset(data);
       });
   }
 
   handleMultipartUpdate(dataset, id) {
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
-    fetch(`/datasets/${id}`,
+    fetch(
+      `/datasets/${id}`,
       {
         method: 'PUT',
         headers: { 'X-CSRF-Token': csrf },
         body: dataset
-      }).then((response) => {
-      this.updateDataset(dataset);
-      this.setState({ editMode: !this.state.editMode });
-    });
+      }
+    )
+      .then(response => response.json())
+      .then((data) => {
+        this.updateDataset(data);
+        this.setState({ editMode: !this.state.editMode, editableDataset: null });
+      });
   }
 
   updateDataset(dataset) {
-    const datasetsList = this.state.datasets.filter(ds => ds.id !== dataset.id);
-    datasetsList.push(dataset);
+    this.setState((state) => {
+      const datasetsList = state.datasets.map((item) => {
+        if (item.id === dataset.id) {
+          return dataset;
+        } else {
+          return item;
+        }
+      });
 
-    this.setState({ datasets: datasetsList });
+      return { datasets: datasetsList };
+    });
   }
 
   handleEdit(id) {
@@ -95,42 +117,36 @@ class SidebarComponent extends PureComponent {
     this.setState({ editMode: !this.state.editMode, editableDataset });
   }
 
-  deleteFruit(id) {
-    const datasetsList = this.state.datasets.filter((dataset) => dataset.id !== id);
+  deleteItem(id) {
+    const datasetsList = this.state.datasets.filter(dataset => dataset.id !== id);
     this.setState({ datasets: datasetsList });
   }
 
   handleFormSubmit(datasetData) {
-    console.log(datasetData);
-
-    // const body = JSON.stringify({ dataset: { ...datasetData } });
     const body = datasetData;
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
-    fetch('/datasets', {
-      method: 'POST',
-      headers: { 'X-CSRF-Token': csrf },
-      body
-    }).then((response) => { return response.json(); })
+    fetch(
+      '/datasets',
+      {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrf },
+        body
+      }
+    )
+      .then(response => response.json())
       .then((dataset) => {
         this.addNewDataset(dataset);
-        this.setState({editMode: !this.state.editMode});
+        this.setState({ editMode: !this.state.editMode });
       });
+  }
+
+  addNewDataset(dataset) {
+    this.setState({ datasets: this.state.datasets.concat(dataset) });
   }
 
   handleBackButton() {
     this.setState({ editMode: false, editableDataset: null });
-  }
-
-  addNewDataset(dataset) {
-    console.log(dataset)
-    this.setState({ datasets: this.state.datasets.concat(dataset) });
-  }
-
-  componentDidMount() {
-    fetch('/datasets.json')
-      .then((response) => { return response.json(); })
-      .then((data) => { this.setState({ datasets: data }); });
   }
 
   onToggleSidebar = () => {
@@ -144,7 +160,7 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { open, active } = this.props;
+    const { open } = this.props;
     const classNames = classnames({
       'c-sidebar': true,
       '-open': !!open
@@ -155,7 +171,7 @@ class SidebarComponent extends PureComponent {
         <div className="overflow-container">
           {!this.state.editMode &&
             <p className="description">
-              Click on a dataset to preview data on the map.<br/>
+              Click on a dataset to preview data on the map.<br />
               Publish a dataset to send it for review. After approval, it will be shown on country page.
             </p>
           }
@@ -177,7 +193,7 @@ class SidebarComponent extends PureComponent {
 
 
           {this.state.editMode &&
-            <NewDataset
+            <DatasetForm
               handleFormSubmit={this.handleFormSubmit}
               handleBackButton={this.handleBackButton}
               handleMultipartUpdate={this.handleMultipartUpdate}

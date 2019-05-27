@@ -1,22 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Select from 'react-select';
 import DropzoneUploader from 'react-dropzone-uploader';
-import 'react-dropzone-uploader/dist/styles.css';
 
+import 'react-dropzone-uploader/dist/styles.css';
 import './styles.scss';
 
-class NewDataset extends React.Component {
+class DatasetForm extends React.Component {
+  static propTypes = {
+    editMode: PropTypes.bool,
+    dataset: PropTypes.object,
+    countries: PropTypes.array,
+    categories: PropTypes.array,
+    handleUpdate: PropTypes.func.isRequired,
+    handleFormSubmit: PropTypes.func.isRequired,
+    handleBackButton: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
 
-    if (this.props.editMode && this.props.dataset ) {
-      const countryOptions = this.props.countries.map(country => { return { value: country.id, label: country.name }; });
-      const categoryOptions = this.props.categories.map(category => { return { value: category[1], label: category[0] }; });
+    if (this.props.editMode && this.props.dataset) {
+      const countryOptions =
+        this.props.countries.map(country => ({ value: country.id, label: country.name }));
+      const categoryOptions =
+        this.props.categories.map(category => ({ value: category[1], label: category[0] }));
 
-      const selectedCountry = countryOptions.find(country => country.value === this.props.dataset.country_id)
-      const selectedCategory = categoryOptions.find(category => category.value === this.props.dataset.category)
+      const selectedCountry =
+        countryOptions.find(country => country.value === this.props.dataset.country_id);
+      const selectedCategory =
+        categoryOptions.find(category => category.value === this.props.dataset.category);
+
       let filename = null;
-
       if (this.props.dataset.file_data) {
         const meta = JSON.parse(this.props.dataset.file_data).metadata;
         if (meta && meta.filename) {
@@ -26,12 +42,11 @@ class NewDataset extends React.Component {
 
       this.state = {
         name: this.props.dataset.name,
-        selectedCountry: selectedCountry,
-        selectedCategory: selectedCategory,
-        filename: filename
+        selectedCountry,
+        selectedCategory,
+        filename
       };
-    }
-    else {
+    } else {
       this.state = {
         name: '',
         selectedCountry: null,
@@ -41,7 +56,7 @@ class NewDataset extends React.Component {
     }
 
     this.handleEdit = this.handleEdit.bind(this);
-  };
+  }
 
   handleChange = (event) => {
     const { target } = event;
@@ -50,7 +65,6 @@ class NewDataset extends React.Component {
 
     this.setState({ [name]: value });
   };
-
 
   handleCountryChange = (selectedCountry) => {
     this.setState({ selectedCountry });
@@ -86,44 +100,31 @@ class NewDataset extends React.Component {
   handleEdit() {
     // If file was changed, need te prepare FormData object
     // and send request as 'multipart/form-data'
-    const file = null;
     if (this.state.selectedFile) {
       const formData = this.buildFormData();
       const id =  this.props.dataset.id;
       this.props.handleMultipartUpdate(formData, id);
     }
     else {
-      let id = this.props.dataset.id;
-      let name = this.state.name;
-      let country = this.state.selectedCountry.value;
-      let category = this.state.selectedCategory.value;
-      let dataset = { id: id, name: name, category: category, country_id: country };
+      const id = this.props.dataset.id;
+      const name = this.state.name;
+      const country = this.state.selectedCountry.value;
+      const category = this.state.selectedCategory.value;
+      const dataset = { id, name, category, country_id: country };
       this.props.handleUpdate(dataset);
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    if (this.props.editMode && this.props.dataset) {
-      this.handleEdit();
-    } else {
-      this.props.handleFormSubmit(this.buildFormData());
-    }
-
-    event.target.reset();
-  }
-
   render() {
     const { selectedCountry, selectedCategory } = this.state;
-    const countryOptions = this.props.countries.map(country => ({ value: country.id, label: country.name }));
-    const categoryOptions = this.props.categories.map(category => ({ value: category[1], label: category[0] }));
-
+    const countryOptions =
+      this.props.countries.map(country => ({ value: country.id, label: country.name }));
+    const categoryOptions =
+      this.props.categories.map(category => ({ value: category[1], label: category[0] }));
     const title = this.props.editMode && this.props.dataset ? 'Edit dataset' : 'Upload dataset';
     const description = 'Check expected format of this CSV template to upload a valid file.';
-    const defaultNameValue = this.props.editMode && this.props.dataset ? this.props.dataset.name : '';
+    // const defaultNameValue = this.props.editMode && this.props.dataset ? this.props.dataset.name : '';
     const submitButtonTitle = this.props.editMode && this.props.dataset ? 'Save changes' : 'Done';
-
 
     return (
       <div className="dataset-form">
@@ -134,7 +135,11 @@ class NewDataset extends React.Component {
 
         <form onSubmit={(e) => {
           e.preventDefault();
-          this.props.editMode && this.props.dataset ? this.handleEdit() : this.props.handleFormSubmit(this.buildFormData());
+          if (this.props.editMode && this.props.dataset) {
+            this.handleEdit();
+          } else {
+            this.props.handleFormSubmit(this.buildFormData());
+          }
           e.target.reset();
         }}
         >
@@ -155,7 +160,13 @@ class NewDataset extends React.Component {
 
           <div className="input-field">
             <label>Dataset Name</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} defaultValue={defaultNameValue} placeholder="Type a name" />
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+              placeholder="Type a name"
+            />
           </div>
 
           <div className="input-field">
@@ -163,7 +174,7 @@ class NewDataset extends React.Component {
             <Select
               value={selectedCountry}
               onChange={this.handleCountryChange}
-              placeholder={'Choose one country'}
+              placeholder="Choose one country"
               options={countryOptions}
             />
           </div>
@@ -173,7 +184,7 @@ class NewDataset extends React.Component {
             <Select
               value={selectedCategory}
               onChange={this.handleCategoryChange}
-              placeholder={'Choose one category'}
+              placeholder="Choose one category"
               options={categoryOptions}
             />
           </div>
@@ -185,4 +196,4 @@ class NewDataset extends React.Component {
   }
 }
 
-export default NewDataset;
+export default DatasetForm;
