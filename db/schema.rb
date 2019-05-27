@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190521001411) do
+ActiveRecord::Schema.define(version: 20190527111103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,19 @@ ActiveRecord::Schema.define(version: 20190521001411) do
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_country_regions_on_country_id", using: :btree
     t.index ["region_id"], name: "index_country_regions_on_region_id", using: :btree
+  end
+
+  create_table "datasets", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "country_id"
+    t.integer  "user_id"
+    t.string   "name",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "file_data"
+    t.index ["category_id"], name: "index_datasets_on_category_id", using: :btree
+    t.index ["country_id"], name: "index_datasets_on_country_id", using: :btree
+    t.index ["user_id"], name: "index_datasets_on_user_id", using: :btree
   end
 
   create_table "documented_items", force: :cascade do |t|
@@ -496,10 +509,11 @@ ActiveRecord::Schema.define(version: 20190521001411) do
   end
 
   create_table "partners", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",        default: "", null: false
     t.text     "logo_data"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "website_url"
   end
 
   create_table "populations", force: :cascade do |t|
