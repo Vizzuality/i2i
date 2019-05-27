@@ -1,6 +1,10 @@
 <div class="grid-s-6 grid-m-6 grid-l-4 region-button">
   <div class="c-flag" style='background-image: url("<%= region.flag_url(:thumb) %>"); color: <%=region.flag_url(:thumb).present? ? '#F7F7F7' : '#001D22' %>;'>
-    <%= link_to region.name, regions_path(region.iso), data: { turbolinks: false } %>
+    <% if controller_name == 'national_surveys' %>
+      <%= link_to region.name, data_portal_y_region_path(region.iso, region.finscope[:latest_year]), data: { turbolinks: false } %>
+    <% else %>
+      <%= link_to region.name, regions_path(region.iso), data: { turbolinks: false } %>
+    <% end %>
     <span class="region-name">
       <%= region.name %>
     </span>

@@ -29,13 +29,11 @@
                 <div class="row">
                   <div class="grid-l-8 grid-m-8">
                     <div class="row">
-                      <!-- TODO: Check if country does export -->
                       <% if true %>
                         <p class="subtitle">
                           Exports:
                           <span style="color: #fff; font-weight: 400;">
-                            <!-- TODO: Change real exports -->
-                            <%= ['gold', 'cashew nuts', 'coffee', 'cotton'].join(', ').capitalize %>
+                            <%= @commodities.description %>
                           </span>
                         </p>
                       <% end %>
@@ -56,38 +54,19 @@
                     </div>
                   </div>
 
-                  <!-- TODO: Check if capital and additional capital data is present -->
-                  <% if true %>
+                  <% if @capital %>
                     <div class="grid-l-4 grid-m-4" style="padding-top: 10px; display: flex;">
                       <div style="display: flex; flex-direction: column;">
                         <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 24px; line-height: 30px; font-weight: 700;">
-                          <!-- TODO: Change to real data <%#= @country.capital %>-->
-                          Dodoma
+                          <%= @capital.name %>
                         </h3>
 
                         <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                          Official capital
+                          <%= @capital.capital_type %>
                         </p>
 
                         <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                          <!-- TODO: Change to real data <%#= "#{@country.formatted_capital_population}" %>-->
-                          Population: 2.08 M
-                        </p>
-                      </div>
-
-                      <div style="display: flex; flex-direction: column; margin-left: 36px">
-                        <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 24px; line-height: 30px; font-weight: 700;">
-                          <!-- TODO: Change to real data <%#= @country.another_capital %>-->
-                          Dodoma 2
-                        </h3>
-
-                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                          Another capital
-                        </p>
-
-                        <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                          <!-- TODO: Change to real data <%#= "#{@country.formatted_another_capital_population}" %>-->
-                          Population: 3.45 M
+                          Population: <%= number_with_delimiter(@capital.population, :delimiter => ',') %> M
                         </p>
                       </div>
                     </div>

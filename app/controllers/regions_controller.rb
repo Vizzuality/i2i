@@ -1,7 +1,7 @@
 class RegionsController < ApplicationController
   def show
     @region = Region.includes(:countries, :partners).friendly.find(params[:iso].to_s.downcase)
-    @finscope_countries = Region.finscope_region_list.map { |country_hash| country_hash[:iso] }
+    @finscope_countries = Country.finscope_country_list.map { |country_hash| country_hash[:iso] }
 
     @country_finscope = @region.finscope
 

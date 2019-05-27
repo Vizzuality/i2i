@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190524143615) do
+ActiveRecord::Schema.define(version: 20190527125957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.string   "record_type",        default: "blog"
     t.integer  "category_id"
+    t.string   "record_type",        default: "blog"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.datetime "updated_at", null: false
     t.index ["blog_id"], name: "index_blogs_regions_on_blog_id", using: :btree
     t.index ["region_id"], name: "index_blogs_regions_on_region_id", using: :btree
+  end
+
+  create_table "capital_cities", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "population"
+    t.string   "country_iso"
+    t.string   "capital_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -109,6 +118,13 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+  end
+
+  create_table "commodities", force: :cascade do |t|
+    t.string   "country_iso"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -211,7 +227,7 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.string   "name"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.bigint   "file_file_size"
+    t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -223,7 +239,7 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -233,8 +249,8 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.string   "record_type",        default: "event"
     t.integer  "category_id"
+    t.string   "record_type",        default: "event"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -406,7 +422,7 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.text     "summary"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "url_resource"
@@ -414,8 +430,8 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "record_type",        default: "library"
     t.integer  "category_id"
+    t.string   "record_type",        default: "library"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -469,7 +485,7 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.string   "role"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "slug"
     t.datetime "created_at",         null: false
@@ -486,15 +502,15 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.bigint   "image_file_size"
+    t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.string   "record_type",        default: "news"
     t.integer  "category_id"
+    t.string   "record_type",        default: "news"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -509,10 +525,11 @@ ActiveRecord::Schema.define(version: 20190524143615) do
   end
 
   create_table "partners", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
+    t.string   "name",        default: "", null: false
     t.text     "logo_data"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "website_url"
   end
 
   create_table "populations", force: :cascade do |t|
@@ -566,7 +583,8 @@ ActiveRecord::Schema.define(version: 20190524143615) do
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
-  create_table "sessions", force: :cascade do |t|
+  create_table "sessions", id: false, force: :cascade do |t|
+    t.serial   "id",         null: false
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"

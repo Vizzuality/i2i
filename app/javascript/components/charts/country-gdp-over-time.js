@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
-import { format } from 'd3-format';
+import numeral from 'numeral';
 
 const bucket = ['#2F939C', '#001D22', '#F9D031', '#F95E31'];
-const numberFormat = format('.2s');
+const formatNumber = n => numeral(n).format('$0,0.000a').toUpperCase();
 
 class CountryGDPOverTime extends PureComponent {
   static propTypes = { iso: PropTypes.string.isRequired }
@@ -48,7 +48,7 @@ class CountryGDPOverTime extends PureComponent {
             axisLine={false}
             tickLine={false}
             orientation="right"
-            tickFormatter={numberFormat}
+            tickFormatter={formatNumber}
             style={{ fontSize: 11 }}
             tick={{ position: 'insideRight' }}
             padding={{ top: 30 }}
@@ -60,7 +60,7 @@ class CountryGDPOverTime extends PureComponent {
             stroke={bucket[0]}
             dot={{ strokeWidth: 1 }}
           />
-          <Tooltip formatter={value => [numberFormat(value), null]} />
+          <Tooltip formatter={value => [formatNumber(value), null]} />
         </LineChart>
       </ResponsiveContainer>
     );
