@@ -15,6 +15,15 @@
       width: 100%;
       padding: 10px 20px;
     }
+
+    &:disabled {
+      opacity: .7;
+      pointer-events: auto;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
   }
 
   .action-button {

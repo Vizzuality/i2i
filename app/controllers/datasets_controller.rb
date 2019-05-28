@@ -12,7 +12,7 @@ class DatasetsController < ApplicationController
     @countries = Country.all
     @latest_year = @country.finscope[:latest_year] rescue nil
     
-    @datasets = current_user.datasets
+    @datasets = current_user.datasets.order(:created_at)
     
     respond_to do |format|
       format.html { render layout: 'data_portal' }
