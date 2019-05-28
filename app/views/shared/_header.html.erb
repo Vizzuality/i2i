@@ -30,7 +30,6 @@
         <% if current_user %>
           <li class="nav-item -with-dropdown <% if current_page?(account_path) || current_page?(datasets_path) %> -current <% end%>" aria-haspopup="true">
             <%= link_to current_user.name_or_email, account_path, data: { turbolinks: false } %>
-
             <div>
               <ul aria-label="submenu">
                 <li>
