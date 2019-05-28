@@ -22,7 +22,11 @@ class RegionGDPOverTime extends PureComponent {
     const result = {
       countries: countryKeys,
       years: Object.keys(dataByYear).map((year) => {
-        const d = { year, max: maxBy(dataByYear[year], 'value').value };
+        const d = {
+          year,
+          max: maxBy(dataByYear[year], 'value').value,
+          Total: dataByYear[year].map(d => d.value).reduce((a, b) => a + b),
+        };
         countryKeys.forEach((country) => {
           const dataByCountry = dataByYear[year].find(d => d.country === country);
           d[country] = dataByCountry && dataByCountry.value;
@@ -79,9 +83,15 @@ class RegionGDPOverTime extends PureComponent {
               stroke={colorScale(i)}
               fill={colorScale(i)}
               dot={{ strokeWidth: 1 }}
-              stackId="year"
             />
           ))}
+          <Line
+            dataKey="Total"
+            stroke="#2f939c"
+            fill="#2f939c"
+            dot={{ strokeWidth: 1 }}
+            strokeWidth={3}
+          />
           <Tooltip formatter={value => formatNumber(value)} />
           <Legend />
         </LineChart>
