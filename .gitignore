@@ -33,6 +33,7 @@
 
 # Dumps
 *.dump
+dump.sql
 
 # Generated assets
 /vendor/bundle
