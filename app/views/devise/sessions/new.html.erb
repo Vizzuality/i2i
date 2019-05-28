@@ -1,4 +1,4 @@
-<div class="l-homepage">
+<div class="l-account">
   <div class="l-intro js-hero" style="background-image: url(<%= asset_path('headers/header-bg-home.jpg') %>)">
     <div class="fixed-nav js-fixed-nav">
       <div class="wrapper">
@@ -12,37 +12,36 @@
       <div class="row">
         <div class="grid-s-12">
           <div class="l-form-contact" style="display: flex; justify-content: center;">
-            <div class="grid-s-8 grid-m-6">
-              <h2>Log in</h2>
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "c-form contact-form" }) do |f| %>
-                <div class="field custom-row">
-                  <%= f.label :email, 'EMAIL' %><br />
-                  <%= f.email_field :email, autofocus: true %>
-                </div>
+            <div class="grid-s-11 grid-m-8">
+              <div class="form-box">
+                <h2 class="form-header">Log in</h2>
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "c-form account-form" }) do |f| %>
 
-                <div class="field custom-row">
-                  <%= f.label :password, 'PASSWORD' %><br />
-                  <%= f.password_field :password, autocomplete: "off" %>
-                </div>
+                  <div class="field custom-row">
+                    <%= f.label :email, 'EMAIL' %>
+                    <%= f.email_field :email, autofocus: true %>
+                  </div>
 
-                <br/>
+                  <div class="field custom-row">
+                    <%= f.label :password, 'PASSWORD' %>
+                      <div class="password-wrapper">
+                        <%= f.password_field :password, autocomplete: "off"%>
+                        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                          <%= link_to "Reset", new_password_path(resource_name) %>
+                      </div>
+                    <% end -%>
+                  </div>
 
-                <div class="actions">
-                  <%= f.submit "Log in" %>
+                  <div class="form-actions">
+                    <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                      <%= link_to "Register", new_registration_path(resource_name), :class => 'primary'%>
+                    <% end -%>
+
+                    <%= f.submit "Log in", :class => 'secondary' %>
+
                 </div>
+              </div>
               <% end %>
-
-              <br/>
-
-              <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-                <%= link_to "Register", new_registration_path(resource_name) %><br />
-              <% end -%>
-
-              <br/>
-
-              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-                <%= link_to "Reset", new_password_path(resource_name) %><br />
-              <% end -%>
             </div>
           </div>
         </div>

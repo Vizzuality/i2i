@@ -7,6 +7,7 @@ import numeral from 'numeral';
 import groupBy from 'lodash/groupBy';
 import maxBy from 'lodash/maxBy';
 
+const formatNumberForAxis = n => n && numeral(n).format('$0,0a').toUpperCase();
 const formatNumber = n => n && numeral(n).format('$0,0.000a').toUpperCase();
 
 function colorScale(n) {
@@ -20,10 +21,15 @@ class RegionGDPOverTime extends PureComponent {
     const dataByYear = groupBy(data, 'year');
     const result = {
       countries: countryKeys,
-      years: Object.keys(dataByYear).map((key) => {
-        const d = { year: key, max: maxBy(dataByYear[key], 'value').value };
-        countryKeys.forEach((k, i) => {
-          d[k] = dataByYear[key][i].value;
+      years: Object.keys(dataByYear).map((year) => {
+        const d = {
+          year,
+          max: maxBy(dataByYear[year], 'value').value,
+          Total: dataByYear[year].map(d => d.value).reduce((a, b) => a + b),
+        };
+        countryKeys.forEach((country) => {
+          const dataByCountry = dataByYear[year].find(d => d.country === country);
+          d[country] = dataByCountry && dataByCountry.value;
         });
         return d;
       })
@@ -64,7 +70,7 @@ class RegionGDPOverTime extends PureComponent {
             dataKey="max"
             axisLine={false}
             tickLine={false}
-            tickFormatter={formatNumber}
+            tickFormatter={formatNumberForAxis}
             style={{ fontSize: 11 }}
             padding={{ top: 30 }}
             label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
@@ -77,9 +83,15 @@ class RegionGDPOverTime extends PureComponent {
               stroke={colorScale(i)}
               fill={colorScale(i)}
               dot={{ strokeWidth: 1 }}
-              stackId="year"
             />
           ))}
+          <Line
+            dataKey="Total"
+            stroke="#2f939c"
+            fill="#2f939c"
+            dot={{ strokeWidth: 1 }}
+            strokeWidth={3}
+          />
           <Tooltip formatter={value => formatNumber(value)} />
           <Legend />
         </LineChart>

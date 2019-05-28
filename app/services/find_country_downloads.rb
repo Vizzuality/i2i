@@ -42,7 +42,7 @@ class FindCountryDownloads
         end
 
         result << OpenStruct.new(
-          name: "National Surveys #{year_data['year'].to_s}",
+          name: "National Surveys data (#{year_data['year'].to_s})",
           url: "#{ENV['API_URL']}/country/#{country.iso}/#{year_data['year']}/download",
           html_class: "api-#{year_data['year']}",
           zip: false

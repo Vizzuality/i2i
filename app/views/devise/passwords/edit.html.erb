@@ -6,14 +6,14 @@
       </div>
     </div>
   </div>
-
   <div class="l-content">
     <div class="wrapper">
       <div class="row">
         <div class="grid-s-12">
           <div class="l-form-contact" style="display: flex; justify-content: center;">
-            <div class="grid-s-8 grid-m-6">
-              <h2>Reset password</h2>
+            <div class="grid-s-11 grid-m-8">
+              <div class="form-box">
+                <h2 class="form-header">Reset your password</h2>
               <p>
                 Type your new password:
               </p>
@@ -23,7 +23,7 @@
                 <%= f.hidden_field :reset_password_token %>
 
                 <div class="field custom-row">
-                  <%= f.label :password, "NEW PASSWORD" %><br />
+                  <%= f.label :password, "NEW PASSWORD" %>
                   <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
                 </div>
 

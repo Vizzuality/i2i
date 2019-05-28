@@ -20,7 +20,11 @@
       align-self: stretch;
 
       &:not(:first-child) {
-        margin: 0 0 0 60px;
+        margin: 0 0 0 40px;
+      }
+
+      &.-close {
+        margin-left: 30px;
       }
 
       > a,
