@@ -22,11 +22,11 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-  
+
   has_secure_token
 
   has_many :datasets
-  
+
   # This method is not available in has_secure_token
   def invalidate_token
     self.update_columns(token: nil)
@@ -38,11 +38,11 @@ class User < ApplicationRecord
       user
     end
   end
-  
+
   def name_or_email
     full_name.presence || email
   end
-  
+
   def full_name
     [name, surname].join(' ')
   end
