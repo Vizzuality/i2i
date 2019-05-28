@@ -20,7 +20,8 @@ class SidebarComponent extends PureComponent {
     this.state = {
       datasets: this.props.datasets,
       editMode: false,
-      editableDataset: null
+      editableDataset: null,
+      open: this.props.open
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewDataset = this.addNewDataset.bind(this);
@@ -152,7 +153,7 @@ class SidebarComponent extends PureComponent {
   onToggleSidebar = () => {
     const { open } = this.props;
 
-    // setOpenSidebar(!open);
+    this.setState({ open: !this.state.open });
   }
 
   toggleEditMode = () => {
@@ -160,7 +161,7 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { open } = this.props;
+    const { open } = this.state;
     const classNames = classnames({
       'c-sidebar': true,
       '-open': !!open
