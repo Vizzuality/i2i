@@ -15,10 +15,11 @@ class CountryGDPBySector extends PureComponent {
     const dataByYear = groupBy(data, 'year');
     const result = {
       sectors: sectorsKeys,
-      years: Object.keys(dataByYear).map((key) => {
-        const d = { year: key };
-        sectorsKeys.forEach((k, i) => {
-          d[k] = dataByYear[key][i].value;
+      years: Object.keys(dataByYear).map((year) => {
+        const d = { year };
+        sectorsKeys.forEach((sector) => {
+          const dataBySector = dataByYear[year].find(d => d.sector === sector);
+          d[sector] = dataBySector && dataBySector.value;
         });
         return d;
       })
@@ -48,13 +49,7 @@ class CountryGDPBySector extends PureComponent {
 
     return (
       <ResponsiveContainer width="100%" height={180}>
-        <BarChart layout="vertical" data={data.years} stackOffset="expand">
-          <XAxis
-            type="number"
-            hide
-            unit="$"
-            label={{ value: 'US $', position: 'insideTopLeft', fontSize: 11, fontWeight: 'bold' }}
-          />
+        <BarChart data={data.years} layout="vertical">
           <YAxis
             axisLine={false}
             type="category"
@@ -62,13 +57,14 @@ class CountryGDPBySector extends PureComponent {
             tickLine={false}
             style={{ fontSize: 11, fontWeight: 'bold' }}
           />
+          <XAxis type="number" hide />
           {data.sectors.map((key, i) => (
             <Bar
               key={key}
               barSize={10}
               dataKey={key}
               fill={bucket[i]}
-              stackId="year"
+              stackId="stackedByYear"
             />
           ))}
           <Tooltip formatter={value => formatNumber(value)} cursor={false} />

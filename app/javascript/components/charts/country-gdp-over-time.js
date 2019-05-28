@@ -6,6 +6,7 @@ import Spinner from 'wri-api-components/dist/spinner';
 import numeral from 'numeral';
 
 const bucket = ['#2F939C', '#001D22', '#F9D031', '#F95E31'];
+const formatNumberForAxis = n => n && numeral(n).format('$0,0a').toUpperCase();
 const formatNumber = n => numeral(n).format('$0,0.000a').toUpperCase();
 
 class CountryGDPOverTime extends PureComponent {
@@ -48,7 +49,7 @@ class CountryGDPOverTime extends PureComponent {
             axisLine={false}
             tickLine={false}
             orientation="right"
-            tickFormatter={formatNumber}
+            tickFormatter={formatNumberForAxis}
             style={{ fontSize: 11 }}
             tick={{ position: 'insideRight' }}
             padding={{ top: 30 }}

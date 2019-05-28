@@ -19,10 +19,11 @@ class RegionPopulation extends PureComponent {
     const dataByYear = groupBy(data, 'year');
     const result = {
       countries: countryKeys,
-      years: Object.keys(dataByYear).map((key) => {
-        const d = { year: key };
-        countryKeys.forEach((k, i) => {
-          d[k] = dataByYear[key][i].value;
+      years: Object.keys(dataByYear).map((year) => {
+        const d = { year };
+        countryKeys.forEach((country) => {
+          const dataByCountry = dataByYear[year].find(d => d.country === country);
+          d[country] = dataByCountry && dataByCountry.value;
         });
         return d;
       })
