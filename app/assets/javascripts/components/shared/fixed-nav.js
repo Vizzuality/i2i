@@ -47,6 +47,8 @@
 
       if(bottomSpace <= this.options.navHeight) {
         this.$fixedNav.removeClass(this.options.classes.hidden);
+      } else {
+        this.$fixedNav.addClass(this.options.classes.hidden);
       }
     },
 

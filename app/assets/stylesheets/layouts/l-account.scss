@@ -52,21 +52,6 @@
       font-weight: $font-weight-bold;
       text-transform: uppercase;
     }
-    .password-wrapper {
-      background-color: #e8f0fe;
-      display: flex;
-      justify-content: space-between;
-      a {
-        color: #2F939C;
-        margin: auto;
-        text-decoration: underline;
-        width: 100%;
-        text-align: end;
-        padding-right: 15px;
-        font-weight: 700;
-        line-height: 30px;
-      }
-    }
 
     .form-actions {
       margin-top: 40px;
@@ -102,6 +87,15 @@
         box-shadow: none;
         padding-right: 0;
       }
+    }
+
+    .reset-btn {
+      display: flex;
+      color: #2F939C;
+      text-decoration: underline;
+      font-weight: 700;
+      line-height: 30px;
+      padding: 45px;
     }
 
     #error_explanation {
