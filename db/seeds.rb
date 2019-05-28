@@ -66,6 +66,8 @@ if CapitalCity.all.count == 0
     t.save
   end
 
+  CapitalCity.create(name: 'Dodoma', country_iso: 'TZA', capital_type: 'Capital', population: 410)
+
   puts "There are now #{CapitalCity.count} rows in the CapitalCity table"
 end
 
