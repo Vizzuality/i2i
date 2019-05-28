@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
+import { Area, Line, ComposedChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Legend, Tooltip } from 'recharts';
 import Spinner from 'wri-api-components/dist/spinner';
 import numeral from 'numeral';
 import groupBy from 'lodash/groupBy';
@@ -20,7 +20,7 @@ class RegionPopulation extends PureComponent {
     const result = {
       countries: countryKeys,
       years: Object.keys(dataByYear).map((year) => {
-        const d = { year };
+        const d = { year, Total: dataByYear[year].map(d => d.value).reduce((a, b) => a + b), };
         countryKeys.forEach((country) => {
           const dataByCountry = dataByYear[year].find(d => d.country === country);
           d[country] = dataByCountry && dataByCountry.value;
@@ -53,7 +53,7 @@ class RegionPopulation extends PureComponent {
 
     return (
       <ResponsiveContainer width="100%" height={440}>
-        <AreaChart data={data.years}>
+        <ComposedChart data={data.years}>
           <XAxis
             dataKey="year"
             style={{ fontSize: 11, fontWeight: 'bold' }}
@@ -77,9 +77,16 @@ class RegionPopulation extends PureComponent {
               stackId="year"
             />
           ))}
+          <Line
+            dataKey="Total"
+            stroke="#2f939c"
+            fill="#2f939c"
+            dot={false}
+            strokeWidth={0}
+          />
           <Legend />
           <Tooltip formatter={value => formatNumber(value)} />
-        </AreaChart>
+        </ComposedChart>
       </ResponsiveContainer>
     );
   }

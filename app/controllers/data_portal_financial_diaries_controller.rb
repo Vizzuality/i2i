@@ -132,7 +132,7 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     @country_carrier = CountryCarrier.new(@country)
 
-    @capital = CapitalCity.find_by(country_iso: @country.iso)
+    @capitals = CapitalCity.where(country_iso: @country.iso)
     @commodities = Commodity.find_by(country_iso: @country.iso)
   end
 end
