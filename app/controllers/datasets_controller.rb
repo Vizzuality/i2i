@@ -37,6 +37,13 @@ class DatasetsController < ApplicationController
     render json: dataset
   end
   
+  def publish
+    dataset = Dataset.find(params[:id])
+    dataset.update(status: :pending)
+
+    render json: dataset
+  end
+  
   private
   
   def dataset_params

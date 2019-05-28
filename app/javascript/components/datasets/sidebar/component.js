@@ -26,6 +26,7 @@ class SidebarComponent extends PureComponent {
     this.deleteFruit = this.deleteFruit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
     this.handleMultipartUpdate = this.handleMultipartUpdate.bind(this);
     this.updateDataset = this.updateDataset.bind(this);
     this.handleBackButton = this.handleBackButton.bind(this);
@@ -49,8 +50,22 @@ class SidebarComponent extends PureComponent {
         headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
       }).then((response) => {
       this.updateDataset(dataset);
-      this.setState({editMode: !this.state.editMode});
+      this.setState({ editMode: !this.state.editMode });
     });
+  }
+
+  handlePublish(dataset) {
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+
+    fetch(`/datasets/${dataset.id}/publish`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
+      })
+      .then(response => response.json())
+      .then((datasetJson) => {
+        this.updateDataset(datasetJson);
+      });
   }
 
   handleMultipartUpdate(dataset, id) {
@@ -67,7 +82,7 @@ class SidebarComponent extends PureComponent {
     });
   }
 
-  updateDataset(dataset){
+  updateDataset(dataset) {
     const datasetsList = this.state.datasets.filter(ds => ds.id !== dataset.id);
     datasetsList.push(dataset);
 
@@ -84,8 +99,6 @@ class SidebarComponent extends PureComponent {
     const datasetsList = this.state.datasets.filter((dataset) => dataset.id !== id);
     this.setState({ datasets: datasetsList });
   }
-
-
 
   handleFormSubmit(datasetData) {
     console.log(datasetData);
@@ -148,7 +161,12 @@ class SidebarComponent extends PureComponent {
           }
 
           {!this.state.editMode &&
-            <DatasetsList datasets={this.state.datasets} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />
+            <DatasetsList
+              datasets={this.state.datasets}
+              handleEdit={this.handleEdit}
+              handleDelete={this.handleDelete}
+              handlePublish={this.handlePublish}
+            />
           }
 
           {!this.state.editMode &&
