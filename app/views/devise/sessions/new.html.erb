@@ -18,13 +18,13 @@
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "c-form account-form" }) do |f| %>
 
                   <div class="field custom-row">
-                    <%= f.label :email, 'EMAIL' %>
-                    <%= f.email_field :email, autofocus: true %>
+                    <%= f.label :email, 'EMAIL *' %>
+                    <%= f.email_field :email, required: true, autofocus: true %>
                   </div>
 
                   <div class="field custom-row">
-                    <%= f.label :password, 'PASSWORD' %>
-                    <%= f.password_field :password, autocomplete: "off"%>
+                    <%= f.label :password, 'PASSWORD *' %>
+                    <%= f.password_field :password, required: true, autocomplete: "off"%>
                   </div>
                   <div class="form-actions">
                     <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

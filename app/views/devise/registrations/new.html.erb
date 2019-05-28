@@ -19,17 +19,17 @@
                   <%= devise_error_messages! %>
 
                   <div class="field custom-row">
-                    <%= f.label :email, 'EMAIL' %><br />
+                    <%= f.label :email, 'EMAIL *' %><br />
                     <%= f.email_field :email, required: true, autofocus: true %>
                   </div>
 
                   <div class="field custom-row">
-                    <%= f.label :password, 'PASSWORD' %><br />
+                    <%= f.label :password, 'PASSWORD *' %><br />
                     <%= f.password_field :password, required: true, autocomplete: "off" %>
                   </div>
 
                   <div class="field custom-row">
-                    <%= f.label :password_confirmation, 'REPEAT PASSWORD' %><br />
+                    <%= f.label :password_confirmation, 'REPEAT PASSWORD *' %><br />
                     <%= f.password_field :password_confirmation, required: true, autocomplete: "off" %>
                   </div>
 
