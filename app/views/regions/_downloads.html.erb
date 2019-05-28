@@ -17,7 +17,7 @@
 
     <% if downloads.any? %>
       <div class="row">
-        <%= render partial: 'regions/download_link', collection: downloads %>
+        <%= render partial: 'regions/download_link', collection: downloads, locals: { iso: iso, modal_downloads: modal_downloads } %>
       </div>
     <% else %>
       <div class="row">

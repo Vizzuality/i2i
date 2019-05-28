@@ -7,6 +7,7 @@ class CountryCarrier
 
   def downloads
     @downloads = FindCountryDownloads.new(country).perform
+    @downloads = @downloads.select { |d| !d.zip }
     @downloads.first(4)
   end
 
