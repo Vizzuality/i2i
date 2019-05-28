@@ -34,7 +34,17 @@
     font-family: $font-family-1;
     font-size: $font-size-xs;
     font-weight: $font-weight-light;
-
+    &.primary-btn {
+      padding: 14px 20px 11px;
+      border: 1px solid $color-1;
+      border-radius: 100px;
+      color: $color-1;
+      font-family: $font-family-2;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      cursor: pointer;
+    }
     &::placeholder {
       color: $color-5;
     }
