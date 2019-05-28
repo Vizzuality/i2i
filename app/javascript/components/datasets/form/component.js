@@ -162,8 +162,20 @@ class DatasetForm extends React.Component {
               multiple={false}
               inputContent={this.state.filename ? this.state.filename : 'Drop file here or click to browse'}
               styles={{
-                dropzone: { minHeight: 45, maxHeight: 45 },
-                dropzoneActive: { borderColor: 'green' }
+                dropzone: { minHeight: 45, maxHeight: 45, border: 0, borderRadius: 0, backgroundColor: 'rgba(47, 147, 156, .1)' },
+                inputLabel: { color: '#001D22', fontSize: 16, fontFamily: 'Open Sans', fontWeight: 300, textTransform: 'none' },
+                dropzoneActive: { borderColor: 'green' },
+                preview: {
+                  minHeight: 41,
+                  maxHeight: 41,
+                  padding: 10,
+                  borderBottom: 0,
+                  color: '#001D22',
+                  fontSize: 16,
+                  fontFamily: 'Open Sans',
+                  fontWeight: 300,
+                  textTransform: 'none'
+                }
               }}
             />
           </div>
