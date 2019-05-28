@@ -45,19 +45,25 @@
               </ul>
             </div>
           </li>
+
+          <li class="nav-item <% if current_page?(search_path) %> -current -icon<% end%>">
+            <%= link_to(search_path, data: { turbolinks: false }) do %>
+              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+            <% end %>
+          </li>
         <% else %>
           <li class="nav-item <% if devise_controller? %> -current<% end%>">
             <%= link_to(new_user_session_path, data: { turbolinks: false }) do %>
-              <svg class="icon"><use xlink:href="#icon-email"></use></svg>
+              <%= inline_svg('logos/user.svg', class: "icon-login icon #{('-active') if devise_controller? }") %>
+            <% end %>
+          </li>
+
+          <li class="nav-item -close<% if current_page?(search_path) %> -current -icon<% end%>">
+            <%= link_to(search_path, data: { turbolinks: false }) do %>
+              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
             <% end %>
           </li>
         <% end %>
-
-        <li class="nav-item <% if current_page?(search_path) %> -current -icon<% end%>">
-          <%= link_to(search_path, data: { turbolinks: false }) do %>
-            <svg class="icon"><use xlink:href="#icon-search"></use></svg>
-          <% end %>
-        </li>
       </ul>
     </nav>
     <button class="hamburguer js-btn-mobile-menu">
