@@ -58,6 +58,12 @@ class DatasetForm extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
 
+  isValidForm() {
+    const { name, selectedCountry, selectedCategory, selectedFile } = this.state;
+
+    return (name.length > 0 && selectedCountry !== null && selectedCategory !== null && selectedFile !== null);
+  }
+
   handleChange = (event) => {
     const { target } = event;
     const { name } = target;
@@ -77,6 +83,8 @@ class DatasetForm extends React.Component {
   handleChangeStatus = (fileWithMeta, status) => {
     if (status === 'done') {
       this.setState({ selectedFile: fileWithMeta.file, filename: null });
+    } else if (status === 'removed') {
+      this.setState({ selectedFile: null });
     } else {
       console.log(`meta: ${fileWithMeta.meta} status: ${status}`);
     }
@@ -123,7 +131,6 @@ class DatasetForm extends React.Component {
       this.props.categories.map(category => ({ value: category[1], label: category[0] }));
     const title = this.props.editMode && this.props.dataset ? 'Edit dataset' : 'Upload dataset';
     const description = 'Check expected format of this CSV template to upload a valid file.';
-    // const defaultNameValue = this.props.editMode && this.props.dataset ? this.props.dataset.name : '';
     const submitButtonTitle = this.props.editMode && this.props.dataset ? 'Save changes' : 'Done';
 
     return (
@@ -135,12 +142,15 @@ class DatasetForm extends React.Component {
 
         <form onSubmit={(e) => {
           e.preventDefault();
-          if (this.props.editMode && this.props.dataset) {
-            this.handleEdit();
-          } else {
-            this.props.handleFormSubmit(this.buildFormData());
+
+          if (this.isValidForm()) {
+            if (this.props.editMode && this.props.dataset) {
+              this.handleEdit();
+            } else {
+              this.props.handleFormSubmit(this.buildFormData());
+            }
+            e.target.reset();
           }
-          e.target.reset();
         }}
         >
           <div className="input-field file-input-field">
@@ -189,7 +199,7 @@ class DatasetForm extends React.Component {
             />
           </div>
 
-          <button className="c-button -big">{submitButtonTitle}</button>
+          <button className="c-button -big" disabled={!this.isValidForm()}>{submitButtonTitle}</button>
         </form>
       </div>
     );
