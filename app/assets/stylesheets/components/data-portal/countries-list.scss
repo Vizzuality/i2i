@@ -10,27 +10,38 @@
     margin: 0 !important;
 
     .country-button {
-      > .c-flag {
+      padding: 20px;
+
+       > .c-flag {
+        display: flex;
+        flex-direction: column;
         height: 153px;
         background-color: #f5f8f8;
 
-        > .country-name {
-          left: 20px;
-          bottom: 20px;
-        }
-
         > .country-icons {
           display: flex;
-          position: absolute;
-          bottom: 40px;
-          left: 20px;
         }
 
         svg.icon {
           width: 15px;
           height: 15px;
+          border-radius: 50%;
           margin-right: 4px;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
           opacity: 0.1;
+
+          cursor: pointer;
+          :after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+
+            left: 0;
+            background-color: white;
+
+
+            z-index: 1;
+          }
 
           path {
             fill:  #fff;
