@@ -6,7 +6,9 @@ class Dataset extends PureComponent {
     dataset: PropTypes.shape({
       id: PropTypes.number.isRequired,
       status: PropTypes.oneOf(['unpublished', 'pending', 'published']).isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
+      csv_is_valid: PropTypes.bool.isRequired,
+      csv_errors: PropTypes.string
     }).isRequired,
     handleEdit: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,
@@ -23,7 +25,7 @@ class Dataset extends PureComponent {
   handleToggle = () => this.props.handleToggle(this.props.dataset);
 
   render() {
-    const showPublishButton = this.props.dataset.status === 'unpublished';
+    const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
 
     return (
       <div>
@@ -36,10 +38,14 @@ class Dataset extends PureComponent {
 
         <p className="name">{this.props.dataset.name}</p>
 
+        { this.props.dataset.csv_errors &&
+          <p className="errors">{this.props.dataset.csv_errors}</p>
+        }
+
         <div className="actions">
           <button
             className="action-button"
-            onClick={this.handleEditle}
+            onClick={this.handleEdit}
           >
             Edit
           </button>

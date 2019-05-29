@@ -1,6 +1,20 @@
 require 'uploaders/dataset_uploader'
 
 class Dataset < ApplicationRecord
+  REQUIRED_CSV_HEADERS = %w(
+    country
+    field_1
+    sector
+    type
+    land_use
+    iso
+    lat
+    lng
+    year
+    name
+    color
+  )
+  
   include DatasetUploader[:file]
   
   enum category: [:health, :finance, :agriculture, :education, :other]
@@ -18,5 +32,30 @@ class Dataset < ApplicationRecord
     )
 
     URI.join(root_url, file.url).to_s
+  end
+  
+  def csv_is_valid
+    csv_errors.blank?
+  end
+  
+  def is_valid_for_preview
+    headers = missing_headers
+    return true if missing_headers.blank?
+    
+    %w(lat lng).none? { |header| !headers.include? header }
+  end
+
+  def missing_headers
+    headers = CSV.open("public#{self.file_url}", 'r') { |csv| csv.first }
+
+    REQUIRED_CSV_HEADERS.reject { |required_header| headers.include? required_header }
+  end
+  
+  def csv_errors
+    headers = missing_headers
+    
+    if headers.any?
+      "Missing headers: #{headers.join(', ')}"
+    end
   end
 end
