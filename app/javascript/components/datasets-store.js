@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { handleModule } from 'redux-tools';
 
 // Components
-import * as datasets from 'components/fsp-maps';
+import * as datasets from 'components/datasets';
 
 const reducer = combineReducers({ datasets: handleModule(datasets) });
 

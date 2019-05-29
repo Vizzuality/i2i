@@ -11,7 +11,8 @@ import Map from './map_preview';
 import Icons from 'wri-api-components/dist/icons';
 
 import './styles.scss';
-import SidebarComponent from "./sidebar/component";
+import SidebarComponent from "./sidebar";
+
 
 export default class Datasets extends React.Component {
   static propTypes = {
@@ -50,7 +51,7 @@ export default class Datasets extends React.Component {
     this.props.setLatestyear(latestYear);
 
     // Fetch
-    // this.props.fetchLayers();
+    this.props.fetchLayers(this.props.datasets);
     // this.props.fetchWidgets();
     // this.props.fetchJurisdictions();
 
@@ -61,6 +62,8 @@ export default class Datasets extends React.Component {
     ) {
       this.props.setBBox(bbox);
     }
+
+    this.props.fetchGeoJSON(this.props.datasets[0]);
 
     if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);
     if (typeof lat !== 'undefined' && typeof lng !== 'undefined') this.props.setCenter({ lat: +lat, lng: +lng });

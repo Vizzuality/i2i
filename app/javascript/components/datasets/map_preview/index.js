@@ -20,7 +20,8 @@ export default connect(
     nearby: state.datasets.analysis.nearby,
     areaOfInterest: state.datasets.analysis.areaOfInterest,
     jurisdiction: state.datasets.analysis.jurisdiction,
-    activeLayers: getActiveLayers(state)
+    activeLayers: getActiveLayers(state),
+    currentLayer: state.datasets.currentLayer,
   }),
   actions
 )(MapComponent);

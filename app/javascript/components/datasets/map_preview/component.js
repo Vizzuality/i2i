@@ -39,7 +39,7 @@ class MapComponent extends React.Component {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, currentLayer } = this.props;
     const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
     const { area: jurisdictionArea } = this.props.jurisdiction;
     const polygonAreaStyle = {
@@ -52,6 +52,16 @@ class MapComponent extends React.Component {
       'c-map': true,
       '-open': !!open
     });
+
+    if (currentLayer) {
+      currentLayer.layerConfig.options = {
+        pointToLayer: (geoJsonPoint, latlng) => {
+          return L.marker(latlng);
+        }
+      };
+    }
+
+    console.log(currentLayer)
 
     return (
       <div className={classNames}>
@@ -125,7 +135,9 @@ class MapComponent extends React.Component {
                     }
                   }];
 
-                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers, ...financialIconsLayer].map((layer, index) => (
+                  const datasetLayer = currentLayer ? [currentLayer] : [];
+
+                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers, ...financialIconsLayer, ...datasetLayer].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}

@@ -51,5 +51,6 @@ export default {
       area: {}
     }
   },
-  widgets: { list: [] }
+  widgets: { list: [] },
+  currentLayer: null,
 };

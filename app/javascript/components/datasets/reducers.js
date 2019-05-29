@@ -107,6 +107,16 @@ export default {
     return { ...state, interactions };
   },
 
+  [actions.setCurrentLayer]: (state, { payload }) => ({
+    ...state,
+    currentLayer: payload
+  }),
+
+  [actions.removeCurrentLayer]: state => ({
+    ...state,
+    currentLayer: null
+  }),
+
   // MODAL
   [actions.setModal]: (state, { payload }) => ({
     ...state,

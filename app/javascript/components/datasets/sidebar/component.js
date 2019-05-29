@@ -160,8 +160,13 @@ class SidebarComponent extends PureComponent {
     this.setState({ editMode: !this.state.editMode });
   }
 
-  handleToggle = (a) => {
-    console.log(a)
+  handleToggle = (dataset) => {
+    const { currentLayer, removeCurrentLayer, fetchGeoJSON } = this.props;
+    if (currentLayer && currentLayer.id.toString() === dataset.id.toString()) {
+      removeCurrentLayer();
+    } else {
+      fetchGeoJSON(dataset);
+    }
   }
 
   render() {

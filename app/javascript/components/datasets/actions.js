@@ -5,7 +5,7 @@ import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
 import Promise from 'bluebird';
-
+import csv from 'csvtojson';
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
 
 // SQL
@@ -75,12 +75,65 @@ export const setSelected = createAction('SIDEBAR/setSelected');
 export const setMenuItem = createAction('SIDEBAR-MENU/setMenuItem');
 
 // LAYERS
-export const setLayersList = createAction('LAYERS/setLayersList');
-export const setLayersSelected = createAction('LAYERS/setLayersSelected');
+export const setLayersList = createAction('PREVIEW_LAYERS/setLayersList');
+export const setLayersSelected = createAction('PREVIEW_LAYERS/setLayersSelected');
 export const setLayersSectorSelected = createAction('SECTORS/setLayersSectorSelected');
-export const setLayersOrder = createAction('LAYERS/setLayersOrder');
+export const setLayersOrder = createAction('PREVIEW_LAYERS/setLayersOrder');
 export const setLayersInteractions = createAction('INTERACTIONS/setLayersInteractions');
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
+export const setCurrentLayer = createAction('PREVIEW_LAYERS/setCurrentLayer');
+export const removeCurrentLayer = createAction('PREVIEW_LAYERS/removeCurrentLayer');
+
+const datasetsToLayers = (datasets) => datasets.map(d => {
+  return {
+    id: d.id.toString(),
+    name: d.name,
+    provider: 'leaflet',
+    layerConfig: {
+      type: 'geoJSON',
+      parse: false,
+      body: null,
+      options: {},
+    },
+  };
+});
+
+export const fetchLayers = createThunkAction('PREVIEW_LAYERS/fetchLayers', (datasets) => (dispatch) => {
+  dispatch(setLayersList(datasetsToLayers(datasets)));
+});
+
+export const fetchGeoJSON = createThunkAction('PREVIEW_LAYERS/fetchGeoJSON', (dataset) => (dispatch, getState) => {
+  const { layers } = getState().datasets;
+  const selectedLayer = layers.list.find(l => l.id.toString() === dataset.id.toString());
+
+  if (!selectedLayer.layerConfig.body) {
+    fetch(dataset.file_absolute_url)
+      .then((response) => {
+        if (response.ok) return response.text()
+      })
+      .then((data) => {
+        csv({ colParser: { 'the_geom': 'omit', 'cartodb_id': 'omit' }, checkType: true })
+          .fromString(data)
+          .then(json => {
+            selectedLayer.layerConfig.body = {
+              "type": "FeatureCollection",
+              "features": json.map(d => ({
+                "type": "Feature",
+                "properties": { ...d },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [d.lat, d.lng]
+                }
+              }))
+            };
+
+            dispatch(setCurrentLayer(selectedLayer));
+          });
+      });
+  } else {
+    dispatch(setCurrentLayer(selectedLayer));
+  }
+});
 
 // function getSectors(iso) {
 //   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
