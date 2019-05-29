@@ -30,7 +30,7 @@ export const setIntro = createAction('INTRO/setIntro');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 // export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
+//   const { iso } = getState().datasets.common;
 //
 //   dispatch(setIntroLoading(true));
 //
@@ -175,8 +175,8 @@ export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 // }
 
 // export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
-//   const { layersSettings } = getState().fspMaps.layers;
+//   const { iso } = getState().datasets.common;
+//   const { layersSettings } = getState().datasets.layers;
 //
 //   Promise.all([getSectors(iso, layersSettings), getContextualLayers()])
 //     .then((data) => {
@@ -210,7 +210,7 @@ export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
 export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
 export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
-  const { time, location } = getState().fspMaps.analysis.nearby;
+  const { time, location } = getState().datasets.analysis.nearby;
   if (isEmpty(location) || !time) {
     return false;
   }
@@ -253,7 +253,7 @@ export const setJurisdictionSelected = createAction('ANALYSIS/setJurisdictionSel
 export const setJurisdictionsList = createAction('ANALYSIS/setJurisdictionsList');
 export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
 // export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
+//   const { iso } = getState().datasets.common;
 //   const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
 //
 //   fetch(`${window.FSP_CARTO_API}?q=${jurisdictionsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
@@ -266,7 +266,7 @@ export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
 // });
 //
 // export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdictionArea', () => (dispatch, getState) => {
-//   const { selectedJurisdiction } = getState().fspMaps.analysis.jurisdiction;
+//   const { selectedJurisdiction } = getState().datasets.analysis.jurisdiction;
 //   const { value: jurisdictionId } = selectedJurisdiction;
 //   const jurisdictionAreaSql = encodeURIComponent(
 //     replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })

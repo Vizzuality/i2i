@@ -160,6 +160,10 @@ class SidebarComponent extends PureComponent {
     this.setState({ editMode: !this.state.editMode });
   }
 
+  handleToggle = (a) => {
+    console.log(a)
+  }
+
   render() {
     const { open } = this.state;
     const classNames = classnames({
@@ -183,6 +187,7 @@ class SidebarComponent extends PureComponent {
               handleEdit={this.handleEdit}
               handleDelete={this.handleDelete}
               handlePublish={this.handlePublish}
+              handleToggle={this.handleToggle}
             />
           }
 

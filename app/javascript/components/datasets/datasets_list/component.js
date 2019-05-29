@@ -10,6 +10,7 @@ const DatasetsList = (props) => {
           handleDelete={props.handleDelete}
           handleEdit={props.handleEdit}
           handlePublish={props.handlePublish}
+          handleToggle={props.handleToggle}
         />
       </div>
     );

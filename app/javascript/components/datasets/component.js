@@ -6,8 +6,8 @@ import groupBy from 'lodash/groupBy';
 import qs from 'query-string';
 
 // Components
-import Sidebar from 'components/sidebar';
-import Map from 'components/map';
+//import Sidebar from 'components/sidebar';
+import Map from './map_preview';
 import Icons from 'wri-api-components/dist/icons';
 
 import './styles.scss';

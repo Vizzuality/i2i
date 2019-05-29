@@ -8,6 +8,6 @@ import DatasetsComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({ ...state.fspMaps }),
+  state => ({ ...state.datasets }),
   actions
 )(DatasetsComponent);
