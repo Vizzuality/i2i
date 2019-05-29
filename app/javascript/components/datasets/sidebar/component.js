@@ -21,7 +21,8 @@ class SidebarComponent extends PureComponent {
       datasets: this.props.datasets,
       editMode: false,
       editableDataset: null,
-      open: this.props.open
+      open: this.props.open,
+      loading: false
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewDataset = this.addNewDataset.bind(this);
@@ -40,6 +41,7 @@ class SidebarComponent extends PureComponent {
   };
 
   handleDelete(id) {
+    this.setState({ loading: true });
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
     fetch(
@@ -49,10 +51,15 @@ class SidebarComponent extends PureComponent {
         headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
       }
     )
-      .then(() => this.deleteItem(id));
+      .then(() => {
+        this.deleteItem(id);
+        this.setState({ loading: false });
+      })
+      .catch(() => this.setState({ loading: false }));
   }
 
   handleUpdate(dataset) {
+    this.setState({ loading: true });
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
     fetch(
@@ -66,11 +73,13 @@ class SidebarComponent extends PureComponent {
       .then(response => response.json())
       .then((data) => {
         this.updateDataset(data);
-        this.setState({ editMode: !this.state.editMode, editableDataset: null });
-      });
+        this.setState({ editMode: !this.state.editMode, editableDataset: null, loading: false });
+      })
+      .catch(() => this.setState({ loading: false }));
   }
 
   handlePublish(dataset) {
+    this.setState({ loading: true });
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
     fetch(`/datasets/${dataset.id}/publish`,
@@ -81,10 +90,13 @@ class SidebarComponent extends PureComponent {
       .then(response => response.json())
       .then((data) => {
         this.updateDataset(data);
-      });
+        this.setState({ loading: false });
+      })
+      .catch(() => this.setState({ loading: false }));
   }
 
   handleMultipartUpdate(dataset, id) {
+    this.setState({ loading: true });
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
     fetch(
@@ -98,8 +110,9 @@ class SidebarComponent extends PureComponent {
       .then(response => response.json())
       .then((data) => {
         this.updateDataset(data);
-        this.setState({ editMode: !this.state.editMode, editableDataset: null });
-      });
+        this.setState({ editMode: !this.state.editMode, editableDataset: null, loading: false });
+      })
+      .catch(() => this.setState({ loading: false }));
   }
 
   updateDataset(dataset) {
@@ -128,6 +141,7 @@ class SidebarComponent extends PureComponent {
   }
 
   handleFormSubmit(datasetData) {
+    this.setState({ loading: true });
     const body = datasetData;
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
@@ -142,8 +156,9 @@ class SidebarComponent extends PureComponent {
       .then(response => response.json())
       .then((dataset) => {
         this.addNewDataset(dataset);
-        this.setState({ editMode: !this.state.editMode });
-      });
+        this.setState({ editMode: !this.state.editMode, loading: false });
+      })
+      .catch(() => this.setState({ loading: false }));
   }
 
   addNewDataset(dataset) {
@@ -168,16 +183,17 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { open } = this.state;
+    const { open, loading } = this.state;
     const classNames = classnames({
-      'c-sidebar': true,
-      '-open': !!open
+      'c-datasets-sidebar': true,
+      '-open': !!open,
+      'c-spinning-loader': !!loading
     });
 
     return (
       <div className={classNames}>
         <div className="overflow-container">
-          {!this.state.editMode &&
+          {!this.state.editMode && !loading &&
             <p className="description">
               Click on a dataset to preview data on the map.<br />
               Publish a dataset to send it for review.
@@ -185,7 +201,7 @@ class SidebarComponent extends PureComponent {
             </p>
           }
 
-          {!this.state.editMode &&
+          {!this.state.editMode && !loading &&
             <DatasetsList
               datasets={this.state.datasets}
               handleEdit={this.handleEdit}
@@ -195,14 +211,14 @@ class SidebarComponent extends PureComponent {
             />
           }
 
-          {!this.state.editMode &&
+          {!this.state.editMode && !loading &&
             <button onClick={this.toggleEditMode} className="c-button -big">
               Upload dataset
             </button>
           }
 
 
-          {this.state.editMode &&
+          {this.state.editMode && !loading &&
             <DatasetForm
               handleFormSubmit={this.handleFormSubmit}
               handleBackButton={this.handleBackButton}
