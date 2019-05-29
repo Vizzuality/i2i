@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class Dataset extends React.Component {
+class Dataset extends PureComponent {
   static propTypes = {
     dataset: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -10,8 +10,17 @@ class Dataset extends React.Component {
     }).isRequired,
     handleEdit: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,
-    handlePublish: PropTypes.func.isRequired
+    handlePublish: PropTypes.func.isRequired,
+    handleToggle: PropTypes.func.isRequired,
   };
+
+  handleEdit = () => this.props.handleEdit(this.props.dataset.id);
+
+  handleDelete = () => this.props.handleDelete(this.props.dataset.id);
+
+  handlePublish = () => this.props.handlePublish(this.props.dataset);
+
+  handleToggle = () => this.props.handleToggle(this.props.dataset);
 
   render() {
     const showPublishButton = this.props.dataset.status === 'unpublished';
@@ -22,6 +31,7 @@ class Dataset extends React.Component {
           <div className="status">
             {this.props.dataset.status}
           </div>
+          <button onClick={this.handleToggle}>enable</button>
         </div>
 
         <p className="name">{this.props.dataset.name}</p>
@@ -29,13 +39,13 @@ class Dataset extends React.Component {
         <div className="actions">
           <button
             className="action-button"
-            onClick={() => this.props.handleEdit(this.props.dataset.id)}
+            onClick={this.handleEditle}
           >
             Edit
           </button>
           <button
             className="action-button"
-            onClick={() => this.props.handleDelete(this.props.dataset.id)}
+            onClick={this.handleDelete}
           >
             Delete
           </button>
@@ -43,7 +53,7 @@ class Dataset extends React.Component {
           { showPublishButton &&
             <button
               className="action-button publish-button"
-              onClick={() => this.props.handlePublish(this.props.dataset)}
+              onClick={this.handlePublish}
             >
               Publish
             </button>

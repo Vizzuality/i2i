@@ -30,6 +30,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "classnames": "^2.2.6",
+    "csvtojson": "^2.0.8",
     "es6-promise": "^4.2.5",
     "eslint": "^4.9.0",
     "eslint-config-vizzuality": "^1.0.14",

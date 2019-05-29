@@ -6,12 +6,13 @@ import groupBy from 'lodash/groupBy';
 import qs from 'query-string';
 
 // Components
-import Sidebar from 'components/sidebar';
-import Map from 'components/map';
+//import Sidebar from 'components/sidebar';
+import Map from './map_preview';
 import Icons from 'wri-api-components/dist/icons';
 
 import './styles.scss';
-import SidebarComponent from "./sidebar/component";
+import SidebarComponent from "./sidebar";
+
 
 export default class Datasets extends React.Component {
   static propTypes = {
@@ -50,7 +51,7 @@ export default class Datasets extends React.Component {
     this.props.setLatestyear(latestYear);
 
     // Fetch
-    // this.props.fetchLayers();
+    this.props.fetchLayers(this.props.datasets);
     // this.props.fetchWidgets();
     // this.props.fetchJurisdictions();
 

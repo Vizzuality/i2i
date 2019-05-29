@@ -5,7 +5,7 @@ import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
 import Promise from 'bluebird';
-
+import csv from 'csvtojson';
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
 
 // SQL
@@ -30,7 +30,7 @@ export const setIntro = createAction('INTRO/setIntro');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 // export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
+//   const { iso } = getState().datasets.common;
 //
 //   dispatch(setIntroLoading(true));
 //
@@ -75,12 +75,65 @@ export const setSelected = createAction('SIDEBAR/setSelected');
 export const setMenuItem = createAction('SIDEBAR-MENU/setMenuItem');
 
 // LAYERS
-export const setLayersList = createAction('LAYERS/setLayersList');
-export const setLayersSelected = createAction('LAYERS/setLayersSelected');
+export const setLayersList = createAction('PREVIEW_LAYERS/setLayersList');
+export const setLayersSelected = createAction('PREVIEW_LAYERS/setLayersSelected');
 export const setLayersSectorSelected = createAction('SECTORS/setLayersSectorSelected');
-export const setLayersOrder = createAction('LAYERS/setLayersOrder');
+export const setLayersOrder = createAction('PREVIEW_LAYERS/setLayersOrder');
 export const setLayersInteractions = createAction('INTERACTIONS/setLayersInteractions');
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
+export const setCurrentLayer = createAction('PREVIEW_LAYERS/setCurrentLayer');
+export const removeCurrentLayer = createAction('PREVIEW_LAYERS/removeCurrentLayer');
+
+const datasetsToLayers = (datasets) => datasets.map(d => {
+  return {
+    id: d.id.toString(),
+    name: d.name,
+    provider: 'leaflet',
+    layerConfig: {
+      type: 'geoJSON',
+      parse: false,
+      body: null,
+      options: {},
+    },
+  };
+});
+
+export const fetchLayers = createThunkAction('PREVIEW_LAYERS/fetchLayers', (datasets) => (dispatch) => {
+  dispatch(setLayersList(datasetsToLayers(datasets)));
+});
+
+export const fetchGeoJSON = createThunkAction('PREVIEW_LAYERS/fetchGeoJSON', (dataset) => (dispatch, getState) => {
+  const { layers } = getState().datasets;
+  const selectedLayer = layers.list.find(l => l.id.toString() === dataset.id.toString());
+
+  if (!selectedLayer.layerConfig.body) {
+    fetch(dataset.file_absolute_url)
+      .then((response) => {
+        if (response.ok) return response.text()
+      })
+      .then((data) => {
+        csv({ colParser: { 'the_geom': 'omit', 'cartodb_id': 'omit' }, checkType: true })
+          .fromString(data)
+          .then(json => {
+            selectedLayer.layerConfig.body = {
+              "type": "FeatureCollection",
+              "features": json.map(d => ({
+                "type": "Feature",
+                "properties": { ...d },
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [d.lat, d.lng]
+                }
+              }))
+            };
+
+            dispatch(setCurrentLayer(selectedLayer));
+          });
+      });
+  } else {
+    dispatch(setCurrentLayer(selectedLayer));
+  }
+});
 
 // function getSectors(iso) {
 //   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
@@ -175,8 +228,8 @@ export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 // }
 
 // export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
-//   const { layersSettings } = getState().fspMaps.layers;
+//   const { iso } = getState().datasets.common;
+//   const { layersSettings } = getState().datasets.layers;
 //
 //   Promise.all([getSectors(iso, layersSettings), getContextualLayers()])
 //     .then((data) => {
@@ -210,7 +263,7 @@ export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
 export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
 export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
-  const { time, location } = getState().fspMaps.analysis.nearby;
+  const { time, location } = getState().datasets.analysis.nearby;
   if (isEmpty(location) || !time) {
     return false;
   }
@@ -253,7 +306,7 @@ export const setJurisdictionSelected = createAction('ANALYSIS/setJurisdictionSel
 export const setJurisdictionsList = createAction('ANALYSIS/setJurisdictionsList');
 export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
 // export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions', () => (dispatch, getState) => {
-//   const { iso } = getState().fspMaps.common;
+//   const { iso } = getState().datasets.common;
 //   const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
 //
 //   fetch(`${window.FSP_CARTO_API}?q=${jurisdictionsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
@@ -266,7 +319,7 @@ export const setJurisdictionArea = createAction('ANALYSIS/setJurisdictionArea');
 // });
 //
 // export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdictionArea', () => (dispatch, getState) => {
-//   const { selectedJurisdiction } = getState().fspMaps.analysis.jurisdiction;
+//   const { selectedJurisdiction } = getState().datasets.analysis.jurisdiction;
 //   const { value: jurisdictionId } = selectedJurisdiction;
 //   const jurisdictionAreaSql = encodeURIComponent(
 //     replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })
