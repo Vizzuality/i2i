@@ -35,6 +35,10 @@ class SidebarComponent extends PureComponent {
     this.handleBackButton = this.handleBackButton.bind(this);
   }
 
+  onToggleSidebar = () => {
+    this.setState({ open: !this.state.open });
+  };
+
   handleDelete(id) {
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
 
@@ -45,7 +49,7 @@ class SidebarComponent extends PureComponent {
         headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }
       }
     )
-      .then(response => this.deleteItem(id));
+      .then(() => this.deleteItem(id));
   }
 
   handleUpdate(dataset) {
@@ -150,12 +154,6 @@ class SidebarComponent extends PureComponent {
     this.setState({ editMode: false, editableDataset: null });
   }
 
-  onToggleSidebar = () => {
-    const { open } = this.props;
-
-    this.setState({ open: !this.state.open });
-  }
-
   toggleEditMode = () => {
     this.setState({ editMode: !this.state.editMode });
   }
@@ -182,7 +180,8 @@ class SidebarComponent extends PureComponent {
           {!this.state.editMode &&
             <p className="description">
               Click on a dataset to preview data on the map.<br />
-              Publish a dataset to send it for review. After approval, it will be shown on country page.
+              Publish a dataset to send it for review.
+              After approval, it will be shown on country page.
             </p>
           }
 
