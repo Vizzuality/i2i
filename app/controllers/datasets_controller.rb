@@ -12,17 +12,17 @@ class DatasetsController < ApplicationController
     @countries = Country.all
     @latest_year = @country.finscope[:latest_year] rescue nil
     
-    @datasets = current_user.datasets.order(:created_at)
+    @datasets = current_user.datasets.order(:created_at).as_json(methods: :file_absolute_url)
     
     respond_to do |format|
       format.html { render layout: 'data_portal' }
-      format.json { render json: current_user.datasets }
+      format.json { render json: current_user.datasets, methods: :file_absolute_url }
     end
   end
   
   def create
     dataset = current_user.datasets.create(dataset_params)
-    render json: dataset
+    render json: dataset, methods: :file_absolute_url
   end
   
   def destroy
@@ -34,14 +34,14 @@ class DatasetsController < ApplicationController
     dataset = Dataset.find(params[:id])
     dataset.update(dataset_params)
     
-    render json: dataset
+    render json: dataset, methods: :file_absolute_url
   end
   
   def publish
     dataset = Dataset.find(params[:id])
     dataset.update(status: :pending)
 
-    render json: dataset
+    render json: dataset, methods: :file_absolute_url
   end
   
   private
