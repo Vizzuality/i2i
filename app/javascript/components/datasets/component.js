@@ -63,8 +63,6 @@ export default class Datasets extends React.Component {
       this.props.setBBox(bbox);
     }
 
-    this.props.fetchGeoJSON(this.props.datasets[0]);
-
     if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);
     if (typeof lat !== 'undefined' && typeof lng !== 'undefined') this.props.setCenter({ lat: +lat, lng: +lng });
     if (typeof layers !== 'undefined') {

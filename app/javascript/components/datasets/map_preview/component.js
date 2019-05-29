@@ -61,8 +61,6 @@ class MapComponent extends React.Component {
       };
     }
 
-    console.log(currentLayer)
-
     return (
       <div className={classNames}>
         <Map
@@ -95,26 +93,6 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
-                    id: 'nearby',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: nearbyArea,
-                      type: 'geoJSON',
-                      options: { style: polygonAreaStyle }
-                    }
-                  }] : [];
-
-                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
-                    id: 'jurisdiction',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: jurisdictionArea,
-                      type: 'geoJSON',
-                      options: { style: polygonAreaStyle }
-                    }
-                  }] : [];
-
                   const financialIconsLayer = [{
                     id: 'financial-icons',
                     provider: 'leaflet',
@@ -137,7 +115,7 @@ class MapComponent extends React.Component {
 
                   const datasetLayer = currentLayer ? [currentLayer] : [];
 
-                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers, ...financialIconsLayer, ...datasetLayer].map((layer, index) => (
+                  return [...activeLayers, ...financialIconsLayer, ...datasetLayer].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}
