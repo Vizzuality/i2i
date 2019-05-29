@@ -6,17 +6,23 @@ ActiveAdmin.register Dataset do
   
   filter :title
 
+  member_action :publish, method: :put do
+  end
+
   controller do
     def permitted_params
       params.permit(:id, dataset: [:name, :country_id, :category, :file, :status, :user_id])
     end
-  end
-
-  member_action :publish, method: :put do
-    dataset = Dataset.find(params[:id])
-    dataset.published!
     
-    redirect_to admin_datasets_path, notice: "Dataset was published."
+    def publish
+      publish_service = PublishDataset.new(params[:id])
+      
+      if publish_service.perform
+        redirect_to admin_datasets_path, notice: publish_service.message
+      else
+        redirect_to admin_datasets_path, alert: publish_service.message
+      end
+    end
   end
   
   index do
