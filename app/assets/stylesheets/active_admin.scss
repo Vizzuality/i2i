@@ -25,3 +25,21 @@
 form input[type='date'] {
   width: 115px;
 }
+
+.status_tag {
+  &.green {
+    background: #8dcc92;
+  }
+
+  &.orange {
+    background: #e29b20;
+  }
+
+  &.red {
+    background: #d45f53;
+  }
+}
+
+p.invalid {
+  color: red;
+}
