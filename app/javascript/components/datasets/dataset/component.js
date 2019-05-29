@@ -39,7 +39,7 @@ class Dataset extends PureComponent {
         <div className="actions">
           <button
             className="action-button"
-            onClick={this.handleEditle}
+            onClick={this.handleEdit}
           >
             Edit
           </button>
