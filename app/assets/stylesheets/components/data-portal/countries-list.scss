@@ -10,52 +10,57 @@
     margin: 0 !important;
 
     .country-button {
-      padding: 20px;
 
-       > .c-flag {
+      .c-flag {
         display: flex;
         flex-direction: column;
         height: 153px;
         background-color: #f5f8f8;
+        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 
-        > .country-icons {
-          display: flex;
-        }
+        .country-info {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
 
-        svg.icon {
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          margin-right: 4px;
-          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-          filter: drop-shadow(12px 12px 6px rgba(0,0,0,0.6));
-          opacity: 0.1;
-
-          cursor: pointer;
-          :after {
-            content: '';
-            display: inline-block;
-            position: absolute;
-
-            left: 0;
-            background-color: white;
-
-
-            z-index: 1;
+          > .country-icons {
+            display: flex;
           }
 
-          path {
-            fill:  #fff;
-          }
+          svg.icon {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 4px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+            opacity: 0.1;
+            cursor: pointer;
+            :after {
+              content: '';
+              display: inline-block;
+              position: absolute;
+              left: 0;
+              background-color: white;
+              z-index: 1;
+            }
+            :hover {
+              fill: #f9d031;
+            }
 
-          &.active {
-            opacity: 1;
-          }
+            path {
+              fill:  #fff;
+            }
 
-          &.-large {
-            width: 52px;
-            height: 52px;
-            margin-right: 0;
+            &.active {
+              opacity: 1;
+            }
+
+            &.-large {
+              width: 52px;
+              height: 52px;
+              margin-right: 0;
+            }
           }
         }
       }
