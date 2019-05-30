@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import isEmpty from 'lodash/isEmpty';
 
 import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
 import { LayerManager, Layer } from 'layer-manager/lib/react';
 import { PluginLeaflet } from 'layer-manager';
 
+import 'components/map/styles.scss';
+import { BASEMAPS, LABELS } from 'components/map/constants';
+
 // components
 import Popup from './popup';
 import BasemapControl from './controls/basemap';
-
-// Images
-import BookIcon from 'images/data-portal/book.svg';
-
-import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from 'components/map/constants';
-
-// styles
-import 'components/map/styles.scss';
 
 class MapComponent extends React.Component {
   static propTypes = {
@@ -35,18 +29,12 @@ class MapComponent extends React.Component {
     bbox: PropTypes.array.isRequired,
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
-    setZoom: PropTypes.func.isRequired
+    setZoom: PropTypes.func.isRequired,
+    currentLayer: PropTypes.object.isRequired
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, currentLayer } = this.props;
-    const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
-    const { area: jurisdictionArea } = this.props.jurisdiction;
-    const polygonAreaStyle = {
-      color: '#2F939C',
-      fillColor: '#2F939C',
-      fillOpacity: 0.5
-    };
+    const { open, zoom, center, basemap, label, activeLayers, bbox, currentLayer } = this.props;
 
     const classNames = classnames({
       'c-map': true,
@@ -55,9 +43,7 @@ class MapComponent extends React.Component {
 
     if (currentLayer) {
       currentLayer.layerConfig.options = {
-        pointToLayer: (geoJsonPoint, latlng) => {
-          return L.marker(latlng);
-        }
+        pointToLayer: (geoJsonPoint, latlng) => L.marker(latlng)
       };
     }
 
@@ -93,29 +79,9 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const financialIconsLayer = [{
-                    id: 'financial-icons',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: FINANCIAL_DIARIES_MARKERS.map(m => L.marker(
-                          m.coordinates,
-                          {
-                            ...m.options,
-                            icon: L.icon({
-                              iconUrl: BookIcon,
-                              iconSize: [16, 16]
-                            })
-                          }
-                        )
-                        .on('click', () => window.open(m.url))),
-                      parse: false,
-                      type: 'featureGroup'
-                    }
-                  }];
-
                   const datasetLayer = currentLayer ? [currentLayer] : [];
 
-                  return [...activeLayers, ...financialIconsLayer, ...datasetLayer].map((layer, index) => (
+                  return [...activeLayers, ...datasetLayer].map((layer, index) => (
                     <Layer
                       key={layer.id}
                       {...layer}
@@ -159,7 +125,7 @@ class MapComponent extends React.Component {
             </React.Fragment>
             )}
         </Map>
-        {/*<Legend />*/}
+        {/* <Legend /> */}
       </div>
     );
   }

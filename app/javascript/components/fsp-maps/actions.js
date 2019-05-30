@@ -11,6 +11,7 @@ import WRIJsonApiSerializer from 'wri-json-api-serializer';
 // SQL
 import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
+import USER_DATASETS_SQL from './sql/user_datasets.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
 import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
@@ -85,6 +86,26 @@ export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+    })
+    .then((data) => {
+      const dataRows = data.rows.map(row => ({
+        ...row,
+        id: row.type_id.toString(),
+        name: row.type,
+        info: LAYERS_INFO[row.type],
+        layerType: 'sector',
+        count: Numeral(row.count).format('0,0'),
+        provider: 'carto'
+      }));
+
+      return dataRows;
+    });
+}
+
+function getUserDatasets(iso) {
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(USER_DATASETS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
@@ -179,8 +200,13 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
   const { iso } = getState().fspMaps.common;
   const { layersSettings } = getState().fspMaps.layers;
 
-  Promise.all([getSectors(iso, layersSettings), getContextualLayers()])
+  Promise.all([
+    getSectors(iso, layersSettings),
+    getUserDatasets(iso, layersSettings),
+    getContextualLayers()
+  ])
     .then((data) => {
+      console.log(data);
       dispatch(setLayersList(flatten(data)));
     });
 });
