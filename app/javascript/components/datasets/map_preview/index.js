@@ -21,7 +21,7 @@ export default connect(
     areaOfInterest: state.datasets.analysis.areaOfInterest,
     jurisdiction: state.datasets.analysis.jurisdiction,
     activeLayers: getActiveLayers(state),
-    currentLayer: state.datasets.currentLayer,
+    currentLayer: state.datasets.currentLayer
   }),
   actions
 )(MapComponent);

@@ -8,7 +8,7 @@ export default {
   intro: { data: [] },
   map: {
     open: true,
-    zoom: 3,
+    zoom: 4,
     center: { lat: 0, lng: 0 },
     basemap: 'light',
     label: 'dark'
@@ -52,5 +52,5 @@ export default {
     }
   },
   widgets: { list: [] },
-  currentLayer: null,
+  currentLayer: null
 };

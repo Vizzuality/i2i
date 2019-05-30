@@ -14,7 +14,10 @@ class Dataset extends PureComponent {
     handleDelete: PropTypes.func.isRequired,
     handlePublish: PropTypes.func.isRequired,
     handleToggle: PropTypes.func.isRequired,
+    currentLayer: PropTypes.object
   };
+
+  static defaultProps = { currentLayer: null };
 
   handleEdit = () => this.props.handleEdit(this.props.dataset.id);
 
@@ -26,14 +29,17 @@ class Dataset extends PureComponent {
 
   render() {
     const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
+    const { currentLayer, dataset } = this.props;
 
     return (
       <div>
         <div className="status-row">
           <div className="status">
-            {this.props.dataset.status}
+            {dataset.status}
           </div>
-          <button onClick={this.handleToggle}>enable</button>
+          <button className="" onClick={this.handleToggle}>
+            {currentLayer && currentLayer.id === dataset.id ? 'enable' : 'disable'}
+          </button>
         </div>
 
         <p className="name">{this.props.dataset.name}</p>

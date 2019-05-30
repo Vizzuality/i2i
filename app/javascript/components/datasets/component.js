@@ -45,40 +45,40 @@ export default class Datasets extends React.Component {
       layers
     } = qs.parse(location.search);
 
-    this.props.setIso(iso);
-    this.props.setShortIso(shortIso);
-    this.props.setLatestyear(latestYear);
+    // this.props.setIso(iso);
+    // this.props.setShortIso(shortIso);
+    // this.props.setLatestyear(latestYear);
 
     // Fetch
     this.props.fetchLayers(this.props.datasets);
     // this.props.fetchWidgets();
     // this.props.fetchJurisdictions();
 
-    if (
-      typeof zoom === 'undefined' &&
-      typeof lat === 'undefined' &&
-      typeof lng === 'undefined'
-    ) {
-      this.props.setBBox(bbox);
-    }
+    // if (
+    //   typeof zoom === 'undefined' &&
+    //   typeof lat === 'undefined' &&
+    //   typeof lng === 'undefined'
+    // ) {
+    //   this.props.setBBox(bbox);
+    // }
 
     if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);
     if (typeof lat !== 'undefined' && typeof lng !== 'undefined') this.props.setCenter({ lat: +lat, lng: +lng });
-    if (typeof layers !== 'undefined') {
-      try {
-        const layerGroups = JSON.parse(layers);
+    // if (typeof layers !== 'undefined') {
+    //   try {
+    //     const layerGroups = JSON.parse(layers);
 
-        const parsedLayerGroups = layerGroups.reduce((acc, lg) => ({
-          ...acc,
-          [lg.id]: lg
-        }), {});
+    //     const parsedLayerGroups = layerGroups.reduce((acc, lg) => ({
+    //       ...acc,
+    //       [lg.id]: lg
+    //     }), {});
 
-        this.props.setLayersSettings(parsedLayerGroups);
-        this.props.setLayersSelected(layerGroups.map(lg => lg.id));
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    //     this.props.setLayersSettings(parsedLayerGroups);
+    //     this.props.setLayersSelected(layerGroups.map(lg => lg.id));
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
   }
 
   componentDidUpdate() {

@@ -30,10 +30,13 @@ class MapComponent extends React.Component {
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired,
-    currentLayer: PropTypes.object.isRequired
-  }
+    currentLayer: PropTypes.object
+  };
+
+  static defaultProps = { currentLayer: null };
 
   render() {
+    console.log(this.props)
     const { open, zoom, center, basemap, label, activeLayers, bbox, currentLayer } = this.props;
 
     const classNames = classnames({
