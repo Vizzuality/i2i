@@ -87,6 +87,10 @@
         box-shadow: none;
         padding-right: 0;
       }
+      .-danger {
+        background-color: red;
+        color: #fff;
+      }
     }
 
     .reset-btn {

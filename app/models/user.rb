@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   has_secure_token
 
-  has_many :datasets
+  has_many :datasets, dependent: :destroy
 
   # This method is not available in has_secure_token
   def invalidate_token

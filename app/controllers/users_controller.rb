@@ -13,6 +13,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user.datasets.published.exists?
+      DeleteUserDatasetsFromCarto.new(current_user.id).perform
+    end
+    
+    if current_user.destroy
+      redirect_to root_url
+    end
+  end
+  
   private
 
   def user_params
