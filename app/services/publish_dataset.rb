@@ -2,7 +2,7 @@ class PublishDataset
   CARTODB_USERNAME = ENV['FSP_CARTO_ACCOUNT']
   
   # Move to ENV or change to production api_key
-  CARTODB_API_KEY = 'rMATKa4Im_EYwITHeTCsWw'
+  CARTODB_API_KEY = 'gYzQoMKrOzgqk9jdnSp7FA'
   # Move to ENV or change to production table
   CARTODB_TABLE = 'fsp_maps_users_staging'
   
@@ -16,7 +16,10 @@ class PublishDataset
                           lng
                           year
                           name
-                          color).freeze
+                          color
+                          type_id
+                          user_id
+                          dataset_id).freeze
   
   attr_reader :dataset, :message
   
@@ -28,10 +31,10 @@ class PublishDataset
     resp = HTTParty.post(api_url_with_key, body: { "q": insert_query })
     
     if resp["error"].present?
-      @message = "Database was not published. Error message: #{resp['error']}."
+      @message = "Dataset was not published. Error message: #{resp['error']}."
       false
     else
-      @message = "Database was published! New records: #{resp['total_rows'] || 0}."
+      @message = "Dataset was published! New records: #{resp['total_rows'] || 0}."
       dataset.published!
     end
   end
@@ -63,7 +66,10 @@ class PublishDataset
         row['lng'].present? ? row['lng'] : 'NULL',
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
-        row['color'].present? ? "'#{row['color']}'" : 'NULL'
+        row['color'].present? ? "'#{row['color']}'" : 'NULL',
+        row['type_id'].present? ? row['type_id'] : 'NULL',
+        dataset.user_id,
+        dataset.id
       ].join(',')
       
       rows << "(#{row_values})"

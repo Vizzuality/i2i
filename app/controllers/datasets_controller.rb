@@ -29,6 +29,11 @@ class DatasetsController < ApplicationController
   
   def destroy
     dataset = Dataset.find(params[:id])
+    
+    if dataset.published?
+      DeleteDatasetFromCarto.new(dataset.id).perform
+    end
+    
     dataset.destroy
   end
   

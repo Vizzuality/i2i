@@ -13,6 +13,7 @@ class Dataset < ApplicationRecord
     year
     name
     color
+    type_id
   )
 
   include DatasetUploader[:file]

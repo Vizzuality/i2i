@@ -23,6 +23,23 @@ ActiveAdmin.register Dataset do
         redirect_to admin_datasets_path, alert: publish_service.message
       end
     end
+    
+    def destroy
+      dataset = Dataset.find(params[:id])
+      
+      if dataset.published?
+        delete_service = DeleteDatasetFromCarto.new(dataset.id)
+  
+        if delete_service.perform
+          dataset.destroy
+          redirect_to admin_datasets_path, notice: delete_service.message
+        else
+          redirect_to admin_datasets_path, alert: delete_service.message
+        end
+      else
+        super
+      end
+    end
   end
   
   index do
