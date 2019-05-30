@@ -122,7 +122,7 @@ export const fetchGeoJSON = createThunkAction('PREVIEW_LAYERS/fetchGeoJSON', (da
                 "properties": { ...d },
                 "geometry": {
                   "type": "Point",
-                  "coordinates": [d.lat, d.lng]
+                  "coordinates": [d.lng, d.lat]
                 }
               }))
             };

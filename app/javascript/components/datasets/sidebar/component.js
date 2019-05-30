@@ -183,6 +183,7 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
+    const { currentLayer } = this.props;
     const { open, loading } = this.state;
     const classNames = classnames({
       'c-datasets-sidebar': true,
@@ -208,6 +209,7 @@ class SidebarComponent extends PureComponent {
               handleDelete={this.handleDelete}
               handlePublish={this.handlePublish}
               handleToggle={this.handleToggle}
+              currentLayer={currentLayer}
             />
           }
 

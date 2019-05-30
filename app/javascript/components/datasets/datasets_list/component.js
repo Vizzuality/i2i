@@ -11,6 +11,7 @@ const DatasetsList = (props) => {
           handleEdit={props.handleEdit}
           handlePublish={props.handlePublish}
           handleToggle={props.handleToggle}
+          currentLayer={props.currentLayer}
         />
       </div>
     );

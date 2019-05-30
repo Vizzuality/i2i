@@ -30,8 +30,10 @@ class MapComponent extends React.Component {
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired,
-    currentLayer: PropTypes.object.isRequired
-  }
+    currentLayer: PropTypes.object
+  };
+
+  static defaultProps = { currentLayer: null };
 
   render() {
     const { open, zoom, center, basemap, label, activeLayers, bbox, currentLayer } = this.props;
@@ -43,7 +45,13 @@ class MapComponent extends React.Component {
 
     if (currentLayer) {
       currentLayer.layerConfig.options = {
-        pointToLayer: (geoJsonPoint, latlng) => L.marker(latlng)
+        pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng, {
+          radius: 8,
+          fillColor: geoJsonPoint.properties.color,
+          fillOpacity: 1,
+          color: 'white',
+          weight: 2
+        })
       };
     }
 
