@@ -2,7 +2,7 @@ class PublishDataset
   CARTODB_USERNAME = ENV['FSP_CARTO_ACCOUNT']
   
   # Move to ENV or change to production api_key
-  CARTODB_API_KEY = 'rMATKa4Im_EYwITHeTCsWw'
+  CARTODB_API_KEY = 'gYzQoMKrOzgqk9jdnSp7FA'
   # Move to ENV or change to production table
   CARTODB_TABLE = 'fsp_maps_users_staging'
   
@@ -17,7 +17,9 @@ class PublishDataset
                           year
                           name
                           color
-                          type_id).freeze
+                          type_id
+                          user_id
+                          dataset_id).freeze
   
   attr_reader :dataset, :message
   
@@ -65,7 +67,9 @@ class PublishDataset
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
         row['color'].present? ? "'#{row['color']}'" : 'NULL',
-        row['type_id'].present? ? row['type_id'] : 'NULL'
+        row['type_id'].present? ? row['type_id'] : 'NULL',
+        dataset.user_id,
+        dataset.id
       ].join(',')
       
       rows << "(#{row_values})"
