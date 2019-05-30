@@ -16,7 +16,8 @@ class PublishDataset
                           lng
                           year
                           name
-                          color).freeze
+                          color
+                          type_id).freeze
   
   attr_reader :dataset, :message
   
@@ -63,7 +64,8 @@ class PublishDataset
         row['lng'].present? ? row['lng'] : 'NULL',
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
-        row['color'].present? ? "'#{row['color']}'" : 'NULL'
+        row['color'].present? ? "'#{row['color']}'" : 'NULL',
+        row['type_id'].present? ? "'#{row['type_id']}'" : 'NULL'
       ].join(',')
       
       rows << "(#{row_values})"
