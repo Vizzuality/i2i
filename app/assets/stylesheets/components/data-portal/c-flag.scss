@@ -8,31 +8,32 @@
   @media #{$mq-tablet} {
     height: 210px;
   }
+  .country-info {
+    &.-placeholder {
+      background-color: $color-7;
+    }
 
-  &.-placeholder {
-    background-color: $color-7;
-  }
+    > a {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      text-indent: -10000px; // For accessibility
+    }
 
-  > a {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    text-indent: -10000px; // For accessibility
-  }
+    > .country-name {
+      font-family: $font-family-1;
+      font-size: $font-size-s;
+      color: $color-3;
+      font-weight: $font-weight-bold;
+      text-shadow: 0 1px rgba($color-6, .4);
+      text-transform: uppercase;
+      pointer-events: none;
+      margin-top: 5px;
 
-  > .country-name {
-    font-family: $font-family-1;
-    font-size: $font-size-s;
-    color: $color-3;
-    font-weight: $font-weight-bold;
-    text-shadow: 0 1px rgba($color-6, .4);
-    text-transform: uppercase;
-    pointer-events: none;
-    margin-top: 5px;
-
-    @media #{$mq-tablet} {
-      bottom: 30px;
-      left: 30px;
+      @media #{$mq-tablet} {
+        bottom: 30px;
+        left: 30px;
+      }
     }
   }
 }
