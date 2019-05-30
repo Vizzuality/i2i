@@ -1,1 +1,35 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180"><style>.st0{fill:#006a4e}.st1{fill:#ffce00}.st2{fill:#d21034}.st3{fill:#fff}</style><path id="_x35_" class="st0" d="M0-9h327v202.2H0z"/><path id="_x34_" class="st1" d="M0 31.4h327v40.4H0z"/><path id="_x33_" class="st1" d="M0 112.3h327v40.4H0z"/><path id="_x32_" class="st2" d="M0-9h121.3v121.3H0z"/><path id="_x31_" class="st3" d="M24.1 39.7l22.6 16.5-8.6 26.5 22.5-16.4 22.6 16.4-8.6-26.5 22.6-16.5H69.3l-8.7-26.5L52 39.7z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>TGO</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="TGO">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(138.253625, 47.147763) rotate(-255.000000) translate(-138.253625, -47.147763) translate(-61.246375, -286.852237)">
+                    <polygon id="Rectangle-Copy-4" fill="#FFCD00" points="327.871243 58.462869 398.871243 58.462869 398.871243 667.462869 327.871243 667.462869"></polygon>
+                    <polygon id="Rectangle-Copy-9" fill="#006A4F" points="130.918931 30.4845398 201.918931 30.4845398 201.918931 639.48454 130.918931 639.48454"></polygon>
+                    <polygon id="Rectangle-Copy-7" fill="#006A4F" points="264.341792 45.4625246 335.341792 45.4625246 335.341792 654.462525 264.341792 654.462525"></polygon>
+                    <rect id="Rectangle-Copy-10" fill="#FFCD00" x="65.3882786" y="13.8793112" width="71" height="609"></rect>
+                    <rect id="Rectangle-Copy-11" fill="#72BE44" x="0.634083501" y="0.171860056" width="71" height="609"></rect>
+                    <polygon id="Rectangle-Copy-9" fill="#D3242B" points="35.3900242 363.786645 219.390024 363.786645 219.390024 640.786645 35.3900242 640.786645"></polygon>
+                    <polygon id="Rectangle-Copy-8" fill="#FFCD00" points="201.035885 29.5644028 270.035885 29.5644028 270.035885 638.564403 201.035885 638.564403"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

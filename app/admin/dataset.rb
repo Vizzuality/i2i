@@ -6,17 +6,23 @@ ActiveAdmin.register Dataset do
   
   filter :title
 
+  member_action :publish, method: :put do
+  end
+
   controller do
     def permitted_params
       params.permit(:id, dataset: [:name, :country_id, :category, :file, :status, :user_id])
     end
-  end
-
-  member_action :publish, method: :put do
-    dataset = Dataset.find(params[:id])
-    dataset.published!
     
-    redirect_to admin_datasets_path, notice: "Dataset was published."
+    def publish
+      publish_service = PublishDataset.new(params[:id])
+      
+      if publish_service.perform
+        redirect_to admin_datasets_path, notice: publish_service.message
+      else
+        redirect_to admin_datasets_path, alert: publish_service.message
+      end
+    end
   end
   
   index do
@@ -32,12 +38,30 @@ ActiveAdmin.register Dataset do
       end
     end
     
-    column :status
+    column :status do |dataset|
+      case dataset.status
+      when 'unpublished' then status_tag('Unpublished')
+      when 'pending' then status_tag('Pending', class: 'orange')
+      when 'published' then status_tag('Published', class: 'green')
+      else status_tag(dataset.status)
+      end
+    end
     column :user
     column :created_at
     column :updated_at
+    column 'CSV validation' do |dataset|
+      if dataset.file.present? && dataset.csv_is_valid
+        status_tag('valid', class: 'green')
+      elsif dataset.file.present?
+        status_tag('invalid', class: 'red')
+        content_tag(:p, dataset.csv_errors, class: 'invalid')
+      else
+        status_tag('invalid', class: 'red')
+        content_tag(:p, "CSV is not uploaded", class: 'invalid')
+      end
+    end
     actions do |dataset|
-      if dataset.pending?
+      if dataset.pending? && dataset.csv_is_valid
         item 'Publish', publish_admin_dataset_path(dataset), method: :put
       end
     end

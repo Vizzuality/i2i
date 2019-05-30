@@ -9,7 +9,7 @@ import 'wri-api-components/dist/bundle.css';
 
 // Redux
 import { Provider } from 'react-redux';
-import { initStore } from './fsp-maps-store';
+import { initStore } from './datasets-store';
 
 const store = initStore();
 

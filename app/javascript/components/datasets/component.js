@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import groupBy from 'lodash/groupBy';
-
-
 import qs from 'query-string';
 
 // Components
-import Sidebar from 'components/sidebar';
-import Map from 'components/map';
 import Icons from 'wri-api-components/dist/icons';
+import SidebarComponent from './sidebar';
+import Map from './map_preview';
 
 import './styles.scss';
-import SidebarComponent from "./sidebar/component";
+
 
 export default class Datasets extends React.Component {
   static propTypes = {
@@ -20,6 +17,9 @@ export default class Datasets extends React.Component {
     map: PropTypes.object.isRequired,
     layers: PropTypes.object.isRequired,
     bbox: PropTypes.array.isRequired,
+    datasets: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired,
+    countries: PropTypes.array.isRequired,
     latestYear: PropTypes.number,
     setIso: PropTypes.func.isRequired,
     setShortIso: PropTypes.func.isRequired,
@@ -29,7 +29,7 @@ export default class Datasets extends React.Component {
     setCenter: PropTypes.func.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired
-  }
+  };
 
   static defaultProps = { latestYear: null }
 
@@ -50,7 +50,7 @@ export default class Datasets extends React.Component {
     this.props.setLatestyear(latestYear);
 
     // Fetch
-    // this.props.fetchLayers();
+    this.props.fetchLayers(this.props.datasets);
     // this.props.fetchWidgets();
     // this.props.fetchJurisdictions();
 
@@ -105,12 +105,15 @@ export default class Datasets extends React.Component {
   }
 
   render() {
-    const { iso } = this.props;
-
     return (
       <div className="c-fsp-maps">
         <div className="fsp-maps-tool">
-          <SidebarComponent open={true} datasets={this.props.datasets} categories={this.props.categories} countries={this.props.countries} />
+          <SidebarComponent
+            open
+            datasets={this.props.datasets}
+            categories={this.props.categories}
+            countries={this.props.countries}
+          />
           <Map />
           <Icons />
         </div>
