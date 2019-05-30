@@ -1,10 +1,7 @@
 class PublishDataset
   CARTODB_USERNAME = ENV['FSP_CARTO_ACCOUNT']
-  
-  # Move to ENV or change to production api_key
-  CARTODB_API_KEY = 'gYzQoMKrOzgqk9jdnSp7FA'
-  # Move to ENV or change to production table
-  CARTODB_TABLE = 'fsp_maps_users_staging'
+  CARTODB_API_KEY = ENV['FSP_CARTO_API_KEY']
+  CARTODB_TABLE = ENV['FSP_CARTO_TABLE']
   
   CARTODB_TABLE_FIELDS = %w(country
                           field_1
