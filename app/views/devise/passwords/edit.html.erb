@@ -24,12 +24,12 @@
 
                 <div class="field custom-row">
                   <%= f.label :password, "NEW PASSWORD" %>
-                  <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
+                  <%= f.password_field :password, autofocus: true, autocomplete: "off" required%>
                 </div>
 
                 <div class="field custom-row">
                   <%= f.label :password_confirmation, "CONFIRM NEW PASSWORD" %><br />
-                  <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                  <%= f.password_field :password_confirmation, autocomplete: "off" required%>
                 </div>
 
                 <br/>
