@@ -16,7 +16,7 @@ class DeleteDatasetFromCarto
       @message = "Dataset was not deleted. Error message: #{resp['error']}."
       false
     else
-      @message = "Dataset was deleted! Deleted records: #{resp['total_rows'] || 0}."
+      @message = "Dataset was deleted!"
     end
   end
   
