@@ -29,7 +29,7 @@ class Dataset < ApplicationRecord
     root_url = Rails.application.routes.url_helpers.root_url(
       protocol: Rails.env === 'production' ? 'https' : nil,
       host: ActionMailer::Base.default_url_options[:host],
-      port: ActionMailer::Base.default_url_options[:port]
+      port: Rails.env === 'production' ? nil : ActionMailer::Base.default_url_options[:port]
     )
 
     URI.join(root_url, file.url).to_s
