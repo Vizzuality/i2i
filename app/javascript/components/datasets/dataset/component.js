@@ -31,8 +31,6 @@ class Dataset extends PureComponent {
     const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
     const { currentLayer, dataset } = this.props;
 
-    console.log(currentLayer, dataset);
-
     return (
       <div>
         <div className="status-row">
