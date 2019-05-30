@@ -27,7 +27,7 @@ class Dataset < ApplicationRecord
 
   def file_absolute_url
     root_url = Rails.application.routes.url_helpers.root_url(
-      protocol: ActionMailer::Base.default_url_options[:protocol],
+      protocol: Rails.env === 'production' ? 'https' : nil,
       host: ActionMailer::Base.default_url_options[:host],
       port: ActionMailer::Base.default_url_options[:port]
     )
