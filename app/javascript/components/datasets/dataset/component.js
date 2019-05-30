@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 class Dataset extends PureComponent {
   static propTypes = {
@@ -37,14 +38,18 @@ class Dataset extends PureComponent {
           <div className="status">
             {dataset.status}
           </div>
-          <button className="" onClick={this.handleToggle}>
-            {currentLayer && currentLayer.id.toString() === dataset.id.toString() ? 'disable' : 'enable'}
-          </button>
+          <button
+            className={classnames({
+              enable: !currentLayer,
+              disable: currentLayer
+            })}
+            onClick={this.handleToggle}
+          />
         </div>
 
         <p className="name">{this.props.dataset.name}</p>
 
-        { this.props.dataset.csv_errors &&
+        {this.props.dataset.csv_errors &&
           <p className="errors">{this.props.dataset.csv_errors}</p>
         }
 
@@ -62,7 +67,7 @@ class Dataset extends PureComponent {
             Delete
           </button>
 
-          { showPublishButton &&
+          {showPublishButton &&
             <button
               className="action-button publish-button"
               onClick={this.handlePublish}
