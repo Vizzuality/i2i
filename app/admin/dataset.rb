@@ -38,12 +38,30 @@ ActiveAdmin.register Dataset do
       end
     end
     
-    column :status
+    column :status do |dataset|
+      case dataset.status
+      when 'unpublished' then status_tag('Unpublished')
+      when 'pending' then status_tag('Pending', class: 'orange')
+      when 'published' then status_tag('Published', class: 'green')
+      else status_tag(dataset.status)
+      end
+    end
     column :user
     column :created_at
     column :updated_at
+    column 'CSV validation' do |dataset|
+      if dataset.file.present? && dataset.csv_is_valid
+        status_tag('valid', class: 'green')
+      elsif dataset.file.present?
+        status_tag('invalid', class: 'red')
+        content_tag(:p, dataset.csv_errors, class: 'invalid')
+      else
+        status_tag('invalid', class: 'red')
+        content_tag(:p, "CSV is not uploaded", class: 'invalid')
+      end
+    end
     actions do |dataset|
-      if dataset.pending?
+      if dataset.pending? && dataset.csv_is_valid
         item 'Publish', publish_admin_dataset_path(dataset), method: :put
       end
     end
