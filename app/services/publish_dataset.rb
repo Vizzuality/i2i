@@ -29,10 +29,10 @@ class PublishDataset
     resp = HTTParty.post(api_url_with_key, body: { "q": insert_query })
     
     if resp["error"].present?
-      @message = "Database was not published. Error message: #{resp['error']}."
+      @message = "Dataset was not published. Error message: #{resp['error']}."
       false
     else
-      @message = "Database was published! New records: #{resp['total_rows'] || 0}."
+      @message = "Dataset was published! New records: #{resp['total_rows'] || 0}."
       dataset.published!
     end
   end
