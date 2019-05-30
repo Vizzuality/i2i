@@ -65,7 +65,7 @@ class PublishDataset
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
         row['color'].present? ? "'#{row['color']}'" : 'NULL',
-        row['type_id'].present? ? "'#{row['type_id']}'" : 'NULL'
+        row['type_id'].present? ? row['type_id'] : 'NULL'
       ].join(',')
       
       rows << "(#{row_values})"
