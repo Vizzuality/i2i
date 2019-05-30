@@ -1,1 +1,31 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180"><style>.st0{fill:#00a3dd}.st1{fill:#f7d618}.st2{fill:#ce1021}</style><path class="st0" d="M-2.4-1.3h328.1v218.7H-2.4z"/><path class="st1" d="M305.2-1.3l-307.6 164v54.7h20.5l307.6-164V-1.3z"/><path class="st2" d="M325.7-1.3l-328.1 175v43.7l328.1-175z"/><path class="st1" d="M49.2 9.3l9.2 28.5h30L64.2 55.4l9.2 28.5-24.2-17.6-24.3 17.6 9.3-28.5L9.9 37.8h30z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>COD</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="COD">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(187.793592, 34.360348) rotate(-285.000000) translate(-187.793592, -34.360348) translate(-89.206408, -212.139652)">
+                    <polygon id="Rectangle" stroke="none" fill="#1195DF" points="8.95283847e-13 -1.70530257e-12 281.333333 -1.70530257e-12 281.333333 490.888218 8.95283847e-13 490.888218"></polygon>
+                    <rect id="Rectangle-Copy-3" stroke="none" fill="#1195DF" x="272" y="-1.42108547e-12" width="281.333333" height="490.888218"></rect>
+                    <polygon id="Rectangle-Copy-4" stroke="#FFDE00" stroke-width="11" fill="#CD1021" points="234 1.55291427 379.795555 1.55291427 379.795555 492.441132 234 492.441132"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
