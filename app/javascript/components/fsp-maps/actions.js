@@ -206,7 +206,6 @@ export const fetchLayers = createThunkAction('LAYERS/fetchLayers', () => (dispat
     getContextualLayers()
   ])
     .then((data) => {
-      console.log(data);
       dispatch(setLayersList(flatten(data)));
     });
 });
