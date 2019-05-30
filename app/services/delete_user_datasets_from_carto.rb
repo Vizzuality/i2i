@@ -1,6 +1,6 @@
 class DeleteUserDatasetsFromCarto
   CARTODB_USERNAME = ENV['FSP_CARTO_ACCOUNT']
-  CARTODB_API_KEY = ENV['FSP_CARTO_API_KEY']
+  CARTODB_API_KEY = ENV['FSP_CARTO_UPLOAD_API_KEY']
   CARTODB_TABLE = ENV['FSP_CARTO_TABLE']
   
   attr_reader :user_id, :message
