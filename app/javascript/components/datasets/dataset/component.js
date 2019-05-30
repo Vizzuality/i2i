@@ -31,6 +31,8 @@ class Dataset extends PureComponent {
     const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
     const { currentLayer, dataset } = this.props;
 
+    console.log(currentLayer, dataset);
+
     return (
       <div>
         <div className="status-row">
@@ -38,7 +40,7 @@ class Dataset extends PureComponent {
             {dataset.status}
           </div>
           <button className="" onClick={this.handleToggle}>
-            {currentLayer && currentLayer.id === dataset.id ? 'enable' : 'disable'}
+            {currentLayer && currentLayer.id.toString() === dataset.id.toString() ? 'disable' : 'enable'}
           </button>
         </div>
 

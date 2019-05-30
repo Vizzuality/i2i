@@ -36,7 +36,6 @@ class MapComponent extends React.Component {
   static defaultProps = { currentLayer: null };
 
   render() {
-    console.log(this.props)
     const { open, zoom, center, basemap, label, activeLayers, bbox, currentLayer } = this.props;
 
     const classNames = classnames({
