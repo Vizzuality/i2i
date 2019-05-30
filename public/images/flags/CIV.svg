@@ -1,1 +1,31 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180"><style>.st0{fill:#fff}.st1{fill:#f58020}.st2{fill:#029e60}</style><path id="_x33_" class="st0" d="M0 0h300v182.5H0z"/><path id="_x32_" class="st1" d="M0 0h100v182.5H0z"/><path id="_x31_" class="st2" d="M200 0h100v182.5H200z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>CIV</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="CIV">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(125.074219, 78.050781) rotate(-360.000000) translate(-125.074219, -78.050781) translate(-219.425781, -224.949219)">
+                    <polygon id="Rectangle" fill="#F17D00" transform="translate(244.822594, 322.793553) rotate(-30.000000) translate(-244.822594, -322.793553) " points="104.155928 77.3494444 385.489261 77.3494444 385.489261 568.237662 104.155928 568.237662"></polygon>
+                    <polygon id="Rectangle-Copy-3" fill="#287F64" transform="translate(489.365555, 257.159109) rotate(-30.000000) translate(-489.365555, -257.159109) " points="401.397777 11.7149998 577.333333 11.7149998 577.333333 502.603217 401.397777 502.603217"></polygon>
+                    <polygon id="Rectangle-Copy-4" fill="#FCFFFD" transform="translate(387.746307, 250.194565) rotate(-30.000000) translate(-387.746307, -250.194565) " points="353.814583 4.75045585 421.678031 4.75045585 421.678031 495.638674 353.814583 495.638674"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

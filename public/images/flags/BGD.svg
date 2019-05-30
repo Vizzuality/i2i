@@ -1,1 +1,30 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 180"><style>.st0{clip-path:url(#SVGID_2_);fill:#006b4f}.st1{clip-path:url(#SVGID_4_);fill:#ee2e43}</style><defs><path id="SVGID_1_" d="M0 0h300v179.9H0z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" overflow="visible"/></clipPath><path class="st0" d="M0 0h300v179.9H0z"/><defs><path id="SVGID_3_" d="M0 0h300v180H0z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" overflow="visible"/></clipPath><path class="st1" d="M135 30c33.1 0 60 26.9 60 60s-26.9 60-60 60-60-26.9-60-60 26.9-60 60-60"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>BGD</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BGD">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(123.693741, 64.350595) rotate(-225.000000) translate(-123.693741, -64.350595) translate(-108.806259, -211.649405)">
+                    <polygon id="Rectangle-Copy-3" fill="#006B50" transform="translate(232.428685, 276.175220) rotate(-30.000000) translate(-232.428685, -276.175220) " points="106.428685 30.7311108 358.428685 30.7311108 358.428685 521.619328 106.428685 521.619328"></polygon>
+                    <circle id="Oval" fill="#EE2E43" cx="135" cy="276" r="108"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
