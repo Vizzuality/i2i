@@ -31,6 +31,7 @@ class Dataset extends PureComponent {
   render() {
     const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
     const { currentLayer, dataset } = this.props;
+    const isEnabled = currentLayer && currentLayer.id.toString() === dataset.id.toString();
 
     return (
       <div>
@@ -40,8 +41,8 @@ class Dataset extends PureComponent {
           </div>
           <button
             className={classnames({
-              enable: !currentLayer,
-              disable: currentLayer
+              enable: !isEnabled,
+              disable: isEnabled
             })}
             onClick={this.handleToggle}
           />
