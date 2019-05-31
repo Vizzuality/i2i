@@ -39,7 +39,9 @@ class DatasetsController < ApplicationController
   
   def update
     dataset = Dataset.find(params[:id])
-    dataset.update(dataset_params)
+    unless dataset.published?
+      dataset.update(dataset_params)
+    end
     
     render json: dataset, methods: %i(file_absolute_url csv_errors is_valid_for_preview csv_is_valid)
   end
