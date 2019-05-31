@@ -34,7 +34,8 @@
       // Selected year in the modal
       _selectedYear: null,
       // Selected jurisdiction in the modal
-      _selectedJurisdiction: null
+      _selectedJurisdiction: null,
+      isRegion: false,
     },
 
     events: function () {
@@ -125,7 +126,8 @@
         year: year,
         indicators: indicators,
         filters: filters,
-        jurisdiction: jurisdiction
+        jurisdiction: jurisdiction,
+        isRegion: this.options.isRegion,
       });
     },
 
