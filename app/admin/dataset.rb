@@ -111,7 +111,6 @@ ActiveAdmin.register Dataset do
       f.input :country, as: :select, collection: Country.all, include_blank: false
       f.input :category, as: :select, collection: Dataset.categories.map {|name, _| [name.humanize, name] }, include_blank: false
       f.input :status, as: :select, collection: Dataset.statuses.map {|name, _| [name.humanize, name] }, include_blank: false
-      f.input :user, as: :select, collection: User.all.map {|u| [u.name_or_email, u.id]}, include_blank: false
       f.input :file, as: :hidden, input_html: { value: f.object.cached_file_data }
       f.input :file, as: :file, hint: f.object.file.present? ? content_tag(:span, f.object.file.original_filename) : content_tag(:span, 'No file yet')
       
