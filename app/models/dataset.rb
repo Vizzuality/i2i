@@ -2,18 +2,13 @@ require 'uploaders/dataset_uploader'
 
 class Dataset < ApplicationRecord
   REQUIRED_CSV_HEADERS = %w(
-    country
     field_1
-    sector
-    type
     land_use
-    iso
     lat
     lng
     year
     name
     color
-    type_id
   )
 
   include DatasetUploader[:file]
