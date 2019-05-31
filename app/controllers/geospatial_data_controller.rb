@@ -1,7 +1,7 @@
 class GeospatialDataController < ApplicationController
   def index
     user_countries = GetCountriesFromCarto.new.perform
-    user_countries_iso = JSON.parse(user_countries.body)['rows'].collect { |c| c['iso']  }
+    user_countries_iso = user_countries ? JSON.parse(user_countries.body)['rows'].collect { |c| c['iso'] } : []
     @countries_db = Country.ordered_by_name.where('iso IN (?) OR has_fsp_maps=?', user_countries_iso, true)
     # @countries_db = Country.ordered_by_name.where(has_fsp_maps: true)
     @regions = []
