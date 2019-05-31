@@ -40,6 +40,26 @@ ActiveAdmin.register Dataset do
         super
       end
     end
+    
+    def update
+      dataset = Dataset.find(params[:id])
+      # If status is going to change from :published, need to remove data from Carto
+      super unless dataset.published?
+
+      dataset.update(permitted_params[:dataset])
+      
+      if dataset.previous_changes.include?(:status)
+        delete_service = DeleteDatasetFromCarto.new(dataset.id)
+        
+        if delete_service.perform
+          redirect_to admin_dataset_path(dataset), notice: "Dataset was updated successfully."
+        else
+          redirect_to admin_dataset_path(dataset), alert: "Dataset was updated, but published data was not changed. Error: #{delete_service.error}"
+        end
+      else
+        redirect_to admin_dataset_path(dataset), notice: "Dataset was updated successfully."
+      end
+    end
   end
   
   index do
