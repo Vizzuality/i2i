@@ -56,7 +56,7 @@ class PublishDataset
         "'#{country_name}'",
         row['field_1'].present? ? row['field_1'] : 'NULL',
         "'#{sector}'",
-        row['type'].present? ? "'#{row['type']}'" : 'NULL',
+        "'#{dataset.name}'",
         row['land_use'].present? ? "'#{row['land_use']}'" : 'NULL',
         "'#{country_iso}'",
         row['lat'].present? ? row['lat'] : 'NULL',
@@ -71,6 +71,8 @@ class PublishDataset
       
       rows << "(#{row_values})"
     end
+
+    puts rows
     
     rows
   end
