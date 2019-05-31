@@ -20,6 +20,16 @@ ActiveAdmin.register User do
   
       super
     end
+
+    def destroy
+      user = User.find(params[:id])
+  
+      if user.datasets.published.exists?
+        DeleteUserDatasetsFromCarto.new(current_user.id).perform
+      end
+      
+      super
+    end
   end
   
   index do

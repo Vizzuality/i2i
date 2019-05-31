@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   # User Account Details
   get 'account', to: 'users#edit'
-  resources :users, only: %i(update)
+  resources :users, only: %i(update destroy)
 
   # User Datasets
   resources :datasets, only: %i(index create destroy update) do
