@@ -186,15 +186,20 @@
     }
 
     > .nav-item {
-      flex-basis: 50%;
       flex-shrink: 0;
       margin-bottom: 20px;
+      margin-right: 0;
       text-align: center;
+      flex-basis: 50%;
 
       @media #{$mq-body-width} {
         flex-basis: auto;
         margin-right: 20px;
         margin-bottom: 0px;
+      }
+      @media #{$mq-tablet} {
+        margin-right: 20px;
+        flex-basis: auto;
       }
 
       a {
