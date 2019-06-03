@@ -40,6 +40,26 @@ ActiveAdmin.register Dataset do
         super
       end
     end
+    
+    def update
+      dataset = Dataset.find(params[:id])
+      # If status is going to change from :published, need to remove data from Carto
+      super unless dataset.published?
+
+      dataset.update(permitted_params[:dataset])
+      
+      if dataset.previous_changes.include?(:status)
+        delete_service = DeleteDatasetFromCarto.new(dataset.id)
+        
+        if delete_service.perform
+          redirect_to admin_dataset_path(dataset), notice: "Dataset was updated successfully."
+        else
+          redirect_to admin_dataset_path(dataset), alert: "Dataset was updated, but published data was not changed. Error: #{delete_service.error}"
+        end
+      else
+        redirect_to admin_dataset_path(dataset), notice: "Dataset was updated successfully."
+      end
+    end
   end
   
   index do
@@ -91,7 +111,6 @@ ActiveAdmin.register Dataset do
       f.input :country, as: :select, collection: Country.all, include_blank: false
       f.input :category, as: :select, collection: Dataset.categories.map {|name, _| [name.humanize, name] }, include_blank: false
       f.input :status, as: :select, collection: Dataset.statuses.map {|name, _| [name.humanize, name] }, include_blank: false
-      f.input :user, as: :select, collection: User.all.map {|u| [u.name_or_email, u.id]}, include_blank: false
       f.input :file, as: :hidden, input_html: { value: f.object.cached_file_data }
       f.input :file, as: :file, hint: f.object.file.present? ? content_tag(:span, f.object.file.original_filename) : content_tag(:span, 'No file yet')
       
