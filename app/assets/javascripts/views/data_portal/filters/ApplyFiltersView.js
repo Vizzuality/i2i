@@ -81,9 +81,13 @@
         // We copy the options in this.options.indicators
         indicatorsModels.forEach(function (indicatorsModel) {
           var indicator = _.findWhere(this.options.indicators, { id: indicatorsModel.options.id });
-          indicator.options = indicatorsModel.get('data').map(function (row) {
-            return row.label;
-          });
+          indicator.options = indicatorsModel.get('data')
+            .filter(function(i) {
+              return i.label && i.label !== ''
+            })
+            .map(function (row) {
+              return row.label;
+            });
         }, this);
       }.bind(this))
       .then(function () {
