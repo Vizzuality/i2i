@@ -21,7 +21,10 @@
             <div class="c-hero" style="padding-bottom: 70px !important;">
               <div class="grid-l-12">
                 <div class="row">
-                  <h1 class="title -highlight -huge"><%= [@region.name].join(' ') %></h1>
+                  <div class="c-country-selector">
+                    <%= link_to 'data portal', data_portal_path, class: 'country-link' %>
+                    <h1 class="title -highlight -huge"><%= [@region.name].join(' '), 'Dashboard' %></h1>
+                  </div>
                 </div>
               </div>
 
