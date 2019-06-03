@@ -14,27 +14,27 @@
   > .c-flag {
     height: 230px;
     background-color: #fff;
+
     .country-info {
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-    }
 
-    > .region-name {
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      font-family: $font-family-1;
-      font-size: $font-size-s;
-      font-weight: $font-weight-bold;
-      text-shadow: 0 1px rgba($color-6, .4);
-      text-transform: uppercase;
-      pointer-events: none;
+      > .region-name {
 
-      @media #{$mq-tablet} {
-        bottom: 20px;
-        left: 20px;
+        font-family: $font-family-1;
+        font-size: $font-size-s;
+        font-weight: $font-weight-bold;
+        text-shadow: 0 1px rgba($color-6, .4);
+        text-transform: uppercase;
+        pointer-events: none;
+        color: $color-3;
+
+        @media #{$mq-tablet} {
+          bottom: 20px;
+          left: 20px;
+        }
       }
     }
   }
