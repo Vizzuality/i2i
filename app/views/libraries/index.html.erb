@@ -51,7 +51,7 @@
             data-subcategory="<%= library.subcategory.name %>"
           >
             <article class="c-card">
-              <div class="picture" style="background-image: url(<%= library.image %>)"></div>
+              <div class="picture" style="background-image: url(<%= library.image.url(:thumb) %>)"></div>
               <div class="metadata">
                 <h4 class="title -xs -dark"><%= library.title %></h4>
                 <h5 class="title -small -sea"><%= DateHelper.beautify library.date %></h5>

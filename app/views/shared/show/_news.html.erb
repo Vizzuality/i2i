@@ -73,7 +73,7 @@
                 <%if news.image.blank? != true %>
                   <div class="row">
                     <div class="grid-s-12">
-                        <div class="article-image" style="background-image: url(<%= news.image %>)"></div>
+                        <div class="article-image" style="background-image: url(<%= news.image.url(:thumb) %>)"></div>
                     </div>
                   </div>
                 <% end %>
