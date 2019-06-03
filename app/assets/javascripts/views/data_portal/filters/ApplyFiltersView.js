@@ -63,11 +63,12 @@
       this._showLoader();
 
       var indicatorsModels = this.options.indicators.map(function (indicator) {
-        return new App.Model.IndicatorModel({},
+        return new App.Model.IndicatorModel({ },
           {
             id: indicator.id,
             iso: this.options.iso,
-            year: this.options.year
+            year: this.options.year,
+            isRegion: this.options.isRegion,
           }
         );
       }, this);

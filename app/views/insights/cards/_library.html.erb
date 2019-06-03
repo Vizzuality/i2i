@@ -1,5 +1,5 @@
 <article class="c-card">
-  <div class="picture" style="background-image: url(<%= library.image %>)"></div>
+  <div class="picture" style="background-image: url(<%= library.image.url(:thumb) %>)"></div>
   <div class="metadata">
     <h4 class="title -dark -regular"><%= library.title %></h4>
     <p><%= library.summary %></p>

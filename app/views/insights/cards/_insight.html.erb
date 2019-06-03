@@ -1,6 +1,6 @@
 <article class="c-card">
   <a href="<%= insights_show_path(insight.category.slug, insight.slug, { entity: insight.record_type }) %>" alt="<%= insight.title %>">
-    <div class="picture" style="background-image: url(<%= insight.image %>)"></div>
+    <div class="picture" style="background-image: url(<%= insight.image.url(:thumb) %>)"></div>
   </a>
   <div class="metadata">
     <a href="<%= insights_show_path(insight.category.slug, insight.slug, { entity: insight.record_type }) %>">

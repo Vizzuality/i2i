@@ -1,0 +1,10 @@
+.action-button {
+  &:disabled {
+    opacity: .7;
+    pointer-events: auto;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}

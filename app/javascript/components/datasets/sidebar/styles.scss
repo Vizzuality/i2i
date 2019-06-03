@@ -177,6 +177,15 @@
               background-color: #2F939C;
               color: #fff;
             }
+
+            &:disabled {
+              opacity: .7;
+              pointer-events: auto;
+
+              &:hover {
+                cursor: not-allowed;
+              }
+            }
           }
         }
       }

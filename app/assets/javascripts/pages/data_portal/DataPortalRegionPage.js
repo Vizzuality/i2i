@@ -302,7 +302,8 @@
         jurisdiction: !!this._getJurisdictionFilter()
           ? this._getJurisdictionFilter().options[0]
           : null,
-        continueCallback: this._onFiltersUpdate.bind(this)
+        continueCallback: this._onFiltersUpdate.bind(this),
+        isRegion: true,
       });
     },
 

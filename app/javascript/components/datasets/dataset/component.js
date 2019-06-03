@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import './styles.scss';
+
 class Dataset extends PureComponent {
   static propTypes = {
     dataset: PropTypes.shape({
@@ -30,6 +32,7 @@ class Dataset extends PureComponent {
 
   render() {
     const showPublishButton = this.props.dataset.status === 'unpublished' && this.props.dataset.csv_is_valid;
+    const isEditDisabled = this.props.dataset.status === 'published';
     const { currentLayer, dataset } = this.props;
     const isEnabled = currentLayer && currentLayer.id.toString() === dataset.id.toString();
 
@@ -58,6 +61,7 @@ class Dataset extends PureComponent {
           <button
             className="action-button"
             onClick={this.handleEdit}
+            disabled={isEditDisabled}
           >
             Edit
           </button>

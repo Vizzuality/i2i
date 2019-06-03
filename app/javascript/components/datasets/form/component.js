@@ -130,7 +130,7 @@ class DatasetForm extends React.Component {
     const categoryOptions =
       this.props.categories.map(category => ({ value: category[1], label: category[0] }));
     const title = this.props.editMode && this.props.dataset ? 'Edit dataset' : 'Upload dataset';
-    const description = 'Check expected format of this CSV template to upload a valid file.';
+    const description = 'Check expected format of this <a href="/csv_template.csv" target="_blank" download>CSV template</a> to upload a valid file.';
     const submitButtonTitle = this.props.editMode && this.props.dataset ? 'Save changes' : 'Done';
 
     return (
@@ -138,7 +138,7 @@ class DatasetForm extends React.Component {
         <button className="action-button" onClick={this.props.handleBackButton}>Back</button>
 
         <h3 className="title-header">{title}</h3>
-        <p className="description">{description}</p>
+        <p className="description" dangerouslySetInnerHTML={{ __html: description }} />
 
         <form onSubmit={(e) => {
           e.preventDefault();

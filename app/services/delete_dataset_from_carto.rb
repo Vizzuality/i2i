@@ -3,7 +3,7 @@ class DeleteDatasetFromCarto
   CARTODB_API_KEY = ENV['FSP_CARTO_UPLOAD_API_KEY']
   CARTODB_TABLE = ENV['FSP_CARTO_TABLE']
   
-  attr_reader :dataset, :message
+  attr_reader :dataset, :message, :error
   
   def initialize(dataset_id)
     @dataset = Dataset.find(dataset_id)
@@ -13,6 +13,7 @@ class DeleteDatasetFromCarto
     resp = HTTParty.post(api_url_with_key, body: { "q": delete_query })
     
     if resp["error"].present?
+      @error = resp['error']
       @message = "Dataset was not deleted. Error message: #{resp['error']}."
       false
     else
