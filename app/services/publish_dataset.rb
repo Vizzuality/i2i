@@ -45,6 +45,7 @@ class PublishDataset
     country_name = dataset.country.name
     country_iso = dataset.country.iso
     sector = dataset.category&.capitalize
+    color = Random.new.bytes(3).unpack("H*")[0]
 
     # Expect to have grouped values for INSERT query:
     # ('Zambia',513386,'Finance','MFI',NULL,'ZMB',19.44840051,-72.6934262,2017,'Sogesol','#2ca02c')
@@ -65,7 +66,7 @@ class PublishDataset
         row['lng'].present? ? row['lng'] : 'NULL',
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
-        row['color'].present? ? "'#{row['color']}'" : 'NULL',
+        row['color'].present? ? "'#{row['color']}'" : color,
         row['type_id'].present? ? row['type_id'] : Time.now.to_i,
         dataset.user_id,
         dataset.id

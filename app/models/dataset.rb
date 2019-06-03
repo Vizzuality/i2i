@@ -6,7 +6,6 @@ class Dataset < ApplicationRecord
     lng
     year
     name
-    color
   )
 
   include DatasetUploader[:file]
