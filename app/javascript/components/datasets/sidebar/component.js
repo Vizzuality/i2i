@@ -12,13 +12,23 @@ class SidebarComponent extends PureComponent {
     open: PropTypes.bool.isRequired,
     datasets: PropTypes.array.isRequired,
     categories: PropTypes.array.isRequired,
-    countries: PropTypes.array.isRequired
+    countries: PropTypes.array.isRequired,
+    currentLayer: PropTypes.object,
+    removeCurrentLayer: PropTypes.func,
+    fetchGeoJSON: PropTypes.func,
+    setDatasets: PropTypes.func
+  };
+
+  static defaultProps = {
+    currentLayer: null,
+    removeCurrentLayer: () => null,
+    setDatasets: () => null,
+    fetchGeoJSON: () => null
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      datasets: this.props.datasets,
       editMode: false,
       editableDataset: null,
       open: this.props.open,
@@ -116,34 +126,33 @@ class SidebarComponent extends PureComponent {
   }
 
   updateDataset(dataset) {
-    this.setState((state) => {
-      const datasetsList = state.datasets.map((item) => {
-        if (item.id === dataset.id) {
-          return dataset;
-        } else {
-          return item;
-        }
-      });
-
-      return { datasets: datasetsList };
+    const { setDatasets, datasets } = this.props;
+    const datasetsList = datasets.map((item) => {
+      if (item.id === dataset.id) {
+        return dataset;
+      }
+      return item;
     });
+
+    setDatasets(datasetsList);
   }
 
   handleEdit(id) {
-    const editableDataset = this.state.datasets.find(dataset => dataset.id === id);
-
+    const editableDataset = this.props.datasets.find(dataset => dataset.id === id);
     this.setState({ editMode: !this.state.editMode, editableDataset });
   }
 
   deleteItem(id) {
-    const datasetsList = this.state.datasets.filter(dataset => dataset.id !== id);
-    this.setState({ datasets: datasetsList });
+    const { setDatasets } = this.props;
+    const datasetsList = this.props.datasets.filter(dataset => dataset.id !== id);
+    setDatasets(datasetsList);
   }
 
   handleFormSubmit(datasetData) {
-    this.setState({ loading: true });
     const body = datasetData;
     const csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
+
+    this.setState({ loading: true });
 
     fetch(
       '/datasets',
@@ -162,7 +171,8 @@ class SidebarComponent extends PureComponent {
   }
 
   addNewDataset(dataset) {
-    this.setState({ datasets: this.state.datasets.concat(dataset) });
+    const { setDatasets, datasets } = this.props;
+    setDatasets(datasets.concat(dataset));
   }
 
   handleBackButton() {
@@ -183,7 +193,7 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { currentLayer } = this.props;
+    const { currentLayer, datasets } = this.props;
     const { open, loading } = this.state;
     const classNames = classnames({
       'c-datasets-sidebar': true,
@@ -204,7 +214,7 @@ class SidebarComponent extends PureComponent {
 
           {!this.state.editMode && !loading &&
             <DatasetsList
-              datasets={this.state.datasets}
+              datasets={datasets}
               handleEdit={this.handleEdit}
               handleDelete={this.handleDelete}
               handlePublish={this.handlePublish}

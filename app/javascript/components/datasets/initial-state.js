@@ -52,5 +52,6 @@ export default {
     }
   },
   widgets: { list: [] },
-  currentLayer: null
+  currentLayer: null,
+  datasetsList: []
 };

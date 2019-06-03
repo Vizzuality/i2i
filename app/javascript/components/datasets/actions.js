@@ -84,6 +84,7 @@ export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 export const setCurrentLayer = createAction('PREVIEW_LAYERS/setCurrentLayer');
 export const removeCurrentLayer = createAction('PREVIEW_LAYERS/removeCurrentLayer');
 
+// DATASETS
 const datasetsToLayers = (datasets) => datasets.map(d => {
   return {
     id: d.id.toString(),
@@ -98,7 +99,7 @@ const datasetsToLayers = (datasets) => datasets.map(d => {
   };
 });
 
-export const fetchLayers = createThunkAction('PREVIEW_LAYERS/fetchLayers', (datasets) => (dispatch) => {
+export const setDatasets = createThunkAction('PREVIEW_LAYERS/setDatasets', (datasets) => (dispatch) => {
   dispatch(setLayersList(datasetsToLayers(datasets)));
 });
 

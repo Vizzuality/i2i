@@ -81,6 +81,12 @@ export default {
     return { ...state, sidebar };
   },
 
+  // DATASETS
+  [actions.setDatasets]: (state, { payload }) => ({
+    ...state,
+    datasetsList: payload
+  }),
+
   // LAYERS
   [actions.setLayersList]: (state, { payload }) => {
     const layers = { ...state.layers, list: payload };

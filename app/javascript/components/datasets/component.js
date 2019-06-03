@@ -34,7 +34,7 @@ export default class Datasets extends React.Component {
   static defaultProps = { latestYear: null }
 
   componentWillMount() {
-    const { iso, shortIso, bbox, latestYear } = this.props;
+    const { iso, shortIso, bbox, latestYear, setDatasets, datasets } = this.props;
 
     // LOCATION PARAMS
     const { location } = window;
@@ -50,7 +50,7 @@ export default class Datasets extends React.Component {
     // this.props.setLatestyear(latestYear);
 
     // Fetch
-    this.props.fetchLayers(this.props.datasets);
+    setDatasets(datasets);
     // this.props.fetchWidgets();
     // this.props.fetchJurisdictions();
 
@@ -99,6 +99,8 @@ export default class Datasets extends React.Component {
       lng: map.center.lng,
       ...!!layerGroups.length && { layers: JSON.stringify(layerGroups) }
     });
+
+    console.log(this.props);
 
     // Replace url
     history.replaceState({}, 'fsp-maps', `${location.pathname}?${search}`);

@@ -97,7 +97,8 @@ function getSectors(iso) {
         info: LAYERS_INFO[row.type],
         layerType: 'sector',
         count: Numeral(row.count).format('0,0'),
-        provider: 'carto'
+        provider: 'carto',
+        isUserDataset: false
       }));
 
       return dataRows;
@@ -117,7 +118,8 @@ function getUserDatasets(iso) {
         info: LAYERS_INFO[row.type],
         layerType: 'sector',
         count: Numeral(row.count).format('0,0'),
-        provider: 'carto'
+        provider: 'carto',
+        isUserDataset: true
       }));
 
       return dataRows;

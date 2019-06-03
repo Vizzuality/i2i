@@ -8,6 +8,9 @@ import SidebarComponent from './component';
 export { actions, initialState };
 
 export default connect(
-  state => ({ currentLayer: state.datasets.currentLayer }),
+  state => ({
+    currentLayer: state.datasets.currentLayer,
+    datasets: state.datasets.datasetsList
+  }),
   actions
 )(SidebarComponent);
