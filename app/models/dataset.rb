@@ -2,8 +2,6 @@ require 'uploaders/dataset_uploader'
 
 class Dataset < ApplicationRecord
   REQUIRED_CSV_HEADERS = %w(
-    field_1
-    land_use
     lat
     lng
     year
