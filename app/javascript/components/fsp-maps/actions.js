@@ -106,7 +106,8 @@ function getSectors(iso) {
 }
 
 function getUserDatasets(iso) {
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(USER_DATASETS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  const tableName = process.env.FSP_CARTO_TABLE;
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(USER_DATASETS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })

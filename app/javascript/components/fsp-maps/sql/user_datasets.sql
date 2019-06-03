@@ -5,6 +5,6 @@ SELECT count(type),
         iso,
         color,
         type_id
-FROM fsp_maps_users_staging
+FROM {tableName}
 WHERE iso = '{iso}'
 GROUP BY  sector, iso, type, color, type_id, cartodb_id

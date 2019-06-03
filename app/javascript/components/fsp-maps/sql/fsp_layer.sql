@@ -5,7 +5,7 @@ SELECT st_asgeojson(the_geom),
        type,
        cartodb_id,
        name
-FROM {table_name}
+FROM {tableName}
 WHERE iso = '{iso}'
        AND type_id = {type_id}
 ORDER BY  sector,
