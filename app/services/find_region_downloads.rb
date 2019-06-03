@@ -21,7 +21,7 @@ class FindRegionDownloads
         id: link.id,
         name: link.name,
         url: link.url,
-        html_class: '',
+        html_class: link.id,
         zip: false
       )
     end
