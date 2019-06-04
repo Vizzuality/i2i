@@ -1,5 +1,9 @@
 <% if partner.logo.present? %>
-  <%= link_to partner.website_url do %>
+  <% if partner.website_url.present? %>
+    <%= link_to partner.website_url do %>
+      <%= image_tag partner.logo_url(:thumb), style: 'height: 54px; margin-right: 10px;', alt: partner.name %>
+    <% end %>
+  <% else %>
     <%= image_tag partner.logo_url(:thumb), style: 'height: 54px; margin-right: 10px;', alt: partner.name %>
   <% end %>
 <% end %>
