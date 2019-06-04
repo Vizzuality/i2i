@@ -1,5 +1,6 @@
 class DataPortal::FspMapsController < ApplicationController
   def show
+    gon.users_data = User.select('id, name, surname')
     @iso = params[:iso]
     @country = Country.find_by(iso: @iso)
     @countries = Country.where(has_fsp_maps: true)

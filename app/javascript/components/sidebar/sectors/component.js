@@ -15,7 +15,6 @@ class SectorsComponent extends PureComponent {
     layersBySector: PropTypes.array,
     selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.object.isRequired,
-    activeLayers: PropTypes.array.isRequired,
     setModal: PropTypes.func.isRequired,
     setLayersSectorSelected: PropTypes.func.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
@@ -62,7 +61,6 @@ class SectorsComponent extends PureComponent {
       sectors,
       selectedSector,
       layersBySector,
-      activeLayers,
       setModal
     } = this.props;
 

@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import groupBy from 'lodash/groupBy';
-
-
 import qs from 'query-string';
 
 // Components

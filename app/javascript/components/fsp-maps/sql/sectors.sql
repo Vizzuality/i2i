@@ -4,7 +4,8 @@ SELECT count(type_id),
         sector,
         iso,
         color,
-        type_id
+        type_id,
+        user_id
 FROM {tableName}
 WHERE iso = '{iso}'
-GROUP BY  sector, iso, type, color, type_id
+GROUP BY sector, iso, type, color, type_id, user_id

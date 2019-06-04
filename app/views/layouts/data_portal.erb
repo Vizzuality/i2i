@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title><%= yield :title %> - insight2impact</title>
     <%= csrf_meta_tags %>
+    <%= Gon::Base.render_data %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <% if content_for?(:media_metas) %>

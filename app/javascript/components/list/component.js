@@ -1,14 +1,13 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Numeral from 'numeral';
 import classnames from 'classnames';
+import Modal from 'components/modal';
+import LayerInfo from 'components/list/layer-info';
 
 // styles
 import './styles.scss';
-
-// Components
-import Modal from 'components/modal';
-import LayerInfo from 'components/list/layer-info';
 
 class ListComponent extends React.Component {
   static propTypes = {
@@ -17,6 +16,11 @@ class ListComponent extends React.Component {
     selectedLayers: PropTypes.array,
     onSelect: PropTypes.func.isRequired,
     onClickInfo: PropTypes.func
+  }
+
+  static defaultProps = {
+    selectedLayers: [],
+    onClickInfo: null
   }
 
   state = {
@@ -28,18 +32,13 @@ class ListComponent extends React.Component {
     }
   }
 
-  static defaultProps = {
-    selectedLayers: [],
-    onClickInfo: null
-  }
-
   onClickInfo = (e, item) => {
     e.stopPropagation();
-    this.setState({ infoModal: true, info: item.info })
+    this.setState({ infoModal: true, info: item.info });
     if (this.props.onClickInfo) this.props.onClickInfo(item);
   }
 
-  clickItem(row) {
+  clickItem = (row) => {
     this.props.onSelect(row);
   }
 
@@ -56,6 +55,7 @@ class ListComponent extends React.Component {
             'list-item': true,
             '-checked': selectedLayers.includes(row.id)
           });
+          const user = window.gon.users_data.find(u => u.id === row.user_id);
 
           return (
             <div key={row.id} className={listItemClassName}>
@@ -68,7 +68,8 @@ class ListComponent extends React.Component {
                   <span className="item-button-switch" />
                   <div className="name-container">
                     <h3 className="item-button-title">{label}</h3>
-                    {!!count && <h4 className="item-button-subtitle">({count})</h4>}
+                    {!!count && <div className="item-button-subtitle">({count})</div>}
+                    {row.user_id && <h4>by {`${user.name} ${user.surname}`}</h4>}
                   </div>
                 </div>
                 {row.info &&
