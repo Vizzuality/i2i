@@ -13,7 +13,7 @@
         <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
-    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>);">
+    <div class="content" style="background-image: url(<%= @region.background_url(:header) || asset_path('headers/header-bg-about.jpg') %>);">
 
       <div class="l-title">
         <div class="wrapper">

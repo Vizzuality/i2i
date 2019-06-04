@@ -1,13 +1,4 @@
 ActiveAdmin.register Country do
-  controller do
-    def permitted_params
-      params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw,
-                              region_ids: [],
-                              partner_ids: [],
-                              links_attributes: [:id, :name, :url, :_destroy]]
-    end
-  end
-
   filter :name
   filter :iso
   filter :short_iso
@@ -17,6 +8,13 @@ ActiveAdmin.register Country do
   filter :updated_at
 
   controller do
+    def permitted_params
+      params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw, :background,
+                              region_ids: [],
+                              partner_ids: [],
+                              links_attributes: [:id, :name, :url, :_destroy]]
+    end
+    
     def scoped_collection
       super.includes(:partners, :regions)
     end
@@ -43,6 +41,8 @@ ActiveAdmin.register Country do
       f.input :iso
       f.input :short_iso
       f.input :bbox_raw, label: 'Bounding box'
+      f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
+      f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
 
       f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
         link_form.input :name
