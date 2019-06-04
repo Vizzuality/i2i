@@ -3,7 +3,8 @@ SELECT count(type_id),
         type,
         sector,
         iso,
+        color,
         type_id
 FROM {tableName}
 WHERE iso = '{iso}'
-GROUP BY  sector, iso, type, type_id
+GROUP BY  sector, iso, type, color, type_id
