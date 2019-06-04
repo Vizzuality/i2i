@@ -27,6 +27,8 @@ class User < ApplicationRecord
 
   has_many :datasets, dependent: :destroy
 
+  validates :terms_of_service, acceptance: true
+
   # This method is not available in has_secure_token
   def invalidate_token
     self.update_columns(token: nil)

@@ -13,6 +13,14 @@
     }
   }
 
+  > .custom-inline-row {
+    display: flex;
+
+    @media #{$mq-tablet} {
+      margin: 40px 0 0;
+    }
+  }
+
   label {
     margin: 0 0 10px;
 
@@ -21,6 +29,11 @@
     font-size: $font-size-s;
     font-weight: $font-weight-medium;
     text-transform: uppercase;
+
+    > a {
+      text-decoration: underline;
+      color: $color-1;
+    }
   }
 
   input,

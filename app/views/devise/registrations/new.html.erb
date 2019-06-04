@@ -65,14 +65,19 @@
                   </div>
 
                   <div class="field custom-row">
-                    <%= f.label :attribution, 'ATTRIBUTION' %><br />
+                    <%= f.label :attribution, 'NAME OF UPLOADER' %><br />
                     <%= f.text_field :attribution %>
                   </div>
+
+                  <div class="field custom-inline-row">
+                    <%= f.check_box :terms_of_service %> <%= f.label :terms_of_service, "You agree to our #{link_to 'terms and conditions', terms_of_use_path } *".html_safe %>
+                  </div>
+
                   <div class="form-actions">
                     <%- if controller_name != 'sessions' %>
                       <%= link_to "I have an account", new_session_path(resource_name), :class => 'primary'%>
                     <% end -%>
-                      <%= f.submit "Register", :class => 'secondary'%>
+                    <%= f.submit "Register", :class => 'secondary'%>
                   </div>
                 <% end %>
               </div>
