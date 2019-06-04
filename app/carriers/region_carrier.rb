@@ -20,7 +20,7 @@ class RegionCarrier
     @downloads_modal = FindRegionDownloads.new(region).perform
     @downloads_modal.map do |download|
       OpenStruct.new(
-        id: download.id || "api-#{download.name}",
+        id: download.id || download.html_class,
         title: download.name,
         url: download.url,
         html_class: download.html_class,
