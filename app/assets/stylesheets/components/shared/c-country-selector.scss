@@ -56,8 +56,10 @@
     @media #{$mq-tablet} {
       display: inline-block;
     }
+  }
 
-    &::after {
+  &.has_selector {
+    .country-placeholder::after {
       @include arrow(20px, 4px, $color-2, 'down');
       position: absolute;
       top: calc(50% - 5px);
