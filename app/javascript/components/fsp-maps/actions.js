@@ -11,7 +11,6 @@ import WRIJsonApiSerializer from 'wri-json-api-serializer';
 // SQL
 import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
-import USER_DATASETS_SQL from './sql/user_datasets.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
 import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
@@ -85,14 +84,15 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  const tableName = 'fsp_maps';
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
     .then((data) => {
       const dataRows = data.rows.map(row => ({
         ...row,
-        id: row.type_id.toString(),
+        id: row.id.toString(),
         name: row.type,
         info: LAYERS_INFO[row.type],
         layerType: 'sector',
@@ -107,14 +107,14 @@ function getSectors(iso) {
 
 function getUserDatasets(iso) {
   const tableName = process.env.FSP_CARTO_TABLE;
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(USER_DATASETS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
     })
     .then((data) => {
       const dataRows = data.rows.map(row => ({
         ...row,
-        id: row.type_id.toString(),
+        id: row.id.toString(),
         name: row.type,
         info: LAYERS_INFO[row.type],
         layerType: 'sector',

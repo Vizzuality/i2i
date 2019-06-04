@@ -100,8 +100,6 @@ export default class Datasets extends React.Component {
       ...!!layerGroups.length && { layers: JSON.stringify(layerGroups) }
     });
 
-    console.log(this.props);
-
     // Replace url
     history.replaceState({}, 'fsp-maps', `${location.pathname}?${search}`);
   }

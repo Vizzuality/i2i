@@ -3,6 +3,7 @@ SELECT st_asgeojson(the_geom),
        iso,
        sector,
        type,
+       color,
        cartodb_id,
        name
 FROM {tableName}
