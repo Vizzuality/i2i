@@ -39,12 +39,12 @@ class Blog < ApplicationRecord
 
   has_many :blogs_regions, dependent: :destroy
   has_many :regions, through: :blogs_regions
-  
+
   has_many :tagged_items, :as => :taggable, :dependent => :destroy
   has_many :tags, :through => :tagged_items
   accepts_nested_attributes_for :tagged_items, allow_destroy: true
 
-  has_attached_file :image, styles: {thumb: '300x300>'}
+  has_attached_file :image, styles: {thumb: '300x300>', medium: '600x600', large: '1280x>800'}
 
   after_initialize :set_date
   after_save :needs_featured_position
