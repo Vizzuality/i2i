@@ -20,10 +20,9 @@ module Dpapi
     end
 
     def by_country_over_time
-      gdp_data = GrossDomesticProductByRegion.joins('INNER JOIN countries ON countries.iso = gross_domestic_product_by_regions.country')
-        .select('gross_domestic_product_by_regions.id, countries.name as country, country as iso, year, value')
-        .where(country: params[:iso])
-        .order(:country, :year)
+      gdp_data = GrossDomesticProductOverTime.joins('LEFT JOIN countries ON countries.iso = gross_domestic_product_over_times.iso')
+        .select('*, gross_domestic_product_over_times.id as id, countries.name as country, gross_domestic_product_over_times.iso')
+        .find_by(iso: params[:iso])
 
       render json: gdp_data, adapter: :json
     end

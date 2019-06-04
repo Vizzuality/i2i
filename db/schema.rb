@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190527155739) do
+ActiveRecord::Schema.define(version: 20190603161044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,73 @@ ActiveRecord::Schema.define(version: 20190527155739) do
     t.float    "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gross_domestic_product_over_times", force: :cascade do |t|
+    t.string   "country_name"
+    t.string   "iso"
+    t.string   "indicator_name"
+    t.string   "indicator_code"
+    t.float    "1960"
+    t.float    "1961"
+    t.float    "1962"
+    t.float    "1963"
+    t.float    "1964"
+    t.float    "1965"
+    t.float    "1966"
+    t.float    "1967"
+    t.float    "1968"
+    t.float    "1969"
+    t.float    "1970"
+    t.float    "1971"
+    t.float    "1972"
+    t.float    "1973"
+    t.float    "1974"
+    t.float    "1975"
+    t.float    "1976"
+    t.float    "1977"
+    t.float    "1978"
+    t.float    "1979"
+    t.float    "1980"
+    t.float    "1981"
+    t.float    "1982"
+    t.float    "1983"
+    t.float    "1984"
+    t.float    "1985"
+    t.float    "1986"
+    t.float    "1987"
+    t.float    "1988"
+    t.float    "1989"
+    t.float    "1990"
+    t.float    "1991"
+    t.float    "1992"
+    t.float    "1993"
+    t.float    "1994"
+    t.float    "1995"
+    t.float    "1996"
+    t.float    "1997"
+    t.float    "1998"
+    t.float    "1999"
+    t.float    "2000"
+    t.float    "2001"
+    t.float    "2002"
+    t.float    "2003"
+    t.float    "2004"
+    t.float    "2005"
+    t.float    "2006"
+    t.float    "2007"
+    t.float    "2008"
+    t.float    "2009"
+    t.float    "2010"
+    t.float    "2011"
+    t.float    "2012"
+    t.float    "2013"
+    t.float    "2014"
+    t.float    "2015"
+    t.float    "2016"
+    t.float    "2017"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "household_income_tiers", force: :cascade do |t|

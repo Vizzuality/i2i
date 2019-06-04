@@ -56,6 +56,24 @@ if GrossDomesticProductBySector.all.count == 0
   puts "There are now #{GrossDomesticProductBySector.count} rows in the GrossDomesticProductBySector table"
 end
 
+if GrossDomesticProductOverTime.all.count == 0
+  CSV.foreach('lib/seeds/gdp_over_time.csv', headers: true, encoding: 'ISO-8859-1', col_sep: ';') do |row, i|
+    t = GrossDomesticProductOverTime.new
+    t.country_name = row['country_name']
+    t.iso = row['iso']
+    t.indicator_name = row['indicator_name']
+    t.indicator_code = row['indicator_code']
+
+    (1960..2017).step(1) do |n|
+      t[n] = row["#{n}"]
+    end
+
+    t.save
+  end
+
+  puts "There are now #{GrossDomesticProductOverTime.count} rows in the GrossDomesticProductOverTime table"
+end
+
 if CapitalCity.all.count == 0
   CSV.foreach('lib/seeds/capital.csv', headers: true, encoding: 'ISO-8859-1', col_sep: ',') do |row, i|
     t = CapitalCity.new

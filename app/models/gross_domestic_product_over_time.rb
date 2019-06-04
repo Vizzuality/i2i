@@ -1,0 +1,2 @@
+class GrossDomesticProductOverTime < ApplicationRecord
+end

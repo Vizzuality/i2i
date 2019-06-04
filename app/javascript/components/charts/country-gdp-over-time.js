@@ -10,7 +10,25 @@ const formatNumberForAxis = n => n && numeral(n).format('$0,0a').toUpperCase();
 const formatNumber = n => numeral(n).format('$0,0.000a').toUpperCase();
 
 class CountryGDPOverTime extends PureComponent {
-  static propTypes = { iso: PropTypes.string.isRequired }
+  static propTypes = { iso: PropTypes.string.isRequired };
+
+  static serialize = (data) => {
+    const minYear = 1960;
+    const maxYear = 2017;
+    const rangeYear = new Array(maxYear - minYear);
+    const rangeYearLength = rangeYear.length;
+    const result = [];
+
+    for (let i = 0; i < rangeYearLength; i++) {
+      const year = minYear + i;
+      result.push({
+        year,
+        value: data[year]
+      });
+    }
+
+    return result;
+  };
 
   constructor(props) {
     super(props);
@@ -21,8 +39,8 @@ class CountryGDPOverTime extends PureComponent {
     const { iso } = this.props;
     axios.get(`/dpapi/gdp_by_country_over_time/${iso}`)
       .then(({ data }) => {
-        if (data && data.length) {
-          this.setState({ data, loaded: true });
+        if (data) {
+          this.setState({ data: CountryGDPOverTime.serialize(data), loaded: true });
         } else {
           this.setState({ data: null, loaded: true });
         }
