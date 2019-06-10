@@ -8,7 +8,7 @@ ActiveAdmin.register Region do
   
   controller do
     def permitted_params
-      params.permit(:id, region: [:name, :iso, :flag, :logo, country_ids: [], partner_ids: [],
+      params.permit(:id, region: [:name, :iso, :flag, :logo, :background, country_ids: [], partner_ids: [],
                                   links_attributes: [:id, :name, :url, :_destroy]])
     end
     
@@ -33,6 +33,9 @@ ActiveAdmin.register Region do
     f.inputs 'Region details' do
       f.input :name
       f.input :iso
+
+      f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
+      f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
       
       f.input :flag, as: :hidden, input_html: { value: f.object.cached_flag_data }
       f.input :flag, as: :file, hint: f.object.flag.present? ? image_tag(f.object.flag_url(:thumb)) : content_tag(:span, 'No image yet')

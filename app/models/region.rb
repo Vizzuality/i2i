@@ -1,8 +1,10 @@
+require 'uploaders/background_uploader'
 require 'uploaders/image_uploader'
 
 class Region < ApplicationRecord
   extend FriendlyId
   include FinscopeApi
+  include BackgroundUploader[:background]
   include ImageUploader[:flag]
   include ImageUploader[:logo]
 

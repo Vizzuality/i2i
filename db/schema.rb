@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190603161044) do
+ActiveRecord::Schema.define(version: 20190604202205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "blog"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -136,13 +136,14 @@ ActiveRecord::Schema.define(version: 20190603161044) do
   end
 
   create_table "countries", force: :cascade do |t|
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "name"
     t.string   "iso"
-    t.string   "bbox",         default: [],                 array: true
+    t.string   "bbox",            default: [],                 array: true
     t.string   "short_iso"
-    t.boolean  "has_fsp_maps", default: false
+    t.boolean  "has_fsp_maps",    default: false
+    t.text     "background_data"
   end
 
   create_table "countries_blogs", force: :cascade do |t|
@@ -227,7 +228,7 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "name"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.integer  "file_file_size"
+    t.bigint   "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
@@ -239,7 +240,7 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
@@ -249,8 +250,8 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "slug"
     t.boolean  "published"
     t.string   "custom_author"
-    t.integer  "category_id"
     t.string   "record_type",        default: "event"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -489,7 +490,7 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.text     "summary"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "url_resource"
@@ -497,8 +498,8 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "library"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
     t.text     "description"
@@ -552,7 +553,7 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "role"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.string   "slug"
     t.datetime "created_at",         null: false
@@ -569,15 +570,15 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.text     "content"
     t.string   "image_file_name"
     t.string   "image_content_type"
-    t.integer  "image_file_size"
+    t.bigint   "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string   "author"
     t.string   "issuu_link"
     t.string   "slug"
     t.boolean  "published"
-    t.integer  "category_id"
     t.string   "record_type",        default: "news"
+    t.integer  "category_id"
     t.boolean  "is_featured",        default: false
     t.integer  "position"
   end
@@ -640,18 +641,18 @@ ActiveRecord::Schema.define(version: 20190603161044) do
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
-    t.string   "iso",        default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "slug",                    null: false
+    t.string   "name",            default: "", null: false
+    t.string   "iso",             default: "", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "slug",                         null: false
     t.text     "flag_data"
     t.text     "logo_data"
+    t.text     "background_data"
     t.index ["slug"], name: "index_regions_on_slug", unique: true, using: :btree
   end
 
-  create_table "sessions", id: false, force: :cascade do |t|
-    t.serial   "id",         null: false
+  create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
@@ -681,6 +682,23 @@ ActiveRecord::Schema.define(version: 20190603161044) do
     t.string   "image_url"
     t.string   "title"
     t.integer  "position"
+  end
+
+  create_table "user_maps", force: :cascade do |t|
+    t.integer  "field_1"
+    t.integer  "internal_id"
+    t.string   "type"
+    t.string   "land_use"
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "year"
+    t.string   "name"
+    t.string   "color"
+    t.string   "country"
+    t.string   "iso"
+    t.string   "sector"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|

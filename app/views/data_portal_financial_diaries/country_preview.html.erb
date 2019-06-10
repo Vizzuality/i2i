@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-about.jpg') %>)">
+    <div class="content" style="background-image: url(<%= @country.background_url(:header) || asset_path('headers/header-bg-about.jpg') %>)">
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
