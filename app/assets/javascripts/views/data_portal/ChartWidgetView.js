@@ -352,7 +352,8 @@
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),
-        stopCompareCallback: this._onStopCompare.bind(this)
+        stopCompareCallback: this._onStopCompare.bind(this),
+        isRegion: this.options.isRegion
       });
     },
 

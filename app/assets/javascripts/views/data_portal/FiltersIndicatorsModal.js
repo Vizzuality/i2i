@@ -60,13 +60,16 @@
           id: 'apply-filters',
           name: 'Apply filters',
           view: App.View.ApplyFiltersView
-        },
-        {
+        }
+      ];
+
+      if (!options.isRegion) {
+        this.options._tabs.push({
           id: 'select-context',
           name: 'Select context',
           view: App.View.SelectContextView
-        }
-      ];
+        });
+      }
 
       this.render();
     },

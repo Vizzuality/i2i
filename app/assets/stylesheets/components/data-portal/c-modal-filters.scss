@@ -103,6 +103,7 @@
     flex: 1;
     width: calc(100% - #{$wrapper-padding-mobile * 2});
     margin: 0 auto;
+    min-height: 100px;
 
     /* The next two lines are a hack to get the "overflow" background to be white
      * This is not the case by default (iOS bug):
