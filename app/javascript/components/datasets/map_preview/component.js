@@ -41,7 +41,7 @@ class MapComponent extends React.Component {
     const classNames = classnames({
       'c-map': true,
       '-open': !!open,
-      'c-spinning-loading': currentLayer.isLoading
+      'c-spinning-loader': currentLayer.isLoading
     });
 
     if (currentLayer.data) {
