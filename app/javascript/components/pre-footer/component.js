@@ -17,12 +17,7 @@ class PreFooter extends PureComponent {
                   <h3>Add your own data sets.</h3>
 
                   <p>
-                    If you have your own geospatial data that you would like to
-                    deposit on the i2i platform to enhance financial inclusion
-                    in Africa and Asia, please email us on <a href="mailto:${process.env.I2I_MAIL}">{process.env.I2I_MAIL}</a>.
-                    We will then contact you with the next steps. In the near
-                    future, you will be able to log in and upload your data
-                    directly onto our platform.
+                    If you have your own geospatial location data that you would like to deposit on the i2i platform to enhance financial inclusion in Africa and Asia. <a href="/datasets">Register and login</a> to your user area where you will have complete control over your profile and data uploads, manage, edit and delete location data.
                   </p>
                 </div>
               </div>
