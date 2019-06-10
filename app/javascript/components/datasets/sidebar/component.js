@@ -209,9 +209,11 @@ class SidebarComponent extends Component {
     return (
       <div className={classNames}>
         <div className="overflow-container">
-          <h3 className="title-header">My datasets</h3>
+          {!this.state.editMode && !loading &&
+            <h3 className="title-header">My datasets</h3>
+          }
 
-          {!this.state.editMode && !loading && datasets.length !== 0 &&
+          {!this.state.editMode && !loading && datasets.length === 0 &&
             <p className="description">
               Publish a dataset to send it for review.
               After approval, it will be shown on country page.
