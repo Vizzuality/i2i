@@ -204,11 +204,18 @@ class SidebarComponent extends PureComponent {
     return (
       <div className={classNames}>
         <div className="overflow-container">
-          {!this.state.editMode && !loading &&
+          <h3 className="title-header">My datasets</h3>
+
+          {!this.state.editMode && !loading && !datasets.length &&
             <p className="description">
-              Click on a dataset to preview data on the map.<br />
               Publish a dataset to send it for review.
               After approval, it will be shown on country page.
+            </p>
+          }
+
+          {!this.state.editMode && !loading && datasets.length &&
+            <p className="description">
+              Click on a dataset to preview data on the map.
             </p>
           }
 

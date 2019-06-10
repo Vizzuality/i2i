@@ -129,8 +129,7 @@ class DatasetForm extends React.Component {
       this.props.countries.map(country => ({ value: country.id, label: country.name }));
     const categoryOptions =
       this.props.categories.map(category => ({ value: category[1], label: category[0] }));
-    const title = this.props.editMode && this.props.dataset ? 'Edit dataset' : 'Upload dataset';
-    const description = 'Check expected format of this <a href="/csv_template.csv" target="_blank" download>CSV template</a> to upload a valid file.';
+    const title = this.props.editMode && this.props.dataset ? 'Edit GIS dataset' : 'Upload GIS dataset';
     const submitButtonTitle = this.props.editMode && this.props.dataset ? 'Save changes' : 'Done';
 
     return (
@@ -138,7 +137,17 @@ class DatasetForm extends React.Component {
         <button className="action-button" onClick={this.props.handleBackButton}>Back</button>
 
         <h3 className="title-header">{title}</h3>
-        <p className="description" dangerouslySetInnerHTML={{ __html: description }} />
+        <p className="description">
+          Check the expected format of this <a href="/csv_template.csv" target="_blank" download>CSV template</a> to upload a valid file.
+        </p>
+        <p className="description">
+          After approval, it will be shown on country page.
+        </p>
+        <p className="description">
+          Once submitted, we will be notified of your submission, we will go through your data,
+          approve or return it to you for further changes.<br />
+          For further information on your data, please contact <a href="mailto:info@i2ifacility.org">info@i2ifacility.org</a>.
+        </p>
 
         <form onSubmit={(e) => {
           e.preventDefault();
