@@ -14,11 +14,11 @@ class DatasetsController < ApplicationController
 
     @datasets = current_user.datasets
                   .order(:created_at)
-                  .as_json(methods: %i(file_absolute_url csv_errors csv_is_valid))
+                  .as_json(methods: %i(file_absolute_url csv_errors is_valid_for_preview csv_is_valid))
 
     respond_to do |format|
       format.html { render layout: 'data_portal' }
-      format.json { render json: current_user.datasets, methods: %i(file_absolute_url csv_errors csv_is_valid) }
+      format.json { render json: current_user.datasets, methods: %i(file_absolute_url csv_errors is_valid_for_preview csv_is_valid) }
     end
   end
 
