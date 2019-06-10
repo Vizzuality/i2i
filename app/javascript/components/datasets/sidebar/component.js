@@ -211,14 +211,14 @@ class SidebarComponent extends Component {
         <div className="overflow-container">
           <h3 className="title-header">My datasets</h3>
 
-          {!this.state.editMode && !loading && !datasets.length &&
+          {!this.state.editMode && !loading && datasets.length !== 0 &&
             <p className="description">
               Publish a dataset to send it for review.
               After approval, it will be shown on country page.
             </p>
           }
 
-          {!this.state.editMode && !loading && datasets.length &&
+          {!this.state.editMode && !loading && datasets.length > 0 &&
             <p className="description">
               Click on a dataset to preview data on the map.
             </p>
