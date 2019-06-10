@@ -123,6 +123,18 @@ export default {
     currentLayer: null
   }),
 
+  [actions.toggleDataset]: (state, { payload }) => ({
+    ...state,
+    datasetsList: state.datasetsList.map((d) => {
+      if (payload.id === d.id) {
+        const dataset = { ...d };
+        dataset.isEnable = !dataset.isEnable;
+        return dataset;
+      }
+      return d;
+    })
+  }),
+
   // MODAL
   [actions.setModal]: (state, { payload }) => ({
     ...state,

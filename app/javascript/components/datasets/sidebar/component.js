@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import DatasetsList from 'components/datasets/datasets_list/component';
@@ -7,7 +7,7 @@ import DatasetForm from 'components/datasets/form/component';
 import './styles.scss';
 
 
-class SidebarComponent extends PureComponent {
+class SidebarComponent extends Component {
   static propTypes = {
     open: PropTypes.bool.isRequired,
     datasets: PropTypes.array.isRequired,
@@ -16,14 +16,16 @@ class SidebarComponent extends PureComponent {
     currentLayer: PropTypes.object,
     removeCurrentLayer: PropTypes.func,
     fetchGeoJSON: PropTypes.func,
-    setDatasets: PropTypes.func
+    setDatasets: PropTypes.func,
+    toggleDataset: PropTypes.func
   };
 
   static defaultProps = {
     currentLayer: null,
     removeCurrentLayer: () => null,
     setDatasets: () => null,
-    fetchGeoJSON: () => null
+    fetchGeoJSON: () => null,
+    toggleDataset: () => null
   };
 
   constructor(props) {
@@ -184,8 +186,10 @@ class SidebarComponent extends PureComponent {
   }
 
   handleToggle = (dataset) => {
-    const { currentLayer, removeCurrentLayer, fetchGeoJSON } = this.props;
-    console.log(currentLayer)
+    const { currentLayer, removeCurrentLayer, toggleDataset, fetchGeoJSON } = this.props;
+
+    toggleDataset(dataset);
+
     if (currentLayer && currentLayer.id.toString() === dataset.id.toString()) {
       removeCurrentLayer();
     } else {
@@ -194,7 +198,7 @@ class SidebarComponent extends PureComponent {
   }
 
   render() {
-    const { currentLayer, datasets } = this.props;
+    const { datasets } = this.props;
     const { open, loading } = this.state;
     const classNames = classnames({
       'c-datasets-sidebar': true,
@@ -227,7 +231,6 @@ class SidebarComponent extends PureComponent {
               handleDelete={this.handleDelete}
               handlePublish={this.handlePublish}
               handleToggle={this.handleToggle}
-              currentLayer={currentLayer}
             />
           }
 
