@@ -115,12 +115,26 @@ export default {
 
   [actions.setCurrentLayer]: (state, { payload }) => ({
     ...state,
-    currentLayer: payload
+    currentLayer: {
+      data: payload,
+      isLoading: false
+    }
+  }),
+
+  [actions.loadingCurrentLayer]: state => ({
+    ...state,
+    currentLayer: {
+      ...state.currentLayer,
+      isLoading: true
+    }
   }),
 
   [actions.removeCurrentLayer]: state => ({
     ...state,
-    currentLayer: null
+    currentLayer: {
+      data: null,
+      isLoading: false
+    }
   }),
 
   [actions.toggleDataset]: (state, { payload }) => ({

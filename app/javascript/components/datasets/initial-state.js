@@ -52,6 +52,9 @@ export default {
     }
   },
   widgets: { list: [] },
-  currentLayer: null,
+  currentLayer: {
+    data: null,
+    isLoading: false
+  },
   datasetsList: []
 };

@@ -37,6 +37,7 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 export const setCurrentLayer = createAction('PREVIEW_LAYERS/setCurrentLayer');
 export const removeCurrentLayer = createThunkAction('PREVIEW_LAYERS/removeCurrentLayer');
+export const loadingCurrentLayer = createThunkAction('PREVIEW_LAYERS/loadingCurrentLayer');
 export const toggleDataset = createAction('PREVIEW_LAYERS/toggleDataset');
 
 // DATASETS
@@ -60,7 +61,7 @@ export const fetchGeoJSON = createThunkAction('PREVIEW_LAYERS/fetchGeoJSON', dat
   const { layers } = getState().datasets;
   const selectedLayer = layers.list.find(l => l.id.toString() === dataset.id.toString());
 
-  console.log('loading...');
+  dispatch(loadingCurrentLayer());
 
   if (!selectedLayer.layerConfig.body) {
     fetch(dataset.file_absolute_url)
@@ -83,12 +84,10 @@ export const fetchGeoJSON = createThunkAction('PREVIEW_LAYERS/fetchGeoJSON', dat
                 }
               }))
             };
-            console.log('done!');
             dispatch(setCurrentLayer(selectedLayer));
           });
       });
   } else {
-    console.log('done!');
     dispatch(setCurrentLayer(selectedLayer));
   }
 });

@@ -190,7 +190,7 @@ class SidebarComponent extends Component {
 
     toggleDataset(dataset);
 
-    if (currentLayer && currentLayer.id.toString() === dataset.id.toString()) {
+    if (currentLayer.data && currentLayer.data.id.toString() === dataset.id.toString()) {
       removeCurrentLayer();
     } else {
       fetchGeoJSON(dataset);

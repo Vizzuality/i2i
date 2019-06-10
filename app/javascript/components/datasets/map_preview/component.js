@@ -40,11 +40,12 @@ class MapComponent extends React.Component {
 
     const classNames = classnames({
       'c-map': true,
-      '-open': !!open
+      '-open': !!open,
+      'c-spinning-loading': currentLayer.isLoading
     });
 
-    if (currentLayer) {
-      currentLayer.layerConfig.options = {
+    if (currentLayer.data) {
+      currentLayer.data.layerConfig.options = {
         pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng, {
           radius: 8,
           fillColor: geoJsonPoint.properties.color,
@@ -87,7 +88,7 @@ class MapComponent extends React.Component {
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
                 {(layerManager) => {
-                  const datasetLayer = currentLayer ? [currentLayer] : [];
+                  const datasetLayer = currentLayer.data ? [currentLayer.data] : [];
 
                   return [...activeLayers, ...datasetLayer].map((layer, index) => (
                     <Layer
