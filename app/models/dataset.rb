@@ -40,7 +40,7 @@ class Dataset < ApplicationRecord
   end
 
   def missing_headers
-    headers = CSV.open("public#{self.file_url}", 'r') { |csv| csv.first }
+    headers = CSV.open("public#{self.file_url}", 'r') { |csv| csv.first if csv }
 
     REQUIRED_CSV_HEADERS.reject { |required_header| headers.include? required_header }
   end
