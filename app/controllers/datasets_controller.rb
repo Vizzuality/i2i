@@ -24,6 +24,7 @@ class DatasetsController < ApplicationController
   
   def create
     dataset = current_user.datasets.create(dataset_params)
+    
     render json: dataset, methods: %i(file_absolute_url csv_errors is_valid_for_preview csv_is_valid)
   end
   
@@ -49,6 +50,14 @@ class DatasetsController < ApplicationController
   def publish
     dataset = Dataset.find(params[:id])
     dataset.update(status: :pending)
+
+    if dataset
+      begin
+        DatasetMailer.dataset_created_notification(dataset.id).deliver!
+      rescue SparkPostRails::DeliveryException => e
+        Rails.logger.error "Error sending the email: #{e}"
+      end
+    end
 
     render json: dataset, methods: %i(file_absolute_url csv_errors is_valid_for_preview csv_is_valid)
   end
