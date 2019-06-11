@@ -142,7 +142,7 @@
      */
     _onSave: function () {
       new App.Component.ModalSaveWidget({
-        widgetConfig: this.options
+        widgetConfig: this.options,
       });
     },
 

@@ -76,7 +76,8 @@
         el: this.widgetContainer,
         showToolbar: false,
         autoResize: !this.options.print,
-        showDetails: true
+        showDetails: !(this.options.isRegion),
+        isRegion: (this.options.isRegion)
       }, this.options._state);
 
       var widget = new App.View.ChartWidgetView(options);

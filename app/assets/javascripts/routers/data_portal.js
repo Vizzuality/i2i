@@ -9,6 +9,7 @@
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
+      'data-portal/indicator-region': 'indicatorRegion',
       'data-portal/indicator/embed/:iso/:year': 'indicatorEmbed',
       'data-portal/report': 'report'
     },
@@ -85,6 +86,31 @@
       new App.Page.DataPortalIndicatorPage({
         encodedState: params.p || null,
         print: params.print || false
+      });
+    },
+
+    indicatorRegion: function (p) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      var params = p
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {});
+
+      new App.Page.DataPortalIndicatorPage({
+        encodedState: params.p || null,
+        print: params.print || false,
+        isRegion: true
       });
     },
 
