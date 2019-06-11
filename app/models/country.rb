@@ -32,10 +32,10 @@ class Country < ApplicationRecord
 
   has_many :country_regions, dependent: :destroy
   has_many :regions, through: :country_regions
-  
+
   has_many :country_partners
   has_many :partners, through: :country_partners
-  
+
   has_many :countries_blogs
   has_many :countries_events
   has_many :countries_libraries
@@ -61,7 +61,10 @@ class Country < ApplicationRecord
   end
 
   def geospatial
-    has_fsp_maps
+    user_countries = GetCountriesFromCarto.new.perform
+    user_countries_iso = user_countries ? JSON.parse(user_countries.body)['rows'].collect { |c| c['iso'] } : []
+
+    has_fsp_maps || user_countries_iso.include?(self.iso)
   end
 
   def bbox_raw
