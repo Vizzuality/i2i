@@ -6,7 +6,11 @@
     routes: {
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
+      'data-portal/region/:iso/:year': 'region',
+      'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
+      'data-portal/indicator-region': 'indicatorRegion',
+      'data-portal/indicator/embed/:iso/:year': 'indicatorEmbed',
       'data-portal/report': 'report'
     },
 
@@ -41,6 +45,26 @@
       });
     },
 
+    region: function (iso, year) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      new App.Page.DataPortalRegionPage({
+        iso: iso,
+        year: +year
+      });
+
+      new App.Component.CountryPreview({
+        onChangeCountry: function (country) {
+          var iso = country.split('-')[0];
+          // It's a kind of magic
+          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
+          Turbolinks.visit('/data-portal/region/' + iso + '/' + latesYear);
+        }
+      });
+    },
+
     indicator: function (p) {
       // Don't forget to stop the router on each route
       // otherwise you'll break the browser's back button
@@ -63,6 +87,47 @@
         encodedState: params.p || null,
         print: params.print || false
       });
+    },
+
+    indicatorRegion: function (p) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      var params = p
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {});
+
+      new App.Page.DataPortalIndicatorPage({
+        encodedState: params.p || null,
+        print: params.print || false,
+        isRegion: true
+      });
+    },
+
+    indicatorEmbed: function(iso, year, queryParams) {
+      var params = queryParams ? queryParams
+        .split('&')
+        .map(function (param) {
+          return {
+            name: param.split('=')[0],
+            value: param.split('=')[1]
+          };
+        })
+        .reduce(function (res, param) {
+          res[param.name] = param.value;
+          return res;
+        }, {}) : null;
+      new App.Page.DataPortalCountryIndicatorPage({ i: iso, y: year, q: params });
     },
 
     report: function (params) {
@@ -106,6 +171,7 @@
     Backbone.history.stop();
     Backbone.history.start({ pushState: true });
 
+    new App.View.Cards();
     new App.View.MobileMenu();
     new App.View.Newsletter();
     new App.Component.FixedNav();

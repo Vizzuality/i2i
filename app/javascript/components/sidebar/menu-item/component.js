@@ -25,6 +25,7 @@ class MenuItemsComponent extends PureComponent {
           <h3 className="title">
             {item.label}
           </h3>
+          <h4>{item.user_id}</h4>
         </div>
 
         <div className="menu-item-content">

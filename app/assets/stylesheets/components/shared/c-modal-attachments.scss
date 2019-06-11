@@ -1,0 +1,125 @@
+.c-modal-attachments {
+  padding: 20px 15px;
+  background-color: $color-4;
+
+  .downloads-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 75vh;
+
+    @media #{$mq-tablet} {
+      max-height: 50vh;
+    }
+
+    > .downloads-label {
+      line-height: 30px;
+      font-size: $font-size-regular;
+      font-weight: $font-weight-bold;
+      padding: 0 0 15px 15px;
+    }
+
+    > .downloads-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      > .download-item {
+        flex-basis: 100%;
+        padding-right: 15px;
+
+        &.c-checkbox {
+          label {
+            padding: 2px 15px 3px 48px;
+            font-size: $font-size-regular;
+            font-weight: $font-weight-light;
+            line-height: 30px;
+            cursor: pointer;
+
+            &::before {
+              display: inline-block;
+              position: absolute;
+              top: 10px;
+              left: 15px;
+              width: 15px;
+              height: 15px;
+              border: 1px solid $color-1;
+              content: '';
+            }
+
+            &:hover {
+              background-color: rgba($color-1, .1);
+            }
+          }
+
+          input[type='checkbox']:checked + label {
+            background-color: rgba($color-1, .1);
+          }
+
+          &:hover {
+            background-color: initial;
+          }
+        }
+
+        @media #{$mq-tablet} {
+          flex-basis: 50%;
+        }
+      }
+    }
+
+    .email-container {
+      padding: 0 0 15px 15px;
+
+      > .description {
+        margin: 25px 0;
+      }
+
+      input[type="email"] {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        font-size: 16px;
+        font-weight: 300;
+        color: #001d22;
+        background: rgba(47, 147, 156, 0.1);
+      }
+    }
+
+    .terms-container {
+      display: flex;
+      padding: 0 0 15px 15px;
+
+      input[type="checkbox"] {
+        margin: 0 5px 0 0;
+        font-size: 16px;
+        border: 1px solid $color-1;
+      }
+
+      label {
+        margin: 0;
+
+        color: $color-5;
+        font-family: $font-family-1;
+        font-size: $font-size-xs;
+        text-transform: none;
+
+        > a {
+          position: relative;
+          color: $color-1;
+          font-weight: $font-weight-light;
+
+          > .icon-external-open {
+            position: absolute;
+            top: -8px;
+            right: -17px;
+            width: 15px;
+            height: 24px;
+
+            fill: $color-6;
+          }
+        }
+      }
+    }
+
+  }
+}

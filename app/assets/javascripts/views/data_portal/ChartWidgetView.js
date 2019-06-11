@@ -142,7 +142,7 @@
      */
     _onSave: function () {
       new App.Component.ModalSaveWidget({
-        widgetConfig: this.options
+        widgetConfig: this.options,
       });
     },
 
@@ -352,7 +352,8 @@
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),
-        stopCompareCallback: this._onStopCompare.bind(this)
+        stopCompareCallback: this._onStopCompare.bind(this),
+        isRegion: this.options.isRegion
       });
     },
 
@@ -445,7 +446,8 @@
               filters: this.options.filters,
               analysisIndicatorId: this.options.analysisIndicator,
               compareIndicators: this.options.compareIndicators,
-              expanded: this.options.chart === 'table'
+              expanded: this.options.chart === 'table',
+              isRegion: this.options.isRegion,
             })
           );
 
@@ -613,7 +615,7 @@
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
-        height: chartDimensions.height
+        height: chartDimensions.height + 30
       });
     },
 

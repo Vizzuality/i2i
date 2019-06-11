@@ -1,0 +1,18 @@
+<div class="select-context c-regional-filter">
+  <ul>
+    <li>
+      <div class="c-radio-button" >
+        <input type="radio" id="region-worldwide" checked="true" name="region" value="region-worldwide" class="js-year" />
+        <label for="region-worldwide">Worldwide</label>
+      </div>
+    </li>
+    <% @regions.each do |region| %>
+      <li>
+        <div class="c-radio-button">
+          <input type="radio" id="region-<%= region.id %>" name="region" value="region-<%= region.id %>" class="js-year" />
+          <label for="region-<%= region.id %>"><%= region.name %></label>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,30 @@
+<div class="grid-l-6 grid-m-6 grid-s-12" style="display: flex; margin-bottom: 20px;">
+  <div style="width: 100%; box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15); background-color: #ffffff; padding: 25px 30px 30px 30px;">
+    <div class="header" style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <h3 class="title" style="font-size: 24px; line-height: 30px;">
+        Downloads
+      </h3>
+
+      <% if show_downloads_modal %>
+        <div class="more-downloads-button c-button"
+             data-iso="<%= iso %>"
+             data-downloads="<%= modal_downloads %>"
+             style="padding: 1px 15px; color: #257B83; display: flex; align-items: center; font-size: 12px; line-height: 17px;">
+          More downloads
+        </div>
+      <% end%>
+    </div>
+
+    <% if downloads.any? %>
+      <div class="row">
+        <%= render partial: 'regions/download_link', collection: downloads, locals: { iso: iso, modal_downloads: modal_downloads } %>
+      </div>
+    <% else %>
+      <div class="row">
+        <p>
+          No download links available.
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -49,6 +49,8 @@ gem 'activeadmin-sortable'
 
 # File upload gems
 gem 'paperclip'
+gem "shrine", "~> 2.0"
+gem "image_processing", "~> 1.0"
 
 # REACT
 gem 'webpacker', '~> 3.5'
@@ -56,6 +58,11 @@ gem 'react-rails'
 
 # WYSIWYG
 gem 'ckeditor', '4.2.4'
+
+# SVG
+gem 'inline_svg'
+
+gem 'httparty'
 
 gem 'enumerate_it'
 gem 'valid_url'
@@ -72,10 +79,12 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'letter_opener'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+  gem 'awesome_print'
 
 # Deploy
   gem 'capistrano', '3.7.1'

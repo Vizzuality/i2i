@@ -57,13 +57,17 @@
           view: App.View.CountryYearView,
           available: this.options.canCompareCountries
         },
-        {
+
+      ];
+
+      if (!options.isRegion) {
+        this.options._tabs.push({
           id: 'jurisdiction',
           name: 'Jurisdiction in ' + App.Helper.Indicators.COUNTRIES[this.options.iso] + ' in ' + this.options.year,
           view: App.View.JurisdictionView,
           available: true
-        }
-      ];
+        });
+      }
 
       // If the compare indicators the view gets passed are jurisdiction indicators or
       // the first tab is unavailable, then the default tab is the second

@@ -1,6 +1,6 @@
 <!-- Image header -->
 <% unless blog.image.blank? %>
-  <div class="l-image" style="background-image: url(<%= blog.image.url(:original) %>)"></div>
+  <div class="l-image" style="background-image: url(<%= blog.image.url(:large) %>)"></div>
 <% end %>
 
 <div class="l-content">
@@ -47,7 +47,7 @@
                 <%if blog.image.blank? != true %>
                   <div class="row">
                     <div class="grid-s-12">
-                        <div class="article-image" style="background-image: url(<%= blog.image %>)"></div>
+                        <div class="article-image" style="background-image: url(<%= blog.image.url(:thumb) %>)"></div>
                     </div>
                   </div>
                 <% end %>

@@ -57,8 +57,9 @@
      * @return {string}
      */
     _generateURL: function (service) {
-      var widgetURL = location.origin +
-        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget();
+      var indicatorPath = this.options.widgetConfig.isRegion ? '<%= data_portal_indicator_region_path %>' : '<%= data_portal_indicator_path %>';
+      var widgetURL = location.origin + indicatorPath +
+        '?p=' + this._getEncodedWidget();
       var embedHeight = this.options.widgetConfig.el.offsetHeight + 65;
 
       var urls = {

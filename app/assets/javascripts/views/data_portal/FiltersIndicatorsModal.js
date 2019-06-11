@@ -34,7 +34,8 @@
       // Selected year in the modal
       _selectedYear: null,
       // Selected jurisdiction in the modal
-      _selectedJurisdiction: null
+      _selectedJurisdiction: null,
+      isRegion: false,
     },
 
     events: function () {
@@ -59,13 +60,16 @@
           id: 'apply-filters',
           name: 'Apply filters',
           view: App.View.ApplyFiltersView
-        },
-        {
+        }
+      ];
+
+      if (!options.isRegion) {
+        this.options._tabs.push({
           id: 'select-context',
           name: 'Select context',
           view: App.View.SelectContextView
-        }
-      ];
+        });
+      }
 
       this.render();
     },
@@ -125,7 +129,8 @@
         year: year,
         indicators: indicators,
         filters: filters,
-        jurisdiction: jurisdiction
+        jurisdiction: jurisdiction,
+        isRegion: this.options.isRegion,
       });
     },
 

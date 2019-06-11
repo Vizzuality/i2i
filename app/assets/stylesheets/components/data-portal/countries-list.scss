@@ -1,0 +1,69 @@
+.l-country-list {
+  margin-bottom: 60px;
+  border-top: 0 !important;
+
+  .section-header {
+    padding: 20px 0;
+  }
+
+  .countries-list {
+    margin: 0 !important;
+
+    .country-button {
+
+      .c-flag {
+        display: flex;
+        flex-direction: column;
+        height: 153px;
+        background-color: #f5f8f8;
+        box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+
+        .country-info {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+          > .country-icons {
+            display: flex;
+          }
+
+          svg.icon {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 4px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+            opacity: 0.1;
+            cursor: pointer;
+            :after {
+              content: '';
+              display: inline-block;
+              position: absolute;
+              left: 0;
+              background-color: white;
+              z-index: 1;
+            }
+            :hover {
+              fill: #f9d031;
+            }
+
+            path {
+              fill:  #fff;
+            }
+
+            &.active {
+              opacity: 1;
+            }
+
+            &.-large {
+              width: 52px;
+              height: 52px;
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

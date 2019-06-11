@@ -128,9 +128,16 @@ class MapComponent extends React.Component {
                     }
                   }];
 
-                  return [...jurisdictionAreaLayer, ...nearbyAreaLayer, ...activeLayers, ...financialIconsLayer].map((layer, index) => (
+                  const layersResult = [
+                    ...jurisdictionAreaLayer,
+                    ...nearbyAreaLayer,
+                    ...activeLayers,
+                    ...financialIconsLayer
+                  ];
+
+                  return layersResult.map((layer, index) => (
                     <Layer
-                      key={layer.id}
+                      key={layer.isUserDataset ? `fsp_maps_user_${layer.id}` : `fsp_maps_${layer.id}`}
                       {...layer}
                       zIndex={1000 - index}
                       layerManager={layerManager}

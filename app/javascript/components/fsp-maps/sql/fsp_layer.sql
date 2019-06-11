@@ -3,9 +3,10 @@ SELECT st_asgeojson(the_geom),
        iso,
        sector,
        type,
+       color,
        cartodb_id,
        name
-FROM fsp_maps
+FROM {tableName}
 WHERE iso = '{iso}'
        AND type_id = {type_id}
 ORDER BY  sector,

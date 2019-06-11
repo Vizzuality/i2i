@@ -1,6 +1,6 @@
-<% title 'i2i data portal' %>
+<% title 'i2i Data Portal' %>
 
-<div class="l-data-portal">
+<div class="l-data-portal l-library">
   <div class="l-intro js-hero">
     <div class="nav">
       <div class="wrapper">
@@ -17,15 +17,40 @@
         <div class="wrapper">
           <div class="row">
             <div class="c-hero">
-              <div class="grid-l-8">
+              <div class="grid-l-7">
                 <div class="row">
-                  <h1 class="title -light -huge">i2i data portal</h1>
-                  <p class="subtitle">
-                    Let the data speak to you. Delve into the latest financial inclusion datasets from around the world. Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <a href="#finscope-dataset" class="js-anchor">National Surveys</a>, and then deepen your understanding of how low-income households manage their financial lives using <a href="#financial-diaries-dataset" class="js-anchor">financial diaries</a>.
+                  <h1 class="title -light -huge">i2i Data Portal</h1>
+                  <p class="subtitle">Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <%= link_to 'National Surveys', national_surveys_path %>, and then deepen your understanding of how low-income households manage their financial lives using <%= link_to 'Financial Diaries', financial_diaries_path %>.
                   </p>
-                  <a href=".l-country-list" class="c-button -white -big js-anchor">select country</a>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <%= link_to 'All Data',
+                          data_portal_path,
+                          class: "content-selector #{'-current' if current_page?(data_portal_path)}", data: { turbolinks: false } %>
+
+              <%= link_to national_surveys_path,
+                          class: "content-selector #{'-current' if current_page?(national_surveys_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/national_surveys.svg', class: "icon tab-icon #{'-current' if current_page?(national_surveys_path)}") %>
+                National Surveys
+              <% end %>
+              <%= link_to financial_diaries_path,
+                          class: "content-selector #{'-current' if current_page?(financial_diaries_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/financial_diaries.svg', class: "icon tab-icon #{'-current' if current_page?(financial_diaries_path)}") %>
+                Financial Diaries
+              <% end %>
+              <%= link_to geospatial_data_path,
+                          class: "content-selector #{'-current' if current_page?(geospatial_data_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/geospatial_data.svg', class: "icon tab-icon #{'-current' if current_page?(geospatial_data_path)}") %>
+                Geospatial Data
+              <% end %>
             </div>
           </div>
         </div>
@@ -34,121 +59,9 @@
   </div>
   <div class="l-content">
     <div class="wrapper">
-      <section class="l-dataset -finscope" id="finscope-dataset">
-        <div class="row data-portal-row">
-          <div class="grid-s-12 grid-m-6">
-            <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark filter-finscope">National Surveys</h3>
-            </a>
-            <ul class="c-stats-list">
-              <li class="item">
-                <h4 class="description">Countries</h4>
-                <span class="value">31</span>
-              </li>
-              <li class="item -last">
-                <h4 class="description">Datasets</h4>
-                <span class="value">50</span>
-              </li>
-            </ul>
-            <p class="dataset-description">
-              National Surveys (which are nationally representative surveys of adults in a particular country) demonstrate how people source their income and manage their financial lives. Providing a view on the levels of financial inclusion within a country, they are of value to policymakers and researchers who are looking to improve the functioning of financial markets.
-            </p>
-          </div>
-          <div class="grid-s-12 grid-m-5 offset-m-1">
-            <div class="datasetimagewrapper">
-              <%= image_tag('data-portal/data-portal-dashboard-1.jpg',
-                :alt => 'Data portal dashboard',
-                :class => 'datasetimage -right')
-              %>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="l-dataset -financial-diaries" id="financial-diaries-dataset">
-        <div class="row data-portal-row -reverse">
-          <div class="grid-s-12 grid-m-6">
-            <div class="datasetimagewrapper">
-              <%= image_tag('data-portal/data-portal-dashboard-2.jpg',
-                :alt => 'Data portal dashboard',
-                :class => 'datasetimage -left')
-              %>
-            </div>
-          </div>
-          <div class="grid-s-12 grid-m-5 offset-m-1">
-            <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark filter-financial-diaries">Financial Diaries</h3>
-            </a>
-            <ul class="c-stats-list">
-              <li class="item">
-                <h4 class="description">Countries</h4>
-                <span class="value">12</span>
-              </li>
-              <li class="item -last">
-                <h4 class="description">Datasets</h4>
-                <span class="value">14</span>
-              </li>
-            </ul>
-            <p class="dataset-description">
-              Financial diaries offer insight into the combination of financial instruments that households use over time. Trained enumerators visit households multiple times over an extended period to ask questions about income, expenses and transactions in financial instruments. While the selected sample is not nationally representative, the level of depth obtained through diaries research is not comparable with traditional survey methods.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="l-dataset -finscope" id="finscope-dataset">
-        <div class="row data-portal-row">
-          <div class="grid-s-12 grid-m-6">
-            <a href=".l-country-list" class="js-anchor">
-              <h3 class="title -big -dark filter-geospatial">Geospatial data</h3>
-            </a>
-            <ul class="c-stats-list">
-              <li class="item">
-                <h4 class="description">Countries</h4>
-                <span class="value">9</span>
-              </li>
-              <li class="item -last">
-                <h4 class="description">Datasets</h4>
-                <span class="value">24</span>
-              </li>
-            </ul>
-            <p class="dataset-description">
-              "Geospatial" indicates that the data has a geographic component to it. This means that the records in a dataset have locational information tied to them, such as geographic data in the form of coordinates, address, city or ZIP code. GIS data is a powerful tool that gives a user the ability to view data at a country/jurisdiction level. We’ve partnered with global data providers (such as <a href="https://resourcewatch.org/" target="_blank">Resource watch</a>, AIDData and Humanitarian Data Exchange) to give you useful contextual layers, overlaid with financial access points and agricultural points.
-            </p>
-          </div>
-          <div class="grid-s-12 grid-m-5 offset-m-1">
-            <div class="datasetimagewrapper">
-              <%= image_tag('data-portal/data-portal-dashboard-3.png',
-                :alt => 'Data portal dashboard',
-                :class => 'datasetimage -right')
-              %>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="l-country-list">
-        <header>
-          <h3 class="title -big -dark">Select country</h3>
-          <p class="select-country-description">
-            Please click on the country’s flag below to view the datasets available for that country.
-          </p>
-        </header>
-        <div class="l-card-grid">
-          <div class="row">
-            <% @countries.each do |country| %>
-              <% if country.has_dataset %>
-                <div class="grid-s-6 grid-m-6 grid-l-4 country-button <%= 'financial-diaries' if country.financial_diaries.present? %> <%= 'finscope' if country.finscope.present? %> <%= 'geospatial' if country.geospatial.present? %>">
-                  <article class="c-flag" style='background-image: url("/images/flags/<%= country[:iso] %>.svg");'>
-                    <%= link_to 'Go to the ' + country[:name] + ' portal', data_portal_country_preview_path(country[:iso]), data: { turbolinks: false }  %>
-                    <span class="country-name"><%= country[:name] %></span>
-                  </article>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </section>
+      <%= render partial: 'countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
+      <%= render partial: 'regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'additional_data' %>
     </div>
   </div>
 </div>

@@ -64,9 +64,11 @@
     <div class="row">
       <div class="grid-s-12 grid-l-7">
         <div class="l-data-range">
+          <% if (!isRegion) { %>
           <span class="c-tag js-filter-tag" data-tab="context"><%= jurisdiction %></span>
           in
           <span class="c-tag js-filter-tag" data-tab="context"><%= year %></span>
+          <% } %>
           <p>
             Showing data about
             <% indicators.forEach(function (indicator, index) { %>

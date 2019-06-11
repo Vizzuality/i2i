@@ -1,40 +1,31 @@
 # Insight 2 Impact (i2i)
 
-
 ## Requirements
-* `ruby 2.3.3`
-* `postgresql 9.6`
+* `ruby 2.5.3`
+* `postgresql 10`
+* `nodejs`
 
 ## Installation
 To install the required `ruby` version is recommended to use a ruby version manager like [RVM](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv).
 
-Once `ruby` is installed, run `gem install bundler` if you don't have `bundler` already installed and `bundle install` to install the required dependencies.
+Once `ruby` is installed, run `gem install bundler -v 1.17.1` if you don't have `bundler` already installed and `bundle install` to install the required dependencies.
 
 Finally, install node packages by running `npm install`.
 
+### Configuration :floppy_disk:
+Copy the file *.env.sample* as *.env* and change it according to your database configuration
+
 ### Database setup
-Having `postgresql` already installed, run `rails db:create` if you haven't created the database.
+Having `postgresql` already installed, start `postgresql` server. run `rails db:create` if you haven't created the database.
 
 Run `rails db:migrate`, `rails db:seed`, and `rails db:sample`.
 
-## Configuration :floppy_disk:
-Copy the file *.env.sample* as *.env* and change it according to your database configuration
-
-## Code Quality :white_check_mark:
-For the time being, we are using the next tools to keep quaity and consistency of the code:
-
-* [sass-lint](https://github.com/brigade/scss-lint)
-
-To install `sass-lint` run `npm install -g sass-lint`. This is a **editor-based** tool, you will need to setup your editor with the proper linter.
-
-## Development
-Start `postgresql` server.
-
+### Development
 Run `rails s` to start the server.
 
 Go to [localhost](http://localhost:3000) and have fun :collision: :tada:
 
-## Troubleshooting :interrobang:
+### Troubleshooting :interrobang:
 If you have `postgresql` installed via [Homebrew](http://brew.sh/) probably the user setted is your account name. `rails db:create` command asks for a `postgres` user.
 
 To check this, enter in a `postgresql` console and type `\du` you will see the list of roles/users. If `postgres` is already there you have nothing to do, otherwise, you will need to create a new `postgres` role running the next command:
@@ -43,22 +34,24 @@ To check this, enter in a `postgresql` console and type `\du` you will see the l
 
 Set a password for this role/user. Once you are done, you should be able to create the database with `postgres` role.
 
-## Shareable components
+### Shareable components
 
 Because we need to be able to share some components outside the project, there is a new Rails environment called `assets_compilation`. This environment is a duplicated of the `production` one with other rules added.
 
 In order to compile those assets, run `RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret rake assets:precompile`. This will place all precompiled asssets in `public` folder. Once done, run `rake non_digested RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret`. This task will create duplicate of current compiled files but removing its hash, making it easier to manage. For example: `exported_componentes#mfnhf21378kjashjads1234.js` would be `exported_componentes.js`
 
-# Using docker in development
+## Using docker for development
+
+Just run next command:
 
 ```
-docker-compose -f docker-compose-dev.yml up --build`
+docker-compose -f docker-compose-dev.yml up --build
 ```
 
 It will fails because database has not been creted. So you have to run:
 
 ```
-docker-compose -f docker-compose-dev.yml run web rake db:create db:migrate
+docker-compose -f docker-compose-dev.yml run --rm web rake db:create db:migrate
 ```
 
 After that enter in the website container (i2i_web) and access to bash: 
@@ -80,8 +73,34 @@ It's recommended to run all tasks to avoid missing data.
 Once done with task running, just run the container:
 
 ```
-docker-compose -f docker-compose-dev.yml up --build
+docker exec -it [container-id] bash
 ```
+
+Once in run as many task as you need from `lib/tasks` folder:
+
+```
+rake db:[task-name]
+```
+
+To have countries available you will need to run the `sample` task at least. Run `rake db:sample`.
+
+It's recommended to run all tasks to avoid missing data.
+
+Once done with task running, just run the container:
+
+```
+docker-compose -f docker-compose-dev.yml up
+```
+
+### Restaring db from dump
+
+Run this command where `{container}` is the db container id, `{db_name}` is the db name (i2i_development), and `{filename}` is the dump file path in your local:
+
+```
+docker exec -i {container} pg_restore -C --clean --no-acl --no-owner --dbname={db_name} --username=postgres < ./{filename}.dump
+```
+
+NOTE: it could take some minutes depending of the file size.
 
 ## Application summary
 
@@ -157,4 +176,13 @@ Follow the instructions on `app/javascript/components/fsp-maps/constants.js`, th
 
 ## Deploy
 
-Has to be done from within the server, inside of the project's folder execute the file named `start-docker.sh`.
+Deploying requires SSH access to the server. It's highly recommended that you use RSA keys instead of username+password access.
+
+Deployment is handled by [Capistrano](https://capistranorb.com/), and requires you to have `ruby` configured on your local machine. 
+
+To deploy to a server, use the following command from your local terminal:
+
+```
+cap <production|staging> deploy
+```
+

@@ -1,3 +1,4 @@
+<% title 'Log in' %>
 <div class="c-mobile-menu <% if current_page?(root_path) %> -homepage <% end %>">
   <div class="wrapper">
     <div class="container">
@@ -23,6 +24,22 @@
           <li class="nav-item <% if current_page?(search_path) %> -current <% end%>">
             <%= link_to 'Search', search_path %>
           </li>
+
+          <% if current_user %>
+            <li class="nav-item <% if current_page?(datasets_path) %> -current <% end%>">
+              <%= link_to 'Datasets', datasets_path, data: { turbolinks: false } %>
+            </li>
+            <li class="nav-item <% if current_page?(account_path) %> -current <% end%>">
+              <%= link_to 'Account details', account_path, data: { turbolinks: false } %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, data: { turbolinks: false } %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Log in', new_user_session_path, data: { turbolinks: false } %>
+            </li>
+          <% end %>
         </ul>
       </nav>
 

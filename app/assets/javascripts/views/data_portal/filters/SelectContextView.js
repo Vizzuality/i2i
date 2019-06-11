@@ -7,6 +7,7 @@
     },
 
     url: function () {
+      if (this.options.isRegion) return API_URL + '/region/';
       return API_URL + '/country/';
     },
 
@@ -30,7 +31,8 @@
       // Current year
       year: null,
       // Current selected jurisdiction
-      jurisdiction: null
+      jurisdiction: null,
+      isRegion: false,
     },
 
     events: {
@@ -41,12 +43,13 @@
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
 
-      this.yearsCollection = new YearsCollection({}, { iso: this.options.iso });
+      this.yearsCollection = new YearsCollection({}, { iso: this.options.iso, isRegion: this.options.isRegion });
       this.jurisdictionsModel = new App.Model.IndicatorModel({}, {
         id: 'jurisdiction',
         iso: this.options.iso,
         year: this.options.year,
-        filters: [] // The filters shouldn't be needed to retrieve the juridications
+        filters: [], // The filters shouldn't be needed to retrieve the juridications
+        isRegion: this.options.isRegion
       });
 
       this._fetchData();

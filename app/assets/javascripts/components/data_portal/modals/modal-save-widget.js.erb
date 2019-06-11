@@ -159,8 +159,9 @@
      * Event handler executed when the user clicks the "Print" button
      */
     _onPrint: function () {
-      var printURL = location.origin +
-        '<%= data_portal_indicator_path %>?p=' + this._getEncodedWidget() + '&print=true';
+      var indicatorPath = this.options.widgetConfig.isRegion ? '<%= data_portal_indicator_region_path %>' : '<%= data_portal_indicator_path %>';
+      var printURL = location.origin + indicatorPath +
+        '?p=' + this._getEncodedWidget() + '&print=true';
       window.open(printURL, '_blank');
     },
 

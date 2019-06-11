@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>FinancialDiaries</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8,0 C3.58,0 0,3.58 0,8 C0,12.42 3.58,16 8,16 C12.42,16 16,12.42 16,8 C16,3.58 12.42,0 8,0 Z M8,2.75 C9.24,2.75 10.25,3.76 10.25,5 C10.25,6.24 9.24,7.25 8,7.25 C6.76,7.25 5.75,6.24 5.75,5 C5.75,3.76 6.76,2.75 8,2.75 Z M8,13.5 C6.14,13.5 4.51,12.58 3.51,11.17 C3.62,9.72 6.53,9 8,9 C9.47,9 12.38,9.72 12.49,11.17 C11.49,12.58 9.86,13.5 8,13.5 Z" id="FinancialDiaries" fill="#000000"></path>
+    </g>
+</svg>

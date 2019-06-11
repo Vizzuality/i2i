@@ -10,7 +10,6 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-console.log('Hello World from Webpacker');
 // Support component names relative to this directory:
 const componentRequireContext = require.context('components', true);
 const ReactRailsUJS = require('react_ujs');

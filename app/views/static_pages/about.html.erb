@@ -194,7 +194,7 @@
                   data-modal="team"
                   data-role="<%= RoleType.key_for(member.role.to_i) %>"
                   data-slug="<%= member.slug %>" tabindex="0" role="button" aria-label="<%= member.name%>, open modal">
-                    <div class="avatar" style="background-image: url(<%= member.image %>)"></div>
+                    <div class="avatar" style="background-image: url(<%= member.image.url(:thumb) %>)"></div>
                     <div class="info">
                       <span class="name"><%= member.name %></span>
                       <% unless member.organization_name.blank? %>
@@ -227,16 +227,16 @@
                 <div class="row">
                   <div class="grid-s-12 grid-m-6">
                     <address class="c-address">
-                      <a href="https://www.google.es/maps/place/New+Rd+%26+16th+Rd,+Midrand,+1685,+Sud%C3%A1frica/@-25.981063,28.127887,17z/data=!3m1!4b1!4m5!3m4!1s0x1e956e3ea117bcf5:0xc2e5f08e0d7747bc!8m2!3d-25.9810678!4d28.1300757" rel="noopener noreferrer" target="_blank" alt="FinMark Trust map location">
+                      <a href="https://www.google.com/maps/place/FinMark+Trust/@-25.995891,28.133023,17z/data=!4m12!1m6!3m5!1s0x1e956e3ecd3423af:0xadad49c93f4b94de!2sFinMark+Trust!8m2!3d-25.995891!4d28.133023!3m4!1s0x1e956e3ecd3423af:0xadad49c93f4b94de!8m2!3d-25.995891!4d28.133023?hl=en" rel="noopener noreferrer" target="_blank" alt="FinMark Trust map location">
                         <div class="map" style="background-image: url(<%= asset_path('about/new_map-finmark.png')%>)"></div>
                       </a>
                       <div class="info">
-                        <h3 class="title -dark -medium">FinMark Trust</h3>
-                        <span class="address-field">First Floor</span>
-                        <span class="address-field">Block J East</span>
-                        <span class="address-field">Central Park</span>
-                        <span class="address-field">400 16th Road (cnr New Road)</span>
-                        <span class="address-field">Randjespark (Midrand)</span>
+                        <h3 class="title -dark -medium"><a href="https://finmark.org.za" target="_blank">FinMark Trust</a></h3>
+                        <span class="address-field">Sanofi House, Second Floor</span>
+                        <span class="address-field">44 Grand Central Office Park</span>
+                        <span class="address-field">2 Bond Street</span>
+                        <span class="address-field">Grand Central Extension 1</span>
+                        <span class="address-field">Midrand</span>
                         <a class="address-field" href="tel:+27 11 315 9197" alt="FinMark Trust contact phone">+27 11 315 9197</a>
                         <a class="address-link" alt="Cenfri email" href="mailto:<%= ENV['I2I_MAIL'] %>"><%= ENV['I2I_MAIL'] %></a>
                       </div>
@@ -248,7 +248,7 @@
                         <div class="map" style="background-image: url(<%= asset_path('about/new_map-cenfri.png')%>)"></div>
                       </a>
                       <div class="info">
-                        <h3 class="title -dark -medium">Cenfri</h3>
+						  <h3 class="title -dark -medium"><a href="https://cenfri.org/" target="_blank">Cenfri</a></h3>
                         <span class="address-field">The Vineyards Office Estate</span>
                         <span class="address-field">Farm</span>
                         <span class="address-field">Farm 1, Block A Building</span>
@@ -275,8 +275,8 @@
                    <input type=hidden name="retURL" value="">
 
                    <div class="custom-row">
-                   <label for="first_name">First Name</label><br>
-                   <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" />
+                   <label for="first_name">First Name *</label><br>
+                   <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
 				   </div>
 
 				   <div class="custom-row">
@@ -285,8 +285,8 @@
 				   </div>
 
 				   <div class="custom-row">
-				   <label for="email">Email</label><br>
-				   <input  id="email" maxlength="80" name="email" size="20" type="text" />
+				   <label for="email">Email *</label><br>
+				   <input  id="email" required maxlength="80" name="email" size="20" type="text" required />
 				   </div>
 
 
@@ -309,14 +309,14 @@
 
 
 				    <div class="custom-row">
-				   <label for="Message">Message</label><br>
-				   <textarea  id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft"></textarea>
+				   <label for="Message">Message *</label><br>
+				   <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
 				    </div>
 
 				    <br>
-				    <input type="submit" name="submit" class="c-button">
+            <input type="submit" name="submit" class="primary-btn">
 
-              </form>
+        </form>
 
 
               </div>
@@ -327,3 +327,4 @@
     </div>
   </div>
 </div>
+

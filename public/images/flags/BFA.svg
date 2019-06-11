@@ -1,14 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 300 180" style="enable-background:new 0 0 300 180;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#079B42;}
-	.st1{fill:#CD181E;}
-	.st2{fill:#F9E500;}
-</style>
-<rect x="-30.6" y="90" class="st0" width="350.7" height="116.9"/>
-<rect x="-30.6" y="-26.9" class="st1" width="350.7" height="116.9"/>
-<polygon class="st2" points="143.5,50.4 152.1,76.8 179.2,76.8 156.7,93.1 165.3,119.6 142.8,103.2 120.3,119.6 128.9,93.1 
-	106.4,76.8 134.2,76.8 "/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>BFA</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BFA">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(139.957197, 74.957197) rotate(-225.000000) translate(-139.957197, -74.957197) translate(-96.542803, -182.042803)">
+                    <polygon id="Rectangle-Copy-3" fill="#079B42" transform="translate(273.365555, 257.159109) rotate(-30.000000) translate(-273.365555, -257.159109) " points="185.397777 11.7149998 361.333333 11.7149998 361.333333 502.603217 185.397777 502.603217"></polygon>
+                    <polygon id="Rectangle-Copy-4" fill="#CC0F20" transform="translate(162.160898, 255.728703) rotate(-30.000000) translate(-162.160898, -255.728703) " points="117.160898 10.2845938 207.160898 10.2845938 207.160898 501.172812 117.160898 501.172812"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
 </svg>

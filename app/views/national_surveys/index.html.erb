@@ -1,0 +1,73 @@
+<% title 'i2i National Surveys' %>
+
+<div class="l-national-surveys l-library">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-data.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-7">
+                <div class="row">
+                  <h1 class="title -light -huge">i2i Data Portal</h1>
+                  <p class="subtitle">Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <%= link_to 'National Surveys', national_surveys_path %>, and then deepen your understanding of how low-income households manage their financial lives using <%= link_to 'Financial Diaries', financial_diaries_path %>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <%= link_to 'All Data',
+                          data_portal_path,
+                          class: "content-selector #{'-current' if current_page?(data_portal_path)}", data: { turbolinks: false } %>
+
+              <%= link_to national_surveys_path,
+                          class: "content-selector #{'-current' if current_page?(national_surveys_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/national_surveys.svg', class: "icon tab-icon #{'-current' if current_page?(national_surveys_path)}") %>
+                National Surveys
+              <% end %>
+              <%= link_to financial_diaries_path,
+                          class: "content-selector #{'-current' if current_page?(financial_diaries_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/financial_diaries.svg', class: "icon tab-icon #{'-current' if current_page?(financial_diaries_path)}") %>
+                Financial Diaries
+              <% end %>
+              <%= link_to geospatial_data_path,
+                          class: "content-selector #{'-current' if current_page?(geospatial_data_path)}", data: { turbolinks: false } do %>
+                <%= inline_svg('logos/geospatial_data.svg', class: "icon tab-icon #{'-current' if current_page?(geospatial_data_path)}") %>
+                Geospatial Data
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <%= render partial: 'data_portal/description',
+                 locals: {
+                   section_title: 'National Surveys',
+                   description: 'The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.'
+                 } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
+      <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'data_portal/additional_data' %>
+    </div>
+  </div>
+</div>

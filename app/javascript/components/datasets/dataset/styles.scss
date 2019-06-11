@@ -1,0 +1,96 @@
+.status-row {
+  display: flex;
+  justify-content: space-between;
+
+  .switch-button {
+    position: relative;
+    border: 1px solid #2f939c;
+    height: 11.92px;
+    width: 20px;
+    border-radius: 40px;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    &:after {
+      position: absolute;
+      background-color: #2f939c;
+      top: 1px;
+      left: 1px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      content: '';
+    }
+
+    &.-enable {
+      opacity: 1;
+      background-color: #2f939c;
+
+      &:after {
+        background-color: white;
+        left: 9px;
+      }
+    }
+  }
+
+  .status {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 15px;
+    text-transform: uppercase;
+  }
+}
+.name, .errors {
+  margin-top: 5px;
+  padding-right: 20px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
+}
+
+.errors {
+  color: red;
+  font-size: 14px;
+}
+
+.actions {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  .action-button {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 700;
+    color: #257B83;
+    border: 1px solid;
+    border-color: rgba(37,123,131, 0.5);
+    border-radius: 22.5px;
+    background-color: #fff;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &.publish-button {
+      background-color: #2F939C;
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: .7;
+      pointer-events: auto;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

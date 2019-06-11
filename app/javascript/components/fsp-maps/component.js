@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import groupBy from 'lodash/groupBy';
-
-
 import qs from 'query-string';
 
 // Components
@@ -109,9 +106,11 @@ export default class FSPMaps extends React.Component {
   }
 
   render() {
+    const { iso } = this.props;
+
     return (
       <div className="c-fsp-maps">
-        <Intro />
+        <Intro iso={iso} />
 
         <div className="fsp-maps-tool">
           <Sidebar />

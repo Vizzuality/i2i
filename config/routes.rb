@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
+
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
 
@@ -11,8 +13,23 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
+  # User Account Details
+  get 'account', to: 'users#edit'
+  resources :users, only: %i(update destroy)
+
+  # User Datasets
+  resources :datasets, only: %i(index create destroy update) do
+    put :publish, on: :member
+  end
+
+  # Regions
+  get 'region/:iso', to: 'regions#show', as: :regions
+
   # Data Portal
   get 'data-portal' => 'data_portal#index'
+  resources :national_surveys, only: :index
+  resources :financial_diaries, only: :index
+  resources :geospatial_data, only: :index
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso/financial-diaries', to: 'data_portal_financial_diaries#index',
@@ -26,8 +43,14 @@ Rails.application.routes.draw do
   as: 'data_portal_y'
   get 'data-portal/indicator', to: 'data_portal/indicator#show',
   as: 'data_portal_indicator'
+  get 'data-portal/indicator-region', to: 'data_portal/indicator#show',
+  as: 'data_portal_indicator_region'
+  get 'data-portal/indicator/embed/:iso/:year', to: 'data_portal/indicator#embed', as: 'data_portal_indicator_embed'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'
+
+  # Data Portal - FinScope Data for regions
+   get 'data-portal/region/:iso/:year', to: 'data_portal#show_by_region',  as: 'data_portal_y_region'
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
@@ -46,7 +69,9 @@ Rails.application.routes.draw do
 
   get 'search' => 'searches#index'
 
-  resource :contacts, only: :create
+  resource :contacts, only: :create do
+    post :batch_download
+  end
 
   scope :format => true, :constraints => { :format => 'json' } do
     post   "/login"       => "sessions#create"
@@ -78,6 +103,13 @@ Rails.application.routes.draw do
     get 'members/project_means/:project_name', to: 'project_metadata#project_means_members'
     get 'households/monthly_values/:project_name', to: 'household_transactions#monthly_values'
     get 'members/monthly_values/:project_name', to: 'household_member_transactions#monthly_values'
+  end
+
+  namespace :dpapi do
+    get 'population/:code', to: 'population#index'
+    get 'gdp_by_region/:code', to: 'gdp#by_region'
+    get 'gdp_by_country/:iso', to: 'gdp#by_country'
+    get 'gdp_by_country_over_time/:iso', to: 'gdp#by_country_over_time'
   end
 
   namespace :updates do

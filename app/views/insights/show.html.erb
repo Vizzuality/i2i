@@ -1,5 +1,18 @@
 <% title @insight.title %>
 
+<% content_for :media_metas do %>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@i2ifacility" />
+  <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta name="twitter:description" content="<%= @insight.summary %>" />
+  <meta name="twitter:image" content="<%= ENV['SITE_URL'] %>/social-media-image.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta property="og:description" content="<%= @insight.summary %>" />
+  <meta property="og:image" content="<%= @insight.image.url(:medium) %>" />
+  <meta property="og:url" content="<%= request.original_url %>" />
+<% end %>
+
 <div class="l-details-page">
   <div class="l-intro">
     <div class="fixed-nav">

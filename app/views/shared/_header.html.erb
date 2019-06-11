@@ -11,7 +11,7 @@
     		<li class="nav-item
           <% if
             controller.controller_name == 'data_portal' || controller.controller_name == 'data_portal_financial_diaries' || controller.controller_name == 'fsp_maps' ||
-            controller.controller_name == 'report' %>-current <% end %>"
+            controller.controller_name == 'report' || controller.controller_name == 'regions' %>-current <% end %>"
         >
           <%= link_to 'Data portal', data_portal_path, data: { turbolinks: false } %>
         </li>
@@ -27,11 +27,42 @@
     		<li class="nav-item <% if current_page?(about_path) %> -current <% end%>">
           <%= link_to 'About', about_path, data: { turbolinks: false } %>
         </li>
-        <li class="nav-item <% if current_page?(search_path) %> -current -icon<% end%>">
-          <%= link_to(search_path, data: { turbolinks: false }) do %>
-            <svg class="icon"><use xlink:href="#icon-search"></use></svg>
-          <% end %>
-        </li>
+        <% if current_user %>
+          <li class="nav-item -with-dropdown <% if current_page?(account_path) || current_page?(datasets_path) %> -current <% end%>" aria-haspopup="true">
+            <%= link_to current_user.name_or_email, account_path, data: { turbolinks: false } %>
+            <div>
+              <ul aria-label="submenu">
+                <li>
+                  <%= link_to 'Datasets', datasets_path, data: { turbolinks: false } %>
+                </li>
+                <li>
+                  <%= link_to 'Account details', account_path, data: { turbolinks: false } %>
+                </li>
+                <li>
+                  <%= link_to 'Sign out', destroy_user_session_path, method: :delete, data: { turbolinks: false } %>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item <% if current_page?(search_path) %> -current -icon<% end%>">
+            <%= link_to(search_path, data: { turbolinks: false }) do %>
+              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item <% if devise_controller? %> -current<% end%>">
+            <%= link_to(new_user_session_path, data: { turbolinks: false }) do %>
+              <%= inline_svg('logos/user.svg', class: "icon-login icon #{('-active') if devise_controller? }") %>
+            <% end %>
+          </li>
+
+          <li class="nav-item -close<% if current_page?(search_path) %> -current -icon<% end%>">
+            <%= link_to(search_path, data: { turbolinks: false }) do %>
+              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </nav>
     <button class="hamburguer js-btn-mobile-menu">

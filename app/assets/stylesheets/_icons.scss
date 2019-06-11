@@ -51,3 +51,14 @@
   width: 30px;
   height: 30px;
 }
+
+.icon-login {
+  height: 21px;
+  width: 21px;
+
+  &.-active {
+    path {
+      fill: #F9D031;
+    }
+  }
+}

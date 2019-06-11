@@ -1,4 +1,4 @@
-FROM ruby:2.3.3
+FROM ruby:2.5.3
 MAINTAINER David Inga <david.inga@vizzuality.com>
 
 ENV RAILS_ENV production
@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && bundle config build.nokogiri --use-system-libraries \
-    && gem install bundler --no-ri --no-rdoc \
+    && gem install bundler \
     && mkdir -p /usr/src/i2i
 
 WORKDIR /usr/src/i2i

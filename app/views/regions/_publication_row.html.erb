@@ -1,0 +1,38 @@
+<div class="grid-12" style="margin-bottom: 10px; line-height: 30px;">
+  <span>
+    <% if attachment.title_has_link? %>
+      <%= link_to attachment.title,
+                  attachment.title_link, style: 'color: #001D22' %>
+    <% else %>
+      <%= attachment.title %>
+    <% end %>
+
+    <% if attachment.download_link_visible? || attachment.view_link_visible? || attachment.video_link_visible? %>
+      –
+    <% end %>
+  </span>
+
+  <% if attachment.download_link_visible? %>
+    <%= link_to 'Download',
+                attachment.download_link,
+                class: '',
+                style: 'margin-right: 10px; color: #2F939C; font-size: 16px; line-height: 30px; text-decoration: underline; font-weight: 700',
+                target: '_blank' %>
+  <% end %>
+
+  <% if attachment.view_link_visible? %>
+    <%= link_to 'View',
+                attachment.view_link,
+                class: '',
+                style: 'margin-right: 10px; color: #2F939C; font-size: 16px; line-height: 30px; text-decoration: underline; font-weight: 700',
+                target: '_blank' %>
+  <% end %>
+
+  <% if attachment.video_link_visible? %>
+    <%= link_to 'Watch video',
+                attachment.video_link,
+                class: '',
+                style: 'color: #2F939C; font-size: 16px; line-height: 30px; text-decoration: underline; font-weight: 700',
+                target: '_blank' %>
+  <% end %>
+</div>

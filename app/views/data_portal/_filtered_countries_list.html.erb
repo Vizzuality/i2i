@@ -1,0 +1,23 @@
+<section class="l-country-list">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between">
+    <h2 class="section-header" style="margin-right: 20px">
+      Countries
+    </h2>
+
+    <%= render partial: 'data_portal/regional_filter' %>
+  </div>
+
+  <div class="l-card-grid countries-list region-worldwide">
+    <div class="row">
+      <%= render partial: 'data_portal/filtered_country', collection: countries, as: :country %>
+    </div>
+  </div>
+
+  <% regions_hash.each do |(region_id, countries_list)| %>
+    <div class="l-card-grid countries-list region-<%= region_id %>" style="display: none">
+      <div class="row">
+        <%= render partial: 'data_portal/filtered_country', collection: countries_list, as: :country %>
+      </div>
+    </div>
+  <% end %>
+</section>

@@ -2,17 +2,21 @@
 #
 # Table name: countries
 #
-#  id           :integer          not null, primary key
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  name         :string
-#  iso          :string
-#  bbox         :string           default([]), is an Array
-#  short_iso    :string
-#  has_fsp_maps :boolean          default(FALSE)
+#  id               :integer          not null, primary key
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  name             :string
+#  iso              :string
+#  background_data: :text
+#  bbox             :string           default([]), is an Array
+#  short_iso        :string
+#  has_fsp_maps     :boolean          default(FALSE)
 #
 
+require 'uploaders/background_uploader'
+
 class Country < ApplicationRecord
+  include BackgroundUploader[:background]
   include FinscopeApi
 
   validates :name, presence: true
@@ -20,10 +24,29 @@ class Country < ApplicationRecord
   validates :short_iso, presence: true
 
   scope :all_except, ->(country) { where.not(id: country) }
+  scope :ordered_by_name, -> { order(:name) }
 
   attr_accessor :has_finscope
   attr_accessor :has_financial_diaries
   attr_accessor :bbox_raw
+
+  has_many :country_regions, dependent: :destroy
+  has_many :regions, through: :country_regions
+
+  has_many :country_partners
+  has_many :partners, through: :country_partners
+
+  has_many :countries_blogs
+  has_many :countries_events
+  has_many :countries_libraries
+  has_many :countries_news
+  has_many :blogs, through: :countries_blogs
+  has_many :events, through: :countries_events
+  has_many :libraries, through: :countries_libraries
+  has_many :news, through: :countries_news
+
+  has_many :links, dependent: :destroy
+  accepts_nested_attributes_for :links
 
   def has_dataset
     financial_diaries.present? || finscope.present? || geospatial.present?
@@ -38,7 +61,10 @@ class Country < ApplicationRecord
   end
 
   def geospatial
-    has_fsp_maps
+    user_countries = GetCountriesFromCarto.new.perform
+    user_countries_iso = user_countries ? JSON.parse(user_countries.body)['rows'].collect { |c| c['iso'] } : []
+
+    has_fsp_maps || user_countries_iso.include?(self.iso)
   end
 
   def bbox_raw

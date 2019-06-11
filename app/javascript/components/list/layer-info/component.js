@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-class LayerInfo extends React.Component {
+class LayerInfo extends PureComponent {
+  static propTypes = {
+    url: PropTypes.string,
+    text: PropTypes.string
+  };
+
+  static defaultProps = {
+    url: null,
+    text: null
+  };
+
   render() {
     const { url, text } = this.props;
 
@@ -10,7 +21,7 @@ class LayerInfo extends React.Component {
       <div className="c-layer-info">
         <div className="info-text">{text}</div>
         <div className="info-url">
-          <a href={url} target="_blank">{url}</a>
+          <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
         </div>
       </div>
     );

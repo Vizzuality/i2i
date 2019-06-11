@@ -1,0 +1,110 @@
+<% title "i2i #{@region.name}" %>
+
+<div class="l-preview-country l-regions-page">
+  <div class="fixed-nav js-fixed-nav">
+    <div class="wrapper">
+      <%= render partial: 'shared/header', locals: { isFixed: true } %>
+    </div>
+  </div>
+
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= @region.background_url(:header) || asset_path('headers/header-bg-about.jpg') %>);">
+
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero" style="padding-bottom: 70px !important;">
+              <div class="grid-l-12">
+                <div class="row">
+                  <div class="c-country-selector">
+                    <%= link_to 'data portal', data_portal_path, class: 'country-link' %>
+                    <h1 class="title -highlight -huge">
+                      <%= [@region.name].join(' ') %>
+                    </h1>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid-l-12">
+                <div class="row">
+                  <div class="grid-l-9 grid-m-9">
+                    <p class="subtitle">
+                      Countries included into this dashboard:
+                    </p>
+                    <p class="subtitle -close">
+                    <div class="countries-list">
+                      <% if @countries.any? %>
+                        <%= render partial: 'country', collection: @countries %>
+                      <% end %>
+                    </div>
+
+                    </p>
+
+                    <p class="subtitle">
+                      Data depositors:
+                    </p>
+
+                    <% if @partners.any? %>
+                      <%= render partial: 'partner', collection: @partners %>
+                    <% end %>
+                  </div>
+
+                  <% if @region.logo_url(:thumb).present? %>
+                    <div class="grid-l-3 grid-m-3" style="padding-top: 30px;">
+                      <%= image_tag @region.logo_url(:thumb), style: 'max-height: 182px; max-width: 182px;' %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="l-content" style="position: relative; z-index: 9; margin-top: -20px; padding-top: 0">
+    <div class="wrapper">
+      <section>
+        <div class="row" style="display: flex; flex-wrap: wrap;">
+          <%= render partial: 'downloads', locals: { downloads: @region_carrier.downloads,
+                                                    iso: @region_carrier.iso,
+                                                    show_downloads_modal: @region_carrier.show_downloads_modal?,
+                                                    modal_downloads: @region_carrier.modal_downloads.to_json }  %>
+
+          <%= render partial: 'publications', locals: { publications: @region_carrier.publications,
+                                                        iso: @region_carrier.iso,
+                                                        has_more_publications: @region_carrier.more_publications_visible?,
+                                                        downloads: @region_carrier.downloadable_publications.to_json }%>
+        </div>
+        <div class="row">
+          <%= render partial: 'widgets' %>
+        </div>
+      </section>
+
+      <% if @finscope_countries.present? %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark" id="finscope-dataset">National Surveys</h3>
+              <p class="dataset-description">
+                The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.
+              </p>
+            </div>
+
+            <iframe src="/data-portal/indicator/embed/<%= params[:iso] %>/<%= @country_finscope[:latest_year] %>?region=true" width="100%" height="560"></iframe>
+
+            <div class="grid-s-12 grid-m-8">
+              <%= link_to "Discover National Surveys data", data_portal_y_region_path(@country_finscope[:iso], @country_finscope[:latest_year]),
+                class: "c-button -sea dataset-button", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
+    </div>
+  </div>
+</div>

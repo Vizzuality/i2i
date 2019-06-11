@@ -75,7 +75,8 @@ export const getWidgets = createSelector(
         type_ids: `(${typeIds.join()})`,
         geojson: `'${JSON.stringify(geojson)}'`,
         lng,
-        lat
+        lat,
+        tableName: 'fsp_maps'
       };
 
       paramsConfig.forEach((param) => {

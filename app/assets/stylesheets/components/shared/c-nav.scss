@@ -20,7 +20,11 @@
       align-self: stretch;
 
       &:not(:first-child) {
-        margin: 0 0 0 60px;
+        margin: 0 0 0 40px;
+      }
+
+      &.-close {
+        margin-left: 30px;
       }
 
       > a,
@@ -57,6 +61,70 @@
 
         > a {
           padding: 10px;
+        }
+      }
+
+      &.-with-dropdown {
+        position: relative;
+        transition-duration: 0.5s;
+
+        div {
+          display: none;
+          visibility: hidden;
+          opacity: 0;
+          background: #fff;
+          box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+          min-width: 175px;
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          transform: translateX(-50%);
+          transition: all 1.5s ease;
+
+          > ul {
+            padding: 30px 0;
+
+            > li {
+              clear: both;
+              width: 100%;
+              font-size: 16px;
+              line-height: 30px;
+
+              > a {
+                display: block;
+                padding: 5px 30px;
+                color: #001D22;
+              }
+
+              &:hover,
+              &:focus-within {
+                cursor: pointer;
+                background: #f2f3f4;
+              }
+            }
+          }
+
+          &:after {
+            bottom: 100%;
+            left: 50%;
+            border: solid transparent;
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #fff;
+            border-width: 10px;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            margin-left: -10px;
+            pointer-events: none;
+          }
+        }
+
+        &:hover div,
+        &:focus-within div {
+          visibility: visible;
+          opacity: 1;
+          display: block
         }
       }
     }

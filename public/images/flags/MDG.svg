@@ -1,1 +1,31 @@
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180"><style>.st0,.st1,.st2{fill:#0a6;stroke:#000;stroke-width:.25;stroke-miterlimit:2.5}.st1,.st2{fill:#ec1b2e}.st2{fill:#fff}</style><path transform="rotate(-79.327 190.852 159.57)" class="st0" d="M131.5 3.6h118.7v311.9H131.5z"/><path transform="rotate(-79.327 212.852 42.881)" class="st1" d="M153.5-113.1h118.7v311.9H153.5z"/><path transform="rotate(-79.327 -28.031 57.884)" class="st2" d="M-146.8-20.1H90.7v156h-237.5z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250px" height="150px" viewBox="0 0 250 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>MDG</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="250" height="150"></rect>
+    </defs>
+    <g id="Country-thumbnails" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="MDG">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Rectangle-3">
+                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-2" style="mix-blend-mode: multiply;" mask="url(#mask-3)">
+                <g transform="translate(20.435948, 68.435948) rotate(-225.000000) translate(-20.435948, -68.435948) translate(-384.064052, -411.564052)">
+                    <polygon id="Rectangle" fill="#FFFFFF" transform="translate(563.542961, 676.894167) rotate(-30.000000) translate(-563.542961, -676.894167) " points="422.876295 431.450058 704.209628 431.450058 704.209628 922.338276 422.876295 922.338276"></polygon>
+                    <polygon id="Rectangle-Copy-3" fill="#00B15E" transform="translate(309.246979, 257.328223) rotate(-30.000000) translate(-309.246979, -257.328223) " points="221.279201 11.8841139 397.214757 11.8841139 397.214757 502.772332 221.279201 502.772332"></polygon>
+                    <polygon id="Rectangle-Copy-4" fill="#E43229" transform="translate(194.582577, 323.362361) rotate(-30.000000) translate(-194.582577, -323.362361) " points="112.582577 77.9182519 276.582577 77.9182519 276.582577 568.80647 112.582577 568.80647"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

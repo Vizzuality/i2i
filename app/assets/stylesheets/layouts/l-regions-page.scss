@@ -1,0 +1,57 @@
+.l-regions-page {
+  > .fixed-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: $color-1;
+    z-index:  10;
+
+    &.-hidden {
+      display: none;
+    }
+  }
+
+  .content {
+    .subtitle {
+      margin-top: 10px;
+      line-height: 25px;
+      font-size: 16px;
+      color: #FFFFFF;
+
+      &.-close {
+        margin-top: 5px;
+      }
+
+    }
+
+
+    .countries-list {
+      display: flex;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      flex-direction: row;
+      margin-bottom: 10px;
+
+      .country-name {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 100px;
+        padding: 5px 10px;
+        margin: 0 5px 1px 0;
+
+        color: $color-4;
+        font-family: $font-family-2;
+        font-weight: $font-weight-bold;
+      }
+
+      > a.country-link {
+        > .country-name {
+          color: $color-2;
+          font-weight: $font-weight-bold;
+        }
+      }
+
+    }
+
+  }
+}

@@ -1,0 +1,93 @@
+.dataset-form {
+  .c-button {
+    margin-top: 20px;
+    background-color: #2f939c;
+    border: 0;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    color: #FFFFFF;
+    padding: 10px 20px;
+
+    &.-big {
+      width: 100%;
+      padding: 10px 20px;
+    }
+
+    &:disabled {
+      opacity: .7;
+      pointer-events: auto;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .action-button {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 700;
+    color: #257B83;
+    border: 1px solid;
+    border-color: rgba(37,123,131, 0.5);
+    border-radius: 22.5px;
+    background-color: #fff;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    cursor: pointer;
+  }
+
+  .title-header {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 30px;
+    color: #000000;
+  }
+
+  p.description {
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 25px;
+
+    &.-small {
+      font-size: 13px;
+    }
+  }
+
+  .input-field {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    label {
+      color: #257B83;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 18px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      background-color: rgba(47,147,156, 0.1);
+      padding: 8px 15px 7px 15px;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 30px;
+      border: 0;
+      margin: 0;
+    }
+
+    &.file-input-field {
+      label {
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+}

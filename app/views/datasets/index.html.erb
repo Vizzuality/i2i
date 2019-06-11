@@ -1,0 +1,65 @@
+<% content_for :head do %>
+  <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+  <!-- LEAFLET -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js"></script>
+
+  <script src="https://unpkg.com/leaflet.pm@latest/dist/leaflet.pm.min.js"></script>
+
+  <!-- GOOGLE -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places"></script>
+
+  <!-- COMPONENTS -->
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+<% end %>
+
+<% title 'Datasets' %>
+
+<div class="l-library" style="margin: 0">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav js-fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-insights.jpg') %>)">
+      <div class="l-title">
+        <div class="wrapper">
+          <div class="row">
+            <div class="c-hero">
+              <div class="grid-l-6">
+                <h1 class="title -highlight -huge">Welcome <%= current_user.name if current_user.name %></h1>
+                <p class="subtitle">
+                  The User Area is a complete control panel from where you can manage your data uploads. To upload GIS data, click on Datasets below and follow the instructions. Your data will have to be approved before it is displayed on the platform.<br />
+                  It is possible to edit your personal information by clicking on the account details below.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l-library-content-selector">
+        <div class="wrapper">
+          <div class="row">
+            <div class="selectors-container grid-12">
+              <%= link_to 'Datasets', datasets_path, class: "content-selector -current" %>
+              <%= link_to 'Account details', account_path, class: "content-selector" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= react_component("datasets-page", { iso: @iso, shortIso: @country.short_iso, bbox: @country.bbox, latestYear: @latest_year, categories: @categories, countries: @countries, datasets: @datasets }) %>
+  </div>
+</div>
