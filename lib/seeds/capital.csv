@@ -1,7 +1,7 @@
 country_name,country_code,capital_city,note,capital_type,city_code,lat,lon,population,iso
 Afghanistan,4,Kabul,,Capital,20002,34.528887,69.17246,4436.255,AFG
 Albania,8,TiranÌÇ (Tirana),,Capital,20005,41.3275,19.81889,444.58,ALB
-Algeria,12,El DjazaÌør  (Algiers),1,Capital,20006,36.7525,3.04197,2559.445,DZA
+Algeria,12,El DjazaÔr (Algiers),1,Capital,20006,36.7525,3.04197,2559.445,DZA
 American Samoa,16,Pago Pago,,Capital,20047,-14.27806,-170.7025,48.274,ASM
 Andorra,20,Andorra la Vella,,Capital,20048,42.50779,1.52109,23.449,AND
 Angola,24,Luanda,,Capital,20049,-8.83682,13.23432,5288.267,AGO
@@ -28,20 +28,20 @@ Bolivia (Plurinational State of),68,La Paz,,Seat of Government,20153,-16.5,-68.1
 Bolivia (Plurinational State of),68,Sucre,,Constitutional Capital,20158,-19.03332,-65.26274,358.337,BOL
 Bosnia and Herzegovina,70,Sarajevo,,Capital,20164,43.84864,18.35644,321.714,BIH
 Botswana,72,Gaborone,,Capital,20167,-24.65451,25.90859,246.562,BWA
-Brazil,76,BrasÌ_lia,7,Capital,20187,-15.77972,-47.92972,4073.717,BRA
+Brazil,76,BrasÌlia,7,Capital,20187,-15.77972,-47.92972,4073.717,BRA
 British Virgin Islands,92,Road Town,,Capital,20313,18.41667,-64.61667,13.102,VGB
 Brunei Darussalam,96,Bandar Seri Begawan,,Capital,20314,4.94029,114.94806,14.025,BRN
 Bulgaria,100,Sofia,,Capital,20327,42.69751,23.32415,1221.933,BGR
 Burkina Faso,854,Ouagadougou,,Capital,23192,12.36423,-1.53834,2565.194,BFA
 Burundi,108,Bujumbura,,Capital,20340,-3.3822,29.3644,707.191,BDI
 Cabo Verde,132,Praia,,Capital,20408,14.92148,-23.50868,144.648,CPV
-Cambodia,116,Phnum PÌ©nh (Phnom Penh),8,Capital,20357,11.56245,104.91601,1684.308,KHM
-Cameroon,120,YaoundÌ©,,Capital,20365,3.86667,11.51667,2930.167,CMR
+Cambodia,116,Phnum PÈhn (Phnom Penh),8,Capital,20357,11.56245,104.91601,1684.308,KHM
+Cameroon,120,YaoundÈ,,Capital,20365,3.86667,11.51667,2930.167,CMR
 Canada,124,Ottawa-Gatineau,9,Capital,20387,45.416598,-75.697997,1305.811,CAN
 Caribbean Netherlands,535,Kralendijk,10,Capital,206155,12.15,-68.26667,14.592,
 Cayman Islands,136,George Town,,Capital,20409,19.2866,-81.37436,30.603,CYM
 Central African Republic,140,Bangui,,Capital,20410,4.36122,18.55496,780.825,CAF
-Chad,148,N'DjamÌ©na,,Capital,20420,12.10672,15.0444,1212.075,TCD
+Chad,148,N'Djamena,,Capital,20420,12.10672,15.0444,1212.075,TCD
 Channel Islands,830,St. Helier,11,Capital,22891,49.188,-2.1049,35.102,
 Channel Islands,830,St. Peter Port,12,Capital,205428,49.4598,-2.5353,16.132,
 Chile,152,Santiago,13,Capital,20439,-33.45694,-70.64827,6471.801,CHL
@@ -62,7 +62,7 @@ Cyprus,196,Lefkosia (Nicosia),,Capital,20880,35.159506,33.366929,251.142,CYP
 Czech Republic,203,Praha (Prague),,Capital,20887,50.08804,14.42076,1302.883,CZE
 Dem. People's Republic of Korea,408,P'yongyang,,Capital,21722,39.03385,125.75432,2856.046,KOR
 Democratic Republic of the Congo,180,Kinshasa,,Capital,20853,-4.32758,15.31357,11116.133,COD
-Denmark,208,KÌübenhavn (Copenhagen),22,Capital,20894,55.67594,12.56553,1254.808,DNK
+Denmark,208,K¯benhavn (Copenhagen),22,Capital,20894,55.67594,12.56553,1254.808,DNK
 Djibouti,262,Djibouti,23,Capital,21005,11.58767,43.14468,521.84,DJI
 Dominica,212,Roseau,,Capital,20896,15.30174,-61.38808,14.994,DMA
 Dominican Republic,214,Santo Domingo,24,Capital,20898,18.489591,-69.901805,2872.818,DOM
@@ -74,7 +74,7 @@ Eritrea,232,Asmara,,Capital,20931,15.33333,38.93333,774.558,ERI
 Estonia,233,Tallinn,,Capital,20932,59.43696,24.75353,391.713,EST
 Ethiopia,231,Addis Ababa,,Capital,20921,9.02497,38.74689,3168.043,ETH
 Falkland Islands (Malvinas),238,Stanley,,Capital,20935,-51.701172,-57.849351,2.312,FLK
-Faroe Islands,234,TÌ_rshavn,,Capital,20934,62.00973,-6.77164,20.646,FRO
+Faroe Islands,234,TÛrshavn,,Capital,20934,62.00973,-6.77164,20.646,FRO
 Fiji,242,Suva,,Capital,20936,-18.14161,178.44149,176.397,FJI
 Finland,246,Helsinki,,Capital,20937,60.169246,24.940216,1169.903,FIN
 France,250,Paris,,Capital,20985,48.85341,2.3488,10764.433,FRA
@@ -86,11 +86,11 @@ Georgia,268,Tbilisi,,Capital,21011,41.69411,44.83368,1149.575,GEO
 Germany,276,Berlin,,Capital,204296,52.52437,13.41053,3547.288,DEU
 Ghana,288,Accra,,Capital,21107,5.55602,-0.1969,2241.692,GHA
 Gibraltar,292,Gibraltar,,Capital,21111,36.14474,-5.35257,29.335,GIB
-Greece,300,AthÌ_nai (Athens),29,Capital,21113,37.95342,23.74897,3059.914,GRC
+Greece,300,AthÌna (Athens),29,Capital,21113,37.95342,23.74897,3059.914,GRC
 Greenland,304,Nuuk (GodthÌ´b),,Capital,21119,64.18347,-51.72157,16.911,GRL
 Grenada,308,St.George's,,Capital,21120,12.05644,-61.74849,37.822,GRD
 Guadeloupe,312,Basse-Terre,,Capital,21121,15.99854,-61.72548,55.295,GLP
-Guam,316,HagÌ´tÌ±a,,Capital,21123,13.47567,144.74886,143.429,GUM
+Guam,316,HagÂtÒa,,Capital,21123,13.47567,144.74886,143.429,GUM
 Guatemala,320,Ciudad de Guatemala (Guatemala City),,Capital,21124,14.612652,-90.530746,2846.89,GTM
 Guinea,324,Conakry,,Capital,21126,9.571642,-13.647602,1885.989,GIN
 Guinea-Bissau,624,Bissau,,Capital,22171,11.86357,-15.59767,473.349,GNB
@@ -99,7 +99,7 @@ Haiti,332,Port-au-Prince,30,Capital,21133,18.53917,-72.335,2375.913,HTI
 Holy See,336,Vatican City,,Capital,21134,41.90236,12.45332,0.799,VAT
 Honduras,340,Tegucigalpa,,Capital,21136,14.0818,-87.20681,1100.588,HND
 Hungary,348,Budapest,,Capital,21138,47.49801,19.03991,1717.321,HUN
-Iceland,352,ReykjavÌ_k,,Capital,21147,64.13548,-21.89541,184.171,ISL
+Iceland,352,ReykjavÌk,,Capital,21147,64.13548,-21.89541,184.171,ISL
 India,356,Delhi,31,Capital,21228,28.66667,77.21667,24953.311,IND
 Indonesia,360,Jakarta,32,Capital,21454,-6.211831,106.841646,10176.006,IDN
 Iran (Islamic Republic of),364,Tehran,,Capital,21523,35.69439,51.42151,8352.934,IRN
@@ -136,7 +136,7 @@ Martinique,474,Fort-de-France,,Capital,21820,14.60892,-61.07334,85.817,MTQ
 Mauritania,478,Nouakchott,,Capital,21821,18.08581,-15.9785,944.804,MRT
 Mauritius,480,Port Louis,,Capital,21822,-20.16194,57.49889,135.496,MUS
 Mayotte,175,Mamoudzou,,Capital,205636,-12.779444,45.227222,5.715,MYT
-Mexico,484,Ciudad de MÌ©xico (Mexico City),42,Capital,21853,19.427318,-99.141869,20843.45,MEX
+Mexico,484,Ciudad de MÈxico (Mexico City),42,Capital,21853,19.427318,-99.141869,20843.45,MEX
 Micronesia (Fed. States of),583,Palikir,,Capital,22032,6.917423,158.158791,6.821,FSM
 Monaco,492,Monaco,,Capital,21881,43.73333,7.41667,38.066,MCO
 Mongolia,496,Ulaanbaatar,,Capital,21882,47.90771,106.88324,1333.617,MNG
@@ -161,7 +161,7 @@ Norway,578,Oslo,,Capital,22028,59.91273,10.74609,969.862,NOR
 Oman,512,Masqat (Muscat),50,Capital,21922,23.61387,58.5922,812.324,OMN
 Pakistan,586,Islamabad,,Capital,22042,33.70351,73.059373,1296.964,PAK
 Palau,585,Koror,,Capital,22034,7.34257,134.47888,11.599,PLW
-Panama,591,Ciudad de PanamÌÁ (Panama City),51,Capital,22063,8.995816,-79.519572,1637.866,PAN
+Panama,591,Ciudad de Panam· (Panama City),51,Capital,22063,8.995816,-79.519572,1637.866,PAN
 Papua New Guinea,598,Port Moresby,,Capital,22064,-9.44314,147.17972,338.069,PNG
 Paraguay,600,AsunciÌ_n,52,Capital,22065,-25.30066,-57.63591,2307.329,PRY
 Peru,604,Lima,53,Capital,22078,-12.04318,-77.02824,9722.071,PER
@@ -171,7 +171,7 @@ Portugal,620,Lisboa (Lisbon),55,Capital,22167,38.71686,-9.139867,2868.856,PRT
 Puerto Rico,630,San Juan,56,Capital,22177,18.46633,-66.10572,2466.219,PRI
 Qatar,634,Ad-Dawhah (Doha),,Capital,22179,25.274724,51.524472,698.535,QAT
 Republic of Korea,410,Seoul,57,Capital,21758,37.56826,126.97783,9775.377,KOR
-Republic of Moldova,498,ChiÅÙin€Äu,,Capital,21885,47.00556,28.8575,720.681,MDA
+Republic of Moldova,498,Chisin·u,,Capital,21885,47.00556,28.8575,720.681,MDA
 RÌ©union,638,Saint-Denis,,Capital,22180,-20.88231,55.4504,143.617,REU
 Romania,642,Bucuresti (Bucharest),,Capital,22191,44.432787,26.104302,1871.518,ROU
 Russian Federation,643,Moskva (Moscow),,Capital,22299,55.754996,37.621849,12062.731,RUS
