@@ -45,14 +45,12 @@ class WidgetWrapperComponent extends React.Component {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: Object.keys(body).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(body[key])}`).join('&')
     })
-      .then((response) => {
-        if (response.ok) return response.json();
-      })
+      .then(response => response.ok && response.json())
       .then((data) => {
         const widgetData = data.rows;
         this.setState({ widgetData, loading: false });
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({ loading: false });
       });
   }
@@ -81,6 +79,7 @@ class WidgetWrapperComponent extends React.Component {
         </div>
       );
     }
+
     return null;
   }
 }

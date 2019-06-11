@@ -86,52 +86,38 @@ export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 function getSectors(iso) {
   const tableName = 'fsp_maps';
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
-    .then((data) => {
-      const dataRows = data.rows.map(row => ({
-        ...row,
-        id: row.id.toString(),
-        name: row.type,
-        info: LAYERS_INFO[row.type],
-        layerType: 'sector',
-        count: Numeral(row.count).format('0,0'),
-        provider: 'carto',
-        isUserDataset: false
-      }));
-
-      return dataRows;
-    });
+    .then(response => response.ok && response.json())
+    .then(data => data.rows.map(row => ({
+      ...row,
+      id: row.id.toString(),
+      name: row.type,
+      info: LAYERS_INFO[row.type],
+      layerType: 'sector',
+      count: Numeral(row.count).format('0,0'),
+      provider: 'carto',
+      isUserDataset: false
+    })));
 }
 
 function getUserDatasets(iso) {
   const tableName = process.env.FSP_CARTO_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
-    .then((data) => {
-      const dataRows = data.rows.map(row => ({
-        ...row,
-        id: row.id.toString(),
-        name: row.type,
-        info: LAYERS_INFO[row.type],
-        layerType: 'sector',
-        count: Numeral(row.count).format('0,0'),
-        provider: 'carto',
-        isUserDataset: true
-      }));
-
-      return dataRows;
-    });
+    .then(response => response.ok && response.json())
+    .then(data => data.rows.map(row => ({
+      ...row,
+      id: row.id.toString(),
+      name: row.type,
+      info: LAYERS_INFO[row.type],
+      layerType: 'sector',
+      count: Numeral(row.count).format('0,0'),
+      provider: 'carto',
+      isUserDataset: true
+    })));
 }
 
 function getContextualLayers() {
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(CONTEXTUAL_LAYERS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
+    .then(response => response.ok && response.json())
     .then((data) => {
       const dataRows = data.rows;
       const cartoLayers = dataRows.filter(row => row.provider === 'cartodb');
@@ -175,15 +161,12 @@ function getContextualLayers() {
         }
       ));
 
-      const rwLayersPromises = rwLayers.map(row => fetch(`https://api.resourcewatch.org/v1/layer/${row.layer_id}`).then((r) => {
-        if (r.ok) {
-          return r.json();
-        }
-      }));
+      const rwLayersPromises = rwLayers.map(row => fetch(`https://api.resourcewatch.org/v1/layer/${row.layer_id}`)
+        .then(r => r.ok && r.json()));
 
       return Promise.all(rwLayersPromises)
-        .then((data) => {
-          compact(data).forEach((d) => {
+        .then((layerData) => {
+          compact(layerData).forEach((d) => {
             const serializedData = WRIJsonApiSerializer(d);
 
             contextualLayers.push({
@@ -220,11 +203,9 @@ export const closeModal = createAction('MODAL/closeModal');
 
 // Widgets
 export const setWidgetsList = createAction('WIDGETS/setWidgetsList');
-export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dispatch, getState) => {
+export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dispatch) => {
   fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(WIDGETS_SQL)}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
+    .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setWidgetsList(data.rows));
     });
@@ -248,10 +229,7 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
   const seconds = time * 60;
 
   return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-      throw response;
-    })
+    .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setNearbyArea(data.features[0].geometry));
       dispatch(setNearbyCenter({
@@ -286,9 +264,7 @@ export const fetchJurisdictions = createThunkAction('ANALYSIS/fetchJurisdictions
   const jurisdictionsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
 
   fetch(`${window.FSP_CARTO_API}?q=${jurisdictionsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
+    .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setJurisdictionsList(data.rows));
     });
@@ -302,9 +278,7 @@ export const fetchJurisdictionArea = createThunkAction('ANALYSIS/fetchJurisdicti
   );
 
   fetch(`${window.FSP_CARTO_API}?q=${jurisdictionAreaSql}&api_key=${window.FSP_CARTO_API_KEY}`)
-    .then((response) => {
-      if (response.ok) return response.json();
-    })
+    .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setJurisdictionArea(JSON.parse(data.rows[0].st_asgeojson)));
     });
