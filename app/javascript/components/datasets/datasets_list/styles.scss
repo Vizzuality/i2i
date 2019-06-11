@@ -1,0 +1,13 @@
+.dataset-box {
+  background-color: #fff;
+  padding: 15px 10px 15px 20px;
+  border: 1px solid transparent;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &:hover {
+    border-color: #2f939c;
+  }
+}

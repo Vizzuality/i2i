@@ -1,6 +1,8 @@
 import React from 'react';
 import Dataset from 'components/datasets/dataset/component';
 
+import './styles.scss';
+
 const DatasetsList = (props) => {
   const datasets = props.datasets.map(dataset => (
     <div key={dataset.id} className="dataset-box">

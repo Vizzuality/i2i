@@ -34,15 +34,15 @@ class Dataset extends PureComponent {
     const { isEnable } = dataset;
 
     return (
-      <div>
+      <div className="dataset-item">
         <div className="status-row">
           <div className="status">
             {dataset.status}
           </div>
           <button
             className={classnames({
-              enable: !isEnable,
-              disable: isEnable
+              'switch-button': true,
+              '-enable': isEnable
             })}
             onClick={this.handleToggle}
           />
