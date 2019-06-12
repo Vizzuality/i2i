@@ -1,5 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /datasets
-Disallow: /account
+Disallow: /
