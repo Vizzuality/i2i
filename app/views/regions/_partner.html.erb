@@ -1,6 +1,6 @@
 <% if partner.logo.present? %>
   <% if partner.website_url.present? %>
-    <%= link_to partner.website_url do %>
+    <%= link_to partner.website_url, target: '_blank' do %>
       <%= image_tag partner.logo_url(:thumb), style: 'height: 54px; margin-right: 10px;', alt: partner.name %>
     <% end %>
   <% else %>
