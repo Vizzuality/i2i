@@ -7,8 +7,11 @@ import './styles.scss';
 class IntroComponent extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
-    fetchIntro: PropTypes.func.isRequired
+    fetchIntro: PropTypes.func.isRequired,
+    iso: PropTypes.string
   }
+
+  static defaultProps = { iso: null }
 
   componentWillMount() {
     this.props.fetchIntro();
@@ -50,7 +53,7 @@ class IntroComponent extends React.Component {
                   </tr>
                 </tbody>
               </table>
-              </div>
+            </div>
             <div className="grid-s-12 grid-l-5">
               {iso === 'HTI' && (
                 <div className="l-supplied-by">

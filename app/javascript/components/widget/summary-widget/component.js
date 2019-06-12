@@ -10,8 +10,8 @@ class SummaryWidgetWrapperComponent extends React.Component {
     title: PropTypes.string.isRequired,
     widgetData: PropTypes.array.isRequired,
     menuItem: PropTypes.string.isRequired,
-    fetchIntro: PropTypes.func.isRequired,
-    setIntro: PropTypes.func.isRequired
+    fetchIntroAnalysis: PropTypes.func.isRequired,
+    setIntroAnalysis: PropTypes.func.isRequired
   }
 
   state = { widgetData: [] };
@@ -28,7 +28,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
     this.setState({ widgetData: newData });
 
     // Maintain the country summary data updated with the one from the analysis.
-    menuItem === 'country' ? this.props.fetchIntro() : this.props.setIntro(newData);
+    menuItem === 'country' ? this.props.fetchIntroAnalysis() : this.props.setIntroAnalysis(newData);
   }
 
   render() {

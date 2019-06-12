@@ -6,6 +6,7 @@ export default {
     latestYear: null
   },
   intro: { data: [] },
+  introAnalysis: { data: [] },
   map: {
     open: true,
     zoom: 3,
