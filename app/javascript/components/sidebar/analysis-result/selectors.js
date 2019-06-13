@@ -40,6 +40,7 @@ export const getWidgets = createSelector(
     });
 
     const widgets = filteredRawWidgets.map((row) => {
+      console.log(row)
       const {
         cartodb_id: id,
         widget_config: widgetConfigWrap,
@@ -76,7 +77,8 @@ export const getWidgets = createSelector(
         geojson: `'${JSON.stringify(geojson)}'`,
         lng,
         lat,
-        tableName: 'fsp_maps'
+        tableName1: 'fsp_maps', // are you sure you want to change this value?
+        tableName2: process.env.FSP_CARTO_TABLE || 'fsp_maps_user_staging'
       };
 
       paramsConfig.forEach((param) => {
