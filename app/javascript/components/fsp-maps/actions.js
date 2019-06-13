@@ -60,6 +60,41 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
     });
 });
 
+// INTRO ANALYSIS
+export const setIntroAnalysis = createAction('INTRO_ANALYSIS/setIntro');
+export const setIntroAnalysisLoading = createAction('INTRO_ANALYSIS/setIntroLoading');
+export const setIntroAnalysisError = createAction('INTRO_ANALYSIS/setIntroError');
+export const fetchIntroAnalysis = createThunkAction('INTRO_ANALYSIS/fetchIntro', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+
+  dispatch(setIntroAnalysisLoading(true));
+
+  // return fetch(new Request(`${process.env.API_URL}/`))
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error(response.statusText);
+    })
+    .then((data) => {
+      dispatch(setIntroAnalysisLoading(false));
+      dispatch(setIntroAnalysisError(null));
+
+      const dataRows = data.rows[0];
+      const result = [
+        { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
+        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0') }
+      ];
+
+      dispatch(setIntroAnalysis(result));
+    })
+    .catch((err) => {
+      dispatch(setIntroAnalysisLoading(false));
+      dispatch(setIntroAnalysisError(err));
+    });
+});
+
 // MAP
 export const setOpenMap = createAction('MAP/setOpenMap');
 export const setZoom = createAction('MAP/setZoom');

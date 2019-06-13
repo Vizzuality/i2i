@@ -6,4 +6,4 @@ $(document).on 'turbolinks:load', ->
 
     $('.l-preview-country').on 'click', '.more-publications-button', (e) ->
       e.preventDefault()
-      new App.Component.DownloadMoreAttachments({ attachments: $(e.target).data('downloads'), iso: $(e.target).data('iso') })
+      new App.Component.DownloadMorePublications({ attachments: $(e.target).data('downloads'), iso: $(e.target).data('iso') })
