@@ -30,7 +30,7 @@
         &.c-checkbox {
           label {
             padding: 2px 15px 3px 48px;
-            font-size: $font-size-regular;
+            font-size: $font-size-small;
             font-weight: $font-weight-light;
             line-height: 30px;
             cursor: pointer;
@@ -58,6 +58,16 @@
           &:hover {
             background-color: initial;
           }
+        }
+
+        > a {
+          display: inline-block;
+          padding: 2px 15px 3px 15px;
+
+          color: $color-1;
+          font-size: $font-size-small;
+          font-weight: 600;
+          line-height: 1.5;
         }
 
         @media #{$mq-tablet} {

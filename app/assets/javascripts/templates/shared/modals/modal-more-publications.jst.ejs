@@ -1,0 +1,15 @@
+<div class="downloads-container">
+    <p class="downloads-label">
+      Select files to download
+    </p>
+
+    <ul class="downloads-list">
+        <% attachments.forEach(function (attachment) { %>
+          <li class="download-item <%= attachment.html_class %>">
+            <a href="<%= attachment.url %>" download><%= attachment.title %></a>
+          </li>
+        <% }) %>
+    </ul>
+</div>
+
+
