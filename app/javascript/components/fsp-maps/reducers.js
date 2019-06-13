@@ -34,6 +34,20 @@ export default {
     return { ...state, intro };
   },
 
+  // INTRO ANALYSIS
+  [actions.setIntroAnalysis]: (state, { payload }) => {
+    const introAnalysis = { ...state.introAnalysis, data: payload };
+    return { ...state, introAnalysis };
+  },
+  [actions.setIntroAnalysisLoading]: (state, { payload }) => {
+    const introAnalysis = { ...state.introAnalysis, loading: payload };
+    return { ...state, introAnalysis };
+  },
+  [actions.setIntroAnalysisError]: (state, { payload }) => {
+    const introAnalysis = { ...state.introAnalysis, error: payload };
+    return { ...state, introAnalysis };
+  },
+
   // MAP
   [actions.setOpenMap]: (state, { payload }) => {
     const map = { ...state.map, open: payload };

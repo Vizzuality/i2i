@@ -67,7 +67,7 @@ class PublishDataset
         row['year'].present? ? row['year'] : 'NULL',
         row['name'].present? ? "'#{row['name']}'" : 'NULL',
         row['color'].present? ? "'#{row['color']}'" : color,
-        row['type_id'].present? ? row['type_id'] : dataset.id,
+        row['type_id'].present? ? row['type_id'] : 1000 + dataset.id,
         dataset.user_id,
         dataset.id
       ].join(',')
