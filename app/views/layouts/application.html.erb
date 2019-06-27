@@ -23,11 +23,11 @@
       <meta name="twitter:site" content="@i2ifacility" />
       <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
       <meta name="twitter:description" content="<%= description %>" />
-      <meta name="twitter:image" content="<%= ENV['SITE_URL'] %>/social-media-image.png" />
+      <meta name="twitter:image" content="<%= request.base_url %>/social-media-image.png" />
       <meta property="og:type" content="article" />
       <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
       <meta property="og:description" content="<%= description %>" />
-      <meta property="og:image" content="<%= ENV['SITE_URL'] %>/social-media-image.png" />
+      <meta property="og:image" content="<%= request.base_url %>/social-media-image.png" />
       <meta property="og:url" content="<%= request.original_url %>" />
     <% end %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,600,700' %>
