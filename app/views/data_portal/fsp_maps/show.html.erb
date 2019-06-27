@@ -18,7 +18,19 @@
   <%= stylesheet_pack_tag 'application' %>
 <% end %>
 
-<% title 'Data Portal' %>
+<% title "Geospatial data for #{@country.name}" %>
+
+<% content_for :media_metas do %>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@i2ifacility" />
+  <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta name="twitter:description" content="i2i is a facility established by FinMark Trust and Cenfri to respond to the growing divide between the data available for policy and product design and the ability of financial services providers, policy makers and financial intermediaries to collect, make sense of and embed this data in their decision making." />
+  <meta name="twitter:image" content="<%= request.base_url %><%= @country.background_url(:header) || asset_path('headers/header-bg-data.jpg') %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta property="og:description" content="i2i is a facility established by FinMark Trust and Cenfri to respond to the growing divide between the data available for policy and product design and the ability of financial services providers, policy makers and financial intermediaries to collect, make sense of and embed this data in their decision making." />
+  <meta property="og:image" content="<%= request.base_url %><%= @country.background_url(:header) || asset_path('headers/header-bg-data.jpg') %>" />
+<% end %>
 
 <div class="l-data-portal-country" id="main">
   <div class="l-mobile-header _no-desktop js-mobile-header">
@@ -42,7 +54,7 @@
       </div>
     </div>
 
-    <div class="content">
+    <div class="content" style="padding-bottom: 190px">
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
@@ -56,7 +68,8 @@
       </div>
     </div>
 
-    <%= react_component("fsp-maps-page", { iso: @iso, shortIso: @country.short_iso, bbox: @country.bbox, latestYear: @latest_year }) %>
-
+    <div style="margin-top: -190px; position: relative; z-index: 3">
+      <%= react_component("fsp-maps-page", { iso: @iso, shortIso: @country.short_iso, bbox: @country.bbox, latestYear: @latest_year }) %>
+    </div>
   </div>
 </div>
