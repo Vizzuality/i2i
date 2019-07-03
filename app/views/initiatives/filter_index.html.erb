@@ -31,11 +31,13 @@
       <div class="l-library-content-selector">
         <div class="wrapper">
           <div class="row">
-            <div class="selectors-container grid-12">
-              <% @featured_tags.each do |tag| %>
-                <%= link_to tag.title, initiatives_filter_index_path(tag.slug),
-                class: "content-selector #{'-current' if (@tag && @tag.slug == tag.slug)}" %>
-              <% end %>
+            <div class="grid-12">
+              <div class="selectors-container">
+                <% @featured_tags.each do |tag| %>
+                  <%= link_to tag.title, initiatives_filter_index_path(tag.slug),
+                  class: "content-selector #{'-current' if (@tag && @tag.slug == tag.slug)}" %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
