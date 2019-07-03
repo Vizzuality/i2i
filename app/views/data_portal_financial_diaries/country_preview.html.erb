@@ -32,15 +32,13 @@
           <div class="row">
             <div class="c-hero" style="padding-bottom: 50px;">
               <div class="grid-l-8 grid-m-8">
-                <div class="row">
-                  <%= render partial: 'data_portal_financial_diaries/country-selector' %>
-                </div>
+                <%= render partial: 'data_portal_financial_diaries/country-selector' %>
               </div>
 
               <div class="grid-12">
                 <div class="row">
                   <div class="grid-l-8 grid-m-8">
-                    <div class="row">
+                    <div class="row-collapse">
                       <% if @commodities %>
                         <p class="subtitle">
                           Exports:
@@ -54,8 +52,8 @@
                 </div>
 
                 <div class="row" style="margin-top: 20px">
-                  <div class="grid-l-6 grid-m-6">
-                    <div class="row">
+                  <div class="grid-m-6 grid-s-12">
+                    <div class="row-collapse">
                       <% if @partners.any? %>
                         <p class="subtitle" style="margin-top: 0">
                           Data depositors:
@@ -67,22 +65,24 @@
                   </div>
 
                   <% if @capitals.count > 0 %>
-                    <div class="grid-l-6 grid-m-6" style="padding-top: 10px; display: flex; justify-content: flex-end;">
-                      <% @capitals.each do |c| %>
-                        <div style="display: flex; flex-direction: column; margin-left: 10px;">
-                          <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 22px; line-height: 30px; font-weight: 700;">
-                            <%= c.name %>
-                          </h3>
+                    <div class="grid-m-6 grid-s-12">
+                      <div class="row-collapse">
+                        <% @capitals.each do |c| %>
+                          <div class="grid-s-6 grid-m-4">
+                            <h3 class="capital-name" style="white-space: nowrap; margin-bottom: 5px; color: #fff; font-size: 22px; line-height: 30px; font-weight: 700;">
+                              <%= c.name %>
+                            </h3>
 
-                          <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                            <%= c.capital_type %>
-                          </p>
+                            <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                              <%= c.capital_type %>
+                            </p>
 
-                          <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
-                            Population (2014): <%= number_with_delimiter(c.population, :delimiter => ',') %>K
-                          </p>
-                        </div>
-                      <% end %>
+                            <p class="subtitle -uppercased" style="margin: 0 0 2px 0; color: #FFFFFF; text-transform: uppercase; font-size: 13px; font-weight: 700; line-height: 15px;">
+                              Population (2014): <%= number_with_delimiter(c.population, :delimiter => ',') %>K
+                            </p>
+                          </div>
+                        <% end %>
+                      </div>
                     </div>
                   <% end %>
                 </div>
