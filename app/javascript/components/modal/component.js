@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Modal from 'react-modal';
 
 // styles
-import './styles.scss';
+// import './styles.scss';
 
 export class CustomModal extends PureComponent {
   static propTypes = {

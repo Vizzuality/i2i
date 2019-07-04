@@ -78,7 +78,7 @@ class SectorsComponent extends PureComponent {
                 selectedSector === sectorTitle &&
                   <List
                     rows={layersBySector}
-                    labelField="type"
+                    labelField="name"
                     onSelect={this.onSelectLayer}
                     onClickInfo={e => setModal({ open: true, options: e })}
                   />}
