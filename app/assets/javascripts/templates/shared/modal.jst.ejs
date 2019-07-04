@@ -5,9 +5,11 @@
       <h1 class="modal-title"><%= title %></h1>
     <% } %>
     <% if (isForm) { %>
-      <form class="<%= form.classes %>" id="<%= form.id %>" action="<%= form.action %>">
+      <form id="<%= form.id %>" action="<%= form.action %>">
+        <div class="<%= form.classes %>">
           <%= content %>
-          <footer class="modal-footer"><%= footer %></footer>
+        </div>
+        <footer class="modal-footer"><%= footer %></footer>
       </form>
     <% } else { %>
       <%= content %>

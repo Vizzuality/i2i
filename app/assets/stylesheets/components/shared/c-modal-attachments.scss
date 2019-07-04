@@ -1,4 +1,6 @@
 .c-modal-attachments {
+  margin: 0 auto;
+  width: calc(100% - #{$wrapper-padding-mobile * 2});
   padding: 20px 15px;
   background-color: $color-4;
 
