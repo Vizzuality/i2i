@@ -1,4 +1,16 @@
-<% title "i2i #{@region.name}" %>
+<% title "Data portal for #{@region.name}" %>
+
+<% content_for :media_metas do %>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@i2ifacility" />
+  <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta name="twitter:description" content="i2i is a facility established by FinMark Trust and Cenfri to respond to the growing divide between the data available for policy and product design and the ability of financial services providers, policy makers and financial intermediaries to collect, make sense of and embed this data in their decision making." />
+  <meta name="twitter:image" content="<%= request.base_url %><%= @region.background_url(:header) || asset_path('headers/header-bg-data.jpg') %>" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : 'insight2impact' %>" />
+  <meta property="og:description" content="i2i is a facility established by FinMark Trust and Cenfri to respond to the growing divide between the data available for policy and product design and the ability of financial services providers, policy makers and financial intermediaries to collect, make sense of and embed this data in their decision making." />
+  <meta property="og:image" content="<%= request.base_url %><%= @region.background_url(:header) || asset_path('headers/header-bg-data.jpg') %>" />
+<% end %>
 
 <div class="l-preview-country l-regions-page">
   <div class="fixed-nav js-fixed-nav">
@@ -13,20 +25,18 @@
         <%= render partial: 'shared/header', locals: { isCover: true } %>
       </div>
     </div>
-    <div class="content" style="background-image: url(<%= @region.background_url(:header) || asset_path('headers/header-bg-about.jpg') %>);">
+    <div class="content" style="background-image: url(<%= @region.background_url(:header) || asset_path('headers/header-bg-data.jpg') %>);">
 
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
             <div class="c-hero" style="padding-bottom: 70px !important;">
               <div class="grid-l-12">
-                <div class="row">
-                  <div class="c-country-selector">
-                    <%= link_to 'data portal', data_portal_path, class: 'country-link' %>
-                    <h1 class="title -highlight -huge">
-                      <%= [@region.name].join(' ') %>
-                    </h1>
-                  </div>
+                <div class="c-country-selector">
+                  <%= link_to 'data portal', data_portal_path, class: 'country-link' %>
+                  <h1 class="title -highlight -huge">
+                    <%= [@region.name].join(' ') %>
+                  </h1>
                 </div>
               </div>
 
