@@ -1,5 +1,9 @@
 <% title 'About' %>
 
+<% content_for :head do %>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<% end %>
+
 <div class="l-about">
   <div class="l-intro js-hero">
     <div class="nav">
@@ -312,6 +316,8 @@
 				   <label for="Message">Message *</label><br>
 				   <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
 				    </div>
+
+            <div class="g-recaptcha" data-sitekey="6LfxMawUAAAAABpwWctOmKpQ1XOSW0T-g1__xSry"></div>
 
 				    <br>
             <input type="submit" name="submit" class="primary-btn">
