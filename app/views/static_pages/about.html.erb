@@ -1,5 +1,9 @@
 <% title 'About' %>
 
+<% content_for :head do %>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<% end %>
+
 <div class="l-about">
   <div class="l-intro js-hero">
     <div class="nav">
@@ -269,55 +273,56 @@
             <div class="l-form-contact">
               <div class="grid-s-12 grid-m-8">
 
-       <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="c-form contact-form">
+                <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="c-form contact-form">
 
-                   <input type=hidden name="oid" value="00D0Y000002FWyG">
-                   <input type=hidden name="retURL" value="">
+                  <input type=hidden name="oid" value="00D0Y000002FWyG">
+                  <input type=hidden name="retURL" value="https://i2ifacility.org/about">
 
-                   <div class="custom-row">
-                   <label for="first_name">First Name *</label><br>
-                   <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
-				   </div>
+                  <div class="custom-row">
+                    <label for="first_name">First Name *</label><br>
+                    <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+                  </div>
 
-				   <div class="custom-row">
-				   <label for="last_name">Last Name</label><br>
-				   <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
-				   </div>
+                  <div class="custom-row">
+                    <label for="last_name">Last Name</label><br>
+                    <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+                  </div>
 
-				   <div class="custom-row">
-				   <label for="email">Email *</label><br>
-				   <input  id="email" required maxlength="80" name="email" size="20" type="text" required />
-				   </div>
-
-
-				   <div class="custom-row">
-				   <label for="title">Title</label><br>
-				   <input  id="title" maxlength="40" name="title" size="20" type="text" />
-				   </div>
+                  <div class="custom-row">
+                    <label for="email">Email *</label><br>
+                    <input  id="email" required maxlength="80" name="email" size="20" type="text" required />
+                  </div>
 
 
-				   <div class="custom-row">
-				   <label for="company">Company</label><br>
-				   <input id="company" maxlength="40" name="company" size="20" type="text" />
-				   </div>
+                  <div class="custom-row">
+                    <label for="title">Title</label><br>
+                    <input  id="title" maxlength="40" name="title" size="20" type="text" />
+                  </div>
 
 
-				   <div class="custom-row">
-				   <label for="country">Country</label><br>
-				   <input  id="country" maxlength="40" name="country" size="20" type="text" />
-				    </div>
+                  <div class="custom-row">
+                    <label for="company">Company</label><br>
+                    <input id="company" maxlength="40" name="company" size="20" type="text" />
+                  </div>
 
 
-				    <div class="custom-row">
-				   <label for="Message">Message *</label><br>
-				   <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
-				    </div>
+                  <div class="custom-row">
+                    <label for="country">Country</label><br>
+                    <input  id="country" maxlength="40" name="country" size="20" type="text" />
+                  </div>
 
-				    <br>
-            <input type="submit" name="submit" class="primary-btn">
 
-        </form>
+                  <div class="custom-row">
+                    <label for="Message">Message *</label><br>
+                    <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
+                  </div>
 
+                  <div class="g-recaptcha" style="margin-top: 30px" data-sitekey="6LfxMawUAAAAABpwWctOmKpQ1XOSW0T-g1__xSry"></div>
+
+                  <br>
+                  <input type="submit" name="submit" class="primary-btn">
+
+                </form>
 
               </div>
             </div>
