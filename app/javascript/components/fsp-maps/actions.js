@@ -141,7 +141,7 @@ function getUserDatasets(iso) {
     .then(data => data.rows.map(row => ({
       ...row,
       id: row.id.toString(),
-      name: row.name,
+      name: row.type,
       info: LAYERS_INFO[row.type],
       layerType: 'sector',
       count: Numeral(row.count).format('0,0'),
