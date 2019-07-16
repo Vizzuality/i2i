@@ -75,8 +75,6 @@ class PublishDataset
       rows << "(#{row_values})"
     end
 
-    puts rows
-
     rows
   end
 
