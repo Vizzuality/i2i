@@ -32,8 +32,8 @@
 *.log
 
 # Dumps
-*.dump
-*.sql
+/*.dump
+/*.sql
 
 # Generated assets
 /vendor/bundle
