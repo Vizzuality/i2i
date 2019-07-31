@@ -47,7 +47,6 @@ class WidgetWrapperComponent extends React.Component {
     })
       .then(response => response.ok && response.json())
       .then((data) => {
-        console.log(data)
         const widgetData = data.rows;
         this.setState({ widgetData, loading: false });
       })
