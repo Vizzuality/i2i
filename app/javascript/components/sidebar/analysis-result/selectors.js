@@ -40,7 +40,6 @@ export const getWidgets = createSelector(
     });
 
     const widgets = filteredRawWidgets.map((row) => {
-      console.log(row)
       const {
         cartodb_id: id,
         widget_config: widgetConfigWrap,
@@ -55,7 +54,7 @@ export const getWidgets = createSelector(
       const { area: nearbyArea, center } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
       const { lng, lat } = center;
-      const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.id) : sectorLayers.map(layer => layer.id);
+      const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.type_id) : sectorLayers.map(layer => layer.type_id);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 

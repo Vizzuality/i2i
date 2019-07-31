@@ -11,6 +11,7 @@ import WRIJsonApiSerializer from 'wri-json-api-serializer';
 // SQL
 import INTRO_SQL from './sql/intro.sql';
 import SECTORS_SQL from './sql/sectors.sql';
+import SECTORS_USERS_SQL from './sql/sectors_users.sql';
 import CONTEXTUAL_LAYERS_SQL from './sql/contextual_layers.sql';
 import WIDGETS_SQL from './sql/widgets.sql';
 import JURISDICTIONS_SQL from './sql/jurisdictions.sql';
@@ -136,7 +137,7 @@ function getSectors(iso) {
 
 function getUserDatasets(iso) {
   const tableName = process.env.FSP_CARTO_TABLE;
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_USERS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
       ...row,
