@@ -69,7 +69,7 @@ class ListComponent extends React.Component {
                   <div className="name-container">
                     <h3 className="item-button-title">{label}</h3>
                     {!!count && <div className="item-button-subtitle">({count})</div>}
-                    {row.user_id && <h4>by {`${user.name} ${user.surname}`}</h4>}
+                    {user && row.user_id && <h4>by {`${user.name} ${user.surname}`}</h4>}
                   </div>
                 </div>
                 {row.info &&
