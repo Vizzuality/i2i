@@ -47,6 +47,7 @@ class WidgetWrapperComponent extends React.Component {
     })
       .then(response => response.ok && response.json())
       .then((data) => {
+        console.log(data)
         const widgetData = data.rows;
         this.setState({ widgetData, loading: false });
       })
@@ -59,7 +60,7 @@ class WidgetWrapperComponent extends React.Component {
     const { chart, id } = this.props;
     const { widgetData, loading } = this.state;
 
-    if (widgetData.length) {
+    if (widgetData && widgetData.length) {
       return (
         <div className="c-widget-element">
           {loading && <Spinner position="relative" />}
