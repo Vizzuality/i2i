@@ -39,7 +39,9 @@
       KHM: 'Cambodia',
       LAO: 'Laos',
       NPL: 'Nepal',
-      HTI: 'Haiti'
+      HTI: 'Haiti',
+      TGO: 'Togo',
+      MDG: 'Magagascar'
     },
 
     /**
