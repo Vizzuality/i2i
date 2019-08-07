@@ -41,7 +41,7 @@
       NPL: 'Nepal',
       HTI: 'Haiti',
       TGO: 'Togo',
-      MDG: 'Magagascar'
+      MDG: 'Madagascar'
     },
 
     /**
