@@ -374,7 +374,9 @@
           'Myanmar': 2018,
           'Cambodia': 2015,
           'Laos': 2014,
-          'Nepal': 2014
+          'Nepal': 2014,
+          'Togo': 2016,
+          'Madagascar': 2016
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isAFR: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Rwanda' &&
           [2008, 2012, 2016].includes(this.options.year),
