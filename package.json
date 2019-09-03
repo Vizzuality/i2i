@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Vizzuality/i2i#readme",
   "dependencies": {
     "@rails/webpacker": "3.5",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "babel-eslint": "^8.2.6",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
