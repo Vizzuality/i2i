@@ -10,8 +10,6 @@ class InitiativesController < ApplicationController
     @tag = Tag.find_by(slug: params[:tag])
     records = []
 
-    ap @featured_tags
-
     entities.each do |klass|
       records << klass.where(published: true).joins(:tags).where(tags: {slug: @tag.slug})
     end
