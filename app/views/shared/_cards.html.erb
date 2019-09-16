@@ -4,7 +4,7 @@
       <% if insight.record_type != 'library' %>
         <%= render partial: "shared/cards/insight", locals: { insight: insight }%>
       <% elsif insight.record_type == 'library' %>
-        <%= render partial: "shared/cards/library", locals: { library: insight }%>      
+        <%= render partial: "shared/cards/library", locals: { library: insight }%>
       <% end %>
     </div>
   <% end %>

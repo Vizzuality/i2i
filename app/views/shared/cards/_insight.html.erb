@@ -16,9 +16,27 @@
         <% end %>
       </div>
     <% end %>
+    <% if insight.countries.length > 0 %>
+      <div class="tags-container">
+        <% insight.countries.each do |country| %>
+          <span>
+            <%= link_to country.name, search_path(:tag_term => country.iso), :class => 'tag'  %><%= country != insight.countries.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    <% if insight.regions.length > 0 %>
+      <div class="tags-container">
+        <% insight.regions.each do |region| %>
+          <span>
+            <%= link_to region.name, search_path(:tag_term => region.iso), :class => 'tag'  %><%= region != insight.regions.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
     <span class="card-category"><%= insight.category.name %></span>
-  </footer>  
+  </footer>
 </article>
