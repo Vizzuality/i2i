@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## Unreleased (deployed in staging)
 
 ### Added
 
