@@ -2,11 +2,11 @@ class InitiativesController < ApplicationController
   include Relatable
 
   def index
-    @featured_tags = Tag.featured.order(:position)
+    @featured_tags = Tag.featured.order(:name)
   end
 
   def filter_index
-    @featured_tags = Tag.featured
+    @featured_tags = Tag.featured.order(:name)
     @tag = Tag.find_by(slug: params[:tag])
     records = []
 

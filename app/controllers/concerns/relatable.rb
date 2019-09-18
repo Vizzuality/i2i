@@ -36,10 +36,10 @@ module Relatable
     end
 
     matches.each do |match|
-        match[:records].each { |k, v| score << { id: k, quantity: v, klass: match[:klass] } } if match[:records].present?
+      match[:records].each { |k, v| score << { id: k, quantity: v, klass: match[:klass] } } if match[:records].present?
     end
 
-    score.sort! { |a, b| b[:quantity] <=> a[:quantity] }
+    score.sort! { |a, b| [b[:quantity], b[:klass].find(b[:id])[:date].to_time.to_i] <=> [a[:quantity], a[:klass].find(a[:id])[:date].to_time.to_i] }
     related = score.map { |e| e[:klass].find(e[:id]) } - [insight]
   end
 end

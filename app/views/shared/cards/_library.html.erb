@@ -18,6 +18,24 @@
         <a href="<%= library.video_url %>" class="title -sea -small js-video" target="_blank" rel="noopener">Watch video</a>
       <% end %>
     </div>
+    <% if library.countries.length > 0 %>
+      <div class="tags-container">
+        <% library.countries.each do |country| %>
+          <span>
+            <%= link_to country.name, search_path(:tag_term => country.iso), :class => 'tag'  %><%= country != library.countries.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    <% if library.regions.length > 0 %>
+      <div class="tags-container">
+        <% library.regions.each do |region| %>
+          <span>
+            <%= link_to region.name, search_path(:tag_term => region.iso), :class => 'tag'  %><%= region != library.regions.last ? ',' : '' %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <footer class="footer">
     <h4 class="date"><%= DateHelper.beautify library.date %></h4>
