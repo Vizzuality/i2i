@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Vizzuality/i2i#readme",
   "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "@rails/webpacker": "^4.0.7",
     "axios": "^0.18.1",
@@ -40,6 +41,7 @@
     "lodash": "^4.17.13",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
+    "postcss-cssnext": "^3.1.0",
     "prop-types": "^15.7.2",
     "query-string": "5.1.1",
     "raw-loader": "^0.5.1",

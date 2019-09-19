@@ -74,6 +74,15 @@ module.exports = function(api) {
           async: false
         }
       ],
+      [
+        require.resolve('babel-plugin-module-resolver'),
+        {
+          root: ["."],
+          alias: {
+            "components": "./app/javascript/components"
+          }
+        }
+      ],
       isProductionEnv && [
         require('babel-plugin-transform-react-remove-prop-types').default,
         {
