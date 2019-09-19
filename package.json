@@ -70,7 +70,7 @@
     "tslib": "^1.9.3",
     "vega-lib": "^4.2.0",
     "vega-tooltip": "^0.13.0",
-    "webpack-dev-server": "2.11.2",
+    "webpack-dev-server": "3.1.11",
     "wri-api-components": "2.2.7-alpha.2",
     "wri-json-api-serializer": "^1.0.1"
   }
