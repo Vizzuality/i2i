@@ -26,7 +26,9 @@ gem 'activerecord-import', '~> 0.15.0'
 gem 'http'
 gem 'redis-rails'
 gem 'mini_racer', platforms: :ruby
-
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker'
+gem 'react-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -55,10 +57,6 @@ gem 'activeadmin-sortable'
 gem 'paperclip'
 gem "shrine", "~> 2.0"
 gem "image_processing", "~> 1.0"
-
-# REACT
-gem 'webpacker', '~> 3.5'
-gem 'react-rails'
 
 # WYSIWYG
 gem 'ckeditor', '4.2.4'
