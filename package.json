@@ -42,7 +42,7 @@
     "eslint-plugin-react": "^7.10.0",
     "isomorphic-fetch": "^2.2.1",
     "layer-manager": "^1.10.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.2",
