@@ -11,7 +11,6 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 // Support component names relative to this directory:
-const componentRequireContext = require.context('components', true);
-const ReactRailsUJS = require('react_ujs');
-
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
