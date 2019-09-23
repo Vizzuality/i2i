@@ -58,8 +58,9 @@
           </li>
 
           <li class="nav-item -close<% if current_page?(search_path) %> -current -icon<% end%>">
-            <%= link_to(search_path, data: { turbolinks: false }) do %>
-              <svg class="icon"><use xlink:href="#icon-search"></use></svg>
+            <%= form_tag(search_path, method: 'get', class: 'c-form-search-inline') do %>
+              <svg class="icon icon-search"><use xlink:href="#icon-search"></use></svg>
+              <%= text_field_tag :term %>              
             <% end %>
           </li>
         <% end %>
