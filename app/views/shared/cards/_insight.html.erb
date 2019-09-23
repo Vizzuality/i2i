@@ -36,7 +36,13 @@
     <% end %>
   </div>
   <footer class="footer">
-    <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
-    <span class="card-category"><%= insight.category.name %></span>
+    <div class="card-options">
+      <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
+      <span class="card-category"><%= insight.category.name %></span>
+    </div>
+    <div class="card-options -link">
+      <a href="<%= insights_show_path(insight.category.slug, insight.slug, { entity: insight.record_type }) %>" rel="noopener" class="title -small js-download" data-name="<%= insight.title %>">
+      Read more</a>
+    </div>
   </footer>
 </article>
