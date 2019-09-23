@@ -68,6 +68,26 @@
       justify-content: space-between;
       border-top: 2px solid $border-color;
       padding: 15px 25px;
+
+      &.-link {
+        display: flex;
+        padding: 0;
+
+        a {
+          display: block;
+          color: $color-1;
+          cursor: pointer;
+          padding: 15px 25px;
+          white-space: nowrap;
+          text-align: center;
+          width: 100%;
+
+          &:hover {          
+            color: $color-4;
+            background-color: $color-1;
+          }
+        }
+      }
     }
 
     .date {
