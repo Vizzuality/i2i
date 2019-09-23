@@ -11,3 +11,5 @@
 - Make initiatives and tabs alphabetically
 - Show related initiatives ordered by score and date desc
 - Unified styles for the insights cards
+- Changed header for articles and blog posts
+- Social links are visible all time in blogs, articles and news

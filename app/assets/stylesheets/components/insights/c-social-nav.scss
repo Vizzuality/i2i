@@ -21,6 +21,31 @@
     visibility: visible;
   }
 
+  &.-inline {
+    display: block;
+    position: relative;
+    background-color: white;
+    box-shadow: none;
+    width: auto;
+
+    transform: 0;
+    visibility: visible;
+
+    z-index: 0;
+
+    .wrapper {
+      padding: 0;
+      justify-content: flex-start;
+    }
+
+    .medias {
+      @media #{$mq-tablet} {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+  }
+
   > .wrapper {
     display: flex;
     justify-content: center;

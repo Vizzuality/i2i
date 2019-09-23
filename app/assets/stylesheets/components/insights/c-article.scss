@@ -3,10 +3,10 @@
   padding: 68px 0;
   box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
 
-  .c-article-header .container > div {
-    border-bottom: 1px solid $border-color;
-    padding-bottom: 15px;
-  }
+  // .c-article-header .container > div {
+  //   border-bottom: 1px solid $border-color;
+  //   padding-bottom: 15px;
+  // }
 
   header {
     text-align: center;
@@ -30,14 +30,29 @@
       font-weight: bold;
     }
 
+    .subheader {
+      display: flex;
+      text-align: left;
+      justify-content: space-between;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(#001D22, 0.1);
+      margin-bottom: 30px;
+    }
+
     .tags-container {
-      color: $color-1;
+      color: $color-4;
       font-family: $font-family-2;
       font-size: $font-size-s;
-      font-weight: bold;     
+      font-weight: bold;      
     }
 
     .tag {
+      display: inline-block;
+      padding: 3px 12px;
+      margin-bottom: 4px;
+      border-radius: 10px;
+      background: rgba($color-1, 0.2);
+      
       color: $color-1;
       font-family: $font-family-2;
       font-size: $font-size-s;
@@ -64,7 +79,7 @@
 
     .workstream {
       display: block;
-      margin: 15px 0 40px;
+      margin: 15px 0 0 0;
 
 
       color: $color-5;

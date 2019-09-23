@@ -50,20 +50,24 @@
                     <div class="grid-s-12">
                       <%= link_to 'News', insights_filter_index_path('articles'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= news.title %></h1>
-                      <span class="authorship">Written
-                        <% unless news.author.blank? %>
-                          by <span class="author-name"><%= news.author %></span>
-                        <% end %>
-                        on <%= DateHelper.beautify news.date %>
-                      </span>
-                      <div class="tags-container">
-                        <% if @tags.present? %>
-                          <% @tags.each do |tag| %>
-                            <span>
-                              <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
-                            </span>
-                          <% end %>
-                        <% end %>
+                      
+                      <div class="subheader">
+                        <div>
+                          <span class="authorship">Written
+                            <% unless news.author.blank? %>
+                              by <span class="author-name"><%= news.author %></span>
+                            <% end %>
+                            on <%= DateHelper.beautify news.date %>
+                          </span>
+                          <div class="tags-container">
+                            <% if @tags.present? %>
+                              <% @tags.each do |tag| %>
+                                <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+                        <%= render partial: 'shared/social-nav-inline', locals: { title: news.title } %>
                       </div>
                     </div>
                   </div>
