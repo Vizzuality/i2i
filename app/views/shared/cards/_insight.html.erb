@@ -36,7 +36,9 @@
     <% end %>
   </div>
   <footer class="footer">
-    <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
-    <span class="card-category"><%= insight.category.name %></span>
+    <div class="card-options">
+      <h4 class="date"><%= DateHelper.beautify insight.date %></h4>
+      <span class="card-category"><%= insight.category.name %></span>
+    </div>
   </footer>
 </article>

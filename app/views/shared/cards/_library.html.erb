@@ -3,21 +3,7 @@
   <div class="metadata">
     <h4 class="title -dark -regular"><%= library.title %></h4>
     <p><%= library.summary %></p>
-    <div class="card-options">
-      <% if (library.document.present? && library.document.file.present?) || library.url_resource.present? %>
-        <% if library.document.present? && library.document.file.present? %>
-          <a href="<%= library.document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download <%= "(#{readable_file_size(library.document.file_file_size)})" %></a>
-        <% else %>
-          <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
-        <% end %>
-      <% end %>
-      <% if library.issuu_link.present? and library.category.name === 'Publications' %>
-        <a href="<%= library.issuu_link %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">View</a>
-      <% end %>
-      <% if library.video_url.present?%>
-        <a href="<%= library.video_url %>" class="title -sea -small js-video" target="_blank" rel="noopener">Watch video</a>
-      <% end %>
-    </div>
+    
     <% if library.countries.length > 0 %>
       <div class="tags-container">
         <% library.countries.each do |country| %>
@@ -38,8 +24,25 @@
     <% end %>
   </div>
   <footer class="footer">
-    <h4 class="date"><%= DateHelper.beautify library.date %></h4>
-    <span class="card-category"><%= library.category.name %></span>
+    <div class="card-options">
+       <h4 class="date"><%= DateHelper.beautify library.date %></h4>
+      <span class="card-category"><%= library.category.name %></span>
+    </div>
+    <div class="card-options">
+      <% if (library.document.present? && library.document.file.present?) || library.url_resource.present? %>
+        <% if library.document.present? && library.document.file.present? %>
+          <a href="<%= library.document.file.url %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download <%= "(#{readable_file_size(library.document.file_file_size)})" %></a>
+        <% else %>
+          <a href="<%= library.url_resource %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">Download</a>
+        <% end %>
+      <% end %>
+      <% if library.issuu_link.present? and library.category.name === 'Publications' %>
+        <a href="<%= library.issuu_link %>" target="_blank" rel="noopener" class="title -sea -small js-download" data-name="<%= library.title %>">View</a>
+      <% end %>
+      <% if library.video_url.present?%>
+        <a href="<%= library.video_url %>" class="title -sea -small js-video" target="_blank" rel="noopener">Watch video</a>
+      <% end %>
+    </div>
   </footer>
 </article>
 

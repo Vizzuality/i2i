@@ -58,14 +58,17 @@
     font-family: $font-family-2;
     font-size: $font-size-s;
     font-weight: bold;
+    text-decoration: underline;
   }
 
   .footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 2px solid $border-color;
-    padding: 15px 25px;
+    > .card-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px solid $border-color;
+      padding: 15px 25px;
+    }
 
     .date {
       font-size: $font-size-small;
@@ -74,10 +77,14 @@
     }
 
     .card-category {
+      display: block;
+      background: rgba($color-1, 0.2);
+      padding: 3px 12px;
+      border-radius: 10px;
+
       font-size: $font-size-small;
       font-weight: $font-weight-bold;
-      color: $color-1;
-      letter-spacing: 1px;
+      color: $color-1; 
     }
   }
 
