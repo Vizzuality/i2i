@@ -10,3 +10,4 @@
 
 - Make initiatives and tabs alphabetically
 - Show related initiatives ordered by score and date desc
+- Unified styles for the insights cards
