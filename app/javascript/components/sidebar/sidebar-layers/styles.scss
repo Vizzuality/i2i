@@ -2,7 +2,13 @@
   > .active-layers-indicator-container {
     display: flex;
     justify-content: flex-end;
+    font-size: 20px;
     width: 100%;
     padding: 20px 30px 0 55px;
+  }
+  > .button {
+    width: 100%;
+    margin-top: 100px;
+    padding: 20px 30px 20px 55px;
   }
 }
