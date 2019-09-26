@@ -20,8 +20,9 @@ const MENU_CONTENT = {
 };
 
 const LAYER_TYPES = [
-  { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.' }
+  { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.', type: 'text' },
+  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.', type: 'text' },
+  { value: 'national_surveys', label: 'National Surveys', text: 'View national surveys that got conducted in this region.', type: 'button' }
 ];
 
 class SidebarLayersComponent extends React.Component {
@@ -33,10 +34,6 @@ class SidebarLayersComponent extends React.Component {
   }
 
   static defaultProps = { menuItem: '' }
-
-  handleClick = () => {
-
-  }
 
   render() {
     const { menuItem, selectedLayers, layersSettings } = this.props;
@@ -64,15 +61,6 @@ class SidebarLayersComponent extends React.Component {
               React.cloneElement(MENU_CONTENT[menuItem], { layersSettings })}
           </MenuItem>
         }
-        {
-          <div className="button">
-            <button
-              className="c-button -sea -sidebar-layers-btn"
-              onClick={this.handleClick}
-            >National Surveys</button>
-          </div>
-        }
-
       </div>
     );
   }
