@@ -14,3 +14,7 @@
 - Changed header for articles and blog posts
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
+
+### Fixed
+
+- Issue compiling assets using webpacker
