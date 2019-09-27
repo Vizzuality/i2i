@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
+import MenuMessage from 'components/sidebar/menu-message';
 import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Nearby from 'components/sidebar/nearby';
@@ -56,7 +57,12 @@ class SidebarAnalysisComponent extends React.Component {
 
     return (
       <div className="c-sidebar-analysis">
-        {(!active && (!menuItem || !availableMenuItems.includes(menuItem))) &&
+        {!active && (!menuItem || !availableMenuItems.includes(menuItem)) &&
+          <MenuMessage 
+            onSelect={setMenuItem}
+          />
+        }
+        {(active && (!menuItem || !availableMenuItems.includes(menuItem))) &&
           <MenuItems
             items={ANALYSIS_TYPES}
             onSelect={setMenuItem}
@@ -65,7 +71,7 @@ class SidebarAnalysisComponent extends React.Component {
           />
         }
 
-        {(!active && (!!menuItem && availableMenuItems.includes(menuItem))) &&
+        {(active && (!!menuItem && availableMenuItems.includes(menuItem))) &&
           <MenuItem
             item={ANALYSIS_TYPES.find(at => at.value === menuItem)}
             onBack={setMenuItem}

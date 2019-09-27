@@ -1,0 +1,17 @@
+.c-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Open Sans";	
+  color: #000000;
+  font-size: 16px;	
+  line-height: 22px;
+  padding: 200px 30px 20px 55px;
+  font-weight: 700;
+    
+  .button {
+    color: #2F939C;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
