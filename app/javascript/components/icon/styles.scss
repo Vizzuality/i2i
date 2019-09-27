@@ -1,0 +1,11 @@
+.c-icon {
+  width: 30px;
+  height: 20px;
+  opacity: 0.5;
+  fill: #001D22;
+  
+  &.selected {
+    fill: #2F8B9C;
+    opacity: 1;
+  }
+}

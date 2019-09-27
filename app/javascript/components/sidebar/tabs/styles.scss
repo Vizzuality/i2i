@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 330px;
   background-color: white;
-  height: 54px;
+  height: 65px;
   padding-bottom: 5px;
   box-sizing: content-box;
   border-bottom: 1px solid #D8D8D8;
@@ -18,14 +18,17 @@
   .tab {
     display: flex;
     width: 100%;
-    color: #001D22;
     text-align: center;
-    font-size: 16px;
-    padding: 18px 5px 0 0;
+    font-size: 20px;
+    padding: 22px 5px 0 0;
     margin-bottom: 10px;
-    font-weight: bold;
     pointer-events: auto;
     cursor: pointer;    
+
+    .label {
+      color: #000;
+      opacity: 0.5;
+    }
   }
 
   .tab-item {
@@ -35,8 +38,12 @@
 
     &.selected {
       border-bottom: 5px solid #2F8B9C;
-      padding-bottom: 15px;
-      color: #001D22;
+      padding-bottom: 17px;
+      color: #000;
+
+      .label {
+        opacity: 1;
+      }
     }
   }
-  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Icon from 'components/icon';
 
 
 // styles
@@ -24,14 +25,15 @@ class TabsComponent extends React.Component {
           {
             items.map(item => (
               <li className="tab" key={item.value}>
-                <div className={
-                classnames("tab-item", {
+                <div className={classnames("tab-item", {
                   selected: selected === item.value
                 })
               }>
-                  <img className="sidebar-icon" src={`/images/icons/sidebar/${item.value}.svg`} alt={`${item.label}`} />
-                  <button onClick={() => this.props.onSelect(item.value)}
-                  >
+                  <Icon name={`${item.value}`} className={classnames("sidebar-icon", {
+                  selected: selected === item.value
+                }) 
+                }/>
+                  <button className="label" onClick={() => this.props.onSelect(item.value)}>
                     {item.label}
                   </button>
                 </div>
