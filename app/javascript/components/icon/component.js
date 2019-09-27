@@ -6,7 +6,9 @@ import './styles.scss';
 
 const Icon = ({ name, className, style }) => {
   const classNames = classnames({ [className]: className });
+  console.log(name)
   return (
+
     <svg className={`c-icon ${classNames}`} style={style}>
       <use xlinkHref={`#icon-${name}`} />
     </svg>
