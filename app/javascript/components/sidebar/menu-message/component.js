@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// components
+//import Icon from 'components/icon';
 
 // styles
 import './styles.scss';
 
 const MenuMessage = ({ onSelect }) => (
   <div className="c-message">
-    <img src="" alt="search-layer" />
+    {/* <Icon className="icon-info" name="icon-layer" /> */}
     <span className="text">
       First you need to
       <button 
@@ -18,5 +22,9 @@ const MenuMessage = ({ onSelect }) => (
     </span>
   </div>
 );
+
+MenuMessage.propTypes =  {
+  onSelect: PropTypes.func.isRequired
+}
 
 export default MenuMessage;
