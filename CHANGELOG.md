@@ -18,3 +18,4 @@
 ### Fixed
 
 - Issue compiling assets using webpacker
+- Homepage button style issue in Safari
