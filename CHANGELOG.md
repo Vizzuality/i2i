@@ -15,3 +15,7 @@
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
 - Button for National Surveys added in sidebar
+
+### Fixed
+
+- Issue compiling assets using webpacker
