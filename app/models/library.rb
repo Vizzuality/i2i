@@ -58,8 +58,8 @@ class Library < ApplicationRecord
 
   validates_presence_of :title
   validates :title, uniqueness: { case_sensitive: false }
-  validates :url_resource, url: true, if: 'url_resource.present?'
-  validates :video_url, url: true, if: 'video_url.present?'
+  validates :url_resource, url: true, if: -> { url_resource.present? }
+  validates :video_url, url: true, if: -> { video_url.present? }
   validates_length_of :title, maximum: 70
   validates_length_of :summary, maximum: 172, allow_blank: true
 
@@ -68,17 +68,21 @@ class Library < ApplicationRecord
 
   scope :search_fields, ->(term) do
     where(published: true)
-     .joins(:category)
-     .where("lower(libraries.title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ?",
-            "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
-     .distinct
+      .joins(:category)
+      .joins(:countries)
+      .joins(:regions)
+      .where("lower(libraries.title) LIKE ? OR lower(summary) LIKE ? OR lower(categories.name) LIKE ? OR lower(countries.name) LIKE ? OR lower(regions.name) LIKE ?",
+             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .distinct
    end
 
    scope :search_tags, ->(term) do
     where(published: true)
-     .joins(:tags)
-     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
-     .distinct
+      .joins(:tags)
+      .joins(:countries)
+      .joins(:regions)
+      .where("lower(tags.slug) LIKE ? OR lower(countries.iso) LIKE ? OR lower(regions.iso) LIKE ?", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .distinct
    end
 
   def set_date
