@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Icons from 'components/icons';
 import Icon from 'components/icon';
 
 
@@ -29,6 +30,10 @@ class TabsComponent extends React.Component {
                   selected: selected === item.value
                 })
               }>
+                <Icons name={`${item.value}`} className={classnames("sidebar-icon", {
+                  selected: selected === item.value
+                }) 
+                }/>
                   <Icon name={`${item.value}`} className={classnames("sidebar-icon", {
                   selected: selected === item.value
                 }) 
