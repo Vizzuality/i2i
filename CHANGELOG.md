@@ -14,6 +14,7 @@
 - Changed header for articles and blog posts
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
+- Styles for bullet on article text list.
 
 ### Fixed
 
