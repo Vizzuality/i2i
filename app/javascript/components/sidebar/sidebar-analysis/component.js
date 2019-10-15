@@ -71,7 +71,6 @@ class SidebarAnalysisComponent extends React.Component {
       .filter(layer => layer.layerType === 'sector'))
       .map(sector => sector.id)
       .some(ele => selectedLayers.includes(ele));
-   // const isSectorActive = sectorLayers
 
     if (!sectorLayers) {
       return (

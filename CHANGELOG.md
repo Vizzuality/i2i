@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Filter and message that shows user analysis is just available to sector layers
 
 ### Changed
 
