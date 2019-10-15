@@ -43,61 +43,71 @@ class SidebarAnalysisComponent extends React.Component {
     menuItem: PropTypes.string,
     selected: PropTypes.string,
     selectedLayers: PropTypes.array,
-    selectedSector: PropTypes.string,
     setMenuItem: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired
+    setAnalysisActive: PropTypes.func.isRequired,
+    list: PropTypes.shape
   }
 
   static defaultProps = {
     menuItem: '',
     selected: '',
     selectedLayers: [],
-    selectedSector: ''
+    list: {}
   }
 
   render() {
-    const { menuItem, active, selected, setMenuItem, selectedLayers, selectedSector, setAnalysisActive } = this.props;
-    const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
+    const {
+      menuItem,
+      active,
+      selected,
+      list,
+      setMenuItem,
+      selectedLayers,
+      setAnalysisActive
+    } = this.props;
 
-    if (selectedLayers.length === 0 && selectedSector) {
-      return (<div className="c-sidebar-analysis">
-        {selectedLayers.length === 0 && (!menuItem || !availableMenuItems.includes(menuItem)) &&
+    const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
+    const sectorLayers = (list
+      .filter(layer => layer.layerType === 'sector'))
+      .map(sector => sector.id)
+      .some(ele => selectedLayers.includes(ele));
+   // const isSectorActive = sectorLayers
+
+    if (!sectorLayers) {
+      return (
+        <div className="c-sidebar-analysis">
           <MenuMessage
             onSelect={setMenuItem}
           />
-        }
-    </div>
-    )}
-
-    else {
-      return (
-
-        <div className="c-sidebar-analysis">
-          {(!active && (!menuItem || !availableMenuItems.includes(menuItem))) &&
-            <MenuItems
-              items={ANALYSIS_TYPES}
-              onSelect={setMenuItem}
-              selected={selected}
-              setAnalysisActive={setAnalysisActive}
-            />
-          }
-
-          {(!active && (!!menuItem && availableMenuItems.includes(menuItem))) &&
-            <MenuItem
-              item={ANALYSIS_TYPES.find(at => at.value === menuItem)}
-              onBack={setMenuItem}
-            >
-              {!!MENU_CONTENT[menuItem] &&
-                React.cloneElement(MENU_CONTENT[menuItem])}
-            </MenuItem>
-          }
-
-          {active &&
-            <AnalysisResult />
-          }
         </div>
       );
     }
+
+    return (
+      <div className="c-sidebar-analysis">
+        {(!active && (!menuItem || !availableMenuItems.includes(menuItem))) &&
+          <MenuItems
+            items={ANALYSIS_TYPES}
+            onSelect={setMenuItem}
+            selected={selected}
+            setAnalysisActive={setAnalysisActive}
+          />
+        }
+
+        {(!active && (!!menuItem && availableMenuItems.includes(menuItem))) &&
+          <MenuItem
+            item={ANALYSIS_TYPES.find(at => at.value === menuItem)}
+            onBack={setMenuItem}
+          >
+            {!!MENU_CONTENT[menuItem] &&
+              React.cloneElement(MENU_CONTENT[menuItem])}
+          </MenuItem>
+        }
+        {active &&
+          <AnalysisResult />
+        }
+      </div>
+    );
   }
 }
 
