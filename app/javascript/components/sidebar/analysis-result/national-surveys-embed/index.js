@@ -1,3 +1,1 @@
-import NationalSurveysEmbed from './component';
-
-export default NationalSurveysEmbed;
+export { default } from './component';
