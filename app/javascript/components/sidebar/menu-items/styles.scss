@@ -32,6 +32,11 @@
   }
 }
 
+@font-face {
+  font-family: 'Chalet';
+  src: font-url('/stylesheet/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
 .c-menu-items {
   width: 100%;
   padding: 50px 0;
@@ -52,10 +57,10 @@
     > .item-header {
       display: flex;
       align-items: center;
-      
+
       > .arrow {
         display: inline-flex;
-  
+
         &:before {
           content: '';
           @include triangle(6px, #2F939C, 'down');
@@ -76,14 +81,13 @@
     > .description {
       padding: 10px 0 0;
       color: #737780;
-      font-size: 16px;	
+      font-size: 16px;
       line-height: 22px;
     }
 
     >.-menu-button {
       margin-top :100px;
-      font-family: 'Chalet';	
-      font-weight: normal;
+      font-weight: bold;
       font-size: 16px;
       line-height: 18px;
       width: 200px;
