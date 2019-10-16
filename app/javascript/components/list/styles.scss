@@ -49,12 +49,12 @@
 
           &:after {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            left: 0px;
-            top: calc(50% - 5px);
+            width: 8px;
+            height: 8px;
+            left: 1px;
+            top: calc(50% - 4px);
             border-radius: 50%;
-            background-color: rgba(#2F939C, .4);
+            background-color: #2F939C;
             content: '';
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
@@ -84,19 +84,30 @@
         }
       }
 
+
+      .item-icons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
       > .btn-info {
+        display: flex;
+        flex-shrink: 1;
         position: relative;
-        padding: 7px;
-        height: 16px;
+        box-sizing: content-box;
+        padding: 0;
+        height: 18px;
+        width: 18px;
         border: 1px solid #2F939C;
         border-radius: 50%;
+        margin-bottom: 5px;
         cursor: pointer;
 
         > .icon-info {
           fill: #2F939C;
           position: absolute;
           top: 50%;
-          left: calc(50% + 4px);
+          left: calc(50% + 3px);
           width: 12px;
           height: 12px;
           transform: translate(-50%, -50%);
@@ -110,6 +121,7 @@
           }
         }
       }
+      }
     }
 
     &.-checked {
@@ -122,13 +134,14 @@
           background-color: #2F939C;
 
           &:after {
-            left: 9px;
+            left: 10px;
             background-color: #fff;
           }
         }
       }
     }
   }
+
 }
 
 @keyframes rcSwitchOn {

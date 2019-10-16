@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import Modal from 'components/modal';
 import LayerInfo from 'components/list/layer-info';
 
+import Icon from 'components/icon';
+
 // styles
 import './styles.scss';
 
@@ -72,13 +74,18 @@ class ListComponent extends React.Component {
                     {user && row.user_id && <h4>by {`${user.name} ${user.surname}`}</h4>}
                   </div>
                 </div>
-                {row.info &&
-                  <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
-                    <svg className="icon icon-info">
-                      <use xlinkHref="#icon-info" />
-                    </svg>
-                  </button>
-                }
+
+                <div className="item-icons">
+
+                  {row.info &&
+                    <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
+                      <svg className="icon icon-info">
+                        <use xlinkHref="#icon-info" />
+                      </svg>
+                    </button>
+                  }
+                  {row.sector && <Icon name="analysis" className={classnames('small', { selected: selectedLayers.includes(row.id) })} />}
+                </div>
               </div>
             </div>
           );
