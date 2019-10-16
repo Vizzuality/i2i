@@ -18,7 +18,9 @@
 - Search bar in the header
 - Sidebar tabs styles updated/icons added
 - Styles in layers menu (data-portal/geospatial-data)
+- Button for National Surveys added in sidebar
 
 ### Fixed
 
 - Issue compiling assets using webpacker
+- Issue with National Services button in localhost and staging
