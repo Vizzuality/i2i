@@ -14,8 +14,10 @@
 - Changed header for articles and blog posts
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
+- Button for National Surveys added in sidebar
 
 ### Fixed
 
 - Issue compiling assets using webpacker
 - Homepage button style issue in Safari
+- Issue with National Services button in localhost and staging
