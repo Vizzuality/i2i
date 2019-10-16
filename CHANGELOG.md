@@ -15,7 +15,9 @@
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
 - Styles for bullet on article text list.
+- Button for National Surveys added in sidebar
 
 ### Fixed
 
 - Issue compiling assets using webpacker
+- Issue with National Services button in localhost and staging

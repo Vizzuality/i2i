@@ -9,6 +9,7 @@ import ContextualLayers from 'components/sidebar/contextual-layers';
 import NationalSurveys from 'components/sidebar/national-surveys';
 import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 
+
 // styles
 import './styles.scss';
 
@@ -19,9 +20,9 @@ const MENU_CONTENT = {
 };
 
 const LAYER_TYPES = [
-  { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.' },
-  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.' },
-  { value: 'national_surveys', label: 'National surveys', text: 'View national surveys that got conducted in this region.' }
+  { value: 'sectors', label: 'Sectors', text: 'Select the industry/sector of data points you would like to view.', type: 'text' },
+  { value: 'contextual_layers', label: 'Additional data', text: 'Bring other useful data layers to your map.', type: 'text' },
+  { value: 'national_surveys', label: 'National Surveys', text: 'View national surveys that got conducted in this region.', type: 'button' }
 ];
 
 class SidebarLayersComponent extends React.Component {
@@ -45,13 +46,12 @@ class SidebarLayersComponent extends React.Component {
             <ActiveLayersIndicator />
           </div>
         }
-        {(!menuItem || !availableMenuItems.includes(menuItem)) &&
+        {(!menuItem || !availableMenuItems.includes(menuItem)) && (
           <MenuItems
             items={LAYER_TYPES}
             onSelect={this.props.setMenuItem}
           />
-        }
-
+        )}
         {(!!menuItem && availableMenuItems.includes(menuItem)) &&
           <MenuItem
             item={LAYER_TYPES.find(lt => lt.value === menuItem)}
