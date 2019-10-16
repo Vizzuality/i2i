@@ -5,6 +5,8 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Icomoon
+- New analysis icon added to sector layers menu
 
 ### Changed
 
@@ -15,6 +17,7 @@
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
 - Sidebar tabs styles updated/icons added
+- Styles in layers menu (data-portal/geospatial-data)
 
 ### Fixed
 
