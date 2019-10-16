@@ -15,7 +15,7 @@ class MenuItemsComponent extends React.Component {
 
   static defaultProps = {
     selected: '',
-    setAnalysisActive: () => {}
+    setAnalysisActive: () => { }
   }
 
   onClickCountryReport = () => {
@@ -39,15 +39,29 @@ class MenuItemsComponent extends React.Component {
               className={classnames('menu-items-item', { '-inline': index === 0 })}
               onClick={() => onSelect(item.value)}
             >
-              <div className="item-header">
-                <h3 className="title">
-                  {item.label}
-                </h3>
-              </div>
+              {item.type !== 'button' &&
+                <>
+                  <div className="item-header">
+                    <span className="arrow este" />
+                    <h3 className="title">
+                      {item.label}
+                    </h3>
+                  </div>
 
-              <div className="description">
-                {item.text}
-              </div>
+                  <div className="description">
+                    {item.text}
+                  </div>
+                </>
+              }
+
+              {item.type === 'button' &&
+                <button
+                  className="c-button -sea -menu-button"
+                  onClick={() => onSelect(item.value)}
+                >
+                  {item.label}
+                </button>
+              }
             </div>
           ))
         }
@@ -62,7 +76,7 @@ class MenuItemsComponent extends React.Component {
           >
             <div className="item-header">
               <h3 className="title">
-               Country Report
+                Country Report
               </h3>
             </div>
 
