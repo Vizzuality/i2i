@@ -19,4 +19,5 @@
 ### Fixed
 
 - Issue compiling assets using webpacker
+- Homepage button style issue in Safari
 - Issue with National Services button in localhost and staging
