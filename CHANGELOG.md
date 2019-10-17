@@ -14,6 +14,7 @@
 - Changed header for articles and blog posts
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
+- Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
 
 ### Fixed
