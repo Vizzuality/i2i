@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Vizzuality/i2i#readme",
   "dependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-react": "^7.6.3",
     "@rails/webpacker": "^4.0.7",
     "axios": "^0.18.1",
     "babel-eslint": "^8.2.6",
@@ -37,7 +37,7 @@
     "dotenv": "^8.0.0",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^2.2.1",
-    "layer-manager": "^1.10.0",
+    "layer-manager": "1.15.3",
     "lodash": "^4.17.13",
     "node-sass": "^4.9.2",
     "numeral": "^2.0.6",
