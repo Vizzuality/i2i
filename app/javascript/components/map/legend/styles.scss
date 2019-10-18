@@ -30,6 +30,7 @@
 
   .wri_api__c-legend-map {
     border: none;
+    background-color: none;
 
     .wri_api__toggle-legend {
       background-color: #2F939C;
@@ -55,17 +56,18 @@
     font-size: 16px;
     line-height: 22px;
     font-family: 'Open Sans', sans-serif;
+
   }
 
   .wri_api__c-legend-item {
     border: none;
     border-bottom: 1px solid $color-4;
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+    background-color: rgba(#3B3A40, .9);
+
     * {
       color: $color-4;
-      // opacity: 0.9;
-      // background-color:#3B3A40;
-      background-color: rgba(#3B3A40, .9);
+      background-color: transparent;
       fill: $color-4;
     }
 
