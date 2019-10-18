@@ -25,7 +25,6 @@
       labelFont: fontFamily,
       labelFontSize: 12,
       labelColor: fontColor
-
     },
     symbol: {
       size: 20

@@ -49,67 +49,60 @@
         @include triangle(5px, $color-4, 'down');
       }
     }
-  }
 
-  .wri_api__c-legend-item  {
-    color: $color-4;
-    font-size: 16px;
-    line-height: 22px;
-    font-family: 'Open Sans', sans-serif;
-
-  }
-
-  .wri_api__c-legend-item {
-    border: none;
-    border-bottom: 1px solid $color-4;
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
-    background-color: rgba(#3B3A40, .9);
-
-    * {
+    .wri_api__c-legend-item {
       color: $color-4;
-      background-color: transparent;
-      fill: $color-4;
-    }
+      font-size: 16px;
+      line-height: 22px;
+      font-family: 'Open Sans', sans-serif;
+      border: none;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+      background-color: rgba(#3B3A40, .9);
 
-    .wri_api__legend-item-header {
-      > h3 {
+      * {
         color: $color-4;
-        font-size: 16px;
-        line-height: 22px;
-        font-family: $font-family-1;
+        background-color: transparent;
+        fill: $color-4;
+      }
+
+      .wri_api__legend-item-container {
+        border-bottom: 1px solid $color-4;
+
+        .wri_api__legend-title {
+          letter-spacing: 0;
+          line-height: normal;
+        }
+
+        .wri_api__legend-item-header {
+          > h3 {
+            color: $color-4;
+            font-size: 16px;
+            line-height: 22px;
+            font-family: $font-family-1;
+          }
+        }
+      }
+
+      .wri_api__name {
+        font-size: 12px;
+        font-family: arial;
+      }
+
+      > .wri_api__icon-square {
+        width: 14px !important;
+        height: 5px !important;
+        margin-top: 10px;
+      }
+
+      >.wri_api__icon-choropleth {
+        font-size: 12px;
       }
     }
 
-    .wri_api__c-legend-item:not(:last-child) {
-      border-bottom: 1px solid $color-4;
-    }
-
-    .wri_api__name {
-      font-size: 12px;
-      font-family: arial;
-    }
-
-    .wri_api__legend-item-container {
-      .wri_api__legend-title {
-        letter-spacing: 0;
-        line-height: normal;
+    li {
+      > .wri_api__c-legend-item {
+        box-shadow: none;
       }
-    }
-
-    >.wri_api__icon-square {
-      width: 14px !important;
-      height: 5px !important;
-      margin-top: 10px;
-    }
-
-    >.wri_api__icon-choropleth {
-      font-size: 12px;
-    }
-  }
-
-  li {
-    > .wri_api__c-legend-item {
-      box-shadow: none;
     }
   }
 }
