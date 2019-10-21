@@ -8,25 +8,26 @@
 
 .c-area-of-interest {
 
-  .text-container{
-    padding: 0px 40px 20px 75px;
+  .content-wrapper {
+    padding: 0px 55px 100px;
     border-bottom: 1px solid #D8D8D8;
-  }
+    margin-bottom: 20px;
 
-  * {
-    margin-top: 20px;
-  }
-
-  p {
-    font-size: 14px;
-    line-height: 19px;
-    color: #737780;
+    p {
+      font-size: 14px;
+      line-height: 19px;
+      color: #737780;
+    }
   }
 
   .button-container {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    * {
+      min-width: 215px;
+    }
   }
 
   .buttons-container {
@@ -36,7 +37,7 @@
     align-items: center;
 
     * {
-      min-width: 200px;
+      min-width: 215px;
 
       &.-disabled {
         pointer-events: none;

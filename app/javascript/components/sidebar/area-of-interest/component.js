@@ -32,7 +32,7 @@ class AreaOfInterestComponent extends PureComponent {
 
     return (
       <div className="c-area-of-interest">
-        <div className="text-container">
+        <div className="content-wrapper">
           {/* eslint-disable-next-line max-len */
             <p>Create an area of interest by clicking the "Create area" button below then drawing a shape on the map. Information about the created area such as population & financial services availability and access will be generated.</p>
           }
