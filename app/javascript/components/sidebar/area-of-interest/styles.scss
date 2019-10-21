@@ -1,3 +1,11 @@
+@import '_settings';
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
 .c-area-of-interest {
 
   .text-container{
@@ -23,5 +31,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    * {
+      min-width: 200px;
+      margin-bottom: 20px;
+
+      &.-disabled {
+        pointer-events: none;
+        opacity: .3;
+      }
+    }
   }
 }
