@@ -13,12 +13,8 @@
     border-bottom: 1px solid #D8D8D8;
   }
 
-  > * {
-    margin: 40px 0 0;
-
-    &:first-child {
-      margin: 0;
-    }
+  * {
+    margin-top: 20px;
   }
 
   p {
@@ -41,12 +37,15 @@
 
     * {
       min-width: 200px;
-      margin-bottom: 20px;
 
       &.-disabled {
         pointer-events: none;
         opacity: .3;
       }
     }
+  }
+
+  .-hidden {
+    display: none;
   }
 }

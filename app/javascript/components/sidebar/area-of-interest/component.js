@@ -38,18 +38,16 @@ class AreaOfInterestComponent extends PureComponent {
           }
         </div>
 
-        <div className="button-container">
-          {!drawing && isEmpty(area) && (
-            <button
-              className="c-button -small -white"
-              onClick={() => {
-                if (isEmpty(area)) this.toggleDrawing(drawing);
-                if (!isEmpty(area)) this.onClear();
-              }}
-            >
-              {isEmpty(area) ? 'Create Area' : 'Area Report'}
-            </button>
-          )}
+        <div className={classnames('button-container', { '-hidden': drawing || !isEmpty(area) })}>
+          <button
+            className="c-button -small -white"
+            onClick={() => {
+              if (isEmpty(area)) this.toggleDrawing(drawing);
+              if (!isEmpty(area)) this.onClear();
+            }}
+          >
+            Create Area
+          </button>
         </div>
 
         {(drawing || !isEmpty(area)) && (
