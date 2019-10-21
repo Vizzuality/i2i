@@ -1,5 +1,9 @@
 .c-area-of-interest {
-  padding: 0px 30px 20px 55px;
+
+  .text-container{
+    padding: 0px 40px 20px 75px;
+    border-bottom: 1px solid #D8D8D8;
+  }
 
   > * {
     margin: 40px 0 0;
@@ -11,10 +15,12 @@
 
   p {
     font-size: 14px;
+    line-height: 19px;
+    color: #737780;
   }
 
   .button-container {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
   }
