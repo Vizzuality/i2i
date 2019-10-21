@@ -1,3 +1,5 @@
+@import '_settings';
+
 @mixin triangle($size, $color, $direction) {
   width: 0;
   height: 0;
@@ -64,7 +66,7 @@
 
         &:before {
           content: '';
-          @include triangle(6px, #2F939C, 'down');
+          @include triangle(6px, $color-1, 'down');
         }
       }
 
@@ -109,7 +111,7 @@
     >.country-report-btn {
       &:hover {
         opacity: 1;
-        background: lighten(#2f939c, 5%);
+        background: lighten($color-1, 5%);
       }
     }
   }

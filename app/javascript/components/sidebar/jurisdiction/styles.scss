@@ -32,18 +32,36 @@
 
     .react-select__control {
       color: #001D22;
+      border: none;
       border-radius: 0;
       font-size: 16px;
       line-height: 30px;
-      background-color: rgba(#2F939C, .1);
+      background-color: rgba($color-1, .1);
       padding: 0 8px;
       width: 100%;
       margin-top: 0;
     }
 
+    .react-select__option  {
+      background-color: $color-1;
+
+      &.react-select__option--is-focused {
+        background-color: rgba(white, .5);
+      }
+
+      &.react-select__option--is-selected {
+        background-color: rgba(white, .1);
+      }
+    }
+
+    .react-select__option--is--focused,
+    .react-select__option--is--selected {
+      background-color: rgba($color-1, .1);
+    }
+
     .react-select__menu {
       color: white;
-      background-color: #2F939C;
+      background-color: $color-1;
       margin: 0;
       border-radius: 0;
     }
