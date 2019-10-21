@@ -39,12 +39,17 @@ class JurisdictionComponent extends PureComponent {
 
     return (
       <div className="c-jurisdiction">
-        <Select
-          value={isEmpty(selectedOption) ? null : selectedOption}
-          onChange={this.handleChange}
-          options={options}
-          placeholder="Select Jurisdiction..."
-        />
+        <p>Select to view Financial Service locations within a given province or district.</p>
+        <div className="jurisdiction-content">
+          <h2>SEARCH LOCATION:</h2>
+          <Select
+            value={isEmpty(selectedOption) ? null : selectedOption}
+            classNamePrefix="react-select"
+            onChange={this.handleChange}
+            options={options}
+            placeholder="Introduce location"
+          />
+        </div>
 
         {(!!selectedLayers.length && !isEmpty(area)) &&
           <div className="button-container -analysis-report">
