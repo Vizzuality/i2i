@@ -1,7 +1,22 @@
 @import '_settings';
 
 .c-nearby {
-  padding: 0px 30px 20px 55px;
+
+  .content-wrapper {
+    padding: 0px 55px 30px;
+    border-bottom: 1px solid #D8D8D8;
+    margin-bottom: 20px;
+
+    > * {
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 19px;
+      color: #737780;
+    }
+  }
 
   > * {
     margin: 40px 0 0;
@@ -15,6 +30,22 @@
     font-size: 14px;
   }
 
+  label {
+    color: $color-1;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    margin-bottom: 10px;
+
+    span {
+      color: #001D22;
+      font-family: "Open Sans Light";
+      font-size: 16px;
+      line-height: 30px;
+      font-weight: normal;
+    }
+  }
+
   .rc-slider {
     height: auto;
 
@@ -23,10 +54,10 @@
       content: "";
       position: absolute;
       width: 2px;
-      height: 7px;
+      height: 10px;
       background: $color-1;
       top: 50%;
-      transform: translate(0,-50%);
+      transform: translate(0,-40%);
     }
 
     &:before {
@@ -38,6 +69,21 @@
       right: 0;
       margin: 0 0 0 1px;
     }
+
+    .rc-slider-handle {
+      background-color: $color-1;
+    }
+
+    .rc-slider-rail {
+      background-color: $color-1;
+      width: 100%;
+      border: none;
+      border-top: 3px dotted rgba($color-1, .7);
+      color: #fff;
+      background-color: #fff;
+      height: 3px;
+      width: 100%;
+  }
   }
 
   .button-container {

@@ -1,19 +1,28 @@
+@import '_settings';
+
 .c-geosuggest {
   font-size: 18px;
   font-size: 1rem;
   position: relative;
   width: 100%;
   text-align: left;
+  background-color: rgba(#2F939C, .1);
 
   .geosuggest__input {
     outline: none;
     width: 100%;
     border: none;
-    border-bottom: 1px solid #2F939C;
     box-shadow: none;
     padding: .5em 0;
     background: none;
     font-size: 14px;
+    &::placeholder {
+      color: #001D22;
+      font-size: 16px;
+      line-height: 30px;
+      padding: 15px;
+      font-family: $font-family-1
+    }
   }
 
   .geosuggest__input:focus {

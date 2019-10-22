@@ -6,6 +6,10 @@ import isEmpty from 'lodash/isEmpty';
 import { Range } from 'wri-api-components/dist/form';
 import Geosuggest from 'react-geosuggest';
 
+//Styles
+
+import './styles.scss';
+
 class NearbyComponent extends PureComponent {
   static propTypes = {
     nearby: PropTypes.object,
@@ -73,59 +77,61 @@ class NearbyComponent extends PureComponent {
             Error building area
           </div>
         }
+        <div className="content-wrapper">
 
-        <p>Search to view Financial Service locations within a given location</p>
+          <p>Find financial services which are available within your preferred drive-time by searching for a specific place then setting the time.</p>
 
 
-        <div className="c-field">
-          <label htmlFor="nearby-geosuggest">
-            Search location:
-          </label>
+          <div className="c-field">
+            <label htmlFor="nearby-geosuggest">
+              SEARCH LOCATION:
+            </label>
 
-          <Geosuggest
-            ref={(r) => { this.geosuggest = r; }}
-            id="nearby-geosuggest"
-            className="c-geosuggest"
-            initialValue={location.label}
-            placeholder="Introduce location"
-            country={shortIso}
-            autoActivateFirstSuggest
-            autoComplete="off"
-            onSuggestSelect={this.onSuggestSelect}
-            onKeyDown={this.onKeyDown}
-          />
-        </div>
+            <Geosuggest
+              ref={(r) => { this.geosuggest = r; }}
+              id="nearby-geosuggest"
+              className="c-geosuggest"
+              initialValue={location.label}
+              placeholder="Introduce location"
+              country={shortIso}
+              autoActivateFirstSuggest
+              autoComplete="off"
+              onSuggestSelect={this.onSuggestSelect}
+              onKeyDown={this.onKeyDown}
+            />
+          </div>
 
-        <div className="c-field">
-          <label htmlFor="nearby-time">
-            Time: {time} minutes
-          </label>
+          <div className="c-field">
+            <label htmlFor="nearby-time">
+              TIME: <span>{time} minutes</span>
+            </label>
 
-          <Range
-            // Styles
-            railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
-            trackStyle={{ backgroundColor: '$color-1', height: 1 }}
-            handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
-            activeDotStyle={{ display: 'none' }}
-            dotStyle={{ display: 'none' }}
+            <Range
+              // Styles
+              railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+              trackStyle={{ backgroundColor: '$color-1', height: 1 }}
+              handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
+              activeDotStyle={{ display: 'none' }}
+              dotStyle={{ display: 'none' }}
 
-            marks={{
-              1: {
-                label: '1',
-                style: { fontSize: 10 }
-              },
-              720: {
-                label: '720',
-                style: { fontSize: 10 }
-              }
-            }}
-            id="nearby-time"
-            min={1}
-            max={720}
-            value={time}
-            onChange={this.onChange}
-            onAfterChange={this.onAfterChange}
-          />
+              marks={{
+                1: {
+                  label: '1',
+                  style: { fontSize: 10 }
+                },
+                720: {
+                  label: '720',
+                  style: { fontSize: 10 }
+                }
+              }}
+              id="nearby-time"
+              min={1}
+              max={720}
+              value={time}
+              onChange={this.onChange}
+              onAfterChange={this.onAfterChange}
+            />
+          </div>
         </div>
 
         {(!!selectedLayers.length && !isEmpty(area)) &&
