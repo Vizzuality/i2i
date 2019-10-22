@@ -95,6 +95,9 @@ class LegendComponent extends React.Component {
               layerGroup={lg}
               toolbar={
                 <LegendItemToolbar>
+                  <LegendItemButtonOpacity />
+                  <LegendItemButtonVisibility />
+                  <LegendItemButtonRemove />
                   {lg.layerType !== 'contextual' &&
                     <LegendItemButtonVisualizations
                       onClick={(layerId, visualizationType) => this.onChangeLegendLayerVisualization(layerId, visualizationType)}
@@ -102,9 +105,6 @@ class LegendComponent extends React.Component {
                       layersSettings={layersSettings}
                     />
                   }
-                  <LegendItemButtonOpacity />
-                  <LegendItemButtonVisibility />
-                  <LegendItemButtonRemove />
                 </LegendItemToolbar>
               }
               onChangeOpacity={this.onChangeOpacity}
