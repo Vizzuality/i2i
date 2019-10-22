@@ -52,7 +52,7 @@ class NationalSurveysEmbedComponent extends PureComponent {
               title="credit_strand"
               height="500"
               width="100%"
-              src={`https://${window.location.hostname}/data-portal/indicator?p=${this.getParams(w.id, iso, latestYear, w.shape)}&source=fsp_maps`}
+              src={`${window.origin}/data-portal/indicator?p=${this.getParams(w.id, iso, latestYear, w.shape)}&source=fsp_maps`}
             />))
         }
 
@@ -61,7 +61,7 @@ class NationalSurveysEmbedComponent extends PureComponent {
             className="c-button -small -white"
             onClick={() => {
               window.open(
-                `https://${window.location.hostname}/data-portal/${iso}/${latestYear}`,
+                `${window.origin}/data-portal/${iso}/${latestYear}`,
                 '_blank'
               );
             }}

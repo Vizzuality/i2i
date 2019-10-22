@@ -1,0 +1,79 @@
+
+
+@mixin arrow($size, $border-width, $color, $direction) {
+  display: inline;
+  width: $size;
+  height: $size;
+  border: $border-width solid $color;
+  content: '';
+
+  @if($direction == 'down') {
+    transform: rotate(45deg);
+    border-top: 0;
+    border-left: 0;
+  }
+}
+
+.react-select-container {
+  display: inline-block;
+
+  .react-select__indicator-separator {
+    display: none;
+  }
+
+  .react-select-indicator-container {
+    position: relative;
+
+  }
+
+  .react-select-value {
+    position: static;
+  }
+  .react-select-single-value {
+    position: absolute;
+    top: 0;
+    left: 3px;
+  }
+
+  .react-select__dropdown-indicator {
+    padding: 3px;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      pointer-events: none;
+      @include arrow(10px, 2px, #F8D200, 'down');
+    }
+  }
+
+  .react-select__control {
+    border: none;
+    border-radius: 9px;
+    background-color: #14676E;
+    min-height: inherit;
+    height: 17px;
+    padding: 0 8px;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .react-select__menu {
+    color: white;
+    border-radius: 9px;
+  }
+
+  .react-select__menu-list {
+    color: white;
+    background-color: rgba(#14676E, .5)
+  }
+
+  .react-select__singleValue {
+    background-color: red;
+    color: red;
+  }
+}
+

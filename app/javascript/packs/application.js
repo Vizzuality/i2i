@@ -9,6 +9,9 @@
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+// es6 shim for .finally() in promises
+const finallyShim = require('promise.prototype.finally');
+finallyShim.shim();
 
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
