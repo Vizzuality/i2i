@@ -41,19 +41,9 @@ function Item({ options, selectedOption, item }) {
     />
   );
 
-  const accessPoints = (
-    <ReactSelect
-      className="react-select-container"
-      classNamePrefix="react-select"
-      options={accessPointsOptions}
-      onChange={onChange}
-      value={selectedPoints}
-    />
-  );
-
   return (
     <Fragment>
-      TOTAL POPULATION WITHIN {distance} KM OF ALL {accessPoints}
+      TOTAL POPULATION WITHIN {distance} KM OF ALL ACCESS POINTS
     </Fragment>
   );
 }

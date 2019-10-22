@@ -33,7 +33,7 @@
   .react-select__single-value {
     color: $color-4;
     position: relative;
-    top: 3px;
+    top: 2px;
     left: -3px;
   }
 
@@ -51,17 +51,22 @@
       pointer-events: none;
       @include arrow(7px, 2px, #F8D200, 'down');
     }
+    &:hover {
+      color: transparent;
+    }
   }
 
   .react-select__control {
     border: none;
     border-radius: 9px;
+    top: 7px;
     background-color: #14676E;
     min-height: inherit;
-    height: 17px;
-    padding: 0 8px;
+    height: 16px;
+    padding: 0 7px;
     width: 100%;
     margin-top: 0;
+    font-weight: bold;
   }
 
   .react-select__menu {
