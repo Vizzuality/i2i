@@ -1,0 +1,51 @@
+@import '_settings';
+
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
+
+  @if($direction == 'right') {
+    border-right: 0;
+    border-bottom: $size solid transparent;  /* left arrow slant */
+    border-top: $size solid transparent; /* right arrow slant */
+    border-left: $size solid $color; /* bottom, add background color here */
+  }
+}
+
+.c-header-list {
+  max-width: 185px;
+  padding-left: 20px;
+
+  h1 {
+    color: $color-4;
+    font-size: 20px;
+    line-height: 27px;
+    font-family: "Open Sans";
+    letter-spacing: normal;
+    font-weight: normal;
+  }
+
+  ul {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    padding: 5px;
+    &:before {
+      content: '';
+      @include triangle(6px, $color-4, 'right');
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-4;
+    font-size: 14px;
+    line-height: 19px;
+  }
+}
+
