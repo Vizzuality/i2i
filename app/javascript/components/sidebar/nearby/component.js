@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 // Components
@@ -134,16 +135,21 @@ class NearbyComponent extends PureComponent {
           </div>
         </div>
 
-        {(!!selectedLayers.length && !isEmpty(area)) &&
-          <div className="button-container -analysis-report">
-            <button
-              className="c-button -small -sea"
+        <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
+          <button
+              className="c-button -small -white"
               onClick={() => this.props.setAnalysisActive(!analysisActive)}
-            >
-              Analysis Report
-            </button>
-          </div>
-        }
+          >
+              Drop a pin
+          </button>
+
+          <button
+            className="c-button -small -sea"
+            onClick={() => this.props.setAnalysisActive(!analysisActive)}
+          >
+            Summary Report
+          </button>
+        </div>
       </div>
     );
   }
