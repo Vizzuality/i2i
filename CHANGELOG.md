@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Population widget added to geospatial data header
 
 ### Changed
 
