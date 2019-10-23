@@ -17,6 +17,7 @@
 .c-header-list {
   max-width: 185px;
   padding-left: 20px;
+  margin-top: -4px;
 
   h1 {
     color: $color-4;
@@ -35,8 +36,12 @@
 
   li {
     padding: 5px;
+    margin-left: 30px;
+    position: relative;
     &:before {
       content: '';
+      position: absolute;
+      left: -20px;
       @include triangle(6px, $color-4, 'right');
     }
   }

@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Videos section added to geospatial portal header
 
 ### Changed
 
