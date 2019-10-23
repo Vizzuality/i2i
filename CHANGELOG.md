@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Analysis from pin dropped by user in geospatial-data / calculate proximity
 
 ### Changed
 
