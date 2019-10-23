@@ -14,12 +14,12 @@ export { actions, reducers, initialState };
 
 export default connect(
   state => ({
-    ...state.fspMaps.sidebar,
     ...state.fspMaps.common,
     ...state.fspMaps.map,
     nearby: state.fspMaps.analysis.nearby,
     areaOfInterest: state.fspMaps.analysis.areaOfInterest,
     jurisdiction: state.fspMaps.analysis.jurisdiction,
+    open: state.fspMaps.analysis.active,
     activeLayers: getActiveLayers(state)
   }),
   actions

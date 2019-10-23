@@ -84,7 +84,7 @@ class ListComponent extends React.Component {
                       </svg>
                     </button>
                   }
-                  {row.sector && <Icon name="analysis" className={classnames('small', { selected: selectedLayers.includes(row.id) })} />}
+                  {row.sector && <Icon name="analysis" className={classnames('-small', { selected: selectedLayers.includes(row.id) })} />}
                 </div>
               </div>
             </div>

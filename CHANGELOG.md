@@ -18,9 +18,13 @@
 - Search bar in the header
 - Sidebar tabs styles updated/icons added
 - Styles in layers menu (data-portal/geospatial-data)
+- Styles for bullet on article text list
+- Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
 
 ### Fixed
 
 - Issue compiling assets using webpacker
+- Homepage button style issue in Safari
 - Issue with National Services button in localhost and staging
+- Fixed a syntax error in Hotjar library
