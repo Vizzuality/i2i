@@ -7,7 +7,9 @@ import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
 import PreFooter from 'components/pre-footer';
-import Icons from 'wri-api-components/dist/icons';
+import { default as WRIicons } from 'wri-api-components/dist/icons';
+import Icons from 'components/icons';
+
 
 import './styles.scss';
 
@@ -116,6 +118,7 @@ export default class FSPMaps extends React.Component {
           <Sidebar />
           <Map />
           <Icons />
+          <WRIicons />
         </div>
         <PreFooter />
       </div>

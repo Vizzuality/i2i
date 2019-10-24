@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
-import { LayerManager, Layer } from 'layer-manager/lib/react';
-import { PluginLeaflet } from 'layer-manager';
+import { LayerManager, Layer } from 'layer-manager/dist/components';
+import { PluginLeaflet } from 'layer-manager/dist/layer-manager';
 
 // components
 import Legend from 'components/map/legend';
@@ -22,7 +22,7 @@ import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 // styles
 import './styles.scss';
 
-class MapComponent extends React.Component {
+class MapComponent extends PureComponent {
   static propTypes = {
     iso: PropTypes.string.isRequired,
     basemap: PropTypes.string.isRequired,
@@ -56,6 +56,53 @@ class MapComponent extends React.Component {
       '-open': !!open
     });
 
+    const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+      id: 'nearby',
+      provider: 'leaflet',
+      layerConfig: {
+        body: nearbyArea,
+        type: 'geoJSON',
+        options: { style: polygonAreaStyle }
+      }
+    }] : [];
+
+    const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
+      id: 'jurisdiction',
+      provider: 'leaflet',
+      layerConfig: {
+        body: jurisdictionArea,
+        type: 'geoJSON',
+        options: { style: polygonAreaStyle }
+      }
+    }] : [];
+
+    const financialIconsLayer = [{
+      id: 'financial-icons',
+      provider: 'leaflet',
+      layerConfig: {
+        body: FINANCIAL_DIARIES_MARKERS.map(m => L.marker(
+          m.coordinates,
+          {
+            ...m.options,
+            icon: L.icon({
+              iconUrl: BookIcon,
+              iconSize: [16, 16]
+            })
+          }
+        )
+          .on('click', () => window.open(m.url))),
+        parse: false,
+        type: 'featureGroup'
+      }
+    }];
+
+    const layersResult = [
+      ...jurisdictionAreaLayer,
+      ...nearbyAreaLayer,
+      ...activeLayers,
+      ...financialIconsLayer
+    ];
+
     return (
       <div className={classNames}>
         <Map
@@ -84,63 +131,15 @@ class MapComponent extends React.Component {
           scrollZoomEnabled={false}
           customClass="custom-map"
         >
-          {map => (
+          {map => map.invalidateSize() && (
             <React.Fragment>
               <LayerManager map={map} plugin={PluginLeaflet}>
-                {(layerManager) => {
-                  const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
-                    id: 'nearby',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: nearbyArea,
-                      type: 'geoJSON',
-                      options: { style: polygonAreaStyle }
-                    }
-                  }] : [];
-
-                  const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
-                    id: 'jurisdiction',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: jurisdictionArea,
-                      type: 'geoJSON',
-                      options: { style: polygonAreaStyle }
-                    }
-                  }] : [];
-
-                  const financialIconsLayer = [{
-                    id: 'financial-icons',
-                    provider: 'leaflet',
-                    layerConfig: {
-                      body: FINANCIAL_DIARIES_MARKERS.map(m => L.marker(
-                          m.coordinates,
-                          {
-                            ...m.options,
-                            icon: L.icon({
-                              iconUrl: BookIcon,
-                              iconSize: [16, 16]
-                            })
-                          }
-                        )
-                        .on('click', () => window.open(m.url))),
-                      parse: false,
-                      type: 'featureGroup'
-                    }
-                  }];
-
-                  const layersResult = [
-                    ...jurisdictionAreaLayer,
-                    ...nearbyAreaLayer,
-                    ...activeLayers,
-                    ...financialIconsLayer
-                  ];
-
-                  return layersResult.map((layer, index) => (
+                {
+                  layersResult.map((layer, index) => (
                     <Layer
                       key={layer.isUserDataset ? `fsp_maps_user_${layer.id}` : `fsp_maps_${layer.id}`}
                       {...layer}
                       zIndex={1000 - index}
-                      layerManager={layerManager}
                       {...(layer.layerType === 'sector') && {
                         interactivity: layer.interactivity,
                         events: {
@@ -157,8 +156,8 @@ class MapComponent extends React.Component {
                         }
                       }}
                     />
-                  ));
-                }}
+                  ))
+                }
               </LayerManager>
 
               <DrawingManager map={map} />

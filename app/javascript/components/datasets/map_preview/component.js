@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
-import { LayerManager, Layer } from 'layer-manager/lib/react';
-import { PluginLeaflet } from 'layer-manager';
+import { LayerManager, Layer } from 'layer-manager/dist/components';
+import { PluginLeaflet } from 'layer-manager/dist/layer-manager';
 
 import 'components/map/styles.scss';
 import { BASEMAPS, LABELS } from 'components/map/constants';
