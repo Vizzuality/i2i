@@ -42,14 +42,13 @@
     },
 
     visibility: function() {
-      var $alert = this.$el.find(this.options.selectors.alert);
       var bottomSpace = this.$hero
         .get(0)
         .getBoundingClientRect()
         .bottom;
-      var alertHeight = $alert ? $alert.height() : 0;
+      var alertHeight = this.$alert ? this.$alert.height() + 50 : 50; // 50 is the margin value
 
-      if((bottomSpace + alertHeight) <= this.options.navHeight) {
+      if(bottomSpace <= (alertHeight + this.options.navHeight)) {
         this.$fixedNav.removeClass(this.options.classes.hidden);
       } else {
         this.$fixedNav.addClass(this.options.classes.hidden);
