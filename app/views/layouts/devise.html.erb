@@ -33,13 +33,8 @@
   </head>
   <body>
     <%= render partial: 'shared/icons' %>
-    <% if notice %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
     <%= render partial: 'shared/mobile-menu' %>
+    <%= render partial: 'shared/alerts' %>
     <%= yield %>
     <%= render partial: 'shared/analytics' if Rails.env.production? %>
   </body>
