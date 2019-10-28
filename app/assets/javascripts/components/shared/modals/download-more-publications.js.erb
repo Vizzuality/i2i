@@ -93,9 +93,6 @@
         },
         complete: function() {
           self.el.querySelector('.js-download').setAttribute('disabled', 'disabled');
-          setTimeout(function () {
-            self.constructor.__super__.onCloseModal.apply(self);
-          }, 7000);
         }
       });
     },

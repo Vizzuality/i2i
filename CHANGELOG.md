@@ -6,6 +6,7 @@
 
 - Added country and regional tags to initiatives cards
 - Added styles for alert messages
+- Added thank you message after the user requests to download
 
 ### Changed
 
