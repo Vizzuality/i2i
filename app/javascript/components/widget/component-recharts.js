@@ -22,6 +22,7 @@ class WidgetWrapperComponent extends React.Component {
 
   state = { widgetData: [], loading: true };
 
+
   componentDidMount() {
     this.fetchWidget();
   }
@@ -36,8 +37,8 @@ class WidgetWrapperComponent extends React.Component {
   }
 
   fetchWidget = () => {
-    const { url, body } = this.props;
-
+    const { props } = this.props.children;
+    const { url, body } = props;
     this.setState({ loading: true });
 
     fetch(url, {
@@ -47,7 +48,6 @@ class WidgetWrapperComponent extends React.Component {
     })
       .then(response => response.ok && response.json())
       .then((data) => {
-        console.log(data, 'data widget')
         const widgetData = data.rows;
         this.setState({ widgetData, loading: false });
       })
@@ -57,10 +57,9 @@ class WidgetWrapperComponent extends React.Component {
   }
 
   render() {
-    const { chart, id } = this.props;
+    const { props } = this.props.children;
+    const { chart, id } = props;
     const { widgetData, loading } = this.state;
-
-    console.log(widgetData, chart, '=chart', id)
 
     if (widgetData && widgetData.length) {
       return (
@@ -68,17 +67,17 @@ class WidgetWrapperComponent extends React.Component {
           {loading && <Spinner position="relative" />}
 
           {!loading && chart === 'summary' &&
-          <SummaryWidget key={id} widgetData={widgetData} {...this.props} />
-        }
-
+            <SummaryWidget key={id} widgetData={widgetData} {...this.props} />
+          }
+          {console.log(widgetData, chart, 'templates')}
           {
-          (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) &&
+            (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) &&
             <ChartWidget
               key={id}
               widgetData={widgetData}
               {...this.props}
             />
-        }
+          }
         </div>
       );
     }

@@ -7,7 +7,8 @@ import MenuItem from 'components/sidebar/menu-item';
 import Nearby from 'components/sidebar/nearby';
 import AreaOfInterest from 'components/sidebar/area-of-interest';
 import Jurisdiction from 'components/sidebar/jurisdiction';
-import AnalysisResult from 'components/sidebar/analysis-result';
+import AnalysisResult from 'components/widget/analysis-result';
+import WidgetWrapperComponent from 'components/widget';
 
 // styles
 import './styles.scss';
@@ -74,9 +75,9 @@ class SidebarAnalysisComponent extends React.Component {
               React.cloneElement(MENU_CONTENT[menuItem])}
           </MenuItem>
         }
-
         {active &&
-          <AnalysisResult />
+        // <WidgetWrapperComponent />
+         <AnalysisResult />
         }
       </div>
     );
