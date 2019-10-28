@@ -1,21 +1,6 @@
 @import '_settings';
 
-@mixin triangle($size, $color, $direction) {
-  width: 0;
-  height: 0;
-  font-size: 0;
-	line-height: 0;
-
-  @if($direction == 'right') {
-    border-right: 0;
-    border-bottom: $size solid transparent;  /* left arrow slant */
-    border-top: $size solid transparent; /* right arrow slant */
-    border-left: $size solid $color; /* bottom, add background color here */
-  }
-}
-
 .c-header-list {
-  max-width: 185px;
   padding-left: 20px;
   margin-top: -4px;
 
@@ -29,28 +14,30 @@
   }
 
   ul {
-    padding: 5px 0;
     display: flex;
     flex-direction: column;
   }
 
-  li {
-    padding: 5px;
-    margin-left: 30px;
-    position: relative;
-    &:before {
-      content: '';
-      position: absolute;
-      left: -20px;
-      @include triangle(6px, $color-4, 'right');
+  .list-item {
+    display: flex;
+    padding-top: 5px;
+
+    svg {
+      fill: $color-4;
     }
+
+    a {
+      text-decoration: none;
+      color: $color-4;
+      font-size: 14px;
+      line-height: 19px;
+      padding-left: 10px;
+    }
+
+
   }
 
-  a {
-    text-decoration: none;
-    color: $color-4;
-    font-size: 14px;
-    line-height: 19px;
-  }
+
+
 }
 
