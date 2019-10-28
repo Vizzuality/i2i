@@ -3,6 +3,8 @@
 (function (App) {
   App.Component.DownloadMoreAttachments = App.Component.Modal.extend({
     contentTemplate: JST['templates/shared/modals/modal-more-attachments'],
+    successTemplate: JST['templates/shared/modals/modal-success-message'],
+    errorTemplate: JST['templates/shared/modals/modal-error-message'],
 
     defaults: {
       title: 'Download',
@@ -54,7 +56,6 @@
     _onSubmit: function (e) {
       e.preventDefault();
       this._sendRequest();
-      this.constructor.__super__.onCloseModal.apply(this);
     },
 
     _onChange: function (e) {
@@ -74,12 +75,28 @@
      * Sends email request
      */
     _sendRequest: function() {
+      var self = this;
+
       data = $('form').serializeArray();
       data.push({ name: 'country', value: this.options.iso });
 
       $.post({
         url: "<%= batch_download_contacts_path %>",
-        data: data
+        data: data,
+        success: function() {
+          self.options.content = self.successTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        error: function() {
+          self.options.content = self.errorTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        complete: function() {
+          self.el.querySelector('.js-download').setAttribute('disabled', 'disabled');
+          setTimeout(function () {
+            self.constructor.__super__.onCloseModal.apply(self);
+          }, 7000);
+        }
       })
     },
 
@@ -87,10 +104,12 @@
      * Validates if email is filled properly and terms and conditions are accepted
      */
     _validationForm: function () {
-      if (this.emailField.checkValidity() && this.termsCheckbox.checked) {
-        this.continueButton.removeAttribute('disabled');
-      } else {
-        this.continueButton.setAttribute('disabled', 'disabled');
+      if (this.emailField && this.continueButton) {
+        if (this.emailField.checkValidity() && this.termsCheckbox.checked) {
+          this.continueButton.removeAttribute('disabled');
+        } else {
+          this.continueButton.setAttribute('disabled', 'disabled');
+        }
       }
     },
 
@@ -110,8 +129,8 @@
     },
 
     _setFormEventListeners: function () {
-      this.emailField.addEventListener('keyup', this._validationForm.bind(this));
-      this.termsCheckbox.addEventListener('change', this._validationForm.bind(this));
+      if (this.emailField) this.emailField.addEventListener('keyup', this._validationForm.bind(this));
+      if (this.termsCheckbox) this.termsCheckbox.addEventListener('change', this._validationForm.bind(this));
     },
 
   });

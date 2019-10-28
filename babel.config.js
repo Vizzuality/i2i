@@ -74,6 +74,12 @@ module.exports = function(api) {
           async: false
         }
       ],
+      isProductionEnv && [
+        require('babel-plugin-transform-react-remove-prop-types').default,
+        {
+          removeImport: true
+        }
+      ],
       [
         require.resolve('babel-plugin-module-resolver'),
         {
@@ -81,12 +87,6 @@ module.exports = function(api) {
           alias: {
             "components": "./app/javascript/components"
           }
-        }
-      ],
-      isProductionEnv && [
-        require('babel-plugin-transform-react-remove-prop-types').default,
-        {
-          removeImport: true
         }
       ]
     ].filter(Boolean)

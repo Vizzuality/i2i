@@ -1,0 +1,12 @@
+<% if alert or notice %>
+  <div class="l-alert js-alert">
+    <div class="wrapper">
+      <% if notice %>
+        <p class="alert-item -info"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert-item -danger"><%= alert %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

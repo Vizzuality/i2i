@@ -5,7 +5,8 @@
     defaults: {
       selectors: {
         fixedNav: '.js-fixed-nav',
-        hero: '.js-hero'
+        hero: '.js-hero',
+        alert: '.js-alert'
       },
       classes: {
         hidden: '-hidden'
@@ -29,6 +30,7 @@
     _setVars: function() {
       this.$fixedNav = this.$el.find(this.options.selectors.fixedNav);
       this.$hero = this.$el.find(this.options.selectors.hero);
+      this.$alert = this.$el.find(this.options.selectors.alert);
     },
 
     _setListeners: function () {
@@ -44,8 +46,9 @@
         .get(0)
         .getBoundingClientRect()
         .bottom;
+      var alertHeight = this.$alert ? this.$alert.height() + 50 : 50; // 50 is the margin value
 
-      if(bottomSpace <= this.options.navHeight) {
+      if(bottomSpace <= (alertHeight + this.options.navHeight)) {
         this.$fixedNav.removeClass(this.options.classes.hidden);
       } else {
         this.$fixedNav.addClass(this.options.classes.hidden);

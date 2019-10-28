@@ -1,32 +1,34 @@
-@mixin arrow($size, $border-width, $color, $direction) {
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border: $border-width solid $color;
-  content: '';
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
 
   @if($direction == 'up') {
-    transform: rotate(45deg);
-    border-right: 0;
-    border-bottom: 0;
+    border-top: 0;
+    border-left: $size solid transparent;  /* left arrow slant */
+    border-right: $size solid transparent; /* right arrow slant */
+    border-bottom: $size solid $color; /* bottom, add background color here */
   }
 
   @if($direction == 'right') {
-    transform: rotate(45deg);
-    border-bottom: 0;
-    border-left: 0;
+    border-right: 0;
+    border-bottom: $size solid transparent;  /* left arrow slant */
+    border-top: $size solid transparent; /* right arrow slant */
+    border-left: $size solid $color; /* bottom, add background color here */
   }
 
   @if($direction == 'down') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-left: 0;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
   }
 
   @if($direction == 'left') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-right: 0;
+    border-left: 0;
+    border-bottom: $size solid transparent;  /* left arrow slant */
+	  border-top: $size solid transparent; /* right arrow slant */
+	  border-right: $size solid $color; /* bottom, add background color here */
   }
 }
 
@@ -36,7 +38,7 @@
   > .menu-item-header {
     display: flex;
     flex-direction: column;
-    // align-items: center;
+    font-size: 20px;
     padding: 20px 30px 15px 55px;
     cursor: pointer;
     outline: none;
@@ -49,14 +51,18 @@
       font-weight: 400;
       color: #000;
 
-      &:before {
-        @include arrow(8px, 2px, #2F939C, 'left');
-        position: absolute;
-        top: calc(50% + 2px);
-        left: 0;
-        transform: rotate(45deg) translate(-50%, -50%);
-        margin: 0 10px 0 0;
+      > .arrow {
+        display: inline-flex;
+  
+        &:before {
+          content: '';
+          @include triangle(6px, #2F939C, 'right');
+        }
       }
+    }
+
+    .description {
+      color: #737780;
     }
 
     &:hover {
