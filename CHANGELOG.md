@@ -29,3 +29,4 @@
 - Fixed an issue where user didn't see any feedback after request a new password
 - Fixed an error where user didn't receive an email after request a new password
 - Fixed a syntax error in Hotjar library
+- Fixed icon alignment in the download modal form
