@@ -42,8 +42,8 @@
               position: absolute;
               top: 10px;
               left: 15px;
-              width: 15px;
-              height: 15px;
+              width: 14px;
+              height: 14px;
               border: 1px solid $color-1;
               content: '';
             }
@@ -105,15 +105,35 @@
         margin: 0 5px 0 0;
         font-size: 16px;
         border: 1px solid $color-1;
+        position: absolute;
+        top: 0;
+        left: -10000px;
+
+        &:checked + label::before {
+          background-color: $color-1;
+        }
       }
 
       label {
+        position: relative;
         margin: 0;
+        padding-left: 25px;
 
         color: $color-5;
         font-family: $font-family-1;
         font-size: $font-size-xs;
         text-transform: none;
+
+        &::before {
+          display: inline-block;
+          position: absolute;
+          top: 2px; // The 3px compensate the line-height
+          left: 0;
+          width: 14px;
+          height: 14px;
+          border: 1px solid $color-1;
+          content: '';
+        }
 
         > a {
           position: relative;
@@ -122,7 +142,7 @@
 
           > .icon-external-open {
             position: absolute;
-            top: -8px;
+            top: 0;
             right: -17px;
             width: 15px;
             height: 24px;
