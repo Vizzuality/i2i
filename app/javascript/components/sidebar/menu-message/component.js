@@ -1,30 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// components
-//import Icon from 'components/icon';
+import Book from 'images/data-portal/layersneeded.png';
 
 // styles
 import './styles.scss';
 
 const MenuMessage = ({ onSelect }) => (
   <div className="c-message">
-    {/* <Icon className="icon-info" name="icon-layer" /> */}
+    <img src={Book} alt="search" className="message-image" />
     <span className="text">
       First you need to
-      <button 
-        type='button'
-        className='button'
-        onClick={() => onSelect('layers')}>
-        Select a Layer 
-        </button> 
+      <button
+        type="button"
+        className="button"
+        onClick={() => onSelect('layers')}
+      >
+        Select a Layer
+      </button>
       to create your own analysis
     </span>
   </div>
 );
 
-MenuMessage.propTypes =  {
-  onSelect: PropTypes.func.isRequired
-}
-
+MenuMessage.propTypes = { onSelect: PropTypes.func.isRequired }
 export default MenuMessage;

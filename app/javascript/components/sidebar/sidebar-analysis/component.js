@@ -45,6 +45,7 @@ class SidebarAnalysisComponent extends React.Component {
     selectedLayers: PropTypes.array,
     setMenuItem: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired,
+    setSelected: PropTypes.func.isRequired,
     list: PropTypes.shape
   }
 
@@ -63,7 +64,8 @@ class SidebarAnalysisComponent extends React.Component {
       list,
       setMenuItem,
       selectedLayers,
-      setAnalysisActive
+      setAnalysisActive,
+      setSelected
     } = this.props;
 
     const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
@@ -72,11 +74,11 @@ class SidebarAnalysisComponent extends React.Component {
       .map(sector => sector.id)
       .some(ele => selectedLayers.includes(ele));
 
-    if (!analysisLayers) {
+    if (!active && !analysisLayers) {
       return (
         <div className="c-sidebar-analysis">
           <MenuMessage
-            onSelect={setMenuItem}
+            onSelect={setSelected}
           />
         </div>
       );
