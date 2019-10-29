@@ -67,12 +67,12 @@ class SidebarAnalysisComponent extends React.Component {
     } = this.props;
 
     const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
-    const sectorLayers = (list
-      .filter(layer => layer.layerType === 'sector'))
+    const analysisLayers = (list
+      .filter(layer => layer.layerType === 'sector' || (layer.type_id && layer.type_id.length !== 0)))
       .map(sector => sector.id)
       .some(ele => selectedLayers.includes(ele));
 
-    if (!sectorLayers) {
+    if (!analysisLayers) {
       return (
         <div className="c-sidebar-analysis">
           <MenuMessage
