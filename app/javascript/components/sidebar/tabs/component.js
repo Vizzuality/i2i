@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Icon from 'components/icon';
+
 
 // styles
 import './styles.scss';
@@ -22,18 +24,16 @@ class TabsComponent extends React.Component {
         <ul>
           {
             items.map(item => (
-              <li key={item.value}>
-                <button
-                  className={
-                    classnames({
-                      tab: true,
-                      selected: selected === item.value
-                    })
-                  }
-                  onClick={() => this.props.onSelect(item.value)}
-                >
-                  {item.label}
-                </button>
+              <li className="tab" key={item.value}>
+                <div className={classnames('tab-item', { '-selected': selected === item.value })}>
+                  <Icon
+                    name={`${item.value}`}
+                    className={classnames('sidebar-icon', { '-selected': selected === item.value })}
+                  />
+                  <button className="label" onClick={() => this.props.onSelect(item.value)}>
+                    {item.label}
+                  </button>
+                </div>
               </li>
             ))
           }

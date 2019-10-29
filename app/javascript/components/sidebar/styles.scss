@@ -40,7 +40,8 @@
   position: absolute;
   width: 330px;
   height: 100%;
-  background: #F5F8F8;
+  background-color: #F5F8F8;	
+  box-shadow: 0 -1px 3px 0 rgba(0,0,0,0.15);
   transform: translate(-100%, 0);
   transition: transform .24s cubic-bezier(0.445, 0.050, 0.550, 0.950);
 
