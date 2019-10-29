@@ -57,6 +57,7 @@ class ListComponent extends React.Component {
             'list-item': true,
             '-checked': selectedLayers.includes(row.id)
           });
+
           const user = window.gon.users_data.find(u => u.id === row.user_id);
 
           return (
@@ -84,7 +85,13 @@ class ListComponent extends React.Component {
                       </svg>
                     </button>
                   }
-                  {row.sector && <Icon name="analysis" className={classnames('-small', { selected: selectedLayers.includes(row.id) })} />}
+                  {(row.sector || row.type_id) && <Icon
+                    name="analysis"
+                    className={classnames('-small', '-sea', {
+                      '-selected': selectedLayers.includes(row.id),
+                      '-disabled': !selectedLayers.includes(row.id)
+                    })}
+                  />}
                 </div>
               </div>
             </div>

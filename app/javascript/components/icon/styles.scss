@@ -1,8 +1,14 @@
+@import '_settings';
+
 .c-icon {
   width: 30px;
   height: 20px;
   opacity: 0.5;
-  fill: #001D22;
+  fill: $color-5;
+
+  &.-sea {
+    fill: $color-1;
+  }
 
   &.-small {
     width: 16px;
@@ -11,5 +17,8 @@
   &.-selected {
     fill: #2F8B9C;
     opacity: 1;
+  }
+  &.-disabled {
+    opacity: .7;
   }
 }
