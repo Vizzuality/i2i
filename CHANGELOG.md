@@ -6,7 +6,7 @@
 
 - Added country and regional tags to initiatives cards
 - Icomoon
-- New analysis icon added to sector layers menu
+- New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
 - Added styles for alert messages
 - Added thank you message after the user requests to download
 
