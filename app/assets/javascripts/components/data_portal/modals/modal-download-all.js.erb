@@ -4,6 +4,8 @@
   App.Component.ModalDownloadAll = App.Component.Modal.extend({
 
     contentTemplate: JST['templates/data_portal/modals/modal-download-all'],
+    successTemplate: JST['templates/shared/modals/modal-success-message'],
+    errorTemplate: JST['templates/shared/modals/modal-error-message'],
 
     defaults: {
       // See App.Component.Modal for details about this option
@@ -29,8 +31,10 @@
     _setFormVars: function () {
       this.form = this.el.querySelector('form');
 
-      this.emailField = this.form.querySelector('.js-email');
-      this.termsCheckbox = this.form.querySelector('.js-terms');
+      if (this.form) {
+        this.emailField = this.form.querySelector('.js-email');
+        this.termsCheckbox = this.form.querySelector('.js-terms');
+      }
 
       this.continueButton = this.el.querySelector('.js-continue');
     },
@@ -44,15 +48,29 @@
      * Sends email request
      */
     _sendRequest: function() {
-      var oReq = new XMLHttpRequest(),
-        params = new FormData();
+      var self = this;
 
-      params.append('email', this.emailField.value);
-      params.append('country', this.options.iso);
-      params.append('year', this.options.year);
+      data = $('form').serializeArray();
+      data.push({ name: 'country', value: this.options.iso });
+      data.push({ name: 'email', value: this.emailField.value });
+      data.push({ name: 'country', value: this.options.iso });
+      data.push({ name: 'year', value: this.options.year });
 
-      oReq.open("POST", "<%= contacts_path %>", true);
-      oReq.send(params);
+      $.post({
+        url: "<%= contacts_path %>",
+        data: data,
+        success: function() {
+          self.options.content = self.successTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        error: function() {
+          self.options.content = self.errorTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        complete: function() {
+          self.el.querySelector('.js-continue').setAttribute('disabled', 'disabled');
+        }
+      })
     },
 
     _onContinue: function () {
@@ -60,7 +78,6 @@
       App.Helper.Analytics.sendEvent('Download', 'Download from Data Portal', country);
 
       this._sendRequest();
-      this.constructor.__super__.onCloseModal.apply(this);
     },
 
     /**
