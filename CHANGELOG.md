@@ -20,11 +20,8 @@
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
-<<<<<<< HEAD
 - Map legend Styles
-=======
 - User icon on the header now have a explicit text
->>>>>>> 7efde19a53a582615b4cf072f20ff91aeb79bacd
 
 ### Fixed
 
