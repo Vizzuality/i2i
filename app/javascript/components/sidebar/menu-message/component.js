@@ -23,5 +23,5 @@ const MenuMessage = ({ onSelect }) => (
   </div>
 );
 
-MenuMessage.propTypes = { onSelect: PropTypes.func.isRequired }
+MenuMessage.propTypes = { onSelect: PropTypes.func.isRequired };
 export default MenuMessage;
