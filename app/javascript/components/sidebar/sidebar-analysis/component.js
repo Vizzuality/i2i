@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // components
+import MenuMessage from 'components/sidebar/menu-message';
 import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Nearby from 'components/sidebar/nearby';
@@ -41,18 +42,47 @@ class SidebarAnalysisComponent extends React.Component {
     active: PropTypes.bool.isRequired,
     menuItem: PropTypes.string,
     selected: PropTypes.string,
+    selectedLayers: PropTypes.array,
     setMenuItem: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired
+    setAnalysisActive: PropTypes.func.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    list: PropTypes.shape
   }
 
   static defaultProps = {
     menuItem: '',
-    selected: ''
+    selected: '',
+    selectedLayers: [],
+    list: {}
   }
 
   render() {
-    const { menuItem, active, selected, setMenuItem, setAnalysisActive } = this.props;
+    const {
+      menuItem,
+      active,
+      selected,
+      list,
+      setMenuItem,
+      selectedLayers,
+      setAnalysisActive,
+      setSelected
+    } = this.props;
+
     const availableMenuItems = ANALYSIS_TYPES.map(t => t.value);
+    const analysisLayers = (list
+      .filter(layer => layer.layerType === 'sector' || (layer.type_id && layer.type_id.length !== 0)))
+      .map(sector => sector.id)
+      .some(ele => selectedLayers.includes(ele));
+
+    if (!active && !analysisLayers) {
+      return (
+        <div className="c-sidebar-analysis">
+          <MenuMessage
+            onSelect={setSelected}
+          />
+        </div>
+      );
+    }
 
     return (
       <div className="c-sidebar-analysis">
@@ -74,7 +104,6 @@ class SidebarAnalysisComponent extends React.Component {
               React.cloneElement(MENU_CONTENT[menuItem])}
           </MenuItem>
         }
-
         {active &&
           <AnalysisResult />
         }
