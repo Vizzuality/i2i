@@ -21,6 +21,7 @@
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
 - User icon on the header now have a explicit text
+- Iniatives becomes to Research themes
 
 ### Fixed
 
