@@ -5,6 +5,8 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Added Icomoon
+- New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
 - Filter and message that shows user analysis is just available to sector and some contextual layers
 - Added styles for alert messages
 - Added thank you message after the user requests to download
@@ -18,6 +20,7 @@
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
 - Sidebar tabs styles updated/icons added
+- Styles in layers menu (data-portal/geospatial-data)
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
