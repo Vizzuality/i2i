@@ -1,15 +1,7 @@
 @import '_settings';
 
-.wri_api__c-legend-button {
-  > .wri_api__c-icon {
-    &:before {
-      content: '';
-      border-radius: 50%;
-      border: 1px solid red;
-      width: 26px;
-      height: 25px;
-      position: absolute;
-      top: 0;
-    }
+.c-legend-item-button-info {
+  .legend-info {
+    width: 5px;
   }
 }
