@@ -22,6 +22,7 @@
 - Button for National Surveys added in sidebar
 - Map legend Styles
 - User icon on the header now have a explicit text
+- Changed contact form in order to send messages from server instead Salesforce
 
 ### Fixed
 
