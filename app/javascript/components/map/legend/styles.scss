@@ -81,10 +81,11 @@
             font-weight: normal;
             font-family: $font-family-1;
           }
+          svg.wri_api__c-icon {
+            opacity: 0.7;
+          }
         }
       }
-
-
 
       .wri_api__name {
         font-size: 12px;
@@ -97,7 +98,6 @@
         }
       }
 
-
       > .wri_api__icon-square {
         width: 10px !important;
         height: 10px !important;
@@ -105,7 +105,7 @@
         margin-top: 5px;
       }
 
-      >.wri_api__icon-choropleth {
+      > .wri_api__icon-choropleth {
         font-size: 12px;
       }
     }
@@ -116,7 +116,5 @@
       }
     }
   }
-
-
 }
 
