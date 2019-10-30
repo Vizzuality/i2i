@@ -58,7 +58,7 @@ class LegendLayersComponent extends React.Component {
               type="button"
               className="wri_api__c-legend-button"
             >
-              <Icon name="icon-layers" className="-small" style={{ fill: '#717171' }} />
+              <Icon name="icon-settings" className="-small" />
             </button>
           </Tooltip>
         </Tooltip>

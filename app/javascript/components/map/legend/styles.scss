@@ -1,15 +1,120 @@
+@import '_settings';
+
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
+
+  @if($direction == 'up') {
+    border-top: 0;
+    border-left: $size solid transparent;  /* left arrow slant */
+    border-right: $size solid transparent; /* right arrow slant */
+    border-bottom: $size solid $color; /* bottom, add background color here */
+  }
+
+  @if($direction == 'down') {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  }
+}
+
 .c-legend {
   position: absolute;
   bottom: 35px;
   right: 30px;
   width: 80%;
-  max-width: 400px;
+  max-width: 350px;
   z-index: 9;
-}
 
-.wri_api__c-legend-map {
-  .wri_api__legend-title {
-    letter-spacing: 0;
-    line-height: normal;
+  .wri_api__c-legend-map {
+    border: none;
+    background-color: transparent;
+
+    .wri_api__toggle-legend {
+      background-color: #2F939C;
+      width: 25px;
+      height: 25px;
+      padding-bottom: 10px;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+      margin-bottom: 5px;
+
+      svg {
+        display: none;
+      }
+
+      &:before {
+        content: '';
+        @include triangle(5px, $color-4, 'down');
+      }
+    }
+
+    .wri_api__c-legend-item {
+      color: $color-4;
+      font-size: 16px;
+      line-height: 22px;
+      font-family: 'Open Sans', sans-serif;
+      border: none;
+      box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
+      background-color: rgba(#3B3A40, .9);
+
+      * {
+        color: $color-4;
+        background-color: transparent;
+        fill: $color-4;
+      }
+
+      .wri_api__legend-item-container {
+        border-bottom: 1px solid $color-4;
+
+        .wri_api__legend-title {
+          letter-spacing: 0;
+          line-height: normal;
+        }
+
+        .wri_api__legend-item-header {
+          > h3 {
+            color: $color-4;
+            font-size: 16px;
+            line-height: 22px;
+            font-weight: normal;
+            font-family: $font-family-1;
+          }
+          svg.wri_api__c-icon {
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .wri_api__name {
+        font-size: 12px;
+        font-family: arial;
+      }
+
+      ul.wri_api__c-legend-type-choropleth {
+        .wri_api__name {
+          font-size: 11px;
+        }
+      }
+
+      > .wri_api__icon-square {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50%;
+        margin-top: 5px;
+      }
+
+      > .wri_api__icon-choropleth {
+        font-size: 12px;
+      }
+    }
+
+    li {
+      > .wri_api__c-legend-item {
+        box-shadow: none;
+      }
+    }
   }
 }
+

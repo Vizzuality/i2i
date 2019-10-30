@@ -6,14 +6,22 @@
   opacity: 0.5;
   fill: $color-5;
 
+  // colors
   &.-sea {
     fill: $color-1;
   }
 
+  &.-white {
+    fill: $color-4;
+  }
+
+  //sizes
   &.-small {
     width: 16px;
     height: 18px;
   }
+
+  // functionality
   &.-selected {
     fill: #2F8B9C;
     opacity: 1;
