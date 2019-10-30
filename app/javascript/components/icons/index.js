@@ -11,7 +11,6 @@ class Icons extends React.Component {
     return (
       <svg ariaHidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
         <defs>
-
           <symbol id="icon-search" viewBox="0 0 32 32">
             <title>search</title>
             <path d="M30.494 27.859l-5.835-5.835c1.694-2.259 2.635-4.894 2.635-7.906 0-7.341-5.835-13.176-13.176-13.176s-13.176 5.835-13.176 13.176c0 7.341 5.835 13.176 13.176 13.176 3.012 0 5.647-0.941 7.906-2.635l5.835 5.835c0.376 0.376 0.941 0.565 1.318 0.565s0.941-0.188 1.318-0.565c0.753-0.753 0.753-1.882 0-2.635zM4.706 14.118c0-5.271 4.141-9.412 9.412-9.412s9.412 4.141 9.412 9.412-4.141 9.412-9.412 9.412-9.412-4.141-9.412-9.412z"></path>
