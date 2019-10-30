@@ -21,6 +21,7 @@
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
+- Map legend Styles
 - User icon on the header now have a explicit text
 - Changed contact form in order to send messages from server instead Salesforce
 
