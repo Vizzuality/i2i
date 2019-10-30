@@ -272,59 +272,46 @@
           <div class="grid-s-12">
             <div class="l-form-contact">
               <div class="grid-s-12 grid-m-8">
-
-                <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="c-form contact-form">
-
-
-<input type=hidden name='captcha_settings' value='{"keyname":"GoogleCAPTCHA","fallback":"true","orgId":"00D0Y000002FWyG","ts":""}'>
-<input type=hidden name="orgid" value="00D0Y000002FWyG">
-<input type=hidden name="retURL" value="https://i2ifacility.org/about">
-
+                <%= form_with(model: @contact, url: about_contacts_path, remote: false, class: 'c-form contact-form') do |f| %>
+                  <input type=hidden name='captcha_settings' value='{"keyname":"GoogleCAPTCHA","fallback":"true","orgId":"00D0Y000002FWyG","ts":""}'>
+                  <input type=hidden name="orgid" value="00D0Y000002FWyG">
+                  <input type=hidden name="retURL" value="https://i2ifacility.org/about">
 
                   <div class="custom-row">
-                    <label for="first_name">First Name *</label><br>
-                    <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+                    <%= f.label :first_name %>
+                    <%= f.text_field :first_name, max: 40, size: 20, required: true %>
                   </div>
-
                   <div class="custom-row">
-                    <label for="last_name">Last Name</label><br>
-                    <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+                    <%= f.label :last_name %>
+                    <%= f.text_field :last_name, max: 80, size: 20 %>
                   </div>
-
                   <div class="custom-row">
-                    <label for="email">Email *</label><br>
-                    <input  id="email" required maxlength="80" name="email" size="20" type="text" required />
+                    <%= f.label :email %>
+                    <%= f.email_field :email, max: 80, size: 20, required: true %>
                   </div>
-
-
                   <div class="custom-row">
-                    <label for="title">Title</label><br>
-                    <input  id="title" maxlength="40" name="title" size="20" type="text" />
+                    <%= f.label :title %>
+                    <%= f.text_field :title, max: 40, size: 20 %>
                   </div>
-
-
                   <div class="custom-row">
-                    <label for="company">Company</label><br>
-                    <input id="company" maxlength="40" name="company" size="20" type="text" />
+                    <%= f.label :company %>
+                    <%= f.text_field :company, max: 40, size: 20 %>
                   </div>
-
-
                   <div class="custom-row">
-                    <label for="country">Country</label><br>
-                    <input  id="country" maxlength="40" name="country" size="20" type="text" />
+                    <%= f.label :country %>
+                    <%= f.text_field :country, max: 40, size: 20 %>
                   </div>
-
-
                   <div class="custom-row">
-                    <label for="Message">Message *</label><br>
-                    <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
+                    <%= f.label :message %>
+                    <%= f.text_area :message, wrap: 'soft', required: true %>
                   </div>
 
                   <div style="margin-top: 30px" class="g-recaptcha" data-sitekey="6LfxMawUAAAAABpwWctOmKpQ1XOSW0T-g1__xSry"></div><br>
 
-                  <input type="submit" name="submit" class="primary-btn">
-                </form>
-
+                  <div class="actions">
+                    <%= f.submit "Send", class: 'primary-btn' %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

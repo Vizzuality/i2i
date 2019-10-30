@@ -22,6 +22,7 @@
 - Button for National Surveys added in sidebar
 - User icon on the header now have a explicit text
 - Iniatives becomes to Research themes
+- Changed contact form in order to send messages from server instead Salesforce
 
 ### Fixed
 
@@ -32,3 +33,4 @@
 - Fixed an error where user didn't receive an email after request a new password
 - Fixed a syntax error in Hotjar library
 - Fixed icon alignment in the download modal form
+- Fixed an issue where search by iso doesn't return any result
