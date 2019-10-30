@@ -19,7 +19,7 @@
           <%= link_to 'Insights', insights_path, data: { turbolinks: false } %>
         </li>
         <li class="nav-item <% if current_page?(initiatives_path) || controller.controller_name == 'initiatives' %> -current <% end%>">
-          <%= link_to 'Initiatives', initiatives_path, data: { turbolinks: false } %>
+          <%= link_to 'Research themes', initiatives_path, data: { turbolinks: false } %>
         </li>
         <li class="nav-item <% if current_page?(tools_path) %> -current <% end%>">
           <%= link_to 'Tools', tools_path, data: { turbolinks: false } %>
