@@ -6,7 +6,8 @@ import SidebarAnalysisComponent from './component';
 export default connect(
   state => ({
     ...state.fspMaps.sidebar,
-    ...state.fspMaps.analysis
+    ...state.fspMaps.analysis,
+    ...state.fspMaps.layers
   }),
   actions
 )(SidebarAnalysisComponent);
