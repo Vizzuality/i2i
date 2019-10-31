@@ -40,3 +40,4 @@
 - Fixed a syntax error in Hotjar library
 - Fixed icon alignment in the download modal form
 - Fixed an issue where search by iso doesn't return any result
+- Fixed an issue where scroll jumps to the top of the page when user clicks on "Show more" button
