@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Videos section added to geospatial portal header
 - Added Icomoon
 - New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
 - Filter and message that shows user analysis is just available to sector and some contextual layers
