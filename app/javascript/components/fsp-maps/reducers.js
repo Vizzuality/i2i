@@ -157,6 +157,11 @@ export default {
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
   },
+  [actions.setPinDrop]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, active: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
 
   // Analysis - area of interest
   [actions.setAreaOfInterest]: (state, { payload }) => {

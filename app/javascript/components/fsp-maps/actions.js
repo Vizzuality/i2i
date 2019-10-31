@@ -251,6 +251,7 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
 export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
 // Analysis - nearby
+export const setPinDrop = createAction('ANALYSIS/setPinDrop');
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
 export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');

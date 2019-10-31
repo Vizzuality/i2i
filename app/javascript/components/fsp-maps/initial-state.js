@@ -39,7 +39,8 @@ export default {
       time: 30,
       area: {},
       error: null,
-      center: {}
+      center: {},
+      active: false
     },
     areaOfInterest: {
       drawing: false,
