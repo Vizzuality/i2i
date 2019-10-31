@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 
   resource :contacts, only: :create do
     post :batch_download
+    post :about
   end
 
   scope :format => true, :constraints => { :format => 'json' } do

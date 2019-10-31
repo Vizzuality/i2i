@@ -5,8 +5,15 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+<<<<<<< HEAD
 - Analysis from pin dropped by user in geospatial-data / calculate proximity
+=======
+- Added Icomoon
+- New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
+- Filter and message that shows user analysis is just available to sector and some contextual layers
+>>>>>>> bbd1a2c310129a2b0de9cb56b2efc60f29902412
 - Added styles for alert messages
+- Added thank you message after the user requests to download
 
 ### Changed
 
@@ -17,11 +24,15 @@
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
 - Sidebar tabs styles updated/icons added
+- Styles in layers menu (data-portal/geospatial-data)
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
 - Sidebar menu updated (styles and functionality)
+- Map legend Styles
 - User icon on the header now have a explicit text
+- Iniatives becomes to Research themes
+- Changed contact form in order to send messages from server instead Salesforce
 
 ### Fixed
 
@@ -32,3 +43,4 @@
 - Fixed an error where user didn't receive an email after request a new password
 - Fixed a syntax error in Hotjar library
 - Fixed icon alignment in the download modal form
+- Fixed an issue where search by iso doesn't return any result

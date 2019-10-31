@@ -3,6 +3,8 @@
 (function (App) {
   App.Component.DownloadMorePublications = App.Component.Modal.extend({
     contentTemplate: JST['templates/shared/modals/modal-more-publications'],
+    successTemplate: JST['templates/shared/modals/modal-success-message'],
+    errorTemplate: JST['templates/shared/modals/modal-error-message'],
 
     defaults: {
       title: 'Download',
@@ -54,7 +56,6 @@
     _onSubmit: function (e) {
       e.preventDefault();
       this._sendRequest();
-      this.constructor.__super__.onCloseModal.apply(this);
     },
 
     _onChange: function (e) {
@@ -74,13 +75,26 @@
      * Sends email request
      */
     _sendRequest: function() {
+      var self = this;
+
       data = $('form').serializeArray();
       data.push({ name: 'country', value: this.options.iso });
 
       $.post({
         url: "<%= batch_download_contacts_path %>",
-        data: data
-      })
+        data: data,
+        success: function() {
+          self.options.content = self.successTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        error: function() {
+          self.options.content = self.errorTemplate({});
+          self.constructor.__super__.render.apply(self);
+        },
+        complete: function() {
+          self.el.querySelector('.js-download').setAttribute('disabled', 'disabled');
+        }
+      });
     },
 
     /**

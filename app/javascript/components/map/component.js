@@ -95,7 +95,6 @@ class MapComponent extends PureComponent {
         type: 'featureGroup'
       }
     }];
-
     const layersResult = [
       ...jurisdictionAreaLayer,
       ...nearbyAreaLayer,
@@ -145,7 +144,7 @@ class MapComponent extends PureComponent {
                         events: {
                           click: (e) => {
                             const { sourceTarget, target, ...info } = e;
-
+                            console.log(info, info.M, 'event click')
                             this.props.setLayersInteractions({
                               [layer.id]: {
                                 ...info,

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Item from './components/item';
+
 // styles
 import './styles.scss';
 
@@ -33,7 +35,8 @@ class IntroComponent extends React.Component {
                     {data.map(item => (
                       <th key={item.label}>
                         <div className="intro-label">
-                          {item.label}
+                          {!item.component && (item.label)}
+                          {item.component && (<Item item={item} />)}
                         </div>
                       </th>
                     ))}

@@ -1,0 +1,25 @@
+@import '_settings';
+
+.c-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Open Sans";
+  color: $color-5;
+  font-weight: 600;
+  padding: 200px 70px;
+
+  .button {
+    color: $color-1;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .message-image {
+    height: 85px;
+    width: 105px;
+    padding: 20px;
+    box-sizing: content-box;
+  }
+}

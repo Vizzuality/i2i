@@ -67,6 +67,11 @@ class NearbyComponent extends PureComponent {
     }
   }
 
+  onDrop = (value) => {
+    //this.props.setNearby({ ...this.props.nearby, location: value });
+    console.log(this.props.nearby.location)
+  }
+
   render() {
     const { shortIso, active: analysisActive, selectedLayers } = this.props;
     const { time, error, location, area } = this.props.nearby;
@@ -138,7 +143,7 @@ class NearbyComponent extends PureComponent {
         <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
           <button
               className="c-button -small -white"
-              onClick={() => this.props.setAnalysisActive(!analysisActive)}
+              onClick={() => this.onDrop()}
           >
               Drop a pin
           </button>
