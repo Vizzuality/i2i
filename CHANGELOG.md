@@ -5,13 +5,11 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
-<<<<<<< HEAD
 - Analysis from pin dropped by user in geospatial-data / calculate proximity
-=======
+- Videos section added to geospatial portal header
 - Added Icomoon
 - New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
 - Filter and message that shows user analysis is just available to sector and some contextual layers
->>>>>>> bbd1a2c310129a2b0de9cb56b2efc60f29902412
 - Added styles for alert messages
 - Added thank you message after the user requests to download
 
