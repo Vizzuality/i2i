@@ -7,7 +7,6 @@ import MenuItem from 'components/sidebar/menu-item';
 import Sectors from 'components/sidebar/sectors';
 import ContextualLayers from 'components/sidebar/contextual-layers';
 import NationalSurveys from 'components/sidebar/national-surveys';
-import ActiveLayersIndicator from 'components/sidebar/active-layers-indicator';
 
 
 // styles
@@ -28,7 +27,6 @@ const LAYER_TYPES = [
 class SidebarLayersComponent extends React.Component {
   static propTypes = {
     menuItem: PropTypes.string,
-    selectedLayers: PropTypes.array.isRequired,
     layersSettings: PropTypes.object.isRequired,
     setMenuItem: PropTypes.func.isRequired
   }
@@ -36,16 +34,11 @@ class SidebarLayersComponent extends React.Component {
   static defaultProps = { menuItem: '' }
 
   render() {
-    const { menuItem, selectedLayers, layersSettings } = this.props;
+    const { menuItem, layersSettings } = this.props;
     const availableMenuItems = LAYER_TYPES.map(t => t.value);
 
     return (
       <div className="c-sidebar-layers">
-        {!!selectedLayers.length &&
-          <div className="active-layers-indicator-container">
-            <ActiveLayersIndicator />
-          </div>
-        }
         {(!menuItem || !availableMenuItems.includes(menuItem)) && (
           <MenuItems
             items={LAYER_TYPES}

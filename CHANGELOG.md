@@ -29,6 +29,7 @@
 - User icon on the header now have a explicit text
 - Iniatives becomes to Research themes
 - Changed contact form in order to send messages from server instead Salesforce
+- Active layers indicator removed in sidebar
 
 ### Fixed
 
