@@ -1,25 +1,24 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 // styles
 import './styles.scss';
 
-class AnalyzePatterns extends PureComponent {
-  static propTypes = {
-    selectedLayers: PropTypes.array.isRequired,
-    analysisActive: PropTypes.bool.isRequired,
-    fetchIntro: PropTypes.func.isRequired,
-    setClearing: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired,
-    setLayersSettings: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    const { setLayersSettings, layersSettings } = this.props;
+const AnalyzePatterns = ({
+  setLayersSettings,
+  layersSettings,
+  setClearing,
+  fetchIntro,
+  selectedLayers,
+  analysisActive,
+  setAnalysisActive
+}) => {
+  useEffect(() => {
     const heatmapsLayers = Object.keys(layersSettings).reduce((acc, _layerId) => ({
       ...acc,
       [_layerId]: {
+        // eslint-disable-next-line no-underscore-dangle
         ...layersSettings[_layerId],
         visualizationType: 'heatmap',
         visibility: true,
@@ -28,38 +27,54 @@ class AnalyzePatterns extends PureComponent {
     }), {});
 
     setLayersSettings(heatmapsLayers);
-  }
-
-  onClear = () => {
-    this.props.setClearing(true);
-    this.props.fetchIntro();
-  }
+  });
 
 
-  render() {
-    const { analysisActive, selectedLayers } = this.props;
+  const onClear = () => {
+    setClearing(true);
+    fetchIntro();
+  };
 
-    return (
-      <div className="c-analyze-patterns">
-        <div className="content-wrapper">
-          <p>Find a hotspot and analyze it.</p>
-        </div>
-
-
-        <div className="buttons-container -analysis-report">
-          <button
-            className={classnames('c-button -small -sea', { '-disabled': !selectedLayers.length })}
-            onClick={() => {
-              this.props.setAnalysisActive(!analysisActive);
-            }}
-          >
-            Summary Report
-          </button>
-        </div>
-
+  return (
+    <div className="c-analyze-patterns">
+      <div className="content-wrapper">
+        <p>Find a hotspot and analyze it.</p>
       </div>
-    );
-  }
-}
+
+
+      <div className="buttons-container -analysis-report">
+        <button
+          className="c-button -small -white"
+          onClick={() => {
+            onClear();
+          }}
+        >
+          Cancel
+        </button>
+        <button
+          className={classnames('c-button -small -sea', { '-disabled': !selectedLayers.length })}
+          onClick={() => {
+            setAnalysisActive(!analysisActive);
+          }}
+        >
+          Summary Report
+        </button>
+      </div>
+
+    </div>
+  );
+};
+
+
+AnalyzePatterns.propTypes = {
+  setLayersSettings: PropTypes.func.isRequired,
+  layersSettings: PropTypes.shape({}).isRequired,
+  setClearing: PropTypes.func.isRequired,
+  fetchIntro: PropTypes.func.isRequired,
+  selectedLayers: PropTypes.array.isRequired,
+  analysisActive: PropTypes.bool.isRequired,
+  setAnalysisActive: PropTypes.func.isRequired
+};
 
 export default AnalyzePatterns;
+
