@@ -1,30 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import widgetTemplates from './templates';
 
 // components
-//import Widget from 'components/widget';
-
-
-import NumberOfServices from 'components/widget-templates/number-of-services';
+import WidgetWrapperComponent from 'components/widget';
 
 // styles
 import './styles.scss';
-import WidgetWrapperComponent from '../component-recharts';
-
-//const widgetTemplates = new Map({ 'Number of services': <NumberOfServices /> });
-
-const widgetTemplates = new Map([
-  ['Number of services', { component: NumberOfServices }],
-  ['Access points percentage', { component: NumberOfServices }],
-  ['Minimum distance to access points', { component: NumberOfServices }],
-  ['Area covered by GSM, 3G, and 4G', { component: NumberOfServices }],
-  ['Population', { component: NumberOfServices }]
-  //
-  // ['', { component: NumberOfServices }],
-  // ['', { component: NumberOfServices }],
-  // ['', { component: NumberOfServices }],
-  // ['', { component: NumberOfServices }]
-]);
 
 class AnalysisResultComponent extends React.Component {
   static propTypes = {
@@ -37,6 +19,7 @@ class AnalysisResultComponent extends React.Component {
 
   render() {
     const { widgets, analysisActive } = this.props;
+
     return (
       <div className="c-sidebar-analysis-result">
         <div
@@ -52,17 +35,34 @@ class AnalysisResultComponent extends React.Component {
         {widgets.length && widgets.map((widget) => {
           const Widget = widgetTemplates.get(widget.title).component;
 
-          console.log(Widget, 'widget completo')
-
           return (
-            <WidgetWrapperComponent>
-              <Widget
-                key={widget.id}
-                {...widget}
-              />
+            <WidgetWrapperComponent
+              key={widget.id}
+              menuItem
+              {...widget}
+            >
+
+              {({ widgetData, menuItem }) => (
+                <Fragment>
+                  {widgetData && widgetData.length &&
+                    <Widget
+                      key={widget.title}
+                      menuItem={menuItem}
+                      widgetData={widgetData}
+                      {...widget}
+                    />
+                  }
+                  {(!widgetData || widgetData.length) === 0 &&
+                    <div>
+                      No data available
+                    </div>
+                  }
+                </Fragment>
+              )}
             </WidgetWrapperComponent>
           );
-        })}
+        })
+        }
       </div>
     );
   }
