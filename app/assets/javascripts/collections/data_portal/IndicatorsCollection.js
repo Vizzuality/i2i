@@ -19,7 +19,25 @@
     { id: 'total_saving_strand', name: 'Saving strands', category: 'Strands', visible: false },
     { id: 'total_remittances_strand', name: 'Remittances strands', category: 'Strands', visible: false },
     { id: 'total_insurance_strand', name: 'Insurance strands', category: 'Strands', visible: false },
-    { id: 'total_credit_strand', name: 'Credit strands', category: 'Strands', visible: false }
+    { id: 'total_credit_strand', name: 'Credit strands', category: 'Strands', visible: false },
+
+    { id: 'water_source_type', name: 'Water source type', category: 'Common indicators', visible: false },
+    { id: 'toilet_type', name: 'Toilet type', category: 'Common indicators', visible: false },
+    { id: 'cooking_energy', name: 'Cooking energy', category: 'Common indicators', visible: false },
+    { id: 'electricity_access', name: 'Electricity access', category: 'Common indicators', visible: false },
+
+    { id: 'comfortable_assets', name: 'Comfortable assets', category: 'Asset', visible: false },
+    { id: 'basic_assets', name: 'Basic assets', category: 'Asset', visible: false },
+    { id: 'average_assets', name: 'Average assets', category: 'Asset', visible: false },
+    { id: 'asset_ladder', name: 'Asset ladder', category: 'Asset', visible: false },
+
+    { id: 'health_symptom', name: 'Health symptom', category: 'SDGs', visible: false },
+    { id: 'hunger_symptom', name: 'Hunger symptom', category: 'SDGs', visible: false },
+    { id: 'education_symptom', name: 'Education symptom', category: 'SDGs', visible: false },
+    { id: 'formally_employed', name: 'Formally employed', category: 'SDGs', visible: false },
+
+    { id: 'poverty_line', name: 'Poverty line', category: 'Poverty', visible: false },
+    { id: 'usd_per_day', name: 'USD per day', category: 'Poverty', visible: false }
   ];
 
   App.Collection.IndicatorsCollection = Backbone.Collection.extend({

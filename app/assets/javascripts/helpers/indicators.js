@@ -4,7 +4,10 @@
     CATEGORIES: {
       COMMON: 'Common indicators',
       ACCESS: 'Financial access',
-      STRANDS: 'Strands'
+      STRANDS: 'Strands',
+      ASSET: 'Asset',
+      SDGS: 'SDGs',
+      POVERTY: 'Poverty',
     },
 
     // Description for the categories
