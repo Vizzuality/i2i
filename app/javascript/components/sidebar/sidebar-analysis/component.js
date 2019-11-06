@@ -57,7 +57,7 @@ class SidebarAnalysisComponent extends React.Component {
     setMenuItem: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired,
     setSelected: PropTypes.func.isRequired,
-    list: PropTypes.shape
+    list: PropTypes.array
   }
 
   static defaultProps = {
