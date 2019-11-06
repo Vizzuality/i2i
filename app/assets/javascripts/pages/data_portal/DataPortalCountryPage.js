@@ -467,7 +467,10 @@
       var index = _.findIndex(visibleIndicators, { id: indicatorId });
       var indicator = visibleIndicators[index];
       var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
-        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.ASSET
+        || indicator.category === App.Helper.Indicators.CATEGORIES.SDGS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.POVERTY;
 
       if (isComplex) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
