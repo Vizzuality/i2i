@@ -21,10 +21,10 @@
     { id: 'total_insurance_strand', name: 'Insurance strands', category: 'Strands', visible: false },
     { id: 'total_credit_strand', name: 'Credit strands', category: 'Strands', visible: false },
 
-    { id: 'water_source_type', name: 'Water source type', category: 'Common indicators', visible: true },
-    { id: 'toilet_type', name: 'Toilet type', category: 'Common indicators', visible: true },
-    { id: 'cooking_energy', name: 'Cooking energy', category: 'Common indicators', visible: true },
-    { id: 'electricity_access', name: 'Electricity access', category: 'Common indicators', visible: true },
+    { id: 'water_source_type', name: 'Water source type', category: 'Common indicators', visible: false },
+    { id: 'toilet_type', name: 'Toilet type', category: 'Common indicators', visible: false },
+    { id: 'cooking_energy', name: 'Cooking energy', category: 'Common indicators', visible: false },
+    { id: 'electricity_access', name: 'Electricity access', category: 'Common indicators', visible: false },
 
     { id: 'comfortable_assets', name: 'Comfortable assets', category: 'Asset', visible: false },
     { id: 'basic_assets', name: 'Basic assets', category: 'Asset', visible: false },

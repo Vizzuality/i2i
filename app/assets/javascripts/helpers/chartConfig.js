@@ -90,7 +90,10 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS
+      ],
       ratio: 0.3,
       responsive: {
         mode: 'scroll',
@@ -99,7 +102,10 @@
     },
     {
       name: 'analysis',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS
+      ],
       visible: false,
       responsive: {
         mode: 'adaptative',
@@ -108,7 +114,10 @@
     },
     {
       name: 'compare',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS
+      ],
       visible: false,
       ratio: 0.3,
       responsive: {
