@@ -36,12 +36,12 @@ export default {
   analysis: {
     active: false,
     nearby: {
-      pin: { active: true, dropped: false },
-      location: {},
+      location: true,
+      pin: { active: false, dropped: false },
       time: 30,
       area: {},
       error: null,
-      center: {},
+      center: {}
     },
     areaOfInterest: {
       drawing: false,

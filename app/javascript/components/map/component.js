@@ -19,11 +19,12 @@ import ShareControl from 'components/map/controls/share';
 import BookIcon from 'images/data-portal/book.svg';
 import Pin from 'components/icons/SVG/pin.svg';
 
-import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS, NEARBY_MARKER } from './constants';
+import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
 // styles
 import './styles.scss';
 import { fetchNearbyArea } from '../datasets/actions';
+import { togglePinDrop } from '../fsp-maps/actions';
 
 class MapComponent extends PureComponent {
   static propTypes = {
@@ -45,8 +46,9 @@ class MapComponent extends PureComponent {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearby, setLatLng, setNearbyCenter, fetchNearbyArea, center: coordinates } = this.props;
-    const { area: nearbyArea, time: nearbyTime, pin } = this.props.nearby;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea } = this.props;
+    const { area: nearbyArea, pin, center: coordinates, location } = nearby;
+    const { active } = pin;
     const { area: jurisdictionArea } = this.props.jurisdiction;
 
     const polygonAreaStyle = {
@@ -60,7 +62,7 @@ class MapComponent extends PureComponent {
       '-open': !!open
     });
 
-    const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+    const nearbyAreaLayer = (!isEmpty(nearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby',
       provider: 'leaflet',
       layerConfig: {
@@ -71,15 +73,15 @@ class MapComponent extends PureComponent {
     }] : [];
 
 
-    const nearbyMarkerLayer = (!!coordinates && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+    const nearbyMarkerLayer = (!!coordinates && active && !location && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby-icons',
+      key: coordinates,
       provider: 'leaflet',
       layerConfig: {
         body: [L.marker(
           coordinates,
           {
-            icon: L.icon({
-              iconUrl: Pin,
+            icon: L.circle({
               iconSize: [20, 20]
             })
           }
@@ -151,10 +153,15 @@ class MapComponent extends PureComponent {
           events={{
             click: (e) => {
               const { lat, lng } = e.latlng;
-
+              const nearbyIcon = layersResult.filter(layer => layer.id === 'nearby-icons');
               if (menuItem === 'nearby') {
                 setNearbyCenter({ lat, lng });
                 fetchNearbyArea();
+              }
+              if (active) {
+                togglePinDrop({ ...pin, dropped: true });
+              } else if (!active && nearbyIcon) {
+                togglePinDrop({ active: true, dropped: false });
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },

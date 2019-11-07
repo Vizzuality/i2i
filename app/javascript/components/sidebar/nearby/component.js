@@ -8,7 +8,6 @@ import { Range } from 'wri-api-components/dist/form';
 import Geosuggest from 'react-geosuggest';
 
 //Styles
-
 import './styles.scss';
 
 class NearbyComponent extends PureComponent {
@@ -22,10 +21,10 @@ class NearbyComponent extends PureComponent {
     fetchNearbyArea: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired,
     togglePinDrop: PropTypes.func.isRequired,
-    latLng: PropTypes.shape({})
+    toggleLocation: PropTypes.func.isRequired
   }
 
-  static defaultProps = { nearby: {}, latLng: {} }
+  static defaultProps = { nearby: {} }
 
   state = { showSearchInput: false };
 
@@ -71,17 +70,18 @@ class NearbyComponent extends PureComponent {
   }
 
   onDrop = () => {
-    const { pin } = this.props.nearby;
-    const { active, dropped } = pin;
-    console.log(pin, active, dropped)
-    this.props.togglePinDrop({ ...pin, active: true });
+    const { togglePinDrop, toggleLocation, nearby } = this.props;
+    const { pin } = nearby;
+    const { active } = pin;
+    if (active) { toggleLocation(false); }
+    togglePinDrop({ ...pin, active: !active });
   }
 
   render() {
-    const { shortIso, active: analysisActive, selectedLayers, latLng } = this.props;
-    const { time, error, location, area, pin, dropped } = this.props.nearby;
+    const { shortIso, active: analysisActive, selectedLayers } = this.props;
+    const { time, error, location, area, pin } = this.props.nearby;
+    const { active, dropped } = pin;
 
-    console.log(location, 'location')
     return (
       <div className="c-nearby">
         {!!error &&
@@ -116,10 +116,11 @@ class NearbyComponent extends PureComponent {
           <p>OR</p>
 
           <button
-            className="c-button -small -white"
+            className={classnames('c-button -small -white',
+              { '-disabled': (active && !dropped) })}
             onClick={this.onDrop}
           >
-            {pin && dropped ? 'Clear pin' : 'Drop a pin'}
+            {(!active) ? 'Click on map' : 'Clear area'}
           </button>
 
           <div className="c-field">

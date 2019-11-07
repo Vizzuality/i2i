@@ -167,6 +167,11 @@ export default {
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
   },
+  [actions.toggleLocation]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, location: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
 
   // Analysis - area of interest
   [actions.setAreaOfInterest]: (state, { payload }) => {
