@@ -74,6 +74,11 @@ export default {
     return { ...state, map };
   },
 
+  [actions.setLatLng]: (state, { payload }) => {
+    const map = { ...state.map, latLng: payload };
+    return { ...state, map };
+  },
+
 
   // LEGEND
   [actions.setOpenLegend]: (state, { payload }) => {
@@ -157,8 +162,8 @@ export default {
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
   },
-  [actions.setPinDrop]: (state, { payload }) => {
-    const nearby = { ...state.analysis.nearby, active: payload };
+  [actions.togglePinDrop]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, pin: payload };
     const analysis = { ...state.analysis, nearby };
     return { ...state, analysis };
   },

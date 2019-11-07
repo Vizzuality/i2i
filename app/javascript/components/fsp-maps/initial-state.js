@@ -12,7 +12,8 @@ export default {
     zoom: 3,
     center: { lat: 0, lng: 0 },
     basemap: 'light',
-    label: 'dark'
+    label: 'dark',
+    latLng: { lat: '', lng: '' }
   },
   legend: { open: true },
   sidebar: {
@@ -35,12 +36,12 @@ export default {
   analysis: {
     active: false,
     nearby: {
+      pin: { active: true, dropped: false },
       location: {},
       time: 30,
       area: {},
       error: null,
       center: {},
-      active: false
     },
     areaOfInterest: {
       drawing: false,

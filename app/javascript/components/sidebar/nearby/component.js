@@ -20,10 +20,12 @@ class NearbyComponent extends PureComponent {
     setNearby: PropTypes.func.isRequired,
     setNearbyError: PropTypes.func.isRequired,
     fetchNearbyArea: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired
+    setAnalysisActive: PropTypes.func.isRequired,
+    togglePinDrop: PropTypes.func.isRequired,
+    latLng: PropTypes.shape({})
   }
 
-  static defaultProps = { nearby: {} }
+  static defaultProps = { nearby: {}, latLng: {} }
 
   state = { showSearchInput: false };
 
@@ -51,6 +53,7 @@ class NearbyComponent extends PureComponent {
     this.onToggleSearchInput(false);
   }
 
+
   onChange = (value) => {
     console.log(value);
     // this.props.setNearby({ ...this.props.nearby, time: value });
@@ -67,15 +70,18 @@ class NearbyComponent extends PureComponent {
     }
   }
 
-  onDrop = (value) => {
-    //this.props.setNearby({ ...this.props.nearby, location: value });
-    console.log(this.props.nearby.location)
+  onDrop = () => {
+    const { pin } = this.props.nearby;
+    const { active, dropped } = pin;
+    console.log(pin, active, dropped)
+    this.props.togglePinDrop({ ...pin, active: true });
   }
 
   render() {
-    const { shortIso, active: analysisActive, selectedLayers } = this.props;
-    const { time, error, location, area } = this.props.nearby;
+    const { shortIso, active: analysisActive, selectedLayers, latLng } = this.props;
+    const { time, error, location, area, pin, dropped } = this.props.nearby;
 
+    console.log(location, 'location')
     return (
       <div className="c-nearby">
         {!!error &&
@@ -106,6 +112,15 @@ class NearbyComponent extends PureComponent {
               onKeyDown={this.onKeyDown}
             />
           </div>
+
+          <p>OR</p>
+
+          <button
+            className="c-button -small -white"
+            onClick={this.onDrop}
+          >
+            {pin && dropped ? 'Clear pin' : 'Drop a pin'}
+          </button>
 
           <div className="c-field">
             <label htmlFor="nearby-time">
@@ -141,12 +156,6 @@ class NearbyComponent extends PureComponent {
         </div>
 
         <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
-          <button
-              className="c-button -small -white"
-              onClick={() => this.onDrop()}
-          >
-              Drop a pin
-          </button>
 
           <button
             className="c-button -small -sea"
