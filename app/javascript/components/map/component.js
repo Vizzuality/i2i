@@ -71,19 +71,18 @@ class MapComponent extends PureComponent {
     }] : [];
 
 
-    const nearbyMarkerLayer = (menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+    const nearbyMarkerLayer = (!!coordinates && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby-icons',
       provider: 'leaflet',
       layerConfig: {
         body: [L.marker(
-          (coordinates,
+          coordinates,
           {
             icon: L.icon({
               iconUrl: Pin,
               iconSize: [20, 20]
             })
           }
-          )
         )],
         parse: false,
         type: 'featureGroup'
@@ -125,7 +124,7 @@ class MapComponent extends PureComponent {
       ...nearbyAreaLayer,
       ...nearbyMarkerLayer,
       ...activeLayers,
-      // ...financialIconsLayer
+      ...financialIconsLayer
     ];
 
     return (
@@ -150,6 +149,14 @@ class MapComponent extends PureComponent {
             }
           }}
           events={{
+            click: (e) => {
+              const { lat, lng } = e.latlng;
+
+              if (menuItem === 'nearby') {
+                setNearbyCenter({ lat, lng });
+                fetchNearbyArea();
+              }
+            },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
             moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
           }}
@@ -169,21 +176,7 @@ class MapComponent extends PureComponent {
                         interactivity: layer.interactivity,
                         events: {
                           click: (e) => {
-                            const { sourceTarget, target, ...info } = e;
-
-                            map.on('click', function (e) {
-                              const lat = e.latlng.lat;
-                              const lng = e.latlng.lng;
-
-                              if (menuItem === 'nearby') {
-                                setNearbyCenter({ lat, lng });
-                                fetchNearbyArea();
-
-
-                              }
-
-
-                            });
+                            const { ...info } = e;
 
                             this.props.setLayersInteractions({
                               [layer.id]: {
