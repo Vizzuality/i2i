@@ -78,11 +78,14 @@ class MapComponent extends PureComponent {
       key: coordinates,
       provider: 'leaflet',
       layerConfig: {
-        body: [L.marker(
+        body: [L.circle(
           coordinates,
           {
             icon: L.circle({
-              iconSize: [20, 20]
+              iconSize: [50, 50],
+              color: 'red',
+              fillColor: 'green',
+              radius: 50.0
             })
           }
         )],
@@ -153,7 +156,10 @@ class MapComponent extends PureComponent {
           events={{
             click: (e) => {
               const { lat, lng } = e.latlng;
+              const { setCenter } = this.props;
               const nearbyIcon = layersResult.filter(layer => layer.id === 'nearby-icons');
+              setCenter(coordinates);
+
               if (menuItem === 'nearby') {
                 setNearbyCenter({ lat, lng });
                 fetchNearbyArea();

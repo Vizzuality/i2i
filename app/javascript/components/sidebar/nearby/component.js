@@ -9,6 +9,7 @@ import Geosuggest from 'react-geosuggest';
 
 //Styles
 import './styles.scss';
+import { setNearbyCenter } from '../../datasets/actions';
 
 class NearbyComponent extends PureComponent {
   static propTypes = {
@@ -74,6 +75,9 @@ class NearbyComponent extends PureComponent {
     const { pin } = nearby;
     const { active } = pin;
     if (active) { toggleLocation(false); }
+    if (!active) {
+      setNearbyCenter({ });
+    }
     togglePinDrop({ ...pin, active: !active });
   }
 
