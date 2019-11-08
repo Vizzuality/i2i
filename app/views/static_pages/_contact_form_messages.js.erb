@@ -8,7 +8,7 @@ if (errors) {
   });
   $messages
     .addClass('message').addClass('-alert')
-    .append('<ul></ul>').find('ul').html(errors_html);
+    .html('<ul></ul>').find('ul').html(errors_html);
 }
 
 else if (success) {
