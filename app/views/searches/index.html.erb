@@ -66,23 +66,25 @@
         <div class="row">
           <div class="grid-s-12">
             <div class="c-filters-block">
-              <h3>Filter by:</h3>
-              <%= form_tag(search_path, method: 'get', class: 'c-form') do %>
+              <h2 class="title -dark -medium">Filter by:</h2>
+              <%= form_tag(search_path, method: 'get', class: 'c-form filters-form') do %>
                 <%= text_field_tag(:term, params[:term], hidden: true) %>
-                <div>
-                  <%= label_tag :types, 'Types' %>
-                  <%= select_tag(:types, options_for_select(@categories.all.collect { |c| [c.name, c.slug] }, params[:types]), { include_blank: true, multiple: true, class: 'c-select' }) %>
-                </div>
-                <div>
-                  <%= label_tag :topics, 'Topics' %>
-                  <%= select_tag(:topics, options_for_select(@topics.collect { |c| [c.name, c.slug] }, params[:topics]), { include_blank: true, multiple: true, class: 'c-select' }) %>
-                </div>
-                <div>
-                  <%= label_tag :locations, 'Locations' %>
-                  <%= select_tag(:locations, options_for_select(@countries.all.collect { |c| [c.name, c.iso] }, params[:locations]), { include_blank: true, multiple: true, class: 'c-select' }) %>
-                </div>
-                <div>
-                  <%= submit_tag('Apply', readonly: true, class: 'c-button') %>
+                <div class="row">
+                  <div class="grid-s-12 grid-m-3 filter-column">
+                    <%= label_tag :types, 'Types' %>
+                    <%= select_tag(:types, options_for_select(@categories.all.collect { |c| [c.name, c.slug] }, params[:types]), { include_blank: true, multiple: true, class: 'filter-select' }) %>
+                  </div>
+                  <div class="grid-s-12 grid-m-3 filter-column">
+                    <%= label_tag :topics, 'Topics' %>
+                    <%= select_tag(:topics, options_for_select(@topics.collect { |c| [c.name, c.slug] }, params[:topics]), { include_blank: true, multiple: true, class: 'filter-select' }) %>
+                  </div>
+                  <div class="grid-s-12 grid-m-3 filter-column">
+                    <%= label_tag :locations, 'Locations' %>
+                    <%= select_tag(:locations, options_for_select(@countries.all.collect { |c| [c.name, c.iso] }, params[:locations]), { include_blank: true, multiple: true, class: 'filter-select' }) %>
+                  </div>
+                  <div class="grid-s-12 grid-m-3 filter-column">
+                    <%= button_tag('Apply', type: :submit, readonly: true, class: 'c-button -sea -medium') %>
+                  </div>
                 </div>
               <% end %>
             </div>
