@@ -25,6 +25,7 @@
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
+- Sidebar menu updated (styles and functionality)
 - Map legend Styles
 - User icon on the header now have a explicit text
 - Iniatives becomes to Research themes

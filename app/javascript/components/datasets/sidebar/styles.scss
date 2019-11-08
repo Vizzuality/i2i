@@ -1,3 +1,5 @@
+@import '_settings';
+
 // https://davidwalsh.name/css-triangles
 @mixin triangle($size, $color, $direction) {
   width: 0;
@@ -71,7 +73,7 @@
 
     .c-button {
       margin-top: 20px;
-      background-color: #2f939c;
+      background-color: $color-1;
       border: 0;
       border-radius: 100px;
       font-size: 16px;
@@ -107,7 +109,7 @@
 
       &:before {
         content: '';
-        @include triangle(6px, #2F939C, 'right');
+        @include triangle(6px, $color-1, 'right');
       }
     }
   }
@@ -119,7 +121,7 @@
 
       > .arrow {
         &:before {
-          @include triangle(6px, #2F939C, 'left');
+          @include triangle(6px, $color-1, 'left');
         }
       }
     }

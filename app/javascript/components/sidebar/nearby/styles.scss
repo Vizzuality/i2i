@@ -1,3 +1,5 @@
+@import '_settings';
+
 .c-nearby {
   padding: 0px 30px 20px 55px;
 
@@ -22,7 +24,7 @@
       position: absolute;
       width: 2px;
       height: 7px;
-      background: #2F939C;
+      background: $color-1;
       top: 50%;
       transform: translate(0,-50%);
     }
