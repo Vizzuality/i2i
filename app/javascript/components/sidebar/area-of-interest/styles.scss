@@ -1,21 +1,62 @@
+@import '_settings';
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
 .c-area-of-interest {
-  padding: 0px 30px 20px 55px;
 
-  > * {
-    margin: 40px 0 0;
+  .content-wrapper {
+    padding: 0px 55px 100px;
+    border-bottom: 1px solid #D8D8D8;
+    margin-bottom: 20px;
 
-    &:first-child {
-      margin: 0;
+    p {
+      font-size: 14px;
+      line-height: 19px;
+      color: #737780;
     }
   }
 
-  p {
-    font-size: 14px;
-  }
-
   .button-container {
-    display: flex; 
+    display: flex;
     justify-content: center;
     align-items: center;
+
+    > button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 40px;
+      min-width: 215px;
+
+    }
+
+    * {
+      color: $color-1;
+      font-weight: 700;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    * {
+      min-width: 215px;
+
+      &.-disabled {
+        pointer-events: none;
+        opacity: .3;
+      }
+    }
+  }
+
+  .-hidden {
+    display: none;
   }
 }

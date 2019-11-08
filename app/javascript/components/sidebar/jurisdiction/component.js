@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import Select from 'react-select';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import isEmpty from 'lodash/isEmpty';
 
 // styles
@@ -39,23 +40,28 @@ class JurisdictionComponent extends PureComponent {
 
     return (
       <div className="c-jurisdiction">
-        <Select
-          value={isEmpty(selectedOption) ? null : selectedOption}
-          onChange={this.handleChange}
-          options={options}
-          placeholder="Select Jurisdiction..."
-        />
-
-        {(!!selectedLayers.length && !isEmpty(area)) &&
-          <div className="button-container -analysis-report">
-            <button
-              className="c-button -small -sea"
-              onClick={() => this.props.setAnalysisActive(!analysisActive)}
-            >
-              Analysis Report
-            </button>
+        <div className="content-wrapper">
+          <p>Select to view Financial Service locations within a given province or district.</p>
+          <div className="jurisdiction-content">
+            <h2>SEARCH LOCATION:</h2>
+            <Select
+              value={isEmpty(selectedOption) ? null : selectedOption}
+              classNamePrefix="react-select"
+              onChange={this.handleChange}
+              options={options}
+              placeholder="Introduce location"
+            />
           </div>
-        }
+        </div>
+
+        <div className={classnames('button-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
+          <button
+            className="c-button -small -sea"
+            onClick={() => this.props.setAnalysisActive(!analysisActive)}
+          >
+            Summary Report
+          </button>
+        </div>
       </div>
     );
   }
