@@ -4,6 +4,7 @@ class ContactsController < ApplicationController
 
   def create
     contact = Contact.new(contact_params)
+
     if contact.save
       begin
         ContactMailer.data_mail(contact).deliver!
@@ -17,18 +18,25 @@ class ContactsController < ApplicationController
     end
   end
 
-  def about
-    contact = Contact.new(contact_params)
-    if contact.save
-      begin
-        ContactMailer.message_mail(contact).deliver!
-      rescue SparkPostRails::DeliveryException => e
-        Rails.logger.error "Error sending the email: #{e}"
-      end
+  def about_form
+    @contact = Contact.new(contact_params)
 
-      render json: contact.to_json, status: :created
-    else
-      render json: contact.errors, status: :unprocessable_entity
+    respond_to do |format|
+      if verify_recaptcha(model: @contact) && @contact.save
+        begin
+          ContactMailer.message_mail(@contact).deliver!
+        rescue SparkPostRails::DeliveryException => e
+          Rails.logger.error "Error sending the email: #{e}"
+        end
+
+        format.json { render @contact, status: :created }
+        format.js { render partial: 'static_pages/contact_form_messages', locals: { success: true } }
+        format.html { redirect_to(about_path, notice: 'Success') }
+      else
+        format.json { render @contact.errors, status: :unprocessable_entity }
+        format.js { render partial: 'static_pages/contact_form_messages', locals: { errors: @contact.errors } }
+        format.html { redirect_to(about_path, alert: 'Error') }
+      end
     end
   end
 
@@ -55,7 +63,7 @@ class ContactsController < ApplicationController
   private
 
   def contact_params
-    params.permit(:first_name, :last_name, :email, :title, :company, :country, :message, :year)
+    params.require(:contact).permit(:first_name, :last_name, :email, :title, :company, :country, :message, :year)
   end
 
   def batch_download_params

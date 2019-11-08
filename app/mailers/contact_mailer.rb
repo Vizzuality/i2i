@@ -32,6 +32,7 @@ class ContactMailer < ApplicationMailer
   end
 
   def message_mail(message)
+    puts message
     @contact = message
     data = { template_id: 'message', substitution_data: message }
     mail(to: ENV.fetch('I2I_MAIL'), sparkpost_data: data)
