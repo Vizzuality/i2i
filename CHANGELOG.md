@@ -5,6 +5,7 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Population widget added to geospatial data header
 - Videos section added to geospatial portal header
 - Added Icomoon
 - New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
