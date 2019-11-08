@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 // Components
 import { Range } from 'wri-api-components/dist/form';
 import Geosuggest from 'react-geosuggest';
+
+//Styles
+
+import './styles.scss';
 
 class NearbyComponent extends PureComponent {
   static propTypes = {
@@ -15,10 +20,12 @@ class NearbyComponent extends PureComponent {
     setNearby: PropTypes.func.isRequired,
     setNearbyError: PropTypes.func.isRequired,
     fetchNearbyArea: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired
+    setAnalysisActive: PropTypes.func.isRequired,
+    togglePinDrop: PropTypes.func.isRequired,
+    latLng: PropTypes.shape({})
   }
 
-  static defaultProps = { nearby: {} }
+  static defaultProps = { nearby: {}, latLng: {} }
 
   state = { showSearchInput: false };
 
@@ -46,6 +53,7 @@ class NearbyComponent extends PureComponent {
     this.onToggleSearchInput(false);
   }
 
+
   onChange = (value) => {
     console.log(value);
     // this.props.setNearby({ ...this.props.nearby, time: value });
@@ -62,10 +70,18 @@ class NearbyComponent extends PureComponent {
     }
   }
 
-  render() {
-    const { shortIso, active: analysisActive, selectedLayers } = this.props;
-    const { time, error, location, area } = this.props.nearby;
+  onDrop = () => {
+    const { pin } = this.props.nearby;
+    const { active, dropped } = pin;
+    console.log(pin, active, dropped)
+    this.props.togglePinDrop({ ...pin, active: true });
+  }
 
+  render() {
+    const { shortIso, active: analysisActive, selectedLayers, latLng } = this.props;
+    const { time, error, location, area, pin, dropped } = this.props.nearby;
+
+    console.log(location, 'location')
     return (
       <div className="c-nearby">
         {!!error &&
@@ -73,28 +89,74 @@ class NearbyComponent extends PureComponent {
             Error building area
           </div>
         }
+        <div className="content-wrapper">
 
-        <p>Search to view Financial Service locations within a given location</p>
+          <p>Find financial services which are available within your preferred drive-time by searching for a specific place then setting the time.</p>
 
 
-        <div className="c-field">
-          <label htmlFor="nearby-geosuggest">
-            Search location:
-          </label>
+          <div className="c-field">
+            <label htmlFor="nearby-geosuggest">
+              SEARCH LOCATION:
+            </label>
 
-          <Geosuggest
-            ref={(r) => { this.geosuggest = r; }}
-            id="nearby-geosuggest"
-            className="c-geosuggest"
-            initialValue={location.label}
-            placeholder="Introduce location"
-            country={shortIso}
-            autoActivateFirstSuggest
-            autoComplete="off"
-            onSuggestSelect={this.onSuggestSelect}
-            onKeyDown={this.onKeyDown}
-          />
+            <Geosuggest
+              ref={(r) => { this.geosuggest = r; }}
+              id="nearby-geosuggest"
+              className="c-geosuggest"
+              initialValue={location.label}
+              placeholder="Introduce location"
+              country={shortIso}
+              autoActivateFirstSuggest
+              autoComplete="off"
+              onSuggestSelect={this.onSuggestSelect}
+              onKeyDown={this.onKeyDown}
+            />
+          </div>
+
+          <p>OR</p>
+
+          <button
+            className="c-button -small -white"
+            onClick={this.onDrop}
+          >
+            {pin && dropped ? 'Clear pin' : 'Drop a pin'}
+          </button>
+
+          <div className="c-field">
+            <label htmlFor="nearby-time">
+              TIME: <span>{time} minutes</span>
+            </label>
+
+            <Range
+              // Styles
+              railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+              trackStyle={{ backgroundColor: '$color-1', height: 1 }}
+              handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
+              activeDotStyle={{ display: 'none' }}
+              dotStyle={{ display: 'none' }}
+
+              marks={{
+                1: {
+                  label: '1',
+                  style: { fontSize: 10 }
+                },
+                720: {
+                  label: '720',
+                  style: { fontSize: 10 }
+                }
+              }}
+              id="nearby-time"
+              min={1}
+              max={720}
+              value={time}
+              onChange={this.onChange}
+              onAfterChange={this.onAfterChange}
+            />
+          </div>
         </div>
+
+
+        <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
 
         <div className="c-field">
           <label htmlFor="nearby-time">
@@ -127,17 +189,13 @@ class NearbyComponent extends PureComponent {
             onAfterChange={this.onAfterChange}
           />
         </div>
-
-        {(!!selectedLayers.length && !isEmpty(area)) &&
-          <div className="button-container -analysis-report">
-            <button
-              className="c-button -small -sea"
-              onClick={() => this.props.setAnalysisActive(!analysisActive)}
-            >
-              Analysis Report
-            </button>
-          </div>
-        }
+          <button
+            className="c-button -small -sea"
+            onClick={() => this.props.setAnalysisActive(!analysisActive)}
+          >
+            Summary Report
+          </button>
+        </div>
       </div>
     );
   }

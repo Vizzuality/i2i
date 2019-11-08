@@ -25,7 +25,7 @@
         {}
       ],
       "properties": {
-        "order": 22,
+        "order": 30,
         "id": 12,
         "name": "search",
         "prevSize": 32
@@ -240,7 +240,7 @@
         {}
       ],
       "properties": {
-        "order": 12,
+        "order": 29,
         "id": 6,
         "name": "info",
         "prevSize": 32
@@ -574,7 +574,7 @@
         }
       ],
       "properties": {
-        "order": 21,
+        "order": 31,
         "id": 0,
         "name": "layers",
         "prevSize": 32
