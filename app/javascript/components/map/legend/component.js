@@ -9,7 +9,8 @@ import Legend, {
   LegendItemTypes,
   LegendItemButtonLayers,
   LegendItemButtonOpacity,
-  LegendItemButtonVisibility
+  LegendItemButtonVisibility,
+  LegendItemButtonRemove
 } from 'wri-api-components/dist/legend';
 
 
@@ -112,6 +113,7 @@ class LegendComponent extends React.Component {
                       layersSettings={layersSettings}
                     />
                   }
+                  <LegendItemButtonRemove />
                 </LegendItemToolbar>
               }
               onChangeOpacity={this.onChangeOpacity}

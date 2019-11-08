@@ -16,20 +16,13 @@ function Item({ options, selectedOption, item }) {
   };
 
   const distanceOptions = [
-    { label: 5, value: 5 },
-    { label: 10, value: 10 },
-    { label: 15, value: 15 },
-    { label: 20, value: 20 }
-  ];
-  const accessPointsOptions = [
-    { label: 'all accesspoints', value: 1 },
-    { label: 'one', value: 2 },
-    { label: 'two', value: 3 },
-    { label: 'three', value: 4 }
+    { label: '5 km', value: 5 },
+    { label: '10 km', value: 10 },
+    { label: '15 km', value: 15 },
+    { label: '20 km', value: 20 }
   ];
 
-  const selectedDistance = { label: 5, value: 5 };
-  const selectedPoints = { label: 'all accesspoints', value: 1 };
+  const selectedDistance = { label: '5 km', value: 5 };
 
   const distance = (
     <ReactSelect
@@ -41,19 +34,9 @@ function Item({ options, selectedOption, item }) {
     />
   );
 
-  const accessPoints = (
-    <ReactSelect
-      className="react-select-container"
-      classNamePrefix="react-select"
-      options={accessPointsOptions}
-      onChange={onChange}
-      value={selectedPoints}
-    />
-  );
-
   return (
     <Fragment>
-      TOTAL POPULATION WITHIN {distance} KM OF ALL {accessPoints}
+      TOTAL POPULATION WITHIN {distance} OF ALL ACCESS POINTS
     </Fragment>
   );
 }

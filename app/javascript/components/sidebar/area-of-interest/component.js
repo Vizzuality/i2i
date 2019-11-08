@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import Icon from 'components/icon';
 
 // styles
 import './styles.scss';
@@ -46,6 +47,7 @@ class AreaOfInterestComponent extends PureComponent {
               if (!isEmpty(area)) this.onClear();
             }}
           >
+            <Icon name="poligono" className="-sea -selected" />
             Create Area
           </button>
         </div>

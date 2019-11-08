@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 
   def about
+    @contact = Contact.new
     @teamMembers = sort_by_importance(Member.where(role: 1))
     @advisoryMembers = sort_by_importance(Member.where(role: 2))
     @countries = [
@@ -23,21 +24,6 @@ class StaticPagesController < ApplicationController
     gon.advisor = JSON.parse @advisoryMembers.to_json(:methods => [:image_url])
   end
 
-  def email
-    email = params.require(:email).permit(:name, :email, :subject)
-    if valid_email_contact? email
-      begin
-        ContactMailer.message_mail(email.to_h).deliver!
-      rescue SparkPostRails::DeliveryException => e
-        Rails.logger.error "Error sending the email: #{e}"
-      end
-
-      render json: email.to_json, status: :created
-    else
-      render json: email.errors, status: :unprocessable_entity
-    end
-  end
-
   def terms_of_use; end
 
   def privacy_policy; end
@@ -50,10 +36,5 @@ class StaticPagesController < ApplicationController
 
   def sort_by_importance(members)
     members.sort_by { |member| [member.order ? 0 : 1, member.order] }
-  end
-
-  def valid_email_contact?(email)
-    return false unless email.key?(:name) && email.key?(:email) && email.key?(:subject)
-    !email[:name].blank? && !email[:email].blank? && !email[:subject].blank?
   end
 end
