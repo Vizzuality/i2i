@@ -62,7 +62,6 @@ Rails.application.routes.draw do
 
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
-  post 'email' => 'static_pages#email'
   get 'about' => 'static_pages#about'
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
@@ -71,7 +70,7 @@ Rails.application.routes.draw do
 
   resource :contacts, only: :create do
     post :batch_download
-    post :about
+    post :about_form
   end
 
   scope :format => true, :constraints => { :format => 'json' } do
