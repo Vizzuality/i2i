@@ -103,9 +103,9 @@ class NearbyComponent extends PureComponent {
 
           <Range
             // Styles
-            railStyle={{ background: 'repeating-linear-gradient(90deg, #2F939C, #2F939C 2px, #FFF 2px, #FFF 4px)', height: 1 }}
-            trackStyle={{ backgroundColor: '#2F939C', height: 1 }}
-            handleStyle={{ backgroundColor: '#2F939C', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
+            railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+            trackStyle={{ backgroundColor: '$color-1', height: 1 }}
+            handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
             activeDotStyle={{ display: 'none' }}
             dotStyle={{ display: 'none' }}
 

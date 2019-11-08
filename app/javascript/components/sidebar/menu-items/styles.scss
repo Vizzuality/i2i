@@ -1,3 +1,5 @@
+@import '_settings';
+
 @mixin triangle($size, $color, $direction) {
   width: 0;
   height: 0;
@@ -41,7 +43,8 @@
   width: 100%;
   padding: 50px 0;
 
-  .menu-items-item {
+  .menu-items-item,
+  .menu-items-button {
     padding: 20px 30px 20px 55px;
     cursor: pointer;
     outline: none;
@@ -63,7 +66,7 @@
 
         &:before {
           content: '';
-          @include triangle(6px, #2F939C, 'down');
+          @include triangle(6px, $color-1, 'down');
         }
       }
 
@@ -108,7 +111,7 @@
     >.country-report-btn {
       &:hover {
         opacity: 1;
-        background: lighten(#2f939c, 5%);
+        background: lighten($color-1, 5%);
       }
     }
   }

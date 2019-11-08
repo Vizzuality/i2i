@@ -108,9 +108,15 @@
         showToolbar: this.options.showToolbar,
         report: this.options.report,
         canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
@@ -363,7 +369,8 @@
     _openModalChartAnalysis: function () {
       var nonComplexIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS
-          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS;
+          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS
+          && indicator.category !== App.Helper.Indicators.CATEGORIES.ASSET;
       });
 
       new App.Component.ModalChartAnalysis({

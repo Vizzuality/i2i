@@ -71,6 +71,7 @@ Rails.application.routes.draw do
 
   resource :contacts, only: :create do
     post :batch_download
+    post :about
   end
 
   scope :format => true, :constraints => { :format => 'json' } do
@@ -80,7 +81,7 @@ Rails.application.routes.draw do
 
   # Insights
   get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
-  get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  get 'insights/:category', to: 'insights#categories', as: 'insights_filter_index'
   get 'insights', to: 'insights#index'
 
   # Initiatives

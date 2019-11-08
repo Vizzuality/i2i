@@ -1,5 +1,4 @@
 class ContactMailer < ApplicationMailer
-
   def data_mail(contact)
     @contact = contact
 
@@ -15,12 +14,9 @@ class ContactMailer < ApplicationMailer
 
   def data_batch_download(contact, links)
     @contact = contact
-    
-    @links_block = ""
-    links.each do |link|
-      @links_block << "<p><a href=\"#{link}\" target='_blank' download='true'>#{link}</a></p>"
-    end
-    
+
+    @links_block = "<p><a href=\"#{links[0]}\" target='_blank' download='true'>#{links[0]}</a></p>"
+
     data = {
       template_id: 'country-batch-download',
       substitution_data: {
@@ -30,12 +26,13 @@ class ContactMailer < ApplicationMailer
         },
       }
     }
-  
+
     mail(to: @contact.email,
          sparkpost_data: data)
   end
 
   def message_mail(message)
+    @contact = message
     data = { template_id: 'message', substitution_data: message }
     mail(to: ENV.fetch('I2I_MAIL'), sparkpost_data: data)
   end

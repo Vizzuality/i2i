@@ -4,14 +4,20 @@
     CATEGORIES: {
       COMMON: 'Common indicators',
       ACCESS: 'Financial access',
-      STRANDS: 'Strands'
+      STRANDS: 'Strands',
+      ASSET: 'Asset',
+      SDGS: 'SDGs',
+      POVERTY: 'Poverty',
     },
 
     // Description for the categories
     CATEGORIES_DESC: {
       COMMON: null,
       ACCESS: 'Based on total % of adults who have financial products independent of other products.',
-      STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.'
+      STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
+      ASSET: null,
+      SDGS: null,
+      POVERTY: null
     },
 
     // Map for the ISO and country names

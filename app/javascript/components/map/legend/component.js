@@ -7,11 +7,14 @@ import Legend, {
   LegendListItem,
   LegendItemToolbar,
   LegendItemTypes,
+  LegendItemButtonLayers,
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonRemove
 } from 'wri-api-components/dist/legend';
 
+
+import LegendItemInfo from './legend-item-button-info';
 import LegendItemButtonVisualizations from './legend-item-button-visualizations';
 
 // styles
@@ -92,9 +95,17 @@ class LegendComponent extends React.Component {
             <LegendListItem
               index={i}
               key={lg.dataset}
+              layerInfo={lg.layers}
               layerGroup={lg}
               toolbar={
                 <LegendItemToolbar>
+                  <LegendItemButtonLayers />
+                  <LegendItemButtonOpacity />
+                  <LegendItemButtonVisibility />
+                  {
+                    (lg.layers.map(l => l.info !== undefined))[0] &&
+                    <LegendItemInfo info={lg.layers[0].info} />
+                  }
                   {lg.layerType !== 'contextual' &&
                     <LegendItemButtonVisualizations
                       onClick={(layerId, visualizationType) => this.onChangeLegendLayerVisualization(layerId, visualizationType)}
@@ -102,8 +113,6 @@ class LegendComponent extends React.Component {
                       layersSettings={layersSettings}
                     />
                   }
-                  <LegendItemButtonOpacity />
-                  <LegendItemButtonVisibility />
                   <LegendItemButtonRemove />
                 </LegendItemToolbar>
               }
