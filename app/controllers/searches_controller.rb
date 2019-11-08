@@ -55,8 +55,11 @@ class SearchesController < ApplicationController
       @records = (search_result.flatten.uniq)
     end
 
+    @topics = Tag.all.order(:slug)
+    @countries = Country.ordered_by_name
+
     gon.term = term
     gon.selected_tags = tag_term
-    gon.tags = Tag.all.order(:slug)
+    gon.tags = @topics
   end
 end

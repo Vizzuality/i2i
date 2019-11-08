@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
@@ -40,7 +40,7 @@ class MenuItemsComponent extends React.Component {
               onClick={() => onSelect(item.value)}
             >
               {item.type !== 'button' &&
-                <>
+                <Fragment>
                   <div className="item-header">
                     <span className="arrow este" />
                     <h3 className="title">
@@ -51,40 +51,34 @@ class MenuItemsComponent extends React.Component {
                   <div className="description">
                     {item.text}
                   </div>
-                </>
+                </Fragment>
               }
 
               {item.type === 'button' &&
                 <button
+                  type="button"
                   className="c-button -sea -menu-button"
                   onClick={() => onSelect(item.value)}
                 >
                   {item.label}
                 </button>
               }
+
             </div>
           ))
         }
-
         {selected === 'analysis' &&
-          <div
-            tabIndex="0"
-            role="button"
-            className="menu-items-item"
-            key="country"
-            onClick={this.onClickCountryReport}
-          >
-            <div className="item-header">
-              <h3 className="title">
-                Country Report
-              </h3>
-            </div>
-
-            <div className="description">
-              Countrywide analysis.
-            </div>
+          <div className="menu-items-button">
+            <button
+              type="button"
+              className="c-button -sea -menu-button"
+              onClick={this.onClickCountryReport}
+            >
+              Country Report
+            </button>
           </div>
         }
+
       </div>
     );
   }

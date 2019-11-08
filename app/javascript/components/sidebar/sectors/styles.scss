@@ -1,3 +1,5 @@
+@import '_settings';
+
 // https://davidwalsh.name/css-triangles
 @mixin triangle($size, $color, $direction) {
   width: 0;
@@ -43,7 +45,7 @@
     }
 
     &:after {
-      @include triangle(6px, #2F939C, 'down');
+      @include triangle(6px, $color-1, 'down');
       content: '';
       position: absolute;
       top: 50%;
@@ -53,7 +55,7 @@
 
     &.-open {
       &:after {
-        @include triangle(6px, #2F939C, 'up');
+        @include triangle(6px, $color-1, 'up');
       }
     }
 

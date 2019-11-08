@@ -1,3 +1,5 @@
+@import '_settings';
+
 // https://davidwalsh.name/css-triangles
 @mixin triangle($size, $color, $direction) {
   width: 0;
@@ -50,7 +52,7 @@
   .overflow-container {
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100% - 54px); // height of tabs
+    height: calc(100% - 63px); // height of tabs
   }
 
   .toggle-btn {
@@ -68,7 +70,7 @@
 
       &:before {
         content: '';
-        @include triangle(6px, #2F939C, 'right');
+        @include triangle(6px, $color-1, 'right');
       }
     }
   }
@@ -80,7 +82,7 @@
 
       > .arrow {
         &:before {
-          @include triangle(6px, #2F939C, 'left');
+          @include triangle(6px, $color-1, 'left');
         }
       }
     }
