@@ -123,6 +123,7 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       throw response;
     })
     .then((data) => {
+
       dispatch(setNearbyArea(data.features[0].geometry));
       dispatch(setNearbyCenter({
         lng: data.features[0].properties.center[0],

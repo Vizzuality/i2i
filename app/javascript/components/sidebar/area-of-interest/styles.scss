@@ -17,6 +17,7 @@
       font-size: 14px;
       line-height: 19px;
       color: #737780;
+      margin-bottom: 30px;
     }
   }
 
@@ -37,6 +38,7 @@
     * {
       color: $color-1;
       font-weight: 700;
+      min-width: 215px;
     }
   }
 
@@ -48,6 +50,7 @@
 
     * {
       min-width: 215px;
+      margin-bottom: 20px;
 
       &.-disabled {
         pointer-events: none;
