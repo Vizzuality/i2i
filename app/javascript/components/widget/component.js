@@ -59,15 +59,14 @@ class WidgetWrapperComponent extends PureComponent {
     if (widgetData && widgetData.length) {
       return (
         <div className="c-widget-element">
-          <div className="c-widgets-template">
+          <div className="widget-template">
             <div className="widget-header">
-              <h2>{title}</h2>
+              <h1>{title}</h1>
               <div className="header-buttons">
                 <Icon name="info" />
                 <Icon name="share" />
               </div>
             </div>
-            <h1 className="widget-title">{title}</h1>
             <div className="widget-content">
               {loading && <Spinner position="relative" />}
               {!loading && children({ widgetData, ...this.props })}

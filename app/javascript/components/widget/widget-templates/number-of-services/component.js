@@ -6,14 +6,15 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const NumberOfServices = ({ widgetData, widget, title }) => {
+const NumberOfServices = ({ widgetData, widget, title, ...props }) => {
 
   return (
     <Fragment>
       <div className="c-widget-template">
-        <h1>{title}</h1>
+
+{      console.log(widgetData, widget, title, props)}
+        {/* <Chart /> */}
       </div>
-        <Chart />
     </Fragment>
   );
 };

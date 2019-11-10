@@ -1,4 +1,30 @@
+@import '_settings';
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
 .c-widget-element {
   position: relative;
   min-height: 250px;
+  max-width: 500px;
+  box-sizing: border-box;
+  border: 2px solid #ECEFF0;
+  background-color: #FFFFFF;
+  padding: 30px;
+
+  .widget-template {
+    h1 {
+      color: $color-5;
+      font-size: 24px;
+      line-height: 26px;
+    }
+
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
