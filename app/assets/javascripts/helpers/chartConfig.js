@@ -90,7 +90,13 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.ASSET,
+        App.Helper.Indicators.CATEGORIES.SDGS,
+        App.Helper.Indicators.CATEGORIES.POVERTY
+      ],
       ratio: 0.3,
       responsive: {
         mode: 'scroll',
@@ -99,7 +105,13 @@
     },
     {
       name: 'analysis',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.ASSET,
+        App.Helper.Indicators.CATEGORIES.SDGS,
+        App.Helper.Indicators.CATEGORIES.POVERTY
+      ],
       visible: false,
       responsive: {
         mode: 'adaptative',
@@ -108,7 +120,12 @@
     },
     {
       name: 'compare',
-      categories: [App.Helper.Indicators.CATEGORIES.ACCESS, App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.ACCESS,
+        App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.ASSET,
+        App.Helper.Indicators.CATEGORIES.POVERTY
+      ],
       visible: false,
       ratio: 0.3,
       responsive: {

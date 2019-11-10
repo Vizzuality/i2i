@@ -2,6 +2,10 @@ class InsightsController < ApplicationController
   include Relatable
 
   def index
+    redirect_to insights_filter_index_url(:all), status: 302
+  end
+
+  def categories
     @categories = Category.all.order(:position)
     @category = Category.find_by(slug: params[:category])
     records = []
@@ -37,6 +41,9 @@ class InsightsController < ApplicationController
     end
 
     @offset = params[:offset] ? params[:offset].to_i + 1 : 2;
+
+    @topics = Tag.all.order(:slug)
+    @countries = Country.ordered_by_name
 
     rescue
       category = Category.find_by(slug: 'blog') || Category.first

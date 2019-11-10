@@ -5,6 +5,8 @@
 ### Added
 
 - Added country and regional tags to initiatives cards
+- Analysis from pin dropped by user in geospatial-data / calculate proximity
+- Population widget added to geospatial data header
 - Videos section added to geospatial portal header
 - Added Icomoon
 - New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
@@ -25,6 +27,7 @@
 - Styles for bullet on article text list
 - Possibility of collapse sidebar in map removed
 - Button for National Surveys added in sidebar
+- Sidebar menu updated (styles and functionality)
 - Map legend Styles
 - User icon on the header now have a explicit text
 - Iniatives becomes to Research themes
