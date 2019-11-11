@@ -1,4 +1,5 @@
 var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : nil %>');
+var success = new Bolean('<%= success %>');
 var $messages = $("#messages");
 
 if (errors) {
@@ -9,9 +10,7 @@ if (errors) {
   $messages
     .addClass('message').addClass('-alert')
     .html('<ul></ul>').find('ul').html(errors_html);
-}
-
-else if (success) {
+} else if (success) {
   $messages
     .addClass('message').addClass('-info')
     .html('Thanks! Your message has been sent.');
