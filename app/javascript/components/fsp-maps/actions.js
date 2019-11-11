@@ -266,7 +266,6 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
 
   const { lat, lng } = center;
   const seconds = time * 60;
-  console.log(lat, lng, center)
 
   return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
     .then(response => response.ok && response.json())
