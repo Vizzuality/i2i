@@ -1,8 +1,8 @@
-var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : nil %>');
+var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"} %>');
 var success = new Boolean('<%= success %>');
 var $messages = $("#messages");
 
-if (errors) {
+if (errors && !errors.status) {
   $messages.addClass('-info');
   var errors_html = errors.base.map(function(e) {
     return $('<li></li>').html(e);
