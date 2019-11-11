@@ -1,4 +1,4 @@
-var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"} %>');
+var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : "{\"status\": \"no_content\"}" %>');
 var success = new Boolean('<%= success %>');
 var $messages = $("#messages");
 
