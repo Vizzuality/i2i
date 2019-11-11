@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Select from 'react-select';
+import { Range } from 'wri-api-components/dist/form';
 import isEmpty from 'lodash/isEmpty';
 
 // styles
@@ -18,8 +18,10 @@ const AnalyzePatterns = ({
   setAnalysisActive,
   setLocationSelected,
   fetchLocationArea,
-  options,
-  selectedOption
+  setNearby,
+  nearby,
+  fetchNearbyArea,
+  time
 }) => {
   useEffect(() => {
     const heatmapsLayers = Object.keys(layersSettings).reduce((acc, _layerId) => ({
@@ -36,15 +38,18 @@ const AnalyzePatterns = ({
     setLayersSettings(heatmapsLayers);
   });
 
+  const onChange = (value) => {
+    setNearby({ ...this.props.nearby, time: value });
+  };
+
+  const onAfterChange = (value) => {
+    setNearby({ ...nearby, time: value });
+    fetchNearbyArea();
+  };
 
   const onClear = () => {
     setClearing(true);
     fetchIntro();
-  };
-
-  const handleChange = (selectedLocation) => {
-    setLocationSelected(selectedLocation);
-    fetchLocationArea();
   };
 
   return (
@@ -52,26 +57,47 @@ const AnalyzePatterns = ({
       <div className="content-wrapper">
         <p>Find a hotspot and analyze it.</p>
 
-        <div className="patterns-content">
-          <h2>SEARCH LOCATION:</h2>
-          <Select
-            value={isEmpty(selectedOption) ? null : selectedOption}
-            classNamePrefix="react-select"
-            onChange={handleChange}
-            options={options}
-            placeholder="Introduce location"
+        <div className="c-field">
+          <label htmlFor="nearby-time">
+            Time: {time} minutes
+          </label>
+
+          <Range
+            // Styles
+            railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
+            trackStyle={{ backgroundColor: '$color-1', height: 1 }}
+            handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
+            activeDotStyle={{ display: 'none' }}
+            dotStyle={{ display: 'none' }}
+
+            marks={{
+              1: {
+                label: '1',
+                style: { fontSize: 10 }
+              },
+              720: {
+                label: '720',
+                style: { fontSize: 10 }
+              }
+            }}
+            id="nearby-time"
+            min={1}
+            max={720}
+            value={time}
+            onChange={onChange}
+            onAfterChange={onAfterChange}
           />
         </div>
       </div>
 
-      <div className="buttons-container -analysis-report">
+      <div className="buttons-container">
         <button
           className="c-button -small -white"
           onClick={() => {
             onClear();
           }}
         >
-          Cancel
+          Click on map
         </button>
         <button
           className={classnames('c-button -small -sea', { '-disabled': !selectedLayers.length || !!isEmpty(area) })}

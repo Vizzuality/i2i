@@ -66,6 +66,19 @@ class MapComponent extends PureComponent {
       }
     }] : [];
 
+    const patternsIconsLayer = [{
+      id: 'analyze-pattern-icons',
+      provider: 'leaflet',
+      layerConfig: {
+        body: L.marker(
+          center,
+          { icon: L.circle({ iconSize: [20, 20] }) }
+        ),
+        parse: false,
+        type: 'featureGroup'
+      }
+    }];
+
     const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
       id: 'jurisdiction',
       provider: 'leaflet',
@@ -100,7 +113,8 @@ class MapComponent extends PureComponent {
       ...jurisdictionAreaLayer,
       ...nearbyAreaLayer,
       ...activeLayers,
-      ...financialIconsLayer
+      ...financialIconsLayer,
+      ...patternsIconsLayer
     ];
 
     return (
@@ -126,7 +140,10 @@ class MapComponent extends PureComponent {
           }}
           events={{
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
-            moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
+            moveend: (e, map) => { this.props.setCenter(map.getCenter()); },
+            click: (e) => {
+
+            }
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"
@@ -144,7 +161,7 @@ class MapComponent extends PureComponent {
                         interactivity: layer.interactivity,
                         events: {
                           click: (e) => {
-                            const { sourceTarget, target, ...info } = e;
+                            const { ...info } = e;
 
                             this.props.setLayersInteractions({
                               [layer.id]: {
