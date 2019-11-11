@@ -14,6 +14,7 @@
 - Added styles for alert messages
 - Added thank you message after the user requests to download
 - Analyze pattern analysis in sidebar menu
+- Analysis by clicking on map added to "Proximity" and "Analyze patterns" in sidebar
 
 ### Changed
 
