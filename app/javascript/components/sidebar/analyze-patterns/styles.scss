@@ -1,0 +1,116 @@
+@import '_settings';
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
+.c-analyze-patterns {
+
+  .content-wrapper {
+    padding: 0px 55px 100px;
+    border-bottom: 1px solid #D8D8D8;
+    margin-bottom: 20px;
+
+    .patterns-content {
+      margin-top: 50px;
+    }
+
+    h2 {
+      color: $color-1;
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 19px;
+      color: #737780;
+    }
+
+    .react-select__indicator-separator,
+    .react-select__dropdown-indicator {
+      display: none;
+    }
+
+    .react-select__control {
+      color: #001D22;
+      border: none;
+      border-radius: 0;
+      font-size: 16px;
+      line-height: 30px;
+      background-color: rgba($color-1, .1);
+      padding: 0 8px;
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .react-select__option  {
+      background-color: $color-1;
+
+      &.react-select__option--is-focused {
+        background-color: rgba(white, .5);
+      }
+
+      &.react-select__option--is-selected {
+        background-color: rgba(white, .1);
+      }
+    }
+
+    .react-select__option--is--focused,
+    .react-select__option--is--selected {
+      background-color: rgba($color-1, .1);
+    }
+
+    .react-select__menu {
+      color: white;
+      background-color: $color-1;
+      margin: 0;
+      border-radius: 0;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 40px;
+      min-width: 215px;
+
+    }
+
+    * {
+      color: $color-1;
+      font-weight: 700;
+    }
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    * {
+      min-width: 215px;
+      margin-bottom: 20px;
+
+      &.-disabled {
+        pointer-events: none;
+        opacity: .3;
+      }
+    }
+  }
+
+  .-hidden {
+    display: none;
+  }
+}

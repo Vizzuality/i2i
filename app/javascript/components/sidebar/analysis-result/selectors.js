@@ -7,13 +7,14 @@ const selectedLayers = state => state.fspMaps.layers.selectedLayers;
 const iso = state => state.fspMaps.common.iso;
 const selectedMenuItem = state => state.fspMaps.sidebar.menuItem;
 const nearby = state => state.fspMaps.analysis.nearby;
+const analyzePattern = state => state.fspMaps.analysis.location;
 const jurisdiction = state => state.fspMaps.analysis.jurisdiction;
 const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
 const allLayersList = state => state.fspMaps.layers.list;
 
 export const getWidgets = createSelector(
-  [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, jurisdiction, areaOfInterestArea, allLayersList],
-  (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
+  [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, analyzePattern, jurisdiction, areaOfInterestArea, allLayersList],
+  (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _analyzePattern, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
     const sectorLayers = _allLayersList.filter(layer => _selectedLayers.includes(layer.id) && layer.layerType === 'sector');
     const allSectorLayers = _allLayersList.filter(layer => layer.layerType === 'sector');
 
@@ -53,6 +54,7 @@ export const getWidgets = createSelector(
       const { params_config: paramsConfig, sql_query: sqlQuery, sql_query_param: sqlQueryParam, url } = widgetConfig;
       const { area: nearbyArea, center } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
+      const { area: analyzePatternArea } = _analyzePattern;
       const { lng, lat } = center;
       const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.type_id) : sectorLayers.map(layer => layer.type_id);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
@@ -65,6 +67,8 @@ export const getWidgets = createSelector(
         geojson = nearbyArea;
       } else if (_selectedMenuItem === 'area_of_interest') {
         geojson = _areaOfInterestArea;
+      } else if (_selectedMenuItem === 'analyze_pattern') {
+        geojson = analyzePatternArea;
       } else if (_selectedMenuItem === 'jurisdiction') {
         geojson = jurisdictionArea;
       }

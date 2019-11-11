@@ -72,6 +72,18 @@ class MapComponent extends PureComponent {
       }
     }] : [];
 
+    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze-patterns' && selectedTab === 'analysis') ? [{
+      id: 'analyze-pattern-icons',
+      provider: 'leaflet',
+      layerConfig: {
+        body: L.marker(
+          coordinates,
+          { icon: L.circle({ iconSize: [20, 20] }) }
+        ),
+        parse: false,
+        type: 'featureGroup'
+      }
+    }] : [];
 
     const nearbyMarkerLayer = (!!coordinates && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby-icons',
@@ -129,7 +141,8 @@ class MapComponent extends PureComponent {
       ...nearbyAreaLayer,
       ...nearbyMarkerLayer,
       ...activeLayers,
-      ...financialIconsLayer
+      ...financialIconsLayer,
+      ...patternsIconsLayer
     ];
 
     return (
@@ -173,7 +186,10 @@ class MapComponent extends PureComponent {
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
-            moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
+            moveend: (e, map) => { this.props.setCenter(map.getCenter()); },
+            click: (e) => {
+
+            }
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"

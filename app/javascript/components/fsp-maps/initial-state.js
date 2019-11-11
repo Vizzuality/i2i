@@ -43,6 +43,11 @@ export default {
       error: null,
       center: { lat: 0, lng: 0 }
     },
+    location: {
+      list: [],
+      selectedLocation: {},
+      area: {}
+    },
     areaOfInterest: {
       drawing: false,
       clearing: false,

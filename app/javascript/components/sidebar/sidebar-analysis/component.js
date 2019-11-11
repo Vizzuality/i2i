@@ -7,6 +7,7 @@ import MenuItems from 'components/sidebar/menu-items';
 import MenuItem from 'components/sidebar/menu-item';
 import Nearby from 'components/sidebar/nearby';
 import AreaOfInterest from 'components/sidebar/area-of-interest';
+import AnalyzePatterns from 'components/sidebar/analyze-patterns';
 import Jurisdiction from 'components/sidebar/jurisdiction';
 import AnalysisResult from 'components/sidebar/analysis-result';
 
@@ -15,6 +16,7 @@ import './styles.scss';
 
 const MENU_CONTENT = {
   nearby: <Nearby />,
+  analyze_patterns: <AnalyzePatterns />,
   area_of_interest: <AreaOfInterest />,
   jurisdiction: <Jurisdiction />
 };
@@ -55,7 +57,7 @@ class SidebarAnalysisComponent extends React.Component {
     setMenuItem: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired,
     setSelected: PropTypes.func.isRequired,
-    list: PropTypes.shape
+    list: PropTypes.array
   }
 
   static defaultProps = {

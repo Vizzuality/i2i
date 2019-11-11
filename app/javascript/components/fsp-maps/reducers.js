@@ -173,6 +173,23 @@ export default {
     return { ...state, analysis };
   },
 
+  // Analysis - Analyse patterns
+  [actions.setLocationsList]: (state, { payload }) => {
+    const location = { ...state.analysis.location, list: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationSelected]: (state, { payload }) => {
+    const location = { ...state.analysis.location, selectedLocation: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationArea]: (state, { payload }) => {
+    const location = { ...state.analysis.location, area: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+
   // Analysis - area of interest
   [actions.setAreaOfInterest]: (state, { payload }) => {
     const analysis = { ...state.analysis, areaOfInterest: payload };

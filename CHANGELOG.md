@@ -13,6 +13,7 @@
 - Filter and message that shows user analysis is just available to sector and some contextual layers
 - Added styles for alert messages
 - Added thank you message after the user requests to download
+- Analyze pattern analysis in sidebar menu
 
 ### Changed
 

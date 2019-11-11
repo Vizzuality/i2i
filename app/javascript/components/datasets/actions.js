@@ -142,6 +142,11 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
     });
 });
 
+// Analysis - Analyse Pattern
+export const setLocationSelected = createAction('ANALYSIS/setLocationSelected');
+export const setLocationsList = createAction('ANALYSIS/setLocationsList');
+export const setLocationArea = createAction('ANALYSIS/setLocationArea');
+
 // Analysis - area of interest
 export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');
 export const setAreaOfInterestArea = createAction('ANALYSIS/setAreaOfInterestArea');

@@ -40,6 +40,11 @@ export default {
       error: null,
       center: {}
     },
+    location: {
+      list: [],
+      selectedLocation: {},
+      area: {}
+    },
     areaOfInterest: {
       drawing: false,
       clearing: false,
