@@ -41,7 +41,7 @@ export default {
       time: 30,
       area: {},
       error: null,
-      center: {}
+      center: { lat: 0, lng: 0 }
     },
     areaOfInterest: {
       drawing: false,

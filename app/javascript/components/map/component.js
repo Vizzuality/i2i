@@ -23,7 +23,7 @@ import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
 // styles
 import './styles.scss';
-import { fetchNearbyArea } from '../datasets/actions';
+
 import { togglePinDrop } from '../fsp-maps/actions';
 
 class MapComponent extends PureComponent {
@@ -73,7 +73,7 @@ class MapComponent extends PureComponent {
     }] : [];
 
 
-    const nearbyMarkerLayer = (!!coordinates && active && !location && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+    const nearbyMarkerLayer = (!!coordinates && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby-icons',
       key: coordinates,
       provider: 'leaflet',
@@ -83,8 +83,8 @@ class MapComponent extends PureComponent {
           {
             icon: L.circle({
               iconSize: [50, 50],
-              color: 'red',
-              fillColor: 'green',
+              color: '#f9d0re31',
+              fillColor: '#f9d031',
               radius: 50.0
             })
           }
@@ -158,11 +158,13 @@ class MapComponent extends PureComponent {
               const { lat, lng } = e.latlng;
               const { setCenter } = this.props;
               const nearbyIcon = layersResult.filter(layer => layer.id === 'nearby-icons');
-              setCenter(coordinates);
 
+              setCenter(coordinates);
               if (menuItem === 'nearby') {
-                setNearbyCenter({ lat, lng });
-                fetchNearbyArea();
+              Promise.all([
+                setNearbyCenter({ lat, lng })
+              ])
+                .then(() => { fetchNearbyArea(); });
               }
               if (active) {
                 togglePinDrop({ ...pin, dropped: true });

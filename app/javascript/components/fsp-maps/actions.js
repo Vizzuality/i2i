@@ -264,13 +264,14 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
     return false;
   }
 
-  const { lat, lng } = center;
+  const { lat, lng } = location;
   const seconds = time * 60;
 
   return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
     .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setNearbyArea(data.features[0].geometry));
+
       dispatch(setNearbyCenter({
         lng: data.features[0].properties.center[0],
         lat: data.features[0].properties.center[1]
