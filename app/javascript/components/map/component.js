@@ -76,10 +76,13 @@ class MapComponent extends PureComponent {
       id: 'analyze-pattern-icons',
       provider: 'leaflet',
       layerConfig: {
-        body: L.marker(
+        body: [L.circleMarker(
           coordinates,
-          { icon: L.circle({ iconSize: [20, 20] }) }
-        ),
+          {
+            color: '#f9d031',
+            radius: 20
+          }
+        )],
         parse: false,
         type: 'featureGroup'
       }
@@ -87,18 +90,14 @@ class MapComponent extends PureComponent {
 
     const nearbyMarkerLayer = (!!coordinates && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby-icons',
-      key: coordinates,
+      key: 'nearby-icons',
       provider: 'leaflet',
       layerConfig: {
-        body: [L.circle(
+        body: [L.circleMarker(
           coordinates,
           {
-            icon: L.circle({
-              iconSize: [50, 50],
-              color: '#f9d0re31',
-              fillColor: '#f9d031',
-              radius: 50.0
-            })
+            color: '#f9d031',
+            radius: 20
           }
         )],
         parse: false,
@@ -186,10 +185,7 @@ class MapComponent extends PureComponent {
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
-            moveend: (e, map) => { this.props.setCenter(map.getCenter()); },
-            click: (e) => {
-
-            }
+            moveend: (e, map) => { this.props.setCenter(map.getCenter()); }
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"

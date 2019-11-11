@@ -118,9 +118,13 @@
 
 @import '_settings';
 
-.c-analyse-patterns {
+.c-analyze-patterns {
   .content-wrapper {
-    .rc-slider {
+    > p {
+      padding-bottom: 50px;
+    }
+
+    *.rc-slider {
       height: auto;
 
       &:before,
