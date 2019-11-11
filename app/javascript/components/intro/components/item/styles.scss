@@ -1,4 +1,5 @@
 
+@import '_settings';
 
 @mixin arrow($size, $border-width, $color, $direction) {
   display: inline;
@@ -29,10 +30,11 @@
   .react-select-value {
     position: static;
   }
-  .react-select-single-value {
-    position: absolute;
-    top: 0;
-    left: 3px;
+  .react-select__single-value {
+    color: $color-4;
+    position: relative;
+    top: 2px;
+    left: -3px;
   }
 
   .react-select__dropdown-indicator {
@@ -40,25 +42,31 @@
     position: absolute;
     top: 0;
     right: 3px;
+    color: transparent;
     &:before {
       content: '';
       position: absolute;
-      top: 9px;
-      right: 9px;
+      top: 3px;
+      right: 7px;
       pointer-events: none;
-      @include arrow(10px, 2px, #F8D200, 'down');
+      @include arrow(7px, 2px, #F8D200, 'down');
+    }
+    &:hover {
+      color: transparent;
     }
   }
 
   .react-select__control {
     border: none;
     border-radius: 9px;
+    top: 7px;
     background-color: #14676E;
     min-height: inherit;
-    height: 17px;
-    padding: 0 8px;
+    height: 16px;
+    padding: 0 7px;
     width: 100%;
     margin-top: 0;
+    font-weight: bold;
   }
 
   .react-select__menu {

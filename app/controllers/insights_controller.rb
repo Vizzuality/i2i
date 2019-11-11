@@ -42,6 +42,9 @@ class InsightsController < ApplicationController
 
     @offset = params[:offset] ? params[:offset].to_i + 1 : 2;
 
+    @topics = Tag.all.order(:slug)
+    @countries = Country.ordered_by_name
+
     rescue
       category = Category.find_by(slug: 'blog') || Category.first
       redirect_to insights_filter_index_path(category) rescue nil

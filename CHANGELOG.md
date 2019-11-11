@@ -6,6 +6,7 @@
 
 - Added country and regional tags to initiatives cards
 - Analysis from pin dropped by user in geospatial-data / calculate proximity
+- Population widget added to geospatial data header
 - Videos section added to geospatial portal header
 - Added Icomoon
 - New analysis icon added to analizable layers (all sectors and some contextual) in sidebar menu
