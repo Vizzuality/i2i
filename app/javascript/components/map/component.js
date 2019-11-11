@@ -14,13 +14,16 @@ import DrawingManager from 'components/map/drawing-manager';
 import BasemapControl from 'components/map/controls/basemap';
 import ShareControl from 'components/map/controls/share';
 
-// Images
-import BookIcon from 'images/data-portal/book.svg';
 
-import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
+// Images and icons
+import BookIcon from 'images/data-portal/book.svg';
+import Pin from 'components/icons/SVG/pin.svg';
+
+import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS, NEARBY_MARKER } from './constants';
 
 // styles
 import './styles.scss';
+import { fetchNearbyArea } from '../datasets/actions';
 
 class MapComponent extends PureComponent {
   static propTypes = {
@@ -42,9 +45,10 @@ class MapComponent extends PureComponent {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab } = this.props;
-    const { area: nearbyArea, time: nearbyTime } = this.props.nearby;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearby, setLatLng, setNearbyCenter, fetchNearbyArea, center: coordinates } = this.props;
+    const { area: nearbyArea, time: nearbyTime, pin } = this.props.nearby;
     const { area: jurisdictionArea } = this.props.jurisdiction;
+
     const polygonAreaStyle = {
       color: '#2F939C',
       fillColor: '#2F939C',
@@ -66,18 +70,37 @@ class MapComponent extends PureComponent {
       }
     }] : [];
 
-    const patternsIconsLayer = [{
+    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze-patterns' && selectedTab === 'analysis') ? [{
       id: 'analyze-pattern-icons',
       provider: 'leaflet',
       layerConfig: {
         body: L.marker(
-          center,
+          coordinates,
           { icon: L.circle({ iconSize: [20, 20] }) }
         ),
         parse: false,
         type: 'featureGroup'
       }
-    }];
+    }] : [];
+
+    const nearbyMarkerLayer = (!!coordinates && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+      id: 'nearby-icons',
+      provider: 'leaflet',
+      layerConfig: {
+        body: [L.marker(
+          coordinates,
+          {
+            icon: L.icon({
+              iconUrl: Pin,
+              iconSize: [20, 20]
+            })
+          }
+        )],
+        parse: false,
+        type: 'featureGroup'
+      }
+    }] : [];
+
 
     const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
       id: 'jurisdiction',
@@ -108,10 +131,10 @@ class MapComponent extends PureComponent {
         type: 'featureGroup'
       }
     }];
-
     const layersResult = [
       ...jurisdictionAreaLayer,
       ...nearbyAreaLayer,
+      ...nearbyMarkerLayer,
       ...activeLayers,
       ...financialIconsLayer,
       ...patternsIconsLayer
@@ -139,6 +162,14 @@ class MapComponent extends PureComponent {
             }
           }}
           events={{
+            click: (e) => {
+              const { lat, lng } = e.latlng;
+
+              if (menuItem === 'nearby') {
+                setNearbyCenter({ lat, lng });
+                fetchNearbyArea();
+              }
+            },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
             moveend: (e, map) => { this.props.setCenter(map.getCenter()); },
             click: (e) => {
@@ -196,7 +227,7 @@ class MapComponent extends PureComponent {
               />
 
             </React.Fragment>
-            )}
+          )}
         </Map>
         <Legend />
       </div>

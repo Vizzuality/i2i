@@ -15,7 +15,10 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     ...state.fspMaps.common,
+    ...state.fspMaps.sidebar,
     ...state.fspMaps.map,
+    ...state.fspMaps.sidebar,
+    menuItem: state.fspMaps.sidebar.menuItem,
     nearby: state.fspMaps.analysis.nearby,
     areaOfInterest: state.fspMaps.analysis.areaOfInterest,
     jurisdiction: state.fspMaps.analysis.jurisdiction,

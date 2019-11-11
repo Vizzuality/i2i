@@ -48,7 +48,7 @@ class AreaOfInterestComponent extends PureComponent {
             }}
           >
             <Icon name="poligono" className="-sea -selected" />
-            <p>Create Area</p>
+            Create Area
           </button>
         </div>
 

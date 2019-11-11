@@ -50,7 +50,7 @@ export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch,
         { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
         { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
         { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
-        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0') }
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0'), component: true }
       ];
 
       dispatch(setIntro(result));
@@ -85,7 +85,7 @@ export const fetchIntroAnalysis = createThunkAction('INTRO_ANALYSIS/fetchIntro',
         { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
         { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
         { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
-        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0') }
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0'), component: true }
       ];
 
       dispatch(setIntroAnalysis(result));
@@ -102,6 +102,7 @@ export const setZoom = createAction('MAP/setZoom');
 export const setCenter = createAction('MAP/setCenter');
 export const setBasemap = createAction('MAP/setBasemap');
 export const setLabel = createAction('MAP/setLabel');
+export const setLatLng = createAction('MAP/setLatLng');
 
 // LEGEND
 export const setOpenLegend = createAction('LEGEND/setOpenLegend');
@@ -251,17 +252,18 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
 export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
 // Analysis - nearby
+export const togglePinDrop = createAction('ANALYSIS/togglePinDrop');
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
 export const setNearbyCenter = createAction('ANALYSIS/setNearbyCenter');
 export const setNearbyError = createAction('ANALYSIS/setNearbyError');
 export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (dispatch, getState) => {
-  const { time, location } = getState().fspMaps.analysis.nearby;
-  if (isEmpty(location) || !time) {
+  const { time, location, center } = getState().fspMaps.analysis.nearby;
+  if ((isEmpty(center) && isEmpty(location)) || !time) {
     return false;
   }
 
-  const { lat, lng } = location.location;
+  const { lat, lng } = center;
   const seconds = time * 60;
 
   return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)

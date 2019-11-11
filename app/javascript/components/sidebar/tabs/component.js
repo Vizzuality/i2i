@@ -24,17 +24,19 @@ class TabsComponent extends React.Component {
         <ul>
           {
             items.map(item => (
-              <li className="tab" key={item.value}>
-                <div className={classnames('tab-item', { '-selected': selected === item.value })}>
-                  <Icon
-                    name={`${item.value}`}
-                    className={classnames('sidebar-icon', { '-selected': selected === item.value })}
-                  />
-                  <button className="label" onClick={() => this.props.onSelect(item.value)}>
+              <button className="tabs-button" onClick={() => this.props.onSelect(item.value)}>
+                <li className="tab" key={item.value}>
+                  <div className={classnames('tab-item', { '-selected': selected === item.value })}>
+                    <Icon
+                      name={`${item.value}`}
+                      className={classnames('sidebar-icon', { '-selected': selected === item.value })}
+                    />
+
                     {item.label}
-                  </button>
-                </div>
-              </li>
+
+                  </div>
+                </li>
+              </button>
             ))
           }
         </ul>
