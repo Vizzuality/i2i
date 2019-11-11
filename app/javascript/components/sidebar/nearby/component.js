@@ -9,7 +9,6 @@ import Geosuggest from 'react-geosuggest';
 
 //Styles
 import './styles.scss';
-import { setNearbyCenter } from '../../datasets/actions';
 
 class NearbyComponent extends PureComponent {
   static propTypes = {
@@ -162,38 +161,6 @@ class NearbyComponent extends PureComponent {
 
 
         <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
-
-        <div className="c-field">
-          <label htmlFor="nearby-time">
-            Time: {time} minutes
-          </label>
-
-          <Range
-            // Styles
-            railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
-            trackStyle={{ backgroundColor: '$color-1', height: 1 }}
-            handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
-            activeDotStyle={{ display: 'none' }}
-            dotStyle={{ display: 'none' }}
-
-            marks={{
-              1: {
-                label: '1',
-                style: { fontSize: 10 }
-              },
-              720: {
-                label: '720',
-                style: { fontSize: 10 }
-              }
-            }}
-            id="nearby-time"
-            min={1}
-            max={720}
-            value={time}
-            onChange={this.onChange}
-            onAfterChange={this.onAfterChange}
-          />
-        </div>
           <button
             className="c-button -small -sea"
             onClick={() => this.props.setAnalysisActive(!analysisActive)}

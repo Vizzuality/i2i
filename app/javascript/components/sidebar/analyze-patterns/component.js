@@ -58,7 +58,7 @@ const AnalyzePatterns = ({
         <p>Find a hotspot and analyze it.</p>
 
         <div className="c-field">
-          <label htmlFor="nearby-time">
+          <label htmlFor="analyze-time">
             Time: {time} minutes
           </label>
 
