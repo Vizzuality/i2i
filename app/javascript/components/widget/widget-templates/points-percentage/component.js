@@ -1,15 +1,24 @@
 import React, { Fragment } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Chart from 'components/recharts';
+//import NoData from 'components/widget/no-data';
+
 import config from './config';
 
-const NumberOfServices = ({ widgetData }) => {
+const AccessPointsPercentage = ({ widgetData, widget, title, ...props }) => {
+
+
+  debugger;
   if (!widgetData) return null;
-  const { chartConfig } = config.parse(widgetData);
+
+  const data = config.parse(widgetData);
+  const { chartConfig } = data;
+
   return (
     <Fragment>
       <div className="c-widget-template">
+
         <Chart
           data={widgetData}
           config={chartConfig}
@@ -19,6 +28,4 @@ const NumberOfServices = ({ widgetData }) => {
   );
 };
 
-NumberOfServices.propTypes = { widgetData: propTypes.array.isRequired };
-
-export default NumberOfServices;
+export default AccessPointsPercentage;

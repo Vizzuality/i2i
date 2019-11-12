@@ -53,6 +53,7 @@ class WidgetWrapperComponent extends PureComponent {
       });
   }
 
+
   render() {
     const { title, children } = this.props;
     const { widgetData, loading } = this.state;

@@ -4,6 +4,8 @@ import widgetTemplates from './templates';
 
 // components
 import WidgetWrapperComponent from 'components/widget';
+import { PIE_SPEC, BAR_SPEC, GROUPED_BAR_SPEC, STACKED_BAR_SPEC } from './constants';
+
 
 // styles
 import './styles.scss';
@@ -33,6 +35,7 @@ class AnalysisResultComponent extends React.Component {
           </h3>
         </div>
         {widgets.length && widgets.map((widget) => {
+
           const Widget = widgetTemplates.get(widget.title).component;
 
           return (
@@ -42,7 +45,8 @@ class AnalysisResultComponent extends React.Component {
               {...widget}
             >
 
-              {({ widgetData, menuItem }) => (
+              {({ widgetData, menuItem, config }) => (
+
                 <Fragment>
                   {widgetData && widgetData.length &&
                     <Widget

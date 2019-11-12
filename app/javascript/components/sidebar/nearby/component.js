@@ -72,8 +72,6 @@ class NearbyComponent extends PureComponent {
 
   onDrop = () => {
     const { pin } = this.props.nearby;
-    const { active, dropped } = pin;
-    console.log(pin, active, dropped)
     this.props.togglePinDrop({ ...pin, active: true });
   }
 
@@ -81,7 +79,6 @@ class NearbyComponent extends PureComponent {
     const { shortIso, active: analysisActive, selectedLayers, latLng } = this.props;
     const { time, error, location, area, pin, dropped } = this.props.nearby;
 
-    console.log(location, 'location')
     return (
       <div className="c-nearby">
         {!!error &&
