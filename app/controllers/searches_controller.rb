@@ -2,21 +2,57 @@ class SearchesController < ApplicationController
   def index
     term = params[:term].class == Array ? params[:term].map(&:strip) : params[:term].split(',').map(&:strip) rescue nil
     tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
+    types_term = params[:types].class == Array ? params[:types].map(&:strip) : params[:types].split(',').map(&:strip) rescue nil
+    topics_term = params[:topics].class == Array ? params[:topics].map(&:strip) : params[:topics].split(',').map(&:strip) rescue nil
+    locations_term = params[:locations].class == Array ? params[:locations].map(&:strip) : params[:locations].split(',').map(&:strip) rescue nil
+
+    categories = Category.where(slug: params[:types])
+
+    term = !term || term.size === 0 ? nil : term
+
+    if locations_term || topics_term
+      tag_term = tag_term || []
+    end
 
     if !term && !tag_term
       records = []
 
-      entities.each do |klass|
-        records << klass.published.featured
+      if categories && categories.size > 0
+        entities.each do |klass|
+          categories.each do |category|
+            records << klass.published.featured.where(category_id: category.id)
+          end
+        end
+
+        @records = records.flatten.sort do |a, b|
+          [[a[:position] ? 0 : 1, a[:position]], b[:updated_at]] <=> [[b[:position] ? 0 : 1, b[:position]], a[:updated_at]]
+        end
+      else
+        entities.each do |klass|
+          records << klass.published.featured
+        end
+
+        @insights = records.flatten.sort do |a, b|
+          [[a[:position] ? 0 : 1, a[:position]], b[:updated_at]] <=> [[b[:position] ? 0 : 1, b[:position]], a[:updated_at]]
+        end[0..5]
       end
 
       @tweets = TwitterApi.get_tweets
-      @insights = records.flatten.sort do |a, b|
-        [[a[:position] ? 0 : 1, a[:position]], b[:updated_at]] <=> [[b[:position] ? 0 : 1, b[:position]], a[:updated_at]]
-      end[0..5]
     else
       term_result = []
       tag_result = []
+
+      if topics_term
+        topics_term.each do |topic_term|
+          tag_term << topic_term
+        end
+      end
+
+      if locations_term
+        locations_term.each do |location_term|
+          tag_term << location_term
+        end
+      end
 
       if term
         term.each do |search_term|
@@ -51,10 +87,18 @@ class SearchesController < ApplicationController
         tag_result
       end
 
-      @categories = Category.all
-      @records = (search_result.flatten.uniq)
+      if categories && categories.size > 0
+        @records = []
+        categories.each do |category|
+          @records << search_result.select { |r| r.category_id == category.id }
+        end
+        @records = @records.flatten.uniq
+      else
+        @records = (search_result.flatten.uniq)
+      end
     end
 
+    @categories = Category.all
     @topics = Tag.all.order(:slug)
     @countries = Country.ordered_by_name
 
