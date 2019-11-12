@@ -26,29 +26,29 @@ class InsightsController < ApplicationController
       totals['all'] += size
     end
 
-    if (topics_term || locations_term)
-      insights_result = []
+    ap topics_term
 
+    if (topics_term || locations_term)
       if topics_term
         topics_term.each do |topic_term|
-          insights_result << News.search_tags(topic_term)
-          insights_result << Blog.search_tags(topic_term)
-          insights_result << Event.search_tags(topic_term)
-          insights_result << Library.search_tags(topic_term)
+          records << News.search_tags(topic_term)
+          records << Blog.search_tags(topic_term)
+          records << Event.search_tags(topic_term)
+          records << Library.search_tags(topic_term)
         end
       end
 
       if locations_term
         locations_term.each do |location_term|
-          insights_result << News.search_tags(location_term)
-          insights_result << Blog.search_tags(location_term)
-          insights_result << Event.search_tags(location_term)
-          insights_result << Library.search_tags(location_term)
+          records << News.search_tags(location_term)
+          records << Blog.search_tags(location_term)
+          records << Event.search_tags(location_term)
+          records << Library.search_tags(location_term)
         end
       end
 
-      insights_result.flatten!
-      insights = insights_result
+      records.flatten!
+      insights = records
     else
       entities.each { |klass| records << klass.where(published: true) }
       insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
