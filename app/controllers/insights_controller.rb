@@ -26,8 +26,6 @@ class InsightsController < ApplicationController
       totals['all'] += size
     end
 
-    ap topics_term
-
     if (topics_term || locations_term)
       if topics_term
         topics_term.each do |topic_term|
