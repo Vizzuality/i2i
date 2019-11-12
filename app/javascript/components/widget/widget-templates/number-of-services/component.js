@@ -6,12 +6,13 @@ import config from './config';
 
 const NumberOfServices = ({ widgetData }) => {
   if (!widgetData) return null;
-  const { chartConfig } = config.parse(widgetData);
+  const { chartConfig, chartData } = config.parse(widgetData);
+
   return (
     <Fragment>
       <div className="c-widget-template">
         <Chart
-          data={widgetData}
+          data={[chartData]}
           config={chartConfig}
         />
       </div>

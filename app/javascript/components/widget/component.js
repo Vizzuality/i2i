@@ -37,7 +37,6 @@ class WidgetWrapperComponent extends PureComponent {
   fetchWidget = () => {
     const { url, body } = this.props;
     this.setState({ loading: true });
-
     fetch(url, {
       method: 'post',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

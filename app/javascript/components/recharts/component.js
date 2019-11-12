@@ -208,6 +208,7 @@ class Chart extends PureComponent {
               ))}
 
             {bars &&
+
               Object.keys(bars).map(key => (
                 <Bar key={key} dataKey={key} dot={false} {...bars[key]}>
                   {!!bars[key].label &&
