@@ -52,7 +52,6 @@ export const CONFIG = {
           label: null
         }],
         xAxis: {
-          type: 'category',
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
