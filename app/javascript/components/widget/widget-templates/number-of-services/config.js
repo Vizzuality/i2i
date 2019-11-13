@@ -29,12 +29,13 @@ const getServices = data => data.map(
 export const CONFIG = {
   parse: (data) => {
     const chartData = getData(data);
+    const services = getServices(data);
 
     return {
-      numberOfServices: getServices(data),
+      numberOfServices: services,
       chartData,
       chartConfig: {
-        height: 360,
+        height: 200,
         cartesianGrid: {
           vertical: true,
           horizontal: false,
@@ -57,7 +58,8 @@ export const CONFIG = {
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
-          }
+          },
+          domain: [0, services]
 
         },
         yAxis: {
@@ -70,7 +72,7 @@ export const CONFIG = {
         },
         legend: {
           position: 'relative',
-          verticalAlign: 'top',
+          verticalAlign: 'bottom',
           layout: 'horizontal',
           height: 80,
           top: 0,
