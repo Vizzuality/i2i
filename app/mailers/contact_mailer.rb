@@ -33,7 +33,7 @@ class ContactMailer < ApplicationMailer
 
   def message_mail(message)
     @contact = message
-    data = {
+    sub_data = {
       first_name: message.first_name,
       last_name: message.last_name
       email: message.email,
@@ -42,7 +42,7 @@ class ContactMailer < ApplicationMailer
       country: message.country,
       message: message.message
     }
-    data = { template_id: 'message', substitution_data: data }
+    data = { template_id: 'message', substitution_data: sub_data }
     mail(to: ENV.fetch('I2I_MAIL'), cc: ['david.inga+i2i@vizzuality.com', 'clara.linos+i2i@vizzuality.com'], sparkpost_data: data)
   end
 end
