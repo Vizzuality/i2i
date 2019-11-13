@@ -25,6 +25,10 @@ export default {
     const intro = { ...state.intro, data: payload };
     return { ...state, intro };
   },
+  [actions.setDistance]: (state, { payload }) => {
+    const intro = { ...state.intro, distance: payload };
+    return { ...state, intro };
+  },
   [actions.setIntroLoading]: (state, { payload }) => {
     const intro = { ...state.intro, loading: payload };
     return { ...state, intro };

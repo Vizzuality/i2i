@@ -1,51 +1,51 @@
-import React, { useState, Fragment } from 'react';
+import React from 'react';
 import ReactSelect from 'react-select';
 import PropTypes from 'prop-types';
 
 
-import styles from './styles.scss';
+import './styles.scss';
 
-function Item({ options, selectedOption, item }) {
-  const [optionState, setOption] = useState({
-    label: '',
-    value: ''
-  });
-
-  const onChange = (option) => {
-    setOption({ value: option, label: option });
+function Item({ setDistance, distance, fetchIntro }) {
+  const onChange = ({ value, label }) => {
+    setDistance({ label, value });
+    fetchIntro();
   };
 
   const distanceOptions = [
     { label: '5 km', value: 5 },
     { label: '10 km', value: 10 },
     { label: '15 km', value: 15 },
-    { label: '20 km', value: 20 }
+    { label: '20 km', value: 20 },
+    { label: '30 km', value: 30 },
+    { label: '50 km', value: 50 },
+    { label: '100 km', value: 100 }
   ];
 
-  const selectedDistance = { label: '5 km', value: 5 };
-
-  const distance = (
+  const distanceSelect = (
     <ReactSelect
       className="react-select-container"
       classNamePrefix="react-select"
       options={distanceOptions}
       onChange={onChange}
-      value={selectedDistance}
+      value={distance}
     />
   );
 
   return (
-    <Fragment>
-      TOTAL POPULATION WITHIN {distance} OF ALL ACCESS POINTS
-    </Fragment>
+    <div>
+      TOTAL POPULATION WITHIN {distanceSelect} OF ALL ACCESS POINTS
+    </div>
   );
 }
 
 Item.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  setDistance: PropTypes.func.isRequired,
+  fetchIntro: PropTypes.func.isRequired,
+  distance: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.number
+  }).isRequired
 };
 
-//
 
 export default Item;

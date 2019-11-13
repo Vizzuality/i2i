@@ -19,6 +19,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
   componentDidMount() {
     const { widgetData, menuItem } = this.props;
     const datum = widgetData[0];
+
     const newData = [
       { label: 'TOTAL POPULATION', value: Numeral(datum.total_population).format('0,0'), subvalue: null },
       { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(datum.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.rural_population).format('0,0') },
@@ -27,6 +28,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
 
     this.setState({ widgetData: newData });
 
+
     // Maintain the country summary data updated with the one from the analysis.
     menuItem === 'country' ? this.props.fetchIntroAnalysis() : this.props.setIntroAnalysis(newData);
   }
@@ -34,7 +36,6 @@ class SummaryWidgetWrapperComponent extends React.Component {
   render() {
     const { title } = this.props;
     const { widgetData } = this.state;
-
     return (
       <div className="c-summary-widget-element">
         <div className="widget-title">

@@ -28,11 +28,13 @@ export const setLatestyear = createAction('COMMON/setLatestyear');
 
 // INTRO
 export const setIntro = createAction('INTRO/setIntro');
+export const setDistance = createAction('INTRO/setDistance');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
-  const distance_km = 10;
+  const { distance } = getState().fspMaps.intro;
+  const distance_km = distance.value;
 
   dispatch(setIntroLoading(true));
 
