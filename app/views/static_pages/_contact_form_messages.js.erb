@@ -1,5 +1,5 @@
-var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"} %>');
-var success = new Boolean('<%= success %>');
+var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"}.to_json.html_safe %>');
+var success = new Boolean('<%= defined?(success) ? success : false %>');
 var $messages = $("#messages");
 
 if (errors && !errors.status) {
@@ -14,5 +14,5 @@ if (errors && !errors.status) {
   $messages
     .addClass('message').addClass('-info')
     .html('Thanks! Your message has been sent.');
-  $('.custom-row').hide();
+  $('.custom-row, .actions').hide();
 }
