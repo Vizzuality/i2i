@@ -40,7 +40,7 @@ class ContactMailer < ApplicationMailer
       title: message.title,
       company: message.company,
       country: message.country,
-      message: message.message,
+      message: message.message
     }
     data = { template_id: 'message', substitution_data: data }
     mail(to: ENV.fetch('I2I_MAIL'), cc: ['david.inga+i2i@vizzuality.com', 'clara.linos+i2i@vizzuality.com'], sparkpost_data: data)
