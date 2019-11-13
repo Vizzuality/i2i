@@ -75,6 +75,10 @@
     resize: none;
   }
 
+  select.-hidden {
+    display: none;
+  }
+
   .actions {
     .g-recaptcha {
       margin-top: 30px;

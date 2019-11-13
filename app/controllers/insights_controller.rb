@@ -6,6 +6,9 @@ class InsightsController < ApplicationController
   end
 
   def categories
+    topics_term = params[:topics].class == Array ? params[:topics].map(&:strip) : params[:topics].split(',').map(&:strip) rescue nil
+    locations_term = params[:locations].class == Array ? params[:locations].map(&:strip) : params[:locations].split(',').map(&:strip) rescue nil
+
     @categories = Category.all.order(:position)
     @category = Category.find_by(slug: params[:category])
     records = []
@@ -23,8 +26,31 @@ class InsightsController < ApplicationController
       totals['all'] += size
     end
 
-    entities.each { |klass| records << klass.where(published: true) }
-    insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
+    if (topics_term || locations_term)
+      if topics_term
+        topics_term.each do |topic_term|
+          records << News.search_tags(topic_term)
+          records << Blog.search_tags(topic_term)
+          records << Event.search_tags(topic_term)
+          records << Library.search_tags(topic_term)
+        end
+      end
+
+      if locations_term
+        locations_term.each do |location_term|
+          records << News.search_tags(location_term)
+          records << Blog.search_tags(location_term)
+          records << Event.search_tags(location_term)
+          records << Library.search_tags(location_term)
+        end
+      end
+
+      records.flatten!
+      insights = records
+    else
+      entities.each { |klass| records << klass.where(published: true) }
+      insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
+    end
 
     if @category.present?
       @total_insights = totals[@category.name]

@@ -35,6 +35,6 @@ class ContactMailer < ApplicationMailer
     puts message
     @contact = message
     data = { template_id: 'message', substitution_data: message }
-    mail(to: ENV.fetch('I2I_MAIL'), sparkpost_data: data)
+    mail(to: ENV.fetch('I2I_MAIL'), cc: ['david.inga+i2i@vizzuality.com', 'clara.linos+i2i@vizzuality.com'], sparkpost_data: data)
   end
 end
