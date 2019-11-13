@@ -13,6 +13,8 @@
 - Filter and message that shows user analysis is just available to sector and some contextual layers
 - Added styles for alert messages
 - Added thank you message after the user requests to download
+- Added filters for search results
+- Added filters on the insights page
 
 ### Changed
 
@@ -45,3 +47,4 @@
 - Fixed icon alignment in the download modal form
 - Fixed an issue where search by iso doesn't return any result
 - Fixed an issue where scroll jumps to the top of the page when user clicks on "Show more" button
+- Fixed an issue where contact form message wasn't being sent
