@@ -53,10 +53,10 @@ class NearbyComponent extends PureComponent {
   }
 
 
-  onChange = (value) => {
-    console.log(value);
-    const { toggleLocation } = this.props;
-    toggleLocation(true);
+  onChange = () => {
+    const { nearby, togglePinDrop } = this.props;
+    const { pin } = nearby;
+    togglePinDrop({ ...pin, active: false });
     // this.props.setNearby({ ...this.props.nearby, time: value });
   }
 
@@ -72,11 +72,10 @@ class NearbyComponent extends PureComponent {
   }
 
   onDrop = () => {
-    const { togglePinDrop, toggleLocation, nearby } = this.props;
+    const { togglePinDrop, nearby } = this.props;
     const { pin } = nearby;
     const { active } = pin;
 
-    toggleLocation(false);
     togglePinDrop({ ...pin, active: !active });
   }
 

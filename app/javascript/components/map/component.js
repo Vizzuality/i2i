@@ -17,7 +17,6 @@ import ShareControl from 'components/map/controls/share';
 
 // Images and icons
 import BookIcon from 'images/data-portal/book.svg';
-import Pin from 'components/icons/SVG/pin.svg';
 
 import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
@@ -47,7 +46,7 @@ class MapComponent extends PureComponent {
 
   render() {
     const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea } = this.props;
-    const { area: nearbyArea, pin, center: coordinates, location } = nearby;
+    const { area: nearbyArea, pin, center: coordinates } = nearby;
     const { active } = pin;
     const { area: jurisdictionArea } = this.props.jurisdiction;
 
@@ -72,7 +71,7 @@ class MapComponent extends PureComponent {
       }
     }] : [];
 
-    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze-patterns' && selectedTab === 'analysis') ? [{
+    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze_patterns' && selectedTab === 'analysis') ? [{
       id: 'analyze-pattern-icons',
       provider: 'leaflet',
       layerConfig: {
@@ -173,15 +172,15 @@ class MapComponent extends PureComponent {
 
               setCenter(coordinates);
               if (menuItem === 'nearby') {
-              Promise.all([
-                setNearbyCenter({ lat, lng })
-              ])
-                .then(() => { fetchNearbyArea(); });
+                Promise.all([
+                  setNearbyCenter({ lat, lng })
+                ])
+                  .then(() => { fetchNearbyArea(); });
               }
-              if (active) {
+              if (active && !nearbyIcon) {
                 togglePinDrop({ ...pin, dropped: true });
-              } else if (!active && nearbyIcon) {
-                togglePinDrop({ active: true, dropped: false });
+              } else if (active && nearbyIcon) {
+                togglePinDrop({ ...pin, dropped: false });
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
