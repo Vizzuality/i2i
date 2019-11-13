@@ -49,3 +49,4 @@
 - Fixed an issue where scroll jumps to the top of the page when user clicks on "Show more" button
 - Fixed an issue where contact form message wasn't being sent
 - Fixed an error when user request to download on the national surveys page
+- Fixed an issue where user only received one link instead multiple on download modal
