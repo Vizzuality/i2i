@@ -40,7 +40,7 @@ export const CONFIG = {
           horizontal: false,
           strokeDasharray: '5 20'
         },
-        layout: 'horizontal',
+        layout: 'vertical',
         margin: { top: 0, right: 0, left: 0, bottom: 0 },
         xKey: 'name',
         yKeys: { bars: getBars(data) },
@@ -53,6 +53,7 @@ export const CONFIG = {
           label: null
         }],
         xAxis: {
+          type: 'number',
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
@@ -60,6 +61,7 @@ export const CONFIG = {
 
         },
         yAxis: {
+          type: 'category',
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
