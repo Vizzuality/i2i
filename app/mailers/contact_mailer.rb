@@ -35,7 +35,7 @@ class ContactMailer < ApplicationMailer
     @contact = message
     sub_data = {
       first_name: message.first_name,
-      last_name: message.last_name
+      last_name: message.last_name,
       email: message.email,
       title: message.title,
       company: message.company,
