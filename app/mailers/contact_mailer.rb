@@ -14,8 +14,12 @@ class ContactMailer < ApplicationMailer
 
   def data_batch_download(contact, links)
     @contact = contact
+    @links_block = ""
 
-    @links_block = "<p><a href=\"#{links[0]}\" target='_blank' download='true'>#{links[0]}</a></p>"
+    links.delete_if { |l| l.include? ".zip" }
+    links.each do |link|
+      @links_block << "<p><a href=\"#{link}\" target='_blank' download='true'>#{link}</a></p>"
+    end
 
     data = {
       template_id: 'country-batch-download',

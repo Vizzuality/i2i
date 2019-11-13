@@ -18,6 +18,22 @@ class ContactsController < ApplicationController
     end
   end
 
+  def ns_download_all
+    contact = Contact.new(ns_download_all_params)
+
+    if contact.save
+      begin
+        ContactMailer.data_mail(contact).deliver!
+      rescue SparkPostRails::DeliveryException => e
+        Rails.logger.error "Error sending the email: #{e}"
+      end
+
+      render json: contact.to_json, status: :created
+    else
+      render json: contact.errors, status: :unprocessable_entity
+    end
+  end
+
   def about_form
     @contact = Contact.new(contact_params)
 
@@ -67,6 +83,10 @@ class ContactsController < ApplicationController
   end
 
   def batch_download_params
+    params.permit(:email, :country, :terms, links: [])
+  end
+
+  def ns_download_all_params
     params.permit(:email, :country, :terms, links: [])
   end
 end
