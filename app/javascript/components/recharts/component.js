@@ -153,7 +153,7 @@ class Chart extends PureComponent {
 
             {xAxis && (
               <XAxis
-                dataKey={xKey || ''}
+                dataKey={layout === 'horizontal' && (xKey || '')}
                 axisLine={false}
                 tickLine={false}
                 tick={{ dy: 8, fontSize: '11px', fontWeight: '500', fill: '#FFF' }}
@@ -164,6 +164,7 @@ class Chart extends PureComponent {
 
             {yAxis && (
               <YAxis
+                dataKey={layout === 'vertical' && (xKey || '')}
                 axisLine={false}
                 tickSize={-50}
                 mirror
@@ -245,16 +246,6 @@ class Chart extends PureComponent {
                   ))}
                 </Pie>
               ))
-            )}
-
-            {/* we need to draw this after the graph, as some elements in a vertical bar will draw above the graph */}
-            {layout === 'vertical' && xAxis && (
-              <XAxis
-                tick={{ fontSize: 11 }}
-                axisLine={false}
-                tickLine={false}
-                {...xAxis}
-              />
             )}
 
             {tooltip && (
