@@ -6,4 +6,13 @@
   src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
 }
 
+.c-number-of-services {
+  p {
+    color: $color-5;
+    font-size: 13px;
+    margin: 20px 0;
+    font-weight: 600;
+  }
+}
+
 

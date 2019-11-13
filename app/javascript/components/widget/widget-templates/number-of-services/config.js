@@ -1,10 +1,10 @@
-import camelCase from 'lodash/camelCase';
+import React from 'react';
 import WidgetLegend from 'components/widget/legend';
 
 const getData = data => data.reduce((acc, d) => {
   return {
     ...acc,
-    [camelCase(d.label)]: d.value,
+    [d.label]: d.value,
     name: d.unit
   };
 }, {});
@@ -13,7 +13,7 @@ const getData = data => data.reduce((acc, d) => {
 const getBars = data => data.reduce((acc, d) => {
   return {
     ...acc,
-    [camelCase(d.label)]: {
+    [d.label]: {
       stackId: 1,
       fill: d.color,
       stroke: d.color,
@@ -22,7 +22,7 @@ const getBars = data => data.reduce((acc, d) => {
   };
 }, {});
 
-const getBarLength = data => data.map(
+const getServices = data => data.map(
   d => d.value
 ).reduce((previous, current) => current + previous);
 
@@ -31,6 +31,7 @@ export const CONFIG = {
     const chartData = getData(data);
 
     return {
+      numberOfServices: getServices(data),
       chartData,
       chartConfig: {
         height: 360,
@@ -64,19 +65,18 @@ export const CONFIG = {
             fill: 'rgba(0,0,0,0.54)'
           },
           interval: 2
+        },
+        legend: {
+          position: 'relative',
+          verticalAlign: 'top',
+          layout: 'horizontal',
+          height: 80,
+          top: 0,
+          content: (properties) => {
+            const { payload } = properties;
+            return <WidgetLegend data={payload} />;
+          }
         }
-        // legend: {
-        //   position: 'relative',
-        //   verticalAlign: 'top',
-        //   layout: 'horizontal',
-        //   height: 80,
-        //   top: 0,
-        //   content: (properties) => {
-        //     const { payload } = properties;
-        //     const groups = groupBy(payload, p => p.payload);
-        //     return <WidgetLegend type="height" groups={groups} />;
-        //   }
-        // }
       }
     };
   }
