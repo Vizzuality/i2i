@@ -31,7 +31,7 @@ class PopupComponent extends React.Component {
                 <div className="legend-years--name">{y}</div>
               </label>
             </div>
-          )
+          );
         })}
       </div>
     );
