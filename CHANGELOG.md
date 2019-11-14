@@ -15,6 +15,7 @@
 - Added thank you message after the user requests to download
 - Added filters for search results
 - Added filters on the insights page
+- Added year selector inside legend sector layers.
 
 ### Changed
 

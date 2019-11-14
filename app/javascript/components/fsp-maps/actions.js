@@ -126,13 +126,14 @@ function getSectors(iso) {
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
       ...row,
-      id: row.id.toString(),
+      id: row.type_id.toString(),
       name: row.type,
       info: LAYERS_INFO[row.type],
       layerType: 'sector',
       count: Numeral(row.count).format('0,0'),
       provider: 'carto',
-      isUserDataset: false
+      isUserDataset: false,
+      years: row.years
     })));
 }
 

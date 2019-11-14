@@ -16,6 +16,7 @@ import Legend, {
 
 import LegendItemInfo from './legend-item-button-info';
 import LegendItemButtonVisualizations from './legend-item-button-visualizations';
+import LegendYears from './legend-years';
 
 // styles
 import './styles.scss';
@@ -58,6 +59,16 @@ class LegendComponent extends React.Component {
 
     this.props.setLayersSettings(layersSettings);
   }
+
+  onChangeYear = (l, year) => {
+    const layerId = l.id ? l.id : l.cartodb_id;
+    const layersSettings = { ...this.props.layersSettings };
+    layersSettings[layerId] = { ...layersSettings[layerId], year };
+
+    this.props.setLayersSettings(layersSettings);
+  }
+
+
 
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
@@ -121,6 +132,12 @@ class LegendComponent extends React.Component {
               onRemoveLayer={this.onRemoveLayer}
             >
               <LegendItemTypes />
+
+              {lg.layerType === 'sector' &&
+                <LegendYears
+                  onChangeYear={this.onChangeYear}
+                />
+              }
             </LegendListItem>
           ))}
         </Legend>
