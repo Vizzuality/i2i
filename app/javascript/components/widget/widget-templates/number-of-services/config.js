@@ -1,6 +1,8 @@
 import React from 'react';
 import WidgetLegend from 'components/widget/legend';
 
+const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
+
 const getData = data => data.reduce((acc, d) => {
   return {
     ...acc,
@@ -28,8 +30,9 @@ const getServices = data => data.map(
 
 export const CONFIG = {
   parse: (data) => {
-    const chartData = getData(data);
-    const services = getServices(data);
+    const dataSorted = sortData(data);
+    const chartData = getData(dataSorted);
+    const services = getServices(dataSorted);
 
     return {
       numberOfServices: services,

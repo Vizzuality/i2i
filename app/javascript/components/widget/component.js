@@ -61,10 +61,26 @@ class WidgetWrapperComponent extends PureComponent {
         <div className="c-widget-element">
           <div className="widget-template">
             <div className="widget-header">
-              <h1>{title}</h1>
+              <h3>{title}</h3>
               <div className="header-buttons">
-                <Icon name="info" />
-                <Icon name="share" />
+                <button
+                  className="widget-btn"
+                  onClick={() => {
+
+                  }}
+                >
+                  <Icon name="info-squared" className="info-widget -disabled-opacity" />
+                </button>
+                <button
+                  className="widget-btn"
+                  onClick={() => {
+
+                  }}
+                >
+                  <Icon name="download" className="download-widget -disabled-opacity" />
+                </button>
+
+
               </div>
             </div>
             <div className="widget-content">

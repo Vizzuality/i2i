@@ -15,6 +15,7 @@
   background-color: #FFFFFF;
   padding: 30px;
 
+
   .widget-template {
     h1 {
       color: $color-5;
@@ -25,6 +26,25 @@
     .widget-header {
       display: flex;
       justify-content: space-between;
+      color: $color-5;
+      font-size: 24px;
+      line-height: 26px;
+
+      .widget-btn {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border: 1px solid $color-1;
+        border-radius: 50%;
+
+        .download-widget,
+        .info-widget {
+          position: absolute;
+          top: 4px;
+          left: 0;
+          fill: $color-1;
+        }
+      }
     }
   }
 }
