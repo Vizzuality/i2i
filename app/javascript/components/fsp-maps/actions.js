@@ -124,15 +124,16 @@ function getSectors(iso) {
   const tableName = 'fsp_maps';
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
-    .then(data => console.log(data.rows) || data.rows.map(row => ({
+    .then(data => data.rows.map(row => ({
       ...row,
-      id: row.id.toString(),
+      id: row.type_id.toString(),
       name: row.type,
       info: LAYERS_INFO[row.type],
       layerType: 'sector',
       count: Numeral(row.count).format('0,0'),
       provider: 'carto',
-      isUserDataset: false
+      isUserDataset: false,
+      years: row.years
     })));
 }
 

@@ -82,7 +82,7 @@ export const COUNTRY_MASK = {
 
 export const SECTOR_CONFIGS = {
   normal: (params) => {
-    const { l, iso } = params;
+    const { l, iso, year } = params;
 
     return {
       interactivity: ['name', 'type'],
@@ -93,7 +93,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(SECTORS_CSS, { color: l.color }),
-                sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                sql: replace(FSP_LAYER_SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
               },
               type: 'cartodb'
             }
@@ -116,7 +116,7 @@ export const SECTOR_CONFIGS = {
     };
   },
   heatmap: (params) => {
-    const { l, iso } = params;
+    const { l, iso, year } = params;
 
     return {
       layerConfig: {
@@ -126,7 +126,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(HEATMAP_CSS, { color: l.color }),
-                sql: replace(FSP_LAYER_SQL, { iso, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                sql: replace(FSP_LAYER_SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
               },
               type: 'cartodb'
             }
