@@ -16,6 +16,7 @@ import Legend, {
 
 import LegendItemInfo from './legend-item-button-info';
 import LegendItemButtonVisualizations from './legend-item-button-visualizations';
+import LegendYears from './legend-years-selector';
 
 // styles
 import './styles.scss';
@@ -121,6 +122,10 @@ class LegendComponent extends React.Component {
               onRemoveLayer={this.onRemoveLayer}
             >
               <LegendItemTypes />
+
+              {lg.layerType === 'sector' &&
+                <LegendYears />
+              }
             </LegendListItem>
           ))}
         </Legend>
