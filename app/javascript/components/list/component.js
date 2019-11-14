@@ -41,7 +41,6 @@ class ListComponent extends React.Component {
   }
 
   clickItem = (row) => {
-    console.log(row);
     this.props.onSelect(row);
   }
 
