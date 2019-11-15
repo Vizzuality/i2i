@@ -51,13 +51,12 @@
       var self = this;
 
       data = $('form').serializeArray();
-      data.push({ name: 'country', value: this.options.iso });
       data.push({ name: 'email', value: this.emailField.value });
       data.push({ name: 'country', value: this.options.iso });
       data.push({ name: 'year', value: this.options.year });
 
       $.post({
-        url: "<%= contacts_path %>",
+        url: "<%= ns_download_all_contacts_path %>",
         data: data,
         success: function() {
           self.options.content = self.successTemplate({});

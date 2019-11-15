@@ -9,6 +9,9 @@ import IntroComponent from './component';
 export { actions, reducers, initialState };
 
 export default connect(
-  state => ({ data: state.fspMaps.intro.data }),
+  state => ({
+    data: state.fspMaps.intro.data,
+    distance: state.fspMaps.intro.distance
+  }),
   actions
 )(IntroComponent);

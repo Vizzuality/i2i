@@ -42,9 +42,11 @@ export const getActiveLayers = createSelector(
       const visualizationType = (layerSetting && typeof layerSetting.visualizationType !== 'undefined') ? layerSetting.visualizationType : 'normal';
       const opacity = (layerSetting && typeof layerSetting.opacity !== 'undefined') ? layerSetting.opacity : 1;
       const visibility = (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true;
+      const year = (layerSetting && typeof layerSetting.year !== 'undefined') ? layerSetting.year : l.years[0];
       const sectorConfigParams = {
         l,
-        iso: _iso
+        iso: _iso,
+        year
       };
 
       return {

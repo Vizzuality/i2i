@@ -20,6 +20,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
   componentDidMount() {
     const { widgetData, menuItem } = this.props;
     const datum = widgetData[0];
+
     const newData = [
       { label: 'TOTAL POPULATION', value: Numeral(datum.total_population).format('0,0'), subvalue: null },
       { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(datum.rural_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.rural_population).format('0,0') },

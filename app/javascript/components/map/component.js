@@ -17,13 +17,13 @@ import ShareControl from 'components/map/controls/share';
 
 // Images and icons
 import BookIcon from 'images/data-portal/book.svg';
-import Pin from 'components/icons/SVG/pin.svg';
 
-import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS, NEARBY_MARKER } from './constants';
+import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
 // styles
 import './styles.scss';
-import { fetchNearbyArea } from '../datasets/actions';
+
+import { togglePinDrop } from '../fsp-maps/actions';
 
 class MapComponent extends PureComponent {
   static propTypes = {
@@ -45,8 +45,9 @@ class MapComponent extends PureComponent {
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearby, setLatLng, setNearbyCenter, fetchNearbyArea, center: coordinates } = this.props;
-    const { area: nearbyArea, time: nearbyTime, pin } = this.props.nearby;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea } = this.props;
+    const { area: nearbyArea, pin, center: coordinates } = nearby;
+    const { active } = pin;
     const { area: jurisdictionArea } = this.props.jurisdiction;
 
     const polygonAreaStyle = {
@@ -60,7 +61,7 @@ class MapComponent extends PureComponent {
       '-open': !!open
     });
 
-    const nearbyAreaLayer = (!isEmpty(nearbyArea) && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+    const nearbyAreaLayer = (!isEmpty(nearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
       id: 'nearby',
       provider: 'leaflet',
       layerConfig: {
@@ -70,18 +71,32 @@ class MapComponent extends PureComponent {
       }
     }] : [];
 
-
-    const nearbyMarkerLayer = (!!coordinates && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
-      id: 'nearby-icons',
+    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze_patterns' && selectedTab === 'analysis') ? [{
+      id: 'analyze-pattern-icons',
       provider: 'leaflet',
       layerConfig: {
-        body: [L.marker(
+        body: [L.circleMarker(
           coordinates,
           {
-            icon: L.icon({
-              iconUrl: Pin,
-              iconSize: [20, 20]
-            })
+            color: '#f9d031',
+            radius: 20
+          }
+        )],
+        parse: false,
+        type: 'featureGroup'
+      }
+    }] : [];
+
+    const nearbyMarkerLayer = (!!coordinates && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
+      id: 'nearby-icons',
+      key: 'nearby-icons',
+      provider: 'leaflet',
+      layerConfig: {
+        body: [L.circleMarker(
+          coordinates,
+          {
+            color: '#f9d031',
+            radius: 20
           }
         )],
         parse: false,
@@ -124,7 +139,8 @@ class MapComponent extends PureComponent {
       ...nearbyAreaLayer,
       ...nearbyMarkerLayer,
       ...activeLayers,
-      ...financialIconsLayer
+      ...financialIconsLayer,
+      ...patternsIconsLayer
     ];
 
     return (
@@ -151,10 +167,20 @@ class MapComponent extends PureComponent {
           events={{
             click: (e) => {
               const { lat, lng } = e.latlng;
+              const { setCenter } = this.props;
+              const nearbyIcon = layersResult.filter(layer => layer.id === 'nearby-icons');
 
+              setCenter(coordinates);
               if (menuItem === 'nearby') {
-                setNearbyCenter({ lat, lng });
-                fetchNearbyArea();
+                Promise.all([
+                  setNearbyCenter({ lat, lng })
+                ])
+                  .then(() => { fetchNearbyArea(); });
+              }
+              if (active && !nearbyIcon) {
+                togglePinDrop({ ...pin, dropped: true });
+              } else if (active && nearbyIcon) {
+                togglePinDrop({ ...pin, dropped: false });
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },

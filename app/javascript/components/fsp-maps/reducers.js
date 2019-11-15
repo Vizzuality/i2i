@@ -25,6 +25,10 @@ export default {
     const intro = { ...state.intro, data: payload };
     return { ...state, intro };
   },
+  [actions.setDistance]: (state, { payload }) => {
+    const intro = { ...state.intro, distance: payload };
+    return { ...state, intro };
+  },
   [actions.setIntroLoading]: (state, { payload }) => {
     const intro = { ...state.intro, loading: payload };
     return { ...state, intro };
@@ -165,6 +169,28 @@ export default {
   [actions.togglePinDrop]: (state, { payload }) => {
     const nearby = { ...state.analysis.nearby, pin: payload };
     const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+  [actions.toggleLocation]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, location: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+
+  // Analysis - Analyse patterns
+  [actions.setLocationsList]: (state, { payload }) => {
+    const location = { ...state.analysis.location, list: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationSelected]: (state, { payload }) => {
+    const location = { ...state.analysis.location, selectedLocation: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationArea]: (state, { payload }) => {
+    const location = { ...state.analysis.location, area: payload };
+    const analysis = { ...state.analysis, location };
     return { ...state, analysis };
   },
 
