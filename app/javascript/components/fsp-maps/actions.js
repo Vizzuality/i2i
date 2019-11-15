@@ -290,6 +290,7 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
 export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
 // Analysis - nearby
+export const toggleLocation = createAction('ANALYSIS/toggleLocation');
 export const togglePinDrop = createAction('ANALYSIS/togglePinDrop');
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
@@ -308,6 +309,7 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
     .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setNearbyArea(data.features[0].geometry));
+
       dispatch(setNearbyCenter({
         lng: data.features[0].properties.center[0],
         lat: data.features[0].properties.center[1]
@@ -324,6 +326,36 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       }
     });
 });
+
+// Analysis - Analyze Patterns
+export const setLocationSelected = createAction('ANALYSIS/setLocationSelected');
+export const setLocationsList = createAction('ANALYSIS/setLocationsList');
+export const setLocationArea = createAction('ANALYSIS/setLocationArea');
+export const fetchLocations = createThunkAction('ANALYSIS/fetchLocations', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+  const locationsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
+
+  fetch(`${window.FSP_CARTO_API}?q=${locationsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then(response => response.ok && response.json())
+    .then((data) => {
+      dispatch(setLocationsList(data.rows));
+    });
+});
+
+export const fetchLocationArea = createThunkAction('ANALYSIS/fetchLocationArea', () => (dispatch, getState) => {
+  const { selectedLocation } = getState().fspMaps.analysis.location;
+  const { value: jurisdictionId } = selectedLocation;
+  const locationAreaSql = encodeURIComponent(
+    replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })
+  );
+
+  fetch(`${window.FSP_CARTO_API}?q=${locationAreaSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then(response => response.ok && response.json())
+    .then((data) => {
+      dispatch(setLocationArea(JSON.parse(data.rows[0].st_asgeojson)));
+    });
+});
+
 
 // Analysis - area of interest
 export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');

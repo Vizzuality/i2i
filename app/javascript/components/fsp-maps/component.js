@@ -31,7 +31,8 @@ export default class FSPMaps extends React.Component {
     setLayersSettings: PropTypes.func.isRequired,
     fetchLayers: PropTypes.func.isRequired,
     fetchWidgets: PropTypes.func.isRequired,
-    fetchJurisdictions: PropTypes.func.isRequired
+    fetchJurisdictions: PropTypes.func.isRequired,
+    fetchLocations: PropTypes.func.isRequired
   }
 
   static defaultProps = { latestYear: null }
@@ -56,6 +57,7 @@ export default class FSPMaps extends React.Component {
     this.props.fetchLayers();
     this.props.fetchWidgets();
     this.props.fetchJurisdictions();
+    this.props.fetchLocations();
 
     if (
       typeof zoom === 'undefined' &&

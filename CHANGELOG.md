@@ -13,6 +13,8 @@
 - Filter and message that shows user analysis is just available to sector and some contextual layers
 - Added styles for alert messages
 - Added thank you message after the user requests to download
+- Analyze pattern analysis in sidebar menu
+- Analysis by clicking on map added to "Proximity" and "Analyze patterns" in sidebar
 - Added filters for search results
 - Added filters on the insights page
 - Added year selector inside legend sector layers.
