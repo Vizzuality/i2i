@@ -1,10 +1,7 @@
-$(document).on('ready', function() {
+$(document).on('ready, turbolinks:load', function() {
   $('.filter-select').select2({
-    width: '100%'
-  });
-  document.addEventListener('turbolinks:load', function() {
-    $('.filter-select').select2({
-      width: '100%'
-    });
+    width: '100%',
+    placeholder: 'Select...',
+    allowClear: true
   });
 });
