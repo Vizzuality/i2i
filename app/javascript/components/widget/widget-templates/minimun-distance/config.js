@@ -11,18 +11,18 @@ const getData = data => data.map(d => ({
 }));
 
 
-const getBars = data => data.reduce((acc, d) => {
-  return {
-    ...acc,
-    [d.label]: {
-      barSize: d.value * 100,
-      fill: d.color,
-      name: d.label,
-      color: d.color,
-      isAnimationActive: false
-    }
-  };
-}, {});
+// const getBars = data => data.reduce((acc, d) => {
+//   return {
+//     ...acc,
+//     [d.label]: {
+//       barSize: d.value * 100,
+//       fill: d.color,
+//       name: d.label,
+//       color: d.color,
+//       isAnimationActive: false
+//     }
+//   };
+// }, {});
 
 export const CONFIG = {
   parse: (data) => {
@@ -38,10 +38,16 @@ export const CONFIG = {
           horizontal: false,
           strokeDasharray: '5 20'
         },
-        layout: 'horizontal',
+        layout: 'vertical',
         margin: { top: 0, right: 0, left: 0, bottom: 0 },
         xKey: 'name',
-        yKeys: { bars: getBars(dataSorted) },
+        yKeys: {
+          bars: {
+            value: {
+              itemColor: true
+            }
+          }
+        },
         referenceLines: [{
           y: 0,
           stroke: 'red',
@@ -51,7 +57,6 @@ export const CONFIG = {
           label: null
         }],
         xAxis: {
-          type: 'number',
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
