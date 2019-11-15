@@ -28,15 +28,52 @@ export const setLatestyear = createAction('COMMON/setLatestyear');
 
 // INTRO
 export const setIntro = createAction('INTRO/setIntro');
+export const setDistance = createAction('INTRO/setDistance');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
+  const { distance } = getState().fspMaps.intro;
+  const distance_km = distance.value;
 
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso, distance_km }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error(response.statusText);
+    })
+    .then((data) => {
+      dispatch(setIntroLoading(false));
+      dispatch(setIntroError(null));
+
+      const dataRows = data.rows[0];
+      const result = [
+        { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
+        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0'), component: true }
+      ];
+
+      dispatch(setIntro(result));
+    })
+    .catch((err) => {
+      dispatch(setIntroLoading(false));
+      dispatch(setIntroError(err));
+    });
+});
+
+export const fetchPopulationDistance = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+  //const { distance_km } = getState().fspMaps.intro;
+
+  const distance_km = 5;
+
+  dispatch(setIntroLoading(true));
+
+  // return fetch(new Request(`${process.env.API_URL}/`))
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso, distance_km }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -126,13 +163,14 @@ function getSectors(iso) {
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
       ...row,
-      id: row.id.toString(),
+      id: row.type_id.toString(),
       name: row.type,
       info: LAYERS_INFO[row.type],
       layerType: 'sector',
       count: Numeral(row.count).format('0,0'),
       provider: 'carto',
-      isUserDataset: false
+      isUserDataset: false,
+      years: row.years
     })));
 }
 
@@ -252,6 +290,7 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
 export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
 // Analysis - nearby
+export const toggleLocation = createAction('ANALYSIS/toggleLocation');
 export const togglePinDrop = createAction('ANALYSIS/togglePinDrop');
 export const setNearby = createAction('ANALYSIS/setNearby');
 export const setNearbyArea = createAction('ANALYSIS/setNearbyArea');
@@ -270,6 +309,7 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
     .then(response => response.ok && response.json())
     .then((data) => {
       dispatch(setNearbyArea(data.features[0].geometry));
+
       dispatch(setNearbyCenter({
         lng: data.features[0].properties.center[0],
         lat: data.features[0].properties.center[1]
@@ -286,6 +326,36 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       }
     });
 });
+
+// Analysis - Analyze Patterns
+export const setLocationSelected = createAction('ANALYSIS/setLocationSelected');
+export const setLocationsList = createAction('ANALYSIS/setLocationsList');
+export const setLocationArea = createAction('ANALYSIS/setLocationArea');
+export const fetchLocations = createThunkAction('ANALYSIS/fetchLocations', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+  const locationsSql = encodeURIComponent(replace(JURISDICTIONS_SQL, { iso }));
+
+  fetch(`${window.FSP_CARTO_API}?q=${locationsSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then(response => response.ok && response.json())
+    .then((data) => {
+      dispatch(setLocationsList(data.rows));
+    });
+});
+
+export const fetchLocationArea = createThunkAction('ANALYSIS/fetchLocationArea', () => (dispatch, getState) => {
+  const { selectedLocation } = getState().fspMaps.analysis.location;
+  const { value: jurisdictionId } = selectedLocation;
+  const locationAreaSql = encodeURIComponent(
+    replace(JURISDICTION_GEOMETRY_SQL, { jurisdictionId })
+  );
+
+  fetch(`${window.FSP_CARTO_API}?q=${locationAreaSql}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then(response => response.ok && response.json())
+    .then((data) => {
+      dispatch(setLocationArea(JSON.parse(data.rows[0].st_asgeojson)));
+    });
+});
+
 
 // Analysis - area of interest
 export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');

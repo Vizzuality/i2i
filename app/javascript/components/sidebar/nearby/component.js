@@ -8,7 +8,6 @@ import { Range } from 'wri-api-components/dist/form';
 import Geosuggest from 'react-geosuggest';
 
 //Styles
-
 import './styles.scss';
 
 class NearbyComponent extends PureComponent {
@@ -22,10 +21,10 @@ class NearbyComponent extends PureComponent {
     fetchNearbyArea: PropTypes.func.isRequired,
     setAnalysisActive: PropTypes.func.isRequired,
     togglePinDrop: PropTypes.func.isRequired,
-    latLng: PropTypes.shape({})
+    toggleLocation: PropTypes.func.isRequired
   }
 
-  static defaultProps = { nearby: {}, latLng: {} }
+  static defaultProps = { nearby: {} }
 
   state = { showSearchInput: false };
 
@@ -54,8 +53,10 @@ class NearbyComponent extends PureComponent {
   }
 
 
-  onChange = (value) => {
-    console.log(value);
+  onChange = () => {
+    const { nearby, togglePinDrop } = this.props;
+    const { pin } = nearby;
+    togglePinDrop({ ...pin, active: false });
     // this.props.setNearby({ ...this.props.nearby, time: value });
   }
 
@@ -71,17 +72,18 @@ class NearbyComponent extends PureComponent {
   }
 
   onDrop = () => {
-    const { pin } = this.props.nearby;
-    const { active, dropped } = pin;
-    console.log(pin, active, dropped)
-    this.props.togglePinDrop({ ...pin, active: true });
+    const { togglePinDrop, nearby } = this.props;
+    const { pin } = nearby;
+    const { active } = pin;
+
+    togglePinDrop({ ...pin, active: !active });
   }
 
   render() {
-    const { shortIso, active: analysisActive, selectedLayers, latLng } = this.props;
-    const { time, error, location, area, pin, dropped } = this.props.nearby;
+    const { shortIso, active: analysisActive, selectedLayers } = this.props;
+    const { time, error, location, area, pin } = this.props.nearby;
+    const { active, dropped } = pin;
 
-    console.log(location, 'location')
     return (
       <div className="c-nearby">
         {!!error &&
@@ -116,10 +118,11 @@ class NearbyComponent extends PureComponent {
           <p>OR</p>
 
           <button
-            className="c-button -small -white"
+            className={classnames('c-button -small -white',
+              { '-disabled': (active && !dropped) })}
             onClick={this.onDrop}
           >
-            {pin && dropped ? 'Clear pin' : 'Drop a pin'}
+            {(!active) ? 'Click on map' : 'Clear area'}
           </button>
 
           <div className="c-field">
@@ -157,38 +160,6 @@ class NearbyComponent extends PureComponent {
 
 
         <div className={classnames('buttons-container -analysis-report', { '-disabled': (!selectedLayers.length || !!isEmpty(area)) })}>
-
-        <div className="c-field">
-          <label htmlFor="nearby-time">
-            Time: {time} minutes
-          </label>
-
-          <Range
-            // Styles
-            railStyle={{ background: 'repeating-linear-gradient(90deg, $color-1, $color-1 2px, #FFF 2px, #FFF 4px)', height: 1 }}
-            trackStyle={{ backgroundColor: '$color-1', height: 1 }}
-            handleStyle={{ backgroundColor: '$color-1', width: '14px', height: '14px', border: 0, marginTop: -7, marginLeft: -7 }}
-            activeDotStyle={{ display: 'none' }}
-            dotStyle={{ display: 'none' }}
-
-            marks={{
-              1: {
-                label: '1',
-                style: { fontSize: 10 }
-              },
-              720: {
-                label: '720',
-                style: { fontSize: 10 }
-              }
-            }}
-            id="nearby-time"
-            min={1}
-            max={720}
-            value={time}
-            onChange={this.onChange}
-            onAfterChange={this.onAfterChange}
-          />
-        </div>
           <button
             className="c-button -small -sea"
             onClick={() => this.props.setAnalysisActive(!analysisActive)}

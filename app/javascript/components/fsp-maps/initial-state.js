@@ -5,7 +5,10 @@ export default {
     bbox: [],
     latestYear: null
   },
-  intro: { data: [] },
+  intro: {
+    data: [],
+    distance: { label: '5 km', value: 5 }
+  },
   introAnalysis: { data: [] },
   map: {
     open: true,
@@ -36,12 +39,17 @@ export default {
   analysis: {
     active: false,
     nearby: {
-      pin: { active: true, dropped: false },
-      location: {},
+      location: true,
+      pin: { active: false, dropped: false },
       time: 30,
       area: {},
       error: null,
-      center: {},
+      center: { lat: 0, lng: 0 }
+    },
+    location: {
+      list: [],
+      selectedLocation: {},
+      area: {}
     },
     areaOfInterest: {
       drawing: false,

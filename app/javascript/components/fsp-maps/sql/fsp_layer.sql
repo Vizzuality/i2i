@@ -8,6 +8,6 @@ SELECT st_asgeojson(the_geom),
        name
 FROM {tableName}
 WHERE iso = '{iso}'
-       AND type_id = {type_id}
+       AND type_id = {type_id} AND year= {year}
 ORDER BY  sector,
           type
