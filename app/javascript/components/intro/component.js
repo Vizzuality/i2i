@@ -11,6 +11,11 @@ import './styles.scss';
 class IntroComponent extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
+    distance: PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.number
+    }).isRequired,
+    setDistance: PropTypes.func.isRequired,
     fetchIntro: PropTypes.func.isRequired,
     iso: PropTypes.string
   }
@@ -22,7 +27,7 @@ class IntroComponent extends React.Component {
   }
 
   render() {
-    const { data, iso } = this.props;
+    const { data, iso, distance, setDistance, fetchIntro } = this.props;
 
     return (
       <div className="c-fsp-intro">
@@ -40,7 +45,13 @@ class IntroComponent extends React.Component {
                         <th key={item.label}>
                           <div className="intro-label">
                             {!item.component && (item.label)}
-                            {item.component && (<Item item={item} />)}
+                            {item.component && (
+                              <Item
+                                item={item}
+                                setDistance={setDistance}
+                                distance={distance}
+                                fetchIntro={fetchIntro}
+                              />)}
                           </div>
                         </th>
                       ))}
