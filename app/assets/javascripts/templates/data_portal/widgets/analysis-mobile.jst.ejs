@@ -6,7 +6,10 @@
     {
       "name": "table",
       "values": <%= data %>,
-      "transform": [{"type": "filter","test": "datum.label.length"}]
+      "transform": [{
+        "type": "filter",
+        "test": "datum.label.length && datum.group.length"
+      }]
     },
     {
       "name": "scaleValues",
