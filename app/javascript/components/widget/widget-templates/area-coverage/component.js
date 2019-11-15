@@ -2,12 +2,10 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Chart from 'components/recharts';
-//import NoData from 'components/widget/no-data';
 
 import config from './config';
 
-const AreaCoverage = ({ widgetData, widget, title, ...props }) => {
-
+const AreaCoverage = ({ widgetData }) => {
   if (!widgetData) return null;
 
   const data = config.parse(widgetData);
@@ -25,5 +23,7 @@ const AreaCoverage = ({ widgetData, widget, title, ...props }) => {
     </Fragment>
   );
 };
+
+AreaCoverage.propTypes = { widgetData: PropTypes.array.isRequired };
 
 export default AreaCoverage;

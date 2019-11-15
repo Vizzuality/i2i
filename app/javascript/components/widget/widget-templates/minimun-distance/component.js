@@ -2,28 +2,28 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Chart from 'components/recharts';
-//import NoData from 'components/widget/no-data';
 
 import config from './config';
 
-const MinimunDistance = ({ widgetData, widget, title, ...props }) => {
+const MinimunDistance = ({ widgetData }) => {
 
   if (!widgetData) return null;
 
   const data = config.parse(widgetData);
-  const { chartConfig } = data;
+  const { chartConfig, chartData } = data;
 
   return (
     <Fragment>
       <div className="c-widget-template">
-
         <Chart
-          data={widgetData}
+          data={chartData}
           config={chartConfig}
         />
       </div>
     </Fragment>
   );
 };
+
+MinimunDistance.propTypes = { widgetData: PropTypes.array.isRequired };
 
 export default MinimunDistance;

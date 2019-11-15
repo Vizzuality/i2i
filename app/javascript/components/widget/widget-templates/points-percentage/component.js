@@ -1,29 +1,28 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 import Chart from 'components/recharts';
 
 import config from './config';
+import './styles.scss';
 
 const AccessPointsPercentage = ({ widgetData }) => {
-
-
   if (!widgetData) return null;
-
-  const data = config.parse(widgetData);
-  const { chartConfig } = data;
+  const { chartConfig, chartData } = config.parse(widgetData);
 
   return (
     <Fragment>
       <div className="c-widget-template">
 
         <Chart
-          data={widgetData}
+          data={chartData}
           config={chartConfig}
         />
       </div>
     </Fragment>
   );
 };
+
+AccessPointsPercentage.propTypes = { widgetData: propTypes.array.isRequired };
 
 export default AccessPointsPercentage;
