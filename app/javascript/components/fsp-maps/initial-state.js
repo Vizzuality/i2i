@@ -5,7 +5,10 @@ export default {
     bbox: [],
     latestYear: null
   },
-  intro: { data: [] },
+  intro: {
+    data: [],
+    distance: { label: '5 km', value: 5 }
+  },
   introAnalysis: { data: [] },
   map: {
     open: true,

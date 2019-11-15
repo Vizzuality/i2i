@@ -15,6 +15,9 @@
 - Added thank you message after the user requests to download
 - Analyze pattern analysis in sidebar menu
 - Analysis by clicking on map added to "Proximity" and "Analyze patterns" in sidebar
+- Added filters for search results
+- Added filters on the insights page
+- Added year selector inside legend sector layers.
 
 ### Changed
 
@@ -47,3 +50,6 @@
 - Fixed icon alignment in the download modal form
 - Fixed an issue where search by iso doesn't return any result
 - Fixed an issue where scroll jumps to the top of the page when user clicks on "Show more" button
+- Fixed an issue where contact form message wasn't being sent
+- Fixed an error when user request to download on the national surveys page
+- Fixed an issue where user only received one link instead multiple on download modal

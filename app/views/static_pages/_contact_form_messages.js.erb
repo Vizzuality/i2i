@@ -1,5 +1,5 @@
 var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"}.to_json.html_safe %>');
-var success = new Boolean('<%= success %>');
+var success = new Boolean('<%= defined?(success) ? success : false %>');
 var $messages = $("#messages");
 
 if (errors && !errors.status) {

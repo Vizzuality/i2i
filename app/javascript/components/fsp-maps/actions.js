@@ -28,15 +28,52 @@ export const setLatestyear = createAction('COMMON/setLatestyear');
 
 // INTRO
 export const setIntro = createAction('INTRO/setIntro');
+export const setDistance = createAction('INTRO/setDistance');
 export const setIntroLoading = createAction('INTRO/setIntroLoading');
 export const setIntroError = createAction('INTRO/setIntroError');
 export const fetchIntro = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
   const { iso } = getState().fspMaps.common;
+  const { distance } = getState().fspMaps.intro;
+  const distance_km = distance.value;
 
   dispatch(setIntroLoading(true));
 
   // return fetch(new Request(`${process.env.API_URL}/`))
-  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso, distance_km }))}&api_key=${window.FSP_CARTO_API_KEY}`)
+    .then((response) => {
+      if (response.ok) return response.json();
+      throw new Error(response.statusText);
+    })
+    .then((data) => {
+      dispatch(setIntroLoading(false));
+      dispatch(setIntroError(null));
+
+      const dataRows = data.rows[0];
+      const result = [
+        { label: `TOTAL POPULATION (${dataRows.year})`, value: Numeral(dataRows.total_population).format('0,0'), subvalue: null },
+        { label: 'RURAL POPULATION PERCENTAGE', value: `${Numeral(dataRows.rural_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.rural_population).format('0,0') },
+        { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(dataRows.urban_population_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.urban_population).format('0,0') },
+        { label: 'TOTAL POPULATION WITHIN 5KM OF ALL ACESS POINTS', value: `${Numeral(dataRows.population_5km_percentage).format('0.0')}%`, subvalue: Numeral(dataRows.population_5km).format('0,0'), component: true }
+      ];
+
+      dispatch(setIntro(result));
+    })
+    .catch((err) => {
+      dispatch(setIntroLoading(false));
+      dispatch(setIntroError(err));
+    });
+});
+
+export const fetchPopulationDistance = createThunkAction('INTRO/fetchIntro', () => (dispatch, getState) => {
+  const { iso } = getState().fspMaps.common;
+  //const { distance_km } = getState().fspMaps.intro;
+
+  const distance_km = 5;
+
+  dispatch(setIntroLoading(true));
+
+  // return fetch(new Request(`${process.env.API_URL}/`))
+  return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(INTRO_SQL, { iso, distance_km }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error(response.statusText);
@@ -126,13 +163,14 @@ function getSectors(iso) {
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
       ...row,
-      id: row.id.toString(),
+      id: row.type_id.toString(),
       name: row.type,
       info: LAYERS_INFO[row.type],
       layerType: 'sector',
       count: Numeral(row.count).format('0,0'),
       provider: 'carto',
-      isUserDataset: false
+      isUserDataset: false,
+      years: row.years
     })));
 }
 
