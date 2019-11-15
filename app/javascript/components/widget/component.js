@@ -11,9 +11,7 @@ import './styles.scss';
 
 class WidgetWrapperComponent extends PureComponent {
   static propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     title: PropTypes.string.isRequired,
-    chart: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     body: PropTypes.object.isRequired,
     children: PropTypes.func.isRequired

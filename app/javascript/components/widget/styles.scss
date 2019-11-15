@@ -30,19 +30,25 @@
       font-size: 24px;
       line-height: 26px;
 
-      .widget-btn {
-        position: relative;
-        width: 30px;
-        height: 30px;
-        border: 1px solid $color-1;
-        border-radius: 50%;
+      .header-buttons {
+        .widget-btn {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border: 1px solid $color-1;
+          border-radius: 50%;
 
-        .download-widget,
-        .info-widget {
-          position: absolute;
-          top: 4px;
-          left: 0;
-          fill: $color-1;
+          &:not(:last-child) {
+            margin-right: 15px;
+          }
+
+          .download-widget,
+          .info-widget {
+            position: absolute;
+            top: 4px;
+            left: -1px;
+            fill: $color-1;
+          }
         }
       }
     }
