@@ -1,28 +1,13 @@
 import React from 'react';
-import WidgetLegend from 'components/widget/legend';
+import Legend from 'components/widget/legend';
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 
 const getData = data => data.map(d => ({
-  value: d.value * 100,
   label: d.label,
-  name: d.label,
+  value: d.value,
   color: d.color
 }));
-
-
-// const getBars = data => data.reduce((acc, d) => {
-//   return {
-//     ...acc,
-//     [d.label]: {
-//       barSize: d.value * 100,
-//       fill: d.color,
-//       name: d.label,
-//       color: d.color,
-//       isAnimationActive: false
-//     }
-//   };
-// }, {});
 
 export const CONFIG = {
   parse: (data) => {
@@ -41,18 +26,10 @@ export const CONFIG = {
         layout: 'vertical',
         margin: { top: 0, right: 0, left: 0, bottom: 0 },
         xKey: 'name',
-        yKeys: {
-          bars: {
-            value: {
-              itemColor: true
-            }
-          }
-        },
+        yKeys: { bars: { value: { itemColor: true } } },
         referenceLines: [{
           y: 0,
-          stroke: 'red',
           strokeDasharray: 'solid',
-          fill: 'red',
           opacity: '1',
           label: null
         }],
@@ -62,7 +39,6 @@ export const CONFIG = {
             fill: 'rgba(0,0,0,0.54)'
           },
           domain: [0, 400]
-
         },
         yAxis: {
           type: 'category',
@@ -77,9 +53,8 @@ export const CONFIG = {
           layout: 'horizontal',
           height: 80,
           top: 0,
-          content: (properties) => {
-            const { payload } = properties;
-            return <WidgetLegend data={payload} />;
+          content: () => {
+            return <Legend data={chartData} />;
           }
         }
       }

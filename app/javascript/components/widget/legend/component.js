@@ -8,14 +8,14 @@ const Legend = ({ data }) => (
     <ul className="legend-list">
       {data.map(d => (
         <li
-          key={d.dataKey || d.value}
+          key={d.dataKey || d.label || d.value}
         >
           <span style={{
             color: d.color,
             backgroundColor: d.color
           }}
           />
-          {d.dataKey || d.value}
+          {d.label || d.dataKey || d.value}
         </li>
       ))}
     </ul>

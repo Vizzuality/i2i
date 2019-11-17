@@ -6,7 +6,6 @@ import Chart from 'components/recharts';
 import config from './config';
 
 const MinimunDistance = ({ widgetData }) => {
-
   if (!widgetData) return null;
 
   const data = config.parse(widgetData);

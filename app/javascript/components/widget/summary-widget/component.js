@@ -7,7 +7,6 @@ import './styles.scss';
 
 class SummaryWidgetWrapperComponent extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     widgetData: PropTypes.array.isRequired,
     menuItem: PropTypes.string.isRequired,
     fetchIntroAnalysis: PropTypes.func.isRequired,
@@ -32,14 +31,10 @@ class SummaryWidgetWrapperComponent extends React.Component {
   }
 
   render() {
-    const { data, title } = this.props;
+    const { data } = this.props;
 
     return (
       <div className="c-summary-widget-element">
-        <div className="widget-title">
-          {title}
-        </div>
-
         <table
           className="widget-table"
         >
