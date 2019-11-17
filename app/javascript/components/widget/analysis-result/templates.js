@@ -23,7 +23,6 @@ import SummaryWidget from '../summary-widget';
 const widgetTemplates = new Map([
   ['Number of services', { component: NumberOfServices }],
   ['Access points percentage', { component: AccessPointsPercentage }],
- // ['Movile coverage (%)', { component: AccessPointsPercentage }],
   ['Minimum distance to access points', { component: MinimunDistance }],
   ['Area covered by GSM, 3G, and 4G', { component: AreaCoverage }],
   ['Population', { component: SummaryWidget }],
