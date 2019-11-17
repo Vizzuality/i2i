@@ -58,6 +58,9 @@
       border: none;
       box-shadow: 0 2px 3px 0 rgba(0,0,0,0.15);
       background-color: rgba(#3B3A40, .9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       * {
         color: $color-4;
@@ -67,6 +70,10 @@
 
       .wri_api__legend-item-container {
         border-bottom: 1px solid $color-4;
+
+        .wri_api__c-legend-handler {
+          top: inherit;
+        }
 
         .wri_api__legend-title {
           letter-spacing: 0;
@@ -99,10 +106,8 @@
       }
 
       > .wri_api__icon-square {
-        width: 10px !important;
-        height: 10px !important;
-        border-radius: 50%;
-        margin-top: 5px;
+        width: 14px !important;
+        height: 5px !important;
       }
 
       > .wri_api__icon-choropleth {

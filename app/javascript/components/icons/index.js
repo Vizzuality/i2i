@@ -46,8 +46,8 @@ class Icons extends React.Component {
             <title>info-squared</title>
             <path d="M18.328 9.249h-4.656v-4.888h4.656v4.888zM13.672 11.81h4.656v15.829h-4.656v-15.829z"></path>
           </symbol>
-          <symbol id="icon-movelegend" viewBox="0 0 70 32">
-            <title>movelegend</title>
+          <symbol id="icon-drag-dots" viewBox="0 0 70 32">
+            <title>dragdots</title>
             <path d="M0 0h70.4v6.4h-70.4v-6.4z"></path>
             <path d="M0 25.6h70.4v6.4h-70.4v-6.4z"></path>
           </symbol>

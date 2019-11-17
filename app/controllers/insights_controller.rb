@@ -6,7 +6,16 @@ class InsightsController < ApplicationController
   end
 
   def categories
+    # Topics
+    tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
     topics_term = params[:topics].class == Array ? params[:topics].map(&:strip) : params[:topics].split(',').map(&:strip) rescue nil
+    if tag_term
+      tag_term.each do |tag|
+        topics_term << tag
+      end
+    end
+
+    # Locations
     locations_term = params[:locations].class == Array ? params[:locations].map(&:strip) : params[:locations].split(',').map(&:strip) rescue nil
 
     @categories = Category.all.order(:position)
@@ -27,26 +36,12 @@ class InsightsController < ApplicationController
     end
 
     if (topics_term || locations_term)
-      if topics_term
-        topics_term.each do |topic_term|
-          records << News.search_tags(topic_term)
-          records << Blog.search_tags(topic_term)
-          records << Event.search_tags(topic_term)
-          records << Library.search_tags(topic_term)
-        end
-      end
+      records << News.search_by_filters(nil, nil, topics_term, locations_term)
+      records << Blog.search_by_filters(nil, nil, topics_term, locations_term)
+      records << Event.search_by_filters(nil, nil, topics_term, locations_term)
+      records << Library.search_by_filters(nil, nil, topics_term, locations_term)
 
-      if locations_term
-        locations_term.each do |location_term|
-          records << News.search_tags(location_term)
-          records << Blog.search_tags(location_term)
-          records << Event.search_tags(location_term)
-          records << Library.search_tags(location_term)
-        end
-      end
-
-      records.flatten!
-      insights = records
+      insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
     else
       entities.each { |klass| records << klass.where(published: true) }
       insights = records.flatten.sort { |a, b| b[:date] <=> a[:date] }
