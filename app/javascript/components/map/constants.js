@@ -85,7 +85,7 @@ export const SECTOR_CONFIGS = {
   normal: (params) => {
     const { l, iso, year } = params;
 
-    const generateCartoCSS = ({ colors: cls }) => `
+    const generateCartoCSS = ({ colors: cls = [] }) => `
       #layer {
         marker-width: 10;
         marker-fill: white;
@@ -105,7 +105,7 @@ export const SECTOR_CONFIGS = {
       `).join(' ')}
     `;
 
-    const generateLegend = ({ type, color, colors: cls }) => {
+    const generateLegend = ({ type, color, colors: cls = [] }) => {
       if (cls.length) {
         return {
           type: 'basic',
