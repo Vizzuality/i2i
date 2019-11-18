@@ -80,7 +80,7 @@ export const getWidgets = createSelector(
         geojson: `'${JSON.stringify(geojson)}'`,
         lng,
         lat,
-        tableName1: 'fsp_maps', // are you sure you want to change this value?
+        tableName1: process.env.FSP_CARTO_TABLE || 'fsp_maps', // are you sure you want to change this value?
         tableName2: process.env.FSP_CARTO_USERS_TABLE || 'fsp_maps_user_staging'
       };
 
