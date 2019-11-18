@@ -2,8 +2,11 @@ import { replace } from 'layer-manager';
 
 // SQL
 import VORONOID_LAYER_SQL from 'components/fsp-maps/sql/voronoid_layer.sql';
+import VORONOID_LAYER_SQL_ALL from 'components/fsp-maps/sql/voronoid_layer_all.sql';
 import VORONOID_LEGEND_VALUES_SQL from 'components/fsp-maps/sql/voronoid_legend_values.sql';
+import VORONOID_LEGEND_VALUES_SQL_ALL from 'components/fsp-maps/sql/voronoid_legend_values_all.sql';
 import FSP_LAYER_SQL from 'components/fsp-maps/sql/fsp_layer.sql';
+import FSP_LAYER_SQL_ALL from 'components/fsp-maps/sql/fsp_layer_all.sql';
 
 // CSS
 import SECTORS_CSS from 'components/fsp-maps/cartocss/sectors.cartocss';
@@ -84,6 +87,29 @@ export const SECTOR_CONFIGS = {
   normal: (params) => {
     const { l, iso, year } = params;
 
+    const generateCartoCSS = cls => `
+      #layer {
+        marker-width: 10;
+        marker-fill: white;
+        marker-fill-opacity: 0.9;
+        marker-line-color: #FFFFFF;
+        marker-line-width: 1;
+        marker-line-opacity: 1;
+        marker-placement: point;
+        marker-type: ellipse;
+        marker-allow-overlap: true;
+      }
+
+      ${cls.map(({ color, type }) => `
+        #layer[type="${type}"] {
+          marker-fill: ${color};
+        }
+      `).join(' ')}
+    `;
+
+    const SQL = (!l.colors) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
+    const CARTOCSS = (!l.colors) ? replace(SECTORS_CSS, { color: l.color }) : generateCartoCSS(l.colors);
+
     return {
       interactivity: ['name', 'type'],
       layerConfig: {
@@ -92,8 +118,8 @@ export const SECTOR_CONFIGS = {
             {
               options: {
                 cartocss_version: '2.3.0',
-                cartocss: replace(SECTORS_CSS, { color: l.color }),
-                sql: replace(FSP_LAYER_SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                cartocss: CARTOCSS,
+                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
               },
               type: 'cartodb'
             }
@@ -118,6 +144,8 @@ export const SECTOR_CONFIGS = {
   heatmap: (params) => {
     const { l, iso, year } = params;
 
+    const SQL = (!l.colors) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
+
     return {
       layerConfig: {
         body: {
@@ -126,7 +154,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(HEATMAP_CSS, { color: l.color }),
-                sql: replace(FSP_LAYER_SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
               },
               type: 'cartodb'
             }
@@ -172,6 +200,9 @@ export const SECTOR_CONFIGS = {
     const { l, iso, visualizationType } = params;
     const { id: layerid } = l;
 
+    const SQL = (!l.colors) ? VORONOID_LAYER_SQL : VORONOID_LAYER_SQL_ALL;
+    const SQL_LEGEND = (!l.colors) ? VORONOID_LEGEND_VALUES_SQL : VORONOID_LEGEND_VALUES_SQL_ALL;
+
     const layerConfig = {
       layerConfig: {
         body: {
@@ -180,7 +211,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(VORONOID_LAYER_CSS, { color: l.color }),
-                sql: replace(VORONOID_LAYER_SQL, { iso, type_id: l.type_id })
+                sql: replace(SQL, { iso, type_id: l.type_id })
               },
               type: 'cartodb'
             }
@@ -216,7 +247,7 @@ export const SECTOR_CONFIGS = {
             color: '#b13f64'
           }
         ],
-        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(VORONOID_LEGEND_VALUES_SQL, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
+        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SQL_LEGEND, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
         dataParse: ((activeLayer, data) => {
           const { legendConfig } = activeLayer;
 
