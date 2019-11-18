@@ -141,7 +141,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: CARTOCSS,
-                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_USERS_TABLE : process.env.FSP_CARTO_TABLE })
               },
               type: 'cartodb'
             }
@@ -168,7 +168,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(HEATMAP_CSS, { color: l.color }),
-                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_TABLE : 'fsp_maps' })
+                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_USERS_TABLE : process.env.FSP_CARTO_TABLE })
               },
               type: 'cartodb'
             }
