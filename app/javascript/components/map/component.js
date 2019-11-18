@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 import Map, { MapControls, ZoomControl } from 'wri-api-components/dist/map';
 import { LayerManager, Layer } from 'layer-manager/dist/components';
@@ -25,6 +26,12 @@ import './styles.scss';
 
 import { togglePinDrop } from '../fsp-maps/actions';
 
+const POLYGON_AREA_STYLE = {
+  color: '#2F939C',
+  fillColor: '#2F939C',
+  fillOpacity: 0.5
+};
+
 class MapComponent extends PureComponent {
   static propTypes = {
     iso: PropTypes.string.isRequired,
@@ -38,58 +45,75 @@ class MapComponent extends PureComponent {
     nearby: PropTypes.object.isRequired,
     jurisdiction: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
+    active: PropTypes.bool.isRequired,
     bbox: PropTypes.array.isRequired,
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired
   }
 
+  componentDidUpdate(prevProps) {
+    const { nearby, menuItem, selected: selectedTab } = this.props;
+    const { nearby: prevNearby } = prevProps;
+
+    const { area: nearbyArea, pin, center } = nearby;
+    const { area: prevNearbyArea, center: prevCenter } = prevNearby;
+
+    const { active } = pin;
+
+    // NEARBY
+    // This is something that I'm not proud of but it was impossible to add the new Layer Manager
+    if (!isEmpty(nearbyArea) && !isEqual(nearbyArea, prevNearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
+      if (this.nearbyAreaLayer) {
+        this.map.removeLayer(this.nearbyAreaLayer);
+      }
+
+      this.nearbyAreaLayer = L.featureGroup([
+        L.geoJSON(nearbyArea, { style: () => POLYGON_AREA_STYLE })
+      ]);
+
+      this.nearbyAreaLayer.setStyle(POLYGON_AREA_STYLE);
+
+      this.map.addLayer(this.nearbyAreaLayer);
+    }
+
+    if (!!center && !isEqual(center, prevCenter) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
+      if (this.nearbyMarkerLayer) {
+        this.map.removeLayer(this.nearbyMarkerLayer);
+      }
+
+      this.nearbyMarkerLayer = L.featureGroup([
+        L.circleMarker(
+          center,
+          {
+            color: '#f9d031',
+            radius: 5
+          }
+        )
+      ]);
+
+      this.map.addLayer(this.nearbyMarkerLayer);
+    }
+
+    if (!active || menuItem !== 'nearby' || selectedTab !== 'analysis') {
+      if (this.nearbyAreaLayer) { this.map.removeLayer(this.nearbyAreaLayer); }
+      if (this.nearbyMarkerLayer) { this.map.removeLayer(this.nearbyMarkerLayer); }
+    }
+  }
+
   render() {
     const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea } = this.props;
-    const { area: nearbyArea, pin, center: coordinates } = nearby;
+    const { pin, center: coordinates } = nearby;
     const { active } = pin;
     const { area: jurisdictionArea } = this.props.jurisdiction;
-
-    const polygonAreaStyle = {
-      color: '#2F939C',
-      fillColor: '#2F939C',
-      fillOpacity: 0.5
-    };
 
     const classNames = classnames({
       'c-map': true,
       '-open': !!open
     });
 
-    const nearbyAreaLayer = (!isEmpty(nearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
-      id: 'nearby',
-      provider: 'leaflet',
-      layerConfig: {
-        body: nearbyArea,
-        type: 'geoJSON',
-        options: { style: polygonAreaStyle }
-      }
-    }] : [];
-
     const patternsIconsLayer = (!!coordinates && menuItem === 'analyze_patterns' && selectedTab === 'analysis') ? [{
       id: 'analyze-pattern-icons',
-      provider: 'leaflet',
-      layerConfig: {
-        body: [L.circleMarker(
-          coordinates,
-          {
-            color: '#f9d031',
-            radius: 20
-          }
-        )],
-        parse: false,
-        type: 'featureGroup'
-      }
-    }] : [];
-
-    const nearbyMarkerLayer = (!!coordinates && active && menuItem === 'nearby' && selectedTab === 'analysis') ? [{
-      id: 'nearby-icons',
-      key: 'nearby-icons',
       provider: 'leaflet',
       layerConfig: {
         body: [L.circleMarker(
@@ -111,7 +135,7 @@ class MapComponent extends PureComponent {
       layerConfig: {
         body: jurisdictionArea,
         type: 'geoJSON',
-        options: { style: polygonAreaStyle }
+        options: { style: POLYGON_AREA_STYLE }
       }
     }] : [];
 
@@ -136,8 +160,6 @@ class MapComponent extends PureComponent {
     }];
     const layersResult = [
       ...jurisdictionAreaLayer,
-      ...nearbyAreaLayer,
-      ...nearbyMarkerLayer,
       ...activeLayers,
       ...financialIconsLayer,
       ...patternsIconsLayer
@@ -188,6 +210,7 @@ class MapComponent extends PureComponent {
           }}
           scrollZoomEnabled={false}
           customClass="custom-map"
+          onReady={(map) => { this.map = map; }}
         >
           {map => map.invalidateSize() && (
             <React.Fragment>
