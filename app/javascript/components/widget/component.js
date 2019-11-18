@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+import { CSVLink } from "react-csv";
+
 
 // Components
 import Spinner from 'wri-api-components/dist/spinner';
@@ -50,7 +52,6 @@ class WidgetWrapperComponent extends PureComponent {
       });
   }
 
-
   render() {
     const { title, children } = this.props;
     const { widgetData, loading } = this.state;
@@ -63,19 +64,15 @@ class WidgetWrapperComponent extends PureComponent {
               <div className="header-buttons">
                 <button
                   className="widget-btn"
-                  onClick={() => {
-
-                  }}
+                  onClick={this.onDownload}
                 >
                   <Icon name="info-squared" className="info-widget -disabled-opacity" />
                 </button>
-                <button
-                  className="widget-btn"
-                  onClick={() => {
 
-                  }}
-                >
-                  <Icon name="download" className="download-widget -disabled-opacity" />
+                <button className="widget-btn">
+                  <CSVLink data={widgetData} separator={" -- "}>
+                    <Icon name="download" className="download-widget -disabled-opacity" />
+                  </CSVLink>
                 </button>
 
 

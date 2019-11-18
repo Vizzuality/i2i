@@ -34,8 +34,8 @@ class AnalysisResultComponent extends React.Component {
             Back
           </h3>
         </div>
-        {widgets.length && widgets.map((widget) => {
 
+        {widgets.length && widgets.map((widget) => {
           const Widget = widgetTemplates.get(widget.title).component;
 
           return (
@@ -45,7 +45,7 @@ class AnalysisResultComponent extends React.Component {
               {...widget}
             >
 
-              {({ widgetData, menuItem, config }) => (
+              {({ widgetData, menuItem }) => (
 
                 <Fragment>
                   {widgetData && widgetData.length &&
