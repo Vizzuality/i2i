@@ -10,7 +10,6 @@ import AreaOfInterest from 'components/sidebar/area-of-interest';
 import AnalyzePatterns from 'components/sidebar/analyze-patterns';
 import Jurisdiction from 'components/sidebar/jurisdiction';
 import AnalysisResult from 'components/widget/analysis-result';
-import WidgetWrapperComponent from 'components/widget';
 
 // styles
 import './styles.scss';
@@ -117,8 +116,7 @@ class SidebarAnalysisComponent extends React.Component {
           </MenuItem>
         }
         {active &&
-        // <WidgetWrapperComponent />
-         <AnalysisResult />
+          <AnalysisResult />
         }
       </div>
     );
