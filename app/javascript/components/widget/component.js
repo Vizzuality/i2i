@@ -53,7 +53,7 @@ class WidgetWrapperComponent extends PureComponent {
   }
 
   render() {
-    const { title, children } = this.props;
+    const { title, children, url, body } = this.props;
     const { widgetData, loading } = this.state;
     if (widgetData && widgetData.length) {
       return (
@@ -70,9 +70,9 @@ class WidgetWrapperComponent extends PureComponent {
                 </button>
 
                 <button className="widget-btn">
-                  <CSVLink data={widgetData} separator={" -- "}>
+                  <a href={`${url}?q=${body.q}&api_key=${body.api_key}&format=csv`}>
                     <Icon name="download" className="download-widget -disabled-opacity" />
-                  </CSVLink>
+                  </a>
                 </button>
 
 
