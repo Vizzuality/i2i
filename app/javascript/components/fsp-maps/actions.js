@@ -175,6 +175,10 @@ function getSectors(iso) {
       }));
 
       const financeLayers = data.rows.filter(row => row.sector === 'Finance');
+      if (!financeLayers.length) {
+        return sectorLayers;
+      }
+
       const allFinanceLayer = {
         id: 'all-finance-layer',
         name: 'All facilities',
