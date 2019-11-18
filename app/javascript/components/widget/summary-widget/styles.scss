@@ -1,7 +1,7 @@
 .c-summary-widget-element {
   font-family: Arial, sans-serif;
   position: relative;
-  min-height: 250px;
+  padding-top: 20px;
 
   .widget-title {
     margin-bottom: 30px;
@@ -24,7 +24,7 @@
 
     .widget-label {
       margin-bottom: 20px;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 13px;
       line-height: 1.5;
       text-align: left;
@@ -32,6 +32,7 @@
 
     .widget-main-value {
       font-size: 22px;
+      font-weight: 500;
     }
 
     .widget-sub-value {
