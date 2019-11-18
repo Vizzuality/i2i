@@ -14,7 +14,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
     data: PropTypes.array
   };
 
-  static defaultProps = { data: null };
+  static defaultProps = { data: [] };
 
   componentDidMount() {
     const { widgetData, menuItem } = this.props;
