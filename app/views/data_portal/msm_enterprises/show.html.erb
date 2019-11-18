@@ -2,7 +2,7 @@
   <link rel="preload" href="<%= asset_path('spinning-loader.svg') %>" as="image">
 <% end %>
 
-<% title "Micro, Small and Medium Enterprises for #{@country.name}" in #{country.year} %>
+<% title "Micro, Small and Medium Enterprises for #{@country.name} in #{@country_latest_year}" %>
 
 <% content_for :media_metas do %>
   <meta name="twitter:card" content="summary" />

@@ -1,4 +1,5 @@
 class DataPortal::MsmEnterprisesController < ApplicationController
+
   def index
     @finscope_countries = Country.finscope_country_list
     @countries_db = Country.ordered_by_name.select { |c| @finscope_countries.map { |country_hash| country_hash[:iso] }.include?(c.iso) }
@@ -46,5 +47,6 @@ class DataPortal::MsmEnterprisesController < ApplicationController
     @country_latest_year = @countries.find do |c|
       c[:iso] == @country.iso
     end[:latest_year].to_s
+    render :layout => 'data_portal'
   end
 end
