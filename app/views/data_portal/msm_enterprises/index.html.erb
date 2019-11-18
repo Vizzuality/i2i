@@ -1,4 +1,4 @@
-<% title 'i2i National Surveys' %>
+<% title 'i2i Micro, Small and Medium Enterprises' %>
 
 <div class="l-national-surveys l-library">
   <div class="l-intro js-hero">
@@ -17,7 +17,7 @@
         <div class="wrapper">
           <div class="row">
             <div class="c-hero">
-              <div class="grid-l-7">
+              <div class="grid-l-7">z
                 <div class="row">
                   <h1 class="title -light -huge">i2i Data Portal</h1>
                   <p class="subtitle">Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <%= link_to 'National Surveys', national_surveys_path %>, and then deepen your understanding of how low-income households manage their financial lives using <%= link_to 'Financial Diaries', financial_diaries_path %>.
@@ -36,8 +36,8 @@
     <div class="wrapper">
       <%= render partial: 'data_portal/description',
                  locals: {
-                   section_title: 'National Surveys',
-                   description: 'The National Surveys methodology is a credible and globally accepted process of collecting and analysing financial inclusion data. National Surveys methodology uses a sampling procedure that ensures minimum acceptable levels for national, urban/rural and regional reliable estimates with acceptable margins of error. A multi-stage sampling methodology is applied, which entails selection of enumeration areas (EAs) – from recent census or population estimates using probability proportional to size, followed by the selection of households and the selection of one adult in the selected household using a Kish Grid.'
+                   section_title: 'Micro, Small and Medium Enterprises',
+                   description: 'Lorem ipsum.'
                  } %>
       <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
       <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
