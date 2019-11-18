@@ -102,7 +102,7 @@ class LegendComponent extends React.Component {
           layerGroups={activeLayerGroups}
           onChangeOrder={this.onChangeOrder}
         >
-          {activeLayerGroups.map((lg, i) => (
+          {activeLayerGroups.map((lg, i) => console.log(lg) || (
             <LegendListItem
               index={i}
               key={lg.dataset}

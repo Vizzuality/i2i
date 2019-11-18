@@ -2,9 +2,7 @@ import { replace } from 'layer-manager';
 
 // SQL
 import VORONOID_LAYER_SQL from 'components/fsp-maps/sql/voronoid_layer.sql';
-import VORONOID_LAYER_SQL_ALL from 'components/fsp-maps/sql/voronoid_layer_all.sql';
 import VORONOID_LEGEND_VALUES_SQL from 'components/fsp-maps/sql/voronoid_legend_values.sql';
-import VORONOID_LEGEND_VALUES_SQL_ALL from 'components/fsp-maps/sql/voronoid_legend_values_all.sql';
 import FSP_LAYER_SQL from 'components/fsp-maps/sql/fsp_layer.sql';
 import FSP_LAYER_SQL_ALL from 'components/fsp-maps/sql/fsp_layer_all.sql';
 
@@ -87,7 +85,7 @@ export const SECTOR_CONFIGS = {
   normal: (params) => {
     const { l, iso, year } = params;
 
-    const generateCartoCSS = cls => `
+    const generateCartoCSS = ({ colors: cls }) => `
       #layer {
         marker-width: 10;
         marker-fill: white;
@@ -107,8 +105,32 @@ export const SECTOR_CONFIGS = {
       `).join(' ')}
     `;
 
+    const generateLegend = ({ type, color, colors: cls }) => {
+      if (cls.length) {
+        return {
+          type: 'basic',
+          items: cls.map(c => (
+            {
+              name: c.type,
+              color: c.color
+            }
+          ))
+        };
+      }
+
+      return {
+        type: 'basic',
+        items: [
+          {
+            name: type,
+            color
+          }
+        ]
+      };
+    };
+
     const SQL = (!l.colors) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
-    const CARTOCSS = (!l.colors) ? replace(SECTORS_CSS, { color: l.color }) : generateCartoCSS(l.colors);
+    const CARTOCSS = (!l.colors) ? replace(SECTORS_CSS, { color: l.color }) : generateCartoCSS(l);
 
     return {
       interactivity: ['name', 'type'],
@@ -129,15 +151,7 @@ export const SECTOR_CONFIGS = {
         },
         account: 'i2i-admin'
       },
-      legendConfig: {
-        type: 'basic',
-        items: [
-          {
-            name: l.type,
-            color: l.color
-          }
-        ]
-      },
+      legendConfig: generateLegend(l),
       interactionConfig: {}
     };
   },
@@ -200,9 +214,6 @@ export const SECTOR_CONFIGS = {
     const { l, iso, visualizationType } = params;
     const { id: layerid } = l;
 
-    const SQL = (!l.colors) ? VORONOID_LAYER_SQL : VORONOID_LAYER_SQL_ALL;
-    const SQL_LEGEND = (!l.colors) ? VORONOID_LEGEND_VALUES_SQL : VORONOID_LEGEND_VALUES_SQL_ALL;
-
     const layerConfig = {
       layerConfig: {
         body: {
@@ -211,7 +222,7 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: replace(VORONOID_LAYER_CSS, { color: l.color }),
-                sql: replace(SQL, { iso, type_id: l.type_id })
+                sql: replace(VORONOID_LAYER_SQL, { iso, type_id: l.type_id })
               },
               type: 'cartodb'
             }
@@ -247,7 +258,7 @@ export const SECTOR_CONFIGS = {
             color: '#b13f64'
           }
         ],
-        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SQL_LEGEND, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
+        url: `${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(VORONOID_LEGEND_VALUES_SQL, { type_id: layerid }))}&api_key=${window.FSP_CARTO_API_KEY}`,
         dataParse: ((activeLayer, data) => {
           const { legendConfig } = activeLayer;
 
