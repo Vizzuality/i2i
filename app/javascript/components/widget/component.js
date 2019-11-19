@@ -70,7 +70,7 @@ class WidgetWrapperComponent extends PureComponent {
                 </button>
 
                 <button className="widget-btn">
-                  <a href={`${url}?q=${body.q}&api_key=${body.api_key}&format=csv`}>
+                  <a download={title} href={`${url}?q=${body.q}&api_key=${body.api_key}&format=csv`}>
                     <Icon name="download" className="download-widget -disabled-opacity" />
                   </a>
                 </button>
