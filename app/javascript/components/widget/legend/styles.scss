@@ -1,0 +1,23 @@
+@import '_settings';
+
+.c-widget-legend {
+  .legend-list {
+    display: flex;
+    flex-direction: column;
+    > li {
+      display: flex;
+      align-items: center;
+      color: $color-6;
+      font-family: Arial;
+      font-size: 14px;
+      line-height: 16px;
+      }
+
+    span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+    }
+  }
+}

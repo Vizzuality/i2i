@@ -9,7 +9,7 @@ import Nearby from 'components/sidebar/nearby';
 import AreaOfInterest from 'components/sidebar/area-of-interest';
 import AnalyzePatterns from 'components/sidebar/analyze-patterns';
 import Jurisdiction from 'components/sidebar/jurisdiction';
-import AnalysisResult from 'components/sidebar/analysis-result';
+import AnalysisResult from 'components/widget/analysis-result';
 
 // styles
 import './styles.scss';

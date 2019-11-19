@@ -19,7 +19,11 @@ export const getWidgets = createSelector(
     const allSectorLayers = _allLayersList.filter(layer => layer.layerType === 'sector');
 
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
-      const { analysis_type: analysisType, type_id: typeId, output } = widget;
+      const { analysis_type: analysisType, type_id: typeId, output, iso: widgetIso } = widget;
+
+      if (widgetIso && widgetIso !== _iso) {
+        return null;
+      }
 
       // If the widget has a type_id in carto, it means it's a contextual layer widget.
       if (typeId) {

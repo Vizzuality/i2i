@@ -7,14 +7,14 @@ import './styles.scss';
 
 class SummaryWidgetWrapperComponent extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     widgetData: PropTypes.array.isRequired,
     menuItem: PropTypes.string.isRequired,
     fetchIntroAnalysis: PropTypes.func.isRequired,
-    setIntroAnalysis: PropTypes.func.isRequired
-  }
+    setIntroAnalysis: PropTypes.func.isRequired,
+    data: PropTypes.array
+  };
 
-  state = { widgetData: [] };
+  static defaultProps = { data: [] };
 
   componentDidMount() {
     const { widgetData, menuItem } = this.props;
@@ -26,28 +26,21 @@ class SummaryWidgetWrapperComponent extends React.Component {
       { label: 'URBAN POPULATION PERCENTAGE:', value: `${Numeral(datum.urban_population_percentage / 100).format('0.0%')}`, subvalue: Numeral(datum.urban_population).format('0,0') }
     ];
 
-    this.setState({ widgetData: newData });
-
-
     // Maintain the country summary data updated with the one from the analysis.
     menuItem === 'country' ? this.props.fetchIntroAnalysis() : this.props.setIntroAnalysis(newData);
   }
 
   render() {
-    const { title } = this.props;
-    const { widgetData } = this.state;
+    const { data } = this.props;
+
     return (
       <div className="c-summary-widget-element">
-        <div className="widget-title">
-          {title}
-        </div>
-
         <table
           className="widget-table"
         >
           <thead>
             <tr>
-              {widgetData.map(item => (
+              {data.map(item => (
                 <th key={item.label}>
                   <div className="widget-label">
                     {item.label}
@@ -58,7 +51,7 @@ class SummaryWidgetWrapperComponent extends React.Component {
           </thead>
           <tbody>
             <tr>
-              {widgetData.map(item => (
+              {data.map(item => (
                 <td key={item.label}>
                   <div className="widget-main-value">{item.value}</div>
 
