@@ -18,6 +18,8 @@ const MinimunDistance = ({ widgetData }) => {
           data={chartData}
           config={chartConfig}
         />
+
+        <div id="widget-legend-md" />
       </div>
     </Fragment>
   );

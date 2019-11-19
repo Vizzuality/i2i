@@ -18,7 +18,7 @@ class LegendLayersComponent extends React.Component {
   }
 
   render() {
-    const { layerId, layersSettings, onClick } = this.props;
+    const { layerId, category, layersSettings, onClick } = this.props;
 
     const layerVisualizations = [
       { label: 'Normal', value: 'normal' },
@@ -41,6 +41,7 @@ class LegendLayersComponent extends React.Component {
             overlay={
               <LegendItemButtonVisualizationsTooltip
                 title="Visualizations"
+                category={category}
                 layerId={layerId}
                 list={layerVisualizations}
                 onChangeLayer={onClick}
