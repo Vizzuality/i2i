@@ -18,6 +18,8 @@
 - Added filters for search results
 - Added filters on the insights page
 - Added year selector inside legend sector layers.
+- Link to download widgetdata in CSV
+- Sex percentage widget for specific countries
 
 ### Changed
 
