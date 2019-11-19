@@ -495,7 +495,8 @@
           iso: this.options.iso,
           year: this.options.year,
           filters: this.options._filters,
-          mode: this.options._mode
+          mode: this.options._mode,
+          isMSME: true,
         };
 
         // If the portal is in table mode, we force the widgets to display

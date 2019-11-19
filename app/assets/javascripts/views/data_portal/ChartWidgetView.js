@@ -62,7 +62,11 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      if (this.options.isMSME) {
+        this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
+      } else {
+        this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      }
       this._fetchData();
     },
 
@@ -455,6 +459,7 @@
               compareIndicators: this.options.compareIndicators,
               expanded: this.options.chart === 'table',
               isRegion: this.options.isRegion,
+              isMSME: this.options.isMSME,
             })
           );
 
@@ -574,6 +579,7 @@
     _getChartTemplate: function () {
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
+      if (chartName === 'table') return JST['templates/data_portal/table'];
       return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
     },
 
