@@ -19,6 +19,7 @@ class DataPortalController < ApplicationController
           link: data_portal_country_preview_path(country[:iso]),
           has_dataset: has_dataset,
           has_finscope: @finscope_countries.include?(country.iso),
+          has_msme: true,
           has_national_diaries: country.financial_diaries.present?,
           has_fsp_maps: country.has_fsp_maps || user_countries_iso.include?(country.iso)
         )
