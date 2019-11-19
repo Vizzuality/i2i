@@ -6,13 +6,15 @@
         <label for="region-worldwide">Worldwide</label>
       </div>
     </li>
-    <% @regions.each do |region| %>
-      <li>
-        <div class="c-radio-button">
-          <input type="radio" id="region-<%= region.id %>" name="region" value="region-<%= region.id %>" class="js-year" />
-          <label for="region-<%= region.id %>"><%= region.name %></label>
-        </div>
-      </li>
+    <% if @regions.present? %>
+      <% @regions.each do |region| %>
+        <li>
+          <div class="c-radio-button">
+            <input type="radio" id="region-<%= region.id %>" name="region" value="region-<%= region.id %>" class="js-year" />
+            <label for="region-<%= region.id %>"><%= region.name %></label>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
