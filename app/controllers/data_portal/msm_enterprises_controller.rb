@@ -13,7 +13,7 @@ class DataPortal::MsmEnterprisesController < ApplicationController
         iso: country["iso"],
         link: msm_enterprises_show_path(country["iso"], latest_year),
         has_dataset: true,
-        icon: :national_surveys
+        icon: :msme
       )
     end
   end

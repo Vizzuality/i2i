@@ -5,6 +5,12 @@
 }
 
 .additional-data-cards {
+
+  .c-card > .thumb {
+    max-height: 138px;
+    overflow: hidden;
+  }
+
   .card-content {
     padding: 0 30px 30px 30px;
   }
