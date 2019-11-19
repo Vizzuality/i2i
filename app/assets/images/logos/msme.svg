@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Phase-5" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Data-National" transform="translate(-414.000000, -397.000000)" fill="#F9D031">
+            <g id="Group-10" transform="translate(414.000000, 394.000000)">
+                <path d="M8,19 C12.418278,19 16,15.418278 16,11 C16,6.581722 12.418278,3 8,3 C3.581722,3 0,6.581722 0,11 C0,15.418278 3.581722,19 8,19 Z M12,7.89473684 L10,7.89473684 L10,6.94736842 C10,6.42157895 9.555,6 9,6 L7,6 C6.445,6 6,6.42157895 6,6.94736842 L6,7.89473684 L4,7.89473684 C3.445,7.89473684 3.005,8.31631579 3.005,8.84210526 L3,14.0526316 C3,14.5784211 3.445,15 4,15 L12,15 C12.555,15 13,14.5784211 13,14.0526316 L13,8.84210526 C13,8.31631579 12.555,7.89473684 12,7.89473684 Z M9,8 L7,8 L7,7 L9,7 L9,8 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

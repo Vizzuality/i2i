@@ -6,11 +6,13 @@
 
 <div class="row additional-data-cards">
   <div class="js-masonry-cards">
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-surveys.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
+        </div>
 
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">National Surveys</h3>
@@ -40,11 +42,49 @@
       </article>
     </div>
 
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
+        <%= image_tag('data-portal/data-portal-msme.jpg',
+                      alt: 'Data portal dashboard',
+                      class: 'datasetimage') %>
+        </div>
+
+        <div class="card-content">
+          <h3 class="title -big -dark filter-finscope">Micro, Small and Medium Enterprises</h3>
+
+          <ul class="c-stats-list">
+            <li class="item">
+              <h4 class="value">1</h4>
+              <span class="description">Countries</span>
+            </li>
+            <li class="item -last">
+              <h4 class="value">1</h4>
+              <span class="description">Datasets</span>
+            </li>
+          </ul>
+
+          <p class="dataset-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a orci venenatis, bibendum augue a, convallis elit. Ut non sapien sed urna finibus laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar, eros in rutrum luctus, dolor ipsum egestas massa, eu ultricies ante lectus quis diam. Morbi consectetur lacus a scelerisque cursus. Integer elementum erat vitae erat fringilla cursus. Cras varius aliquam justo, quis mollis ante cursus ut. In a lacus augue. Cras molestie erat egestas varius semper.
+          </p>
+
+          <div class="discover-button">
+            <%= link_to "Check Micro, Small and Medium Enterprises",
+                        msm_enterprises_path,
+                        class: "c-button -sea dataset-button",
+                        data: { turbolinks: false } %>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
+      <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-diaries.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
+        </div>
 
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">Financial Diaries</h3>
@@ -74,12 +114,13 @@
       </article>
     </div>
 
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-geospatial.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
-
+        </div>
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">Geospatial Data</h3>
 

@@ -1,44 +1,21 @@
 class DataPortal::MsmEnterprisesController < ApplicationController
 
   def index
-    @finscope_countries = Country.finscope_country_list
-    @countries_db = Country.ordered_by_name.select { |c| @finscope_countries.map { |country_hash| country_hash[:iso] }.include?(c.iso) }
+    msme_countries_response = GetMsmeCountriesFromApi.new.perform
+    msme_countries = JSON.parse msme_countries_response.body
 
-    @worldwide_countries = @countries_db.each_with_object([]) do |country, acc|
+    # MSME countries
+    @worldwide_countries = msme_countries.each_with_object([]) do |country, acc|
+      years_size = country['year'].size
+      latest_year = country['year'][years_size - 1]['year']
       acc.push OpenStruct.new(
-        name: country.name,
-        iso: country.iso,
-        link: msm_enterprises_show_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
+        name: country["name"],
+        iso: country["iso"],
+        link: msm_enterprises_show_path(country["iso"], latest_year),
         has_dataset: true,
-        icon: :national_surveys
+        icon: :msme
       )
     end
-
-    @regional_countries = CountryRegion.joins(:country).includes(:country).each_with_object({}) do |country_region, acc|
-      country = country_region.country
-      if @finscope_countries.map { |country_hash| country_hash[:iso] }.include?(country.iso)
-        if acc.has_key?(country_region.region_id)
-          acc[country_region.region_id].push OpenStruct.new(
-            name: country.name,
-            iso: country.iso,
-            link: msm_enterprises_show_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
-            has_dataset: true,
-            icon: :national_surveys
-          )
-        else
-          acc[country_region.region_id] = [OpenStruct.new(
-            name: country.name,
-            iso: country.iso,
-            link: msm_enterprises_show_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
-            has_dataset: true,
-            icon: :national_surveys
-          )]
-        end
-      end
-    end
-
-    @regions_hash = @regional_countries.each { |k, v| @regional_countries[k] = v.sort_by { |country| country.name } }
-    @regions = Region.joins(:country_regions).where(country_regions: { country_id: @countries_db.pluck(:id) }).uniq
   end
 
   def show

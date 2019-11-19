@@ -13,11 +13,13 @@
     </div>
   </div>
 
-  <% regions_hash.each do |(region_id, countries_list)| %>
-    <div class="l-card-grid countries-list region-<%= region_id %>" style="display: none">
-      <div class="row">
-        <%= render partial: 'data_portal/filtered_country', collection: countries_list, as: :country %>
+  <% if regions_hash.present? %>
+    <% regions_hash.each do |(region_id, countries_list)| %>
+      <div class="l-card-grid countries-list region-<%= region_id %>" style="display: none">
+        <div class="row">
+          <%= render partial: 'data_portal/filtered_country', collection: countries_list, as: :country %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </section>

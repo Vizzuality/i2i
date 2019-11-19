@@ -37,10 +37,10 @@
       <%= render partial: 'data_portal/description',
                  locals: {
                    section_title: 'Micro, Small and Medium Enterprises',
-                   description: 'Lorem ipsum.'
+                   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a orci venenatis, bibendum augue a, convallis elit. Ut non sapien sed urna finibus laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar, eros in rutrum luctus, dolor ipsum egestas massa, eu ultricies ante lectus quis diam. Morbi consectetur lacus a scelerisque cursus. Integer elementum erat vitae erat fringilla cursus. Cras varius aliquam justo, quis mollis ante cursus ut. In a lacus augue. Cras molestie erat egestas varius semper.'
                  } %>
       <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
-      <%= render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%# render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
       <%= render partial: 'data_portal/additional_data' %>
     </div>
   </div>
