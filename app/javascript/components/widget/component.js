@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-import { CSVLink } from "react-csv";
-
 
 // Components
 import Spinner from 'wri-api-components/dist/spinner';

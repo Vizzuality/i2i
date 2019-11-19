@@ -48,7 +48,6 @@
     "raw-loader": "^0.5.1",
     "rc-slider": "^8.6.1",
     "react": "16.8.2",
-    "react-csv": "^1.1.2",
     "react-dom": "16.8.2",
     "react-dropzone": "^10.1.5",
     "react-dropzone-uploader": "2.8.1",
