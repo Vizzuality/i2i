@@ -11,7 +11,7 @@ const getData = data => data.map(d => ({
 }));
 
 export const CONFIG = {
-  parse: (data) => {
+  parse: (data, legendId) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
 
@@ -55,7 +55,7 @@ export const CONFIG = {
           height: 0,
           top: 0,
           content: () => {
-            return createPortal(<Legend data={chartData} />, document.querySelector('#widget-legend-md'));
+            return createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${legendId}`));
           }
         }
       }

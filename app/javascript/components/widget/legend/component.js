@@ -19,6 +19,7 @@ const Legend = ({ data }) => (
         </li>
       ))}
     </ul>
+    <button className="legend-btn">View more</button>
   </div>
 );
 
