@@ -17,12 +17,20 @@ class LegendItemButtonVisualizationsTooltip extends React.Component {
   render() {
     const { title, list, layerId, layersSettings } = this.props;
 
+    const visualizations = list.filter((l) => {
+      if (layerId === 'all-finance-layer' && l.value === 'voronoid') { // Horrible, instead of doing it by id we should do it by type
+        return false;
+      }
+
+      return true;
+    });
+
     return (
       <div className="c-legend-item-button-visualizations-tooltip">
         {title}
 
         <div className="visualization-list">
-          {list.map((l) => {
+          {visualizations.map((l) => {
             const current = (layersSettings[layerId] && typeof layersSettings[layerId].visualizationType !== 'undefined') ? layersSettings[layerId].visualizationType : 'normal';
 
             return (

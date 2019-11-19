@@ -4,6 +4,45 @@
     {
       "icon": {
         "paths": [
+          "M451.779 171.166l0.264-1.198v513.918l-161.913-161.55c-7.9-7.908-18.609-12.254-29.851-12.254s-21.867 4.344-29.792 12.254l-25.15 25.133c-7.9 7.9-12.271 18.44-12.271 29.673 0 11.241 4.344 21.774 12.246 29.689l276.91 276.944c7.941 7.941 18.505 12.271 29.75 12.246 11.304 0.026 21.884-4.304 29.809-12.246l276.944-276.944c7.896-7.9 12.246-18.44 12.246-29.689 0-11.233-4.347-21.769-12.246-29.673l-25.15-25.133c-7.896-7.908-18.432-12.254-29.673-12.254-11.233 0-21.217 4.344-29.113 12.254l-162.816 163.374v-515.117c0-23.15-19.945-42.602-43.082-42.602h-35.573c-23.133 0-41.523 20.027-41.523 43.176z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(47, 147, 156)"
+          }
+        ],
+        "grid": 0,
+        "tags": [
+          "left-arrow"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "colorPermutations": {
+          "2013413412552552551441641641471471561641972041": [
+            {
+              "f": 1
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "rgb(47, 147, 156)"
+        }
+      ],
+      "properties": {
+        "order": 45,
+        "id": 15,
+        "prevSize": 32,
+        "name": "left-arrow"
+      },
+      "setIdx": 1,
+      "setId": 4,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M975.812 891.482l-186.729-186.729c54.212-72.282 84.329-156.612 84.329-252.988 0-234.918-186.729-421.647-421.647-421.647s-421.647 186.729-421.647 421.647c0 234.918 186.729 421.647 421.647 421.647 96.376 0 180.706-30.118 252.988-84.329l186.729 186.729c12.047 12.047 30.118 18.071 42.165 18.071s30.118-6.024 42.165-18.071c24.094-24.094 24.094-60.235 0-84.329zM150.588 451.765c0-168.659 132.518-301.176 301.176-301.176s301.176 132.518 301.176 301.176-132.518 301.176-301.176 301.176-301.176-132.518-301.176-301.176z"
         ],
         "attrs": [
@@ -25,14 +64,14 @@
         {}
       ],
       "properties": {
-        "order": 30,
+        "order": 57,
         "id": 12,
         "name": "search",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 0
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -58,14 +97,14 @@
         {}
       ],
       "properties": {
-        "order": 23,
+        "order": 56,
         "id": 11,
         "name": "map",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 1
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -95,14 +134,14 @@
         {}
       ],
       "properties": {
-        "order": 24,
+        "order": 46,
         "id": 10,
         "name": "flag",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 2
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -129,14 +168,14 @@
         {}
       ],
       "properties": {
-        "order": 25,
+        "order": 47,
         "id": 9,
         "name": "share",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 3
+      "iconIdx": 4
     },
     {
       "icon": {
@@ -166,14 +205,14 @@
         {}
       ],
       "properties": {
-        "order": 10,
+        "order": 48,
         "id": 8,
         "name": "play",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 4
+      "iconIdx": 5
     },
     {
       "icon": {
@@ -203,51 +242,47 @@
         {}
       ],
       "properties": {
-        "order": 11,
+        "order": 49,
         "id": 7,
         "name": "settings",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 5
+      "iconIdx": 6
     },
     {
       "icon": {
         "paths": [
-          "M512 1024c-284.444 0-512-227.556-512-512s227.556-512 512-512c284.444 0 512 227.556 512 512s-227.556 512-512 512zM512 56.889c-250.311 0-455.111 204.8-455.111 455.111s204.8 455.111 455.111 455.111 455.111-204.8 455.111-455.111-204.8-455.111-455.111-455.111z",
-          "M568.889 347.022h-113.778v-119.467h113.778v119.467zM455.111 409.6h113.778v386.844h-113.778v-386.844z"
+          "M586.489 295.982h-148.978v-156.427h148.978v156.427zM437.511 377.92h148.978v506.524h-148.978v-506.524z"
         ],
         "attrs": [
-          {},
           {}
+        ],
+        "grid": 0,
+        "tags": [
+          "info-squared"
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "grid": 0,
-        "tags": [
-          "info"
-        ],
         "colorPermutations": {
           "2013413412552552551441641641471471561641972041": [
-            {},
             {}
           ]
         }
       },
       "attrs": [
-        {},
         {}
       ],
       "properties": {
-        "order": 29,
-        "id": 6,
-        "name": "info",
-        "prevSize": 32
+        "order": 50,
+        "id": 19,
+        "prevSize": 32,
+        "name": "info-squared"
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 6
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -278,14 +313,14 @@
         {}
       ],
       "properties": {
-        "order": 13,
+        "order": 51,
         "id": 5,
         "name": "movelegend",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 7
+      "iconIdx": 8
     },
     {
       "icon": {
@@ -368,14 +403,14 @@
         }
       ],
       "properties": {
-        "order": 14,
+        "order": 52,
         "id": 4,
         "name": "layersneeded",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 8
+      "iconIdx": 9
     },
     {
       "icon": {
@@ -402,14 +437,14 @@
         {}
       ],
       "properties": {
-        "order": 15,
+        "order": 53,
         "id": 3,
         "name": "pin",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 9
+      "iconIdx": 10
     },
     {
       "icon": {
@@ -464,14 +499,14 @@
         {}
       ],
       "properties": {
-        "order": 16,
+        "order": 54,
         "id": 2,
         "name": "poligono",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 10
+      "iconIdx": 11
     },
     {
       "icon": {
@@ -534,14 +569,14 @@
         }
       ],
       "properties": {
-        "order": 17,
+        "order": 55,
         "id": 1,
         "name": "analysis",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 11
+      "iconIdx": 12
     },
     {
       "icon": {
@@ -574,14 +609,14 @@
         }
       ],
       "properties": {
-        "order": 31,
+        "order": 44,
         "id": 0,
         "name": "layers",
         "prevSize": 32
       },
       "setIdx": 1,
       "setId": 4,
-      "iconIdx": 12
+      "iconIdx": 13
     }
   ],
   "height": 1024,
@@ -609,7 +644,10 @@
       "color": 0,
       "bgColor": 16777215,
       "classSelector": ".icon",
-      "name": "icomoon"
+      "name": "icomoon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16
     },
     "historySize": 50,
     "showCodes": true,

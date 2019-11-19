@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 
 // Components
 import Spinner from 'wri-api-components/dist/spinner';
-import SummaryWidget from './summary-widget';
-import ChartWidget from './chart-widget';
-// import WidgetText from '...'
+import Icon from 'components/icon';
 
 // styles
 import './styles.scss';
 
-class WidgetWrapperComponent extends React.Component {
+class WidgetWrapperComponent extends PureComponent {
   static propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     title: PropTypes.string.isRequired,
-    chart: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    body: PropTypes.object.isRequired
+    body: PropTypes.object.isRequired,
+    children: PropTypes.func.isRequired
   }
 
   state = { widgetData: [], loading: true };
@@ -37,9 +34,7 @@ class WidgetWrapperComponent extends React.Component {
 
   fetchWidget = () => {
     const { url, body } = this.props;
-
     this.setState({ loading: true });
-
     fetch(url, {
       method: 'post',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -56,30 +51,39 @@ class WidgetWrapperComponent extends React.Component {
   }
 
   render() {
-    const { chart, id } = this.props;
+    const { title, children, url, body } = this.props;
     const { widgetData, loading } = this.state;
-
     if (widgetData && widgetData.length) {
       return (
         <div className="c-widget-element">
-          {loading && <Spinner position="relative" />}
+          <div className="widget-template">
+            <div className="widget-header">
+              <h3>{title}</h3>
+              <div className="header-buttons">
+                <button
+                  className="widget-btn"
+                  onClick={this.onDownload}
+                >
+                  <Icon name="info-squared" className="info-widget -disabled-opacity" />
+                </button>
 
-          {!loading && chart === 'summary' &&
-          <SummaryWidget key={id} widgetData={widgetData} {...this.props} />
-        }
+                <button className="widget-btn">
+                  <a download={title} href={`${url}?q=${body.q}&api_key=${body.api_key}&format=csv`}>
+                    <Icon name="download" className="download-widget -disabled-opacity" />
+                  </a>
+                </button>
 
-          {
-          (!loading && (chart === 'pie' || chart === 'stacked bar' || chart === 'grouped bar' || chart === 'bar')) &&
-            <ChartWidget
-              key={id}
-              widgetData={widgetData}
-              {...this.props}
-            />
-        }
+
+              </div>
+            </div>
+            <div className="widget-content">
+              {loading && <Spinner position="relative" />}
+              {!loading && children({ widgetData, ...this.props })}
+            </div>
+          </div>
         </div>
       );
     }
-
     return null;
   }
 }

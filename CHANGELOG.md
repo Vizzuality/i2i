@@ -18,6 +18,8 @@
 - Added filters for search results
 - Added filters on the insights page
 - Added year selector inside legend sector layers.
+- Link to download widgetdata in CSV
+- Sex percentage widget for specific countries
 
 ### Changed
 
@@ -38,6 +40,7 @@
 - Iniatives becomes to Research themes
 - Changed contact form in order to send messages from server instead Salesforce
 - Changed color and size for tags inside cards for insights
+- Wdigets restyled and moved from Vega to Recharts 
 
 ### Fixed
 

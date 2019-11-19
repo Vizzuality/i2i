@@ -11,7 +11,7 @@ class PopupComponent extends React.Component {
 
   onChange = (e) => {
     const { activeLayer } = this.props;
-    this.props.onChangeYear(activeLayer.id, e.currentTarget.value);
+    this.props.onChangeYear(activeLayer, e.currentTarget.value);
   }
 
   render() {
@@ -21,7 +21,7 @@ class PopupComponent extends React.Component {
     return (
       <div className="c-legend-years">
         {years.map((y) => {
-          const checked = year === y;
+          const checked = +year === +y;
 
           return (
             <div key={y} className="legend-years--radio">

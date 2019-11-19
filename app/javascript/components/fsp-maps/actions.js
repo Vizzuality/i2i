@@ -158,24 +158,50 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  const tableName = 'fsp_maps';
+  const tableName = process.env.FSP_CARTO_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
-    .then(data => data.rows.map(row => ({
-      ...row,
-      id: row.type_id.toString(),
-      name: row.type,
-      info: LAYERS_INFO[row.type],
-      layerType: 'sector',
-      count: Numeral(row.count).format('0,0'),
-      provider: 'carto',
-      isUserDataset: false,
-      years: row.years
-    })));
+    .then((data) => {
+      const sectorLayers = data.rows.map(row => ({
+        ...row,
+        id: row.type_id.toString(),
+        name: row.type,
+        info: LAYERS_INFO[row.type],
+        layerType: 'sector',
+        count: Numeral(row.count).format('0,0'),
+        provider: 'carto',
+        isUserDataset: false,
+        years: row.years
+      }));
+
+      const financeLayers = data.rows.filter(row => row.sector === 'Finance');
+      if (!financeLayers.length) {
+        return sectorLayers;
+      }
+
+      const allFinanceLayer = {
+        id: 'all-finance-layer',
+        name: 'All facilities',
+        sector: 'Finance',
+        layerType: 'sector',
+        count: null,
+        provider: 'carto',
+        isUserDataset: false,
+        colors: financeLayers.map(fl => ({
+          color: fl.color,
+          type: fl.type
+        }))
+      };
+
+      return [
+        allFinanceLayer,
+        ...sectorLayers
+      ];
+    });
 }
 
 function getUserDatasets(iso) {
-  const tableName = process.env.FSP_CARTO_TABLE;
+  const tableName = process.env.FSP_CARTO_USERS_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_USERS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
