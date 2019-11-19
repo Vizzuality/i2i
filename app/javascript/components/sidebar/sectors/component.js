@@ -35,10 +35,32 @@ class SectorsComponent extends PureComponent {
   }
 
   handleSelectedType(sectorLayer) {
+    const { layersBySector } = this.props;
     const layers = [...this.props.selectedLayers];
     const layersSettings = { ...this.props.layersSettings };
-    const { id } = sectorLayer;
+    const { id, sector, category } = sectorLayer;
 
+    // Disable all layers if you activate the parent
+    if (category === 'all' && !layers.includes(id)) {
+      const filteredLayers = layersBySector.filter(l => l.sector === sector);
+      filteredLayers.forEach((l) => {
+        if (layers.includes(l.id)) {
+          layers.splice(layers.indexOf(l.id), 1);
+          delete layersSettings[l.id];
+        }
+      });
+    }
+
+    // Disable parent layer if you activate any child
+    if (category !== 'all' && !layers.includes(id)) {
+      const parent = layersBySector.find(l => l.sector === sector && l.category === 'all');
+      if (parent && layers.includes(parent.id)) {
+        layers.splice(layers.indexOf(parent.id), 1);
+        delete layersSettings[parent.id];
+      }
+    }
+
+    // Handle the one you clicked
     if (layers.includes(id)) {
       layers.splice(layers.indexOf(id), 1);
       delete layersSettings[id];

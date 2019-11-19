@@ -125,6 +125,16 @@
     }
 
     &.-all {
+      background: none;
+
+      .list-item-button {
+        justify-content: flex-end;
+        padding: 0 0 5px;
+
+        .item-icons {
+          display: none;
+        }
+      }
 
       &.-checked {
         border: none;
