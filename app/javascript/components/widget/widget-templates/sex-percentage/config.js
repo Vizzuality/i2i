@@ -8,18 +8,19 @@ const getTotal = data => data.map(
   d => d.value
 ).reduce((previous, current) => current + previous);
 
-const getData = (data, total) => data.map(d => {
+const getData = (data, total) => data.map((d, i) => {
+  const colors = ['#2F939C', '#B2E600'];
   return {
     y: 1,
     x: d.value,
     value: d.value,
     label: d.label,
     name: d.label,
-    color:d.color,
+    color: colors[i],
     unit: d.unit,
     coverage: d.value,
     percentage: (d.value / total) * 100
-  }
+  };
 });
 
 

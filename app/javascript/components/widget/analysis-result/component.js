@@ -21,7 +21,6 @@ class AnalysisResultComponent extends React.Component {
 
   render() {
     const { widgets, analysisActive } = this.props;
-
     return (
       <div className="c-sidebar-analysis-result">
         <div

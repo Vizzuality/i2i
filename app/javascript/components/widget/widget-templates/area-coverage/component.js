@@ -7,16 +7,15 @@ import config from './config';
 
 const AreaCoverage = ({ widgetData }) => {
   if (!widgetData) return null;
-
   const data = config.parse(widgetData);
-  const { chartConfig } = data;
+  const { chartConfig, chartData } = data;
 
   return (
     <Fragment>
       <div className="c-widget-template">
 
         <Chart
-          data={widgetData}
+          data={chartData}
           config={chartConfig}
         />
       </div>

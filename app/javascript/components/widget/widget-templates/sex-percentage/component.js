@@ -7,16 +7,15 @@ import config from './config';
 
 const SexPercentage = ({ widgetData }) => {
   if (!widgetData) return null;
-console.log(widgetData)
   const data = config.parse(widgetData);
-  const { chartConfig } = data;
+  const { chartConfig, chartData } = data;
 
   return (
     <Fragment>
       <div className="c-widget-template">
 
         <Chart
-          data={widgetData}
+          data={chartData}
           config={chartConfig}
         />
       </div>
