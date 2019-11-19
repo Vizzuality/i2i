@@ -184,12 +184,14 @@ function getSectors(iso) {
         name: 'All facilities',
         sector: 'Finance',
         layerType: 'sector',
+        category: 'all',
         count: null,
         provider: 'carto',
         isUserDataset: false,
-        colors: financeLayers.map(fl => ({
+        layers: financeLayers.map(fl => ({
           color: fl.color,
-          type: fl.type
+          type: fl.type,
+          type_id: fl.type_id
         }))
       };
 

@@ -120,6 +120,7 @@ class LegendComponent extends React.Component {
                   {lg.layerType !== 'contextual' &&
                     <LegendItemButtonVisualizations
                       onClick={(layerId, visualizationType) => this.onChangeLegendLayerVisualization(layerId, visualizationType)}
+                      category={lg.layers[0].category}
                       layerId={lg.dataset}
                       layersSettings={layersSettings}
                     />
