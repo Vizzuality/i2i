@@ -4,6 +4,7 @@ import Numeral from 'numeral';
 import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
+import groupBy from 'lodash/groupBy';
 import Promise from 'bluebird';
 
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
@@ -174,29 +175,28 @@ function getSectors(iso) {
         years: row.years
       }));
 
-      const financeLayers = data.rows.filter(row => row.sector === 'Finance');
-      if (!financeLayers.length) {
-        return sectorLayers;
-      }
+      const groupBySector = groupBy(sectorLayers, 'sector');
 
-      const allFinanceLayer = {
-        id: 'all-finance-layer',
-        name: 'All facilities',
-        sector: 'Finance',
-        layerType: 'sector',
-        category: 'all',
-        count: null,
-        provider: 'carto',
-        isUserDataset: false,
-        layers: financeLayers.map(fl => ({
-          color: fl.color,
-          type: fl.type,
-          type_id: fl.type_id
-        }))
-      };
+      const categoryLayers = Object.keys(groupBySector).map((k) => {
+        return {
+          id: `all-${k.toLowerCase()}-layer`,
+          name: `All ${k.toLowerCase()} layer`,
+          sector: k,
+          category: 'all',
+          layerType: 'sector',
+          count: null,
+          provider: 'carto',
+          isUserDataset: false,
+          layers: groupBySector[k].map(fl => ({
+            color: fl.color,
+            type: fl.type,
+            type_id: fl.type_id
+          }))
+        };
+      });
 
       return [
-        allFinanceLayer,
+        ...categoryLayers,
         ...sectorLayers
       ];
     });
