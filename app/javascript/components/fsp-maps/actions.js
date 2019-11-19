@@ -158,7 +158,7 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  const tableName = 'fsp_maps';
+  const tableName = process.env.FSP_CARTO_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
     .then((data) => {
@@ -201,7 +201,7 @@ function getSectors(iso) {
 }
 
 function getUserDatasets(iso) {
-  const tableName = process.env.FSP_CARTO_TABLE;
+  const tableName = process.env.FSP_CARTO_USERS_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_USERS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
