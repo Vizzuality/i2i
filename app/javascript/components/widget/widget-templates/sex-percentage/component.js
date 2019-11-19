@@ -5,7 +5,7 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const AreaCoverage = ({ widgetData }) => {
+const SexPercentage = ({ widgetData }) => {
   if (!widgetData) return null;
   const data = config.parse(widgetData);
   const { chartConfig, chartData } = data;
@@ -23,6 +23,6 @@ const AreaCoverage = ({ widgetData }) => {
   );
 };
 
-AreaCoverage.propTypes = { widgetData: PropTypes.array.isRequired };
+SexPercentage.propTypes = { widgetData: PropTypes.array.isRequired };
 
-export default AreaCoverage;
+export default SexPercentage;

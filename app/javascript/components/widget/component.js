@@ -50,9 +50,8 @@ class WidgetWrapperComponent extends PureComponent {
       });
   }
 
-
   render() {
-    const { title, children } = this.props;
+    const { title, children, url, body } = this.props;
     const { widgetData, loading } = this.state;
     if (widgetData && widgetData.length) {
       return (
@@ -63,19 +62,15 @@ class WidgetWrapperComponent extends PureComponent {
               <div className="header-buttons">
                 <button
                   className="widget-btn"
-                  onClick={() => {
-
-                  }}
+                  onClick={this.onDownload}
                 >
                   <Icon name="info-squared" className="info-widget -disabled-opacity" />
                 </button>
-                <button
-                  className="widget-btn"
-                  onClick={() => {
 
-                  }}
-                >
-                  <Icon name="download" className="download-widget -disabled-opacity" />
+                <button className="widget-btn">
+                  <a download={title} href={`${url}?q=${body.q}&api_key=${body.api_key}&format=csv`}>
+                    <Icon name="download" className="download-widget -disabled-opacity" />
+                  </a>
                 </button>
 
 
