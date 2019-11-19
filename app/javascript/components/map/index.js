@@ -17,7 +17,7 @@ export default connect(
     ...state.fspMaps.common,
     ...state.fspMaps.sidebar,
     ...state.fspMaps.map,
-    ...state.fspMaps.sidebar,
+    pattern: state.fspMaps.analysis.pattern,
     menuItem: state.fspMaps.sidebar.menuItem,
     nearby: state.fspMaps.analysis.nearby,
     areaOfInterest: state.fspMaps.analysis.areaOfInterest,

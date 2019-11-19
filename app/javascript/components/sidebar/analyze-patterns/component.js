@@ -16,12 +16,13 @@ const AnalyzePatterns = ({
   selectedLayers,
   analysisActive,
   setAnalysisActive,
-  setLocationSelected,
-  fetchLocationArea,
-  setNearby,
   nearby,
-  fetchNearbyArea,
-  time
+  time,
+  setPattern,
+  fetchPatternArea,
+  togglePatternPinDrop,
+  pattern,
+  pin
 }) => {
   useEffect(() => {
     const heatmapsLayers = Object.keys(layersSettings).reduce((acc, _layerId) => ({
@@ -36,15 +37,20 @@ const AnalyzePatterns = ({
     }), {});
 
     setLayersSettings(heatmapsLayers);
-  });
+  }, []);
 
   const onChange = (value) => {
-    setNearby({ ...this.props.nearby, time: value });
+
+    setPattern({ pin, time: value });
   };
 
   const onAfterChange = (value) => {
-    setNearby({ ...nearby, time: value });
-    fetchNearbyArea();
+    setPattern({ pin, time: value });
+    fetchPatternArea();
+  };
+
+  const onDrop = () => {
+    togglePatternPinDrop({ ...pin, active: !pin.active });
   };
 
   const onClear = () => {
@@ -92,12 +98,11 @@ const AnalyzePatterns = ({
 
       <div className="buttons-container">
         <button
-          className="c-button -small -white"
-          onClick={() => {
-            onClear();
-          }}
+          className={classnames('c-button -small -white',
+            { '-disabled': (pin.active && !pin.dropped) })}
+          onClick={onDrop}
         >
-          Click on map
+          {(!pin.active) ? 'Click on map' : 'Clear area'}
         </button>
         <button
           className={classnames('c-button -small -sea', { '-disabled': !selectedLayers.length || !!isEmpty(area) })}

@@ -178,6 +178,38 @@ export default {
   },
 
   // Analysis - Analyse patterns
+
+  [actions.setPattern]: (state, { payload }) => {
+    const analysis = { ...state.analysis, pattern: payload };
+    return { ...state, analysis };
+  },
+  [actions.setPatternError]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, error: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.setPatternArea]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, area: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.setPatternCenter]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, center: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.togglePatternPinDrop]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, pin: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.togglePatternLocation]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, location: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+
+  // Analysis - Analyse patterns
   [actions.setLocationsList]: (state, { payload }) => {
     const location = { ...state.analysis.location, list: payload };
     const analysis = { ...state.analysis, location };
