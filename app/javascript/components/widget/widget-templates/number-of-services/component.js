@@ -18,6 +18,8 @@ const NumberOfServices = ({ widgetData }) => {
           data={[chartData]}
           config={chartConfig}
         />
+
+        <div id="widget-legend-nos" />
       </div>
     </Fragment>
   );

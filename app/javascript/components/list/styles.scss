@@ -124,6 +124,14 @@
       }
     }
 
+    &.-all {
+
+      &.-checked {
+        border: none;
+        box-shadow: none;
+      }
+    }
+
     &.-checked {
       border: 3px solid #2F939C;
       box-shadow: 0 4px 10px 0 rgba(47,147,156,0.35);
