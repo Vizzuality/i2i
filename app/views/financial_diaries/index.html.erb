@@ -13,21 +13,7 @@
       </div>
     </div>
     <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-data.jpg') %>)">
-      <div class="l-title">
-        <div class="wrapper">
-          <div class="row">
-            <div class="c-hero">
-              <div class="grid-l-7">
-                <div class="row">
-                  <h1 class="title -light -huge">i2i Data Portal</h1>
-                  <p class="subtitle">Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <%= link_to 'National Surveys', national_surveys_path %>, and then deepen your understanding of how low-income households manage their financial lives using <%= link_to 'Financial Diaries', financial_diaries_path %>.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'data_portal/header_title' %>
       <%= render partial: 'data_portal/sections_tabs' %>
     </div>
   </div>
