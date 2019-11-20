@@ -34,6 +34,7 @@
         fspId: null,
         expanded: false,
         isRegion: false,
+        isMSME: false,
       }, options);
 
       this.indicatorModel = new App.Model.IndicatorModel({}, this.options);

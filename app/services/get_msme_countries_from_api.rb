@@ -19,6 +19,6 @@ class GetMsmeCountriesFromApi
   private
 
   def api_url
-    "#{API_URL}/country"
+    "#{API_URL}/country?lastyear=true"
   end
 end
