@@ -30,21 +30,38 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="l-card-grid">
-        <div class="row js-masonry-cards">
-          <% @featured_tags.each do |tag| %>
-            <div class="js-masonry-item grid-s-12 grid-m-6">
+        <% if @featured_tags && @featured_tags.size > 0 %>
+          <div class="row">
+            <div class="grid-s-12 grid-m-12">
               <article class="c-card">
-                <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="Measurement">
-                  <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
+                <a href="<%= initiatives_filter_index_path(@featured_tags[0].slug) %>" alt="<%= @featured_tags[0].title %>">
+                  <div class="picture" style="background-image: url(<%= asset_path(@featured_tags[0].image_url) %>)"></div>
                   <div class="metadata">
-                    <h4 class="title -dark -xs"><%= tag.title %></h4>
-                    <p><%= tag.description %></p>
+                    <h4 class="title -dark -xs"><%= @featured_tags[0].title %></h4>
+                    <p><%= @featured_tags[0].description %></p>
                   </div>
                 </a>
               </article>
             </div>
-          <% end %>
-        </div>
+          </div>
+          <div class="row js-masonry-cards">
+            <% @featured_tags.each_with_index do |tag, index| %>
+              <% if index > 1 %>
+                <div class="js-masonry-item grid-s-12 grid-m-6">
+                  <article class="c-card">
+                    <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="<%= tag.title %>">
+                      <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
+                      <div class="metadata">
+                        <h4 class="title -dark -xs"><%= tag.title %></h4>
+                        <p><%= tag.description %></p>
+                      </div>
+                    </a>
+                  </article>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -21,6 +21,7 @@
 - Link to download widgetdata in CSV
 - Sex percentage widget for specific countries
 - MSME section in the data portal page
+- New section Openi2i portal on the Research themes page
 
 ### Changed
 
