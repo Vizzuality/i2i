@@ -50,14 +50,3 @@ Tooltip.defaultProps = {
 };
 
 export default Tooltip;
-
-// color: "#33a02c"
-// dataKey: "Microfinance deposit taking institution"
-// fill: "#33a02c"
-// formatter: undefined
-// name: "Microfinance deposit taking institution"
-// payload: {Microfinance deposit taking institution: 8, name: "Number of services", Offsite ATMs: 2}
-// stroke: "#33a02c"
-// type: undefined
-// unit: undefined
-// value: 8
