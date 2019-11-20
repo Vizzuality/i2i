@@ -20,6 +20,7 @@
 - Added year selector inside legend sector layers.
 - Link to download widgetdata in CSV
 - Sex percentage widget for specific countries
+- MSME section in the data portal page
 
 ### Changed
 
