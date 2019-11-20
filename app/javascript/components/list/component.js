@@ -51,10 +51,12 @@ class ListComponent extends React.Component {
     return (
       <div className="c-list">
         {rows.map((row) => {
+          const { category } = row;
           const label = row[labelField];
           const count = !!row.count && Numeral(row.count).format('0,0');
           const listItemClassName = classnames({
             'list-item': true,
+            '-all': category === 'all',
             '-checked': selectedLayers.includes(row.id)
           });
 

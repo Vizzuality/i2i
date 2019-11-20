@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import WidgetLegend from 'components/widget/legend';
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
@@ -77,11 +78,11 @@ export const CONFIG = {
           position: 'relative',
           verticalAlign: 'bottom',
           layout: 'horizontal',
-          height: 80,
+          height: 0,
           top: 0,
           content: (properties) => {
             const { payload } = properties;
-            return <WidgetLegend data={payload} />;
+            return createPortal(<WidgetLegend data={payload} />, document.querySelector('#widget-legend-nos'));
           }
         }
       }

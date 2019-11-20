@@ -13,11 +13,13 @@ const AccessPointsPercentage = ({ widgetData }) => {
   return (
     <Fragment>
       <div className="c-widget-template">
-
-        <Chart
-          data={chartData}
-          config={chartConfig}
-        />
+        <div className="c-widget--app">
+          <div id="widget-legend-app" />
+          <Chart
+            data={chartData}
+            config={chartConfig}
+          />
+        </div>
       </div>
     </Fragment>
   );

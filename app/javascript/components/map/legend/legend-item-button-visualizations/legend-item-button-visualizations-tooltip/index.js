@@ -9,16 +9,19 @@ class LegendItemButtonVisualizationsTooltip extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
+    category: PropTypes.string,
     layerId: PropTypes.string.isRequired,
     onChangeLayer: PropTypes.func.isRequired,
     layersSettings: PropTypes.object.isRequired
   };
 
+  static defaultProps = { category: '' };
+
   render() {
-    const { title, list, layerId, layersSettings } = this.props;
+    const { title, list, layerId, layersSettings, category } = this.props;
 
     const visualizations = list.filter((l) => {
-      if (layerId === 'all-finance-layer' && l.value === 'voronoid') { // Horrible, instead of doing it by id we should do it by type
+      if (category === 'all' && l.value === 'voronoid') { // Horrible, instead of doing it by id we should do it by type
         return false;
       }
 

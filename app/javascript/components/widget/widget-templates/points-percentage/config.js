@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import WidgetLegend from 'components/widget/legend';
 
 
@@ -54,9 +55,11 @@ export const CONFIG = {
           align: 'left',
           verticalAlign: 'middle',
           layout: 'vertical',
+          height: 0,
+          width: 0,
           content: (properties) => {
             const { payload } = properties;
-            return <WidgetLegend data={payload} />;
+            return createPortal(<WidgetLegend data={payload} />, document.querySelector('#widget-legend-app'));
           }
         }
         // tooltip: {

@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { replace } from 'layer-manager';
 import intersection from 'lodash/intersection';
+import flatten from 'lodash/flatten';
 
 const rawWidgets = state => state.fspMaps.widgets.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
@@ -11,6 +12,15 @@ const analyzePattern = state => state.fspMaps.analysis.location;
 const jurisdiction = state => state.fspMaps.analysis.jurisdiction;
 const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
 const allLayersList = state => state.fspMaps.layers.list;
+
+const getTypeIds = (layers) => {
+  return flatten(layers.map((layer) => {
+    if (layer.layers) {
+      return layer.layers.map(l => l.type_id);
+    }
+    return layer.type_id;
+  }));
+};
 
 export const getWidgets = createSelector(
   [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, analyzePattern, jurisdiction, areaOfInterestArea, allLayersList],
@@ -60,7 +70,7 @@ export const getWidgets = createSelector(
       const { area: jurisdictionArea } = _jurisdiction;
       const { area: analyzePatternArea } = _analyzePattern;
       const { lng, lat } = center;
-      const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.type_id) : sectorLayers.map(layer => layer.type_id);
+      const typeIds = getTypeIds(analysisType === 'country' ? allSectorLayers : sectorLayers);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 

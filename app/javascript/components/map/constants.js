@@ -85,7 +85,7 @@ export const SECTOR_CONFIGS = {
   normal: (params) => {
     const { l, iso, year } = params;
 
-    const generateCartoCSS = ({ colors: cls = [] }) => `
+    const generateCartoCSS = ({ layers: lys = [] }) => `
       #layer {
         marker-width: 10;
         marker-fill: white;
@@ -98,18 +98,18 @@ export const SECTOR_CONFIGS = {
         marker-allow-overlap: true;
       }
 
-      ${cls.map(({ color, type }) => `
+      ${lys.map(({ color, type }) => `
         #layer[type="${type}"] {
           marker-fill: ${color};
         }
       `).join(' ')}
     `;
 
-    const generateLegend = ({ type, color, colors: cls = [] }) => {
-      if (cls.length) {
+    const generateLegend = ({ type, color, layers: lys = [] }) => {
+      if (lys.length) {
         return {
           type: 'basic',
-          items: cls.map(c => (
+          items: lys.map(c => (
             {
               name: c.type,
               color: c.color
@@ -129,8 +129,8 @@ export const SECTOR_CONFIGS = {
       };
     };
 
-    const SQL = (!l.colors) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
-    const CARTOCSS = (!l.colors) ? replace(SECTORS_CSS, { color: l.color }) : generateCartoCSS(l);
+    const SQL = (!l.layers) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
+    const CARTOCSS = (!l.layers) ? replace(SECTORS_CSS, { color: l.color }) : generateCartoCSS(l);
 
     return {
       interactivity: ['name', 'type'],
@@ -141,7 +141,13 @@ export const SECTOR_CONFIGS = {
               options: {
                 cartocss_version: '2.3.0',
                 cartocss: CARTOCSS,
-                sql: replace(SQL, { iso, year, type_id: l.type_id, tableName: l.isUserDataset ? process.env.FSP_CARTO_USERS_TABLE : process.env.FSP_CARTO_TABLE })
+                sql: replace(SQL, {
+                  iso,
+                  year,
+                  type_id: l.type_id,
+                  type_ids: (l.layers) ? l.layers.map(ly => ly.type_id).join(',') : [],
+                  tableName: l.isUserDataset ? process.env.FSP_CARTO_USERS_TABLE : process.env.FSP_CARTO_TABLE
+                })
               },
               type: 'cartodb'
             }
@@ -158,7 +164,7 @@ export const SECTOR_CONFIGS = {
   heatmap: (params) => {
     const { l, iso, year } = params;
 
-    const SQL = (!l.colors) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
+    const SQL = (!l.layers) ? FSP_LAYER_SQL : FSP_LAYER_SQL_ALL;
 
     return {
       layerConfig: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import Legend from 'components/widget/legend';
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
@@ -51,10 +52,10 @@ export const CONFIG = {
           position: 'relative',
           verticalAlign: 'bottom',
           layout: 'horizontal',
-          height: 80,
+          height: 0,
           top: 0,
           content: () => {
-            return <Legend data={chartData} />;
+            return createPortal(<Legend data={chartData} />, document.querySelector('#widget-legend-md'));
           }
         }
       }
