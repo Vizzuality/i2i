@@ -39,9 +39,12 @@
       new App.Component.CountryPreview({
         onChangeCountry: function (country) {
           var iso = country.split('-')[0];
-          // It's a kind of magic
-          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
-          Turbolinks.visit('/data-portal/' + iso + '/' + latesYear);
+
+          if (year === 'fsp-maps') {
+            window.location = '/data-portal/' + iso + '/' + year
+          } else {
+            Turbolinks.visit('/data-portal/' + iso + '/' + country.split('-')[1]);
+          }
         }
       });
     },
