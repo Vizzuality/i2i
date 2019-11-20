@@ -56,18 +56,20 @@ class MapComponent extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { nearby, pattern, menuItem, selected: selectedTab } = this.props;
+    const { nearby: prevNearby, pattern: prevPattern } = prevProps;
+
+    const { area: nearbyArea, pin: pinNearby, center: centerNearby } = nearby;
+    const { area: prevNearbyArea, center: prevCenterNearby } = prevNearby;
+    const { active: activeNearby } = pinNearby;
+
+    const { area: patternArea, pin: pinPattern, center: centerPattern } = pattern;
+    const { area: prevPatternArea, center: prevCenterPattern } = prevPattern;
+    const { active: activePattern } = pinPattern;
 
     if (menuItem === 'nearby') {
-      const { nearby: prevNearby } = prevProps;
-
-      const { area: nearbyArea, pin, center } = nearby;
-      const { area: prevNearbyArea, center: prevCenter } = prevNearby;
-
-      const { active } = pin;
-
       // NEARBY
       // This is something that I'm not proud of but it was impossible to add the new Layer Manager
-      if (!isEmpty(nearbyArea) && !isEqual(nearbyArea, prevNearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
+      if (!isEmpty(nearbyArea) && !isEqual(nearbyArea, prevNearbyArea) && activeNearby && menuItem === 'nearby' && selectedTab === 'analysis') {
         if (this.nearbyAreaLayer) {
           this.map.removeLayer(this.nearbyAreaLayer);
         }
@@ -81,14 +83,14 @@ class MapComponent extends PureComponent {
         this.map.addLayer(this.nearbyAreaLayer);
       }
 
-      if (!!center && !isEqual(center, prevCenter) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
+      if (!!centerNearby && !isEqual(centerNearby, prevCenterNearby) && activeNearby && menuItem === 'nearby' && selectedTab === 'analysis') {
         if (this.nearbyMarkerLayer) {
           this.map.removeLayer(this.nearbyMarkerLayer);
         }
 
         this.nearbyMarkerLayer = L.featureGroup([
           L.circleMarker(
-            center,
+            centerNearby,
             {
               color: '#f9d031',
               radius: 5
@@ -98,24 +100,12 @@ class MapComponent extends PureComponent {
 
         this.map.addLayer(this.nearbyMarkerLayer);
       }
-
-      if (!active || menuItem !== 'nearby' || selectedTab !== 'analysis') {
-        if (this.nearbyAreaLayer) { this.map.removeLayer(this.nearbyAreaLayer); }
-        if (this.nearbyMarkerLayer) { this.map.removeLayer(this.nearbyMarkerLayer); }
-      }
     }
 
     if (menuItem === 'analyze_patterns') {
-      const { nearby: prevPattern } = prevProps;
-
-      const { area: patternArea, pin, center } = pattern;
-      const { area: prevPatternArea, center: prevCenter } = prevPattern;
-
-      const { active } = pin;
-
       // ANALYZE PATTERNS
       // This is something that I'm not proud of but it was impossible to add the new Layer Manager
-      if (!isEmpty(patternArea) && !isEqual(patternArea, prevPatternArea) && active && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
+      if (!isEmpty(patternArea) && !isEqual(patternArea, prevPatternArea) && activePattern && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
         if (this.patternAreaLayer) {
           this.map.removeLayer(this.patternAreaLayer);
         }
@@ -129,14 +119,14 @@ class MapComponent extends PureComponent {
         this.map.addLayer(this.patternAreaLayer);
       }
 
-      if (!!center && !isEqual(center, prevCenter) && active && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
+      if (!!centerPattern && !isEqual(centerPattern, prevCenterPattern) && activePattern && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
         if (this.patternMarkerLayer) {
           this.map.removeLayer(this.patternMarkerLayer);
         }
 
         this.patternMarkerLayer = L.featureGroup([
           L.circleMarker(
-            center,
+            centerPattern,
             {
               color: '#f9d031',
               radius: 5
@@ -146,13 +136,15 @@ class MapComponent extends PureComponent {
 
         this.map.addLayer(this.patternMarkerLayer);
       }
-
-      if (!active || menuItem !== 'analyze_patterns' || selectedTab !== 'analysis') {
-        if (this.patternAreaLayer) { this.map.removeLayer(this.patternAreaLayer); }
-        if (this.patternMarkerLayer) { this.map.removeLayer(this.patternMarkerLayer); }
-      }
     }
-
+    if (!activeNearby || menuItem !== 'nearby' || selectedTab !== 'analysis') {
+      if (this.nearbyAreaLayer) { this.map.removeLayer(this.nearbyAreaLayer); }
+      if (this.nearbyMarkerLayer) { this.map.removeLayer(this.nearbyMarkerLayer); }
+    }
+    if (!activePattern || menuItem !== 'analyze_patterns' || selectedTab !== 'analysis') {
+      if (this.patternAreaLayer) { this.map.removeLayer(this.patternAreaLayer); }
+      if (this.patternMarkerLayer) { this.map.removeLayer(this.patternMarkerLayer); }
+    }
   }
 
   render() {
@@ -239,6 +231,7 @@ class MapComponent extends PureComponent {
               }
 
               if (menuItem === 'analyze_patterns') {
+                setCenter(centerPattern);
                 Promise.all([
                   setPatternCenter({ lat, lng })
                 ])

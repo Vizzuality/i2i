@@ -11,12 +11,9 @@ const AnalyzePatterns = ({
   area,
   setLayersSettings,
   layersSettings,
-  setClearing,
-  fetchIntro,
   selectedLayers,
   analysisActive,
   setAnalysisActive,
-  nearby,
   time,
   setPattern,
   fetchPatternArea,
@@ -37,25 +34,19 @@ const AnalyzePatterns = ({
     }), {});
 
     setLayersSettings(heatmapsLayers);
-  }, []);
+  }, [pattern, time]);
 
   const onChange = (value) => {
-
-    setPattern({ pin, time: value });
+    setPattern({ ...pattern, time: value });
   };
 
   const onAfterChange = (value) => {
-    setPattern({ pin, time: value });
+    setPattern({ ...pattern, time: value });
     fetchPatternArea();
   };
 
   const onDrop = () => {
-    togglePatternPinDrop({ ...pin, active: !pin.active });
-  };
-
-  const onClear = () => {
-    setClearing(true);
-    fetchIntro();
+    togglePatternPinDrop({ dropped: pin.dropped, active: !pin.active });
   };
 
   return (
@@ -65,7 +56,7 @@ const AnalyzePatterns = ({
 
         <div className="c-field">
           <label htmlFor="analyze-time">
-            Time: {time} minutes
+            TIME: <span>{time} minutes</span>
           </label>
 
           <Range
@@ -98,8 +89,7 @@ const AnalyzePatterns = ({
 
       <div className="buttons-container">
         <button
-          className={classnames('c-button -small -white',
-            { '-disabled': (pin.active && !pin.dropped) })}
+          className="c-button -small -white"
           onClick={onDrop}
         >
           {(!pin.active) ? 'Click on map' : 'Clear area'}
@@ -113,7 +103,6 @@ const AnalyzePatterns = ({
           Summary Report
         </button>
       </div>
-
     </div>
   );
 };
@@ -123,15 +112,15 @@ AnalyzePatterns.propTypes = {
   area: PropTypes.object.isRequired,
   setLayersSettings: PropTypes.func.isRequired,
   layersSettings: PropTypes.shape({}).isRequired,
-  setClearing: PropTypes.func.isRequired,
-  fetchIntro: PropTypes.func.isRequired,
   selectedLayers: PropTypes.array.isRequired,
   analysisActive: PropTypes.bool.isRequired,
   setAnalysisActive: PropTypes.func.isRequired,
-  setLocationSelected: PropTypes.func.isRequired,
-  fetchLocationArea: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
-  selectedOption: PropTypes.object.isRequired
+  time: PropTypes.number.isRequired,
+  setPattern: PropTypes.func.isRequired,
+  fetchPatternArea: PropTypes.func.isRequired,
+  togglePatternPinDrop: PropTypes.func.isRequired,
+  pattern: PropTypes.shape({}).isRequired,
+  pin: PropTypes.shape({}).isRequired
 };
 
 export default AnalyzePatterns;
