@@ -13,21 +13,7 @@
       </div>
     </div>
     <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-data.jpg') %>)">
-      <div class="l-title">
-        <div class="wrapper">
-          <div class="row">
-            <div class="c-hero">
-              <div class="grid-l-7">z
-                <div class="row">
-                  <h1 class="title -light -huge">i2i Data Portal</h1>
-                  <p class="subtitle">Compare indicators across countries and periods. Start by gaining a broad overview of the financial market through <%= link_to 'National Surveys', national_surveys_path %>, and then deepen your understanding of how low-income households manage their financial lives using <%= link_to 'Financial Diaries', financial_diaries_path %>.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'data_portal/header_title' %>
       <%= render partial: 'data_portal/sections_tabs' %>
     </div>
   </div>
@@ -37,7 +23,7 @@
       <%= render partial: 'data_portal/description',
                  locals: {
                    section_title: 'Micro, Small and Medium Enterprises',
-                   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a orci venenatis, bibendum augue a, convallis elit. Ut non sapien sed urna finibus laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar, eros in rutrum luctus, dolor ipsum egestas massa, eu ultricies ante lectus quis diam. Morbi consectetur lacus a scelerisque cursus. Integer elementum erat vitae erat fringilla cursus. Cras varius aliquam justo, quis mollis ante cursus ut. In a lacus augue. Cras molestie erat egestas varius semper.'
+                   description: 'The primary Micro, Small and Medium Enterprises (MSMEs) probability survey data provides insights into the current MSME landscape. MSMEs are key drivers of economic growth, employment and innovation in developing economies. This data allows for a deeper understanding of MSMEs, their owners and the challenges these owners face.'
                  } %>
       <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
       <%# render partial: 'data_portal/regions_list', locals: { regions: @regions } %>

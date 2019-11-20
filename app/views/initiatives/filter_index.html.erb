@@ -46,9 +46,21 @@
   </div>
   <div class="l-content">
     <div class="l-card-grid">
+      <% if @tag.title == 'Openi2i' %>
+        <div class="partners-container">
+          <div class="wrapper">
+            <div class="row">
+              <div class="grid-12">
+                <h2>Openi2i partners</h2>
+                <%= render partial: 'partners/list' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="wrapper">
         <div class="row">
-          <%= render partial: 'shared/cards', locals: { insights: @insights }%>
+          <%= render partial: 'shared/cards', locals: { insights: @insights } %>
         </div>
       </div>
     </div>
