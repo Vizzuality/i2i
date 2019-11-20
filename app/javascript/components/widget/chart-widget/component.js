@@ -22,23 +22,7 @@ class ChartWidgetWrapperComponent extends React.Component {
     this.forceUpdate();
   }
 
-  getSpec(chart) {
-    if (!this.widgetElement) {
-      return null;
-    }
 
-    const { widgetData } = this.props;
-
-    if (chart === 'pie') {
-      return PIE_SPEC(widgetData, this.widgetElement.offsetWidth);
-    } else if (chart === 'bar') {
-      return BAR_SPEC(widgetData, this.widgetElement.offsetWidth);
-    } else if (chart === 'grouped bar') {
-      return GROUPED_BAR_SPEC(widgetData, this.widgetElement.offsetWidth);
-    } else if (chart === 'stacked bar') {
-      return STACKED_BAR_SPEC(widgetData, this.widgetElement.offsetWidth);
-    }
-  }
 
   render() {
     const { title, chart } = this.props;

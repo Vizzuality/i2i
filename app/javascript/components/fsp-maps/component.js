@@ -64,7 +64,7 @@ export default class FSPMaps extends React.Component {
       typeof lat === 'undefined' &&
       typeof lng === 'undefined'
     ) {
-      this.props.setBBox(bbox);
+      setTimeout(() => this.props.setBBox(bbox), 500);
     }
 
     if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);

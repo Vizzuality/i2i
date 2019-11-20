@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { replace } from 'layer-manager';
 import intersection from 'lodash/intersection';
+import flatten from 'lodash/flatten';
 
 const rawWidgets = state => state.fspMaps.widgets.list;
 const selectedLayers = state => state.fspMaps.layers.selectedLayers;
@@ -12,6 +13,15 @@ const jurisdiction = state => state.fspMaps.analysis.jurisdiction;
 const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
 const allLayersList = state => state.fspMaps.layers.list;
 
+const getTypeIds = (layers) => {
+  return flatten(layers.map((layer) => {
+    if (layer.layers) {
+      return layer.layers.map(l => l.type_id);
+    }
+    return layer.type_id;
+  }));
+};
+
 export const getWidgets = createSelector(
   [rawWidgets, selectedLayers, iso, selectedMenuItem, nearby, analyzePattern, jurisdiction, areaOfInterestArea, allLayersList],
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _analyzePattern, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
@@ -19,7 +29,11 @@ export const getWidgets = createSelector(
     const allSectorLayers = _allLayersList.filter(layer => layer.layerType === 'sector');
 
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
-      const { analysis_type: analysisType, type_id: typeId, output } = widget;
+      const { analysis_type: analysisType, type_id: typeId, output, iso: widgetIso } = widget;
+
+      if (widgetIso && widgetIso !== _iso) {
+        return null;
+      }
 
       // If the widget has a type_id in carto, it means it's a contextual layer widget.
       if (typeId) {
@@ -56,7 +70,7 @@ export const getWidgets = createSelector(
       const { area: jurisdictionArea } = _jurisdiction;
       const { area: analyzePatternArea } = _analyzePattern;
       const { lng, lat } = center;
-      const typeIds = analysisType === 'country' ? allSectorLayers.map(layer => layer.type_id) : sectorLayers.map(layer => layer.type_id);
+      const typeIds = getTypeIds(analysisType === 'country' ? allSectorLayers : sectorLayers);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 
@@ -80,8 +94,8 @@ export const getWidgets = createSelector(
         geojson: `'${JSON.stringify(geojson)}'`,
         lng,
         lat,
-        tableName1: 'fsp_maps', // are you sure you want to change this value?
-        tableName2: process.env.FSP_CARTO_TABLE || 'fsp_maps_user_staging'
+        tableName1: process.env.FSP_CARTO_TABLE || 'fsp_maps', // are you sure you want to change this value?
+        tableName2: process.env.FSP_CARTO_USERS_TABLE || 'fsp_maps_user_staging'
       };
 
       paramsConfig.forEach((param) => {

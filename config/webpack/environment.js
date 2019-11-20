@@ -25,7 +25,8 @@ environment.config.merge({
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        FSP_CARTO_TABLE: JSON.stringify(process.env.FSP_CARTO_TABLE)
+        FSP_CARTO_TABLE: JSON.stringify(process.env.FSP_CARTO_TABLE),
+        FSP_CARTO_USERS_TABLE: JSON.stringify(process.env.FSP_CARTO_USERS_TABLE)
       }
     })
   ]

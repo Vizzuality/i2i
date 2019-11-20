@@ -544,6 +544,9 @@
       var width = Math.round((fixedWidth ? 1024 : containerDimensions.width) - padding.left - padding.right);
       var height = Math.round(width * this._getChartRatio());
 
+      // Min height: 300
+      height = height < 260 ? 300 : height;
+
       // We save the current dimensions of the chart to diff them whenever the window is resized in order to minimize
       // the number of re-renders
       /* eslint-disable no-underscore-dangle */

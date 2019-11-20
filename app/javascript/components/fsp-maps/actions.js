@@ -4,6 +4,7 @@ import Numeral from 'numeral';
 import compact from 'lodash/compact';
 import flatten from 'lodash/flatten';
 import isEmpty from 'lodash/isEmpty';
+import groupBy from 'lodash/groupBy';
 import Promise from 'bluebird';
 
 import WRIJsonApiSerializer from 'wri-json-api-serializer';
@@ -158,24 +159,51 @@ export const setLayersInteractions = createAction('INTERACTIONS/setLayersInterac
 export const setLayersSettings = createAction('LEGEND/setLayersSettings');
 
 function getSectors(iso) {
-  const tableName = 'fsp_maps';
+  const tableName = process.env.FSP_CARTO_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
-    .then(data => data.rows.map(row => ({
-      ...row,
-      id: row.type_id.toString(),
-      name: row.type,
-      info: LAYERS_INFO[row.type],
-      layerType: 'sector',
-      count: Numeral(row.count).format('0,0'),
-      provider: 'carto',
-      isUserDataset: false,
-      years: row.years
-    })));
+    .then((data) => {
+      const sectorLayers = data.rows.map(row => ({
+        ...row,
+        id: row.type_id.toString(),
+        name: row.type,
+        info: LAYERS_INFO[row.type],
+        layerType: 'sector',
+        count: Numeral(row.count).format('0,0'),
+        provider: 'carto',
+        isUserDataset: false,
+        years: row.years
+      }));
+
+      const groupBySector = groupBy(sectorLayers, 'sector');
+
+      const categoryLayers = Object.keys(groupBySector).map((k) => {
+        return {
+          id: `all-${k.toLowerCase()}-layer`,
+          name: `All ${k.toLowerCase()} layer`,
+          sector: k,
+          category: 'all',
+          layerType: 'sector',
+          count: null,
+          provider: 'carto',
+          isUserDataset: false,
+          layers: groupBySector[k].map(fl => ({
+            color: fl.color,
+            type: fl.type,
+            type_id: fl.type_id
+          }))
+        };
+      });
+
+      return [
+        ...categoryLayers,
+        ...sectorLayers
+      ];
+    });
 }
 
 function getUserDatasets(iso) {
-  const tableName = process.env.FSP_CARTO_TABLE;
+  const tableName = process.env.FSP_CARTO_USERS_TABLE;
   return fetch(`${window.FSP_CARTO_API}?q=${encodeURIComponent(replace(SECTORS_USERS_SQL, { iso, tableName }))}&api_key=${window.FSP_CARTO_API_KEY}`)
     .then(response => response.ok && response.json())
     .then(data => data.rows.map(row => ({
