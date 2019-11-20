@@ -144,4 +144,25 @@
   // .l-card-grid {
   //   margin: 30px 0 0;
   // }
+
+  .partners-container {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding-bottom: 50px;
+    margin: 30px 0 50px 0;
+
+    .partner-item {
+      margin-top: 50px;
+
+      .partner-item-link {
+        display: block;
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      .partner-item-logo {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
 }
