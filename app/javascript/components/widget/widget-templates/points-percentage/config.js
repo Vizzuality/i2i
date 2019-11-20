@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import WidgetLegend from 'components/widget/legend';
+import Legend from 'components/widget/legend';
+import Tooltip from 'components/widget/tooltip';
 
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
@@ -59,26 +60,26 @@ export const CONFIG = {
           width: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<WidgetLegend data={payload} />, document.querySelector('#widget-legend-app'));
+            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-app'));
           }
+        },
+        tooltip: {
+          cursor: false,
+          content: (
+            <Tooltip
+              style={{
+                flexDirection: 'column',
+                marginTop: '10px',
+                marginLeft: '-50px'
+              }}
+              settings={[
+                { key: 'label' },
+                { label: 'Percentage:', key: 'percentage', format: percentage => `${percentage ? (percentage).toFixed(2) : null} %`, position: '_column' },
+                { label: 'Coverage:', key: 'coverage', format: coverage => `${(coverage)} km²`, position: '_column' }
+              ]}
+            />
+          )
         }
-        // tooltip: {
-        //   cursor: false,
-        //   content: (
-        //     <WidgetTooltip
-        //       style={{
-        //         flexDirection: 'column',
-        //         marginTop: '10px',
-        //         marginLeft: '-50px'
-        //       }}
-        //       settings={[
-        //         { key: 'label' },
-        //         { label: 'Percentage:', key: 'percentage', format: percentage => `${percentage ? (percentage).toFixed(2) : null} %`, position: '_column' },
-        //         { label: 'Coverage:', key: 'coverage', format: coverage => `${(coverage)} km²`, position: '_column' }
-        //       ]}
-        //     />
-        //   )
-        // }
       }
 
 

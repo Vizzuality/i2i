@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import WidgetLegend from 'components/widget/legend';
+import Legend from 'components/widget/legend';
+import Tooltip from 'components/widget/tooltip';
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 
@@ -39,18 +40,22 @@ export const CONFIG = {
       numberOfServices: services,
       chartData,
       chartConfig: {
-        height: 200,
+        height: 70,
         cartesianGrid: {
           vertical: true,
           horizontal: false,
-          strokeDasharray: '5 20'
+          strokeDasharray: '5 20',
+          horizontalPoints: [0, 20, 3000, 40000]
         },
         layout: 'vertical',
         margin: { top: 0, right: 0, left: 0, bottom: 0 },
         xKey: 'name',
-        yKeys: { bars: getBars(data) },
+        yKeys: {
+          bars: getBars(data),
+          padding: 1
+        },
         referenceLines: [{
-          y: 0,
+          x: 20,
           stroke: 'red',
           strokeDasharray: 'solid',
           fill: 'red',
@@ -63,7 +68,9 @@ export const CONFIG = {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
           },
-          domain: [0, services]
+          domain: [0, services],
+          tickCount: services / 2,
+          interval: services / 2
 
         },
         yAxis: {
@@ -82,8 +89,21 @@ export const CONFIG = {
           top: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<WidgetLegend data={payload} />, document.querySelector('#widget-legend-nos'));
+            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-nos'));
           }
+        },
+        tooltip: {
+          cursor: false,
+          content: (
+            <Tooltip
+              style={{
+                flexDirection: 'column',
+                marginTop: '10px',
+                marginLeft: '-50px'
+              }}
+              payload={[chartData]}
+            />
+          )
         }
       }
     };

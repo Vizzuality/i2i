@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import Legend from 'components/widget/legend';
+import Tooltip from 'components/widget/tooltip';
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 
@@ -54,9 +55,20 @@ export const CONFIG = {
           layout: 'horizontal',
           height: 0,
           top: 0,
-          content: () => {
-            return createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${legendId}`));
-          }
+          content: () => createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${legendId}`))
+        },
+        tooltip: {
+          cursor: false,
+          content: (
+            <Tooltip
+              style={{
+                flexDirection: 'column',
+                marginTop: '10px',
+                marginLeft: '-50px'
+              }}
+              payload={[chartData]}
+            />
+          )
         }
       }
     };

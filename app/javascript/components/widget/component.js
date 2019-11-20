@@ -74,7 +74,6 @@ class WidgetWrapperComponent extends PureComponent {
                   </a>
                 </button>
 
-
               </div>
             </div>
             <div className="widget-content">

@@ -19,6 +19,7 @@ const AreaCoverage = ({ widgetData }) => {
           config={chartConfig}
         />
       </div>
+      <div id="widget-legend-ac" />
     </Fragment>
   );
 };
