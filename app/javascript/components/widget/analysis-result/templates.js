@@ -13,7 +13,9 @@ const widgetTemplates = new Map([
   ['Minimum distance to access points', { component: MinimunDistance }],
   ['Area covered by GSM, 3G, and 4G', { component: AreaCoverage }],
   ['Urban and Rural areas', { component: NumberOfServices }],
-  ['Population sex percentage', { component: SexPercentage }]
+  ['Population sex percentage', { component: SexPercentage }],
+  ['Settlement areas', { component: NumberOfServices }],
+  ['Agro-ecological zones', { component: SexPercentage }]
 ]);
 
 export default widgetTemplates;

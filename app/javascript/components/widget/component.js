@@ -51,7 +51,7 @@ class WidgetWrapperComponent extends PureComponent {
   }
 
   render() {
-    const { title, children, url, body } = this.props;
+    const { title, children, url, body, id } = this.props;
 
     const { widgetData, loading } = this.state;
     if (widgetData && widgetData.length) {
@@ -79,7 +79,7 @@ class WidgetWrapperComponent extends PureComponent {
             </div>
             <div className="widget-content">
               {loading && <Spinner position="relative" />}
-              {!loading && children({ widgetData, ...this.props })}
+              {!loading && children({ widgetData, id, ...this.props })}
             </div>
           </div>
         </div>

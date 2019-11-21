@@ -39,7 +39,8 @@ export const CONFIG = {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
           },
-          domain: [0, 400]
+          domain: [0, 400],
+          type: 'number'
         },
         yAxis: {
           type: 'category',

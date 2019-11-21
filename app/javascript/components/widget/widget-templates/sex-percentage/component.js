@@ -5,7 +5,7 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const SexPercentage = ({ widgetData }) => {
+const SexPercentage = ({ widgetData, id }) => {
   if (!widgetData) return null;
   const data = config.parse(widgetData);
   const { chartConfig, chartData } = data;
@@ -23,6 +23,9 @@ const SexPercentage = ({ widgetData }) => {
   );
 };
 
-SexPercentage.propTypes = { widgetData: PropTypes.array.isRequired };
+SexPercentage.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default SexPercentage;

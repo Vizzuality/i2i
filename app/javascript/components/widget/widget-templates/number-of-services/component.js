@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import propTypes from 'prop-types';
+import camelCase from 'lodash/camelCase';
 
 import Chart from 'components/recharts';
 
 import config from './config';
 import './styles.scss';
 
-const NumberOfServices = ({ widgetData }) => {
+const NumberOfServices = ({ widgetData, id }) => {
   if (!widgetData) return null;
+
   const { chartConfig, chartData, numberOfServices } = config.parse(widgetData);
 
   return (
@@ -25,6 +27,9 @@ const NumberOfServices = ({ widgetData }) => {
   );
 };
 
-NumberOfServices.propTypes = { widgetData: propTypes.array.isRequired };
+NumberOfServices.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default NumberOfServices;

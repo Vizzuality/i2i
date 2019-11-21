@@ -27,7 +27,6 @@ export const getWidgets = createSelector(
   (_rawWidgets, _selectedLayers, _iso, _selectedMenuItem, _nearby, _analyzePattern, _jurisdiction, _areaOfInterestArea, _allLayersList) => {
     const sectorLayers = _allLayersList.filter(layer => _selectedLayers.includes(layer.id) && layer.layerType === 'sector');
     const allSectorLayers = _allLayersList.filter(layer => layer.layerType === 'sector');
-
     const filteredRawWidgets = _rawWidgets.filter((widget) => {
       const { analysis_type: analysisType, type_id: typeId, output, iso: widgetIso } = widget;
 
