@@ -172,7 +172,7 @@ function getSectors(iso) {
         count: Numeral(row.count).format('0,0'),
         provider: 'carto',
         isUserDataset: false,
-        years: row.years
+        years: row.years ? row.years.filter(y => y) : []
       }));
 
       const groupBySector = groupBy(sectorLayers, 'sector');
