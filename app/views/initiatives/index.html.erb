@@ -34,13 +34,13 @@
           <div class="row">
             <div class="grid-s-12 grid-m-12">
               <article class="c-card">
-                <a href="<%= initiatives_filter_index_path(@featured_tags[0].slug) %>" alt="<%= @featured_tags[0].title %>">
-                  <div class="picture" style="background-image: url(<%= asset_path(@featured_tags[0].image_url) %>)"></div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= @featured_tags[0].title %></h4>
-                    <p><%= @featured_tags[0].description %></p>
-                  </div>
-                </a>
+                <%= link_to '', initiatives_filter_index_path(@featured_tags[0].slug), class: "picture", style: "background-image: url(#{asset_path(@featured_tags[0].image_url)}" %>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">
+                    <%= link_to @featured_tags[0].title, initiatives_filter_index_path(@featured_tags[0].slug) %>
+                  </h4>
+                  <div><%= @featured_tags[0].description.html_safe %></div>
+                </div>
               </article>
             </div>
           </div>
@@ -49,13 +49,13 @@
               <% if index > 1 %>
                 <div class="js-masonry-item grid-s-12 grid-m-6">
                   <article class="c-card">
-                    <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="<%= tag.title %>">
-                      <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
-                      <div class="metadata">
-                        <h4 class="title -dark -xs"><%= tag.title %></h4>
-                        <p><%= tag.description %></p>
-                      </div>
-                    </a>
+                    <%= link_to '', initiatives_filter_index_path(tag.slug), class: "picture", style: "background-image: url(#{asset_path(tag.image_url)}" %>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs">
+                        <%= link_to tag.title, initiatives_filter_index_path(tag.slug) %>
+                      </h4>
+                      <p><%= tag.description.html_safe %></p>
+                    </div>
                   </article>
                 </div>
               <% end %>
