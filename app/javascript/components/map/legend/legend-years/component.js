@@ -20,7 +20,7 @@ class PopupComponent extends React.Component {
 
     return (
       <div className="c-legend-years">
-        {years.filter(y => y).map((y) => {
+        {years.map((y) => {
           const checked = +year === +y;
 
           return (
