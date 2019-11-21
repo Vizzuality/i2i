@@ -317,7 +317,7 @@ export const fetchWidgets = createThunkAction('WIDGETS/fetchWidgets', () => (dis
 // Analysis
 export const setAnalysisActive = createAction('ANALYSIS/setAnalysisActive');
 
-// Analysis - nearby
+// Analysis - pattern
 export const toggleLocation = createAction('ANALYSIS/toggleLocation');
 export const togglePinDrop = createAction('ANALYSIS/togglePinDrop');
 export const setNearby = createAction('ANALYSIS/setNearby');
@@ -351,6 +351,45 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
           });
       } else {
         dispatch(setNearbyError(err));
+      }
+    });
+});
+
+
+// Analysis - pattern
+export const togglePatternLocation = createAction('ANALYSIS/togglePatternLocation');
+export const togglePatternPinDrop = createAction('ANALYSIS/togglePatternPinDrop');
+export const setPattern = createAction('ANALYSIS/setPattern');
+export const setPatternArea = createAction('ANALYSIS/setPatternArea');
+export const setPatternCenter = createAction('ANALYSIS/setPatternCenter');
+export const setPatternError = createAction('ANALYSIS/setPatternError');
+export const fetchPatternArea = createThunkAction('ANALYSIS/fetchPattern', () => (dispatch, getState) => {
+  const { time, location, center } = getState().fspMaps.analysis.pattern;
+  if ((isEmpty(center) && isEmpty(location)) || !time) {
+    return false;
+  }
+
+  const { lat, lng } = center;
+  const seconds = time * 60;
+
+  return fetch(`${window.OPEN_ROUTE_API}?api_key=${window.OPEN_ROUTE_API_KEY}&profile=foot-walking&range_type=time&locations=${lng},${lat}&range=${seconds}`)
+    .then(response => response.ok && response.json())
+    .then((data) => {
+      dispatch(setPatternArea(data.features[0].geometry));
+
+      dispatch(setPatternCenter({
+        lng: data.features[0].properties.center[0],
+        lat: data.features[0].properties.center[1]
+      }));
+    })
+    .catch((err) => {
+      if (err && typeof err.json === 'function') {
+        err.json()
+          .then((errs) => {
+            dispatch(setPatternError(errs));
+          });
+      } else {
+        dispatch(setPatternError(err));
       }
     });
 });

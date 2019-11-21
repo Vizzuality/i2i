@@ -8,7 +8,7 @@ const selectedLayers = state => state.fspMaps.layers.selectedLayers;
 const iso = state => state.fspMaps.common.iso;
 const selectedMenuItem = state => state.fspMaps.sidebar.menuItem;
 const nearby = state => state.fspMaps.analysis.nearby;
-const analyzePattern = state => state.fspMaps.analysis.location;
+const analyzePattern = state => state.fspMaps.analysis.pattern;
 const jurisdiction = state => state.fspMaps.analysis.jurisdiction;
 const areaOfInterestArea = state => state.fspMaps.analysis.areaOfInterest.area;
 const allLayersList = state => state.fspMaps.layers.list;
@@ -80,7 +80,7 @@ export const getWidgets = createSelector(
         geojson = nearbyArea;
       } else if (_selectedMenuItem === 'area_of_interest') {
         geojson = _areaOfInterestArea;
-      } else if (_selectedMenuItem === 'analyze_pattern') {
+      } else if (_selectedMenuItem === 'analyze_patterns') {
         geojson = analyzePatternArea;
       } else if (_selectedMenuItem === 'jurisdiction') {
         geojson = jurisdictionArea;

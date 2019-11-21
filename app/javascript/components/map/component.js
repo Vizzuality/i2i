@@ -17,14 +17,14 @@ import ShareControl from 'components/map/controls/share';
 
 
 // Images and icons
-import BookIcon from 'images/data-portal/book.svg';
+import FlagIcon from 'components/icons/SVG/flag.svg';
 
 import { BASEMAPS, LABELS, FINANCIAL_DIARIES_MARKERS } from './constants';
 
 // styles
 import './styles.scss';
 
-import { togglePinDrop } from '../fsp-maps/actions';
+import { togglePinDrop, togglePatternPinDrop } from '../fsp-maps/actions';
 
 const POLYGON_AREA_STYLE = {
   color: '#2F939C',
@@ -49,85 +49,117 @@ class MapComponent extends PureComponent {
     bbox: PropTypes.array.isRequired,
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
-    setZoom: PropTypes.func.isRequired
+    setZoom: PropTypes.func.isRequired,
+    pattern: PropTypes.object.isRequired,
+    selected: PropTypes.string.isRequired
   }
 
   componentDidUpdate(prevProps) {
-    const { nearby, menuItem, selected: selectedTab } = this.props;
-    const { nearby: prevNearby } = prevProps;
+    const { nearby, pattern, menuItem, selected: selectedTab } = this.props;
+    const { nearby: prevNearby, pattern: prevPattern } = prevProps;
 
-    const { area: nearbyArea, pin, center } = nearby;
-    const { area: prevNearbyArea, center: prevCenter } = prevNearby;
+    const { area: nearbyArea, pin: pinNearby, center: centerNearby } = nearby;
+    const { area: prevNearbyArea, center: prevCenterNearby } = prevNearby;
+    const { active: activeNearby } = pinNearby;
 
-    const { active } = pin;
+    const { area: patternArea, pin: pinPattern, center: centerPattern } = pattern;
+    const { area: prevPatternArea, center: prevCenterPattern } = prevPattern;
+    const { active: activePattern } = pinPattern;
 
-    // NEARBY
-    // This is something that I'm not proud of but it was impossible to add the new Layer Manager
-    if (!isEmpty(nearbyArea) && !isEqual(nearbyArea, prevNearbyArea) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
-      if (this.nearbyAreaLayer) {
-        this.map.removeLayer(this.nearbyAreaLayer);
+    if (menuItem === 'nearby') {
+      // NEARBY
+      // This is something that I'm not proud of but it was impossible to add the new Layer Manager
+      if (!isEmpty(nearbyArea) && !isEqual(nearbyArea, prevNearbyArea) && activeNearby && menuItem === 'nearby' && selectedTab === 'analysis') {
+        if (this.nearbyAreaLayer) {
+          this.map.removeLayer(this.nearbyAreaLayer);
+        }
+
+        this.nearbyAreaLayer = L.featureGroup([
+          L.geoJSON(nearbyArea, { style: () => POLYGON_AREA_STYLE })
+        ]);
+
+        this.nearbyAreaLayer.setStyle(POLYGON_AREA_STYLE);
+
+        this.map.addLayer(this.nearbyAreaLayer);
       }
 
-      this.nearbyAreaLayer = L.featureGroup([
-        L.geoJSON(nearbyArea, { style: () => POLYGON_AREA_STYLE })
-      ]);
+      if (!!centerNearby && !isEqual(centerNearby, prevCenterNearby) && activeNearby && menuItem === 'nearby' && selectedTab === 'analysis') {
+        if (this.nearbyMarkerLayer) {
+          this.map.removeLayer(this.nearbyMarkerLayer);
+        }
 
-      this.nearbyAreaLayer.setStyle(POLYGON_AREA_STYLE);
+        this.nearbyMarkerLayer = L.featureGroup([
+          L.circleMarker(
+            centerNearby,
+            {
+              color: '#f9d031',
+              radius: 5
+            }
+          )
+        ]);
 
-      this.map.addLayer(this.nearbyAreaLayer);
+        this.map.addLayer(this.nearbyMarkerLayer);
+      }
     }
 
-    if (!!center && !isEqual(center, prevCenter) && active && menuItem === 'nearby' && selectedTab === 'analysis') {
-      if (this.nearbyMarkerLayer) {
-        this.map.removeLayer(this.nearbyMarkerLayer);
+    if (menuItem === 'analyze_patterns') {
+      // ANALYZE PATTERNS
+      // This is something that I'm not proud of but it was impossible to add the new Layer Manager
+      if (!isEmpty(patternArea) && !isEqual(patternArea, prevPatternArea) && activePattern && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
+        if (this.patternAreaLayer) {
+          this.map.removeLayer(this.patternAreaLayer);
+        }
+
+        this.patternAreaLayer = L.featureGroup([
+          L.geoJSON(patternArea, { style: () => POLYGON_AREA_STYLE })
+        ]);
+
+        this.patternAreaLayer.setStyle(POLYGON_AREA_STYLE);
+
+        this.map.addLayer(this.patternAreaLayer);
       }
 
-      this.nearbyMarkerLayer = L.featureGroup([
-        L.circleMarker(
-          center,
-          {
-            color: '#f9d031',
-            radius: 5
-          }
-        )
-      ]);
+      if (!!centerPattern && !isEqual(centerPattern, prevCenterPattern) && activePattern && menuItem === 'analyze_patterns' && selectedTab === 'analysis') {
+        if (this.patternMarkerLayer) {
+          this.map.removeLayer(this.patternMarkerLayer);
+        }
 
-      this.map.addLayer(this.nearbyMarkerLayer);
+        this.patternMarkerLayer = L.featureGroup([
+          L.circleMarker(
+            centerPattern,
+            {
+              color: '#f9d031',
+              radius: 5
+            }
+          )
+        ]);
+
+        this.map.addLayer(this.patternMarkerLayer);
+      }
     }
-
-    if (!active || menuItem !== 'nearby' || selectedTab !== 'analysis') {
+    if (!activeNearby || menuItem !== 'nearby' || selectedTab !== 'analysis') {
       if (this.nearbyAreaLayer) { this.map.removeLayer(this.nearbyAreaLayer); }
       if (this.nearbyMarkerLayer) { this.map.removeLayer(this.nearbyMarkerLayer); }
+    }
+    if (!activePattern || menuItem !== 'analyze_patterns' || selectedTab !== 'analysis') {
+      if (this.patternAreaLayer) { this.map.removeLayer(this.patternAreaLayer); }
+      if (this.patternMarkerLayer) { this.map.removeLayer(this.patternMarkerLayer); }
     }
   }
 
   render() {
-    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea } = this.props;
+    const { open, zoom, center, basemap, label, activeLayers, bbox, menuItem, selected: selectedTab, nearby, setNearbyCenter, fetchNearbyArea, pattern, setPatternCenter, fetchPatternArea } = this.props;
     const { pin, center: coordinates } = nearby;
     const { active } = pin;
     const { area: jurisdictionArea } = this.props.jurisdiction;
+
+    const { pin: patternPin, center: centerPattern } = pattern;
+    const { active: activePattern } = patternPin;
 
     const classNames = classnames({
       'c-map': true,
       '-open': !!open
     });
-
-    const patternsIconsLayer = (!!coordinates && menuItem === 'analyze_patterns' && selectedTab === 'analysis') ? [{
-      id: 'analyze-pattern-icons',
-      provider: 'leaflet',
-      layerConfig: {
-        body: [L.circleMarker(
-          coordinates,
-          {
-            color: '#f9d031',
-            radius: 20
-          }
-        )],
-        parse: false,
-        type: 'featureGroup'
-      }
-    }] : [];
-
 
     const jurisdictionAreaLayer = (!isEmpty(jurisdictionArea) && menuItem === 'jurisdiction' && selectedTab === 'analysis') ? [{
       id: 'jurisdiction',
@@ -148,7 +180,7 @@ class MapComponent extends PureComponent {
           {
             ...m.options,
             icon: L.icon({
-              iconUrl: BookIcon,
+              iconUrl: FlagIcon,
               iconSize: [16, 16]
             })
           }
@@ -161,8 +193,7 @@ class MapComponent extends PureComponent {
     const layersResult = [
       ...jurisdictionAreaLayer,
       ...activeLayers,
-      ...financialIconsLayer,
-      ...patternsIconsLayer
+      ...financialIconsLayer
     ];
 
     return (
@@ -190,7 +221,6 @@ class MapComponent extends PureComponent {
             click: (e) => {
               const { lat, lng } = e.latlng;
               const { setCenter } = this.props;
-              const nearbyIcon = layersResult.filter(layer => layer.id === 'nearby-icons');
 
               setCenter(coordinates);
               if (menuItem === 'nearby') {
@@ -199,10 +229,21 @@ class MapComponent extends PureComponent {
                 ])
                   .then(() => { fetchNearbyArea(); });
               }
-              if (active && !nearbyIcon) {
+
+              if (menuItem === 'analyze_patterns') {
+                setCenter(centerPattern);
+                Promise.all([
+                  setPatternCenter({ lat, lng })
+                ])
+                  .then(() => { fetchPatternArea(); });
+              }
+              if (activeLayers) {
                 togglePinDrop({ ...pin, dropped: true });
-              } else if (active && nearbyIcon) {
+                togglePatternPinDrop({ ...patternPin, dropped: true });
+              } else if (active || activePattern) {
                 togglePinDrop({ ...pin, dropped: false });
+                togglePatternPinDrop({ ...patternPin, dropped: false });
+
               }
             },
             zoomend: (e, map) => { this.props.setZoom(map.getZoom()); },
