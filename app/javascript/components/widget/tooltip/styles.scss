@@ -1,0 +1,28 @@
+@import '_settings';
+
+.c-widget-tooltip {
+  background: $color-4;
+  font-family: Arial;
+  padding: 10px;
+  display: flex;
+  justify-content: 'space-around';
+  line-height: 19px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.19);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+
+  .tooltip-label {
+    color: $color-5;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .tooltip-color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+  }
+}

@@ -1,9 +1,12 @@
 @import '_settings';
 
 .c-widget-legend {
+  margin-top: 20px;
+
   .legend-list {
     display: flex;
     flex-direction: column;
+
     > li {
       display: flex;
       align-items: center;

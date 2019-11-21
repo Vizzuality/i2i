@@ -14,30 +14,26 @@ const getData = data => data.reduce((acc, d) => {
 }, {});
 
 
-const getBars = data => data.reduce((acc, d) => {
+const getBars = data => data.reduce((acc, d, i) => {
+  const colors = ['#2F939C', '#B2E600', '#E5007E', '#FFB191', '#00CBE3', '#00CD7A', '#AC005D', '#AC005D', '#CCCDCF'];
   return {
     ...acc,
     [d.label]: {
       stackId: 1,
-      fill: d.color,
-      stroke: d.color,
+      fill: colors[i],
+      stroke: colors[i],
       isAnimationActive: false
     }
   };
 }, {});
 
-const getServices = data => data.map(
-  d => d.value
-).reduce((previous, current) => current + previous);
 
 export const CONFIG = {
   parse: (data) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
-    const services = getServices(dataSorted);
 
     return {
-      numberOfServices: services,
       chartData,
       chartConfig: {
         height: 70,
@@ -67,11 +63,7 @@ export const CONFIG = {
           tick: {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
-          },
-          domain: [0, services],
-          tickCount: services / 2,
-          interval: services / 2
-
+          }
         },
         yAxis: {
           type: 'category',
@@ -89,7 +81,7 @@ export const CONFIG = {
           top: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-nos'));
+            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-sa'));
           }
         },
         tooltip: {

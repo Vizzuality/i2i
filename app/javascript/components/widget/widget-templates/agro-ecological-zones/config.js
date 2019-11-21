@@ -10,18 +10,19 @@ const getTotal = data => data.map(
   d => d.value
 ).reduce((previous, current) => current + previous);
 
-const getData = (data, total) => data.map(d => {
+const getData = (data, total) => data.map((d, i) => {
+  const colors = ['#2F939C', '#B2E600', '#E5007E', '#FFB191', '#00CBE3', '#00CD7A', '#AC005D', '#AC005D', '#CCCDCF'];
   return {
     y: 1,
     x: d.value,
     value: d.value,
     label: d.label,
     name: d.label,
-    color:d.color,
+    color: colors[i],
     unit: d.unit,
     coverage: d.value,
     percentage: (d.value / total) * 100
-  }
+  };
 });
 
 
@@ -56,11 +57,9 @@ export const CONFIG = {
           align: 'left',
           verticalAlign: 'middle',
           layout: 'vertical',
-          height: 0,
-          width: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-app'));
+            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-ae'));
           }
         },
         tooltip: {
@@ -72,17 +71,11 @@ export const CONFIG = {
                 marginTop: '10px',
                 marginLeft: '-50px'
               }}
-              settings={[
-                { key: 'label' },
-                { label: 'Percentage:', key: 'percentage', format: percentage => `${percentage ? (percentage).toFixed(2) : null} %`, position: '_column' },
-                { label: 'Coverage:', key: 'coverage', format: coverage => `${(coverage)} km²`, position: '_column' }
-              ]}
+              payload={[dataSorted]}
             />
           )
         }
       }
-
-
     };
   }
 };

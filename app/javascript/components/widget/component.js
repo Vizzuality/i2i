@@ -74,12 +74,11 @@ class WidgetWrapperComponent extends PureComponent {
                   </a>
                 </button>
 
-
               </div>
             </div>
             <div className="widget-content">
               {loading && <Spinner position="relative" />}
-              {!loading && children({ widgetData, ...this.props })}
+              {!loading && children({ widgetData, title, ...this.props })}
             </div>
           </div>
         </div>

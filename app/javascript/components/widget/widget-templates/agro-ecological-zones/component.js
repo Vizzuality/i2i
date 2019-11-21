@@ -5,7 +5,7 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const AreaCoverage = ({ widgetData }) => {
+const AgroEcological = ({ widgetData }) => {
   if (!widgetData) return null;
   const data = config.parse(widgetData);
   const { chartConfig, chartData } = data;
@@ -19,11 +19,11 @@ const AreaCoverage = ({ widgetData }) => {
           config={chartConfig}
         />
       </div>
-      <div id="widget-legend-ac" />
+      <div id="widget-legend-ae" />
     </Fragment>
   );
 };
 
-AreaCoverage.propTypes = { widgetData: PropTypes.array.isRequired };
+AgroEcological.propTypes = { widgetData: PropTypes.array.isRequired };
 
-export default AreaCoverage;
+export default AgroEcological;
