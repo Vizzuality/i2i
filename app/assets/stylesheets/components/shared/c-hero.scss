@@ -17,7 +17,13 @@
     font-family: $font-family-2;
     font-weight: $font-weight-bold;
 
-    > a {
+    p {
+      color: $color-4;
+      font-family: $font-family-2;
+      font-weight: $font-weight-bold;
+    }
+
+    a {
       color: $color-2;
       font-weight: $font-weight-bold;
     }
