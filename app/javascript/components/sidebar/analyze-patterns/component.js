@@ -33,7 +33,21 @@ const AnalyzePatterns = ({
       }
     }), {});
 
+    const normalLayersView = Object.keys(layersSettings).reduce((acc, _layerId) => ({
+      ...acc,
+      [_layerId]: {
+        // eslint-disable-next-line no-underscore-dangle
+        ...layersSettings[_layerId],
+        visualizationType: 'normal',
+        visibility: true,
+        opacity: 1
+      }
+    }), {});
+
     setLayersSettings(heatmapsLayers);
+    return () => {
+      setLayersSettings(normalLayersView);
+    }
   }, [pattern, time]);
 
   const onChange = (value) => {
