@@ -11,7 +11,9 @@ export default connect(
     selectedLayers: state.fspMaps.layers.selectedLayers,
     layersSettings: state.fspMaps.layers.layersSettings,
     selectedOption: state.fspMaps.analysis.location.selectedLocation,
-    area: state.fspMaps.analysis.location.area
+    area: state.fspMaps.analysis.pattern.area,
+    pattern: state.fspMaps.analysis.pattern,
+    pin: state.fspMaps.analysis.pattern.pin
   }),
   actions
 )(AnalyzePatterns);

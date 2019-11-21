@@ -34,7 +34,7 @@ class AnalysisResultComponent extends React.Component {
           </h3>
         </div>
 
-        {widgets.length && widgets.map((widget) => {
+        {!!widgets.length && widgets.map((widget) => {
           const Widget = widgetTemplates.get(widget.title).component;
 
           return (
