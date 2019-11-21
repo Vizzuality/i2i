@@ -80,7 +80,7 @@ export const getWidgets = createSelector(
         geojson = nearbyArea;
       } else if (_selectedMenuItem === 'area_of_interest') {
         geojson = _areaOfInterestArea;
-      } else if (_selectedMenuItem === 'analyze_pattern') {
+      } else if (_selectedMenuItem === 'analyze_patterns') {
         geojson = analyzePatternArea;
       } else if (_selectedMenuItem === 'jurisdiction') {
         geojson = jurisdictionArea;
