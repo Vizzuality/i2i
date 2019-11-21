@@ -17,7 +17,8 @@ export default connect(
     ...state.fspMaps.legend,
     ...state.fspMaps.layers,
     activeLayerGroups: getActiveLayerGroups(state),
-    selectedLayers: state.fspMaps.layers.selectedLayers
+    selectedLayers: state.fspMaps.layers.selectedLayers,
+    menuItem: state.fspMaps.sidebar
   }),
   actions
 )(LegendComponent);

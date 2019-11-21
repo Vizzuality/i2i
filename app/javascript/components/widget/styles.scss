@@ -12,23 +12,25 @@
   max-width: 500px;
   box-sizing: border-box;
   border: 2px solid #ECEFF0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 30px;
-
+  margin-bottom: 20px;
 
   .widget-template {
-    h1 {
-      color: $color-5;
-      font-size: 24px;
-      line-height: 26px;
-    }
-
     .widget-header {
       display: flex;
       justify-content: space-between;
       color: $color-5;
       font-size: 24px;
       line-height: 26px;
+      margin-bottom: 20px;
+
+        h3 {
+          color: $color-5;
+          font-size: 24px;
+          line-height: 26px;
+          font-weight: 600;
+        }
 
       .header-buttons {
         min-width: 75px;

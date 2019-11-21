@@ -46,6 +46,14 @@ export default {
       error: null,
       center: { lat: 0, lng: 0 }
     },
+    pattern: {
+      location: true,
+      pin: { active: false, dropped: false },
+      time: 30,
+      area: {},
+      error: null,
+      center: { lat: 0, lng: 0 }
+    },
     location: {
       list: [],
       selectedLocation: {},

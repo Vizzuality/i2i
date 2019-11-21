@@ -19,6 +19,7 @@ const SexPercentage = ({ widgetData }) => {
           config={chartConfig}
         />
       </div>
+      <div id="widget-legend-sp" />
     </Fragment>
   );
 };

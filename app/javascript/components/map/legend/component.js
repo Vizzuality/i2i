@@ -29,7 +29,8 @@ class LegendComponent extends React.Component {
     selectedLayers: PropTypes.array.isRequired,
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired,
-    setLayersOrder: PropTypes.func.isRequired
+    setLayersOrder: PropTypes.func.isRequired,
+    menuItem: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -68,8 +69,6 @@ class LegendComponent extends React.Component {
     this.props.setLayersSettings(layersSettings);
   }
 
-
-
   onRemoveLayer = (l) => {
     const layersSettings = { ...this.props.layersSettings };
     const selectedLayers = [...this.props.selectedLayers];
@@ -88,7 +87,7 @@ class LegendComponent extends React.Component {
   }
 
   render() {
-    const { open, activeLayerGroups, layersSettings } = this.props;
+    const { open, activeLayerGroups, layersSettings, menuItem } = this.props;
 
     const classNames = classnames({
       'c-legend': true,
@@ -117,7 +116,7 @@ class LegendComponent extends React.Component {
                     (lg.layers.map(l => l.id !== undefined))[0] &&
                     <LegendItemInfo info={lg.layers[0].info} />
                   }
-                  {lg.layerType !== 'contextual' &&
+                  {lg.layerType !== 'contextual' && menuItem !== 'analyze_patterns' &&
                     <LegendItemButtonVisualizations
                       onClick={(layerId, visualizationType) => this.onChangeLegendLayerVisualization(layerId, visualizationType)}
                       category={lg.layers[0].category}
