@@ -6,29 +6,25 @@ import Chart from 'components/recharts';
 import config from './config';
 import './styles.scss';
 
-const MinimunDistance = ({ widgetData, id }) => {
+const SettlementAreas = ({ widgetData, id }) => {
   if (!widgetData) return null;
-
-  const data = config.parse(widgetData, id);
-  const { chartConfig, chartData } = data;
-
+  const { chartConfig, chartData } = config.parse(widgetData, id);
   return (
     <Fragment>
-      <div className="c-widget-template">
+      <div className="c-number-of-services">
         <Chart
-          data={chartData}
+          data={[chartData]}
           config={chartConfig}
         />
-
         <div id={`widget-legend-${id}`} />
       </div>
     </Fragment>
   );
 };
 
-MinimunDistance.propTypes = {
+SettlementAreas.propTypes = {
   widgetData: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.array.isRequired
 };
 
-export default MinimunDistance;
+export default SettlementAreas;

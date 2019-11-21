@@ -11,7 +11,7 @@ const getTotal = data => data.map(
 ).reduce((previous, current) => current + previous);
 
 const getData = (data, total) => data.map((d, i) => {
-  const colors = ['#2F939C', '#B2E600'];
+  const colors = ['#2F939C', '#B2E600', '#E5007E', '#FFB191', '#00CBE3', '#00CD7A', '#AC005D', '#AC005D', '#CCCDCF'];
   return {
     y: 1,
     x: d.value,

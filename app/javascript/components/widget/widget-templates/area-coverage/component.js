@@ -21,6 +21,7 @@ const AreaCoverage = ({ widgetData, id }) => {
           config={chartConfig}
         />
       </div>
+      <div id={`widget-legend-${id}`} />
     </Fragment>
   );
 };

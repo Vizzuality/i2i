@@ -19,7 +19,10 @@
 - Added filters on the insights page
 - Added year selector inside legend sector layers.
 - Link to download widgetdata in CSV
-- Sex percentage widget for specific countries
+- New widgets added for specific countries in (data-portal/geospatial-data)
+	- Population sex percentage
+	- Settlement areas
+	- Agro-ecological zones
 - MSME section in the data portal page
 - New section Openi2i portal on the Research themes page
 - Option to print widgets added to sidebar

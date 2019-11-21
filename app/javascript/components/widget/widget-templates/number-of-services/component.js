@@ -7,7 +7,7 @@ import config from './config';
 import './styles.scss';
 
 const NumberOfServices = ({ widgetData, id }) => {
-  if (!widgetData) return null;
+  if (!widgetData || !id) return null;
 
   const { chartConfig, chartData, numberOfServices } = config.parse(widgetData, id);
 
@@ -19,8 +19,7 @@ const NumberOfServices = ({ widgetData, id }) => {
           data={[chartData]}
           config={chartConfig}
         />
-
-        <div id="widget-legend-nos" />
+        <div id={`widget-legend-${id}`} />
       </div>
     </Fragment>
   );

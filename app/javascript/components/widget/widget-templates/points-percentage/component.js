@@ -21,6 +21,7 @@ const AccessPointsPercentage = ({ widgetData, id }) => {
           />
         </div>
       </div>
+      <div id={`widget-legend-${id}`} />
     </Fragment>
   );
 };
