@@ -24,7 +24,7 @@ const getData = (data, total) => data.map(d => {
 
 
 export const CONFIG = {
-  parse: (data) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const total = getTotal(data);
 

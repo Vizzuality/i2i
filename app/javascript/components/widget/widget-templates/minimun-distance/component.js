@@ -5,10 +5,10 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const MinimunDistance = ({ widgetData }) => {
+const MinimunDistance = ({ widgetData, id }) => {
   if (!widgetData) return null;
 
-  const data = config.parse(widgetData);
+  const data = config.parse(widgetData, id);
   const { chartConfig, chartData } = data;
 
   return (
@@ -19,12 +19,15 @@ const MinimunDistance = ({ widgetData }) => {
           config={chartConfig}
         />
 
-        <div id="widget-legend-md" />
+        <div id={`widget-legend-${id}`} />
       </div>
     </Fragment>
   );
 };
 
-MinimunDistance.propTypes = { widgetData: PropTypes.array.isRequired };
+MinimunDistance.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default MinimunDistance;

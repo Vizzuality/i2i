@@ -7,7 +7,7 @@ import config from './config';
 
 const SexPercentage = ({ widgetData, id }) => {
   if (!widgetData) return null;
-  const data = config.parse(widgetData);
+  const data = config.parse(widgetData, id);
   const { chartConfig, chartData } = data;
 
   return (

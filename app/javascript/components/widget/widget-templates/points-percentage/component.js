@@ -8,7 +8,7 @@ import './styles.scss';
 
 const AccessPointsPercentage = ({ widgetData, id }) => {
   if (!widgetData) return null;
-  const { chartConfig, chartData } = config.parse(widgetData);
+  const { chartConfig, chartData } = config.parse(widgetData, id);
 
   return (
     <Fragment>
