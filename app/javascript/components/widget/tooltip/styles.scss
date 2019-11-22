@@ -1,5 +1,6 @@
 .chart-tooltip {
   display: flex;
+  flex-direction: column;
   justify-content: 'space-around';
   color: rgba(0,0,0,0.85);
   line-height: 19px;
@@ -17,10 +18,8 @@
 
 .data-line {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  margin-right: 20px;
 
   &._column {
     flex-direction: row;
