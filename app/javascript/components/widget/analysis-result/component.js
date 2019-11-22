@@ -39,7 +39,7 @@ class AnalysisResultComponent extends React.Component {
             type="button"
             onClick={() => window.print()}
           >
-            Download all data
+            Print
           </button>
         </div>
 
