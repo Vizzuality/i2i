@@ -22,7 +22,7 @@
                 <h1 class="title -highlight -huge"><%= @tag.title %></h1>
               </div>
               <div class="grid-l-6">
-                <p class="subtitle"><%= @tag.description %></p>
+                <div class="subtitle"><%= @tag.description.html_safe %></div>
               </div>
             </div>
           </div>
