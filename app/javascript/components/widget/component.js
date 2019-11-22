@@ -15,7 +15,8 @@ class WidgetWrapperComponent extends PureComponent {
     url: PropTypes.string.isRequired,
     body: PropTypes.object.isRequired,
     children: PropTypes.func.isRequired,
-    info: PropTypes.shape({})
+    info: PropTypes.shape({}),
+    id: PropTypes.number.isRequired
   }
 
   static defaultProps = { info: {} };
@@ -54,8 +55,7 @@ class WidgetWrapperComponent extends PureComponent {
   }
 
   render() {
-    const { title, children, url, body, info } = this.props;
-
+    const { title, children, url, body, id, info } = this.props;
     const { widgetData, loading } = this.state;
     if (widgetData && widgetData.length) {
       return (
@@ -64,11 +64,8 @@ class WidgetWrapperComponent extends PureComponent {
             <div className="widget-header">
               <h3>{title}</h3>
               <div className="header-buttons">
-                {info &&
-                  <button
-                    className="widget-btn"
-                    onClick={this.onDownload}
-                  >
+                {info && info.length > 0 &&
+                  <button className="widget-btn" >
                     <Icon name="info-squared" className="info-widget -disabled-opacity" />
                   </button>
                 }
@@ -82,7 +79,7 @@ class WidgetWrapperComponent extends PureComponent {
             </div>
             <div className="widget-content">
               {loading && <Spinner position="relative" />}
-              {!loading && children({ widgetData, title, ...this.props })}
+              {!loading && children({ widgetData, id, ...this.props })}
             </div>
           </div>
         </div>

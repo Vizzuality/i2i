@@ -15,7 +15,7 @@ const getData = data => data.map(d => ({
 }));
 
 export const CONFIG = {
-  parse: (data, legendId) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
 
@@ -43,7 +43,8 @@ export const CONFIG = {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
           },
-          domain: [0, 400]
+          domain: [0, 400],
+          type: 'number'
         },
         yAxis: {
           type: 'category',
@@ -58,7 +59,9 @@ export const CONFIG = {
           layout: 'horizontal',
           height: 0,
           top: 0,
-          content: () => createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${legendId}`))
+          content: () => {
+            return createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${id}`));
+          }
         },
         tooltip: {
           cursor: false,

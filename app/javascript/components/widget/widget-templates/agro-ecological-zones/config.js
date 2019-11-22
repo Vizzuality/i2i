@@ -28,7 +28,7 @@ const getData = (data, total) => data.map((d, i) => {
 
 
 export const CONFIG = {
-  parse: (data) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const total = getTotal(data);
 
@@ -60,7 +60,7 @@ export const CONFIG = {
           layout: 'vertical',
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-ae'));
+            return createPortal(<Legend data={payload} />, document.querySelector(`#widget-legend-${id}`));
           }
         },
         tooltip: {

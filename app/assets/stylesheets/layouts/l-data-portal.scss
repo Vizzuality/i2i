@@ -48,6 +48,9 @@
         fill: #257B83;
       }
     }
+    @media print {
+      display:none;
+    }
   }
 
   .c-hero {

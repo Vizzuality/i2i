@@ -40,4 +40,8 @@
       font-size: 14px;
     }
   }
+
+  @media print {
+    display: none;
+  }
 }
