@@ -14,8 +14,62 @@ function getValue(item, value) {
   return `${preffix}${val}${suffix}`;
 }
 
-function Tooltip({ payload, settings, style, hideZeros }) {
+function Tooltip({ payload, settings, style, hideZeros, ...rest }) {
   const values = payload && payload.length > 0 && payload[0].payload;
+
+  if (payload.length > 1) {
+    return (
+      <div>
+        <div className="chart-tooltip" style={style} >
+          <table>
+            <thead>
+              <tr>
+                {settings.map(d => (
+                  <th
+                    key={d.key}
+                  >
+                    {/* LABEL */}
+                    <div className="data-label">
+                      <span>{d.label}</span>
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {payload.map(p => (
+                <tr>
+                  {settings.map(d => (
+                    <td
+                      key={d.key}
+                    >
+                      {d.key === 'label' &&
+                        <div className="data-label">
+                          {p.color && (
+                            <div
+                              className="data-color"
+                              style={{ backgroundColor: p.color }}
+                            />
+                          )}
+                          <span>{p.dataKey}</span>
+                        </div>
+                      }
+
+                      {d.key !== 'label' &&
+                        <div className="data-value">
+                          {getValue(d, p.value)}
+                        </div>
+                      }
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

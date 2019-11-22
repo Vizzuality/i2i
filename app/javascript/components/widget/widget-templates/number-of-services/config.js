@@ -107,8 +107,8 @@ export const CONFIG = {
                 marginLeft: '-50px'
               }}
               settings={[
-                { label: 'Type of service:', key: 'label' },
-                { label: 'Value:', key: 'value', format: v => format('.2~s')(v) }
+                { label: 'Type of service', key: 'label' },
+                { label: 'Value', key: 'value', format: v => format('.2~s')(v) }
               ]}
             />
           )

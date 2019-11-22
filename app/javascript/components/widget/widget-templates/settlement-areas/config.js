@@ -98,8 +98,8 @@ export const CONFIG = {
                 marginLeft: '-50px'
               }}
               settings={[
-                { label: 'Area:', key: 'label' },
-                { label: 'Value:', key: 'value', format: v => format('.2~s')(v) }
+                { label: 'Area', key: 'label' },
+                { label: 'Value', key: 'value', format: v => format('.2~s')(v) }
               ]}
             />
           )
