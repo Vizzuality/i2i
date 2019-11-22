@@ -14,13 +14,13 @@ function getValue(item, value) {
   return `${preffix}${val}${suffix}`;
 }
 
-function Tooltip({ payload, settings, hideZeros }) {
+function Tooltip({ payload, settings, style, hideZeros }) {
   const values = payload && payload.length > 0 && payload[0].payload;
 
   return (
     <div>
       {settings && settings.length && (
-        <div className="chart-tooltip" >
+        <div className="chart-tooltip" style={style} >
           {settings.map(
             d => (hideZeros && values[d.key] ? null : (
               <div
@@ -36,7 +36,6 @@ function Tooltip({ payload, settings, hideZeros }) {
                         style={{ backgroundColor: d.color }}
                       />
                     )}
-
                     {d.key === 'break'
                       ? <span className="break-label">{d.label}</span>
                       : <span>{d.label || values[d.labelKey]}</span>}

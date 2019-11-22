@@ -75,6 +75,7 @@ export const CONFIG = {
               settings={[
                 { label: 'Sex:', key: 'label' },
                 { label: 'Value:', key: 'value', format: v => format('.2%')(v / 100) }
+
               ]}
             />
           )

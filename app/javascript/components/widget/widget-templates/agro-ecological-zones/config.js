@@ -74,7 +74,7 @@ export const CONFIG = {
               }}
               settings={[
                 { label: 'Zones:', key: 'label' },
-                { label: 'Value:', key: 'value', format: v => format('.2%')(v / 100) }
+                { label: 'Value:', key: 'value', format: v => format('.2%')(v / 100), color: 'color' }
               ]}
             />
           )
