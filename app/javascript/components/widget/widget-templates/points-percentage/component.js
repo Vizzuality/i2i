@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Chart from 'components/recharts';
 
 import config from './config';
 import './styles.scss';
 
-const AccessPointsPercentage = ({ widgetData }) => {
+const AccessPointsPercentage = ({ widgetData, id }) => {
   if (!widgetData) return null;
-  const { chartConfig, chartData } = config.parse(widgetData);
+  const { chartConfig, chartData } = config.parse(widgetData, id);
 
   return (
     <Fragment>
@@ -21,11 +21,14 @@ const AccessPointsPercentage = ({ widgetData }) => {
           />
         </div>
       </div>
-      <div id="widget-legend-app" />
+      <div id={`widget-legend-${id}`} />
     </Fragment>
   );
 };
 
-AccessPointsPercentage.propTypes = { widgetData: propTypes.array.isRequired };
+AccessPointsPercentage.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default AccessPointsPercentage;

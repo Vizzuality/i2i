@@ -57,4 +57,12 @@
       }
     }
   }
+  @media print {
+    width: 100%;
+    margin: auto;
+
+    .header-buttons {
+      display: none;
+    }
+  }
 }

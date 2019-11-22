@@ -5,9 +5,9 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const AgroEcological = ({ widgetData }) => {
+const AgroEcological = ({ widgetData, id }) => {
   if (!widgetData) return null;
-  const data = config.parse(widgetData);
+  const data = config.parse(widgetData, id);
   const { chartConfig, chartData } = data;
 
   return (
@@ -19,11 +19,14 @@ const AgroEcological = ({ widgetData }) => {
           config={chartConfig}
         />
       </div>
-      <div id="widget-legend-ae" />
+      <div id={`widget-legend-${id}`} />
     </Fragment>
   );
 };
 
-AgroEcological.propTypes = { widgetData: PropTypes.array.isRequired };
+AgroEcological.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default AgroEcological;
