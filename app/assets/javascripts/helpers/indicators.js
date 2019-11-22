@@ -1,4 +1,9 @@
 ((function (App) {
+  var COUNTRIES = {};
+  var countries = _.forEach(gon.countries || [], function(country) {
+    COUNTRIES[country.iso] = country.name;
+  });
+
   App.Helper.Indicators = {
     // List of the categories of indicators
     CATEGORIES: {
@@ -21,7 +26,7 @@
     },
 
     // Map for the ISO and country names
-    COUNTRIES: {
+    COUNTRIES: Object.assign({
       UGA: 'Uganda',
       TZA: 'Tanzania',
       ZMB: 'Zambia',
@@ -48,7 +53,7 @@
       HTI: 'Haiti',
       TGO: 'Togo',
       MDG: 'Madagascar'
-    },
+    }, COUNTRIES),
 
     /**
      * Serialize an indicator
