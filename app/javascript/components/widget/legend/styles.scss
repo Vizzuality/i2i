@@ -1,11 +1,25 @@
 @import '_settings';
 
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
 .c-widget-legend {
   margin-top: 20px;
 
+  .widget-ranking {
+    color: $color-5;
+    font-size: 13px;
+    line-height: 14px;
+    padding: 5px 0;
+  }
   .legend-list {
     display: flex;
     flex-direction: column;
+    max-height: 80px;
+    overflow: hidden;
 
     > li {
       display: flex;
@@ -14,7 +28,11 @@
       font-family: Arial;
       font-size: 14px;
       line-height: 16px;
-      }
+    }
+
+    &.isOpen {
+      max-height: inherit;
+    }
 
     span {
       display: inline-block;
