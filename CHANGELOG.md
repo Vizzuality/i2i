@@ -25,6 +25,7 @@
 	- Agro-ecological zones
 - MSME section in the data portal page
 - New section Openi2i portal on the Research themes page
+- Option to print widgets added to sidebar
 
 ### Changed
 
@@ -46,6 +47,7 @@
 - Changed contact form in order to send messages from server instead Salesforce
 - Changed color and size for tags inside cards for insights
 - Wdigets restyled and moved from Vega to Recharts 
+- Haiti logo moved in intro
 
 ### Fixed
 

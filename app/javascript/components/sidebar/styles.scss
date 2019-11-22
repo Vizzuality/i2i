@@ -7,24 +7,11 @@
   font-size: 0;
 	line-height: 0;
 
-  @if($direction == 'up') {
-    border-top: 0;
-    border-left: $size solid transparent;  /* left arrow slant */
-    border-right: $size solid transparent; /* right arrow slant */
-    border-bottom: $size solid $color; /* bottom, add background color here */
-  }
-
   @if($direction == 'right') {
     border-right: 0;
     border-bottom: $size solid transparent;  /* left arrow slant */
     border-top: $size solid transparent; /* right arrow slant */
     border-left: $size solid $color; /* bottom, add background color here */
-  }
-
-  @if($direction == 'down') {
-    border-left: $size solid transparent;
-    border-right: $size solid transparent;
-    border-top: $size solid $color;
   }
 
   @if($direction == 'left') {
@@ -53,6 +40,11 @@
     overflow-x: hidden;
     overflow-y: auto;
     height: calc(100% - 71px); // height of tabs
+
+    @media print {
+      overflow: visible;
+      height: 100%;
+    }
   }
 
   .toggle-btn {
@@ -86,5 +78,9 @@
         }
       }
     }
+  }
+
+  @media print {
+    min-width: 800px;
   }
 }

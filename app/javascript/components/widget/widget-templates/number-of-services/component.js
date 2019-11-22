@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Chart from 'components/recharts';
 
 import config from './config';
 import './styles.scss';
 
-const NumberOfServices = ({ widgetData }) => {
-  if (!widgetData) return null;
-  const { chartConfig, chartData, numberOfServices } = config.parse(widgetData);
+const NumberOfServices = ({ widgetData, id }) => {
+  if (!widgetData || !id) return null;
+
+  const { chartConfig, chartData, numberOfServices } = config.parse(widgetData, id);
 
   return (
     <Fragment>
@@ -18,13 +19,15 @@ const NumberOfServices = ({ widgetData }) => {
           data={[chartData]}
           config={chartConfig}
         />
-
-        <div id="widget-legend-nos" />
+        <div id={`widget-legend-${id}`} />
       </div>
     </Fragment>
   );
 };
 
-NumberOfServices.propTypes = { widgetData: propTypes.array.isRequired };
+NumberOfServices.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default NumberOfServices;

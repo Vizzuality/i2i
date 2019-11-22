@@ -300,6 +300,8 @@
       var population = this.countryModel.get('population');
       var factor, unit;
 
+      if (!population) return 'No data provided';
+
       if (population / Math.pow(10, 9) >= 1) {
         factor = 9;
         unit = 'billion';
@@ -312,6 +314,26 @@
       }
 
       return (population / Math.pow(10, factor)).toFixed(2) + ' ' + unit;
+    },
+
+    _getReadableTotalMsme: function() {
+      var totalMsme = this.countryModel.get('totalMsme');
+      var factor, unit;
+
+      if (!totalMsme) return 'No data provided';
+
+      if (totalMsme / Math.pow(10, 9) >= 1) {
+        factor = 9;
+        unit = 'billion';
+      } else if (totalMsme / Math.pow(10, 6) >= 1) {
+        factor = 6;
+        unit = 'million';
+      } else {
+        factor = 3;
+        unit = 'thousand';
+      }
+
+      return (totalMsme / Math.pow(10, factor)).toFixed(2) + ' ' + unit;
     },
 
     render: function () {
@@ -338,6 +360,7 @@
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         population: this._getReadablePopulation(),
+        totalMsme: this._getReadableTotalMsme(),
         isFSD: {
           'Zambia': 2015
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
@@ -361,6 +384,7 @@
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isHaiti: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Haiti',
         isRegion: false,
+        isMSME: true,
       });
 
       // We instantiate the tab views

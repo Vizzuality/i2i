@@ -23,15 +23,24 @@ class AnalysisResultComponent extends React.Component {
     const { widgets, analysisActive } = this.props;
     return (
       <div className="c-sidebar-analysis-result">
-        <div
-          className="back-button"
-          tabIndex="0"
-          role="button"
-          onClick={() => this.props.setAnalysisActive(!analysisActive)}
-        >
-          <h3 className="title">
-            Back
-          </h3>
+        <div className="analysis-controls">
+          <div
+            className="back-button"
+            tabIndex="0"
+            role="button"
+            onClick={() => this.props.setAnalysisActive(!analysisActive)}
+          >
+            <h3 className="title">
+              Back
+            </h3>
+          </div>
+          <button
+            className="download-button"
+            type="button"
+            onClick={() => window.print()}
+          >
+            Print
+          </button>
         </div>
 
         {!!widgets.length && widgets.map((widget) => {

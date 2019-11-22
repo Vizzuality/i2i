@@ -29,7 +29,7 @@ const getBars = data => data.reduce((acc, d, i) => {
 
 
 export const CONFIG = {
-  parse: (data) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
 
@@ -81,7 +81,7 @@ export const CONFIG = {
           top: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-sa'));
+            return createPortal(<Legend data={payload} />, document.querySelector(`#widget-legend-${id}`));
           }
         },
         tooltip: {

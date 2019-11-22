@@ -1,70 +1,71 @@
 @import '_settings';
 
-@mixin arrow($size, $border-width, $color, $direction) {
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border: $border-width solid $color;
-  content: '';
+// https://davidwalsh.name/css-triangles
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
 
-  @if($direction=='up') {
-    transform: rotate(45deg);
-    border-right: 0;
-    border-bottom: 0;
-  }
-
-  @if($direction=='right') {
-    transform: rotate(45deg);
-    border-bottom: 0;
+  @if($direction == 'left') {
     border-left: 0;
-  }
-
-  @if($direction=='down') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-left: 0;
-  }
-
-  @if($direction=='left') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-right: 0;
+    border-bottom: $size solid transparent;  /* left arrow slant */
+	  border-top: $size solid transparent; /* right arrow slant */
+	  border-right: $size solid $color; /* bottom, add background color here */
   }
 }
 
 .c-sidebar-analysis-result {
   padding: 0px 30px 20px 55px;
 
-  >.back-button {
+  .analysis-controls {
     display: flex;
-    flex-direction: column;
-    // align-items: center;
-    padding: 20px 30px 15px 0px;
-    cursor: pointer;
-    outline: none;
+    justify-content: space-between;
+    padding: 20px 0;
 
-    .title {
-      position: relative;
-      width: 100%;
-      padding: 0 0 0 15px;
-      font-size: 14px;
-      font-weight: 400;
-      color: #000;
+    >.back-button {
+      font-family: "Open Sans";
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      outline: none;
 
-      &:before {
-        @include arrow(8px, 2px, $color-1, 'left');
-        position: absolute;
-        top: calc(50% + 2px);
-        left: 0;
-        transform: rotate(45deg) translate(-50%, -50%);
-        margin: 0 10px 0 0;
+      .title {
+        position: relative;
+        width: 100%;
+        padding: 0 0 0 15px;
+        font-size: 20px;
+        font-weight: normal;
+        color: #000;
+        line-height: 27px;
+
+        &:before {
+          @include triangle(6px, $color-1, 'left');
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0px;
+          transform: translate(0, -50%);
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
-    &:hover {
-      .title {
-        text-decoration: underline;
-      }
+    .download-button {
+      color: $color-1;
+      font-family: "Open Sans";
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 22px;
+      text-decoration: underline;
     }
   }
+
+  @media print {
+    min-width: 800px;
+  }
 }
+
