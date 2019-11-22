@@ -41,10 +41,23 @@
       <div class="l-title">
         <div class="wrapper">
           <div class="row">
-            <div class="c-hero">
-              <div class="grid-l-12">
-                <%= render partial: 'data_portal_financial_diaries/country-selector' %>
-                <div class="row js-header">
+            <div class="grid-s-12">
+              <div class="c-hero">
+                <div class="row">
+                  <div class="grid-s-12 grid-m-6">
+                    <%= render partial: 'country_selector' %>
+                  </div>
+                  <div class="grid-s-12 grid-m-6 _align-right">
+                    <h2 class="title -medium -light">Micro, Small and Medium Enterprises</h2>
+                  </div>
+                </div>
+                <div class="row js-header"></div>
+                <!--
+                <div class="grid-l-12">
+                  <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+                  <div class="row js-header"></div>
+                </div>
+                -->
               </div>
             </div>
             <div class="_only-desktop">

@@ -221,7 +221,8 @@
 
       img {
         display: inline-block;
-        height: 100px;
+        min-height: 71px;
+        max-height: 100px;
 
         &.-width {
           width: 300px;

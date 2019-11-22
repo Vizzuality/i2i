@@ -20,7 +20,11 @@ class DataPortal::MsmEnterprisesController < ApplicationController
   end
 
   def show
-    @countries = Country.all.map(&:finscope).compact
+    msme_countries_response = GetMsmeCountriesFromApi.new.perform
+    msme_countries = msme_countries_response ? JSON.parse(msme_countries_response.body) : []
+    msme_countries_iso = msme_countries.collect { |m| m['iso'] }
+
+    @countries = Country.where(iso: msme_countries_iso)
     @country = Country.find_by(iso: params[:iso])
     @country_latest_year = @countries.find do |c|
       c[:iso] == @country.iso
