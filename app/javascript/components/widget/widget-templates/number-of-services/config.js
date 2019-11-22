@@ -31,7 +31,7 @@ const getServices = data => data.map(
 ).reduce((previous, current) => current + previous);
 
 export const CONFIG = {
-  parse: (data) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
     const services = getServices(dataSorted);
@@ -89,7 +89,7 @@ export const CONFIG = {
           top: 0,
           content: (properties) => {
             const { payload } = properties;
-            return createPortal(<Legend data={payload} />, document.querySelector('#widget-legend-nos'));
+            return createPortal(<Legend data={payload} />, document.querySelector(`#widget-legend-${id}`));
           }
         },
         tooltip: {
