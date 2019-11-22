@@ -3,10 +3,10 @@
   justify-content: 'space-around';
   color: rgba(0,0,0,0.85);
   line-height: 19px;
-  padding: 10px 20px;
+  padding: 10px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.19);
   background-color: #FFF;
-  border-radius: 12px;
+  border-radius: 5px;
   font-size: 14px;
   font-weight: 500;
 }
@@ -62,9 +62,8 @@
 }
 
 .data-color {
-  width: 9px;
-  height: 18px;
-  border-radius: 22px;
+  width: 11px;
+  height: 11px;
   margin-right: 10px;
   &.bar {
     border-radius: 0;
@@ -73,6 +72,5 @@
 }
 
 .data-value {
-  margin-left: 19px; //data_color width + data_color margin
   font-weight: bold;
 }
