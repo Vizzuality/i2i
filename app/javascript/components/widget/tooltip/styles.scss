@@ -1,28 +1,78 @@
-@import '_settings';
-
-.c-widget-tooltip {
-  background: $color-4;
-  font-family: Arial;
-  padding: 10px;
+.chart-tooltip {
   display: flex;
   justify-content: 'space-around';
+  color: rgba(0,0,0,0.85);
   line-height: 19px;
+  padding: 10px 20px;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.19);
+  background-color: #FFF;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  border-radius: 5px;
+}
 
-  .tooltip-label {
-    color: $color-5;
-    font-family: Arial;
-    font-size: 14px;
-    line-height: 16px;
+.data-title {
+  display: block;
+}
+
+.data-line {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 20px;
+
+  &._column {
+    flex-direction: row;
+    padding: 5px;
   }
 
-  .tooltip-color {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 10px;
+  &:last-of-type {
+    margin-right: 0;
   }
+}
+
+.data-line {
+  &.-_tacked {
+    margin-right: 0;
+  }
+}
+
+.data-line.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.data-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 20px;
+  &._column {
+    margin-right: 0;
+  }
+}
+
+.break-label {
+  font-style: italic;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.data-color {
+  width: 9px;
+  height: 18px;
+  border-radius: 22px;
+  margin-right: 10px;
+  &.bar {
+    border-radius: 0;
+    width: 4px;
+  }
+}
+
+.data-value {
+  margin-left: 19px; //data_color width + data_color margin
+  font-weight: bold;
 }
