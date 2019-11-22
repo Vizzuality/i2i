@@ -69,6 +69,17 @@
     font-weight: bold;
   }
 
+  .react-select__option {
+    background-color: (20,103,110,0.75);
+  }
+
+  .react-select__option--is-selected {
+    background-color: #14676E;
+  }
+
+  .react-select__option--is-focused {
+    background-color: rgba(#14676E, .6)
+  }
   .react-select__menu {
     color: white;
     border-radius: 9px;
@@ -77,6 +88,9 @@
   .react-select__menu-list {
     color: white;
     background-color: rgba(#14676E, .5)
+  }
+  &:hover {
+    background-color: rgba(#14676E, .6)
   }
 }
 
