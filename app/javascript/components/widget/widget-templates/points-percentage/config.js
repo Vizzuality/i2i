@@ -1,5 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import { format } from 'd3-format';
+
 import Legend from 'components/widget/legend';
 import Tooltip from 'components/widget/tooltip';
 
@@ -73,16 +75,13 @@ export const CONFIG = {
                 marginLeft: '-50px'
               }}
               settings={[
-                { key: 'label' },
-                { label: 'Percentage:', key: 'percentage', format: percentage => `${percentage ? (percentage).toFixed(2) : null} %`, position: '_column' },
-                { label: 'Coverage:', key: 'coverage', format: coverage => `${(coverage)} km²`, position: '_column' }
+                { label: 'Access points:', key: 'label' },
+                { label: 'Value:', key: 'value', format: v => format('.2%')(v / 100) }
               ]}
             />
           )
         }
       }
-
-
     };
   }
 };

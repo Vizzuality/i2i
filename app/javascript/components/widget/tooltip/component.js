@@ -3,42 +3,117 @@ import PropTypes from 'prop-types';
 
 import './styles.scss';
 
+function getValue(item, value) {
+  const { format, suffix = '', preffix = '' } = item;
+  let val = value;
 
-const Tooltip = ({ payload, hideZeros, style }) => (
-  <div>
-    {payload && payload.length && (
-      <div className="c-widget-tooltip" style={style}>
-        {payload.map(
-          d => (hideZeros ? null : (
-            <div
-              key={d.key}
-              className="tooltip-title"
-            >
-              {/* LABEL */}
-              {(d.label || d.value) && (
-                <div className="tooltip-label">
-                  {d.color && (
-                    <div
-                      className="tooltip-color"
-                      style={{ backgroundColor: d.color }}
-                    />
-                  )}
+  if (format && typeof format === 'function') {
+    val = format(val);
+  }
 
-                  {d.key === 'break'
-                    ? <span className="">{`${d.label}: ${d.label}`}</span>
-                    : <span>{`${d.name}: ${d.value}`}</span>}
-                </div>
-              )}
-            </div>
-          ))
-        )}
+  return `${preffix}${val}${suffix}`;
+}
+
+function Tooltip({ payload, settings, style, hideZeros, ...rest }) {
+  const values = payload && payload.length > 0 && payload[0].payload;
+
+  if (payload.length > 1) {
+    return (
+      <div>
+        <div className="chart-tooltip" style={style} >
+          <table>
+            <thead>
+              <tr>
+                {settings.map(d => (
+                  <th
+                    key={d.key}
+                  >
+                    {/* LABEL */}
+                    <div className="data-label">
+                      <span>{d.label}</span>
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {payload.map(p => (
+                <tr>
+                  {settings.map(d => (
+                    <td
+                      key={d.key}
+                    >
+                      {d.key === 'label' &&
+                        <div className="data-label">
+                          {p.color && (
+                            <div
+                              className="data-color"
+                              style={{ backgroundColor: p.color }}
+                            />
+                          )}
+                          <span>{p.dataKey}</span>
+                        </div>
+                      }
+
+                      {d.key !== 'label' &&
+                        <div className="data-value">
+                          {getValue(d, p.value)}
+                        </div>
+                      }
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    )}
-  </div>
-);
+    );
+  }
+
+  return (
+    <div>
+      {settings && settings.length && (
+        <div className="chart-tooltip" style={style} >
+          {settings.map(
+            d => (hideZeros && values[d.key] ? null : (
+              <div
+                key={d.key}
+                className="data-line"
+              >
+                {/* LABEL */}
+                {((d.label && d.labelKey) || d.key) && (
+                  <div className="data-label">
+                    {d.color && (
+                      <div
+                        className="data-color"
+                        style={{ backgroundColor: d.color }}
+                      />
+                    )}
+                    {d.key === 'break'
+                      ? <span className="break-label">{d.label}</span>
+                      : <span>{d.label || values[d.labelKey]}</span>}
+                  </div>
+                )}
+
+                {/* UNIT */}
+                <div
+                  className="data-value"
+                >
+                  {getValue(d, values[d.key])}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 Tooltip.propTypes = {
   payload: PropTypes.arrayOf(PropTypes.shape({})),
+  settings: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   style: PropTypes.shape({}),
   hideZeros: PropTypes.bool
 };

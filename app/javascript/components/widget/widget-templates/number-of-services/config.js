@@ -1,5 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import { format } from 'd3-format';
+
 import Legend from 'components/widget/legend';
 import Tooltip from 'components/widget/tooltip';
 
@@ -8,8 +10,11 @@ const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 const getData = data => data.reduce((acc, d) => {
   return {
     ...acc,
+    label: d.label,
+    value: d.value,
     [d.label]: d.value,
-    name: d.unit
+    name: d.unit,
+    color: d.color
   };
 }, {});
 
@@ -101,7 +106,10 @@ export const CONFIG = {
                 marginTop: '10px',
                 marginLeft: '-50px'
               }}
-              payload={[chartData]}
+              settings={[
+                { label: 'Type of service', key: 'label' },
+                { label: 'Value', key: 'value', format: v => format('.2~s')(v) }
+              ]}
             />
           )
         }
