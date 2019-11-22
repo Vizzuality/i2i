@@ -1,8 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import { format } from 'd3-format';
+
 import Legend from 'components/widget/legend';
 import Tooltip from 'components/widget/tooltip';
-
 
 const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 
@@ -71,7 +72,11 @@ export const CONFIG = {
                 marginTop: '10px',
                 marginLeft: '-50px'
               }}
-              payload={[dataSorted]}
+              settings={[
+                { label: 'Sex:', key: 'label' },
+                { label: 'Value:', key: 'value', format: v => format('.2%')(v / 100) }
+
+              ]}
             />
           )
         }
