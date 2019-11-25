@@ -36,7 +36,7 @@
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
       this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
-      this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year);
+      this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year, true);
       this.headerContainer = this.el.querySelector('.js-header');
       this.mobileHeaderContainer = this.el.querySelector('.js-mobile-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -273,7 +273,8 @@
         jurisdiction: !!this._getJurisdictionFilter()
           ? this._getJurisdictionFilter().options[0]
           : null,
-        continueCallback: this._onFiltersUpdate.bind(this)
+        continueCallback: this._onFiltersUpdate.bind(this),
+        isMSME: true,
       });
     },
 
@@ -466,8 +467,9 @@
         || indicator.category === App.Helper.Indicators.CATEGORIES.ASSET
         || indicator.category === App.Helper.Indicators.CATEGORIES.SDGS
         || indicator.category === App.Helper.Indicators.CATEGORIES.POVERTY;
+      var isFullWidth = !!indicator.isFullWidth;
 
-      if (isComplex) {
+      if (isFullWidth || isComplex) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
     },
