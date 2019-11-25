@@ -429,7 +429,7 @@
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.countryModel.get('url'),
-        downloadUrl: API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
+        downloadUrl: MSME_API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
       });
     },
 
