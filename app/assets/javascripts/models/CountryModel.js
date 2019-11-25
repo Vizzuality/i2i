@@ -3,13 +3,15 @@
 
   App.Model.CountryModel = Backbone.Model.extend({
 
-    initialize: function (iso, year) {
+    initialize: function (iso, year, isMSME) {
       this.year = year;
       this.iso = iso;
+      this.isMSME = !!isMSME;
     },
 
     url: function() {
-      return API_URL + '/country/' + this.iso;
+      var apiUrl = this.isMSME ? MSME_API_URL : API_URL;
+      return apiUrl + '/country/' + this.iso;
     },
 
     parse: function (data) {

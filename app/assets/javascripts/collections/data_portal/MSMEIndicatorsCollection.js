@@ -6,7 +6,7 @@
     { id: 'business_development_measure', name: 'Business development', category: 'Common indicators', visible: false },
     { id: 'business_age', name: 'Business duration', category: 'Common indicators', visible: false },
     { id: 'business_coaching', name: 'Business advisor', category: 'Common indicators', visible: false },
-    { id: 'business_sector', name: 'Sector', category: 'Common indicators', visible: true },
+    { id: 'business_sector', name: 'Sector', category: 'Common indicators', visible: true, defaultChart: 'stacked bar', isFullWidth: true },
     { id: 'business_size', name: 'Access to Resources', category: 'Common indicators', visible: false },
     { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
     { id: 'geographic_area', name: 'Geographic Area', category: 'Common indicators', visible: false },
@@ -15,15 +15,13 @@
     { id: 'obstacle_to_growth', name: 'Biggest obstacle to growing business', category: 'Common indicators', visible: false },
 
     { id: 'capital_source_strand', name: 'Sources of capital', category: 'MSME Strands', visible: false },
-    { id: 'credit_strand', name: 'Credit', category: 'MSME Strands', visible: true },
-    { id: 'fas_strand', name: 'Financial services uptake', category: 'MSME Strands', visible: true },
+    { id: 'credit_strand', name: 'Credit', category: 'MSME Strands', visible: true, isFullWidth: true },
     { id: 'financial_records', name: 'Financial records available', category: 'MSME Strands', visible: false },
-    { id: 'infrastructure_strand', name: 'Infrastructure', category: 'MSME Strands', visible: true },
+    { id: 'infrastructure_strand', name: 'Infrastructure', category: 'MSME Strands', visible: true, isFullWidth: true },
     { id: 'insurance_strand', name: 'Insurance', category: 'MSME Strands', visible: false },
-    { id: 'mobile_money', name: 'Mobile Money', category: 'MSME Strands', visible: true },
     { id: 'motive_strand', name: 'Motives to start a business', category: 'MSME Strands', visible: false },
     { id: 'savings_strand', name: 'Savings', category: 'MSME Strands', visible: false },
-    { id: 'barrier_strand', name: 'Barriers', category: 'MSME Strands', visible: true },
+    { id: 'barrier_strand', name: 'Barriers', category: 'MSME Strands', visible: true, isFullWidth: true },
     { id: 'total_barrier_strand', name: 'Top 5 barriers to start a business', category: 'MSME Strands', visible: false },
     { id: 'total_capital_source_strand', name: 'Top 5 sources of capital', category: 'MSME Strands', visible: false },
     { id: 'total_credit_strand', name: 'Credit Strands', category: 'MSME Strands', visible: false },
@@ -33,7 +31,9 @@
     { id: 'total_saving_strand', name: 'Saving Strands', category: 'MSME Strands', visible: false },
     { id: 'total_source_of_skills_strand', name: 'Top 5 sources of skills', category: 'MSME Strands', visible: false },
     { id: 'total_transaction_strand', name: 'Transaction Strands', category: 'MSME Strands', visible: false },
-    { id: 'transaction_strand', name: 'Transactions', category: 'MSME Strands', visible: false }
+    { id: 'transaction_strand', name: 'Transactions', category: 'MSME Strands', visible: false },
+    { id: 'fas_strand', name: 'Financial services uptake', category: 'MSME Strands', visible: true },
+    { id: 'mobile_money', name: 'Mobile Money', category: 'MSME Strands', visible: true, defaultChart: 'radial' },
   ];
 
   App.Collection.MSMEIndicatorsCollection = Backbone.Collection.extend({
