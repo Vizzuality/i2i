@@ -6,11 +6,15 @@ class SearchesController < ApplicationController
     # Topics
     tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
     topics_term = params[:topics].class == Array ? params[:topics].map(&:strip) : params[:topics].split(',').map(&:strip) rescue nil
+
     if tag_term
+      topics_term = topics_term || []
       tag_term.each do |tag|
         topics_term << tag
       end
     end
+
+    @selected_topics = topics_term
 
     # Categories
     categories = Category.where(slug: params[:types])
