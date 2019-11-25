@@ -365,7 +365,8 @@
           this._fetchData();
         }.bind(this),
         stopCompareCallback: this._onStopCompare.bind(this),
-        isRegion: this.options.isRegion
+        isRegion: this.options.isRegion,
+        isMSME: this.options.isMSME,
       });
     },
 

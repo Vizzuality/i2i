@@ -60,7 +60,8 @@
                   return filter.id !== 'jurisdiction';
                 })
                 .concat(compareIndicator.filters),
-              expanded: this.options.expanded
+              expanded: this.options.expanded,
+              isMSME: this.options.isMSME,
             }
           )
         }, this);

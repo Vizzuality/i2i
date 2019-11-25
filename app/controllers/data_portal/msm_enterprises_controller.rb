@@ -29,6 +29,9 @@ class DataPortal::MsmEnterprisesController < ApplicationController
     @country_latest_year = @countries.find do |c|
       c[:iso] == @country.iso
     end[:latest_year].to_s
+
+    gon.countries = Country.all.ordered_by_name
+
     render :layout => 'data_portal'
   end
 end
