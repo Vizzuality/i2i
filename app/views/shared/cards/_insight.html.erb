@@ -11,7 +11,7 @@
       <div class="tags-container">
         <% insight.tags.each do |tag| %>
           <span>
-            <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != insight.tags.last ? ',' : '' %>
+            <%= link_to tag.name, search_path(tag_term: tag.slug), :class => 'tag'  %><%= tag != insight.tags.last ? ',' : '' %>
           </span>
         <% end %>
       </div>
@@ -20,7 +20,7 @@
       <div class="tags-container">
         <% insight.countries.each do |country| %>
           <span>
-            <%= link_to country.name, search_path(:tag_term => country.iso), :class => 'tag'  %><%= country != insight.countries.last ? ',' : '' %>
+            <%= link_to country.name, search_path(locations: [country.iso]), :class => 'tag'  %><%= country != insight.countries.last ? ',' : '' %>
           </span>
         <% end %>
       </div>
@@ -29,7 +29,7 @@
       <div class="tags-container">
         <% insight.regions.each do |region| %>
           <span>
-            <%= link_to region.name, search_path(:tag_term => region.iso), :class => 'tag'  %><%= region != insight.regions.last ? ',' : '' %>
+            <%= link_to region.name, search_path(locations: [region.iso]), :class => 'tag'  %><%= region != insight.regions.last ? ',' : '' %>
           </span>
         <% end %>
       </div>

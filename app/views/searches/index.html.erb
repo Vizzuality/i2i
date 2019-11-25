@@ -73,7 +73,7 @@
                   </div>
                   <div class="grid-s-12 grid-m-3 filter-column">
                     <%= label_tag :topics, 'Topics' %>
-                    <%= select_tag(:topics, options_for_select(@topics.collect { |c| [c.name, c.slug] }, params[:topics]), { include_blank: true, multiple: true, class: 'filter-select' }) %>
+                    <%= select_tag(:topics, options_for_select(@topics.collect { |c| [c.name, c.slug] }, @selected_topics), { include_blank: true, multiple: true, class: 'filter-select' }) %>
                   </div>
                   <div class="grid-s-12 grid-m-3 filter-column">
                     <%= label_tag :locations, 'Locations' %>
@@ -90,14 +90,12 @@
             <% if !@records.nil? && @records.length > 0 %>
               <h2 class="title heading -big -center -dark">Search results</h2>
               <%= render partial: 'shared/cards', locals: { insights: @records } %>
+            <% elsif !@insights.nil? && @insights.length > 0 %>
+              <h2 class="title heading -big -center -dark">Recent publications</h2>
+                <%= render partial: 'shared/cards', locals: { insights: @insights } %>
             <% else %>
-              <% if @term || @tag_term %>
-                <h2 class="title heading -big -center -dark">Search results</h2>
-                <p>No search results</p>
-              <% else %>
-                <h2 class="title heading -big -center -dark">Recent publications</h2>
-                <%= render partial: 'shared/cards', locals: { insights: @insights }%>
-              <% end %>
+              <h2 class="title heading -big -center -dark">Search results</h2>
+              <p>No search results</p>
             <% end %>
           </div>
         </div>

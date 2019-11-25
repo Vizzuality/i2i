@@ -531,7 +531,7 @@
       var containerDimensions = this.chartContainer.getBoundingClientRect();
       var chartConfig = this._getChartConfig();
       var fixedWidth = false
-        || (chartConfig.responsive
+        || (chartConfig && chartConfig.responsive
         && chartConfig.responsive.mode === 'scroll'
         && containerDimensions.width < chartConfig.responsive.breakpoint);
 
