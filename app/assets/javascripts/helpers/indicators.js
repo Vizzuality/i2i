@@ -10,6 +10,7 @@
       COMMON: 'Common indicators',
       ACCESS: 'Financial access',
       STRANDS: 'Strands',
+      MSME_STRANDS: 'MSME Strands',
       ASSET: 'Asset',
       SDGS: 'SDGs',
       POVERTY: 'Poverty',
@@ -20,6 +21,7 @@
       COMMON: null,
       ACCESS: 'Based on total % of adults who have financial products independent of other products.',
       STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
+      MSME_STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
       ASSET: null,
       SDGS: null,
       POVERTY: null

@@ -113,11 +113,13 @@
         report: this.options.report,
         canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
