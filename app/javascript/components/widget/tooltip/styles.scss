@@ -1,0 +1,82 @@
+@import '_settings';
+
+.chart-tooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: 'space-around';
+  color: $color-5;
+  line-height: 19px;
+  padding: 10px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.19);
+  background-color: $color-4;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Arial;
+}
+
+.data-title {
+  display: block;
+}
+
+.data-line {
+  display: flex;
+  align-items: flex-start;
+  margin-right: 10px;
+
+  &._column {
+    flex-direction: row;
+    padding: 5px;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.data-line {
+  &.-_tacked {
+    margin-right: 0;
+  }
+}
+
+.data-line.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.data-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 10px;
+
+  &._column {
+    margin-right: 0;
+  }
+}
+
+.break-label {
+  font-style: italic;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.data-color {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  margin-right: 10px;
+  top: 3px;
+
+  &.bar {
+    border-radius: 0;
+    width: 4px;
+  }
+}
+
+.data-value {
+  font-weight: bold;
+}

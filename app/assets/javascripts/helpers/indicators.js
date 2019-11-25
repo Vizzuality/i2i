@@ -1,21 +1,34 @@
 ((function (App) {
+  var COUNTRIES = {};
+  var countries = _.forEach(gon.countries || [], function(country) {
+    COUNTRIES[country.iso] = country.name;
+  });
+
   App.Helper.Indicators = {
     // List of the categories of indicators
     CATEGORIES: {
       COMMON: 'Common indicators',
       ACCESS: 'Financial access',
-      STRANDS: 'Strands'
+      STRANDS: 'Strands',
+      ASSET: 'Asset',
+      SDGS: 'SDGs',
+      POVERTY: 'Poverty',
+      MSME_STRANDS: 'MSME indicators'
     },
 
     // Description for the categories
     CATEGORIES_DESC: {
       COMMON: null,
       ACCESS: 'Based on total % of adults who have financial products independent of other products.',
-      STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.'
+      STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
+      MSME_STRANDS: null,
+      ASSET: null,
+      SDGS: null,
+      POVERTY: null
     },
 
     // Map for the ISO and country names
-    COUNTRIES: {
+    COUNTRIES: Object.assign({
       UGA: 'Uganda',
       TZA: 'Tanzania',
       ZMB: 'Zambia',
@@ -42,7 +55,7 @@
       HTI: 'Haiti',
       TGO: 'Togo',
       MDG: 'Madagascar'
-    },
+    }, COUNTRIES),
 
     /**
      * Serialize an indicator

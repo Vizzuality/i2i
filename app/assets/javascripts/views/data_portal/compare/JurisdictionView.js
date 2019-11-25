@@ -18,7 +18,8 @@
       // List of the indicators used for the comparison
       // The format of each of them is:
       // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
-      compareIndicators: []
+      compareIndicators: [],
+      isMSME: false,
     },
 
     events: {
@@ -99,7 +100,8 @@
         id: 'jurisdiction',
         iso: this.options.iso,
         year: this.options.year,
-        filters: [] // The filters shouldn't be needed to retrieve the juridications
+        filters: [], // The filters shouldn't be needed to retrieve the juridications
+        isMSME: this.options.isMSME,
       });
 
       this.model.fetch()

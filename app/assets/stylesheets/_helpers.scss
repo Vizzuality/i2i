@@ -58,6 +58,12 @@
   text-align: right !important;
 }
 
+._align-right-only-desktop {
+  @media #{$mq-laptop} {
+    text-align: right !important;
+  }
+}
+
 ._is-visually-hidden {
   position: absolute;
   width: 1px;

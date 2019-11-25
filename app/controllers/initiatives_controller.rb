@@ -6,7 +6,7 @@ class InitiativesController < ApplicationController
   end
 
   def filter_index
-    @featured_tags = Tag.featured
+    @featured_tags = Tag.featured.order(:position)
     @tag = Tag.find_by(slug: params[:tag])
     records = []
 

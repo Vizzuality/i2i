@@ -7,7 +7,9 @@ import Intro from 'components/intro';
 import Sidebar from 'components/sidebar';
 import Map from 'components/map';
 import PreFooter from 'components/pre-footer';
-import Icons from 'wri-api-components/dist/icons';
+import { default as WRIicons } from 'wri-api-components/dist/icons';
+import Icons from 'components/icons';
+
 
 import './styles.scss';
 
@@ -29,7 +31,8 @@ export default class FSPMaps extends React.Component {
     setLayersSettings: PropTypes.func.isRequired,
     fetchLayers: PropTypes.func.isRequired,
     fetchWidgets: PropTypes.func.isRequired,
-    fetchJurisdictions: PropTypes.func.isRequired
+    fetchJurisdictions: PropTypes.func.isRequired,
+    fetchLocations: PropTypes.func.isRequired
   }
 
   static defaultProps = { latestYear: null }
@@ -54,13 +57,14 @@ export default class FSPMaps extends React.Component {
     this.props.fetchLayers();
     this.props.fetchWidgets();
     this.props.fetchJurisdictions();
+    this.props.fetchLocations();
 
     if (
       typeof zoom === 'undefined' &&
       typeof lat === 'undefined' &&
       typeof lng === 'undefined'
     ) {
-      this.props.setBBox(bbox);
+      setTimeout(() => this.props.setBBox(bbox), 500);
     }
 
     if (typeof zoom !== 'undefined') this.props.setZoom(+zoom);
@@ -116,6 +120,7 @@ export default class FSPMaps extends React.Component {
           <Sidebar />
           <Map />
           <Icons />
+          <WRIicons />
         </div>
         <PreFooter />
       </div>

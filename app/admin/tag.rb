@@ -14,7 +14,7 @@ ActiveAdmin.register Tag do
       f.input :title
       f.input :position
       f.input :image_url
-      f.input :description
+      f.input :description, as: :ckeditor, input_html: { ckeditor: { height: 400 } }
       li "Created at #{f.object.created_at}" unless f.object.new_record?
       li "Updated at #{f.object.updated_at}" unless f.object.new_record?
     end

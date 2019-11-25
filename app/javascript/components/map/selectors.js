@@ -38,20 +38,25 @@ export const getActiveLayers = createSelector(
     const allLayersOrder = _layersOrder.concat(difference(_selectedLayers, _layersOrder));
 
     const mapped = activeLayers.map((l) => {
+      const { years = [] } = l;
+
       const layerSetting = _layersSettings[l.id];
       const visualizationType = (layerSetting && typeof layerSetting.visualizationType !== 'undefined') ? layerSetting.visualizationType : 'normal';
       const opacity = (layerSetting && typeof layerSetting.opacity !== 'undefined') ? layerSetting.opacity : 1;
       const visibility = (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true;
+      const year = (layerSetting && typeof layerSetting.year !== 'undefined') ? layerSetting.year : years[0];
       const sectorConfigParams = {
         l,
-        iso: _iso
+        iso: _iso,
+        year
       };
 
       return {
         ...l,
         ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](sectorConfigParams) },
         visibility,
-        opacity
+        opacity,
+        year
       };
     });
 
@@ -76,14 +81,18 @@ export const getActiveLayerGroups = createSelector(
         iso: _iso
       };
 
+      const { years = [] } = l;
+
       const config = {
         dataset: l.id,
         id: l.id,
         visibility: (layerSetting && typeof layerSetting.visibility !== 'undefined') ? layerSetting.visibility : true,
         opacity: (layerSetting && typeof layerSetting.opacity !== 'undefined') ? layerSetting.opacity : 1,
+        year: (layerSetting && typeof layerSetting.year !== 'undefined') ? layerSetting.year : years[0],
         layers: [{
           ...l,
           ...l.layerType === 'sector' && { ...SECTOR_CONFIGS[visualizationType](sectorConfigParams) },
+          year: (layerSetting && typeof layerSetting.year !== 'undefined') ? layerSetting.year : years[0],
           active: true
         }],
         layerType: l.layerType

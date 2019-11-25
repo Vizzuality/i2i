@@ -1,3 +1,5 @@
+@import '_settings';
+
 // https://davidwalsh.name/css-triangles
 @mixin triangle($size, $color, $direction) {
   width: 0;
@@ -5,24 +7,11 @@
   font-size: 0;
 	line-height: 0;
 
-  @if($direction == 'up') {
-    border-top: 0;
-    border-left: $size solid transparent;  /* left arrow slant */
-    border-right: $size solid transparent; /* right arrow slant */
-    border-bottom: $size solid $color; /* bottom, add background color here */
-  }
-
   @if($direction == 'right') {
     border-right: 0;
     border-bottom: $size solid transparent;  /* left arrow slant */
     border-top: $size solid transparent; /* right arrow slant */
     border-left: $size solid $color; /* bottom, add background color here */
-  }
-
-  @if($direction == 'down') {
-    border-left: $size solid transparent;
-    border-right: $size solid transparent;
-    border-top: $size solid $color;
   }
 
   @if($direction == 'left') {
@@ -38,7 +27,8 @@
   position: absolute;
   width: 330px;
   height: 100%;
-  background: #F5F8F8;
+  background-color: #F5F8F8;
+  box-shadow: 0 -1px 3px 0 rgba(0,0,0,0.15);
   transform: translate(-100%, 0);
   transition: transform .24s cubic-bezier(0.445, 0.050, 0.550, 0.950);
 
@@ -49,7 +39,12 @@
   .overflow-container {
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100% - 54px); // height of tabs
+    height: calc(100% - 71px); // height of tabs
+
+    @media print {
+      overflow: visible;
+      height: 100%;
+    }
   }
 
   .toggle-btn {
@@ -67,7 +62,7 @@
 
       &:before {
         content: '';
-        @include triangle(6px, #2F939C, 'right');
+        @include triangle(6px, $color-1, 'right');
       }
     }
   }
@@ -79,9 +74,13 @@
 
       > .arrow {
         &:before {
-          @include triangle(6px, #2F939C, 'left');
+          @include triangle(6px, $color-1, 'left');
         }
       }
     }
+  }
+
+  @media print {
+    min-width: 800px;
   }
 }

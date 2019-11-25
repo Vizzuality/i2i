@@ -1,0 +1,43 @@
+@import '_settings';
+
+@font-face {
+  font-family: 'Chalet';
+  font-weight: $font-weight-medium;
+  src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
+}
+
+@mixin arrow($size, $border-width, $color, $direction) {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  border: $border-width solid $color;
+  content: '';
+
+  @if($direction == 'down') {
+    transform: rotate(45deg);
+    border-top: 0;
+    border-left: 0;
+  }
+}
+
+.legend-btn {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid $color-9;
+  margin-top: 20px;
+  padding-top: 10px;
+  color: $color-1;
+  font-family: Arial;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+
+  &::after {
+    @include arrow(7px, 2px, $color-1, 'down');
+    position: absolute;
+    bottom: -10px;
+    transform: translate(-38px, calc(-50% - 3px)) rotate(45deg);
+  }
+}
+
+

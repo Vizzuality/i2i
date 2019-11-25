@@ -9,9 +9,11 @@
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+// es6 shim for .finally() in promises
+const finallyShim = require('promise.prototype.finally');
+finallyShim.shim();
 
 // Support component names relative to this directory:
-const componentRequireContext = require.context('components', true);
-const ReactRailsUJS = require('react_ujs');
-
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);

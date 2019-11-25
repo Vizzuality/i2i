@@ -1,17 +1,22 @@
+@import '_settings';
+
 .c-fsp-intro {
-  // position: relative;
-  // margin-top: -150px;
-  // background: #2f939c;
-  color: #fff;
+  color: $color-4;
+  background-color: $color-1;
   font-family: Arial, sans-serif;
-  padding: 0 0 40px;
-  // z-index: 3;
+  padding: 0 0 15px;
+
+  .fsp-intro-header{
+    display: flex;
+    flex-direction: row;
+
+  }
 
   .intro-table {
     td, th {
       padding: 0 30px 0 0;
       vertical-align: baseline;
-      max-width: 170px;
+      max-width: 185px;
 
       &:last-child {
         padding: 0;
@@ -34,6 +39,9 @@
       margin-top: 5px;
       font-size: 14px;
     }
+  }
 
+  @media print {
+    display: none;
   }
 }

@@ -59,14 +59,27 @@
         <div class="wrapper">
           <div class="row">
             <div class="c-hero">
-              <div class="grid-l-12">
-                <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+              <div class="grid-l-6">
+              <%= render partial: 'data_portal_financial_diaries/country-selector' %>
+              </div>
+              <% if (@iso === 'HTI') %>
+                <div class="grid-l-6">
+                <div class="l-supplied-by">
+                <a href="https://www.brh.ht/" target="_blank" rel="noopener noreferrer">
+                  <img src="/images/logos/brh.png" alt="BRH" />
+                </a>
+              </div>
+              <% end %>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div className="grid-s-12 grid-l-5">
+
+  </div>
 
     <div style="margin-top: -190px; position: relative; z-index: 3">
       <%= react_component("fsp-maps-page", { iso: @iso, shortIso: @country.short_iso, bbox: @country.bbox, latestYear: @latest_year }) %>

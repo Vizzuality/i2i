@@ -1,0 +1,33 @@
+<% title 'i2i Micro, Small and Medium Enterprises' %>
+
+<div class="l-national-surveys l-library">
+  <div class="l-intro js-hero">
+    <div class="nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isCover: true } %>
+      </div>
+    </div>
+    <div class="fixed-nav">
+      <div class="wrapper">
+        <%= render partial: 'shared/header', locals: { isFixed: true } %>
+      </div>
+    </div>
+    <div class="content" style="background-image: url(<%= asset_path('headers/header-bg-data.jpg') %>)">
+      <%= render partial: 'data_portal/header_title' %>
+      <%= render partial: 'data_portal/sections_tabs' %>
+    </div>
+  </div>
+
+  <div class="l-content">
+    <div class="wrapper">
+      <%= render partial: 'data_portal/description',
+                 locals: {
+                   section_title: 'Micro, Small and Medium Enterprises',
+                   description: 'The primary Micro, Small and Medium Enterprises (MSMEs) probability survey data provides insights into the current MSME landscape. MSMEs are key drivers of economic growth, employment and innovation in developing economies. This data allows for a deeper understanding of MSMEs, their owners and the challenges these owners face.'
+                 } %>
+      <%= render partial: 'data_portal/filtered_countries_list', locals: { countries: @worldwide_countries, regions_hash: @regions_hash } %>
+      <%# render partial: 'data_portal/regions_list', locals: { regions: @regions } %>
+      <%= render partial: 'data_portal/additional_data' %>
+    </div>
+  </div>
+</div>

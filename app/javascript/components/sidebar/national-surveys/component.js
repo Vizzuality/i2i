@@ -1,8 +1,8 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import NationalSurveysEmbed from 'components/sidebar/analysis-result/national-surveys-embed';
+import NationalSurveysEmbed from 'components/sidebar/national-surveys/national-surveys-embed';
 
 class NationalSurveysComponent extends PureComponent {
   static propTypes = {

@@ -123,6 +123,7 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       throw response;
     })
     .then((data) => {
+
       dispatch(setNearbyArea(data.features[0].geometry));
       dispatch(setNearbyCenter({
         lng: data.features[0].properties.center[0],
@@ -140,6 +141,11 @@ export const fetchNearbyArea = createThunkAction('ANALYSIS/fetchNearby', () => (
       }
     });
 });
+
+// Analysis - Analyse Pattern
+export const setLocationSelected = createAction('ANALYSIS/setLocationSelected');
+export const setLocationsList = createAction('ANALYSIS/setLocationsList');
+export const setLocationArea = createAction('ANALYSIS/setLocationArea');
 
 // Analysis - area of interest
 export const setAreaOfInterest = createAction('ANALYSIS/setAreaOfInterest');

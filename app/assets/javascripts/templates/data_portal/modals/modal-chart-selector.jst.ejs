@@ -6,7 +6,7 @@
         <input type="radio" value="<%= chart.name %>" name="chart" <%= chart.selected ? 'checked' : '' %> <%= !chart.available ? 'disabled' : '' %> id="radio-<%= chart.name %>" class="js-option" />
         <label for="radio-<%= chart.name %>">
           <%= chart.name.slice(0, 1).toUpperCase() + chart.name.slice(1, chart.name.length) %>
-          <img src="/images/charts/<%= chart.name.replace(' ', '-') %>-chart-icon.svg" alt="<%= chart.name %> chart" />
+          <img src="/images/charts/<%= chart.name.replace(/\s/g, '-') %>-chart-icon.svg" alt="<%= chart.name %> chart" />
         </label>
       </div>
 

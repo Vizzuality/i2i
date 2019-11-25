@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import Modal from 'components/modal';
 import LayerInfo from 'components/list/layer-info';
 
+import Icon from 'components/icon';
+
 // styles
 import './styles.scss';
 
@@ -49,12 +51,15 @@ class ListComponent extends React.Component {
     return (
       <div className="c-list">
         {rows.map((row) => {
+          const { category } = row;
           const label = row[labelField];
           const count = !!row.count && Numeral(row.count).format('0,0');
           const listItemClassName = classnames({
             'list-item': true,
+            '-all': category === 'all',
             '-checked': selectedLayers.includes(row.id)
           });
+
           const user = window.gon.users_data.find(u => u.id === row.user_id);
 
           return (
@@ -72,13 +77,24 @@ class ListComponent extends React.Component {
                     {user && row.user_id && <h4>by {`${user.name} ${user.surname}`}</h4>}
                   </div>
                 </div>
-                {row.info &&
-                  <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
-                    <svg className="icon icon-info">
-                      <use xlinkHref="#icon-info" />
-                    </svg>
-                  </button>
-                }
+
+                <div className="item-icons">
+
+                  {row.info &&
+                    <button className="btn-info" onClick={e => this.onClickInfo(e, row)}>
+                      <svg className="icon icon-info">
+                        <use xlinkHref="#icon-info" />
+                      </svg>
+                    </button>
+                  }
+                  {(row.sector || row.type_id) && <Icon
+                    name="analysis"
+                    className={classnames('-small', '-sea', {
+                      '-selected': selectedLayers.includes(row.id),
+                      '-disabled': !selectedLayers.includes(row.id)
+                    })}
+                  />}
+                </div>
               </div>
             </div>
           );

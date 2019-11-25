@@ -272,59 +272,21 @@
           <div class="grid-s-12">
             <div class="l-form-contact">
               <div class="grid-s-12 grid-m-8">
-
-                <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="c-form contact-form">
-
-
-<input type=hidden name='captcha_settings' value='{"keyname":"GoogleCAPTCHA","fallback":"true","orgId":"00D0Y000002FWyG","ts":""}'>
-<input type=hidden name="orgid" value="00D0Y000002FWyG">
-<input type=hidden name="retURL" value="https://i2ifacility.org/about">
-
-
-                  <div class="custom-row">
-                    <label for="first_name">First Name *</label><br>
-                    <input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required />
+                <%= simple_form_for @contact, url: about_form_contacts_path, html: { class: 'c-form contact-form' }, defaults: { wrapper_html: { class: 'custom-row' } }, remote: true do |f| %>
+                  <div id="messages"></div>
+                  <%= f.error :base %>
+                  <%= f.input :first_name, required: true %>
+                  <%= f.input :last_name, required: true %>
+                  <%= f.input :email, required: true %>
+                  <%= f.input :title %>
+                  <%= f.input :company %>
+                  <%= f.input :country, as: :string %>
+                  <%= f.input :message, required: true %>
+                  <div class="actions">
+                    <%= recaptcha_tags %>
+                    <%= f.button :submit, 'Send', class: 'primary-btn' %>
                   </div>
-
-                  <div class="custom-row">
-                    <label for="last_name">Last Name</label><br>
-                    <input  id="last_name" maxlength="80" name="last_name" size="20" type="text" />
-                  </div>
-
-                  <div class="custom-row">
-                    <label for="email">Email *</label><br>
-                    <input  id="email" required maxlength="80" name="email" size="20" type="text" required />
-                  </div>
-
-
-                  <div class="custom-row">
-                    <label for="title">Title</label><br>
-                    <input  id="title" maxlength="40" name="title" size="20" type="text" />
-                  </div>
-
-
-                  <div class="custom-row">
-                    <label for="company">Company</label><br>
-                    <input id="company" maxlength="40" name="company" size="20" type="text" />
-                  </div>
-
-
-                  <div class="custom-row">
-                    <label for="country">Country</label><br>
-                    <input  id="country" maxlength="40" name="country" size="20" type="text" />
-                  </div>
-
-
-                  <div class="custom-row">
-                    <label for="Message">Message *</label><br>
-                    <textarea id="00N0Y00000QyK3C" name="00N0Y00000QyK3C" type="text" wrap="soft" required></textarea>
-                  </div>
-
-                  <div style="margin-top: 30px" class="g-recaptcha" data-sitekey="6LfxMawUAAAAABpwWctOmKpQ1XOSW0T-g1__xSry"></div><br>
-
-                  <input type="submit" name="submit" class="primary-btn">
-                </form>
-
+                <% end %>
               </div>
             </div>
           </div>

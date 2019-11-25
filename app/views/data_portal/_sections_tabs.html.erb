@@ -1,0 +1,34 @@
+<div class="l-library-content-selector">
+  <div class="wrapper">
+    <div class="row">
+      <div class="grid-12">
+        <div class="selectors-container">
+          <%= link_to 'All Data',
+                      data_portal_path,
+                      class: "content-selector #{'-current' if current_page?(data_portal_path)}", data: { turbolinks: false } %>
+
+          <%= link_to national_surveys_path,
+                      class: "content-selector #{'-current' if current_page?(national_surveys_path)}", data: { turbolinks: false } do %>
+            <%= inline_svg('logos/national_surveys.svg', class: "icon tab-icon #{'-current' if current_page?(national_surveys_path)}") %>
+            National Surveys
+          <% end %>
+          <%= link_to msm_enterprises_path,
+                      class: "content-selector #{'-current' if current_page?(msm_enterprises_path)}", data: { turbolinks: false } do %>
+            <%= inline_svg('logos/msme.svg', class: "icon tab-icon #{'-current' if current_page?(msm_enterprises_path)}") %>
+            MSME
+          <% end %>
+          <%= link_to financial_diaries_path,
+                      class: "content-selector #{'-current' if current_page?(financial_diaries_path)}", data: { turbolinks: false } do %>
+            <%= inline_svg('logos/financial_diaries.svg', class: "icon tab-icon #{'-current' if current_page?(financial_diaries_path)}") %>
+            Financial Diaries
+          <% end %>
+          <%= link_to geospatial_data_path,
+                      class: "content-selector #{'-current' if current_page?(geospatial_data_path)}", data: { turbolinks: false } do %>
+            <%= inline_svg('logos/geospatial_data.svg', class: "icon tab-icon #{'-current' if current_page?(geospatial_data_path)}") %>
+            Geospatial Data
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

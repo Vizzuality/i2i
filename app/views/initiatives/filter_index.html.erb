@@ -1,4 +1,4 @@
-<% title 'Initiatives | i2i' %>
+<% title 'Research themes | i2i' %>
 
 <div class="l-initiatives l-library">
   <div class="l-intro js-hero">
@@ -18,11 +18,11 @@
           <div class="row">
             <div class="c-hero">
               <div class="grid-s-12 grid-l-10">
-                <%= link_to 'Go to i2i initiatives', initiatives_path, class: "initiatives-link" %>
+                <%= link_to 'Go to i2i research themes', initiatives_path, class: "initiatives-link" %>
                 <h1 class="title -highlight -huge"><%= @tag.title %></h1>
               </div>
               <div class="grid-l-6">
-                <p class="subtitle"><%= @tag.description %></p>
+                <div class="subtitle"><%= @tag.description.html_safe %></div>
               </div>
             </div>
           </div>
@@ -46,9 +46,21 @@
   </div>
   <div class="l-content">
     <div class="l-card-grid">
+      <% if @tag.title == 'Openi2i' %>
+        <div class="partners-container">
+          <div class="wrapper">
+            <div class="row">
+              <div class="grid-12">
+                <h2>Openi2i partners</h2>
+                <%= render partial: 'partners/list' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="wrapper">
         <div class="row">
-          <%= render partial: 'shared/cards', locals: { insights: @insights }%>
+          <%= render partial: 'shared/cards', locals: { insights: @insights } %>
         </div>
       </div>
     </div>

@@ -25,6 +25,10 @@ export default {
     const intro = { ...state.intro, data: payload };
     return { ...state, intro };
   },
+  [actions.setDistance]: (state, { payload }) => {
+    const intro = { ...state.intro, distance: payload };
+    return { ...state, intro };
+  },
   [actions.setIntroLoading]: (state, { payload }) => {
     const intro = { ...state.intro, loading: payload };
     return { ...state, intro };
@@ -71,6 +75,11 @@ export default {
 
   [actions.setLabel]: (state, { payload }) => {
     const map = { ...state.map, label: payload };
+    return { ...state, map };
+  },
+
+  [actions.setLatLng]: (state, { payload }) => {
+    const map = { ...state.map, latLng: payload };
     return { ...state, map };
   },
 
@@ -155,6 +164,65 @@ export default {
   [actions.setNearbyCenter]: (state, { payload }) => {
     const nearby = { ...state.analysis.nearby, center: payload };
     const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+  [actions.togglePinDrop]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, pin: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+  [actions.toggleLocation]: (state, { payload }) => {
+    const nearby = { ...state.analysis.nearby, location: payload };
+    const analysis = { ...state.analysis, nearby };
+    return { ...state, analysis };
+  },
+
+  // Analysis - Analyse patterns
+
+  [actions.setPattern]: (state, { payload }) => {
+    const analysis = { ...state.analysis, pattern: payload };
+    return { ...state, analysis };
+  },
+  [actions.setPatternError]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, error: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.setPatternArea]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, area: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.setPatternCenter]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, center: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.togglePatternPinDrop]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, pin: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+  [actions.togglePatternLocation]: (state, { payload }) => {
+    const pattern = { ...state.analysis.pattern, location: payload };
+    const analysis = { ...state.analysis, pattern };
+    return { ...state, analysis };
+  },
+
+  // Analysis - Analyse patterns
+  [actions.setLocationsList]: (state, { payload }) => {
+    const location = { ...state.analysis.location, list: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationSelected]: (state, { payload }) => {
+    const location = { ...state.analysis.location, selectedLocation: payload };
+    const analysis = { ...state.analysis, location };
+    return { ...state, analysis };
+  },
+  [actions.setLocationArea]: (state, { payload }) => {
+    const location = { ...state.analysis.location, area: payload };
+    const analysis = { ...state.analysis, location };
     return { ...state, analysis };
   },
 

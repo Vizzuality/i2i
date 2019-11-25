@@ -1,7 +1,4 @@
 Rails.application.configure do
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = false
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -17,12 +14,16 @@ config.webpacker.check_yarn_integrity = false
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
+  # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
+  # config.require_master_key = true
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = Uglifier.new(harmony: true)
+  config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -36,6 +37,9 @@ config.webpacker.check_yarn_integrity = false
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
+
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -53,11 +57,13 @@ config.webpacker.check_yarn_integrity = false
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
+  # config.cache_store = :mem_cache_store
   config.cache_store = :redis_store, "redis://#{ENV.fetch('REDIS_HOST', 'localhost')}:6379/0/cache"
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "i2i_#{Rails.env}"
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -66,18 +72,9 @@ config.webpacker.check_yarn_integrity = false
 
   config.action_mailer.delivery_method = :sparkpost
   # To work with Active Admin
-  config.action_mailer.default_url_options =
-    { host: ENV.fetch('I2I_HOST') { 'i2ifacility.org' },
-      port: ENV.fetch('I2I_PORT') { } }
-  #config.action_mailer.delivery_method = :smtp
-  #config.action_mailer.smtp_settings = {
-  #  address:              'smtp.gmail.com',
-  #  port:                 587,
-  #  domain:               'i2i.com',
-  #  user_name:            ENV.fetch('EMAIL_USERNAME'),
-  #  password:             ENV.fetch('EMAIL_PASSWORD'),
-  #  authentication:       'plain',
-  #  enable_starttls_auto: true }
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch('I2I_HOST') { 'i2ifacility.org' }
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -93,16 +90,15 @@ config.webpacker.check_yarn_integrity = false
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-
-  # image magick
-  Paperclip.options[:command_path] = '/usr/bin/'
-
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # ImageMagick
+  Paperclip.options[:command_path] = '/usr/bin/'
 end

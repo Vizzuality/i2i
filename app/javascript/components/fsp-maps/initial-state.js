@@ -5,14 +5,18 @@ export default {
     bbox: [],
     latestYear: null
   },
-  intro: { data: [] },
+  intro: {
+    data: [],
+    distance: { label: '5 km', value: 5 }
+  },
   introAnalysis: { data: [] },
   map: {
     open: true,
     zoom: 3,
     center: { lat: 0, lng: 0 },
     basemap: 'light',
-    label: 'dark'
+    label: 'dark',
+    latLng: { lat: '', lng: '' }
   },
   legend: { open: true },
   sidebar: {
@@ -35,11 +39,25 @@ export default {
   analysis: {
     active: false,
     nearby: {
-      location: {},
+      location: true,
+      pin: { active: false, dropped: false },
       time: 30,
       area: {},
       error: null,
-      center: {}
+      center: { lat: 0, lng: 0 }
+    },
+    pattern: {
+      location: true,
+      pin: { active: false, dropped: false },
+      time: 30,
+      area: {},
+      error: null,
+      center: { lat: 0, lng: 0 }
+    },
+    location: {
+      list: [],
+      selectedLocation: {},
+      area: {}
     },
     areaOfInterest: {
       drawing: false,

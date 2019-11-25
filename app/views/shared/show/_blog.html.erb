@@ -17,28 +17,32 @@
                     <div class="grid-s-12">
                       <%= link_to 'Blog', insights_filter_index_path('blogs'), :class => 'index-link _no-mobile' %>
                       <h1 class="title -xbig -dark js-social-nav-title"><%= blog.title %></h1>
-                      <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
-                        <% unless blog.author.blank? && blog.custom_author.blank? %>
-                          <% if blog.custom_author.present? %>
-                            by <span class="author-name"><%= blog.custom_author %></span>
-                          <% else %>
-                            by <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+
+                      <div class="subheader">
+                        <div>
+                           <span class="authorship <% unless blog.workstream.blank? %> -has-workstream <% end %>">Written
+                            <% unless blog.author.blank? && blog.custom_author.blank? %>
+                              <% if blog.custom_author.present? %>
+                                by <span class="author-name"><%= blog.custom_author %></span>
+                              <% else %>
+                                by <%= link_to blog.author, about_path(:member => blog.author.parameterize), :class => 'author-name' %>
+                              <% end %>
+                            <% end %>
+                            on <%= DateHelper.beautify blog.date %>
+                          </span>
+                          <div class="tags-container">
+                            <% if @tags.present? %>
+                              <% @tags.each do |tag| %>
+                                <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %>
+                              <% end %>
+                            <% end %>
+                          </div>
+                          <% unless blog.workstream.blank? %>
+                            <span class="workstream"><%= blog.workstream %></span>
                           <% end %>
-                        <% end %>
-                        on <%= DateHelper.beautify blog.date %>
-                      </span>
-                      <div class="tags-container">
-                        <% if @tags.present? %>
-                          <% @tags.each do |tag| %>
-                            <span>
-                              <%= link_to tag.name, search_path(:tag_term => tag.slug), :class => 'tag'  %><%= tag != @tags.last ? ',' : '' %>
-                            </span>
-                          <% end %>
-                        <% end %>
+                        </div>
+                        <%= render partial: 'shared/social-nav-inline', locals: { title: blog.title } %>
                       </div>
-                      <% unless blog.workstream.blank? %>
-                        <span class="workstream"><%= blog.workstream %></span>
-                      <% end %>
                     </div>
                   </div>
                 </header>
@@ -73,7 +77,7 @@
               <% if @morePaginationAvailable %>
                 <div class="grid-s-12">
                   <div class="grid-footer" id="show-more">
-                    <%= link_to 'Show more', insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type, offset: @offset, anchor: 'show-more' }), :class => 'c-button -big -sea' %>
+                    <%= link_to 'Show more', insights_show_path(blog.category.slug, blog.slug, { entity: blog.record_type, offset: @offset, anchor: 'show-more' }), data: { turbolinks: true }, :class => 'c-button -big -sea' %>
                   </div>
                 </div>
               <% end %>

@@ -1,4 +1,4 @@
-<% title 'Initiatives | i2i' %>
+<% title 'Research themes | i2i' %>
 
 <div class="l-library">
   <div class="l-intro js-hero">
@@ -18,7 +18,7 @@
           <div class="row">
             <div class="c-hero">
               <div class="grid-l-8">
-                <h1 class="title -highlight -huge">i2i initiatives</h1>
+                <h1 class="title -highlight -huge">Research themes</h1>
                 <p class="subtitle">See how we’re working to promote financial inclusion through data-driven insights.</p>
                 </div>
               </div>
@@ -30,21 +30,38 @@
   <div class="l-content">
     <div class="wrapper">
       <div class="l-card-grid">
-        <div class="row js-masonry-cards">
-          <% @featured_tags.each do |tag| %>
-            <div class="js-masonry-item grid-s-12 grid-m-6">
+        <% if @featured_tags && @featured_tags.size > 0 %>
+          <div class="row">
+            <div class="grid-s-12 grid-m-12">
               <article class="c-card">
-                <a href="<%= initiatives_filter_index_path(tag.slug) %>" alt="Measurement">
-                  <div class="picture" style="background-image: url(<%= asset_path(tag.image_url) %>)"></div>
-                  <div class="metadata">
-                    <h4 class="title -dark -xs"><%= tag.title %></h4>
-                    <p><%= tag.description %></p>
-                  </div>
-                </a>
+                <%= link_to '', initiatives_filter_index_path(@featured_tags[0].slug), class: "picture", style: "background-image: url(#{asset_path(@featured_tags[0].image_url)}" %>
+                <div class="metadata">
+                  <h4 class="title -dark -xs">
+                    <%= link_to @featured_tags[0].title, initiatives_filter_index_path(@featured_tags[0].slug) %>
+                  </h4>
+                  <div><%= @featured_tags[0].description.html_safe %></div>
+                </div>
               </article>
             </div>
-          <% end %>
-        </div>
+          </div>
+          <div class="row js-masonry-cards">
+            <% @featured_tags.each_with_index do |tag, index| %>
+              <% if index > 1 %>
+                <div class="js-masonry-item grid-s-12 grid-m-6">
+                  <article class="c-card">
+                    <%= link_to '', initiatives_filter_index_path(tag.slug), class: "picture", style: "background-image: url(#{asset_path(tag.image_url)}" %>
+                    <div class="metadata">
+                      <h4 class="title -dark -xs">
+                        <%= link_to tag.title, initiatives_filter_index_path(tag.slug) %>
+                      </h4>
+                      <p><%= tag.description.html_safe %></p>
+                    </div>
+                  </article>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

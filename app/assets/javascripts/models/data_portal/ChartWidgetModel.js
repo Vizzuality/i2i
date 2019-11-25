@@ -34,6 +34,7 @@
         fspId: null,
         expanded: false,
         isRegion: false,
+        isMSME: false,
       }, options);
 
       this.indicatorModel = new App.Model.IndicatorModel({}, this.options);
@@ -59,7 +60,8 @@
                   return filter.id !== 'jurisdiction';
                 })
                 .concat(compareIndicator.filters),
-              expanded: this.options.expanded
+              expanded: this.options.expanded,
+              isMSME: this.options.isMSME,
             }
           )
         }, this);

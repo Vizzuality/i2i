@@ -52,6 +52,10 @@ Rails.application.routes.draw do
   # Data Portal - FinScope Data for regions
    get 'data-portal/region/:iso/:year', to: 'data_portal#show_by_region',  as: 'data_portal_y_region'
 
+  # Data Portal - MSM Enterprises
+  get 'data-portal/msm-enterprises', to: 'data_portal/msm_enterprises#index', as: 'msm_enterprises'
+  get 'data-portal/msm-enterprises/:iso/:year', to: 'data_portal/msm_enterprises#show', as: 'msm_enterprises_show'
+
   # Data Portal - Financial Diaries
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
                                                                              as: 'data_portal_country_preview'
@@ -62,7 +66,6 @@ Rails.application.routes.draw do
 
   get 'resources(/:category)', to: 'libraries#index', as: 'libraries'
 
-  post 'email' => 'static_pages#email'
   get 'about' => 'static_pages#about'
   get 'terms-of-use', to: 'static_pages#terms_of_use', as: 'terms_of_use'
   get 'privacy-policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
@@ -71,6 +74,8 @@ Rails.application.routes.draw do
 
   resource :contacts, only: :create do
     post :batch_download
+    post :about_form
+    post :ns_download_all
   end
 
   scope :format => true, :constraints => { :format => 'json' } do
@@ -80,7 +85,7 @@ Rails.application.routes.draw do
 
   # Insights
   get 'insights/:category/:slug', to: 'insights#show', as: 'insights_show'
-  get 'insights/:category', to: 'insights#index', as: 'insights_filter_index'
+  get 'insights/:category', to: 'insights#categories', as: 'insights_filter_index'
   get 'insights', to: 'insights#index'
 
   # Initiatives

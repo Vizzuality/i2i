@@ -60,18 +60,47 @@ class News < ApplicationRecord
 
   scope :search_fields, ->(term) do
     where(published: true)
-      .joins(:category)
-      .where("lower(news.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ?",
-             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .left_outer_joins(:category, :countries, :regions)
+      .where("lower(news.title) LIKE ? OR lower(summary) LIKE ? OR lower(content) LIKE ? OR lower(categories.name) LIKE ? OR lower(countries.name) LIKE ? OR lower(regions.name) LIKE ?",
+             "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
       .distinct
   end
 
   scope :search_tags, ->(term) do
     where(published: true)
-     .joins(:tags)
-     .where("lower(tags.slug) LIKE ?", "%#{term.downcase}%")
-     .distinct
-   end
+      .left_outer_joins(:tags, :countries, :regions)
+      .where("lower(tags.slug) LIKE ? OR lower(countries.iso) LIKE ? OR lower(regions.iso) LIKE ?", "%#{term.downcase}%", "%#{term.downcase}%", "%#{term.downcase}%")
+      .distinct
+  end
+
+  def self.search_by_filters(terms = [], categories = [], topics = [], locations = [])
+    result = self.where(published: true)
+      .left_outer_joins(:tags, :countries, :regions)
+
+    if terms && terms.size > 0
+      terms_arr = terms.map { |t| t.downcase }
+      terms_st = "%(#{terms_arr.join('|')})%"
+      result = result.where("lower(news.title) SIMILAR TO ? OR lower(summary) SIMILAR TO ? OR lower(content) SIMILAR TO ?", terms_st, terms_st, terms_st)
+    end
+
+    if categories && categories.size > 0
+      result = result.where(category_id: categories)
+    end
+
+    if topics && topics.size > 0
+      topics_arr = topics.map { |t| t.downcase }
+      topics_st = "%(#{topics_arr.join('|')})%"
+      result = result.where("lower(tags.slug) SIMILAR TO ?", topics_st)
+    end
+
+    if locations && locations.size > 0
+      locations_arr = locations.map { |t| t.downcase }
+      locations_st = "%(#{locations_arr.join('|')})%"
+      result = result.where("lower(countries.iso) SIMILAR TO ? OR lower(regions.iso) SIMILAR TO ?", locations_st, locations_st)
+    end
+
+    return result.order(date: :desc).distinct
+  end
 
   def set_date
     self.date ||= DateTime.now

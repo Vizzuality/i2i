@@ -62,7 +62,11 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      if (this.options.isMSME) {
+        this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
+      } else {
+        this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      }
       this._fetchData();
     },
 
@@ -108,9 +112,17 @@
         showToolbar: this.options.showToolbar,
         report: this.options.report,
         canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
@@ -353,7 +365,8 @@
           this._fetchData();
         }.bind(this),
         stopCompareCallback: this._onStopCompare.bind(this),
-        isRegion: this.options.isRegion
+        isRegion: this.options.isRegion,
+        isMSME: this.options.isMSME,
       });
     },
 
@@ -363,7 +376,8 @@
     _openModalChartAnalysis: function () {
       var nonComplexIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
         return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS
-          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS;
+          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS
+          && indicator.category !== App.Helper.Indicators.CATEGORIES.ASSET;
       });
 
       new App.Component.ModalChartAnalysis({
@@ -448,6 +462,7 @@
               compareIndicators: this.options.compareIndicators,
               expanded: this.options.chart === 'table',
               isRegion: this.options.isRegion,
+              isMSME: this.options.isMSME,
             })
           );
 
@@ -532,6 +547,9 @@
       var width = Math.round((fixedWidth ? 1024 : containerDimensions.width) - padding.left - padding.right);
       var height = Math.round(width * this._getChartRatio());
 
+      // Min height: 300 for pie charts
+      if (chartConfig.name === 'pie') height = height < 260 ? 300 : height;
+
       // We save the current dimensions of the chart to diff them whenever the window is resized in order to minimize
       // the number of re-renders
       /* eslint-disable no-underscore-dangle */
@@ -567,6 +585,7 @@
     _getChartTemplate: function () {
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
+      if (chartName === 'table') return JST['templates/data_portal/table'];
       return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
     },
 
@@ -587,6 +606,8 @@
      */
     _getChartRatio: function () {
       var chartConfig = this._getChartConfig();
+      var indicator = this._getIndicator();
+      if (indicator.isFullWidth) return 0.3;
       return (chartConfig && chartConfig.ratio) || this.options.chartRatio;
     },
 
@@ -600,9 +621,10 @@
         if (!this.model.get('data').length) {
           this.options.chart = 'empty';
         } else {
+          var indicator = this._getIndicator();
           var availableCharts = this._getAvailableCharts();
           if (availableCharts.length) {
-            this.options.chart = availableCharts[0];
+            this.options.chart = indicator.defaultChart || availableCharts[0];
           } else {
             // eslint-disable-next-line no-console
             console.warn('Unable to generate a chart out of the current dataset');

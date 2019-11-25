@@ -6,6 +6,7 @@
     routes: {
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
+      'data-portal/msm-enterprises/:iso/:year': 'msme_country',
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
@@ -38,9 +39,12 @@
       new App.Component.CountryPreview({
         onChangeCountry: function (country) {
           var iso = country.split('-')[0];
-          // It's a kind of magic
-          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
-          Turbolinks.visit('/data-portal/' + iso + '/' + latesYear);
+
+          if (year === 'fsp-maps') {
+            window.location = '/data-portal/' + iso + '/' + year
+          } else {
+            Turbolinks.visit('/data-portal/' + iso + '/' + country.split('-')[1]);
+          }
         }
       });
     },
@@ -61,6 +65,26 @@
           // It's a kind of magic
           var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
           Turbolinks.visit('/data-portal/region/' + iso + '/' + latesYear);
+        }
+      });
+    },
+
+    msme_country: function (iso, year) {
+      // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      new App.Page.DataPortalMSMECountryPage({
+        iso: iso,
+        year: +year
+      });
+
+      new App.Component.CountryPreview({
+        onChangeCountry: function (country) {
+          var iso = country.split('-')[0];
+          // It's a kind of magic
+          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
+          Turbolinks.visit('/data-portal/msm-enterprises/' + iso + '/' + latesYear);
         }
       });
     },

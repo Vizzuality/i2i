@@ -1,62 +1,54 @@
 class SearchesController < ApplicationController
   def index
+    # Term
     term = params[:term].class == Array ? params[:term].map(&:strip) : params[:term].split(',').map(&:strip) rescue nil
+
+    # Topics
     tag_term = params[:tag_term].split(',').map(&:strip) rescue nil
+    topics_term = params[:topics].class == Array ? params[:topics].map(&:strip) : params[:topics].split(',').map(&:strip) rescue nil
+    if tag_term
+      tag_term.each do |tag|
+        topics_term << tag
+      end
+    end
 
-    if !term && !tag_term
-      records = []
+    # Categories
+    categories = Category.where(slug: params[:types])
+    categories_term = categories.map { |cat| cat.id }
 
+    # Locations
+    locations_term = params[:locations].class == Array ? params[:locations].map(&:strip) : params[:locations].split(',').map(&:strip) rescue nil
+
+    # Search result
+    records = []
+
+    if !term && !topics_term && !locations_term && categories_term.size === 0
       entities.each do |klass|
         records << klass.published.featured
       end
 
-      @tweets = TwitterApi.get_tweets
       @insights = records.flatten.sort do |a, b|
         [[a[:position] ? 0 : 1, a[:position]], b[:updated_at]] <=> [[b[:position] ? 0 : 1, b[:position]], a[:updated_at]]
       end[0..5]
+      @tweets = TwitterApi.get_tweets
     else
-      term_result = []
-      tag_result = []
+      records << News.search_by_filters(term, categories_term, topics_term, locations_term)
+      records << Blog.search_by_filters(term, categories_term, topics_term, locations_term)
+      records << Event.search_by_filters(term, categories_term, topics_term, locations_term)
+      records << Library.search_by_filters(term, categories_term, topics_term, locations_term)
 
-      if term
-        term.each do |search_term|
-          term_result << News.search_fields(search_term)
-          term_result << Blog.search_fields(search_term)
-          term_result << Event.search_fields(search_term)
-          term_result << Library.search_fields(search_term)
-        end
-
-        @term = term
-        term_result.flatten!
-      end
-
-      if tag_term
-        tag_term.each do |search_term|
-          tag_result << News.search_tags(search_term)
-          tag_result << Blog.search_tags(search_term)
-          tag_result << Event.search_tags(search_term)
-          tag_result << Library.search_tags(search_term)
-        end
-
-        @tag_term = TagsHelper.slugsToNames tag_term
-        tag_result.flatten!
-      end
-
-      search_result =
-      if term && tag_term
-        term_result & tag_result
-      elsif term && !tag_term
-        term_result
-      elsif !term && tag_term
-        tag_result
-      end
-
-      @categories = Category.all
-      @records = (search_result.flatten.uniq)
+      @records = records.flatten.uniq.sort_by { |r| -r.date.to_i }
     end
 
+    # Variables for filters
+    @categories = Category.all
+    @topics = Tag.all.order(:slug)
+    @countries = Country.ordered_by_name
+    @term = term
+
+    # GON
     gon.term = term
     gon.selected_tags = tag_term
-    gon.tags = Tag.all.order(:slug)
+    gon.tags = @topics
   end
 end

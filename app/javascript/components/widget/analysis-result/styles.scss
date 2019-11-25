@@ -1,0 +1,71 @@
+@import '_settings';
+
+// https://davidwalsh.name/css-triangles
+@mixin triangle($size, $color, $direction) {
+  width: 0;
+  height: 0;
+  font-size: 0;
+	line-height: 0;
+
+  @if($direction == 'left') {
+    border-left: 0;
+    border-bottom: $size solid transparent;  /* left arrow slant */
+	  border-top: $size solid transparent; /* right arrow slant */
+	  border-right: $size solid $color; /* bottom, add background color here */
+  }
+}
+
+.c-sidebar-analysis-result {
+  padding: 0px 30px 20px 55px;
+
+  .analysis-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+
+    >.back-button {
+      font-family: "Open Sans";
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      outline: none;
+
+      .title {
+        position: relative;
+        width: 100%;
+        padding: 0 0 0 15px;
+        font-size: 20px;
+        font-weight: normal;
+        color: #000;
+        line-height: 27px;
+
+        &:before {
+          @include triangle(6px, $color-1, 'left');
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0px;
+          transform: translate(0, -50%);
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .download-button {
+      color: $color-1;
+      font-family: "Open Sans";
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 22px;
+      text-decoration: underline;
+    }
+  }
+
+  @media print {
+    min-width: 800px;
+  }
+}
+

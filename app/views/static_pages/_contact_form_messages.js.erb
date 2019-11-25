@@ -1,0 +1,18 @@
+var errors = JSON.parse('<%= defined?(errors) ? errors.to_json.html_safe : {"status": "no_content"}.to_json.html_safe %>');
+var success = new Boolean('<%= defined?(success) ? success : false %>');
+var $messages = $("#messages");
+
+if (errors && !errors.status) {
+  $messages.addClass('-info');
+  var errors_html = errors.base.map(function(e) {
+    return $('<li></li>').html(e);
+  });
+  $messages
+    .addClass('message').addClass('-alert')
+    .html('<ul></ul>').find('ul').html(errors_html);
+} else if (success) {
+  $messages
+    .addClass('message').addClass('-info')
+    .html('Thanks! Your message has been sent.');
+  $('.custom-row, .actions').hide();
+}

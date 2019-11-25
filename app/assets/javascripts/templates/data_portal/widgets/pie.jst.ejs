@@ -1,6 +1,6 @@
 {
   "width": <%= width %>,
-  "height": <%= height %>,
+  "height": 0,
   "padding": "strict",
   "data": [
     {
@@ -46,12 +46,31 @@
       "points": true
     }
   ],
+  <%/*"legends": [
+    {
+      "fill": "color",
+      "orient": "left",
+      "properties": {
+        "labels": {
+          "fill": { "value": "#001d22" },
+          "font": {"value": "Open Sans" },
+          "fontSize": {"value": 14},
+          "fontWeight": {"value": 300}
+        },
+        "symbols": {
+          "stroke": {"value": "transparent"}
+        },
+        "legend": {
+        }
+      }
+    }
+  ],*/%>
   "marks": [
     {
       "type": "group",
       "properties": {
         "enter": {
-          "x": {"value": 30 },
+          "x": {"value": 0 },
           "y": {"value": 0, "scale": "legend"}
         }
       },
@@ -87,9 +106,9 @@
                   "x": { "value": 20 },
                   "y": {"field": "rank", "mult": 24, "offset": 0},
                   "dy": { "value": 12 },
-                  "fontSize": {"value": 13},
-                  "fontWeight": {"value": 300},
                   "font": {"value": "inherit"},
+                  "fontSize": {"value": 12},
+                  "fontWeight": {"value": 300},
                   "fill": { "value": "#001d22" },
                   "text": { "field": "label" }
                 }
@@ -107,7 +126,7 @@
       },
       "properties": {
         "enter": {
-          "x": { "field": { "group": "width" }, "mult": 1, "offset": <%= isNaN(height) ? height : ((height * - 0.33) - 30) %> },
+          "x": { "field": { "group": "width" }, "mult": 1, "offset": <%= isNaN(height) ? height : (height * - 0.33) %> },
           "y": { "field": { "group": "height" }, "mult": 0.5 },
           "startAngle": { "field": "layout_start" },
           "endAngle": { "field": "layout_end" },

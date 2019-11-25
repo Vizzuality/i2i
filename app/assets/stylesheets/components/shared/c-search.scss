@@ -96,3 +96,46 @@
     }
   }
 }
+
+
+.c-form-search-inline {
+  background: none;
+  color: $color-1;
+  display: block;
+  margin-top: 5px;
+
+  .icon-search {
+    color: $color-2;
+  }
+
+  #term {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid white;
+    margin-left: -28px;
+    padding: 3px 3px 3px 30px;
+    width: 140px;
+
+    color: $color-4;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: $color-4;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      color: $color-4;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      color: $color-4;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: $color-4;
+    }
+  }
+}

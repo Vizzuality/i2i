@@ -1,7 +1,8 @@
 WITH b as (SELECT the_geom FROM world_borders_hd as b
             WHERE b.iso_a3 = '{iso}'),
-     p as (SELECT the_geom FROM population_within_5km as p
-            WHERE iso = '{iso}'),
+     p as (SELECT the_geom FROM population_within_distance as p
+            WHERE iso = '{iso}'
+              AND buffer_km = '{distance_km}'),
      u as (SELECT ST_Intersection(u.the_geom,b.the_geom) as the_geom FROM urban_areas as u
              JOIN world_borders_hd as b
                ON ST_Intersects(b.the_geom, u.the_geom)

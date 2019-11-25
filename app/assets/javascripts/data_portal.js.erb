@@ -15,6 +15,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require select2
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
@@ -33,9 +34,9 @@
 //= require_tree ./components/shared
 //= require_tree ./components/data_portal
 //= require_tree ./components/data_portal_financial_diaries
+//= require_tree ./models
 //= require_tree ./collections/shared/
 //= require_tree ./collections/data_portal/
-//= require_tree ./models/data_portal/
 //= require_tree ./views/shared/
 //= require_tree ./views/data_portal/
 //= require_tree ./pages/data_portal
@@ -43,6 +44,7 @@
 //= require ./regional_filter
 
 window.API_URL = '<%= ENV.fetch('API_URL') %>';
+window.MSME_API_URL = '<%= ENV.fetch('MSME_API_URL') %>';
 window.FSP_CARTO_API = '<%= ENV.fetch('FSP_CARTO_API') %>';
 window.FSP_CARTO_API_KEY = '<%= ENV.fetch('FSP_CARTO_API_KEY') %>';
 window.FSP_CARTO_ACCOUNT = '<%= ENV.fetch('FSP_CARTO_ACCOUNT') %>';

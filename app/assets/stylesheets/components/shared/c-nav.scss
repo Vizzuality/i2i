@@ -64,6 +64,18 @@
         }
       }
 
+      &.-with-icon {
+        > a {
+          display: flex;
+          align-items: center;
+
+          > span {
+            display: inline-block;
+            margin-left: 5px;
+          }
+        }
+      }
+
       &.-with-dropdown {
         position: relative;
         transition-duration: 0.5s;

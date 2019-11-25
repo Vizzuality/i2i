@@ -1,8 +1,20 @@
 .c-map {
-  flex: 1;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 330px;
+  right: 0;
+  height: 800px;
+
+  &.-open {
+    left: 50%;
+  }
 
   .custom-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
     z-index: 0;
   }
 
@@ -49,5 +61,20 @@
         }
       }
     }
+  }
+
+  @media print {
+    display: none;
+  }
+}
+
+img.leaflet-marker-icon {
+  svg {
+    fill: red;
+    stroke: red;
+    color: red;
+  }
+  @media print {
+    display: none;
   }
 }

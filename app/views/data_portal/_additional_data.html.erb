@@ -6,22 +6,24 @@
 
 <div class="row additional-data-cards">
   <div class="js-masonry-cards">
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-surveys.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
+        </div>
 
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">National Surveys</h3>
 
           <ul class="c-stats-list">
             <li class="item">
-              <h4 class="value">31</h4>
+              <h4 class="value">33</h4>
               <span class="description">Countries</span>
             </li>
             <li class="item -last">
-              <h4 class="value">50</h4>
+              <h4 class="value">61</h4>
               <span class="description">Datasets</span>
             </li>
           </ul>
@@ -40,11 +42,49 @@
       </article>
     </div>
 
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
+        <%= image_tag('data-portal/data-portal-msme.jpg',
+                      alt: 'Data portal dashboard',
+                      class: 'datasetimage') %>
+        </div>
+
+        <div class="card-content">
+          <h3 class="title -big -dark filter-finscope">Micro, Small and Medium Enterprises</h3>
+
+          <ul class="c-stats-list">
+            <li class="item">
+              <h4 class="value">7</h4>
+              <span class="description">Countries</span>
+            </li>
+            <li class="item -last">
+              <h4 class="value">7</h4>
+              <span class="description">Datasets</span>
+            </li>
+          </ul>
+
+          <p class="dataset-description">
+            The primary Micro, Small and Medium Enterprises (MSMEs) probability survey data provides insights into the current MSME landscape. MSMEs are key drivers of economic growth, employment and innovation in developing economies. This data allows for a deeper understanding of MSMEs, their owners and the challenges these owners face.
+          </p>
+
+          <div class="discover-button">
+            <%= link_to "Check Micro, Small and Medium Enterprises",
+                        msm_enterprises_path,
+                        class: "c-button -sea dataset-button",
+                        data: { turbolinks: false } %>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
+      <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-diaries.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
+        </div>
 
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">Financial Diaries</h3>
@@ -74,12 +114,13 @@
       </article>
     </div>
 
-    <div class="grid-s-12 grid-m-6 grid-l-4 library js-masonry-item">
+    <div class="grid-s-12 grid-m-6 grid-l-6 library js-masonry-item">
       <article class="c-card">
+        <div class="thumb">
         <%= image_tag('data-portal/data-portal-geospatial.jpg',
                       alt: 'Data portal dashboard',
                       class: 'datasetimage') %>
-
+        </div>
         <div class="card-content">
           <h3 class="title -big -dark filter-finscope">Geospatial Data</h3>
 
@@ -89,7 +130,7 @@
               <span class="description">Countries</span>
             </li>
             <li class="item -last">
-              <h4 class="value">24</h4>
+              <h4 class="value">46</h4>
               <span class="description">Datasets</span>
             </li>
           </ul>
