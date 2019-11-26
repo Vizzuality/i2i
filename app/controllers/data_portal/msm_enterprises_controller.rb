@@ -26,9 +26,19 @@ class DataPortal::MsmEnterprisesController < ApplicationController
 
     @countries = Country.where(iso: msme_countries_iso)
     @country = Country.find_by(iso: params[:iso])
-    @country_latest_year = @countries.find do |c|
-      c[:iso] == @country.iso
-    end[:latest_year].to_s
+    @country_latest_year = msme_countries.find do |c|
+      c['iso'] == @country.iso
+    end['year'][0]['year'].to_s
+
+    @countries_for_select = @countries.map do |c|
+      {
+        name: c.name,
+        iso: c.iso,
+        latest_year: msme_countries.find do |msme_c|
+          msme_c['iso'] == c[:iso]
+        end['year'][0]['year'].to_s
+      }
+    end
 
     gon.countries = Country.all.ordered_by_name
 

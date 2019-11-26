@@ -5,7 +5,7 @@
 
   <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) || current_page?(msm_enterprises_show_path) %>
     <%= select_tag "country",
-      options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }.sort, @country[:iso]),
+      options_for_select(@countries_for_select.collect{ |country| [country[:name], "#{country[:iso]}-#{country[:latest_year]}"] }.sort, "#{@country[:iso]}-#{@country_latest_year}"),
       { class: 'country-selector js-country-selector' }
     %>
   <% end %>
