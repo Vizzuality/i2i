@@ -16,7 +16,7 @@ class ContactMailer < ApplicationMailer
     @contact = contact
     @links_block = ""
 
-    links.delete_if { |l| l.include? ".zip" }
+    links.delete_if { |l| !l.include? ".zip" }
     links.each do |link|
       @links_block << "<p><a href=\"#{link}\" target='_blank' download='true'>#{link}</a></p>"
     end
