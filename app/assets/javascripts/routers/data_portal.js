@@ -81,10 +81,10 @@
 
       new App.Component.CountryPreview({
         onChangeCountry: function (country) {
-          var iso = country.split('-')[0];
+          var countryISO = country.split('-')[0];
           // It's a kind of magic
           var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
-          Turbolinks.visit('/data-portal/msm-enterprises/' + iso + '/' + latesYear);
+          Turbolinks.visit('/data-portal/msm-enterprises/' + countryISO + '/' + latesYear);
         }
       });
     },

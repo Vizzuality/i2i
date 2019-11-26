@@ -13,7 +13,7 @@
       ASSET: 'Asset',
       SDGS: 'SDGs',
       POVERTY: 'Poverty',
-      MSME_STRANDS: 'MSME indicators'
+      MSME_STRANDS: 'MSME Indicators'
     },
 
     // Description for the categories
