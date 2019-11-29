@@ -99,19 +99,21 @@
 
 
 .c-form-search-inline {
+  display: flex;
+  align-items: center;
   background: none;
   color: $color-1;
-  display: block;
-  margin-top: 5px;
+  cursor: pointer;
 
   .icon-search {
     color: $color-2;
   }
 
   #term {
+    cursor: pointer;
     background: none;
     border: 0;
-    border-bottom: 1px solid white;
+    border-bottom: none;
     margin-left: -28px;
     padding: 3px 3px 3px 30px;
     width: 140px;
