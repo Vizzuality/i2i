@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   as: 'data_portal_indicator'
   get 'data-portal/indicator-region', to: 'data_portal/indicator#show',
   as: 'data_portal_indicator_region'
+  get 'data-portal/indicator-msme', to: 'data_portal/indicator#show',
+  as: 'data_portal_indicator_msme'
   get 'data-portal/indicator/embed/:iso/:year', to: 'data_portal/indicator#embed', as: 'data_portal_indicator_embed'
   get 'data-portal/report', to: 'data_portal/report#show',
                             as: 'data_portal_report'

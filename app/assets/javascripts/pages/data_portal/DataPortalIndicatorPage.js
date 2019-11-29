@@ -16,7 +16,12 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      console.log(this.options)
+      if (this.options.isMSME) {
+        this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
+      } else {
+        this.indicatorsCollection = new App.Collection.IndicatorsCollection();
+      }
       this.widgetContainer = this.el.querySelector('.js-widget');
       this.gridContainer = this.el.querySelector('.js-grid');
       this.layoutContainer = this.el.querySelector('.js-layout');
@@ -77,7 +82,8 @@
         showToolbar: false,
         autoResize: !this.options.print,
         showDetails: !(this.options.isRegion),
-        isRegion: (this.options.isRegion)
+        isRegion: (this.options.isRegion),
+        isMSME: this.options.isMSME,
       }, this.options._state);
 
       var widget = new App.View.ChartWidgetView(options);
@@ -93,7 +99,9 @@
       var index = _.findIndex(this.indicatorsCollection.toJSON(), { id: this.options._state.id });
       var indicator = this.indicatorsCollection.toJSON()[index];
       var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
-        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS;
+        || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS
+        || indicator.category === App.Helper.Indicators.CATEGORIES.COMMON
+        || indicator.category === App.Helper.Indicators.CATEGORIES.MSME_STRANDS;
 
       if (isComplex) {
         this.gridContainer.classList.remove('grid-m-6');
