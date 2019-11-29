@@ -16,7 +16,6 @@
 
     initialize: function (options) {
       this.options = _.extend({}, this.defaults, options);
-      console.log(this.options)
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
       } else {
