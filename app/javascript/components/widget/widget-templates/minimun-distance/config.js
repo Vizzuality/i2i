@@ -1,5 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
+import { format } from 'd3-format';
+
 import Legend from 'components/widget/legend';
 import Tooltip from 'components/widget/tooltip';
 
@@ -8,11 +10,12 @@ const sortData = data => data.sort((a, b) => a.value - b.value).reverse();
 const getData = data => data.map(d => ({
   label: d.label,
   value: d.value,
-  color: d.color
+  color: d.color,
+  unit: d.unit
 }));
 
 export const CONFIG = {
-  parse: (data, legendId) => {
+  parse: (data, id) => {
     const dataSorted = sortData(data);
     const chartData = getData(dataSorted);
 
@@ -40,7 +43,7 @@ export const CONFIG = {
             fontSize: 12,
             fill: 'rgba(0,0,0,0.54)'
           },
-          domain: [0, 400]
+          type: 'number'
         },
         yAxis: {
           type: 'category',
@@ -55,7 +58,9 @@ export const CONFIG = {
           layout: 'horizontal',
           height: 0,
           top: 0,
-          content: () => createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${legendId}`))
+          content: () => {
+            return createPortal(<Legend data={chartData} />, document.querySelector(`#widget-legend-${id}`));
+          }
         },
         tooltip: {
           cursor: false,
@@ -66,7 +71,10 @@ export const CONFIG = {
                 marginTop: '10px',
                 marginLeft: '-50px'
               }}
-              payload={[chartData]}
+              settings={[
+                { label: 'Service:', key: 'label' },
+                { label: 'Distance:', key: 'value', format: v => format('.2~s')(v), suffix: 'km' }
+              ]}
             />
           )
         }

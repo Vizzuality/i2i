@@ -5,9 +5,11 @@ import Chart from 'components/recharts';
 
 import config from './config';
 
-const AreaCoverage = ({ widgetData }) => {
+const AreaCoverage = ({ widgetData, id }) => {
   if (!widgetData) return null;
-  const data = config.parse(widgetData);
+
+
+  const data = config.parse(widgetData, id);
   const { chartConfig, chartData } = data;
 
   return (
@@ -19,11 +21,14 @@ const AreaCoverage = ({ widgetData }) => {
           config={chartConfig}
         />
       </div>
-      <div id="widget-legend-ac" />
+      <div id={`widget-legend-${id}`} />
     </Fragment>
   );
 };
 
-AreaCoverage.propTypes = { widgetData: PropTypes.array.isRequired };
+AreaCoverage.propTypes = {
+  widgetData: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default AreaCoverage;

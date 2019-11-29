@@ -390,6 +390,7 @@
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isHaiti: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Haiti',
         isRegion: false,
+        isMSME: false,
       });
 
       // We instantiate the tab views

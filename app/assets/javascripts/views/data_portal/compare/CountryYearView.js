@@ -9,6 +9,7 @@
     },
 
     url: function () {
+      if (this.options.isMSME) return MSME_API_URL + '/country/';
       return API_URL + '/country/';
     },
 
@@ -58,7 +59,8 @@
       // List of the indicators used for the comparison
       // The format of each of them is:
       // { id: string, year: number, iso: string, filters: { id: string, name: string, options: string[] }[] }
-      compareIndicators: []
+      compareIndicators: [],
+      isMSME: false,
     },
 
     events: {
@@ -73,7 +75,8 @@
 
       this.collection = new Collection({}, {
         iso: this.options.iso,
-        year: this.options.year
+        year: this.options.year,
+        isMSME: this.options.isMSME,
       });
 
       this._fetchData();

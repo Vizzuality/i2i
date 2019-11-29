@@ -49,7 +49,8 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.COMMON],
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON, App.Helper.Indicators.CATEGORIES.MSME_STRANDS],
+      ratio: 0.5,
       responsive: {
         mode: 'adaptative',
         breakpoint: 430
@@ -62,7 +63,7 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.STRANDS],
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON, App.Helper.Indicators.CATEGORIES.STRANDS],
       ratio: 0.2,
       responsive: {
         mode: 'adaptative',
@@ -93,6 +94,7 @@
       categories: [
         App.Helper.Indicators.CATEGORIES.ACCESS,
         App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.MSME_STRANDS,
         App.Helper.Indicators.CATEGORIES.ASSET,
         App.Helper.Indicators.CATEGORIES.SDGS,
         App.Helper.Indicators.CATEGORIES.POVERTY
@@ -108,6 +110,7 @@
       categories: [
         App.Helper.Indicators.CATEGORIES.ACCESS,
         App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.MSME_STRANDS,
         App.Helper.Indicators.CATEGORIES.ASSET,
         App.Helper.Indicators.CATEGORIES.SDGS,
         App.Helper.Indicators.CATEGORIES.POVERTY
@@ -123,6 +126,7 @@
       categories: [
         App.Helper.Indicators.CATEGORIES.ACCESS,
         App.Helper.Indicators.CATEGORIES.STRANDS,
+        App.Helper.Indicators.CATEGORIES.MSME_STRANDS,
         App.Helper.Indicators.CATEGORIES.ASSET,
         App.Helper.Indicators.CATEGORIES.POVERTY
       ],

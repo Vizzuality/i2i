@@ -72,6 +72,7 @@ class DataPortalController < ApplicationController
     @country_latest_year = @countries.find do |c|
       c[:iso] == @country.iso
     end[:latest_year].to_s
+    gon.countries = Country.all.ordered_by_name
   end
 
   def show_by_region

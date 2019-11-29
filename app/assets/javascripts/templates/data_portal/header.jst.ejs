@@ -42,7 +42,7 @@
         <!-- <div class="grid-s-12 grid-m-8 grid-l-7">
           <h1 class="title -highlight -huge js-country"><%= country %></h1>
         </div> -->
-        <div class="grid-m-4 grid-l-5 _no-mobile _align-right">
+        <div class="grid-s-12 grid-m-6 _no-mobile _align-right">
           <button class="c-button -white js-customize-indicators">Customise indicators</button>
         </div>
       </div>
@@ -52,12 +52,16 @@
     <div class="row">
       <div class="grid-s-12 grid-l-7">
         <div class="l-population">
-          <% if (isCGAP) { %>
+          <% if (isMSME) { %>
+            <span class="title">Based on business owners of</span>
+            <span class="number"><%= totalMsme %></span>
+          <% } else if (isCGAP) { %>
             <span class="title">Based on smallholder farmers of</span>
+            <span class="number"><%= population %></span>
           <% } else { %>
             <span class="title">Based on adult population of</span>
+            <span class="number"><%= population %></span>
           <% } %>
-          <span class="number"><%= population %></span>
         </div>
       </div>
     </div>
@@ -87,7 +91,12 @@
       </div>
       <div class="grid-s-12 grid-l-5">
         <div class="l-supplied-by">
-        <% if (country === 'Tanzania' && year === 2017) { %>
+        <% if (isMSME) { %>
+          <p>Data supplied by</p>
+          <a href="https://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-msme/" target="_blank" rel="noopener noreferrer">
+            <img src="/images/logos/fmt-MSME.svg" alt="FMT Finscope MSME" height="71px" />
+          </a>
+        <% } else if (country === 'Tanzania' && year === 2017) { %>
           <a href="https://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-consumer" target="_blank" rel="noopener noreferrer">
             <img src="/images/logos/finscope.png" alt="Finscope" />
           </a>

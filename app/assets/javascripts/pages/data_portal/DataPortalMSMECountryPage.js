@@ -36,7 +36,7 @@
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
       this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
-      this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year);
+      this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year, true);
       this.headerContainer = this.el.querySelector('.js-header');
       this.mobileHeaderContainer = this.el.querySelector('.js-mobile-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -273,7 +273,8 @@
         jurisdiction: !!this._getJurisdictionFilter()
           ? this._getJurisdictionFilter().options[0]
           : null,
-        continueCallback: this._onFiltersUpdate.bind(this)
+        continueCallback: this._onFiltersUpdate.bind(this),
+        isMSME: true,
       });
     },
 
@@ -300,6 +301,8 @@
       var population = this.countryModel.get('population');
       var factor, unit;
 
+      if (!population) return 'No data provided';
+
       if (population / Math.pow(10, 9) >= 1) {
         factor = 9;
         unit = 'billion';
@@ -312,6 +315,26 @@
       }
 
       return (population / Math.pow(10, factor)).toFixed(2) + ' ' + unit;
+    },
+
+    _getReadableTotalMsme: function() {
+      var totalMsme = this.countryModel.get('totalMsme');
+      var factor, unit;
+
+      if (!totalMsme) return 'No data provided';
+
+      if (totalMsme / Math.pow(10, 9) >= 1) {
+        factor = 9;
+        unit = 'billion';
+      } else if (totalMsme / Math.pow(10, 6) >= 1) {
+        factor = 6;
+        unit = 'million';
+      } else {
+        factor = 3;
+        unit = 'thousand';
+      }
+
+      return (totalMsme / Math.pow(10, factor)).toFixed(2) + ' ' + unit;
     },
 
     render: function () {
@@ -338,6 +361,7 @@
           : 'All jurisdictions',
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         population: this._getReadablePopulation(),
+        totalMsme: this._getReadableTotalMsme(),
         isFSD: {
           'Zambia': 2015
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
@@ -361,6 +385,7 @@
         }[App.Helper.Indicators.COUNTRIES[this.options.iso]] === this.options.year,
         isHaiti: App.Helper.Indicators.COUNTRIES[this.options.iso] === 'Haiti',
         isRegion: false,
+        isMSME: true,
       });
 
       // We instantiate the tab views
@@ -404,7 +429,7 @@
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.countryModel.get('url'),
-        downloadUrl: API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
+        downloadUrl: MSME_API_URL + '/country/' + this.options.iso + '/' + this.options.year + '/download'
       });
     },
 
@@ -442,8 +467,9 @@
         || indicator.category === App.Helper.Indicators.CATEGORIES.ASSET
         || indicator.category === App.Helper.Indicators.CATEGORIES.SDGS
         || indicator.category === App.Helper.Indicators.CATEGORIES.POVERTY;
+      var isFullWidth = !!indicator.isFullWidth;
 
-      if (isComplex) {
+      if (isFullWidth || isComplex) {
         this.widgetsContainer.children[index].classList.remove('grid-l-6');
       }
     },
