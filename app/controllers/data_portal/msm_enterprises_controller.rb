@@ -20,11 +20,28 @@ class DataPortal::MsmEnterprisesController < ApplicationController
   end
 
   def show
-    @countries = Country.all.map(&:finscope).compact
+    msme_countries_response = GetMsmeCountriesFromApi.new.perform
+    msme_countries = msme_countries_response ? JSON.parse(msme_countries_response.body) : []
+    msme_countries_iso = msme_countries.collect { |m| m['iso'] }
+
+    @countries = Country.where(iso: msme_countries_iso)
     @country = Country.find_by(iso: params[:iso])
-    @country_latest_year = @countries.find do |c|
-      c[:iso] == @country.iso
-    end[:latest_year].to_s
+    @country_latest_year = msme_countries.find do |c|
+      c['iso'] == @country.iso
+    end['year'][0]['year'].to_s
+
+    @countries_for_select = @countries.map do |c|
+      {
+        name: c.name,
+        iso: c.iso,
+        latest_year: msme_countries.find do |msme_c|
+          msme_c['iso'] == c[:iso]
+        end['year'][0]['year'].to_s
+      }
+    end
+
+    gon.countries = Country.all.ordered_by_name
+
     render :layout => 'data_portal'
   end
 end

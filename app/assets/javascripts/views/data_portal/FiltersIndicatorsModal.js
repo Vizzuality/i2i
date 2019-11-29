@@ -36,6 +36,7 @@
       // Selected jurisdiction in the modal
       _selectedJurisdiction: null,
       isRegion: false,
+      isMSME: false,
     },
 
     events: function () {
@@ -131,6 +132,7 @@
         filters: filters,
         jurisdiction: jurisdiction,
         isRegion: this.options.isRegion,
+        isMSME: this.options.isMSME,
       });
     },
 

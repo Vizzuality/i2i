@@ -16,18 +16,15 @@ class IntroComponent extends React.Component {
       value: PropTypes.number
     }).isRequired,
     setDistance: PropTypes.func.isRequired,
-    fetchIntro: PropTypes.func.isRequired,
-    iso: PropTypes.string
+    fetchIntro: PropTypes.func.isRequired
   }
-
-  static defaultProps = { iso: null }
 
   componentWillMount() {
     this.props.fetchIntro();
   }
 
   render() {
-    const { data, iso, distance, setDistance, fetchIntro } = this.props;
+    const { data, distance, setDistance, fetchIntro } = this.props;
 
     return (
       <div className="c-fsp-intro">
@@ -77,15 +74,6 @@ class IntroComponent extends React.Component {
                 </table>
                 <List />
               </div>
-            </div>
-            <div className="grid-s-12 grid-l-5">
-              {iso === 'HTI' && (
-                <div className="l-supplied-by">
-                  <a href="https://www.brh.ht/" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/logos/brh.png" alt="BRH" />
-                  </a>
-                </div>
-              )}
             </div>
           </div>
         </div>

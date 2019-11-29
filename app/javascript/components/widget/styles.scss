@@ -33,8 +33,6 @@
         }
 
       .header-buttons {
-        min-width: 75px;
-
         .widget-btn {
           position: relative;
           width: 30px;
@@ -55,6 +53,14 @@
           }
         }
       }
+    }
+  }
+  @media print {
+    width: 100%;
+    margin: auto;
+
+    .header-buttons {
+      display: none;
     }
   }
 }

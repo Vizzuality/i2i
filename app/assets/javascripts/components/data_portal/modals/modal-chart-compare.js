@@ -36,6 +36,7 @@
       // List of the tabs
       // This attribute is modified at instantiation time
       _tabs: [],
+      isMSME: false,
     },
 
     events: function () {
@@ -132,7 +133,8 @@
         year: this.options.year,
         filters: this.options.filters,
         indicator: this.options.indicator,
-        compareIndicators: this.options.compareIndicators
+        compareIndicators: this.options.compareIndicators,
+        isMSME: this.options.isMSME,
       });
     },
 

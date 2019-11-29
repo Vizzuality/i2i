@@ -272,7 +272,6 @@
           <div class="grid-s-12">
             <div class="l-form-contact">
               <div class="grid-s-12 grid-m-8">
-
                 <%= simple_form_for @contact, url: about_form_contacts_path, html: { class: 'c-form contact-form' }, defaults: { wrapper_html: { class: 'custom-row' } }, remote: true do |f| %>
                   <div id="messages"></div>
                   <%= f.error :base %>

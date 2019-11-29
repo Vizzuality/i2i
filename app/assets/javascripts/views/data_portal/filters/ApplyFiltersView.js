@@ -26,7 +26,8 @@
       this.options.indicators = this.options.indicators
         .filter(function (indicator) {
           return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS
-            && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS;
+            && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS
+            && indicator.category !== App.Helper.Indicators.CATEGORIES.MSME_STRANDS;
         })
         .map(function (indicator) {
           return {
@@ -69,6 +70,7 @@
             iso: this.options.iso,
             year: this.options.year,
             isRegion: this.options.isRegion,
+            isMSME: this.options.isMSME,
           }
         );
       }, this);

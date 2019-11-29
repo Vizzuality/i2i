@@ -65,23 +65,25 @@ export const getWidgets = createSelector(
 
       const { widgetConfig } = widgetConfigWrap;
       const { params_config: paramsConfig, sql_query: sqlQuery, sql_query_param: sqlQueryParam, url } = widgetConfig;
-      const { area: nearbyArea, center } = _nearby;
+      const { area: nearbyArea, center: nearbyCenter } = _nearby;
       const { area: jurisdictionArea } = _jurisdiction;
-      const { area: analyzePatternArea } = _analyzePattern;
-      const { lng, lat } = center;
+      const { area: analyzePatternArea, center: analyzePatternCenter } = _analyzePattern;
       const typeIds = getTypeIds(analysisType === 'country' ? allSectorLayers : sectorLayers);
       const cartoAccount = window.FSP_CARTO_ACCOUNT;
       const cartoApiKey = window.FSP_CARTO_API_KEY;
 
       let editableQuery = sqlQuery;
       let geojson;
+      let latlng = {};
 
       if (_selectedMenuItem === 'nearby') {
         geojson = nearbyArea;
+        latlng = { lat: nearbyCenter.lat, lng: nearbyCenter.lng };
       } else if (_selectedMenuItem === 'area_of_interest') {
         geojson = _areaOfInterestArea;
       } else if (_selectedMenuItem === 'analyze_patterns') {
         geojson = analyzePatternArea;
+        latlng = { lat: analyzePatternCenter.lat, lng: analyzePatternCenter.lng };
       } else if (_selectedMenuItem === 'jurisdiction') {
         geojson = jurisdictionArea;
       }
@@ -91,8 +93,7 @@ export const getWidgets = createSelector(
         account: cartoAccount,
         type_ids: `(${typeIds.join()})`,
         geojson: `'${JSON.stringify(geojson)}'`,
-        lng,
-        lat,
+        ...latlng,
         tableName1: process.env.FSP_CARTO_TABLE || 'fsp_maps', // are you sure you want to change this value?
         tableName2: process.env.FSP_CARTO_USERS_TABLE || 'fsp_maps_user_staging'
       };
