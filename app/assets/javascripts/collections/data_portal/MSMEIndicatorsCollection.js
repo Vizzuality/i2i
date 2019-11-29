@@ -26,13 +26,8 @@
     { id: 'barrier_strand', name: 'Barriers', category: 'Strands', visible: true },
     { id: 'total_barrier_strand', name: 'Top 5 barriers to start a business', category: 'Strands', visible: false },
     { id: 'total_capital_source_strand', name: 'Top 5 sources of capital', category: 'Strands', visible: false },
-    { id: 'total_credit_strand', name: 'Credit Strands', category: 'Strands', visible: false },
-    { id: 'total_fas_strand', name: 'Financial Access Strands', category: 'Strands', visible: false },
-    { id: 'total_insurance_strand', name: 'Insurance Strands', category: 'Strands', visible: false },
     { id: 'total_motive_strand', name: 'Top 5 motives to start a buisness', category: 'Strands', visible: false },
-    { id: 'total_saving_strand', name: 'Saving Strands', category: 'Strands', visible: false },
     { id: 'total_source_of_skills_strand', name: 'Top 5 sources of skills', category: 'Strands', visible: false },
-    { id: 'total_transaction_strand', name: 'Transaction Strands', category: 'Strands', visible: false },
     { id: 'transaction_strand', name: 'Transactions', category: 'Strands', visible: false }
   ];
 
