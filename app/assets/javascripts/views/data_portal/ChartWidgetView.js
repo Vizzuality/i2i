@@ -544,11 +544,15 @@
         left: 0
       });
 
+      var indicator = this._getIndicator();
       var width = Math.round((fixedWidth ? 1024 : containerDimensions.width) - padding.left - padding.right);
       var height = Math.round(width * this._getChartRatio());
 
       // Min height: 300 for pie charts
       if (chartConfig.name === 'pie') height = height < 260 ? 300 : height;
+      if (chartConfig.name === 'radial') {
+        width = containerDimensions.width - padding.left - padding.right;
+      }
 
       // We save the current dimensions of the chart to diff them whenever the window is resized in order to minimize
       // the number of re-renders
@@ -674,7 +678,17 @@
       } else {
         vg.parse
           .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
+            var chartConfig = this._getChartConfig();
             this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+
+            if (chartConfig.name === 'radial') {
+              var radialWidth = 320;
+              var radialDataLength = this.chart.data('final').values().length;
+              if (radialDataLength > 1) {
+                this.chart.width(320 * radialDataLength).update();
+              }
+              window.vegaview = this.chart;
+            }
 
             // If the chart is not auto resized, then we make it "responsive"
             if (!this.options.autoResize) {
