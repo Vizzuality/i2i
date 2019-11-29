@@ -144,7 +144,7 @@
               </p>
             </div>
 
-            <iframe height="574" width="100%" src="http://localhost:3000/data-portal/indicator-msme?p=eyJpZCI6ImJ1c2luZXNzX3NlY3RvciIsImkiOiJTV1oiLCJ5IjoyMDE5LCJjIjoic3RhY2tlZCBiYXIiLCJmIjpbXSwiYW4iOm51bGwsImNwIjpudWxsfQ%3D%3D&no_logo=true" style="border:0;"></iframe>
+            <iframe height="574" width="100%" src="/data-portal/indicator-msme?p=<%= Base64.encode64("{\"id\":\"business_sector\",\"i\":\"#{@country.iso}\",\"y\":#{@msme_latest_year},\"c\":\"stacked bar\",\"f\":[],\"an\":null,\"cp\":null}") %>&no_logo=true" style="border:0;"></iframe>
 
             <div class="grid-12" style="margin-bottom: 20px;">
               <%= link_to "Discover Micro, Small and Medium Enterprises", msm_enterprises_show_path(@country.iso, @msme_latest_year),
