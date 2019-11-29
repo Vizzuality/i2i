@@ -12,8 +12,11 @@
         <div class="js-widget"></div>
       </div>
     </div>
-    <div class="grid-s-12 logo">
-      <%= link_to image_tag('/i2i-logo-grey.svg', :alt => 'insight2impact'), root_path, :target => '_parent' %>
-    </div>
+
+    <% unless params[:no_logo] == 'true' %>
+      <div class="grid-s-12 logo">
+        <%= link_to image_tag('/i2i-logo-grey.svg', :alt => 'insight2impact'), root_path, :target => '_parent' %>
+      </div>
+    <% end %>
   </div>
 </div>

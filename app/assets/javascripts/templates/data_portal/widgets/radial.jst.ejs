@@ -38,7 +38,7 @@
           "type": "formula",
           "field": "outerRadius",
           <%/* Replace the value 5 by datum.b.count_label here to have a dynamic circle size */%>
-          "expr": "0.5 * (<%= isNaN(width) ? '0' : width %> - (5 - 1) * 50) / 5"
+          "expr": "height * 0.5 - 80"
         },
         {
           "type": "formula",

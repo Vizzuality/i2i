@@ -134,5 +134,14 @@ class DataPortalFinancialDiariesController < ApplicationController
 
     @capitals = CapitalCity.where(country_iso: @country.iso)
     @commodities = Commodity.find_by(country_iso: @country.iso)
+
+    msme_countries_response = GetMsmeCountriesFromApi.new.perform
+    msme_countries = msme_countries_response ? JSON.parse(msme_countries_response.body) : []
+
+    @country_has_msme = msme_countries.find do |c|
+      c['iso'] == @country.iso
+    end
+
+    @msme_latest_year = @country_has_msme ? @country_has_msme['year'][0]['year'].to_s : nil
   end
 end

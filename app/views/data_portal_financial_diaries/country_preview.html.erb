@@ -134,6 +134,26 @@
         </section>
       <% end %>
 
+      <% if @country_has_msme %>
+        <section class="dataset">
+          <div class="row">
+            <div class="grid-s-12 grid-m-8">
+              <h3 class="title -big -dark">Micro, Small and Medium Enterprises</h3>
+              <p class="dataset-description">
+                The primary Micro, Small and Medium Enterprises (MSMEs) probability survey data provides insights into the current MSME landscape. MSMEs are key drivers of economic growth, employment and innovation in developing economies. This data allows for a deeper understanding of MSMEs, their owners and the challenges these owners face.
+              </p>
+            </div>
+
+            <iframe height="574" width="100%" src="http://localhost:3000/data-portal/indicator-msme?p=eyJpZCI6ImJ1c2luZXNzX3NlY3RvciIsImkiOiJTV1oiLCJ5IjoyMDE5LCJjIjoic3RhY2tlZCBiYXIiLCJmIjpbXSwiYW4iOm51bGwsImNwIjpudWxsfQ%3D%3D&no_logo=true" style="border:0;"></iframe>
+
+            <div class="grid-12" style="margin-bottom: 20px;">
+              <%= link_to "Discover Micro, Small and Medium Enterprises", msm_enterprises_show_path(@country.iso, @msme_latest_year),
+                  class: "c-button -sea dataset-button", data: { turbolinks: false } %>
+            </div>
+          </div>
+        </section>
+      <% end %>
+
       <% if @country_financial_diaries.present? %>
         <section class="dataset">
           <div class="row">
