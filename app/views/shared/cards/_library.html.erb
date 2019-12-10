@@ -7,6 +7,8 @@
     <a href="<%= library.video_url %>" target="_blank" rel="noopener">
       <div class="picture" style="background-image: url(<%= library.image.url(:thumb) %>)"></div>
     </a>
+  <% else%>
+    <div class="picture" style="background-image: url(<%= library.image.url(:thumb) %>)"></div>
   <% end %>
 
   <div class="metadata">
@@ -18,6 +20,8 @@
       <a href="<%= library.video_url %>" target="_blank" rel="noopener">
         <h4 class="title -dark -regular"><%= library.title %></h4>
       </a>
+    <% else %>
+      <h4 class="title -dark -regular"><%= library.title %></h4>
     <% end %>
 
     <p><%= library.summary %></p>
