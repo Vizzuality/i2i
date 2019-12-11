@@ -18,10 +18,23 @@ Copy the file *.env.sample* as *.env* and change it according to your database c
 ### Database setup
 Having `postgresql` already installed, start `postgresql` server. run `rails db:create` if you haven't created the database.
 
-Run `rails db:migrate`, `rails db:seed`, and `rails db:sample`.
+Download last database backup from server (from /home/ubuntu).
+
+Run:
+
+```scp -r ubuntu@staging.i2ifacility.org:/home/ubuntu/filename.dump .```
+
+```pg_restore -C -d postgres filename.dump```
+
+```rails db:migrate```
+
+Download assets:
+
+```scp -r ubuntu@staging.i2ifacility.org:/var/www/i2i/current/public/system ./public/```
+
 
 ### Development
-Run `rails s` to start the server.
+Run `rails s` or `bundle exec rails server` to start the server.
 
 Go to [localhost](http://localhost:3000) and have fun :collision: :tada:
 
