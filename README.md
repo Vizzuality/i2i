@@ -26,7 +26,7 @@ Run:
 
 ```pg_restore -C -d postgres filename.dump```
 
-```rails db:migrate```
+```bundle exec rails db:migrate```
 
 Download assets:
 
