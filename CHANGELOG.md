@@ -35,6 +35,7 @@
 - Changed header for articles and blog posts
 - Social links are visible all time in blogs, articles and news
 - Search bar in the header
+	- Wider input when use header search
 - Sidebar tabs styles updated/icons added
 - Styles in layers menu (data-portal/geospatial-data)
 - Styles for bullet on article text list
