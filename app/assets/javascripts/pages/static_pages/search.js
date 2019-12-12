@@ -21,8 +21,10 @@
     _toggleSearch: function () {
       this.$searchContainer.toggleClass('-open');
       if (this.$searchContainer.hasClass('-open')) {
-        this.$searchInput.focus()
-      }
+        $('.c-modal-search').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+          $('#search-input').focus();
+        })
+      };
     },
 
     _closeSearch: function () {
