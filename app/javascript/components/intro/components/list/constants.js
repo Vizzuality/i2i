@@ -1,16 +1,16 @@
-const videos = {
-  'Financial service providers': {
-    title: 'financial-service',
+const videos = [
+  {
+    id: 'Financial service providers',
     src: 'https://www.youtube.com/embed/BbNzIzmpRXg'
   },
-  Regulators: {
-    title: 'regulators',
+  {
+    id: 'Regulators',
     src: 'https://www.youtube.com/embed/pH9nwDL3Tfg'
   },
-  Insurance: {
-    title: 'insurance',
+  {
+    id: 'Insurance',
     src: 'https://www.youtube.com/embed/K-0rCW0ijII'
   }
-};
+];
 
 export default videos;
