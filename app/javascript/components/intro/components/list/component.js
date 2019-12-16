@@ -1,47 +1,92 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import classnames from 'classnames';
 import Icon from 'components/icon';
+import videos from './constants';
 
 
 import './styles.scss';
 
-const List = () => (
-  <Fragment>
-    <div className="c-header-list">
-      <h1>Do you want to know more?</h1>
-      <ul>
-        <li className="list-item">
-          <Icon
-            name="play"
-            className="-small"
-          />
-          <a href="https://www.youtube.com/watch?v=BbNzIzmpRXg" target="_blank" rel="noopener noreferrer">
-            Financial service providers
-          </a>
-        </li>
+const List = () => {
+  const [video, setState] = useState({
+    src: '',
+    title: '',
+    id: '',
+    isActive: true
+  });
 
-        <li className="list-item">
-          <Icon
-            name="play"
-            className="-small"
-          />
-          <a href="https://www.youtube.com/watch?v=pH9nwDL3Tfg&t=67s" target="_blank" rel="noopener noreferrer">
-            Regulators
-          </a>
-        </li>
+  const handleClick = (id) => {
+    const { src, title } = videos[id];
 
-        <li className="list-item">
-          <Icon
-            name="play"
-            className="-small"
-          />
-          <a href="https://www.youtube.com/watch?v=K-0rCW0ijII&t=91s" target="_blank" rel="noopener noreferrer">
-            Insurance
-          </a>
-        </li>
-      </ul>
-    </div>
-  </Fragment>
-);
+    setState({
+      ...video,
+      src,
+      title,
+      id,
+      active: true
+    });
+  };
 
+  const closeModal = () => {
+    setState({
+      ...video,
+      active: false
+    });
+  };
+
+  return (
+    <Fragment>
+      <div className={classnames(
+        'video-overlay', { '-hidden': !video.active }
+      )}
+      >
+        <button className="modal-close" onClick={closeModal} id="close-button">x</button>
+
+        {video.title && <iframe
+          title={videos[video.id].title}
+          src={videos[video.id].src}
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      }
+
+      </div>
+      <div className="c-header-list">
+        <h1>Do you want to know more?</h1>
+        <ul>
+          <li className="list-item">
+
+            <Icon
+              name="play"
+              className="-small"
+            />
+            <button onClick={() => handleClick('Financial service providers')}>
+              Financial service providers
+            </button>
+          </li>
+          <li className="list-item">
+            <Icon
+              name="play"
+              className="-small"
+            />
+            <button onClick={() => handleClick('Regulators')}>
+              Regulators
+            </button>
+          </li>
+
+          <li className="list-item">
+            <Icon
+              name="play"
+              className="-small"
+            />
+            <button onClick={() => handleClick('Insurance')}>
+              Insurance
+            </button>
+          </li>
+        </ul>
+      </div>
+    </Fragment>
+  );
+};
 
 export default List;
