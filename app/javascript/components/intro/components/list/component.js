@@ -10,7 +10,7 @@ const List = () => {
   const [video, setState] = useState({
     src: '',
     id: '',
-    isActive: true
+    active: false
   });
 
   const handleClick = (item) => {
