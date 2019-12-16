@@ -11,7 +11,7 @@ const List = () => {
     src: '',
     title: '',
     id: '',
-    isActive: true
+    active: false
   });
 
   const handleClick = (id) => {
