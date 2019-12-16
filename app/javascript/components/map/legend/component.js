@@ -30,7 +30,7 @@ class LegendComponent extends React.Component {
     setLayersSelected: PropTypes.func.isRequired,
     setLayersSettings: PropTypes.func.isRequired,
     setLayersOrder: PropTypes.func.isRequired,
-    menuItem: PropTypes.string.isRequired
+    menuItem: PropTypes.shape({}).isRequired
   }
 
   static defaultProps = {

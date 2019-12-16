@@ -45,7 +45,6 @@ class MapComponent extends PureComponent {
     nearby: PropTypes.object.isRequired,
     jurisdiction: PropTypes.object.isRequired,
     activeLayers: PropTypes.array.isRequired,
-    active: PropTypes.bool.isRequired,
     bbox: PropTypes.array.isRequired,
     setLayersInteractions: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
@@ -53,6 +52,8 @@ class MapComponent extends PureComponent {
     pattern: PropTypes.object.isRequired,
     selected: PropTypes.string.isRequired
   }
+
+  static defaultProps = { active: false }
 
   componentDidUpdate(prevProps) {
     const { nearby, pattern, menuItem, selected: selectedTab } = this.props;
