@@ -47,8 +47,9 @@
 - Iniatives becomes to Research themes
 - Changed contact form in order to send messages from server instead Salesforce
 - Changed color and size for tags inside cards for insights
-- Wdigets restyled and moved from Vega to Recharts 
+- Widgets restyled and moved from Vega to Recharts 
 - Haiti logo moved in intro
+- Videos section in geospatial portal opened in overlay
 
 ### Fixed
 
