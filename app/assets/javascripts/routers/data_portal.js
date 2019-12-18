@@ -223,6 +223,7 @@
 
     new App.View.Cards();
     new App.View.MobileMenu();
+    new App.View.Search();
     new App.View.Newsletter();
     new App.Component.FixedNav();
 

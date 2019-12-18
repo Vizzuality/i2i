@@ -20,12 +20,12 @@ class SidebarComponent extends PureComponent {
     selected: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     setSelected: PropTypes.func.isRequired,
-    setAnalysisActive: PropTypes.func.isRequired,
+    setAnalysisActive: PropTypes.func.isRequired
   }
 
 
   render() {
-    const { selected, active } = this.props;
+    const { selected, active, setSelected, setAnalysisActive } = this.props;
     const classNames = classnames({
       'c-sidebar': true,
       '-big': active,
@@ -38,10 +38,10 @@ class SidebarComponent extends PureComponent {
       <div className={classNames}>
         <Tabs
           items={TABS}
-          selected={this.props.selected}
+          selected={selected}
           onSelect={(s) => {
-            this.props.setSelected(s);
-            this.props.setAnalysisActive(false);
+            setSelected(s);
+            setAnalysisActive(false);
           }}
         />
 

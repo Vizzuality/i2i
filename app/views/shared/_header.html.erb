@@ -1,6 +1,23 @@
 <% isFixed ||= false %>
 <% isCover ||= false %>
 
+<div id="search-container" class="c-modal-search">
+  <button class="modal-close" id="close-button">x</button>
+    <div class="wrapper">
+      <div class="row">
+        <div class="l-search">
+          <h1 class="title -highlight -huge">Search i2i</h1>
+          <div class="grid-s-12 grid-m-12 grid-l-10">
+            <%= form_tag(search_path, method: 'get', class: 'c-form-search-inline') do %>
+              <%= text_field_tag :term, nil, placeholder: 'Type your search here', id: 'search-input' %>
+              <svg class="icon icon-search -medium"><use xlink:href="#icon-search"></use></svg>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="c-header <% if isCover.present? %>-cover<% end %> <% if isFixed %>-fixed<% end %>">
   <div class="container">
   	<div class="c-app-logo <% if isFixed %>-fixed<% end %>">
@@ -59,10 +76,10 @@
           </li>
 
           <li class="nav-item -close<% if current_page?(search_path) %> -current -icon<% end%>">
-            <%= form_tag(search_path, method: 'get', class: 'c-form-search-inline') do %>
+            <button class="search-button" id="search-button">
               <svg class="icon icon-search"><use xlink:href="#icon-search"></use></svg>
-              <%= text_field_tag :term, nil, placeholder: 'Search' %>
-            <% end %>
+              <span>Search</span>
+            </button>
           </li>
         <% end %>
       </ul>
