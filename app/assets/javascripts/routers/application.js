@@ -7,7 +7,6 @@ var Router = Backbone.Router.extend({
     '': '_homePage',
     'insights(/)(:category)': '_insightsPage',
     'about(/)': '_aboutPage',
-    'search(/)': '_searchPage',
     'terms-of-use(/)': '_termsOfUsePage'
   },
 
@@ -29,14 +28,6 @@ var Router = Backbone.Router.extend({
     Backbone.history.stop();
 
     new App.Page.InsightsPage();
-  },
-
-  _searchPage: function () {
-    // Don't forget to stop the router on each route
-    // otherwise you'll break the browser's back button
-    Backbone.history.stop();
-
-    new App.Page.SearchPage();
   },
 
   _aboutPage: function (p) {
