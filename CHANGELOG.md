@@ -50,6 +50,7 @@
 - Widgets restyled and moved from Vega to Recharts 
 - Haiti logo moved in intro
 - Videos section in geospatial portal opened in overlay
+- Download all button in data-portal moved from footer to header
 
 ### Fixed
 
