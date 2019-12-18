@@ -10,19 +10,21 @@
       this.$searchButton = $('#search-button');
       this.$closeButton = $('#close-button');
       this.$searchInput = $('#search-input');
+      this.$modalSearch = $('.c-modal-search');
+
     },
 
     _setEventListeners: function () {
-      this.$searchInput = $('#search-input');
       this.$searchButton.on('click', this._toggleSearch.bind(this));
       this.$closeButton.on('click', this._closeSearch.bind(this));
     },
 
     _toggleSearch: function () {
       this.$searchContainer.toggleClass('-open');
+      var self = this;
       if (this.$searchContainer.hasClass('-open')) {
-        $('.c-modal-search').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
-          this.$searchInput.focus()
+        this.$modalSearch.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+          self.$searchInput.focus()
         })
       };
     },
