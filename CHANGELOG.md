@@ -26,6 +26,7 @@
 - MSME section in the data portal page
 - New section Openi2i portal on the Research themes page
 - Option to print widgets added to sidebar
+- Button added to close modal in widgets
 
 ### Changed
 

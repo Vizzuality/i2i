@@ -7,7 +7,7 @@
     template: JST['templates/shared/modal'],
 
     events: {
-      'click .veil': 'onCloseModal'
+      'click .modal-close': 'onCloseModal',
     },
 
     // Do not add a defaults object here because it will be overriden
