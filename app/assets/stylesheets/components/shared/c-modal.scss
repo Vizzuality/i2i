@@ -7,6 +7,17 @@
   background: $color-4;
   z-index: 99;
 
+  .modal-close {
+    position: absolute;
+    top: -37px;
+    font-weight: bold;
+    font-size: 25px;
+    right: 0;
+    color: $color-4;
+    width: 25px;
+    z-index: 1;
+  }
+
   &.-newsletter {
     max-width: auto;
 
