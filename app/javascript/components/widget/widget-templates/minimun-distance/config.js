@@ -73,7 +73,7 @@ export const CONFIG = {
               }}
               settings={[
                 { label: 'Service:', key: 'label' },
-                { label: 'Distance:', key: 'value', format: v => format('.2~s')(v), suffix: 'km' }
+                { label: 'Distance:', key: 'value', format: v => format('.2~s')(v), suffix: ' km' }
               ]}
             />
           )

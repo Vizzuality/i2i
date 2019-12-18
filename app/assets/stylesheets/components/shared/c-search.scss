@@ -98,44 +98,74 @@
 }
 
 
-.c-form-search-inline {
-  background: none;
-  color: $color-1;
-  display: block;
-  margin-top: 5px;
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 
   .icon-search {
     color: $color-2;
+    margin-right: 5px;
+  }
+}
+
+.c-modal-search {
+  margin: auto;
+  padding: 100px;
+  background-color: $color-4;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  transform: translate(100%, -100%);
+  visibility: hidden;
+  transition: all 0.16s ease-in-out;
+  opacity: 0.2;
+  will-change: transform;
+
+  &.-open {
+    transform: translate(0, 0);
+    visibility: visible;
+    opacity: 1;
   }
 
-  #term {
-    background: none;
-    border: 0;
-    border-bottom: 1px solid white;
-    margin-left: -28px;
-    padding: 3px 3px 3px 30px;
-    width: 140px;
+  .c-form-search-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $color-12;
 
-    color: $color-4;
-    font-size: 16px;
+    svg {
+      padding-right: 5px;
+      width: 36px;
+    }
+
+    #search-input {
+      cursor: pointer;
+      background: none;
+      border: 0;
+      padding: 20px 20px 20px 0;
+      width: 90%;
+      font-size: 19px;
+      font-weight: bold;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $color-1;
+    font-size: 25px;
     font-weight: bold;
-    line-height: 22px;
-
-    &:focus {
-      outline: 0;
-    }
-
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: $color-4;
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      color: $color-4;
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      color: $color-4;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: $color-4;
-    }
+    padding: 10px 20px;
+    cursor: pointer;
   }
 }
