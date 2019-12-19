@@ -5,6 +5,7 @@
     <%= link_to 'Go to the ' + @country[:name] + ' data portal', data_portal_country_preview_path(@country[:iso]), :class => 'country-link' %>
   <% end %>
 
+
   <% if current_page?(data_portal_country_preview_path) || current_page?(data_portal_financial_diaries_path) %>
     <%= select_tag "country",
       options_for_select(@countries.collect{ |country| [country[:name], country[:iso]] }.sort, @country[:iso]),
