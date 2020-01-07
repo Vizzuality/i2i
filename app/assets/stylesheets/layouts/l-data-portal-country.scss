@@ -1,3 +1,4 @@
+
 .l-data-portal-country {
   .l-header {
     width: 100%;
@@ -227,6 +228,9 @@
         display: inline-block;
         min-height: 71px;
         max-height: 100px;
+        width: auto;
+        max-width: 100%;
+        min-width: 100px;
 
         &.-width {
           width: 300px;
