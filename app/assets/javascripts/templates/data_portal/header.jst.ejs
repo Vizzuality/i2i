@@ -43,7 +43,12 @@
           <h1 class="title -highlight -huge js-country"><%= country %></h1>
         </div> -->
         <div class="grid-s-12 grid-m-6 _no-mobile _align-right">
-          <button class="c-button -white js-customize-indicators">Customise indicators</button>
+          <div class="header-buttons">
+              <% if (hasDownload) { %>
+                <button class="c-button -white js-download-all">Download all</button>
+              <% } %>
+            <button class="c-button -white js-customize-indicators">Customise indicators</button>
+          </div>
         </div>
       </div>
     </div>

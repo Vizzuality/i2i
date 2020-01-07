@@ -26,6 +26,7 @@
 - MSME section in the data portal page
 - New section Openi2i portal on the Research themes page
 - Option to print widgets added to sidebar
+- Button added to close modal in widgets
 
 ### Changed
 
@@ -50,6 +51,7 @@
 - Widgets restyled and moved from Vega to Recharts 
 - Haiti logo moved in intro
 - Videos section in geospatial portal opened in overlay
+- Download all button in data-portal moved from footer to header
 
 ### Fixed
 
@@ -65,3 +67,4 @@
 - Fixed an issue where contact form message wasn't being sent
 - Fixed an error when user request to download on the national surveys page
 - Fixed an issue where user only received one link instead multiple on download modal
+- Partner's logo displaying weird (width fixed)

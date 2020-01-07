@@ -357,6 +357,7 @@
      */
     _renderHeader: function () {
       this.headerContainer.innerHTML = this.headerTemplate({
+        hasDownload: this.countryModel.get('downloadable'),
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         filters: this.options._filters
@@ -413,6 +414,7 @@
      */
     _renderMobileHeader: function () {
       this.mobileHeaderContainer.innerHTML = this.mobileHeaderTemplate({
+        hasDownload: this.countryModel.get('downloadable'),
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         filters: this.options._filters
@@ -430,7 +432,6 @@
      */
     _renderFooter: function () {
       this.footerContainer.innerHTML = this.footerTemplate({
-        hasDownload: this.countryModel.get('downloadable'),
         error: this._loadingError,
         indicators: this.indicatorsCollection.getVisibleIndicators(),
         mapUrl: this.countryModel.get('url'),

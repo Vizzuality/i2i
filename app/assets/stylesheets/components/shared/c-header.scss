@@ -5,6 +5,8 @@
   // margin-top: 10px;
   background: $color-1;
 
+
+
   .container {
     display: flex;
     align-items: center;
@@ -14,6 +16,14 @@
 
     @media #{$mq-laptop} {
       align-items: stretch;
+    }
+
+    > .header-buttons {
+      display: flex;
+      justify-content: flex-end;
+      button:not(:last-child) {
+        margin-right: 20px;
+      }
     }
 
     .hamburguer {
