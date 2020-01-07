@@ -104,7 +104,6 @@
       this.visibilityCheckboxes = document.querySelectorAll('.js-category-visibility') || [];
       this.removeHouseholdButton = document.querySelector('.js-remove-household');
       this.toggleMobileFiltersButton = document.querySelector('.js-toggle-filters');
-      this.contentVeil = document.querySelector('.js-content-veil');
 
       // bindings
       this.onClickCategoryBinded = function(e) {
@@ -240,7 +239,6 @@
 
     _onToggleMobileFilters: function() {
       this.toggleMobileFiltersButton.classList.toggle('-open');
-      this.contentVeil.classList.toggle('-open');
     },
 
     _updateFilters: function(newFilters) {
