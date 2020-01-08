@@ -68,4 +68,4 @@
 - Fixed an error when user request to download on the national surveys page
 - Fixed an issue where user only received one link instead multiple on download modal
 - Partner's logo displaying weird (width fixed)
-- Data portal header- buttons separated from title
+- Data-portal header - buttons separated from title

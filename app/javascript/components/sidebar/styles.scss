@@ -1,26 +1,5 @@
 @import '_settings';
-
-// https://davidwalsh.name/css-triangles
-@mixin triangle($size, $color, $direction) {
-  width: 0;
-  height: 0;
-  font-size: 0;
-	line-height: 0;
-
-  @if($direction == 'right') {
-    border-right: 0;
-    border-bottom: $size solid transparent;  /* left arrow slant */
-    border-top: $size solid transparent; /* right arrow slant */
-    border-left: $size solid $color; /* bottom, add background color here */
-  }
-
-  @if($direction == 'left') {
-    border-left: 0;
-    border-bottom: $size solid transparent;  /* left arrow slant */
-	  border-top: $size solid transparent; /* right arrow slant */
-	  border-right: $size solid $color; /* bottom, add background color here */
-  }
-}
+@import '_mixins';
 
 .c-sidebar {
   z-index: 1;
