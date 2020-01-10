@@ -1,23 +1,10 @@
 @import '_settings';
+@import '_mixins';
 
 @font-face {
   font-family: 'Chalet';
   font-weight: $font-weight-medium;
   src: font-url('/typography/ChaletNewYorkNineteenSixty.ttf') format('truetype');
-}
-
-@mixin arrow($size, $border-width, $color, $direction) {
-  display: inline-block;
-  width: $size;
-  height: $size;
-  border: $border-width solid $color;
-  content: '';
-
-  @if($direction == 'down') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-left: 0;
-  }
 }
 
 .legend-btn {

@@ -1,24 +1,5 @@
 @import '_settings';
-
-@mixin triangle($size, $color, $direction) {
-  width: 0;
-  height: 0;
-  font-size: 0;
-	line-height: 0;
-
-  @if($direction == 'up') {
-    border-top: 0;
-    border-left: $size solid transparent;  /* left arrow slant */
-    border-right: $size solid transparent; /* right arrow slant */
-    border-bottom: $size solid $color; /* bottom, add background color here */
-  }
-
-  @if($direction == 'down') {
-    border-left: $size solid transparent;
-    border-right: $size solid transparent;
-    border-top: $size solid $color;
-  }
-}
+@import '_mixins';
 
 .c-legend {
   position: absolute;
