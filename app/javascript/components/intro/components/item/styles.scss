@@ -1,19 +1,6 @@
 
 @import '_settings';
-
-@mixin arrow($size, $border-width, $color, $direction) {
-  display: inline;
-  width: $size;
-  height: $size;
-  border: $border-width solid $color;
-  content: '';
-
-  @if($direction == 'down') {
-    transform: rotate(45deg);
-    border-top: 0;
-    border-left: 0;
-  }
-}
+@import '_mixins';
 
 .react-select-container {
   display: inline-block;
