@@ -98,6 +98,10 @@
           display: flex;
           align-items: center;
           justify-content: flex-end;
+
+          .header-buttons {
+            padding-top: 20px;
+          }
         }
 
         .c-button {
