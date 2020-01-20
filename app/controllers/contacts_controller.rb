@@ -38,7 +38,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     respond_to do |format|
-      if verify_recaptcha(model: @contact) && @contact.save
+      if verify_human && @contact.save
         begin
           ContactMailer.message_mail(@contact).deliver!
         rescue SparkPostRails::DeliveryException => e
@@ -88,5 +88,13 @@ class ContactsController < ApplicationController
 
   def ns_download_all_params
     params.permit(:email, :country, :terms, links: [])
+  end
+
+  def verify_human
+    if Rails.env == 'production'
+      verify_recaptcha(model: @contact)
+    else
+      true
+    end
   end
 end

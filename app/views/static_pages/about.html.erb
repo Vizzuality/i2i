@@ -283,7 +283,7 @@
                   <%= f.input :country, as: :string %>
                   <%= f.input :message, required: true %>
                   <div class="actions">
-                    <%= recaptcha_tags %>
+                    <%= recaptcha_tags if Rails.env == 'production' %>
                     <%= f.button :submit, 'Send', class: 'primary-btn' %>
                   </div>
                 <% end %>
