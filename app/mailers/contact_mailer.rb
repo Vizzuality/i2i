@@ -40,7 +40,7 @@ class ContactMailer < ApplicationMailer
     sub_data = {
       first_name: message.first_name,
       last_name: message.last_name,
-      email: message.email,
+      user_email: message.email,
       title: message.title,
       company: message.company,
       country: message.country,
