@@ -276,6 +276,14 @@ namespace :db do
     end
   end
 
+  task post_household_transaction: [:environment, :add_dates_to_histories, :create_histories_values, :calculate_household_subcategory_income, :create_household_income_tiers, :calculate_household_transaction_total_income] do
+    p "finished"
+  end
+
+  task post_household_member_transaction: [:environment, :add_dates_to_histories, :create_member_histories_values, :calculate_member_subcategory_income, :create_member_income_tiers, :calculate_household_member_transaction_total_income] do
+    p "finished"
+  end
+
   # task remove_resources_from_income: :environment do
   #   households = HouseholdTransaction.where(category_type: 'income', subcategory: 'Resources')
   #   members = HouseholdMemberTransaction.where(category_type: 'income', subcategory: 'Resources')
