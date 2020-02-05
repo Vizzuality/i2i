@@ -5,7 +5,7 @@ namespace :db do
   task import_household_transactions: :environment do
     p "started at #{DateTime.now}"
     csv_text = File.read('db/data/household_transactions.csv')
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     households = []
     date_headers = csv.headers[10..74]
 
@@ -50,7 +50,7 @@ namespace :db do
   task import_household_member_transactions: :environment do
     p "started at #{DateTime.now}"
     csv_text = File.read('db/data/household_member_transactions.csv')
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     household_members = []
     date_headers = csv.headers[14..78]
 
