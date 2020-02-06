@@ -83,11 +83,11 @@ class ContactsController < ApplicationController
   end
 
   def batch_download_params
-    params.permit(:email, :country, :terms, links: [])
+    params.permit(:email, :country, :year, :terms, links: [])
   end
 
   def ns_download_all_params
-    params.permit(:email, :country, :terms, links: [])
+    params.permit(:email, :country, :year, :terms, links: [])
   end
 
   def verify_human
