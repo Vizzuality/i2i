@@ -96,6 +96,12 @@
       </div>
       <div class="grid-s-12 grid-l-5">
         <div class="l-supplied-by">
+          <% if (country === 'Nigeria' && year === 2016) { %>
+            <img src="/images/logos/EFINA-Logo.png" alt="EFINA" />
+          <% } %>
+          <% if (country === 'Nigeria' && year === 2018) { %>
+            <img src="/images/logos/EFINA-Logo.png" alt="EFINA" />
+          <% } %>
         <% if (isMSME) { %>
           <p>Data supplied by</p>
           <a href="https://finmark.org.za/_programme/data-for-financial-markets/finscope/finscope-msme/" target="_blank" rel="noopener noreferrer">
@@ -113,8 +119,6 @@
           </a>
 
         <% } else if (isCGAP) { %>
-
-            <img src="/images/logos/EFINA-Logo.png" alt="EFINA" />
             <img src="/images/logos/CGAP_white.svg" alt="CGAP" />
             <p>The following dataset is nationally representative of smallholder farmers for this country.</p>
 
