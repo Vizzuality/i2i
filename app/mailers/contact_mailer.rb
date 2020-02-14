@@ -12,6 +12,19 @@ class ContactMailer < ApplicationMailer
          sparkpost_data: data)
   end
 
+  def msme_data_mail(contact)
+    @contact = contact
+
+    sub_data = { country: @contact.country,
+                 year: @contact.year }
+
+    data = { template_id: 'msme-country-data',
+             substitution_data: sub_data }
+
+    mail(to: @contact.email,
+         sparkpost_data: data)
+  end
+
   def data_batch_download(contact, links)
     @contact = contact
     @links_block = ""

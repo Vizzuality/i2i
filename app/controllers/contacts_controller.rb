@@ -18,6 +18,22 @@ class ContactsController < ApplicationController
     end
   end
 
+  def msme_data_request
+    contact = Contact.new(ns_download_all_params)
+
+    if contact.save
+      begin
+        ContactMailer.msme_data_mail(contact).deliver!
+      rescue SparkPostRails::DeliveryException => e
+        Rails.logger.error "Error sending the email: #{e}"
+      end
+
+      render json: contact.to_json, status: :created
+    else
+      render json: contact.errors, status: :unprocessable_entity
+    end
+  end
+
   def ns_download_all
     contact = Contact.new(ns_download_all_params)
 
