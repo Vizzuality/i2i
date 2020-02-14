@@ -56,7 +56,7 @@
       data.push({ name: 'year', value: this.options.year });
 
       $.post({
-        url: "<%= ns_download_all_contacts_path %>",
+        url: location.href.includes('msm-enterprises') ? "<%= msme_data_request_contacts_path %>" : "<%= ns_download_all_contacts_path %>",
         data: data,
         success: function() {
           self.options.content = self.successTemplate({});
