@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     post :batch_download
     post :about_form
     post :ns_download_all
+    post :msme_data_request
   end
 
   scope :format => true, :constraints => { :format => 'json' } do
