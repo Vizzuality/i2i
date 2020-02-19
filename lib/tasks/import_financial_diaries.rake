@@ -5,7 +5,7 @@ namespace :db do
   task import_household_transactions: :environment do
     p "started at #{DateTime.now}"
     csv_text = File.read('db/data/household_transactions.csv')
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     households = []
     date_headers = csv.headers[10..74]
 
@@ -50,7 +50,7 @@ namespace :db do
   task import_household_member_transactions: :environment do
     p "started at #{DateTime.now}"
     csv_text = File.read('db/data/household_member_transactions.csv')
-    csv = CSV.parse(csv_text, :headers => true)
+    csv = CSV.parse(csv_text, headers: true)
     household_members = []
     date_headers = csv.headers[14..78]
 
@@ -274,6 +274,14 @@ namespace :db do
                                               person_code: transaction.person_code)
       transaction.update_column(:total_income, incomes.pluck(:value).reduce(:+))
     end
+  end
+
+  task post_household_transaction: [:environment, :add_dates_to_histories, :create_histories_values, :calculate_household_subcategory_income, :create_household_income_tiers, :calculate_household_transaction_total_income] do
+    p "finished"
+  end
+
+  task post_household_member_transaction: [:environment, :add_dates_to_histories, :create_member_histories_values, :calculate_member_subcategory_income, :create_member_income_tiers, :calculate_household_member_transaction_total_income] do
+    p "finished"
   end
 
   # task remove_resources_from_income: :environment do
