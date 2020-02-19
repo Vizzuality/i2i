@@ -17,7 +17,7 @@ module Categorizable
   module ClassMethods
     def category_tree(project_name)
       categories = []
-      types = where(project_name: project_name).pluck(:category_type).uniq
+      types = where(project_name: project_name).where('category_type IS NOT NULL').pluck(:category_type).uniq
 
       types.sort.each do |type|
         children = where(project_name: project_name, category_type: type)
