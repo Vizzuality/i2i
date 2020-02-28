@@ -27,6 +27,16 @@
       color: $color-2;
       font-weight: $font-weight-bold;
     }
+
+    &.-normal {
+      font-weight: 300 !important;
+    }
+    &.-italic {
+      font-style: italic;
+    }
+    &.-small {
+      font-size: $font-size-small !important;
+    }
   }
 
   .c-button {
