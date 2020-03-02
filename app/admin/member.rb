@@ -38,7 +38,7 @@ ActiveAdmin.register Member do
 
     div do
       a :href => admin_member_path(member) do
-        image_tag(member.image, size:'175x225')
+        image_tag(member.image, size:'175x225') if member.image
       end
     end
   end
