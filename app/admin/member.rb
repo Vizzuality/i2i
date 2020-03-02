@@ -35,11 +35,11 @@ ActiveAdmin.register Member do
       'Date: ' + member.date.to_s
     end
 
-    # div do
-    #   a :href => admin_member_path(member) do
-    #     image_tag(member.image, size:'175x225') if member.image
-    #   end
-    # end
+    div do
+      a :href => admin_member_path(member) do
+        image_tag(member.image.url(:thumb), size:'175x225')
+      end
+    end
   end
 
 
