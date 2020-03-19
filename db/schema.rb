@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_170911) do
     t.string "short_iso"
     t.boolean "has_fsp_maps", default: false
     t.text "background_data"
+    t.string "map_url"
   end
 
   create_table "countries_blogs", id: :serial, force: :cascade do |t|
@@ -725,6 +726,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_170911) do
     t.text "flag_data"
     t.text "logo_data"
     t.text "background_data"
+    t.string "map_url"
     t.index ["slug"], name: "index_regions_on_slug", unique: true
   end
 
