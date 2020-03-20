@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: regions
+#
+#  id              :integer          not null, primary key
+#  name            :string           default(""), not null
+#  iso             :string           default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  slug            :string           not null
+#  flag_data       :text
+#  logo_data       :text
+#  background_data :text
+#
+
 require 'uploaders/background_uploader'
 require 'uploaders/image_uploader'
 

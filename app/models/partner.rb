@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: partners
+#
+#  id          :integer          not null, primary key
+#  name        :string           default(""), not null
+#  logo_data   :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  website_url :string
+#
+
 require 'uploaders/partner_logo_uploader'
 
 class Partner < ApplicationRecord

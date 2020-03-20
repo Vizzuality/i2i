@@ -1,12 +1,15 @@
 module FinscopeApi
   def self.get_countries
-    response = JSON.parse(HTTP.get("#{ENV['API_URL']}/country?lastyear=true").body.to_s)
+    Country.all.map do |country|
+      latest_country = Country4Year.
+        select(:year).
+        where(country_id: country.id).
+        desc(:year).first
 
-    response.map do |country|
       {
-        iso: country['iso'],
-        name: country['name'],
-        latest_year: country['year'][0]['year']
+        iso: country.iso,
+        name: country.name,
+        latest_year: latest_country.year
       }
     end
   end
