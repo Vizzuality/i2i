@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_20_165710) do
+ActiveRecord::Schema.define(version: 2020_03_20_170911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -636,6 +636,16 @@ ActiveRecord::Schema.define(version: 2020_03_20_165710) do
     t.datetime "updated_at", null: false
     t.index ["news_id"], name: "index_news_regions_on_news_id"
     t.index ["region_id"], name: "index_news_regions_on_region_id"
+  end
+
+  create_table "original_answer_regions", force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "region_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_4_year_id"], name: "index_original_answer_regions_on_region_4_year_id"
   end
 
   create_table "original_answers", force: :cascade do |t|
