@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_114111) do
+ActiveRecord::Schema.define(version: 2020_03_19_134009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,17 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_countries_news_on_country_id"
     t.index ["news_id"], name: "index_countries_news_on_news_id"
+  end
+
+  create_table "country_4_years", force: :cascade do |t|
+    t.integer "year"
+    t.float "total_msme"
+    t.float "total"
+    t.string "data_url"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_country_4_years_on_country_id"
   end
 
   create_table "country_partners", id: :serial, force: :cascade do |t|
@@ -634,6 +645,9 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.integer "num_members_in_mem"
     t.string "province"
     t.text "custom_text"
+  end
+
+  create_table "region4_years", force: :cascade do |t|
   end
 
   create_table "region_partners", id: :serial, force: :cascade do |t|
