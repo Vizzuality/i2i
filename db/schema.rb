@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_20_161454) do
+ActiveRecord::Schema.define(version: 2020_03_20_164718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,21 @@ ActiveRecord::Schema.define(version: 2020_03_20_161454) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "answer_regions", force: :cascade do |t|
+    t.integer "row_id", null: false
+    t.integer "indicator_id", null: false
+    t.integer "child_indicator_id"
+    t.integer "answer_id", null: false
+    t.string "value"
+    t.float "weight", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "region_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_4_year_id"], name: "index_answer_regions_on_region_4_year_id"
   end
 
   create_table "answers", force: :cascade do |t|
