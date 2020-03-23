@@ -58,7 +58,7 @@ GEM
       activemodel (= 5.2.3)
       activesupport (= 5.2.3)
       arel (>= 9.0)
-    activerecord-import (0.15.0)
+    activerecord-import (1.0.4)
       activerecord (>= 3.2)
     activestorage (5.2.3)
       actionpack (= 5.2.3)
@@ -493,7 +493,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   activeadmin!
   activeadmin-sortable
-  activerecord-import (~> 0.15.0)
+  activerecord-import (~> 1.0.4)
   acts_as_list
   annotate
   autoprefixer-rails (~> 6.7)
