@@ -124,21 +124,34 @@ namespace :i2i_api_import do
       end
     end
 
-    class AnswerRegions < ExternalDatabase
+    class AnswerRegion < ExternalDatabase
       self.table_name = 'answer_region'
 
       def self.import_external
-        i2i_api_data = I2IAPI::AnswerRegion.all.map do |answer_region|
-          data = answer_region.
-            attributes.except('id').transform_keys { |key| key.to_s.underscore }
-          region = ::Region.find_by(iso: data['iso'])
-          data['region_4_year_id'] =
-            ::Region4Year.find_by(region_id: region.id, year: answer_region.year).id
-          data.delete('region4year_id')
-          data
-        end.compact
+        attributes = I2IAPI::AnswerRegion.import_external_select_columns
+        I2IAPI::AnswerRegion.select(*attributes).find_in_batches(batch_size: 10_000) do |group|
+          data = group.map { |answer_region| answer_region.attributes.except('id') }
+          ::AnswerRegion.import(group)
+        end
+      end
 
-        ::AnswerRegion.import(i2i_api_data)
+      private
+
+      def self.import_external_select_columns
+        [
+          'id',
+          'row_id',
+          'indicator_id',
+          'child_indicator_id',
+          'answer_id',
+          'value',
+          'weight',
+          'iso',
+          'year',
+          '"answer_region"."createdAt" AS created_at',
+          '"answer_region"."updatedAt" AS updated_at',
+          '"answer_region"."region4yearId" AS region_4_year_id'
+        ]
       end
     end
 
@@ -146,35 +159,51 @@ namespace :i2i_api_import do
       self.table_name = 'original_answer'
 
       def self.import_external
-        i2i_api_data = I2IAPI::OriginalAnswer.all.map do |original_answer|
-          data = original_answer.
-            attributes.except('id').transform_keys { |key| key.to_s.underscore }
-          country = ::Country.find_by(iso: data['iso'])
-          data['country_4_year_id'] =
-            ::Country4Year.find_by(country_id: country.id, year: original_answer.year).id
-          data.delete('country4year_id')
-          data
-        end.compact
+        attributes = I2IAPI::OriginalAnswer.import_external_select_columns
+        I2IAPI::OriginalAnswer.select(*attributes).find_in_batches(batch_size: 10_000) do |group|
+          data = group.map { |original_answer| original_answer.attributes.except('id') }
+          ::OriginalAnswer.import(group)
+        end
+      end
 
-        ::OriginalAnswer.import(i2i_api_data)
+      private
+
+      def self.import_external_select_columns
+        [
+          'id',
+          'answer',
+          'iso',
+          'year',
+          '"original_answer"."createdAt" AS created_at',
+          '"original_answer"."updatedAt" AS updated_at',
+          '"original_answer"."country4yearId" AS country_4_year_id'
+        ]
       end
     end
 
-    class OriginalAnswerRegions < ExternalDatabase
+    class OriginalAnswerRegion < ExternalDatabase
       self.table_name = 'original_answer_region'
 
       def self.import_external
-        i2i_api_data = I2IAPI::OriginalAnswerRegion.all.map do |original_answer_region|
-          data = original_answer_region.
-            attributes.except('id').transform_keys { |key| key.to_s.underscore }
-          region = ::Region.find_by(iso: data['iso'])
-          data['region_4_year_id'] =
-            ::Region4Year.find_by(region_id: region.id, year: original_answer_region.year).id
-          data.delete('region4year_id')
-          data
-        end.compact
+        attributes = I2IAPI::OriginalAnswerRegion.import_external_select_columns
+        I2IAPI::OriginalAnswerRegion.select(*attributes).find_in_batches(batch_size: 10_000) do |group|
+          data = group.map { |oanswer_region| oanswer_region.attributes.except('id') }
+          ::OriginalAnswerRegion.import(group)
+        end
+      end
 
-        ::OriginalAnswerRegion.import(i2i_api_data)
+      private
+
+      def self.import_external_select_columns
+        [
+          'id',
+          'answer',
+          'iso',
+          'year',
+          '"original_answer_region"."createdAt" AS created_at',
+          '"original_answer_region"."updatedAt" AS updated_at',
+          '"original_answer_region"."region4yearId" AS region_4_year_id'
+        ]
       end
     end
   end
