@@ -4,14 +4,16 @@ module FinscopeApi
       latest_country = Country4Year.
         select(:year).
         where(country_id: country.id).
-        desc(:year).first
+        order(year: :desc).first
+
+      next unless latest_country
 
       {
         iso: country.iso,
         name: country.name,
         latest_year: latest_country.year
       }
-    end
+    end.compact
   end
 
   def self.get_regions
