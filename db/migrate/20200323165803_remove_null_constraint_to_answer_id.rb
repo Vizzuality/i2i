@@ -5,7 +5,7 @@ class RemoveNullConstraintToAnswerId < ActiveRecord::Migration[5.2]
   end
 
   def down
-    change_column :answers, :answer_id, :integer, null: false
-    change_column :answer_regions, :answer_id, :integer, null: false
+    change_column :answers, :answer_id, :integer
+    change_column :answer_regions, :answer_id, :integer
   end
 end

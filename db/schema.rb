@@ -46,9 +46,24 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "answer_region", id: :serial, force: :cascade do |t|
+    t.integer "row_id", null: false
+    t.string "indicator_id", limit: 255, null: false
+    t.integer "child_indicator_id"
+    t.integer "answer_id"
+    t.string "value", limit: 255
+    t.float "weight", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "region_4_year_id", null: false
+    t.integer "region4yearId"
+  end
+
   create_table "answer_regions", force: :cascade do |t|
     t.integer "row_id", null: false
-    t.integer "indicator_id", null: false
+    t.string "indicator_id", null: false
     t.integer "child_indicator_id"
     t.integer "answer_id"
     t.string "value"
@@ -63,7 +78,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
 
   create_table "answers", force: :cascade do |t|
     t.integer "row_id", null: false
-    t.integer "indicator_id", null: false
+    t.string "indicator_id", null: false
     t.integer "child_indicator_id"
     t.integer "answer_id"
     t.string "value"
@@ -216,6 +231,17 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_countries_news_on_country_id"
     t.index ["news_id"], name: "index_countries_news_on_news_id"
+  end
+
+  create_table "country4years", id: :serial, force: :cascade do |t|
+    t.integer "year"
+    t.float "total_msme"
+    t.float "total"
+    t.string "dataUrl", limit: 255
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "countryId"
+    t.integer "country_id", null: false
   end
 
   create_table "country_4_years", force: :cascade do |t|
@@ -639,6 +665,26 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.index ["region_id"], name: "index_news_regions_on_region_id"
   end
 
+  create_table "original_answer", id: :serial, force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "country4yearId"
+    t.integer "country_4_year_id", null: false
+  end
+
+  create_table "original_answer_region", id: :serial, force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "region_4_year_id", null: false
+    t.integer "region4yearId"
+  end
+
   create_table "original_answer_regions", force: :cascade do |t|
     t.jsonb "answer", null: false
     t.string "iso", null: false
@@ -696,6 +742,16 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.integer "num_members_in_mem"
     t.string "province"
     t.text "custom_text"
+  end
+
+  create_table "region4years", id: :serial, force: :cascade do |t|
+    t.integer "year"
+    t.float "total"
+    t.string "dataUrl", limit: 255
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "regionId"
+    t.integer "region_id", null: false
   end
 
   create_table "region_4_years", force: :cascade do |t|
@@ -784,4 +840,14 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.index ["token"], name: "index_users_on_token"
   end
 
+  add_foreign_key "answer_region", "region4years", column: "region4yearId", name: "answer_region_region4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "answer_region", "region4years", column: "region_4_year_id", name: "answer_region_region_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "country4years", "countries", column: "countryId", name: "country4years_countryId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "country4years", "countries", name: "country4years_country_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "original_answer", "country4years", column: "country4yearId", name: "original_answer_country4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "original_answer", "country4years", column: "country_4_year_id", name: "original_answer_country_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "original_answer_region", "region4years", column: "region4yearId", name: "original_answer_region_region4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "original_answer_region", "region4years", column: "region_4_year_id", name: "original_answer_region_region_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "region4years", "regions", column: "regionId", name: "region4years_regionId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "region4years", "regions", name: "region4years_region_id_fkey", on_update: :cascade, on_delete: :cascade
 end
