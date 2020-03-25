@@ -23,7 +23,7 @@ namespace :i2i_api_import do
         encoding: 'unicode',
         database: ENV.fetch('I2I_API_DATABASE_NAME', 'i2i_api'),
         username: ENV.fetch('I2I_API_DATABASE_USERNAME', 'postgres'),
-        host: ENV.fetch('I2I_API_DATABASE_PORT', 'localhost'),
+        host: ENV.fetch('I2I_API_DATABASE_HOST', 'localhost'),
         port: ENV.fetch('I2I_API_DATABASE_PORT', 5432),
         password: ENV.fetch('I2I_API_DATABASE_PASSWORD', '')
       )
@@ -44,14 +44,14 @@ namespace :i2i_api_import do
     end
 
     class Region < ExternalDatabase
-      self.table_name = 'countries'
+      self.table_name = 'regions'
 
       def self.import_external
         I2IAPI::Region.all.each do |i2i_api_region|
           ::Region.find_or_initialize_by(
             iso: i2i_api_region.iso,
-              name: i2i_api_region.name,
-              map_url: i2i_api_region.map_url
+            name: i2i_api_region.name,
+            map_url: i2i_api_region.map_url
           ).save
         end
       end
@@ -63,7 +63,7 @@ namespace :i2i_api_import do
       def self.import_external
         i2i_api_data = I2IAPI::Country4Year.all.map do |country_4_year|
           data = country_4_year.attributes.except('id').transform_keys { |key| key.to_s.underscore }
-          country_api = I2IAPI::Country.find(data['country_id'])
+          country_api = I2IAPI::Country.find_by(data['country_id'])
 
           next unless existing_country = ::Country.find_by(iso: country_api.iso)
 
