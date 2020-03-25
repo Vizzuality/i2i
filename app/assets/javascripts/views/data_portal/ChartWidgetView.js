@@ -1,9 +1,8 @@
-(function (App) {
-  'use strict';
+(function(App) {
+  "use strict";
 
   App.View.ChartWidgetView = Backbone.View.extend({
-
-    template: JST['templates/data_portal/chart-widget'],
+    template: JST["templates/data_portal/chart-widget"],
 
     defaults: {
       // Ratio between the height and the width (i.e. height = chartRatio * width)
@@ -39,7 +38,7 @@
       // Whether the widget is rendered in a report
       report: false,
       // Callback executed when the delete button is clicked
-      onDelete: function () {},
+      onDelete: function() {},
       // Automatically re-render the chart when the size of the window changes
       // If false, the widget is scaled with the preserveAspectRatio attribute
       // If true, it depends on the responsive mode of the widget:
@@ -49,18 +48,18 @@
       autoResize: true,
       // Default mode for widget view
       // The mode is used to determine how the toolbar should be shown
-      mode: 'graphics'
+      mode: "graphics"
     },
 
     events: {
-      'click .js-save': '_onSave',
-      'click .js-change': '_onChange',
-      'click .js-compare': '_onCompare',
-      'click .js-analyze': '_onAnalyze',
-      'click .js-delete': '_onDelete'
+      "click .js-save": "_onSave",
+      "click .js-change": "_onChange",
+      "click .js-compare": "_onCompare",
+      "click .js-analyze": "_onAnalyze",
+      "click .js-delete": "_onDelete"
     },
 
-    initialize: function (settings) {
+    initialize: function(settings) {
       this.options = _.extend({}, this.defaults, settings);
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
@@ -73,24 +72,27 @@
     /**
      * Set the listeners that doesn't depend on a DOM node
      */
-    _setListeners: function () {
+    _setListeners: function() {
       if (this.options.autoResize) {
-        window.addEventListener('resize', _.debounce(this._onResize.bind(this), 150));
+        window.addEventListener(
+          "resize",
+          _.debounce(this._onResize.bind(this), 150)
+        );
       }
     },
 
     /**
      * Event handler executed when the data is fetched
      */
-    _onFetch: function () {
-      var data = this.model.get('data') || this.model.get('rows') || [];
+    _onFetch: function() {
+      var data = this.model.get("data") || this.model.get("rows") || [];
       if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
       // If the indicator doesn't have any data, we also want to send an event
       // to notify the parent view about it
-      this.trigger('data:sync', {
+      this.trigger("data:sync", {
         id: this.options.id,
-        name: this.model.get('title'),
+        name: this.model.get("title"),
         data: data
       });
 
@@ -99,34 +101,36 @@
 
       // We pre-render the component with its template
       this.el.innerHTML = this.template({
-        name: this.model.get('title'),
+        name: this.model.get("title"),
         mode: this.options.mode,
         country: App.Helper.Indicators.COUNTRIES[this.options.iso],
         year: this.options.year,
-        filters: this.options.filters.filter(function (filter) {
-          return filter.id !== 'jurisdiction';
+        filters: this.options.filters.filter(function(filter) {
+          return filter.id !== "jurisdiction";
         }),
         jurisdiction: this._getJurisdiction(),
         noData: !data.length,
         showDetails: this.options.showDetails,
         showToolbar: this.options.showToolbar,
         report: this.options.report,
-        canAnalyze: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
-        canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
+        canAnalyze:
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
+        canCompare:
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS ||
+          indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
-      this.chartContainer = this.el.querySelector('.js-chart');
+      this.chartContainer = this.el.querySelector(".js-chart");
 
       this.render();
       this._setListeners();
@@ -135,8 +139,8 @@
     /**
      * Event handler for when the window is resized
      */
-    _onResize: function () {
-      if (!this.options.chart || this.options.chart === 'table') return;
+    _onResize: function() {
+      if (!this.options.chart || this.options.chart === "table") return;
 
       /* eslint-disable no-underscore-dangle */
       var previousWidth = this.options._width;
@@ -144,7 +148,10 @@
       /* eslint-enable no-underscore-dangle */
 
       var newDimensions = this._computeChartDimensions();
-      if (newDimensions.width !== previousWidth || newDimensions.height !== previousHeight) {
+      if (
+        newDimensions.width !== previousWidth ||
+        newDimensions.height !== previousHeight
+      ) {
         this._renderChart();
       }
     },
@@ -152,37 +159,39 @@
     /**
      * Event handler for when the user clicks the save button
      */
-    _onSave: function () {
+    _onSave: function() {
       new App.Component.ModalSaveWidget({
-        widgetConfig: this.options,
+        widgetConfig: this.options
       });
     },
 
     /**
      * Event handler for when the user clicks the change button
      */
-    _onChange: function () {
+    _onChange: function() {
       var deferred = $.Deferred();
 
       // If the analysis or comparison is active, we display ask the user to confirm
       // their choice
       if (this.options.compareIndicators || this.options.analysisIndicator) {
         new App.View.WidgetWarningTooltipView({
-          refElem: this.el.querySelector('.js-change'),
-          direction: 'top',
-          description: 'The chart selection isn\'t compatible with the '
-            + (this.options.compareIndicators ? 'compare' : 'analysis')
-            + ' mode. You will loose the current configuration.',
-          continueCallback: function () {
+          refElem: this.el.querySelector(".js-change"),
+          direction: "top",
+          description:
+            "The chart selection isn't compatible with the " +
+            (this.options.compareIndicators ? "compare" : "analysis") +
+            " mode. You will loose the current configuration.",
+          continueCallback: function() {
             this.remove();
             deferred.resolve();
           },
-          cancelCallback: function () { this.remove(); }
+          cancelCallback: function() {
+            this.remove();
+          }
         });
       } else {
         deferred.resolve();
       }
-
 
       deferred.done(this._openModalChartSelector.bind(this));
     },
@@ -190,21 +199,24 @@
     /**
      * Event handler for when the user clicks the analyze button
      */
-    _onAnalyze: function () {
+    _onAnalyze: function() {
       var deferred = $.Deferred();
 
       // If the comparison is active, we display ask the user to confirm
       // their choice
       if (this.options.compareIndicators) {
         new App.View.WidgetWarningTooltipView({
-          refElem: this.el.querySelector('.js-analyze'),
-          direction: 'top',
-          description: 'The analysis mode isn\'t compatible with the compare one. You will loose the current configuration.',
-          continueCallback: function () {
+          refElem: this.el.querySelector(".js-analyze"),
+          direction: "top",
+          description:
+            "The analysis mode isn't compatible with the compare one. You will loose the current configuration.",
+          continueCallback: function() {
             this.remove();
             deferred.resolve();
           },
-          cancelCallback: function () { this.remove(); }
+          cancelCallback: function() {
+            this.remove();
+          }
         });
       } else {
         deferred.resolve();
@@ -216,7 +228,7 @@
     /**
      * Event handler for when the user clicks the "clear analysis" button
      */
-    _onStopAnalyze: function () {
+    _onStopAnalyze: function() {
       this.options.chart = null;
       this.options.analysisIndicator = null;
       this._fetchData();
@@ -225,21 +237,24 @@
     /**
      * Event handler for when the user clicks the compare button
      */
-    _onCompare: function () {
+    _onCompare: function() {
       var deferred = $.Deferred();
 
       // If the analysis is active, we display ask the user to confirm
       // their choice
       if (this.options.analysisIndicator) {
         new App.View.WidgetWarningTooltipView({
-          refElem: this.el.querySelector('.js-compare'),
-          direction: 'top',
-          description: 'The compare mode isn\'t compatible with the analysis one. You will loose the current configuration.',
-          continueCallback: function () {
+          refElem: this.el.querySelector(".js-compare"),
+          direction: "top",
+          description:
+            "The compare mode isn't compatible with the analysis one. You will loose the current configuration.",
+          continueCallback: function() {
             this.remove();
             deferred.resolve();
           },
-          cancelCallback: function () { this.remove(); }
+          cancelCallback: function() {
+            this.remove();
+          }
         });
       } else {
         deferred.resolve();
@@ -251,7 +266,7 @@
     /**
      * Event handler for when the user clicks the "clear comparison" button
      */
-    _onStopCompare: function () {
+    _onStopCompare: function() {
       this.options.chart = null;
       this.options.compareIndicators = null;
       this._fetchData();
@@ -261,7 +276,7 @@
      * Event handler fow when the chart is changed
      * @param {string} chart - chosen chart
      */
-    _onChangeChart: function (chart) {
+    _onChangeChart: function(chart) {
       if (this.options.chart === chart) return;
 
       this.options.chart = chart;
@@ -286,8 +301,8 @@
      * @param {object} e vega event
      * @param {object} item vega item
      */
-    _onMouseoverChart: function (e, item) {
-      if (!item || !item.mark || item.mark.name !== 'hasTooltip') return;
+    _onMouseoverChart: function(e, item) {
+      if (!item || !item.mark || item.mark.name !== "hasTooltip") return;
 
       this.tooltip = new App.View.ChartTooltipView({
         title: item.datum.tooltipTitle,
@@ -301,7 +316,7 @@
      * Event handler for when an element with tooltip looses its hover
      * state in a chart
      */
-    _onMouseoutChart: function () {
+    _onMouseoutChart: function() {
       if (!this.tooltip) return;
       this.tooltip.remove();
       this.tooltip = null;
@@ -310,21 +325,21 @@
     /**
      * Event handler for when a chart receives a touchmove event
      */
-    _onTouchmoveChart: function () {
+    _onTouchmoveChart: function() {
       this._onMouseoutChart();
     },
 
     /**
      * Event handler executed when the delete button is clicked
      */
-    _onDelete: function () {
+    _onDelete: function() {
       this.options.onDelete();
     },
 
     /**
      * Reload the widget its current configuration
      */
-    reload: function () {
+    reload: function() {
       this._fetchData();
     },
 
@@ -332,9 +347,9 @@
      * Return the name of the jurisdiction if there's one, null otherwise
      * @return {string|null}
      */
-    _getJurisdiction: function () {
-      var jurisdictionFilter = this.options.filters.find(function (filter) {
-        return filter.id === 'jurisdiction';
+    _getJurisdiction: function() {
+      var jurisdictionFilter = this.options.filters.find(function(filter) {
+        return filter.id === "jurisdiction";
       });
 
       return jurisdictionFilter ? jurisdictionFilter.options[0] : null;
@@ -343,8 +358,10 @@
     /**
      * Open the modal for the chart comparison
      */
-    _openModalChartCompare: function () {
-      var jurisdictionFilter = _.findWhere(this.options.filters, { id: 'jurisdiction' });
+    _openModalChartCompare: function() {
+      var jurisdictionFilter = _.findWhere(this.options.filters, {
+        id: "jurisdiction"
+      });
 
       new App.Component.ModalChartCompare({
         indicator: this._getIndicator(),
@@ -353,44 +370,48 @@
         filters: this.options.filters,
         compareIndicators: this.options.compareIndicators,
         canCompareCountries: !jurisdictionFilter,
-        continueCallback: function (compareIndicators) {
+        continueCallback: function(compareIndicators) {
           // If the analysis is active, we stop it
           if (this.options.analysisIndicator) {
             this.options.chart = null;
             this.options.analysisIndicator = null;
           }
 
-          this.options.chart = 'compare';
+          this.options.chart = "compare";
           this.options.compareIndicators = compareIndicators;
           this._fetchData();
         }.bind(this),
         stopCompareCallback: this._onStopCompare.bind(this),
         isRegion: this.options.isRegion,
-        isMSME: this.options.isMSME,
+        isMSME: this.options.isMSME
       });
     },
 
     /**
      * Open the modal for the chart analysis
      */
-    _openModalChartAnalysis: function () {
-      var nonComplexIndicators = this.indicatorsCollection.toJSON().filter(function (indicator) {
-        return indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS
-          && indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS
-          && indicator.category !== App.Helper.Indicators.CATEGORIES.ASSET;
-      });
+    _openModalChartAnalysis: function() {
+      var nonComplexIndicators = this.indicatorsCollection
+        .toJSON()
+        .filter(function(indicator) {
+          return (
+            indicator.category !== App.Helper.Indicators.CATEGORIES.ACCESS &&
+            indicator.category !== App.Helper.Indicators.CATEGORIES.STRANDS &&
+            indicator.category !== App.Helper.Indicators.CATEGORIES.ASSET
+          );
+        });
 
       new App.Component.ModalChartAnalysis({
         indicators: nonComplexIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
-        continueCallback: function (indicatorId) {
+        continueCallback: function(indicatorId) {
           // If the comparison is active, we stop it
           if (this.options.compareIndicators) {
             this.options.chart = null;
             this.options.compareIndicators = null;
           }
 
-          this.options.chart = 'analysis';
+          this.options.chart = "analysis";
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
         }.bind(this),
@@ -401,23 +422,21 @@
     /**
      * Opent the modal for the chart selection
      */
-    _openModalChartSelector: function () {
+    _openModalChartSelector: function() {
       // We retrieve the list of all the charts that can be built with vega
-      var charts = App.Helper.ChartConfig
-        .filter(function (chart) {
-          return chart.visible !== false;
-        })
-        .map(function(chart) {
-          return {
-            name: chart.name,
-            available: false,
-            selected: this.options.chart === chart.name
-          };
-        }, this);
+      var charts = App.Helper.ChartConfig.filter(function(chart) {
+        return chart.visible !== false;
+      }).map(function(chart) {
+        return {
+          name: chart.name,
+          available: false,
+          selected: this.options.chart === chart.name
+        };
+      }, this);
 
       // We update the object to tell which ones are available with the current
       // dataset
-      this._getAvailableCharts().forEach(function (availableChart) {
+      this._getAvailableCharts().forEach(function(availableChart) {
         var chart = _.findWhere(charts, { name: availableChart });
         if (chart) chart.available = true;
       });
@@ -432,14 +451,15 @@
     /**
      * Fetch the data for the widget
      */
-    _fetchData: function () {
+    _fetchData: function() {
       // We show the spinning loader
       this._showLoader();
 
       // We fetch the indicators only once
       var deferred = $.Deferred();
       if (!this.indicatorsCollection.length) {
-        this.indicatorsCollection.fetch()
+        this.indicatorsCollection
+          .fetch()
           .done(deferred.resolve)
           .fail(deferred.reject);
       } else {
@@ -447,43 +467,50 @@
       }
 
       deferred
-        .then(function () {
-          // We create a new model each time we request the data because the
-          // model options eventually changed
-          this.model = new App.Model.ChartWidgetModel(
-            _.extend({}, this.options, {
-              id: this.options.id,
-              iso: this.options.iso,
-              year: this.options.year,
-              indicator: this._getIndicator(),
-              body: this.options.body,
-              filters: this.options.filters,
-              analysisIndicatorId: this.options.analysisIndicator,
-              compareIndicators: this.options.compareIndicators,
-              expanded: this.options.chart === 'table',
-              isRegion: this.options.isRegion,
-              isMSME: this.options.isMSME,
-            })
-          );
+        .then(
+          function() {
+            // We create a new model each time we request the data because the
+            // model options eventually changed
+            this.model = new App.Model.ChartWidgetModel(
+              _.extend({}, this.options, {
+                id: this.options.id,
+                iso: this.options.iso,
+                year: this.options.year,
+                indicator: this._getIndicator(),
+                body: this.options.body,
+                filters: this.options.filters,
+                analysisIndicatorId: this.options.analysisIndicator,
+                compareIndicators: this.options.compareIndicators,
+                expanded: this.options.chart === "table",
+                isRegion: this.options.isRegion,
+                isMSME: this.options.isMSME
+              })
+            );
 
-          this.model.fetch()
-            .done(this._onFetch.bind(this))
-            .fail(this.renderError.bind(this))
-            .always(this._hideLoader.bind(this));
-        }.bind(this))
-        .fail(function () {
-          this.renderError();
-          this._hideLoader();
-        }.bind(this));
+            this.model
+              .fetch()
+              .done(this._onFetch.bind(this))
+              .fail(this.renderError.bind(this))
+              .always(this._hideLoader.bind(this));
+          }.bind(this)
+        )
+        .fail(
+          function() {
+            this.renderError();
+            this._hideLoader();
+          }.bind(this)
+        );
     },
 
     /**
      * Return the detailed information about the indicator
      * @return {{ id: string, name: string, category: string, visible: boolean }}
      */
-    _getIndicator: function () {
-      var indicator = this.indicatorsCollection.findWhere({ id: this.options.id });
-      if (indicator) return indicator.toJSON()
+    _getIndicator: function() {
+      var indicator = this.indicatorsCollection.findWhere({
+        id: this.options.id
+      });
+      if (indicator) return indicator.toJSON();
       return null;
     },
 
@@ -491,51 +518,60 @@
      * Get the list of available charts for the current widget
      * @returns {string[]}
      */
-    _getAvailableCharts: function () {
-      return this.widgetToolbox.getAvailableCharts().filter(function (chartName) {
-        var chart = this._getChartConfig(chartName);
-        var indicator = this._getIndicator() || {};
-        return !chart.categories || chart.categories.indexOf(indicator.category) !== -1;
-      }, this);
+    _getAvailableCharts: function() {
+      return this.widgetToolbox
+        .getAvailableCharts()
+        .filter(function(chartName) {
+          var chart = this._getChartConfig(chartName);
+          var indicator = this._getIndicator() || {};
+          return (
+            !chart.categories ||
+            chart.categories.indexOf(indicator.category) !== -1
+          );
+        }, this);
     },
 
     /**
      * Show the spinning loader
      * NOTE: also empties the container
      */
-    _showLoader: function () {
-      this.el.innerHTML = '';
-      this.el.classList.add('c-spinning-loader');
+    _showLoader: function() {
+      this.el.innerHTML = "";
+      this.el.classList.add("c-spinning-loader");
     },
 
     /**
      * Hide the spinning loader
      */
-    _hideLoader: function () {
-      this.el.classList.remove('c-spinning-loader');
+    _hideLoader: function() {
+      this.el.classList.remove("c-spinning-loader");
     },
 
     /**
      * Compute the chart dimensions
      * @returns {{ width: number, height: number}}
      */
-    _computeChartDimensions: function () {
+    _computeChartDimensions: function() {
       // We render the template with fake data in order to parse it as a JS object and retrieve the padding
-      var chartTemplate = JSON.parse(this._getChartTemplate()({
-        data: JSON.stringify([]),
-        label: JSON.stringify(''),
-        width: JSON.stringify(0),
-        height: JSON.stringify(0)
-      }));
+      var chartTemplate = JSON.parse(
+        this._getChartTemplate()({
+          data: JSON.stringify([]),
+          label: JSON.stringify(""),
+          width: JSON.stringify(0),
+          height: JSON.stringify(0)
+        })
+      );
 
       var containerDimensions = this.chartContainer.getBoundingClientRect();
       var chartConfig = this._getChartConfig();
-      var fixedWidth = false
-        || (chartConfig && chartConfig.responsive
-        && chartConfig.responsive.mode === 'scroll'
-        && containerDimensions.width < chartConfig.responsive.breakpoint);
+      var fixedWidth =
+        false ||
+        (chartConfig &&
+          chartConfig.responsive &&
+          chartConfig.responsive.mode === "scroll" &&
+          containerDimensions.width < chartConfig.responsive.breakpoint);
 
-      this.chartContainer.classList[fixedWidth ? 'add' : 'remove']('-scroll');
+      this.chartContainer.classList[fixedWidth ? "add" : "remove"]("-scroll");
 
       var padding = _.extend({}, chartTemplate.padding, {
         top: 0,
@@ -545,12 +581,17 @@
       });
 
       var indicator = this._getIndicator();
-      var width = Math.round((fixedWidth ? 1024 : containerDimensions.width) - padding.left - padding.right);
+      var width = Math.round(
+        (fixedWidth ? 1024 : containerDimensions.width) -
+          padding.left -
+          padding.right
+      );
       var height = Math.round(width * this._getChartRatio());
 
       // Min height: 300 for pie charts
-      if (chartConfig.name === 'pie') height = height < 260 ? 300 : height;
-      if (chartConfig.name === 'radial') {
+      if (chartConfig && chartConfig.name === "pie")
+        height = height < 260 ? 300 : height;
+      if (chartConfig && chartConfig.name === "radial") {
         width = containerDimensions.width - padding.left - padding.right;
       }
 
@@ -571,13 +612,18 @@
      * Return whether the mobile template of the chart should be loaded
      * @return {boolean}
      */
-    _shouldLoadMobileTemplate: function () {
+    _shouldLoadMobileTemplate: function() {
       if (!this.options.autoResize) return false;
 
       var chartContainer = this.chartContainer.getBoundingClientRect();
       var chartConfig = this._getChartConfig();
 
-      if (!chartConfig.responsive || chartConfig.responsive.mode !== 'adaptative') return false;
+      if (
+        !chartConfig ||
+        !chartConfig.responsive ||
+        chartConfig.responsive.mode !== "adaptative"
+      )
+        return false;
 
       return chartContainer.width < chartConfig.responsive.breakpoint;
     },
@@ -586,11 +632,15 @@
      * Get the chart Handlebars template
      * @returns {function}
      */
-    _getChartTemplate: function () {
-      var chartName = this.options.chart.replace(/ /g, '-');
+    _getChartTemplate: function() {
+      var chartName = this.options.chart.replace(/ /g, "-");
       var responsive = this._shouldLoadMobileTemplate();
-      if (chartName === 'table') return JST['templates/data_portal/table'];
-      return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
+      if (chartName === "table") return JST["templates/data_portal/table"];
+      return JST[
+        "templates/data_portal/widgets/" +
+          chartName +
+          (responsive ? "-mobile" : "")
+      ];
     },
 
     /**
@@ -600,15 +650,17 @@
      * @param {string} chartName name of the chart
      * @return {object}
      */
-    _getChartConfig: function (chartName) {
-      return _.findWhere(App.Helper.ChartConfig, { name: chartName || this.options.chart });
+    _getChartConfig: function(chartName) {
+      return _.findWhere(App.Helper.ChartConfig, {
+        name: chartName || this.options.chart
+      });
     },
 
     /**
      * Get the chart ratio
      * @returns {number}
      */
-    _getChartRatio: function () {
+    _getChartRatio: function() {
       var chartConfig = this._getChartConfig();
       var indicator = this._getIndicator();
       if (indicator.isFullWidth) return 0.3;
@@ -619,11 +671,11 @@
      * Generate the vega spec
      * @returns {object}
      */
-    _generateVegaSpec: function () {
+    _generateVegaSpec: function() {
       if (!this.options.chart) {
         // If no data, we render the dedicated chart
-        if (!this.model.get('data').length) {
-          this.options.chart = 'empty';
+        if (!this.model.get("data").length) {
+          this.options.chart = "empty";
         } else {
           var indicator = this._getIndicator();
           var availableCharts = this._getAvailableCharts();
@@ -631,7 +683,9 @@
             this.options.chart = indicator.defaultChart || availableCharts[0];
           } else {
             // eslint-disable-next-line no-console
-            console.warn('Unable to generate a chart out of the current dataset');
+            console.warn(
+              "Unable to generate a chart out of the current dataset"
+            );
             return {};
           }
         }
@@ -639,7 +693,7 @@
 
       var chartDimensions = this._computeChartDimensions();
       return this._getChartTemplate()({
-        data: JSON.stringify(this.model.get('data')),
+        data: JSON.stringify(this.model.get("data")),
         width: chartDimensions.width,
         height: chartDimensions.height + 30
       });
@@ -648,14 +702,14 @@
     /**
      * Render the tooltip for the filters in the detail header
      */
-    _renderFiltersTooltip: function () {
-      var filtersDetailNode = this.el.querySelector('.js-filters-detail');
+    _renderFiltersTooltip: function() {
+      var filtersDetailNode = this.el.querySelector(".js-filters-detail");
       if (!filtersDetailNode) return;
 
       new App.View.FiltersTooltipView({
         refElem: filtersDetailNode,
-        filters: this.options.filters.filter(function (filter) {
-          return filter.id !== 'jurisdiction';
+        filters: this.options.filters.filter(function(filter) {
+          return filter.id !== "jurisdiction";
         })
       });
     },
@@ -663,27 +717,34 @@
     /**
      * Create the chart and append it to the DOM
      */
-    _renderChart: function () {
-      if (this.options.chart === 'table') {
-        var isComplex = this._getIndicator().category === App.Helper.Indicators.CATEGORIES.ACCESS
-          || this._getIndicator().category === App.Helper.Indicators.CATEGORIES.STRANDS;
+    _renderChart: function() {
+      if (this.options.chart === "table") {
+        var isComplex =
+          this._getIndicator().category ===
+            App.Helper.Indicators.CATEGORIES.ACCESS ||
+          this._getIndicator().category ===
+            App.Helper.Indicators.CATEGORIES.STRANDS;
 
         new App.View.TableView({
           el: this.chartContainer,
-          collection: this.model.get('data'),
-          tableName: this.model.get('title') + ' data',
+          collection: this.model.get("data"),
+          tableName: this.model.get("title") + " data",
           resultsPerPage: isComplex ? 10 : 3,
           resultsPerPageOptions: null
         });
       } else {
-        vg.parse
-          .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
+        vg.parse.spec(
+          JSON.parse(this._generateVegaSpec()),
+          function(error, chart) {
             var chartConfig = this._getChartConfig();
-            this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+            this.chart = chart({
+              el: this.chartContainer,
+              renderer: "svg"
+            }).update();
 
-            if (chartConfig.name === 'radial') {
+            if (chartConfig && chartConfig.name === "radial") {
               var radialWidth = 320;
-              var radialDataLength = this.chart.data('final').values().length;
+              var radialDataLength = this.chart.data("final").values().length;
               if (radialDataLength > 1) {
                 this.chart.width(320 * radialDataLength).update();
               }
@@ -692,36 +753,41 @@
 
             // If the chart is not auto resized, then we make it "responsive"
             if (!this.options.autoResize) {
-              var svg = this.chartContainer.querySelector('svg');
-              svg.setAttribute('viewBox', '0,0,' + svg.getAttribute('width') + ',' + svg.getAttribute('height'));
-              svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+              var svg = this.chartContainer.querySelector("svg");
+              svg.setAttribute(
+                "viewBox",
+                "0,0," +
+                  svg.getAttribute("width") +
+                  "," +
+                  svg.getAttribute("height")
+              );
+              svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
             }
 
             // We trigger an event to let the parent view know the graph has been rendered
-            this.trigger('chart:render');
+            this.trigger("chart:render");
 
-            this.chart.on('mouseover', this._onMouseoverChart.bind(this));
-            this.chart.on('mouseout', this._onMouseoutChart.bind(this));
-            this.chart.on('touchmove', this._onTouchmoveChart.bind(this));
-          }.bind(this));
+            this.chart.on("mouseover", this._onMouseoverChart.bind(this));
+            this.chart.on("mouseout", this._onMouseoutChart.bind(this));
+            this.chart.on("touchmove", this._onTouchmoveChart.bind(this));
+          }.bind(this)
+        );
       }
     },
 
-    render: function () {
+    render: function() {
       this._renderFiltersTooltip();
       this._renderChart();
       this.setElement(this.el);
       return this.el;
     },
 
-    renderError: function () {
+    renderError: function() {
       new App.View.RetryMessageView({
         el: this.el,
-        label: 'Unable to load the indicator',
+        label: "Unable to load the indicator",
         callback: this._fetchData.bind(this)
       });
     }
-
   });
-
-}).call(this, this.App);
+}.call(this, this.App));

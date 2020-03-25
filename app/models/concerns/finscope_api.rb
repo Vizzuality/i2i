@@ -20,11 +20,13 @@ module FinscopeApi
     response = JSON.parse(HTTP.get("#{ENV['API_URL']}/region?lastyear=true").body.to_s)
 
     response.map do |region|
+      next unless region['year'].any?
+
       {
         iso: region['iso'],
         name: region['name'],
-        latest_year: region['year'][0]['year']
+        latest_year: region.dig('year', 0, 'year')
       }
-    end
+    end.compact
   end
 end
