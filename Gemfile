@@ -27,7 +27,7 @@ gem 'http'
 gem 'redis-rails'
 gem 'mini_racer', platforms: :ruby
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem 'webpacker', '~> 4.x'
 gem 'react-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -99,5 +99,5 @@ group :development do
   gem 'capistrano-rvm'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
