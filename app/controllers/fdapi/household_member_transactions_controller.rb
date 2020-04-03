@@ -12,7 +12,6 @@ module Fdapi
           transactions = HouseholdMemberTransaction.filter(params.slice(:project_name, :household_name, :gender)
                                     .merge(category))
                                     .includes(:household_member_transaction_histories_with_values)
-
           if params[:age_range].present?
             ages_ranges = {
               '1' => {
@@ -101,17 +100,15 @@ module Fdapi
           grouped.each do |subcategory, transactions|
             indicator = default_indicators[category_type]
 
-            histories = transactions.map do |transaction|
-              transaction
-                .household_member_transaction_histories
-                .with_indicator(indicator)
-                .where(date: project_metadata.start_date..project_metadata.end_date)
-            end
-            .flatten
-            .group_by { |hist| "#{hist.year}-#{hist.month.to_s.rjust(2, '0')}-01" }
-
-            histories.each do |date, histories|
-              value = histories.pluck(indicator).compact.reduce(:+)
+            grouped_histories = HouseholdMemberTransactionHistory.
+              select("year, month, SUM(#{indicator}) AS #{indicator}").
+              where(household_member_transaction_id: transactions.pluck(:id)).
+              with_indicator(indicator).
+              where(date: project_metadata.start_date..project_metadata.end_date).
+              group('year, month')
+            grouped_histories.each do |histories|
+              value = histories.send(indicator)
+              date = "#{histories.year}-#{histories.month.to_s.rjust(2, '0')}-01"
               response << monthly_json(subcategory, date, value, category_type)
             end
           end
