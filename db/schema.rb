@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_165803) do
+ActiveRecord::Schema.define(version: 2020_04_02_093723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_165803) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_4_year_id"], name: "index_answers_on_country_4_year_id"
+    t.index ["indicator_id"], name: "index_answers_on_indicator_id"
+    t.index ["iso"], name: "index_answers_on_iso"
+    t.index ["row_id"], name: "index_answers_on_row_id"
+    t.index ["year"], name: "index_answers_on_year"
   end
 
   create_table "blogs", id: :serial, force: :cascade do |t|
