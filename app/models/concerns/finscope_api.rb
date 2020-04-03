@@ -1,6 +1,6 @@
 module FinscopeApi
   def self.get_countries
-    Country.all.map do |country|
+    @countries ||= Country.all.map do |country|
       latest_country = Country4Year.
         select(:year).
         where(country_id: country.id).
