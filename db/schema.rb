@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_02_093723) do
+ActiveRecord::Schema.define(version: 2020_04_03_152314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -637,6 +637,14 @@ ActiveRecord::Schema.define(version: 2020_04_02_093723) do
     t.datetime "updated_at", null: false
     t.date "date"
     t.integer "order"
+  end
+
+  create_table "mobile_surveys_datasets", force: :cascade do |t|
+    t.integer "year"
+    t.text "iso_code"
+    t.text "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "news", id: :serial, force: :cascade do |t|
