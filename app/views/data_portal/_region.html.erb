@@ -1,5 +1,5 @@
 <div class="grid-s-6 grid-m-6 grid-l-4 region-button">
-  <div class="c-flag" style='background-image: url("<%= puts 'VIEW'; pp region; region.flag_url(:thumb) %>"); color: <%=region.flag_url(:thumb).present? ? '#F7F7F7' : '#001D22' %>;'>
+  <div class="c-flag" style='background-image: url("<%= region.flag_url(:thumb) %>"); color: <%=region.flag_url(:thumb).present? ? '#F7F7F7' : '#001D22' %>;'>
   <div class="country-info">
     <% if controller_name == 'national_surveys' %>
       <%= link_to region.name, data_portal_y_region_path(region.iso, region.finscope[:latest_year]), data: { turbolinks: false } %>
