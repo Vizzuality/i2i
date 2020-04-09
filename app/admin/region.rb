@@ -43,7 +43,7 @@ ActiveAdmin.register Region do
       f.input :logo, as: :hidden, input_html: { value: f.object.cached_logo_data }
       f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo_url(:thumb)) : content_tag(:span, 'No image yet')
 
-      f.input :has_fsp_maps, label: 'Has Geospatial data'
+      #f.input :has_fsp_maps, label: 'Has Geospatial data'
 
       f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
         link_form.input :name

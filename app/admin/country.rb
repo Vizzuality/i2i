@@ -10,6 +10,7 @@ ActiveAdmin.register Country do
   controller do
     def permitted_params
       params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw, :background, :has_fsp_maps,
+                              :flag,
                               region_ids: [],
                               partner_ids: [],
                               links_attributes: [:id, :name, :url, :_destroy]]
@@ -41,8 +42,13 @@ ActiveAdmin.register Country do
       f.input :iso
       f.input :short_iso
       f.input :bbox_raw, label: 'Bounding box'
+
+      f.input :flag, as: :hidden, input_html: { value: f.object.cached_flag_data }
+      f.input :flag, as: :file, hint: f.object.flag.present? ? image_tag(f.object.flag_url(:thumb)) : content_tag(:span, 'No image yet')
+
       f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
       f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
+
       f.input :has_fsp_maps, label: 'Has Geospatial data'
 
       f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
@@ -63,6 +69,9 @@ ActiveAdmin.register Country do
     attributes_table do
       row :name
       row :iso
+      row :flag do
+        image_tag(ad.flag_url(:thumb), width: 200, height: 100) unless ad.flag.blank?
+      end
       row :short_iso
       row :regions
       row :partners
