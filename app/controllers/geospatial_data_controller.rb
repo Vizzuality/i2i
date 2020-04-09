@@ -11,6 +11,7 @@ class GeospatialDataController < ApplicationController
       acc.push OpenStruct.new(
         name: country.name,
         iso: country.iso,
+        flag_url: country.flag&.dig(:original)&.url,
         link: fsp_maps_path(country[:iso]),
         has_dataset: true,
         icon: :geospatial_data
@@ -25,6 +26,7 @@ class GeospatialDataController < ApplicationController
         acc[country_region.region_id].push OpenStruct.new(
           name: country.name,
           iso: country.iso,
+          flag_url: country.flag&.dig(:original)&.url,
           link: fsp_maps_path(country[:iso]),
           has_dataset: true,
           icon: :geospatial_data
@@ -33,6 +35,7 @@ class GeospatialDataController < ApplicationController
         acc[country_region.region_id] = [OpenStruct.new(
           name: country.name,
           iso: country.iso,
+          flag_url: country.flag&.dig(:original)&.url,
           link: fsp_maps_path(country[:iso]),
           has_dataset: true,
           icon: :geospatial_data
