@@ -14,9 +14,11 @@
 #
 
 require 'uploaders/background_uploader'
+require 'uploaders/image_uploader'
 
 class Country < ApplicationRecord
   include BackgroundUploader[:background]
+  include ImageUploader[:flag]
   include FinscopeApi
 
   validates :name, presence: true
