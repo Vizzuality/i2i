@@ -10,7 +10,7 @@ ActiveAdmin.register Country do
   controller do
     def permitted_params
       params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw, :background, :has_fsp_maps,
-                              :flag,
+                              :flag, :logo,
                               region_ids: [],
                               partner_ids: [],
                               links_attributes: [:id, :name, :url, :_destroy]]
@@ -44,7 +44,10 @@ ActiveAdmin.register Country do
       f.input :bbox_raw, label: 'Bounding box'
 
       f.input :flag, as: :hidden, input_html: { value: f.object.cached_flag_data }
-      f.input :flag, as: :file, hint: f.object.flag.present? ? image_tag(f.object.flag_url(:thumb)) : content_tag(:span, 'No image yet')
+      f.input :flag, as: :file, hint: f.object.flag.present? ? image_tag(f.object.flag_url(:thumb), width: 200, height: 100) : content_tag(:span, 'No image yet')
+
+      f.input :logo, as: :hidden, input_html: { value: f.object.cached_logo_data }
+      f.input :logo, as: :file, hint: f.object.logo.present? ? image_tag(f.object.logo_url(:thumb), width: 100, height: 100) : content_tag(:span, 'No image yet')
 
       f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
       f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
@@ -71,6 +74,9 @@ ActiveAdmin.register Country do
       row :iso
       row :flag do
         image_tag(ad.flag_url(:thumb), width: 200, height: 100) unless ad.flag.blank?
+      end
+      row :logo do
+        image_tag(ad.logo_url(:thumb), width: 100, height: 100) unless ad.logo.blank?
       end
       row :short_iso
       row :regions
