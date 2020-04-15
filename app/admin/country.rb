@@ -40,8 +40,10 @@ ActiveAdmin.register Country do
       f.input :iso
       f.input :short_iso
       f.input :bbox_raw, label: 'Bounding box'
+
       f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
       f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
+
       f.input :has_finscope, label: 'Has national surveys'
       f.input :has_msme, label: 'Has MSME'
       f.input :has_national_diaries, label: 'Has financial diaries'

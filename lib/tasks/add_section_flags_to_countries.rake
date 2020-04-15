@@ -1,5 +1,5 @@
 namespace :countries do
-  desc 'Set all published to true'
+  desc 'Add section flags to countries'
   task add_section_flags: :environment do
     user_countries = GetCountriesFromCarto.new.perform
     user_countries_iso =
