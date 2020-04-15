@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_103633) do
+ActiveRecord::Schema.define(version: 2020_04_15_154514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,10 @@ ActiveRecord::Schema.define(version: 2020_04_08_103633) do
     t.text "background_data"
     t.string "map_url"
     t.text "flag_data"
+    t.boolean "has_national_diaries", default: false
+    t.boolean "has_msme", default: false
+    t.boolean "has_finscope", default: false
+    t.text "logo_data"
   end
 
   create_table "countries_blogs", id: :serial, force: :cascade do |t|
