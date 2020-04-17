@@ -6,7 +6,8 @@
       selectors: {
         fixedNav: '.js-fixed-nav',
         hero: '.js-hero',
-        alert: '.js-alert'
+        alert: '.js-alert',
+        notification: '.js-notification',
       },
       classes: {
         hidden: '-hidden'
@@ -21,7 +22,9 @@
       this._onScroll = this._onScroll.bind(this);
 
       this._setVars();
-      if(!this.$fixedNav.length) return;
+      this.$fixedNav.addClass(this.options.classes.hidden);
+
+      if(!this.$fixedNav.length && !this.$notification.length) return;
 
       this._setListeners();
       this.visibility();
@@ -31,6 +34,7 @@
       this.$fixedNav = this.$el.find(this.options.selectors.fixedNav);
       this.$hero = this.$el.find(this.options.selectors.hero);
       this.$alert = this.$el.find(this.options.selectors.alert);
+      this.$notification = this.$el.find(this.options.selectors.notification);
     },
 
     _setListeners: function () {
@@ -42,13 +46,13 @@
     },
 
     visibility: function() {
-      var bottomSpace = this.$hero
+      var space = this.$hero
         .get(0)
-        .getBoundingClientRect()
-        .bottom;
+        .getBoundingClientRect();
       var alertHeight = this.$alert ? this.$alert.height() + 50 : 50; // 50 is the margin value
+      var notificationHeight = this.$notification ? this.$notification.height() + 20 : 0; // 20 is the margin value
 
-      if(bottomSpace <= (alertHeight + this.options.navHeight)) {
+      if ((space.top < notificationHeight) && (space.bottom < (alertHeight + this.options.navHeight))) {
         this.$fixedNav.removeClass(this.options.classes.hidden);
       } else {
         this.$fixedNav.addClass(this.options.classes.hidden);
