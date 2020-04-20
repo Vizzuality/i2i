@@ -2,6 +2,11 @@
   background-color: $color-2;
   padding: 10px 0;
 
+  p {
+    font-size: $font-size-small;
+    line-height: 1;
+  }
+
   a {
     color: $color-1;
     font-weight: bold;
