@@ -23,6 +23,11 @@
     &.-hidden {
       display: none;
     }
+
+    &.-relative {
+      position: absolute;
+      top: auto;
+    }
   }
 
   .content {
