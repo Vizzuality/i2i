@@ -50,7 +50,7 @@
         .get(0)
         .getBoundingClientRect();
       var alertHeight = this.$alert ? this.$alert.height() + 50 : 50; // 50 is the margin value
-      var notificationHeight = this.$notification ? this.$notification.height() + 20 : 0; // 20 is the margin value
+      var notificationHeight = this.$notification ? this.$notification.height() + 20 : 20; // 20 is the margin value
 
       if ((space.top < notificationHeight) && (space.bottom < (alertHeight + this.options.navHeight))) {
         this.$fixedNav.removeClass(this.options.classes.hidden);
