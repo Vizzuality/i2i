@@ -27,6 +27,11 @@
             <%= inline_svg('logos/geospatial_data.svg', class: "icon tab-icon #{'-current' if current_page?(geospatial_data_path)}") %>
             Geospatial Data
           <% end %>
+          <%= link_to mobile_surveys_path,
+          class: "content-selector #{'-current' if current_page?(mobile_surveys_path)}", data: { turbolinks: false } do %>
+          <%= inline_svg('logos/msme.svg', class: "icon tab-icon #{'-current' if current_page?(mobile_surveys_path)}") %>
+          Mobile surveys
+          <% end %>
         </div>
       </div>
     </div>
