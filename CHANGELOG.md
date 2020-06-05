@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased (deployed in staging)
+## Development
+
+### Added
+- Added useful commands
+
+### Changed
+- Docker configuration to compose version 3
+- Updated installation instrucctions in order to make it easier
+
+## 1.6.0
 
 ### Added
 
