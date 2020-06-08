@@ -5,115 +5,19 @@
 * `postgresql 10`
 * `nodejs`
 
-## Installation
-To install the required `ruby` version is recommended to use a ruby version manager like [RVM](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv).
+## Installation from scratch using Makefile and Docker (Strongly recommended)
 
-Once `ruby` is installed, run `gem install bundler -v 1.17.1` if you don't have `bundler` already installed and `bundle install` to install the required dependencies.
+1. Ask for access to staging server. In case you don't have permission jump to step 4.
+2. Download assets from stagin server. Run: `make download_assets`
+3. Download SQL backup from staging server. Run `make download_sql`
+4. Add `.env` file to the root path. (Lastpass)
+5. Create build using Docker. Run: `make dev`
+6. Populate database. Run: `make restore_db`
+7. Open [http://localhost:3000](http://localhost:3000)
 
-Finally, install node packages by running `npm install`.
+Notes:
 
-### Configuration :floppy_disk:
-Copy the file *.env.sample* as *.env* and change it according to your database configuration
-
-### Database setup
-Having `postgresql` already installed, start `postgresql` server. run `rails db:create` if you haven't created the database.
-
-Download last database backup from server (from /home/ubuntu).
-
-Run:
-
-```scp -r ubuntu@staging.i2ifacility.org:/home/ubuntu/filename.dump .```
-
-```pg_restore -C -d postgres filename.dump```
-
-```bundle exec rails db:migrate```
-
-Download assets:
-
-```scp -r ubuntu@staging.i2ifacility.org:/var/www/i2i/current/public/system ./public/```
-
-
-### Development
-Run `rails s` or `bundle exec rails server` to start the server.
-
-Go to [localhost](http://localhost:3000) and have fun :collision: :tada:
-
-### Troubleshooting :interrobang:
-If you have `postgresql` installed via [Homebrew](http://brew.sh/) probably the user setted is your account name. `rails db:create` command asks for a `postgres` user.
-
-To check this, enter in a `postgresql` console and type `\du` you will see the list of roles/users. If `postgres` is already there you have nothing to do, otherwise, you will need to create a new `postgres` role running the next command:
-
-	createuser -sPE postgres
-
-Set a password for this role/user. Once you are done, you should be able to create the database with `postgres` role.
-
-### Shareable components
-
-Because we need to be able to share some components outside the project, there is a new Rails environment called `assets_compilation`. This environment is a duplicated of the `production` one with other rules added.
-
-In order to compile those assets, run `RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret rake assets:precompile`. This will place all precompiled asssets in `public` folder. Once done, run `rake non_digested RAILS_ENV=assets_compilation SECRET_KEY_BASE=secret`. This task will create duplicate of current compiled files but removing its hash, making it easier to manage. For example: `exported_componentes#mfnhf21378kjashjads1234.js` would be `exported_componentes.js`
-
-## Using docker for development
-
-Just run next command:
-
-```
-docker-compose -f docker-compose-dev.yml up --build
-```
-
-It will fails because database has not been creted. So you have to run:
-
-```
-docker-compose -f docker-compose-dev.yml run --rm web rake db:create db:migrate
-```
-
-After that enter in the website container (i2i_web) and access to bash: 
-
-```
-docker exec -it [container-id] bash
-```
-
-Once in run as many task as you need from `lib/tasks` folder:
-
-```
-rake db:[task-name]
-```
-
-To have countries available you will need to run the `sample` task at least. Run `rake db:sample`.
-
-It's recommended to run all tasks to avoid missing data.
-
-Once done with task running, just run the container:
-
-```
-docker exec -it [container-id] bash
-```
-
-Once in run as many task as you need from `lib/tasks` folder:
-
-```
-rake db:[task-name]
-```
-
-To have countries available you will need to run the `sample` task at least. Run `rake db:sample`.
-
-It's recommended to run all tasks to avoid missing data.
-
-Once done with task running, just run the container:
-
-```
-docker-compose -f docker-compose-dev.yml up
-```
-
-### Restaring db from dump
-
-Run this command where `{container}` is the db container id, `{db_name}` is the db name (i2i_development), and `{filename}` is the dump file path in your local:
-
-```
-docker exec -i {container} pg_restore -C --clean --no-acl --no-owner --dbname={db_name} --username=postgres < ./{filename}.dump
-```
-
-NOTE: it could take some minutes depending of the file size.
+* Docker automatically will run `db:migrate`.
 
 ## Application summary
 
