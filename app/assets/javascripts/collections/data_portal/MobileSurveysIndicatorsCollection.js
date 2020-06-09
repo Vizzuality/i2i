@@ -4,11 +4,14 @@
   var categories = App.Helper.Indicators.CATEGORIES;
 
   var MOBILE_SURVEYS_INDICATORS = [
+    // TMP CHARTS FOR MOBILE SURVEYS
+    { id: 'mobile_survey_mock', name: 'Relationship status', category: categories.COMMON, defaultChart: 'grouped bar', visible: true },
+    
     { id: 'age', name: 'Age', category: categories.COMMON, visible: false },
     { id: 'business_development_measure', name: 'Business development', category: categories.COMMON, visible: false },
     { id: 'business_age', name: 'Business duration', category: categories.COMMON, visible: false },
     { id: 'business_coaching', name: 'Business advisor', category: categories.COMMON, visible: false },
-    { id: 'business_sector', name: 'Sector', category: categories.COMMON, visible: true, defaultChart: 'stacked bar', isFullWidth: true },
+    { id: 'business_sector', name: 'Sector', category: categories.COMMON, visible: false, defaultChart: 'stacked bar', isFullWidth: true },
     { id: 'business_size', name: 'Access to Resources', category: categories.COMMON, visible: false },
     { id: 'gender', name: 'Gender', category: categories.COMMON, visible: false },
     { id: 'geographic_area', name: 'Geographic Area', category: categories.COMMON, visible: false },
@@ -17,20 +20,20 @@
     { id: 'obstacle_to_growth', name: 'Biggest obstacle to growing business', category: categories.COMMON, visible: false },
 
     { id: 'capital_source_strand', name: 'Sources of capital', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
-    { id: 'credit_strand', name: 'Credit', category: categories.MOBILE_SURVEYS_STRANDS, visible: true, isFullWidth: true },
+    { id: 'credit_strand', name: 'Credit', category: categories.MOBILE_SURVEYS_STRANDS, visible: false, isFullWidth: true },
     { id: 'financial_records', name: 'Financial records available', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
-    { id: 'infrastructure_strand', name: 'Infrastructure', category: categories.MOBILE_SURVEYS_STRANDS, visible: true, isFullWidth: true },
+    { id: 'infrastructure_strand', name: 'Infrastructure', category: categories.MOBILE_SURVEYS_STRANDS, visible: false, isFullWidth: true },
     { id: 'insurance_strand', name: 'Insurance', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'motive_strand', name: 'Motives to start a business', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'savings_strand', name: 'Savings', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
-    { id: 'barrier_strand', name: 'Barriers', category: categories.MOBILE_SURVEYS_STRANDS, visible: true, isFullWidth: true },
+    { id: 'barrier_strand', name: 'Barriers', category: categories.MOBILE_SURVEYS_STRANDS, visible: false, isFullWidth: true },
     { id: 'total_barrier_strand', name: 'Top 5 barriers to start a business', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'total_capital_source_strand', name: 'Top 5 sources of capital', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'total_motive_strand', name: 'Top 5 motives to start a buisness', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'total_source_of_skills_strand', name: 'Top 5 sources of skills', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
     { id: 'transaction_strand', name: 'Transactions', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
-    { id: 'fas_strand', name: 'Financial services uptake', category: categories.MOBILE_SURVEYS_STRANDS, visible: true },
-    { id: 'mobile_money', name: 'Mobile Money', category: categories.MOBILE_SURVEYS_STRANDS, visible: true, defaultChart: 'radial' },
+    { id: 'fas_strand', name: 'Financial services uptake', category: categories.MOBILE_SURVEYS_STRANDS, visible: false },
+    { id: 'mobile_money', name: 'Mobile Money', category: categories.MOBILE_SURVEYS_STRANDS, visible: false, defaultChart: 'radial' },
   ];
 
   App.Collection.MobileSurveysIndicatorsCollection = Backbone.Collection.extend({
@@ -48,7 +51,7 @@
     fetch: function () {
       var deferred = $.Deferred();
       var indicators = MOBILE_SURVEYS_INDICATORS.map(function (indicator) {
-        return Object.assign(indicator, { isMSME: true });
+        return Object.assign(indicator, { isMoblieSurvey: true });
       });
       this.set(indicators);
       deferred.resolve(indicators);

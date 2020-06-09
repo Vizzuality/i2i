@@ -71,6 +71,20 @@
       }
     },
     {
+      name: 'grouped bar',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.COMMON],
+      ratio: 0.2,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
       name: 'stacked bar value',
       acceptedStatTypes: [
         ['nominal'],

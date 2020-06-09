@@ -489,7 +489,6 @@
       }
 
       var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
-
       if (!visibleIndicators.length) {
         this.widgetsContainer.innerHTML = '';
         var fragment = this._createWidgetsContainer(4);
@@ -523,7 +522,7 @@
           year: this.options.year,
           filters: this.options._filters,
           mode: this.options._mode,
-          isMSME: true,
+          isMoblieSurvey: true,
         };
 
         // If the portal is in table mode, we force the widgets to display
@@ -533,7 +532,6 @@
         }
 
         var widget = new App.View.ChartWidgetView(chartOptions);
-
         this.widgets.push(widget);
 
         this.listenTo(widget, 'data:sync', this._onWidgetSync);

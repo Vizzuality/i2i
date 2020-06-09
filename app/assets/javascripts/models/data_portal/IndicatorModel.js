@@ -110,6 +110,23 @@
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
+      // XXX: TMP
+      if (this.options.id === 'mobile_survey_mock') {
+        return {
+          title: 'Tmp title',
+          data: [
+            { "category": "Married", "position": "male", "value": 0.1 },
+            { "category": "Married", "position": "female", "value": 0.6 },
+            { "category": "Married", "position": "female", "value": 0.9 },
+            { "category": "Married", "position": "male", "value": 0.4 },
+            { "category": "Not married", "position": "male", "value": 0.7 },
+            { "category": "Not married", "position": "female", "value": 0.2 },
+            { "category": "Not married", "position": "female", "value": 1.1 },
+            { "category": "Not married", "position": "male", "value": 0.8 },
+          ]
+        }
+      }
+
       return {
         title: data.title,
         data: data.data.map(function (answer) {

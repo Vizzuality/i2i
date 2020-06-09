@@ -2,9 +2,12 @@
   'use strict';
 
   var INDICATORS = [
+    // XXX: TMP
+    { id: 'mobile_survey_mock', name: 'Temporary name', category: 'Common indicators', visible: false },
+
     { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
     { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
-    { id: 'age',name: 'Age', category: 'Common indicators', visible: false },
+    { id: 'age', name: 'Age', category: 'Common indicators', visible: false },
     { id: 'i2i_Marital_Status', name: 'Marital status', category: 'Common indicators', visible: false },
     { id: 'i2i_Education', name: 'Level of education', category: 'Common indicators', visible: true },
     { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common indicators', visible: true },

@@ -64,6 +64,8 @@
       this.options = _.extend({}, this.defaults, settings);
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
+      } else if (this.options.isMoblieSurvey) { 
+        this.indicatorsCollection = new App.Collection.MobileSurveysIndicatorsCollection();
       } else {
         this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       }
@@ -367,6 +369,8 @@
         stopCompareCallback: this._onStopCompare.bind(this),
         isRegion: this.options.isRegion,
         isMSME: this.options.isMSME,
+        isMSME: this.options.isMSME,
+
       });
     },
 
@@ -463,6 +467,7 @@
               expanded: this.options.chart === 'table',
               isRegion: this.options.isRegion,
               isMSME: this.options.isMSME,
+              isMoblieSurvey: this.options.isMoblieSurvey
             })
           );
 
@@ -638,6 +643,7 @@
       }
 
       var chartDimensions = this._computeChartDimensions();
+  
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
