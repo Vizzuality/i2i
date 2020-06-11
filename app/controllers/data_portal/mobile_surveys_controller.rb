@@ -42,6 +42,6 @@ class DataPortal::MobileSurveysController < ApplicationController
 
     gon.countries = Country.all.ordered_by_name
 
-    render :layout => 'data_portal'
+    render :layout => 'data_portal_mobile_surveys'
   end
 end

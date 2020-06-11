@@ -77,7 +77,21 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.COMMON],
+      categories: [App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS],
+      ratio: 0.2,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
+      name: 'heatmap',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS],
       ratio: 0.2,
       responsive: {
         mode: 'adaptative',

@@ -522,6 +522,7 @@
           year: this.options.year,
           filters: this.options._filters,
           mode: this.options._mode,
+          vegaVersion: 'V3',
           isMoblieSurvey: true,
         };
 

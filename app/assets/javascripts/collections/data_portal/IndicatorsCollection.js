@@ -3,7 +3,10 @@
 
   var INDICATORS = [
     // XXX: TMP
-    { id: 'mobile_survey_mock', name: 'Temporary name', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock1', name: 'Temporary name', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock2', name: 'Temporary name', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock3', name: 'Temporary name', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock_heatmap', name: 'Temporary name', category: 'Common indicators', visible: false },
 
     { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
     { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },

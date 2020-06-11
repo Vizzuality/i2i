@@ -5,8 +5,11 @@
 
   var MOBILE_SURVEYS_INDICATORS = [
     // TMP CHARTS FOR MOBILE SURVEYS
-    { id: 'mobile_survey_mock', name: 'Relationship status', category: categories.COMMON, defaultChart: 'grouped bar', visible: true },
-    
+    { id: 'mobile_survey_mock1', name: 'Relationship status', category: categories.MOBILE_SURVEYS_STRANDS, defaultChart: 'grouped bar', visible: true },
+    { id: 'mobile_survey_mock2', name: 'Relationship status', category: categories.MOBILE_SURVEYS_STRANDS, defaultChart: 'grouped bar', visible: true },
+    { id: 'mobile_survey_mock_heatmap', name: 'Relationship status', category: categories.MOBILE_SURVEYS_STRANDS, defaultChart: 'heatmap', isFullWidth: true, visible: true },
+    { id: 'mobile_survey_mock3', name: 'Relationship status', category: categories.MOBILE_SURVEYS_STRANDS, defaultChart: 'grouped bar', visible: true },
+
     { id: 'age', name: 'Age', category: categories.COMMON, visible: false },
     { id: 'business_development_measure', name: 'Business development', category: categories.COMMON, visible: false },
     { id: 'business_age', name: 'Business duration', category: categories.COMMON, visible: false },

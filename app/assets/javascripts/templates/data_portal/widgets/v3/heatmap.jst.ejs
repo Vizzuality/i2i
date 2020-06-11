@@ -1,0 +1,215 @@
+{
+  "width": <%= width %>,
+  "height": <%= height %>,
+  "padding": 0,
+  "data": [
+     {
+        "name": "table",
+        "values": <%= data %>
+     }
+  ], 
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "band",
+      "domain": { "data": "table", "field": "category" },
+      "range": "width"
+    },
+    {
+      "name": "yscale",
+      "type": "band",
+      "domain": [
+        "18-24", "25-34", "35-44", "45-54", "55 +"
+      ],
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "linear",
+      "range": ["#F4FBFC", "#97C9CE", "#2F939C", "#073D42"],
+      "domain": {"data": "table", "field": "value"},
+      "zero": false, 
+      "nice": true
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "type": "gradient",
+      "title": "Perc. of total",
+      "titleOrient": "left",
+      "titleFontWeight": 300,
+      "titleFontSize": 13,
+      "titlePadding": 4,
+      "orient": "right",
+      "gradientLength": <%= height %>
+    }
+  ],
+  "axes": [
+    {
+      "title": "Age group",
+      "orient": "right",
+      "scale": "yscale",          
+      "tickSize": 0, 
+      "zindex": 1, 
+      "labelFontSize": 13,
+      "titleFontSize": 13,
+      "titleColor": "#012026",
+      "labelColor": "#012026",
+      "titleFontWeight": 300,
+      "labelFontWeight": 300,
+      "labelPadding": 40,
+      "titleAnchor": "end",
+      "titleAlign": "center",
+      "titleBaseline": "middle",
+      "titleAngle": 0,
+      "titleY": <%= parseInt(height) + 20 %>,
+      "titleX": 40,
+      "domain": false,
+      "encode": {
+        "labels": {
+          "update": {
+            "align": { "value": "center" },
+            "baseline": { "value": "middle" }
+          }
+        }
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "facet": {
+          "data": "table",
+          "name": "facet",
+          "groupby": "category"
+        }
+      },
+      "encode": {
+        "enter": {
+          "y": {"scale": "yscale", "field": "category"},
+          "x": { "scale": "xscale", "field": "category"},
+          "height": { "signal": "height" }
+        },
+        "update": {
+          "x": { "scale": "xscale", "field": "category"}
+        }
+      },
+      "signals": [
+        {"name": "width", "update": "bandwidth('xscale')"}
+      ],
+      "axes": [
+        {
+          "title": "",
+          "orient": "bottom", 
+          "scale": "category", 
+          "tickSize": 0, 
+          "labelPadding": 15, 
+          "titlePadding": 25,
+          "labelFontSize": 13,
+          "labelColor": "#012026",
+          "labelFontWeight": 300,
+          "domain": false,
+          "zindex": 1,
+          "encode": {
+            "labels": {
+              "update": {
+                "text": { "signal": "split(datum.value, ' ')" }
+              }
+            },
+            "title": {
+              "update": {
+                "text": { 
+                  "signal": "data('facet')[0].category"
+                 }
+              }
+            }
+          }
+        }
+      ],
+      "scales": [
+        {
+          "name": "pos",
+          "type": "band",
+          "range": "width",
+          "domain": {"data": "facet", "field": "category"}
+        },
+        {
+          "name": "category",
+          "type": "band",
+          "range": "width",
+          "domain": {"data": "facet", "field": "status"}
+        }
+      ],
+      "marks": [
+        {
+          "type": "rule",
+          "name": "band-label-seperator",
+          "encode": {
+            "update": {
+              "y": { "value": <%= parseInt(height) + 40 %> },
+              "y2": { "value": <%= parseInt(height) + 40 %> },
+              "x": {"scale": "pos", "band": 0, "offset": 10 },
+              "x2": {"scale": "pos", "band": 1, "offset": -10 },
+              "width": {"scale": "pos", "band": 1 },
+              "strokeWidth": { "value": 1 }
+            },
+            "hover": {
+              "opacity": {"value": 0.5 }
+            }
+          }
+        },
+        {
+          "type": "group",
+          "from": {
+            "facet": {
+              "data": "facet",
+              "name": "category_data",
+              "groupby": "status"
+            }
+          },
+          "encode": {
+            "enter": {
+              "y": {"scale": "yscale", "field": "status"}
+            }
+          },
+          "signals": [
+            {"name": "width", "update": "bandwidth('pos')" }
+          ],
+          "scales": [
+            {
+              "name": "posInner",
+              "type": "band",
+              "range": "width",
+              "domain": {"data": "facet", "field": "status"}
+            }
+          ],
+          "marks": [
+            {
+              "type": "rect",
+              "from": {"data": "category_data"},
+              "encode": {
+                "enter": {
+                  "x": {"scale": "posInner", "field": "status"},
+                  "y": {"scale": "yscale", "field": "position"},
+                  "height": {"scale": "yscale", "band": 1},
+                  "width": {"scale": "posInner", "band": 1},
+                  "stroke": {
+                    "value": "#FFF"
+                  }
+                },
+                "update": {
+                  "strokeWidth": {
+                    "value": 2
+                  },
+                  "fill": {"scale": "color", "field": "value"}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

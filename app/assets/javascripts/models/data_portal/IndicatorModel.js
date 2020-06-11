@@ -107,25 +107,75 @@
       return { title: data.title, data: parsedData };
     },
 
+    // XXX: Tmp data generator
+    tmpGenerateMock(title, defs) {
+      const randFromArr = function(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+  
+      function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      
+      const mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2)).fill().map(function () {
+        if (Array.isArray(defs.status)) {
+          return {
+            'category': randFromArr(defs.category),
+            'position': randFromArr(defs.position),
+            'status': randFromArr(defs.status),
+            'value': randomIntFromInterval(0, 70)
+          }
+        }
+        return {
+          'category': randFromArr(defs.category),
+          'position': randFromArr(defs.position),
+          'value': randomIntFromInterval(0, 100)
+        }
+      })
+
+      return {
+        title: title,
+        data: mock
+      };
+    },
+
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
       // XXX: TMP
-      if (this.options.id === 'mobile_survey_mock') {
-        return {
-          title: 'Tmp title',
-          data: [
-            { "category": "Married", "position": "male", "value": 0.1 },
-            { "category": "Married", "position": "female", "value": 0.6 },
-            { "category": "Married", "position": "female", "value": 0.9 },
-            { "category": "Married", "position": "male", "value": 0.4 },
-            { "category": "Not married", "position": "male", "value": 0.7 },
-            { "category": "Not married", "position": "female", "value": 0.2 },
-            { "category": "Not married", "position": "female", "value": 1.1 },
-            { "category": "Not married", "position": "male", "value": 0.8 },
-          ]
-        }
+      if (this.options.id === 'mobile_survey_mock1') {
+        return this.tmpGenerateMock('Relationship Status', {
+          category: ['Married', 'Not married'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
       }
+
+      if (this.options.id === 'mobile_survey_mock2') {
+        return this.tmpGenerateMock('Urbanicity', {
+          category: ['rural', 'not rural'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock3') {
+        return this.tmpGenerateMock('Mean household size', {
+          category: ['above mean size', 'below mean size', 'mean'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock_heatmap') {
+        return this.tmpGenerateMock('Urbanicity and age groups', {
+          category: ['rural', 'urban'],
+          position: ["18-24", "25-34", "35-44", "45-54", "55 +"],
+          status: ["male", "female"],
+          minDataCount: 400
+        })
+      }
+
 
       return {
         title: data.title,
