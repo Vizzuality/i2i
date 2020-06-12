@@ -10,7 +10,7 @@ psql:
 	docker exec -it i2i_db psql -U postgres
 
 download_sql:
-	scp ubuntu@staging.i2ifacility.org:/home/ubuntu/latest.dump .
+	scp ubuntu@staging.i2ifacility.org:/home/ubuntu/latest.sql .
 
 restore_db:
 	cat latest.sql | docker exec -i i2i_db psql -U postgres -Fc
