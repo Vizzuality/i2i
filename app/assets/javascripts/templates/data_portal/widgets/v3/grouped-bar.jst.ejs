@@ -9,6 +9,42 @@
     }
   ],
 
+  "config": {
+    "legend": {
+      "layout": {
+        "bottom": {
+          "anchor": "middle"
+        }
+      }
+    }
+  },
+
+  "legends": [
+    {
+      "stroke": "color",
+      "title": "",
+      "padding": 0,
+      "orient": "bottom",
+      "direction": "horizontal",
+      "fill": "color",
+      "labelColor": "#012026",
+      "labelFontSize": 13,
+      "columnPadding": 40,
+      "encode": {
+        "labels": {
+        "update": {
+          "text": {"signal": "upper(datum.value[0]) + substring(datum.value, 1, length(datum.value))"} 
+        }
+        },
+        "symbols": {
+          "enter": {
+            "size": {"value": 140}
+          }
+        }
+      }
+    }
+  ],
+
   "scales": [
     {
       "name": "yscale",
