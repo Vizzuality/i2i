@@ -78,7 +78,7 @@
         ['quantitative']
       ],
       categories: [App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS],
-      ratio: 0.2,
+      ratio: 0.5,
       responsive: {
         mode: 'adaptative',
         breakpoint: 430

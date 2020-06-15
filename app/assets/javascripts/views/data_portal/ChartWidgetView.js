@@ -725,9 +725,6 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
-          if (this.id === 'mobile_survey_mock_heatmap') {
-            console.log(this._generateVegaSpec())
-          }
           this.chart = new vega.View(
             vega.parse(JSON.parse(this._generateVegaSpec()))
           ).renderer('svg').initialize(this.chartContainer).run()

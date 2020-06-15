@@ -113,23 +113,26 @@
         return arr[Math.floor(Math.random() * arr.length)];
       }
   
-      function randomIntFromInterval(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
+      function randomIntFromInterval(min, max, floor) {
+        if (floor) {
+          return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        return Math.random();
       }
       
-      const mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2)).fill().map(function () {
+      const mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2, true)).fill().map(function () {
         if (Array.isArray(defs.status)) {
           return {
             'category': randFromArr(defs.category),
             'position': randFromArr(defs.position),
             'status': randFromArr(defs.status),
-            'value': randomIntFromInterval(0, 70)
+            'value': randomIntFromInterval(0, 70, true)
           }
         }
         return {
           'category': randFromArr(defs.category),
           'position': randFromArr(defs.position),
-          'value': randomIntFromInterval(0, 100)
+          'value': randomIntFromInterval(0, 1, false)
         }
       })
 

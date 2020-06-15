@@ -30,13 +30,38 @@
       "name": "color",
       "type": "ordinal",
       "domain": {"data": "table", "field": "position"},
-      "range": {"scheme": "category20"}
+      "range": ["#2F939C", "#97C9CE"]
     }
   ],
 
   "axes": [
-    {"orient": "left", "scale": "yscale" },
-    {"orient": "bottom", "scale": "xscale",  "tickSize": 0, "labelPadding": 4, "zindex": 1}
+    {
+      "orient": "left", 
+      "scale": "yscale",
+      "titleFontSize": 13,
+      "labelFontSize": 13,
+      "labelColor": "#012026",
+      "labelFontWeight": 500,
+      "domain": false,
+      "ticks": false,
+      "grid": true,
+      "gridDash": 8,
+      "format": "%",
+      "labelPadding": 10
+    },
+    {
+      "orient": "bottom", 
+      "scale": "xscale",  
+      "tickSize": 0, 
+      "labelPadding": 4, 
+      "zindex": 1,
+      "titleFontSize": 13,
+      "labelFontSize": 13,
+      "labelColor": "#012026",
+      "labelFontWeight": 500,
+      "domain": false,
+      "labelPadding": 10
+    }
   ],
 
   "marks": [
@@ -66,7 +91,8 @@
           "name": "pos",
           "type": "band",
           "range": "height",
-          "domain": {"data": "facet", "field": "position"}
+          "domain": {"data": "facet", "field": "position"},
+          "padding": 0.07
         }
       ],
 

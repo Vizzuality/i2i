@@ -39,10 +39,22 @@
       "title": "Perc. of total",
       "titleOrient": "left",
       "titleFontWeight": 300,
-      "titleFontSize": 13,
       "titlePadding": 4,
+      "labelOffset": 10,
       "orient": "right",
-      "gradientLength": <%= height %>
+      "gradientLength": <%= height %>,
+      "encode": {
+        "title": {
+          "update": {
+            "fontSize": { "value": 13 }
+          }
+        },
+        "labels": {
+          "update": {
+            "fontSize": { "value": 13 }
+          }
+        }
+      }
     }
   ],
   "axes": [
@@ -52,16 +64,14 @@
       "scale": "yscale",          
       "tickSize": 0, 
       "zindex": 1, 
-      "labelFontSize": 13,
-      "titleFontSize": 13,
       "titleColor": "#012026",
       "labelColor": "#012026",
-      "titleFontWeight": 300,
-      "labelFontWeight": 300,
       "labelPadding": 40,
       "titleAnchor": "end",
       "titleAlign": "center",
       "titleBaseline": "middle",
+      "titleFontSize": 13,
+      "labelFontSize": 13,
       "titleAngle": 0,
       "titleY": <%= parseInt(height) + 20 %>,
       "titleX": 40,
@@ -107,9 +117,10 @@
           "tickSize": 0, 
           "labelPadding": 15, 
           "titlePadding": 25,
-          "labelFontSize": 13,
           "labelColor": "#012026",
           "labelFontWeight": 300,
+          "titleFontSize": 13,
+          "labelFontSize": 13,
           "domain": false,
           "zindex": 1,
           "encode": {
