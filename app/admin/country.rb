@@ -10,9 +10,8 @@ ActiveAdmin.register Country do
   controller do
     def permitted_params
       params.permit country: [:name, :iso, :short_iso, :bbox, :bbox_raw, :background, :has_fsp_maps,
-                              region_ids: [],
-                              partner_ids: [],
-                              links_attributes: [:id, :name, :url, :_destroy]]
+                              :has_finscope, :has_msme, :has_national_diaries, region_ids: [],
+                              partner_ids: [], links_attributes: [:id, :name, :url, :_destroy]]
     end
 
     def scoped_collection
@@ -41,8 +40,13 @@ ActiveAdmin.register Country do
       f.input :iso
       f.input :short_iso
       f.input :bbox_raw, label: 'Bounding box'
+
       f.input :background, as: :hidden, input_html: { value: f.object.cached_background_data }
       f.input :background, label: 'Background image', as: :file, hint: f.object.background.present? ? image_tag(f.object.background_url(:header)) : content_tag(:span, 'No image yet')
+
+      f.input :has_finscope, label: 'Has national surveys'
+      f.input :has_msme, label: 'Has MSME'
+      f.input :has_national_diaries, label: 'Has financial diaries'
       f.input :has_fsp_maps, label: 'Has Geospatial data'
 
       f.has_many :links, allow_destroy: true, new_record: true, heading: 'Links' do |link_form|
