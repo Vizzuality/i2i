@@ -15,7 +15,7 @@ class DataPortal::MobileSurveysController < ApplicationController
         link: mobile_surveys_show_path(country["iso"], latest_year),
         has_dataset: true,
         icon: :msme
-      )
+      ) if country_db != nil
     end
   end
 
