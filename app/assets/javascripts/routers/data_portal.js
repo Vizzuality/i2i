@@ -7,6 +7,7 @@
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
       'data-portal/msm-enterprises/:iso/:year': 'msme_country',
+      'data-portal/mobile-surveys/:iso/:year': 'mobile_surveys',
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
@@ -86,6 +87,26 @@
           // It's a kind of magic
           var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
           Turbolinks.visit('/data-portal/msm-enterprises/' + countryISO + '/' + latesYear);
+        }
+      });
+    },
+
+    mobile_surveys: function (iso, year) {
+           // Don't forget to stop the router on each route
+      // otherwise you'll break the browser's back button
+      Backbone.history.stop();
+
+      new App.Page.DataPortalMobileSurveysCountryPage({
+        iso: iso,
+        year: +year
+      });
+
+      new App.Component.CountryPreview({
+        onChangeCountry: function (country) {
+          var countryISO = country.split('-')[0];
+          // It's a kind of magic
+          var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
+          Turbolinks.visit('/data-portal/mobile-surveys/' + countryISO + '/' + latesYear);
         }
       });
     },

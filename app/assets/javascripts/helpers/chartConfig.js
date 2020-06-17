@@ -71,6 +71,34 @@
       }
     },
     {
+      name: 'grouped bar',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS],
+      ratio: 0.5,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
+      name: 'heatmap',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS],
+      ratio: 0.2,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
       name: 'stacked bar value',
       acceptedStatTypes: [
         ['nominal'],
