@@ -6,16 +6,21 @@ class DataPortalController < ApplicationController
     msme_countries_response = GetMsmeCountriesFromApi.new.perform
     msme_countries = msme_countries_response ? JSON.parse(msme_countries_response.body).collect { |c| c['iso'] } : []
 
-    @countries_db = Country.ordered_by_name
+    @countries_db = Country.
+      select('countries.*, COUNT(project_metadata.id) AS project_metadata_count').
+      joins('INNER JOIN project_metadata ON project_metadata.country_iso3 = countries.iso').
+      group("countries.#{Country.attribute_names.join(', countries.')}").
+      ordered_by_name
+
     @finscope_countries = Country.finscope_country_list.map { |country_hash| country_hash[:iso] }
 
     @worldwide_countries = @countries_db.each_with_object([]) do |country, acc|
       has_finscope = @finscope_countries.include?(country.iso)
-      has_national_diaries = country.financial_diaries.present?
+      #has_national_diaries = country.financial_diaries.present?
+      has_national_diaries = country.attributes['project_metadata_count'].nonzero?
       has_fsp_maps = country.has_fsp_maps
       has_msme = msme_countries.include?(country.iso)
       has_dataset = has_finscope || has_national_diaries || has_fsp_maps
-
       if has_dataset
         acc.push OpenStruct.new(
           name: country.name,
@@ -24,39 +29,43 @@ class DataPortalController < ApplicationController
           has_dataset: has_dataset,
           has_finscope: @finscope_countries.include?(country.iso),
           has_msme: has_msme,
-          has_national_diaries: country.financial_diaries.present?,
+          #has_national_diaries: country.financial_diaries.present?,
+          has_national_diaries: country.attributes['project_metadata_count'].nonzero?,
           has_fsp_maps: country.has_fsp_maps || user_countries_iso.include?(country.iso)
         )
       end
     end
 
-    @regional_countries = CountryRegion.joins(:country).includes(:country).each_with_object({}) do |country_region, acc|
-      country = country_region.country
-
-      has_finscope = @finscope_countries.include?(country.iso)
-      has_national_diaries = country.financial_diaries.present?
-      has_fsp_maps = country.has_fsp_maps
+    country_regions = CountryRegion.
+      select('country_regions.*, countries.*, COUNT(project_metadata.id) AS project_metadata_count').
+      joins(:country).
+      joins('INNER JOIN project_metadata ON project_metadata.country_iso3 = countries.iso').
+      group("country_regions.#{CountryRegion.attribute_names.join(', country_regions.')}, countries.#{Country.attribute_names.join(', countries.')}")
+    @regional_countries = country_regions.each_with_object({}) do |country_region, acc|
+      has_finscope = @finscope_countries.include?(country_region.attributes['iso'])
+      has_national_diaries = country_region.attributes['project_metadata_count'].nonzero?
+      has_fsp_maps = country_region.attributes['has_fsp_maps']
       has_dataset = has_finscope || has_national_diaries || has_fsp_maps
 
       if has_dataset
         if acc.has_key?(country_region.region_id)
           acc[country_region.region_id].push OpenStruct.new(
-            name: country.name,
-            iso: country.iso,
-            link: data_portal_country_preview_path(country[:iso]),
+            name: country_region.attributes['name'],
+            iso: country_region.attributes['iso'],
+            link: data_portal_country_preview_path(country_region.attributes['iso']),
             has_dataset: has_dataset,
-            has_finscope: @finscope_countries.include?(country.iso),
-            has_national_diaries: country.financial_diaries.present?,
-            has_fsp_maps: country.has_fsp_maps
+            has_finscope: @finscope_countries.include?(country_region.attributes['iso']),
+            has_national_diaries: country_region.attributes['project_metadata_count'].nonzero?,
+            has_fsp_maps: country_region.attributes['has_fsp_maps']
           )
         else
           acc[country_region.region_id] = [OpenStruct.new(
-            name: country.name,
-            iso: country.iso,
+            name: country_region.attributes['name'],
+            iso: country_region.attributes['iso'],
             has_dataset: has_dataset,
-            has_finscope: @finscope_countries.include?(country.iso),
-            has_national_diaries: country.financial_diaries.present?,
-            has_fsp_maps: country.has_fsp_maps
+            has_finscope: @finscope_countries.include?(country_region.attributes['iso']),
+            has_national_diaries: country_region.attributes['project_metadata_count'].nonzero?,
+            has_fsp_maps: country_region.attributes['has_fsp_maps']
           )]
         end
       end

@@ -2,15 +2,15 @@
 #
 # Table name: countries
 #
-#  id               :integer          not null, primary key
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  name             :string
-#  iso              :string
-#  background_data: :text
-#  bbox             :string           default([]), is an Array
-#  short_iso        :string
-#  has_fsp_maps     :boolean          default(FALSE)
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  name            :string
+#  iso             :string
+#  bbox            :string           default([]), is an Array
+#  short_iso       :string
+#  has_fsp_maps    :boolean          default(FALSE)
+#  background_data :text
 #
 
 require 'uploaders/background_uploader'

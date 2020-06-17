@@ -8,6 +8,11 @@
 #  year       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  first_name :string
+#  last_name  :string
+#  title      :string
+#  company    :string
+#  message    :text
 #
 
 class Contact < ApplicationRecord

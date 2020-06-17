@@ -22,7 +22,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sparkpost_rails'
 gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 gem 'uglifier', '>= 1.3.0'
-gem 'activerecord-import', '~> 0.15.0'
+gem 'activerecord-import', '~> 1.0.4'
 gem 'http'
 gem 'redis-rails'
 gem 'mini_racer', platforms: :ruby
@@ -80,6 +80,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.9.1'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -99,5 +102,12 @@ group :development do
   gem 'capistrano-rvm'
 end
 
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+group :test do
+  gem 'database_cleaner-active_record'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'webmock', '~> 3.8.3'
+end
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'activerecord-session_store', github: 'rails/activerecord-session_store'

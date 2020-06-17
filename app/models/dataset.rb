@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: datasets
+#
+#  id         :integer          not null, primary key
+#  country_id :integer
+#  user_id    :integer
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  file_data  :text
+#  category   :integer          default("health"), not null
+#  status     :integer          default("unpublished"), not null
+#
+
 require 'uploaders/dataset_uploader'
 
 class Dataset < ApplicationRecord
