@@ -599,7 +599,7 @@
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
       if (chartName === 'table') return JST['templates/data_portal/table'];
-      
+
       if (this.options.vegaVersion === 'V2') {
         return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
       }
@@ -728,6 +728,8 @@
           this.chart = new vega.View(
             vega.parse(JSON.parse(this._generateVegaSpec()))
           ).renderer('svg').initialize(this.chartContainer).run()
+
+
         }
       }
     },

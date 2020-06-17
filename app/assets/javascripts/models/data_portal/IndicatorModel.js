@@ -162,14 +162,6 @@
         })
       }
 
-      if (this.options.id === 'mobile_survey_mock3') {
-        return this.tmpGenerateMock('Mean household size', {
-          category: ['above mean size', 'below mean size', 'mean'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
       if (this.options.id === 'mobile_survey_mock_heatmap') {
         return this.tmpGenerateMock('Urbanicity and age groups', {
           category: ['rural', 'urban'],
@@ -179,6 +171,46 @@
         })
       }
 
+      if (this.options.id === 'mobile_survey_mock4') {
+        return this.tmpGenerateMock('Mean household size', {
+          category: ['Above mean size', 'Below mean size', 'Mean'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock5') {
+        return this.tmpGenerateMock('2.50 PPP Poverty line', {
+          category: ['Rural', 'Urban'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock6') {
+        return this.tmpGenerateMock('Phone ownership', {
+          category: ['Children', 'Dont use mobile phone', 'Husband/wifes', 'Other man/women', 'Parent', 'Sibling', 'Own phone buisness/employer'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock7') {
+        return this.tmpGenerateMock('Bank', {
+          category: ['Other', 'Other fam', 'Own bank', 'Spouse', 'Unbanked'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+
+      if (this.options.id === 'mobile_survey_mock8') {
+        return this.tmpGenerateMock('Mobile money', {
+          category: ['Dont use MM', 'Dont use mobile phone', 'Own', 'Share use/others'],
+          position: ['male', 'female'],
+          minDataCount: 30
+        })
+      }
+  
 
       return {
         title: data.title,

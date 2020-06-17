@@ -526,6 +526,8 @@
           isMoblieSurvey: true,
         };
 
+        
+
         // If the portal is in table mode, we force the widgets to display
         // as tables
         if (this.options._mode === 'table') {

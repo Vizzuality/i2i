@@ -1,6 +1,5 @@
 class GetMobileSurveysCountriesFromApi
-  # TODO: Change this to MOBILE_SURVEYS_API_URL
-  API_URL = ENV['MSME_API_URL']
+  API_URL = ENV['MOBILE_SURVEYS_API_URL']
 
   def initialize()
   end

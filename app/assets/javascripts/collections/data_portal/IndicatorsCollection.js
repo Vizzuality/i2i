@@ -3,10 +3,14 @@
 
   var INDICATORS = [
     // XXX: TMP
-    { id: 'mobile_survey_mock1', name: 'Temporary name', category: 'Common indicators', visible: false },
-    { id: 'mobile_survey_mock2', name: 'Temporary name', category: 'Common indicators', visible: false },
-    { id: 'mobile_survey_mock3', name: 'Temporary name', category: 'Common indicators', visible: false },
-    { id: 'mobile_survey_mock_heatmap', name: 'Temporary name', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock1', name: 'Relationship status', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock2', name: 'Urbanicity', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock_heatmap', name: 'Urbanicity age and group', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock4', name: 'Mean household size', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock5', name: '$2.50 PPP Poverty line', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock6', name: 'Phone ownership', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock7', name: 'Bank', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock8', name: 'Mobile money', category: 'Common indicators', visible: false },
 
     { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
     { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
