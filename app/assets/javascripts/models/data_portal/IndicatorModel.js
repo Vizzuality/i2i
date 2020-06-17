@@ -108,8 +108,8 @@
     },
 
     // XXX: Tmp data generator
-    tmpGenerateMock(title, defs) {
-      const randFromArr = function(arr) {
+    tmpGenerateMock: function (title, defs) {
+      var randFromArr = function(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
       }
   
@@ -120,7 +120,7 @@
         return Math.random();
       }
       
-      const mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2, true)).fill().map(function () {
+      var mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2, true)).fill().map(function () {
         if (Array.isArray(defs.status)) {
           return {
             'category': randFromArr(defs.category),
