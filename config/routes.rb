@@ -52,11 +52,15 @@ Rails.application.routes.draw do
                             as: 'data_portal_report'
 
   # Data Portal - FinScope Data for regions
-   get 'data-portal/region/:iso/:year', to: 'data_portal#show_by_region',  as: 'data_portal_y_region'
+  get 'data-portal/region/:iso/:year', to: 'data_portal#show_by_region',  as: 'data_portal_y_region'
 
   # Data Portal - MSM Enterprises
   get 'data-portal/msm-enterprises', to: 'data_portal/msm_enterprises#index', as: 'msm_enterprises'
   get 'data-portal/msm-enterprises/:iso/:year', to: 'data_portal/msm_enterprises#show', as: 'msm_enterprises_show'
+
+  # Data Portal - Mobile surveys
+  get 'data-portal/mobile-surveys', to: 'data_portal/mobile_surveys#index', as: 'mobile_surveys'
+  get 'data-portal/mobile-surveys/:iso/:year', to: 'data_portal/mobile_surveys#show', as: 'mobile_surveys_show'
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',

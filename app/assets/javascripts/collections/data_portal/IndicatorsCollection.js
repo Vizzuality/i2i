@@ -2,9 +2,19 @@
   'use strict';
 
   var INDICATORS = [
+    // XXX: TMP
+    { id: 'mobile_survey_mock1', name: 'Relationship status', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock2', name: 'Urbanicity', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock_heatmap', name: 'Urbanicity age and group', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock4', name: 'Mean household size', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock5', name: '$2.50 PPP Poverty line', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock6', name: 'Phone ownership', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock7', name: 'Bank', category: 'Common indicators', visible: false },
+    { id: 'mobile_survey_mock8', name: 'Mobile money', category: 'Common indicators', visible: false },
+
     { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
     { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
-    { id: 'age',name: 'Age', category: 'Common indicators', visible: false },
+    { id: 'age', name: 'Age', category: 'Common indicators', visible: false },
     { id: 'i2i_Marital_Status', name: 'Marital status', category: 'Common indicators', visible: false },
     { id: 'i2i_Education', name: 'Level of education', category: 'Common indicators', visible: true },
     { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common indicators', visible: true },

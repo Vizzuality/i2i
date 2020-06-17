@@ -49,7 +49,9 @@
       autoResize: true,
       // Default mode for widget view
       // The mode is used to determine how the toolbar should be shown
-      mode: 'graphics'
+      mode: 'graphics',
+      // Vega version, defaults to V2
+      vegaVersion: 'V2'
     },
 
     events: {
@@ -64,6 +66,8 @@
       this.options = _.extend({}, this.defaults, settings);
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
+      } else if (this.options.isMoblieSurvey) { 
+        this.indicatorsCollection = new App.Collection.MobileSurveysIndicatorsCollection();
       } else {
         this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       }
@@ -116,13 +120,15 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
@@ -367,6 +373,8 @@
         stopCompareCallback: this._onStopCompare.bind(this),
         isRegion: this.options.isRegion,
         isMSME: this.options.isMSME,
+        isMSME: this.options.isMSME,
+
       });
     },
 
@@ -463,6 +471,7 @@
               expanded: this.options.chart === 'table',
               isRegion: this.options.isRegion,
               isMSME: this.options.isMSME,
+              isMoblieSurvey: this.options.isMoblieSurvey
             })
           );
 
@@ -590,7 +599,14 @@
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
       if (chartName === 'table') return JST['templates/data_portal/table'];
-      return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
+
+      if (this.options.vegaVersion === 'V2') {
+        return JST['templates/data_portal/widgets/' + chartName + (responsive ? '-mobile' : '')];
+      }
+
+      if (this.options.vegaVersion === 'V3') {
+        return JST['templates/data_portal/widgets/v3/' + chartName + (responsive ? '-mobile' : '')];
+      }
     },
 
     /**
@@ -638,6 +654,7 @@
       }
 
       var chartDimensions = this._computeChartDimensions();
+  
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         width: chartDimensions.width,
@@ -676,34 +693,44 @@
           resultsPerPageOptions: null
         });
       } else {
-        vg.parse
-          .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
-            var chartConfig = this._getChartConfig();
-            this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
+        if (this.options.vegaVersion === 'V2') {
+          vg.parse
+            .spec(JSON.parse(this._generateVegaSpec()), function (error, chart) {
+              var chartConfig = this._getChartConfig();
+              this.chart = chart({ el: this.chartContainer, renderer: 'svg' }).update();
 
-            if (chartConfig.name === 'radial') {
-              var radialWidth = 320;
-              var radialDataLength = this.chart.data('final').values().length;
-              if (radialDataLength > 1) {
-                this.chart.width(320 * radialDataLength).update();
+              if (chartConfig.name === 'radial') {
+                var radialWidth = 320;
+                var radialDataLength = this.chart.data('final').values().length;
+                if (radialDataLength > 1) {
+                  this.chart.width(320 * radialDataLength).update();
+                }
+                window.vegaview = this.chart;
               }
-              window.vegaview = this.chart;
-            }
 
-            // If the chart is not auto resized, then we make it "responsive"
-            if (!this.options.autoResize) {
-              var svg = this.chartContainer.querySelector('svg');
-              svg.setAttribute('viewBox', '0,0,' + svg.getAttribute('width') + ',' + svg.getAttribute('height'));
-              svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
-            }
+              // If the chart is not auto resized, then we make it "responsive"
+              if (!this.options.autoResize) {
+                var svg = this.chartContainer.querySelector('svg');
+                svg.setAttribute('viewBox', '0,0,' + svg.getAttribute('width') + ',' + svg.getAttribute('height'));
+                svg.setAttribute('preserveAspectRatio', 'xMinYMin meet');
+              }
 
-            // We trigger an event to let the parent view know the graph has been rendered
-            this.trigger('chart:render');
+              // We trigger an event to let the parent view know the graph has been rendered
+              this.trigger('chart:render');
 
-            this.chart.on('mouseover', this._onMouseoverChart.bind(this));
-            this.chart.on('mouseout', this._onMouseoutChart.bind(this));
-            this.chart.on('touchmove', this._onTouchmoveChart.bind(this));
-          }.bind(this));
+              this.chart.on('mouseover', this._onMouseoverChart.bind(this));
+              this.chart.on('mouseout', this._onMouseoutChart.bind(this));
+              this.chart.on('touchmove', this._onTouchmoveChart.bind(this));
+            }.bind(this));
+        }
+
+        if (this.options.vegaVersion === 'V3') {
+          this.chart = new vega.View(
+            vega.parse(JSON.parse(this._generateVegaSpec()))
+          ).renderer('svg').initialize(this.chartContainer).run()
+
+
+        }
       }
     },
 
