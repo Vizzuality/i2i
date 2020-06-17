@@ -2,23 +2,30 @@ version: '3'
 services:
   web:
     restart: always
-    build: .
+    build:
+      context: .
+      args:
+        - env=production
     command: bundle exec puma -C config/puma.rb
     env_file:
       - .env
     environment:
       - PORT=3000
-      - RAILS_ENV=production
-      - RACK_ENV=production
       - REDIS_HOST=redis
+      - POSTGRES_URL=postgres://db
+      - RAILS_SERVE_STATIC_FILES=true
     ports:
       - "3000:3000"
-    container_name: i2i
+    container_name: i2i_app_prod
     volumes:
       - "./public/uploads:/usr/src/i2i/public/uploads"
       - "./public/system:/usr/src/i2i/public/system"
-      - "./public/ckeditor_assets:/usr/src/i2i/public/ckeditor_assets"
-      - "./db/data:/usr/src/i2i/db/data"
+    links:
+      - db
+      - redis
+    depends_on:
+      - db
+      - redis
   redis:
     image: redis
     restart: always
@@ -27,6 +34,15 @@ services:
       - 6789:6789
     volumes:
       - redis:/data
+  db:
+    image: postgres:10-alpine
+    container_name: i2i_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=i2i
 volumes:
-  redis: {}
-
+  redis:
+  postgres-data:
