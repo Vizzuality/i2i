@@ -7,7 +7,7 @@
       'data-portal': 'index',
       'data-portal/:iso/:year': 'country',
       'data-portal/msm-enterprises/:iso/:year': 'msme_country',
-      'data-portal/mobile-surveys/:iso/:year': 'mobile_surveys',
+      'data-portal/exploratory-survey/:iso/:year': 'mobile_surveys',
       'data-portal/region/:iso/:year': 'region',
       'data-portal/region/:iso': 'region',
       'data-portal/indicator': 'indicator',
@@ -106,7 +106,7 @@
           var countryISO = country.split('-')[0];
           // It's a kind of magic
           var latesYear = year === 'fsp-maps' ? 'fsp-maps' : country.split('-')[1];
-          Turbolinks.visit('/data-portal/mobile-surveys/' + countryISO + '/' + latesYear);
+          Turbolinks.visit('/data-portal/exploratory-survey/' + countryISO + '/' + latesYear);
         }
       });
     },

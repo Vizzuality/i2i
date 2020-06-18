@@ -1,6 +1,38 @@
 (function (App) {
   'use strict';
 
+  // TMP FOR MOCKS
+  var mobileSurveyIDS = [
+    "geographic_area",
+    "gender",
+    "age",
+    "access_to_resources",
+    "dwelling_type",
+    "i2i_Marital_Status",
+    "i2i_Education",
+    "i2i_Income_Sources",
+    "fas_strand",
+    "savings_strand",
+    "remittances_strand",
+    "insurance_strand",
+    "credit_strand",
+    "total_fas_strand",
+    "total_saving_strand",
+    "total_remittances_strand",
+    "total_insurance_strand",
+    "total_credit_strand",
+    "toilet_type",
+    "cooking_energy_type",
+    "electricity_access_type",
+    "usd_per_day",
+    "poverty_line",
+    "mobile_money",
+    "asset_strand",
+    "total_asset_strand",
+    "sdgs_strand",
+    "water_source_type"
+  ]
+
   App.Model.IndicatorModel = Backbone.Model.extend({
 
     // Check the default values in the initialize method
@@ -145,72 +177,23 @@
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
-      // XXX: TMP
-      if (this.options.id === 'mobile_survey_mock1') {
-        return this.tmpGenerateMock('Relationship Status', {
+      if (mobileSurveyIDS.indexOf(this.options.id) > -1) {
+        console.log('opt', this.options)
+        return this.tmpGenerateMock(this.options.indicator.name, {
           category: ['Married', 'Not married'],
           position: ['male', 'female'],
           minDataCount: 30
         })
       }
 
-      if (this.options.id === 'mobile_survey_mock2') {
-        return this.tmpGenerateMock('Urbanicity', {
-          category: ['rural', 'not rural'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock_heatmap') {
-        return this.tmpGenerateMock('Urbanicity and age groups', {
-          category: ['rural', 'urban'],
-          position: ["18-24", "25-34", "35-44", "45-54", "55 +"],
-          status: ["male", "female"],
-          minDataCount: 400
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock4') {
-        return this.tmpGenerateMock('Mean household size', {
-          category: ['Above mean size', 'Below mean size', 'Mean'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock5') {
-        return this.tmpGenerateMock('2.50 PPP Poverty line', {
-          category: ['Rural', 'Urban'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock6') {
-        return this.tmpGenerateMock('Phone ownership', {
-          category: ['Children', 'Dont use mobile phone', 'Husband/wifes', 'Other man/women', 'Parent', 'Sibling', 'Own phone buisness/employer'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock7') {
-        return this.tmpGenerateMock('Bank', {
-          category: ['Other', 'Other fam', 'Own bank', 'Spouse', 'Unbanked'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock8') {
-        return this.tmpGenerateMock('Mobile money', {
-          category: ['Dont use MM', 'Dont use mobile phone', 'Own', 'Share use/others'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-  
+      // if (this.options.id === 'mobile_survey_mock_heatmap') {
+      //   return this.tmpGenerateMock('Urbanicity and age groups', {
+      //     category: ['rural', 'urban'],
+      //     position: ["18-24", "25-34", "35-44", "45-54", "55 +"],
+      //     status: ["male", "female"],
+      //     minDataCount: 400
+      //   })
+      // }
 
       return {
         title: data.title,
