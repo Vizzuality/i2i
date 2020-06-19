@@ -10,7 +10,7 @@ class DataPortal::ExploratorySurveyController < ApplicationController
       latest_year = country['year'][years_size -1]['year']
       country_db = Country.find_by(iso: country['iso'])
       acc.push OpenStruct.new(
-        name: country_db.name,
+        name: country_db ? country_db.name : '',
         iso: country["iso"],
         link: exploratory_survey_show_path(country["iso"], latest_year),
         has_dataset: true,
