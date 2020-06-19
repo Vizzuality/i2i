@@ -58,9 +58,9 @@ Rails.application.routes.draw do
   get 'data-portal/msm-enterprises', to: 'data_portal/msm_enterprises#index', as: 'msm_enterprises'
   get 'data-portal/msm-enterprises/:iso/:year', to: 'data_portal/msm_enterprises#show', as: 'msm_enterprises_show'
 
-  # Data Portal - Mobile surveys
-  get 'data-portal/mobile-surveys', to: 'data_portal/mobile_surveys#index', as: 'mobile_surveys'
-  get 'data-portal/mobile-surveys/:iso/:year', to: 'data_portal/mobile_surveys#show', as: 'mobile_surveys_show'
+  # Data Portal - Exploratory survey
+  get 'data-portal/exploratory-survey', to: 'data_portal/exploratory_survey#index', as: 'exploratory_survey'
+  get 'data-portal/exploratory-survey/:iso/:year', to: 'data_portal/exploratory_survey#show', as: 'exploratory_survey_show'
 
   # Data Portal - Financial Diaries
   get 'data-portal/:iso' => 'data_portal_financial_diaries#country_preview', to: 'data_portal_financial_diaries#country_preview',
