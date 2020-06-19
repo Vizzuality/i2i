@@ -66,7 +66,7 @@
       this.options = _.extend({}, this.defaults, settings);
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
-      } else if (this.options.isMoblieSurvey) { 
+      } else if (this.options.isMobileSurvey) { 
         this.indicatorsCollection = new App.Collection.ExploratorySurveyIndicatorsCollection();
       } else {
         this.indicatorsCollection = new App.Collection.IndicatorsCollection();
@@ -471,7 +471,7 @@
               expanded: this.options.chart === 'table',
               isRegion: this.options.isRegion,
               isMSME: this.options.isMSME,
-              isMoblieSurvey: this.options.isMoblieSurvey
+              isMobileSurvey: this.options.isMobileSurvey
             })
           );
 
