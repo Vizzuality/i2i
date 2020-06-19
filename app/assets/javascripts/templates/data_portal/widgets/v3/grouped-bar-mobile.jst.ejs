@@ -19,37 +19,11 @@
     }
   },
 
-  "legends": [
-    {
-      "stroke": "color",
-      "title": "",
-      "padding": 0,
-      "orient": "bottom",
-      "direction": "horizontal",
-      "fill": "color",
-      "labelColor": "#012026",
-      "labelFontSize": 13,
-      "columnPadding": 40,
-      "encode": {
-        "labels": {
-        "update": {
-          "text": {"signal": "upper(datum.value[0]) + substring(datum.value, 1, length(datum.value))"} 
-        }
-        },
-        "symbols": {
-          "enter": {
-            "size": {"value": 140}
-          }
-        }
-      }
-    }
-  ],
-
   "scales": [
     {
       "name": "yscale",
       "type": "linear",
-      "domain": {"data": "table", "field": "value"},
+      "domain": {"data": "table", "field": "percentage"},
       "range": "height",
       "round": true,
       "zero": true,
@@ -65,8 +39,29 @@
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "table", "field": "position"},
+      "domain": {"data": "table", "field": "gender"},
       "range": ["#2F939C", "#97C9CE"]
+    }
+  ],
+
+  "legends": [
+    {
+      "stroke": "color",
+      "title": "",
+      "padding": 0,
+      "orient": "bottom",
+      "direction": "horizontal",
+      "fill": "color",
+      "labelColor": "#012026",
+      "labelFontSize": 13,
+      "columnPadding": 40,
+      "encode": {
+        "symbols": {
+          "enter": {
+            "size": { "value": 140 }
+          }
+        }
+      }
     }
   ],
 
@@ -89,12 +84,18 @@
       "orient": "bottom", 
       "scale": "xscale",  
       "tickSize": 0, 
-      "labelPadding": 4, 
       "zindex": 1,
       "titleFontSize": 13,
       "labelFontSize": 13,
       "labelColor": "#012026",
       "labelFontWeight": 500,
+      "encode": {
+        "labels": {
+          "update": {
+            "text": { "signal": "truncate(datum.value, 12)" }
+          }
+        }
+      },
       "domain": false,
       "labelPadding": 10
     }
@@ -114,12 +115,12 @@
 
       "encode": {
         "enter": {
-          "x": {"scale": "xscale", "field": "category"}
+          "x": { "scale": "xscale", "field": "category" }
         }
       },
 
       "signals": [
-        {"name": "height", "update": "bandwidth('xscale')"}
+        { "name": "height", "update": "bandwidth('xscale')" }
       ],
 
       "scales": [
@@ -127,7 +128,7 @@
           "name": "pos",
           "type": "band",
           "range": "height",
-          "domain": {"data": "facet", "field": "position"},
+          "domain": { "data": "facet", "field": "gender" },
           "padding": 0.07
         }
       ],
@@ -140,13 +141,13 @@
           "encode": {
             "enter": {
               "tooltip": {
-                "signal": "{'Value': datum.value, 'Gender': datum.position, 'Category': datum.category }"
+                "signal": "{'Value': datum.percentage, 'Gender': datum.gender, 'Category': datum.category }"
               },
-              "x": {"scale": "pos", "field": "position"},
+              "x": {"scale": "pos", "field": "gender"},
               "width": {"scale": "pos", "band": 1},
-              "y": {"scale": "yscale", "field": "value"},
+              "y": {"scale": "yscale", "field": "percentage"},
               "y2": {"scale": "yscale", "value": 0},
-              "fill": {"scale": "color", "field": "position"}
+              "fill": {"scale": "color", "field": "gender"}
             }
           }
         }
