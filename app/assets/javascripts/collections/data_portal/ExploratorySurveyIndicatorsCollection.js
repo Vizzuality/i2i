@@ -49,7 +49,7 @@
     fetch: function () {
       var deferred = $.Deferred();
       var indicators = MOBILE_SURVEYS_INDICATORS.map(function (indicator) {
-        return Object.assign(indicator, { isMoblieSurvey: true });
+        return Object.assign(indicator, { isMobileSurvey: true });
       });
       this.set(indicators);
       deferred.resolve(indicators);

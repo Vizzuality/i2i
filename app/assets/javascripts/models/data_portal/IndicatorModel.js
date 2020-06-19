@@ -36,12 +36,12 @@
       var apiUrl = API_URL;
       if (this.options.isMSME) {
         apiUrl = MSME_API_URL; 
-      } else if (this.options.isMoblieSurvey) {
+      } else if (this.options.isMobileSurvey) {
         apiUrl = MOBILE_SURVEYS_API_URL + '/widget/';
       }
 
       var url =  apiUrl + '/' + pathname + '/' + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
-      if (this.options.isMoblieSurvey) {
+      if (this.options.isMobileSurvey) {
         url =  apiUrl + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
       } 
 
@@ -156,7 +156,7 @@
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
-      if (this.options.isMoblieSurvey) {
+      if (this.options.isMobileSurvey) {
         return {
           title: data.title,
           data: data.data[0].map(function (answer) {
