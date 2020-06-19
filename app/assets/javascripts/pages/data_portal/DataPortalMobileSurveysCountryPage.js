@@ -35,7 +35,7 @@
 
     initialize: function (settings) {
       this.options = _.extend({}, this.defaults, settings);
-      this.indicatorsCollection = new App.Collection.MobileSurveysIndicatorsCollection();
+      this.indicatorsCollection = new App.Collection.ExploratorySurveyIndicatorsCollection();
       this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year, true);
       this.headerContainer = this.el.querySelector('.js-header');
       this.mobileHeaderContainer = this.el.querySelector('.js-mobile-header');

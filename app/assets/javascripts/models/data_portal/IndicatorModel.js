@@ -32,7 +32,18 @@
     url: function() {
       var pathname = this.options.isRegion ? 'indicator-region' : 'indicator';
       var apiUrl = this.options.isMSME ? MSME_API_URL : API_URL;
+
+      var apiUrl = API_URL;
+      if (this.options.isMSME) {
+        apiUrl = MSME_API_URL; 
+      } else if (this.options.isMoblieSurvey) {
+        apiUrl = MOBILE_SURVEYS_API_URL + '/widget/';
+      }
+
       var url =  apiUrl + '/' + pathname + '/' + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
+      if (this.options.isMoblieSurvey) {
+        url =  apiUrl + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
+      } 
 
       if (this.options.filters.length) {
         var filters = this.options.filters.map(function (filter) {
@@ -145,73 +156,23 @@
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
-      // XXX: TMP
-      if (this.options.id === 'mobile_survey_mock1') {
-        return this.tmpGenerateMock('Relationship Status', {
-          category: ['Married', 'Not married'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
+      if (this.options.isMoblieSurvey) {
+        return {
+          title: data.title,
+          data: data.data[0].map(function (answer) {
+            return {
+              category: answer.category,
+              gender: answer.gender,
+              iso: answer.iso,
+              percentage: answer.percentage,
+              value: answer.value,
+              year: answer.year,
+              count: data.data[1].rowCount
+            }
+          })
+        }
       }
-
-      if (this.options.id === 'mobile_survey_mock2') {
-        return this.tmpGenerateMock('Urbanicity', {
-          category: ['rural', 'not rural'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock_heatmap') {
-        return this.tmpGenerateMock('Urbanicity and age groups', {
-          category: ['rural', 'urban'],
-          position: ["18-24", "25-34", "35-44", "45-54", "55 +"],
-          status: ["male", "female"],
-          minDataCount: 400
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock4') {
-        return this.tmpGenerateMock('Mean household size', {
-          category: ['Above mean size', 'Below mean size', 'Mean'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock5') {
-        return this.tmpGenerateMock('2.50 PPP Poverty line', {
-          category: ['Rural', 'Urban'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock6') {
-        return this.tmpGenerateMock('Phone ownership', {
-          category: ['Children', 'Dont use mobile phone', 'Husband/wifes', 'Other man/women', 'Parent', 'Sibling', 'Own phone buisness/employer'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock7') {
-        return this.tmpGenerateMock('Bank', {
-          category: ['Other', 'Other fam', 'Own bank', 'Spouse', 'Unbanked'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-
-      if (this.options.id === 'mobile_survey_mock8') {
-        return this.tmpGenerateMock('Mobile money', {
-          category: ['Dont use MM', 'Dont use mobile phone', 'Own', 'Share use/others'],
-          position: ['male', 'female'],
-          minDataCount: 30
-        })
-      }
-  
-
+    
       return {
         title: data.title,
         data: data.data.map(function (answer) {

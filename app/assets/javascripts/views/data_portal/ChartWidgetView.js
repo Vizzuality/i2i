@@ -67,7 +67,7 @@
       if (this.options.isMSME) {
         this.indicatorsCollection = new App.Collection.MSMEIndicatorsCollection();
       } else if (this.options.isMoblieSurvey) { 
-        this.indicatorsCollection = new App.Collection.MobileSurveysIndicatorsCollection();
+        this.indicatorsCollection = new App.Collection.ExploratorySurveyIndicatorsCollection();
       } else {
         this.indicatorsCollection = new App.Collection.IndicatorsCollection();
       }
@@ -121,14 +121,14 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.MOBILE_SURVEYS_STRANDS,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });

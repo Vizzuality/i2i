@@ -1,4 +1,4 @@
-class GetMobileSurveysCountriesFromApi
+class GetExploratorySurveyCountriesFromApi
   API_URL = ENV['MOBILE_SURVEYS_API_URL']
 
   def initialize()
