@@ -120,15 +120,13 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
         isAnalyzing: !!this.options.analysisIndicator,
         isComparing: !!this.options.compareIndicators
       });
@@ -728,8 +726,6 @@
           this.chart = new vega.View(
             vega.parse(JSON.parse(this._generateVegaSpec()))
           ).renderer('svg').initialize(this.chartContainer).run()
-
-
         }
       }
     },
