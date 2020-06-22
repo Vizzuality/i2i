@@ -726,8 +726,6 @@
           this.chart = new vega.View(
             vega.parse(JSON.parse(this._generateVegaSpec()))
           ).renderer('svg').initialize(this.chartContainer).run()
-
-
         }
       }
     },

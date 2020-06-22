@@ -5,7 +5,6 @@
 
   var MOBILE_SURVEYS_INDICATORS = [
     { id: 'geographic_area', name: 'Geographic Area', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
-    { id: 'gender', name: 'Gender', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'age', name: 'Age', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'i2i_Marital_Status', name: 'Marital Status', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'household_size', name: 'Mean household size', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
