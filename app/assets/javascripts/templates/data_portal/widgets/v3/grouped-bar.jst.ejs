@@ -26,10 +26,10 @@
     {
       "name": "yscale",
       "type": "linear",
-      "domain": {"data": "table", "field": "percentage"},
+      "domain": [0, 100],
       "range": "height",
       "round": true,
-      "zero": true,
+      "zero": false,
       "nice": true
     },
     {
@@ -160,9 +160,15 @@
           "from": {"data": "facet"},
           "type": "rect",
           "encode": {
+            "hover": {
+              "opacity": { "value": 0.8 }
+            },
+            "update": {
+              "opacity": { "value": 1 }
+            },
             "enter": {
               "tooltip": {
-                "signal": "{'Value': datum.percentage, 'Gender': datum.gender, 'Category': datum.category }"
+                "signal": "{'Percentage': format(datum.percentage, '.0f') + '%', 'Gender': datum.gender, 'Category': datum.category }"
               },
               "x": {"scale": "pos", "field": "gender"},
               "width": {"scale": "pos", "band": 1},
