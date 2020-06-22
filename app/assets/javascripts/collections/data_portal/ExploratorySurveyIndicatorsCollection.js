@@ -19,7 +19,7 @@
     { id: 'land_decission', name: 'Land decision maker', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'children_decission', name: 'Children decision maker', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'allow_spouse_work', name: 'Allow spouse to work', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
-    { id: 'earning_freq', name: 'Savings goal influence', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
+    { id: 'earning_freq', name: 'Earning frequency', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'spending_decission', name: 'Spending decision maker', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'poverty_line', name: 'Poverty line', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
