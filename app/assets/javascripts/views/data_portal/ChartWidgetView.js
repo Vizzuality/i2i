@@ -596,6 +596,7 @@
     _getChartTemplate: function () {
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
+
       if (chartName === 'table') return JST['templates/data_portal/table'];
 
       if (this.options.vegaVersion === 'V2') {
@@ -723,9 +724,13 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
+          var tooltipOptions = {
+            theme: 'vega-v5-tooltip'
+          };
+          var handler = new vegaTooltip.Handler(tooltipOptions);
           this.chart = new vega.View(
             vega.parse(JSON.parse(this._generateVegaSpec()))
-          ).renderer('svg').initialize(this.chartContainer).run()
+          ).renderer('svg').tooltip(handler.call).initialize(this.chartContainer).hover().run()
         }
       }
     },
