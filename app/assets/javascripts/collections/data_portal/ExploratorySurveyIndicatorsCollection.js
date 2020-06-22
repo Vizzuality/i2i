@@ -31,7 +31,7 @@
     { id: 'who_phone', name: 'Phone ownership', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'phone_use', name: 'Independent phone use', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'phone_use_financial', name: 'Informal financial usage', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
-    { id: 'mobile_money', name: 'Relationship status', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
+    { id: 'mobile_money', name: 'Mobile money', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'bank', name: 'Bank', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'bank_permission', name: 'Permission to open bank', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
     { id: 'account_money_taken', name: 'Money taken from account', category: categories.EXPLORATORY_SURVEY, defaultChart: 'grouped bar', visible: true },
