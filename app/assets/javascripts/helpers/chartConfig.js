@@ -99,6 +99,20 @@
       }
     },
     {
+      name: 'empty',
+      acceptedStatTypes: [
+        ['nominal'],
+        ['ordinal'],
+        ['quantitative']
+      ],
+      categories: [App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY],
+      ratio: 0.5,
+      responsive: {
+        mode: 'adaptative',
+        breakpoint: 430
+      }
+    },
+    {
       name: 'stacked bar value',
       acceptedStatTypes: [
         ['nominal'],
