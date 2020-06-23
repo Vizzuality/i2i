@@ -8,6 +8,7 @@
       this.iso = iso;
       this.isMSME = !!isMSME;
       this.isMobileSurvey = !!isMobileSurvey;
+      this.population = null;
     },
 
     url: function() {
@@ -23,6 +24,7 @@
     parse: function (data) {
       var population = null;
       var totalMsme = null;
+
       if (data && data.length && data[0].years.length) {
         var year = data[0].years.find(function (y) {
           return y.year === this.year;

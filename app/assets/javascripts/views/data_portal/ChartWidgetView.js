@@ -373,8 +373,7 @@
         stopCompareCallback: this._onStopCompare.bind(this),
         isRegion: this.options.isRegion,
         isMSME: this.options.isMSME,
-        isMSME: this.options.isMSME,
-
+        isMobileSurvey: this.options.isMobileSurvey
       });
     },
 
@@ -429,11 +428,18 @@
         }, this);
 
       // We update the object to tell which ones are available with the current
-      // dataset
+      // dataset      
       this._getAvailableCharts().forEach(function (availableChart) {
         var chart = _.findWhere(charts, { name: availableChart });
         if (chart) chart.available = true;
       });
+
+      // For mobile surveys, we will control what chats are available
+      if (this.options.isMobileSurvey) {
+        charts = charts.filter(function (c) {
+          return ['grouped bar', 'heatmap', 'table', 'radial'].indexOf(c.name) > -1;
+        })
+      }
 
       // We instantiate the modal
       new App.Component.ModalChartSelector({
@@ -592,7 +598,7 @@
       var chartContainer = this.chartContainer.getBoundingClientRect();
       var chartConfig = this._getChartConfig();
 
-      if (!chartConfig.responsive || chartConfig.responsive.mode !== 'adaptative') return false;
+      if (!!chartConfig.responsive || chartConfig.responsive.mode !== 'adaptative') return false;
 
       return chartContainer.width < chartConfig.responsive.breakpoint;
     },
