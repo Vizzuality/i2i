@@ -125,22 +125,26 @@
       return { title: data.title, data: parsedData };
     },
 
+    _parseLegendTitle: function (title) {
+      var toUpper = title.charAt(0).toUpperCase() + title.slice(1);
+      var serialize = title.replace(/_/g, ' ');
+      return serialize;
+    },
 
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
       if (this.options.isMobileSurvey) {
         if (this.options.analysisIndicatorId) {
-          var legendTitle = this.options.analysisIndicator.charAt(0).toUpperCase() + this.options.analysisIndicator.slice(1);
+          var legendTitle = this._parseLegendTitle(this.options.analysisIndicator);
           var position = this.options.analysisIndicatorId;
           return {
             title: data.title,
-            // TODO: Dont use ID, get title of indicator here
             legendTitle: legendTitle,
             data: data.data[0].map(function (answer) {
               return {
                 category: answer.category,
-                position: answer[position],
+                position: answer[position.toLowerCase()],
                 gender: answer.gender,
                 iso: answer.iso,
                 percentage: answer.percentage,
