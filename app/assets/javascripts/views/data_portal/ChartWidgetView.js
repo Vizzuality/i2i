@@ -88,6 +88,7 @@
      */
     _onFetch: function () {
       var data = this.model.get('data') || this.model.get('rows') || [];
+
       if (data.length) this.widgetToolbox = new App.Helper.WidgetToolbox(data);
 
       // If the indicator doesn't have any data, we also want to send an event
@@ -120,7 +121,8 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
@@ -395,8 +397,13 @@
             this.options.chart = null;
             this.options.compareIndicators = null;
           }
+          
+          if (this.options.isMobileSurvey) {
+            this.options.chart = 'heatmap';
+          } else {
+            this.options.chart = 'analysis';
+          }
 
-          this.options.chart = 'analysis';
           this.options.analysisIndicator = indicatorId;
           this._fetchData();
         }.bind(this),
@@ -531,6 +538,7 @@
       var chartTemplate = JSON.parse(this._getChartTemplate()({
         data: JSON.stringify([]),
         label: JSON.stringify(''),
+        legendTitle: this.model.get('legendTitle'),
         width: JSON.stringify(0),
         height: JSON.stringify(0)
       }));
@@ -653,9 +661,10 @@
       }
 
       var chartDimensions = this._computeChartDimensions();
-  
+
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
+        legendTitle: this.model.get('legendTitle'),
         width: chartDimensions.width,
         height: chartDimensions.height + 30
       });
@@ -724,6 +733,9 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
+          if (this.options.chart === 'heatmap') {
+            console.log(this._generateVegaSpec())
+          }
           var tooltipOptions = {
             theme: 'vega-v5-tooltip'
           };

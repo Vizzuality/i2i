@@ -42,7 +42,14 @@
 
       var url =  apiUrl + '/' + pathname + '/' + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
       if (this.options.isMobileSurvey) {
-        url =  apiUrl + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
+
+        // We need to call analyse endpoint
+        if (this.options.analysisIndicator) {
+          url =  apiUrl + this.options.indicator.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year + '&' + 'analyze' + '=' + this.options.analysisIndicator;
+        } else {
+          url =  apiUrl + this.options.id + (this.options.expanded ? '/expanded' : '') + '?' + this.options.iso + '=' + this.options.year;
+        }
+
       } 
 
       if (this.options.filters.length) {
@@ -118,45 +125,32 @@
       return { title: data.title, data: parsedData };
     },
 
-    // XXX: Tmp data generator
-    tmpGenerateMock: function (title, defs) {
-      var randFromArr = function(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-      }
-  
-      function randomIntFromInterval(min, max, floor) {
-        if (floor) {
-          return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-        return Math.random();
-      }
-      
-      var mock = new Array(randomIntFromInterval(defs.minDataCount, defs.minDataCount * 2, true)).fill().map(function () {
-        if (Array.isArray(defs.status)) {
-          return {
-            'category': randFromArr(defs.category),
-            'position': randFromArr(defs.position),
-            'status': randFromArr(defs.status),
-            'value': randomIntFromInterval(0, 70, true)
-          }
-        }
-        return {
-          'category': randFromArr(defs.category),
-          'position': randFromArr(defs.position),
-          'value': randomIntFromInterval(0, 1, false)
-        }
-      })
-
-      return {
-        title: title,
-        data: mock
-      };
-    },
 
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
 
       if (this.options.isMobileSurvey) {
+        if (this.options.analysisIndicatorId) {
+          var legendTitle = this.options.analysisIndicator.charAt(0).toUpperCase() + this.options.analysisIndicator.slice(1);
+          var position = this.options.analysisIndicatorId;
+          return {
+            title: data.title,
+            // TODO: Dont use ID, get title of indicator here
+            legendTitle: legendTitle,
+            data: data.data[0].map(function (answer) {
+              return {
+                category: answer.category,
+                position: answer[position],
+                gender: answer.gender,
+                iso: answer.iso,
+                percentage: answer.percentage,
+                value: answer.value,
+                year: answer.year,
+                count: data.data[1].rowCount
+              }
+            })
+          }
+        }
         return {
           title: data.title,
           data: data.data[0].map(function (answer) {
