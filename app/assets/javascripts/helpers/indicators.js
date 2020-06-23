@@ -14,7 +14,7 @@
       SDGS: 'SDGs',
       POVERTY: 'Poverty',
       MSME_STRANDS: 'MSME Indicators',
-      MOBILE_SURVEYS_STRANDS: 'Mobile Surveys indicators'
+      EXPLORATORY_SURVEY: 'Exploratory surveys indicators'
     },
 
     // Description for the categories
@@ -23,7 +23,7 @@
       ACCESS: 'Based on total % of adults who have financial products independent of other products.',
       STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
       MSME_STRANDS: null,
-      MOBILE_SURVEYS_STRANDS: null,
+      EXPLORATORY_SURVEY: null,
       ASSET: null,
       SDGS: null,
       POVERTY: null
