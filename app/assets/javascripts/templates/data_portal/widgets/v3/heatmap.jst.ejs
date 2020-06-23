@@ -18,16 +18,14 @@
     {
       "name": "yscale",
       "type": "band",
-      "domain": [
-        "18-24", "25-34", "35-44", "45-54", "55 +"
-      ],
+      "domain": { "data": "table", "field": "position" },
       "range": "height"
     },
     {
       "name": "color",
       "type": "linear",
       "range": ["#F4FBFC", "#97C9CE", "#2F939C", "#073D42"],
-      "domain": {"data": "table", "field": "value"},
+      "domain": [0, 50, 100],
       "zero": false, 
       "nice": true
     }
@@ -51,6 +49,9 @@
         },
         "labels": {
           "update": {
+            "text": {
+              "signal": "datum.value + '%'"
+            },
             "fontSize": { "value": 13 }
           }
         }
@@ -59,7 +60,7 @@
   ],
   "axes": [
     {
-      "title": "Age group",
+      "title": "<%= legendTitle %>",
       "orient": "right",
       "scale": "yscale",          
       "tickSize": 0, 
@@ -84,7 +85,7 @@
           }
         }
       }
-    }
+    }  
   ],
   "marks": [
     {
@@ -150,7 +151,7 @@
           "name": "category",
           "type": "band",
           "range": "width",
-          "domain": {"data": "facet", "field": "status"}
+          "domain": {"data": "facet", "field": "gender"}
         }
       ],
       "marks": [
@@ -177,12 +178,12 @@
             "facet": {
               "data": "facet",
               "name": "category_data",
-              "groupby": "status"
+              "groupby": "gender"
             }
           },
           "encode": {
             "enter": {
-              "y": {"scale": "yscale", "field": "status"}
+              "y": {"scale": "yscale", "field": "gender"}
             }
           },
           "signals": [
@@ -193,7 +194,7 @@
               "name": "posInner",
               "type": "band",
               "range": "width",
-              "domain": {"data": "facet", "field": "status"}
+              "domain": {"data": "facet", "field": "gender"}
             }
           ],
           "marks": [
@@ -201,8 +202,14 @@
               "type": "rect",
               "from": {"data": "category_data"},
               "encode": {
+                "hover": {
+                  "opacity": { "value": 0.8 }
+                },
                 "enter": {
-                  "x": {"scale": "posInner", "field": "status"},
+                  "tooltip": {
+                    "signal": "{'Percentage': format(datum.percentage, '.0f') + '%', 'Gender': datum.gender, 'Category': datum.category, '<%= legendTitle %>': datum.position }"
+                  }, 
+                  "x": {"scale": "posInner", "field": "gender"},
                   "y": {"scale": "yscale", "field": "position"},
                   "height": {"scale": "yscale", "band": 1},
                   "width": {"scale": "posInner", "band": 1},
@@ -211,10 +218,11 @@
                   }
                 },
                 "update": {
+                  "opacity": { "value": 1 },
                   "strokeWidth": {
                     "value": 2
                   },
-                  "fill": {"scale": "color", "field": "value"}
+                  "fill": {"scale": "color", "field": "percentage"}
                 }
               }
             }
