@@ -45,7 +45,7 @@
         // We need to call analyse endpoint
         if (this.options.analysisIndicator) {
           url =  apiUrl + this.options.indicator.id + '?' + this.options.iso + '=' + this.options.year + '&' + 'analyze' + '=' + this.options.analysisIndicator;
-        } else if (this.options.compareIndicators !== null) {
+        } else if (typeof this.options.compareIndicators !== 'undefined' && this.options.compareIndicators !== null) {
           url =  apiUrl + this.options.indicator.id + '/heatmap' + '?' + this.options.iso + '=' + this.options.year;
         } else {
           url =  apiUrl + this.options.id + '?' + this.options.iso + '=' + this.options.year;

@@ -274,7 +274,8 @@
           ? this._getJurisdictionFilter().options[0]
           : null,
         continueCallback: this._onFiltersUpdate.bind(this),
-        isMSME: true,
+        isMSME: false,
+        isMobileSurvey: true
       });
     },
 
