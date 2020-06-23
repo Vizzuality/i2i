@@ -92,7 +92,7 @@
         ['quantitative']
       ],
       categories: [App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY],
-      ratio: 0.2,
+      ratio: 0.5,
       responsive: {
         mode: 'adaptative',
         breakpoint: 430
