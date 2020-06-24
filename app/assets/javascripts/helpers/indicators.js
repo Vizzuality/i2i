@@ -14,7 +14,13 @@
       SDGS: 'SDGs',
       POVERTY: 'Poverty',
       MSME_STRANDS: 'MSME Indicators',
-      EXPLORATORY_SURVEY: 'Exploratory surveys indicators'
+      // Mobile surveys
+      DEMOGRAPHICS: 'Demographics',
+      DECISION_MKG: 'Decision making',
+      WORK: 'Work',
+      EARNINGS: 'Earnings',
+      PHONE: 'Phone',
+      FINANCIAL_INC: 'Financial inclusion'
     },
 
     // Description for the categories
@@ -23,10 +29,16 @@
       ACCESS: 'Based on total % of adults who have financial products independent of other products.',
       STRANDS: 'Based on total % of adults who have financial products in a hierarchical priority of formal over informal products.',
       MSME_STRANDS: null,
-      EXPLORATORY_SURVEY: null,
       ASSET: null,
       SDGS: null,
-      POVERTY: null
+      POVERTY: null,
+      // Mobile surveys
+      DEMOGRAPHICS: null,
+      DECISION_MKG: null,
+      WORK: null,
+      EARNINGS: null,
+      PHONE: null,
+      FINANCIAL_INC: null
     },
 
     // Map for the ISO and country names

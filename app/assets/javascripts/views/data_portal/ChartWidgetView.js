@@ -122,7 +122,12 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.ASSET
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.DECISION_MKG
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.WORK
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EARNINGS
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.PHONE
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.FINANCIAL_INC,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
@@ -437,7 +442,7 @@
       // For mobile surveys, we will control what chats are available
       if (this.options.isMobileSurvey) {
         charts = charts.filter(function (c) {
-          return ['grouped bar', 'heatmap', 'table', 'radial'].indexOf(c.name) > -1;
+          return ['grouped bar', 'table', 'radial'].indexOf(c.name) > -1;
         })
       }
 

@@ -77,7 +77,14 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS,
+        App.Helper.Indicators.CATEGORIES.DECISION_MKG,
+        App.Helper.Indicators.CATEGORIES.WORK,
+        App.Helper.Indicators.CATEGORIES.EARNINGS,
+        App.Helper.Indicators.CATEGORIES.PHONE,
+        App.Helper.Indicators.CATEGORIES.FINANCIAL_INC
+      ],
       ratio: 0.5,
       responsive: {
         mode: 'adaptative',
@@ -91,7 +98,14 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS,
+        App.Helper.Indicators.CATEGORIES.DECISION_MKG,
+        App.Helper.Indicators.CATEGORIES.WORK,
+        App.Helper.Indicators.CATEGORIES.EARNINGS,
+        App.Helper.Indicators.CATEGORIES.PHONE,
+        App.Helper.Indicators.CATEGORIES.FINANCIAL_INC
+      ],
       ratio: 0.5,
       responsive: {
         mode: 'adaptative',
@@ -105,7 +119,14 @@
         ['ordinal'],
         ['quantitative']
       ],
-      categories: [App.Helper.Indicators.CATEGORIES.EXPLORATORY_SURVEY],
+      categories: [
+        App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS,
+        App.Helper.Indicators.CATEGORIES.DECISION_MKG,
+        App.Helper.Indicators.CATEGORIES.WORK,
+        App.Helper.Indicators.CATEGORIES.EARNINGS,
+        App.Helper.Indicators.CATEGORIES.PHONE,
+        App.Helper.Indicators.CATEGORIES.FINANCIAL_INC
+      ],
       ratio: 0.5,
       responsive: {
         mode: 'adaptative',
