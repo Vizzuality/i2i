@@ -1,26 +1,7 @@
 (function (App) {
   'use strict';
 
-  var INDICATORS = [
-    
-    { id: 'mobile_survey_mock6', name: 'Phone ownership', category: 'Common indicators', visible: false },
-    
-
-    { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
-    { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
-    { id: 'age', name: 'Age', category: 'Common indicators', visible: false },
-    { id: 'i2i_Marital_Status', name: 'Marital status', category: 'Common indicators', visible: false },
-    { id: 'i2i_Education', name: 'Level of education', category: 'Common indicators', visible: true },
-    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common indicators', visible: true },
-    { id: 'water_source_type', name: 'Water source', category: 'Common indicators', visible: false },
-    { id: 'toilet_type', name: 'Toilet type', category: 'Common indicators', visible: false },
-    { id: 'cooking_energy_type', name: 'Cooking energy', category: 'Common indicators', visible: false },
-    { id: 'electricity_access_type', name: 'Electricity access', category: 'Common indicators', visible: false },
-    { id: 'household_size', name: 'Mean household size', category: 'Common indicators', visible: false },
-    { id: 'main_lan', name: 'Main language', category: 'Common indicators', visible: false },
-    { id: 'english_literacy', name: 'English literacy', category: 'Common indicators', visible: false },
-    { id: 'interview_lan', name: 'Language of interview', category: 'Common indicators', visible: false },
-    
+  var INDICATORS = [    
     { id: 'own_phone', name: 'Own a phone', category: 'Common indicators', visible: false },
     { id: 'who_phone', name: 'Phone ownership', category: 'Common indicators', visible: false },
     { id: 'phone_use', name: 'Independent phone use', category: 'Common indicators', visible: false },
