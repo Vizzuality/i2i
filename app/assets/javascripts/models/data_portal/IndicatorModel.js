@@ -122,7 +122,8 @@
           parsedData = data.data[0].map(function (row) {
             return {
               row: [
-                { name: 'Percentage', value: _self._roundValue(row.percentage), sortable: true },
+                { name: 'Key', value: row.category + ' - ' + row.gender, sortable: true },
+                { name: 'Percentage', value: _self._roundValue(row.percentage) + '%', sortable: true },
                 { name: 'Weight', value: _self._roundValue(row.value), sortable: true }
               ]
             };
