@@ -610,7 +610,7 @@
     _getChartTemplate: function () {
       var chartName = this.options.chart.replace(/ /g, '-');
       var responsive = this._shouldLoadMobileTemplate();
-
+      
       if (chartName === 'table') return JST['templates/data_portal/table'];
 
       if (this.options.vegaVersion === 'V2') {
@@ -739,9 +739,6 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
-          if (this.options.chart === 'heatmap') {
-            console.log(this._generateVegaSpec())
-          }
           var tooltipOptions = {
             theme: 'vega-v5-tooltip'
           };

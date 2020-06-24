@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="3 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>mobile</title>
+    <defs>
+        <filter x="-4.2%" y="-7.0%" width="108.4%" height="114.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M106.5,94 C110.642136,94 114,97.3578644 114,101.5 C114,105.642136 110.642136,109 106.5,109 C102.357864,109 99,105.642136 99,101.5 C99,97.3578644 102.357864,94 106.5,94 Z M109,96 L104,96 C103.487164,96 103.064493,96.3860402 103.006728,96.8833789 L103,97 L103,106 C103,106.512836 103.38604,106.935507 103.883379,106.993272 L104,107 L109,107 C109.512836,107 109.935507,106.61396 109.993272,106.116621 L110,106 L110,97 C110,96.4477153 109.552285,96 109,96 Z M106.5,105 C106.776142,105 107,105.223858 107,105.5 C107,105.776142 106.776142,106 106.5,106 C106.223858,106 106,105.776142 106,105.5 C106,105.223858 106.223858,105 106.5,105 Z M109,98 L109,104 L104,104 L104,98 L109,98 Z" id="path-2"></path>
+        <filter x="-36.7%" y="-23.3%" width="173.3%" height="173.3%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Phase-7-Mobile/Gender" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="card-post-copy-22" filter="url(#filter-1)" transform="translate(-95.000000, -93.000000)">
+            <g id="mobile">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+            </g>
+        </g>
+    </g>
+</svg>
