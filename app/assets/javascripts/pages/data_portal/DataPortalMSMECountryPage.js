@@ -275,6 +275,7 @@
           : null,
         continueCallback: this._onFiltersUpdate.bind(this),
         isMSME: true,
+        isMobileSurvey: false
       });
     },
 

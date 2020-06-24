@@ -304,6 +304,7 @@
           : null,
         continueCallback: this._onFiltersUpdate.bind(this),
         isRegion: true,
+        isMobileSurvey: false
       });
     },
 
