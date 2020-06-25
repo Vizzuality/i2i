@@ -162,7 +162,7 @@
             legendTitle: legendTitle,
             data: data.data[0].map(function (answer) {
               return {
-                category: answer[this.options.id.toLowerCase()],
+                category: answer[this.options.indicator.id.toLowerCase()],
                 position: answer[position.toLowerCase()],
                 gender: answer.gender,
                 iso: answer.iso,
