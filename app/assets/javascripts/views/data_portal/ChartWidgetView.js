@@ -396,6 +396,7 @@
       });
 
       new App.Component.ModalChartAnalysis({
+        id: this.options.id,
         indicators: nonComplexIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
