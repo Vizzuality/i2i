@@ -162,7 +162,7 @@
             legendTitle: legendTitle,
             data: data.data[0].map(function (answer) {
               return {
-                category: answer[this.options.id],
+                category: answer[this.options.id.toLowerCase()],
                 position: answer[position.toLowerCase()],
                 gender: answer.gender,
                 iso: answer.iso,
@@ -174,11 +174,12 @@
             }, this)
           }
         }
+
         return {
           title: data.title,
           data: data.data[0].map(function (answer) {
             return {
-              category: answer[this.options.id],
+              category: answer[this.options.id.toLowerCase()],
               gender: answer.gender,
               iso: answer.iso,
               percentage: answer.percentage,
