@@ -59,7 +59,7 @@
             indicatorId: filter.id,
             value: filter.options
           };
-        }.bind(this));
+        }.bind(this))
         url += '&filters=' + JSON.stringify(filters);
       }
 
@@ -162,7 +162,7 @@
             legendTitle: legendTitle,
             data: data.data[0].map(function (answer) {
               return {
-                category: answer.category,
+                category: answer[this.options.id],
                 position: answer[position.toLowerCase()],
                 gender: answer.gender,
                 iso: answer.iso,
@@ -171,14 +171,14 @@
                 year: answer.year,
                 count: data.data[1].rowCount
               }
-            })
+            }, this)
           }
         }
         return {
           title: data.title,
           data: data.data[0].map(function (answer) {
             return {
-              category: answer.category,
+              category: answer[this.options.id],
               gender: answer.gender,
               iso: answer.iso,
               percentage: answer.percentage,
@@ -186,7 +186,7 @@
               year: answer.year,
               count: data.data[1].rowCount
             }
-          })
+          }, this)
         }
       }
     
