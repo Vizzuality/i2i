@@ -77,7 +77,7 @@
      * @param {{ id: string, name: string, data: object[] }} event
      */
     _onWidgetSync: function (event) {
-      this._updateWidgetContainer(event.id);
+      this._updateWidgetContainer(event.id, event.category);
     },
 
     /**
@@ -109,48 +109,55 @@
 
       if (tabName === 'graphics') {
         // We need to restore the configuration of the widgets
-        this.widgets.forEach(function (widget) {
-          var widgetConfig = this.widgetsConfig.find(function (widgetConfig) {
-            return widgetConfig.id === widget.options.id;
-          });
-
-          if (!widgetConfig) {
-            // This case can be triggered if the user adds an indicator while in the
-            // table mode
-            widget.options = Object.assign({}, widget.options, {
-              chart: null,
-              mode: this.options._mode
+        Object.keys(this.widgetsByCategory).forEach(function (cat) {
+          this.widgetsByCategory[cat].forEach(function (widget) {
+            var widgetConfig = this.widgetsConfig[cat].find(function (widgetConfig) {
+              return widgetConfig.id === widget.options.id;
             });
-          } else {
-            widget.options = Object.assign({}, widget.options, {
-              chart: widgetConfig.chart,
-              analysisIndicator: widgetConfig.analysisIndicator,
-              compareIndicators: widgetConfig.compareIndicators,
-              mode: this.options._mode
-            });
-          }
 
-          widget.reload();
+            if (!widgetConfig) {
+              // This case can be triggered if the user adds an indicator while in the
+              // table mode
+              widget.options = Object.assign({}, widget.options, {
+                chart: null,
+                mode: this.options._mode
+              });
+            } else {
+              widget.options = Object.assign({}, widget.options, {
+                chart: widgetConfig.chart,
+                analysisIndicator: widgetConfig.analysisIndicator,
+                compareIndicators: widgetConfig.compareIndicators,
+                mode: this.options._mode
+              });
+            }
+            widget.reload();
+          }, this);
         }, this);
 
         delete this.widgetsConfig;
+
       } else {
         // We need to save the current configuration of the widgets
-        this.widgetsConfig = this.widgets.map(function (widget) {
-          return Object.assign({}, widget.options);
-        });
-
-        // We update all the widgets to the table view
-        this.widgets.forEach(function (widget) {
-          widget.options = Object.assign({}, widget.options, {
-            chart: 'table',
-            showToolbar: true,
-            analysisIndicator: null,
-            compareIndicators: null,
-            mode: this.options._mode
+        this.widgetsConfig = {};
+        Object.keys(this.widgetsByCategory).map(function (cat) {
+          this.widgetsConfig[cat] = this.widgetsByCategory[cat].map(function (widget) {
+            return Object.assign({}, widget.options);
           });
-          widget.reload();
-        }.bind(this));
+        }, this);
+      
+        // We update all the widgets to the table view
+        Object.keys(this.widgetsByCategory).forEach(function (cat) {
+          this.widgetsByCategory[cat].forEach(function (widget) {
+            widget.options = Object.assign({}, widget.options, {
+              chart: 'table',
+              showToolbar: true,
+              analysisIndicator: null,
+              compareIndicators: null,
+              mode: this.options._mode
+            });
+            widget.reload();
+          }, this);
+        }, this);
       }
     },
 
@@ -430,9 +437,83 @@
         widget.classList.add('c-widget');
         div.appendChild(widget);
         fragment.appendChild(div);
+        
       }
 
       return fragment;
+    },
+
+    // Creates wrapper for each category, then paints widgets inside them
+    _createWidgetsCategoryContainer: function (categories) {
+      this.widgetsByCategory = {};
+
+      Object.keys(categories).forEach(function (cat) {
+        this.widgetsByCategory[cat] = [];
+      }, this);
+
+      var fragment = document.createDocumentFragment();
+
+      Object.keys(categories).forEach(function (cat) {
+        var div = document.createElement('div');
+        var title = document.createElement('h3');
+
+        div.classList.add('widget-category');
+        title.classList.add('widget-category-title');
+        title.innerHTML = cat;
+
+        div.append(title);
+
+        var widgetList = document.createElement('div');
+        widgetList.classList.add('widgets-list')
+        
+        var widgetsFragment = this._createWidgetsContainer(categories[cat].length);
+        widgetList.appendChild(widgetsFragment);
+        div.appendChild(widgetList);
+        fragment.appendChild(div);
+
+        this._initializeWidget(cat, categories[cat], widgetList);
+      }, this);
+
+      return fragment;
+    },
+
+    _initializeWidget: function (id, indicators, container) {
+      // If the widget instances already exist, we remove the listeners
+      // and reset their pointer
+      if (this.widgetsByCategory[id].length > 0) {
+        this.widgetsByCategory[id].forEach(function (widget) {
+          this.stopListening(widget);
+        }, this);
+        this.widgetsByCategory[id] = [];
+      } else {
+        this.widgetsByCategory[id] = [];
+      }
+
+       // We instantiate the widget views
+      indicators.forEach(function (indicator, index) {
+        var chartOptions = {
+          el: container.children[index].children[0],
+          id: indicator.id,
+          category: id,
+          iso: this.options.iso,
+          year: this.options.year,
+          filters: this.options._filters,
+          mode: this.options._mode,
+          vegaVersion: 'V3',
+          isMobileSurvey: true,
+        };
+
+        // If the portal is in table mode, we force the widgets to display
+        // as tables
+        if (this.options._mode === 'table') {
+          chartOptions.chart = 'table';
+        }
+
+        var widget = new App.View.ChartWidgetView(chartOptions);
+        this.widgetsByCategory[id].push(widget);
+
+        this.listenTo(widget, 'data:sync', this._onWidgetSync);
+      }, this);
     },
 
     /**
@@ -440,20 +521,21 @@
      * if the category of the indicator
      * @param {string} indicatorId
      */
-    _updateWidgetContainer: function (indicatorId) {
-      var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
-      var index = _.findIndex(visibleIndicators, { id: indicatorId });
-      var indicator = visibleIndicators[index];
+    _updateWidgetContainer: function (indicatorId, category) {      
+      var index = _.findIndex(this.widgetsByCategory[category], { id: indicatorId })      
+      var indicator = this.groupedIndicators[category][index];
       var isComplex = indicator.category === App.Helper.Indicators.CATEGORIES.ACCESS
         || indicator.category === App.Helper.Indicators.CATEGORIES.STRANDS
         || indicator.category === App.Helper.Indicators.CATEGORIES.ASSET
         || indicator.category === App.Helper.Indicators.CATEGORIES.SDGS
         || indicator.category === App.Helper.Indicators.CATEGORIES.POVERTY;
 
-      var currentWidget = this.widgets[index];
-      var currentWidgetNode = this.widgetsContainer.children[index];
+      var currentWidget = this.widgetsByCategory[category][index];
+      var currentGroupNode = this.widgetsContainer.children[Object.keys(this.widgetsByCategory).indexOf(category)];
+      var currentWidgetNode = currentGroupNode.children[currentGroupNode.children.length - 1].children[index];
+
       var isFullWidth = !!indicator.isFullWidth || currentWidget.options.chart === 'heatmap';
-      
+
       if (isFullWidth || isComplex) {
         currentWidgetNode.classList.remove('grid-l-6');
       } else if (!currentWidgetNode.classList.contains('grid-l-6')) {
@@ -475,6 +557,7 @@
       }
 
       var visibleIndicators = this.indicatorsCollection.getVisibleIndicators();
+
       if (!visibleIndicators.length) {
         this.widgetsContainer.innerHTML = '';
         var fragment = this._createWidgetsContainer(4);
@@ -482,49 +565,23 @@
         return;
       }
 
-      // We create the containers for the widgets
-      var fragment = this._createWidgetsContainer(visibleIndicators.length);
-
-      this.widgetsContainer.innerHTML = ''; // We ensure it's empty first
-      this.widgetsContainer.appendChild(fragment);
-
-      // If the widget instances already exist, we remove the listeners
-      // and reset their pointer
-      if (this.widgets) {
-        this.widgets.forEach(function (widget) {
-          this.stopListening(widget);
-        }, this);
-        this.widgets = [];
-      } else {
-        this.widgets = [];
-      }
-
-      // We instantiate the widget views
-      visibleIndicators.forEach(function (indicator, index) {
-        var chartOptions = {
-          el: this.widgetsContainer.children[index].children[0],
-          id: indicator.id,
-          iso: this.options.iso,
-          year: this.options.year,
-          filters: this.options._filters,
-          mode: this.options._mode,
-          vegaVersion: 'V3',
-          isMobileSurvey: true,
-        };
-
-        
-
-        // If the portal is in table mode, we force the widgets to display
-        // as tables
-        if (this.options._mode === 'table') {
-          chartOptions.chart = 'table';
+      // We group each widget in its category
+      
+      var groupByCategory = {};
+      visibleIndicators.forEach(function (indicator) {
+        if (typeof groupByCategory[indicator.category] === 'undefined') {
+          groupByCategory[indicator.category] = [indicator];
+        } else {
+          groupByCategory[indicator.category].push(indicator);
         }
+      })
 
-        var widget = new App.View.ChartWidgetView(chartOptions);
-        this.widgets.push(widget);
-
-        this.listenTo(widget, 'data:sync', this._onWidgetSync);
-      }, this);
+      this.groupedIndicators = groupByCategory;
+      
+      // Create container for each category and inside assign widgets
+      var f = this._createWidgetsCategoryContainer(groupByCategory);
+      this.widgetsContainer.innerHTML = ''; // We ensure it's empty first
+      this.widgetsContainer.appendChild(f);
     }
 
   });
