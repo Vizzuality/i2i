@@ -276,6 +276,21 @@
     .l-indicator-grid {
       // We want the cards to have the same height and the wigdet's toolbar
       // to be aligned at the bottom
+
+      .widget-category {
+        &:not(:first-child) {
+          .widget-category-title {
+            padding-top: 70px;
+          }
+        }
+        .widget-category-title {
+          font-size: 35px;
+          font-weight: bold;
+          color: #001D22;
+          padding: 0 0 20px 10px;
+        }
+      }
+
       .widgets-list {
         display: flex;
         flex-wrap: wrap;

@@ -118,16 +118,15 @@
         });
       } else {
         if (this.options.isMobileSurvey) {
-          var _self = this;
           parsedData = data.data[0].map(function (row) {
             return {
               row: [
-                { name: 'Key', value: row.category + ' - ' + row.gender, sortable: true },
-                { name: 'Percentage', value: _self._roundValue(row.percentage) + '%', sortable: true },
-                { name: 'Weight', value: _self._roundValue(row.value), sortable: true }
+                { name: 'Key', value: row[this.options.id.toLowerCase()] + ' - ' + row.gender, sortable: true },
+                { name: 'Percentage', value: this._roundValue(row.percentage) + '%', sortable: true },
+                { name: 'Weight', value: this._roundValue(row.value), sortable: true }
               ]
             };
-          });
+          }, this);
         } else {
           parsedData = dataField.map(function (row) {
             return {
