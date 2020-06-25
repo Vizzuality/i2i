@@ -19,6 +19,8 @@
       id: null,
       // ISO of the country
       iso: null,
+      // Category 
+      category: null,
       // Selected year
       year: null,
       // Filters on the data
@@ -96,6 +98,7 @@
       this.trigger('data:sync', {
         id: this.options.id,
         name: this.model.get('title'),
+        category: this.options.category || null,
         data: data
       });
 
@@ -393,6 +396,7 @@
       });
 
       new App.Component.ModalChartAnalysis({
+        id: this.options.id,
         indicators: nonComplexIndicators,
         selectedIndicatorId: this.options.analysisIndicator,
         continueCallback: function (indicatorId) {
