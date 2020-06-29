@@ -126,11 +126,12 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.DECISION_MKG
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.GENDER_NORMS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.WORK
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EARNINGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.PHONE
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.FINANCIAL_INC,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.OWNERSHIP_AND_CONTROL
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.AGENCY_AND_DECISION_MAKING
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.FINANCIAL_INC
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.INCOME,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
@@ -750,9 +751,6 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
-          if (this.options.id === 'i2i_Education') {
-            console.log(this._generateVegaSpec());
-          }
           var tooltipOptions = {
             theme: 'vega-v5-tooltip'
           };

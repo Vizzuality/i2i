@@ -23,6 +23,7 @@
         // See _filters in App.Page.DataPortalCountryPage to see their format
         filters: [],
         // Whether or not the detailed data must be fetch
+        preferedOrder: null,
         expanded: false,
         isRegion: false,
         isMSME: false,
@@ -163,14 +164,8 @@
             parsedCategories.push(row[catId]);
           }
         });
-        // Generate prefered order with available categories
-        var parseOrder = this.options.indicator.preferedOrder.map(function (prefCat) {
-          if (parsedCategories.indexOf(prefCat) === -1) {
-            return null;
-          }
-          return prefCat;
-        }).filter(Boolean);
-        return parseOrder;
+
+        return App.Helper.Indicators.groupByPrefered(this.options.indicator.preferedOrder, parsedCategories);
       }
       // If no prefered order is present, we will simply ignore it
       // and render the chart with whatever gets returned from the API
