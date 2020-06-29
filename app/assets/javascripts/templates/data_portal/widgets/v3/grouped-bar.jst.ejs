@@ -32,10 +32,10 @@
       "zero": false,
       "nice": true
     },
-    {
+    { 
       "name": "xscale",
       "type": "band",
-      "domain": {"data": "table", "field": "category"},
+      "domain": <%= preferedOrder !== null ? JSON.stringify(preferedOrder) : '{"data": "table", "field": "category"}' %>,
       "range": "width",
       "padding": 0.2
     },

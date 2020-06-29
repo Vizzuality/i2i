@@ -126,11 +126,12 @@
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.SDGS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.POVERTY
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.DEMOGRAPHICS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.DECISION_MKG
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.GENDER_NORMS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.WORK
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.EARNINGS
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.PHONE
-          || indicatorCategory === App.Helper.Indicators.CATEGORIES.FINANCIAL_INC,
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.OWNERSHIP_AND_CONTROL
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.AGENCY_AND_DECISION_MAKING
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.FINANCIAL_INC
+          || indicatorCategory === App.Helper.Indicators.CATEGORIES.INCOME,
         canCompare: indicatorCategory === App.Helper.Indicators.CATEGORIES.ACCESS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.STRANDS
           || indicatorCategory === App.Helper.Indicators.CATEGORIES.MSME_STRANDS
@@ -554,6 +555,7 @@
         data: JSON.stringify([]),
         label: JSON.stringify(''),
         legendTitle: this.model.get('legendTitle'),
+        preferedOrder: this.model.get('preferedOrder'),
         width: JSON.stringify(0),
         height: JSON.stringify(0)
       }));
@@ -680,6 +682,7 @@
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         legendTitle: this.model.get('legendTitle'),
+        preferedOrder: this.model.get('preferedOrder'),
         width: chartDimensions.width,
         height: chartDimensions.height + 30
       });
