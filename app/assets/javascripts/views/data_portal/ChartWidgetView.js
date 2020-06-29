@@ -554,6 +554,7 @@
         data: JSON.stringify([]),
         label: JSON.stringify(''),
         legendTitle: this.model.get('legendTitle'),
+        preferedOrder: this.model.get('preferedOrder'),
         width: JSON.stringify(0),
         height: JSON.stringify(0)
       }));
@@ -680,6 +681,7 @@
       return this._getChartTemplate()({
         data: JSON.stringify(this.model.get('data')),
         legendTitle: this.model.get('legendTitle'),
+        preferedOrder: this.model.get('preferedOrder'),
         width: chartDimensions.width,
         height: chartDimensions.height + 30
       });
@@ -748,6 +750,9 @@
         }
 
         if (this.options.vegaVersion === 'V3') {
+          if (this.options.id === 'i2i_Education') {
+            console.log(this._generateVegaSpec());
+          }
           var tooltipOptions = {
             theme: 'vega-v5-tooltip'
           };

@@ -149,9 +149,36 @@
       return serialize;
     },
 
+    _parsePreferedOrder: function (data) {
+      if (this.options.indicator && this.options.indicator.preferedOrder) {
+        // If indicator has a prefered order
+        // generate prefered order that will be added as domain
+        // if filters are applied, use the prefered order as reference
+        // and generate a prefered order without filtered out categories
+        var catId = this.options.indicator.id.toLowerCase();
+        // Revive all available categories from data
+        var parsedCategories = [];
+        data.forEach(function (row) {
+          if (parsedCategories.indexOf(row[catId]) === -1) {
+            parsedCategories.push(row[catId]);
+          }
+        });
+        // Generate prefered order with available categories
+        var parseOrder = this.options.indicator.preferedOrder.map(function (prefCat) {
+          if (parsedCategories.indexOf(prefCat) === -1) {
+            return null;
+          }
+          return prefCat;
+        }).filter(Boolean);
+        return parseOrder;
+      }
+      // If no prefered order is present, we will simply ignore it
+      // and render the chart with whatever gets returned from the API
+      return null;
+    },
+
     parse: function (data) {
       if (this.options.expanded) return this._parseExpandedData(data);
-
       if (this.options.isMobileSurvey) {
         if (this.options.analysisIndicatorId) {
           var legendTitle = this._parseLegendTitle(this.options.analysisIndicator);
@@ -159,6 +186,7 @@
           return {
             title: data.title,
             legendTitle: legendTitle,
+            preferedOrder: this._parsePreferedOrder(data.data[0]),
             data: data.data[0].map(function (answer) {
               return {
                 category: answer[this.options.indicator.id.toLowerCase()],
@@ -176,6 +204,7 @@
 
         return {
           title: data.title,
+          preferedOrder: this._parsePreferedOrder(data.data[0]),
           data: data.data[0].map(function (answer) {
             return {
               category: answer[this.options.id.toLowerCase()],

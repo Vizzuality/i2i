@@ -8,7 +8,7 @@
     { id: 'age', name: 'Age', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
     { id: 'i2i_Marital_Status', name: 'Marital Status', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
     { id: 'household_size', name: 'Mean household size', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
+    { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Higher education', 'Primary education', 'Secondary education', 'No formal education', 'Other'] },
     { id: 'main_lan', name: 'Main language', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
     { id: 'english_literacy', name: 'English literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true }, 
     { id: 'interview_lan', name: 'Language of interview', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
