@@ -4,47 +4,41 @@
   var categories = App.Helper.Indicators.CATEGORIES;
 
   var MOBILE_SURVEYS_INDICATORS = [
-    { id: 'geographic_area', name: 'Geographic Area', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'age', name: 'Age', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
+    { id: 'geographic_area', name: 'Geographic Area', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Rural', 'Urban'] },
+    { id: 'age', name: 'Age', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['18-24', '25-34', '35-44', '45-54', '55+'] },
     { id: 'i2i_Marital_Status', name: 'Marital Status', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'household_size', name: 'Mean household size', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
+    { id: 'household_size', name: 'Mean household size', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above mean size', 'Below mean size', 'Mean'] },
+    { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Higher education', 'Primary education', 'Secondary education', 'No formal education', 'Other'] },
     { id: 'main_lan', name: 'Main language', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
-    { id: 'english_literacy', name: 'English literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true }, 
+    { id: 'english_literacy', name: 'English literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Excellent', 'Fair', 'Good', 'Not at all', 'Poorly'] }, 
     { id: 'interview_lan', name: 'Language of interview', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'land_owner', name: 'Land ownership', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'land_decission', name: 'Land decision maker', category: categories.DECISION_MKG, defaultChart: 'grouped bar', visible: true },
-    { id: 'children_decission', name: 'Children decision maker', category: categories.DECISION_MKG, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
-    
-    { id: 'allow_spouse_work', name: 'Allow spouse to work', category: categories.WORK, defaultChart: 'grouped bar', visible: true },
-    { id: 'earning_freq', name: 'Earning frequency', category: categories.WORK, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'spending_decission', name: 'Spending decision maker', category: categories.DECISION_MKG, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'poverty_line', name: 'Poverty line', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: categories.EARNINGS, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'permission_work', name: 'Permission to work', category: categories.WORK, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'freq_inconme_spouse', name: 'Income frequency of spouse', category: categories.EARNINGS, defaultChart: 'grouped bar', visible: true, isFullWidth: true }, 
-    { id: 'main_income_earned', name: 'Main income earner', category: categories.WORK, defaultChart: 'grouped bar', visible: true },
-    { id: 'migrant_work', name: 'Migrant worker identity', category: categories.WORK, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'own_phone', name: 'Own a phone', category: categories.PHONE, defaultChart: 'grouped bar', visible: true },
-    { id: 'who_phone', name: 'Phone ownership', category: categories.PHONE, defaultChart: 'grouped bar', visible: true },
-    { id: 'phone_use', name: 'Independent phone use', category: categories.PHONE, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'phone_use_financial', name: 'Informal financial usage', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true },
-    { id: 'mobile_money', name: 'Mobile money', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true },
-   
-    { id: 'bank', name: 'Bank', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true },
-    { id: 'bank_permission', name: 'Permission to open bank', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true },
-    { id: 'account_money_taken', name: 'Money taken from account', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true },
-    
-    { id: 'saving_goal_deccision', name: 'Savings goal decision maker', category: categories.DECISION_MKG, defaultChart: 'grouped bar', visible: true },
-    { id: 'saving_goal_influence', name: 'Savings goal influence', category: categories.DECISION_MKG, defaultChart: 'grouped bar', visible: true },
+    { id: 'poverty_line', name: 'Poverty line', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above poverty line', 'Below poverty line'] },
+    { id: 'migrant_work', name: 'Migrant worker identity', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Me', 'No-one, all live together', 'Other family', 'Spouse'] },
+
+    { id: 'land_decission', name: 'Land decision maker', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Decide together with others', 'Family/Friends without me', 'Me only'] },
+    { id: 'land_owner', name: 'Land ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont own', 'Own by self', 'Own with others'] },
+    { id: 'own_phone', name: 'Own a phone', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont own phone', 'Own phone'] },
+    { id: 'who_phone', name: 'Phone ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true },
+    { id: 'phone_use', name: 'Independent phone use', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont use mobile phone', 'No', 'Yes', 'Somewhat'] },
+
+    { id: 'saving_goal_deccision', name: 'Savings goal decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Decide together', 'No savings goal', 'Self alone', 'Spouse/Family/Others on behalf'] },
+    { id: 'saving_goal_influence', name: 'Savings goal influence', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Always accepted', 'Always rejected', 'Dont consult', 'No savings goal', 'Sometimes accepted/Rejected'] },
+    { id: 'spending_decission', name: 'Spending decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Fully on own', 'Help from someone else', 'Someone else decides for me'] },
+
+    { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Not at all possible', 'Not very possible', 'Somewhat possible', 'Very possible'] },
+    { id: 'freq_inconme_spouse', name: 'Income frequency of spouse', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Daily', 'Monthly', 'Weekly/Biweekly', 'Dont work', 'Don’t know', 'No spouse', 'Work unpaid', 'When they get work'] }, 
+    { id: 'main_income_earned', name: 'Main income earner', category: categories.INCOME, defaultChart: 'grouped bar', visible: true },
+    { id: 'earning_freq', name: 'Earning frequency', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Daily', 'I dont work', 'Monthly', 'Weekly/Biweekly', 'When i get work', 'Work unpaid'] },
+
+    { id: 'allow_spouse_work', name: 'Allow spouse to work', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['No', 'Yes', 'Not married', 'Spouse already works for money'] },
+    { id: 'permission_work', name: 'Permission to work', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Already working', 'No', 'Yes'] },
+    { id: 'children_decission', name: 'Children decision maker', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Decide alone', 'Decide together', 'Not in relationship', 'Spouse decides', 'We do not talk about it'] },
+    { id: 'bank_permission', name: 'Permission to open bank', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['No', 'Yes'] },
+
+    { id: 'phone_use_financial', name: 'Informal financial usage', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Yes', 'No'] },
+    { id: 'mobile_money', name: 'Mobile money', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont use mm', 'Dont use mobile phone', 'Own', 'Share/Use others'] },
+    { id: 'bank', name: 'Bank', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Other', 'Other fam', 'Own', 'Spouse', 'Unbanked'] },
+    { id: 'account_money_taken', name: 'Money taken from account', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont have account', 'Money not taken', 'Money taken'] }
   ];
 
   App.Collection.ExploratorySurveyIndicatorsCollection = Backbone.Collection.extend({

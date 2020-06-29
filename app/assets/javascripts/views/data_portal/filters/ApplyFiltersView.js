@@ -33,6 +33,7 @@
           return {
             name: indicator.name,
             id: indicator.id,
+            preferedOrder: indicator.preferedOrder,
             options: indicator.options && Array.prototype.slice.call(indicator.options)
           };
         })
@@ -84,7 +85,7 @@
         // We copy the options in this.options.indicators
         indicatorsModels.forEach(function (indicatorsModel) {
           var indicator = _.findWhere(this.options.indicators, { id: indicatorsModel.options.id });
-          
+
           if (this.options.isMobileSurvey) {
             var mobileSurveyCategories = [];
             indicatorsModel.get('data').forEach(function (row) {
@@ -92,7 +93,13 @@
                 mobileSurveyCategories.push(row.category);
               }
             })
-            indicator.options = mobileSurveyCategories;
+
+            if (indicator.preferedOrder) {
+              indicator.options = App.Helper.Indicators.groupByPrefered(indicator.preferedOrder, mobileSurveyCategories);
+            } else {
+              indicator.options = mobileSurveyCategories;
+            }
+
           } else {
             indicator.options = indicatorsModel.get('data')
             .filter(function(i) {
