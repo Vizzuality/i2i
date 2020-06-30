@@ -9,6 +9,7 @@
     mobileHeaderTemplate: JST['templates/data_portal/mobile-header'],
     widgetsTemplate: JST['templates/data_portal/widgets'],
     footerTemplate: JST['templates/data_portal/footer'],
+    widgetsNavigationTemplate: JST['templates/data_portal/widget-navigation'],
 
     defaults: {
       // ISO of the country
@@ -42,6 +43,7 @@
       this.widgetsContainer = this.el.querySelector('.js-widgets');
       this.footerContainer = this.el.querySelector('.js-footer');
       this.tabsContainers = this.el.querySelectorAll('.js-tabs');
+      this.widgetNavContainer = this.el.querySelector('.js-widget-menu');
 
       this._setListeners();
       this._onWindowScroll();
@@ -329,9 +331,24 @@
       if (this.headerContainer) this._renderHeader();
       if (this.mobileHeaderContainer) this._renderMobileHeader();
       if (this.widgetsContainer) this._renderWidgets();
+      if (this.widgetNavContainer) this._renderWidgetNav();
       if (this.footerContainer) this._renderFooter();
 
       this.setElement(this.el);
+    },
+
+    _renderWidgetNav: function () {
+      if (this.groupedIndicators) {
+        var tabs = Object.keys(this.groupedIndicators).map(function (indicator) {
+          return {
+            id: 'w-' + indicator.replace(/ /g, '-').toLowerCase(),
+            name: indicator
+          }
+        })
+        document.querySelector('.js-widget-menu').innerHTML = this.widgetsNavigationTemplate({
+          tabs: tabs
+        });
+      }
     },
 
     /**
@@ -458,6 +475,7 @@
         var title = document.createElement('h3');
 
         div.classList.add('widget-category');
+        title.id = 'w-' + cat.replace(/ /g, '-').toLowerCase();
         title.classList.add('widget-category-title');
         title.innerHTML = cat;
 
