@@ -2,34 +2,22 @@
   'use strict';
 
   var INDICATORS = [    
-    { id: 'own_phone', name: 'Own a phone', category: 'Common indicators', visible: false },
-    { id: 'who_phone', name: 'Phone ownership', category: 'Common indicators', visible: false },
-    { id: 'phone_use', name: 'Independent phone use', category: 'Common indicators', visible: false },
-    { id: 'phone_use_financial', name: 'Informal financial usage', category: 'Common indicators', visible: false },
-    
-    { id: 'children_decission', name: 'Children decision maker', category: 'Decission making', visible: false },
-    { id: 'land_owner', name: 'Land ownership', category: 'Decission making', visible: false },
-    { id: 'land_decission', name: 'Land decision maker', category: 'Decission making', visible: false },
-    { id: 'spending_decission', name: 'Spending decision maker', category: 'Decission making', visible: false },
-    { id: 'saving_goal_deccision', name: 'Savings goal decision maker', category: 'Decission making', visible: false },
-    { id: 'saving_goal_influence', name: 'Savings goal influence', category: 'Decission making', visible: false },
-    
-    { id: 'allow_spouse_work', name: 'Allow spouse to work', category: 'Work', visible: false },
-    { id: 'permission_work', name: 'Permission to work', category: 'Work', visible: false },
-    { id: 'migrant_work', name: 'Migrant worker identity', category: 'Work', visible: false },
-    { id: 'earning_freq', name: 'Earning frequency', category: 'Work', visible: false },
-    { id: 'freq_inconme_spouse', name: 'Income frequency of spouse', category: 'Work', visible: false },
-    { id: 'main_income_earned', name: 'Main income earner', category: 'Work', visible: false },
+    { id: 'geographic_area', name: 'Geographic area', category: 'Common indicators', visible: false },
+    { id: 'gender', name: 'Gender', category: 'Common indicators', visible: false },
+    { id: 'age',name: 'Age', category: 'Common indicators', visible: false },
+    { id: 'i2i_Marital_Status', name: 'Marital status', category: 'Common indicators', visible: false },
+    { id: 'i2i_Education', name: 'Level of education', category: 'Common indicators', visible: true },
+    { id: 'i2i_Income_Sources', name: 'Sources of income', category: 'Common indicators', visible: true },
+    { id: 'water_source_type', name: 'Water source', category: 'Common indicators', visible: false },
+    { id: 'toilet_type', name: 'Toilet type', category: 'Common indicators', visible: false },
+    { id: 'cooking_energy_type', name: 'Cooking energy', category: 'Common indicators', visible: false },
+    { id: 'electricity_access_type', name: 'Electricity access', category: 'Common indicators', visible: false },
 
     { id: 'fas_strand', name: 'Financial services uptake', category: 'Financial access', visible: true },
     { id: 'savings_strand', name: 'Savings', category: 'Financial access', visible: true },
     { id: 'credit_strand', name: 'Credit', category: 'Financial access', visible: true },
     { id: 'remittances_strand', name: 'Send and receive money', category: 'Financial access', visible: false },
     { id: 'insurance_strand', name: 'Insurance', category: 'Financial access', visible: false },
-    { id: 'bank', name: 'Bank', category: 'Financial access', visible: false },
-    { id: 'bank_permission', name: 'Permission to open bank', category: 'Financial access', visible: false },
-    { id: 'account_money_taken', name: 'Money taken from account', category: 'Financial access', visible: false },
-    { id: 'mobile_money', name: 'Mobile money', category: 'Financial access', visible: false },
 
     { id: 'total_fas_strand', name: 'Financial access strands', category: 'Strands', visible: false },
     { id: 'total_saving_strand', name: 'Savings strands', category: 'Strands', visible: false },
@@ -48,7 +36,6 @@
     { id: 'sdgs_strand', name: 'Formally employed', category: 'SDGs', visible: false },
 
     { id: 'poverty_line', name: 'Poverty line', category: 'Poverty', visible: false },
-    { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: 'Poverty', visible: false },
     { id: 'usd_per_day', name: 'USD per day', category: 'Poverty', visible: false }
   ];
 

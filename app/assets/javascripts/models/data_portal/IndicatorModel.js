@@ -27,6 +27,7 @@
         expanded: false,
         isRegion: false,
         isMSME: false,
+        isMobileSurvey: false
       }, options);
     },
 
