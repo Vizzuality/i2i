@@ -38,6 +38,8 @@
       this.options = _.extend({}, this.defaults, settings);
       this.indicatorsCollection = new App.Collection.ExploratorySurveyIndicatorsCollection();
       this.countryModel = new App.Model.CountryModel(this.options.iso, this.options.year, false, true);
+      this.populationModel = new App.Model.PopulationModel(this.options.iso, this.options.year);
+
       this.headerContainer = this.el.querySelector('.js-header');
       this.mobileHeaderContainer = this.el.querySelector('.js-mobile-header');
       this.widgetsContainer = this.el.querySelector('.js-widgets');
@@ -176,6 +178,12 @@
      */
     _updateFilters: function (filters) {
       this.options._filters = filters;
+      this.populationModel.filters = this.options._filters;
+      this.populationModel.fetch()
+      .done(function (){
+        this._renderHeader();
+        this._renderMobileHeader();
+      }.bind(this));
     },
 
     /**
@@ -190,12 +198,20 @@
 
       // We need to update the header with the population of the country for the selected year
       this.countryModel.year = year;
+      this.populationModel.year = year;
+
       // If the request fails, we just don't update the population
       this.countryModel.fetch()
         .done(function (){
           this._renderHeader();
           this._renderMobileHeader();
         }.bind(this));
+
+      this.populationModel.fetch()
+      .done(function (){
+        this._renderHeader();
+        this._renderMobileHeader();
+      }.bind(this));
     },
 
     /**
@@ -256,7 +272,8 @@
 
       $.when.apply($, [
         this.indicatorsCollection.fetch(),
-        this.countryModel.fetch()
+        this.countryModel.fetch(),
+        this.populationModel.fetch()
       ])
         .done(function (){
           this._loadingError = false;
@@ -308,7 +325,7 @@
      * @return {string}
      */
     _getReadablePopulation: function () {
-      var population = this.countryModel.get('population');
+      var population = this.populationModel.get('population');
       var factor, unit;
 
       if (!population) return 'No data provided';
