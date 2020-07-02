@@ -7,7 +7,11 @@
       "name": "table",
       "values": <%= data %>,
       "transform": [
-        { "type": "joinaggregate", "as": ["count"] }
+        { "type": "joinaggregate", "as": ["count"] },
+        {
+          "type": "filter", 
+          "expr": "isDefined(datum.category) && isString(datum.category) && datum.category.length > 0"
+        }
       ]
     }
   ],
