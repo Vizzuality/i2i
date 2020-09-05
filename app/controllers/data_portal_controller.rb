@@ -20,6 +20,7 @@ class DataPortalController < ApplicationController
         acc.push OpenStruct.new(
           name: country.name,
           iso: country.iso,
+          flag_url: country.flag&.dig(:original)&.url,
           link: data_portal_country_preview_path(country[:iso]),
           has_dataset: has_dataset,
           has_finscope: @finscope_countries.include?(country.iso),
@@ -43,6 +44,7 @@ class DataPortalController < ApplicationController
           acc[country_region.region_id].push OpenStruct.new(
             name: country.name,
             iso: country.iso,
+            flag_url: country.flag&.dig(:original)&.url,
             link: data_portal_country_preview_path(country[:iso]),
             has_dataset: has_dataset,
             has_finscope: @finscope_countries.include?(country.iso),
@@ -53,6 +55,7 @@ class DataPortalController < ApplicationController
           acc[country_region.region_id] = [OpenStruct.new(
             name: country.name,
             iso: country.iso,
+            flag_url: country.flag&.dig(:original)&.url,
             has_dataset: has_dataset,
             has_finscope: @finscope_countries.include?(country.iso),
             has_national_diaries: country.financial_diaries.present?,

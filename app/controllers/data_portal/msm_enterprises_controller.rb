@@ -12,6 +12,7 @@ class DataPortal::MsmEnterprisesController < ApplicationController
       acc.push OpenStruct.new(
         name: country_db.name,
         iso: country["iso"],
+        flag_url: country_db.flag&.dig(:original)&.url,
         link: msm_enterprises_show_path(country["iso"], latest_year),
         has_dataset: true,
         icon: :msme
@@ -34,6 +35,7 @@ class DataPortal::MsmEnterprisesController < ApplicationController
       {
         name: c.name,
         iso: c.iso,
+        flag_url: c.flag&.dig(:original)&.url,
         latest_year: msme_countries.find do |msme_c|
           msme_c['iso'] == c[:iso]
         end['year'][0]['year'].to_s
