@@ -4,17 +4,22 @@
   var categories = App.Helper.Indicators.CATEGORIES;
 
   var MOBILE_SURVEYS_INDICATORS = [
-    { id: 'geographic_area', name: 'Geographic Area', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Rural', 'Urban'] },
-    { id: 'age', name: 'Age', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['18-24', '25-34', '35-44', '45-54', '55+'] },
-    { id: 'i2i_Marital_Status', name: 'Marital Status', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'household_size', name: 'Mean household size', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above mean size', 'Below mean size', 'Mean'] },
-    { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Higher education', 'Primary education', 'Secondary education', 'No formal education', 'Other'] },
-    { id: 'main_lan', name: 'Main language', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
-    { id: 'english_literacy', name: 'English literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Excellent', 'Fair', 'Good', 'Not at all', 'Poorly'] }, 
-    { id: 'interview_lan', name: 'Language of interview', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
-    { id: 'poverty_line', name: 'Poverty line', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above poverty line', 'Below poverty line'] },
-    { id: 'migrant_work', name: 'Migrant worker identity', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Me', 'No-one, all live together', 'Other family', 'Spouse'] },
-
+      { id: 'geographic_area', name: 'Geographic Area', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Rural', 'Urban'] },
+      { id: 'region', name: 'Province / Region', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: false},
+      { id: 'division', name: 'Division', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: false},
+      { id: 'age', name: 'Age', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['18-24', '25-34', '35-44', '45-54', '55+'] },
+      { id: 'gender', name: 'Gender', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true},
+      { id: 'i2i_Marital_Status', name: 'Marital Status', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
+      { id: 'household_size', name: 'Mean household size', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above mean size', 'Below mean size', 'Mean'] },
+      { id: 'i2i_Education', name: 'Level of education', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Higher education', 'Primary education', 'Secondary education', 'No formal education', 'Other'] },
+      { id: 'main_lan', name: 'Main language', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, isFullWidth: true },
+      { id: 'english_literacy', name: 'English literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Excellent', 'Fair', 'Good', 'Not at all', 'Poorly'] },
+      { id: 'swahili_literacy', name: 'Swahili literacy', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: false},
+      { id: 'language_literacy', name: 'Read & write in any language', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: false}, 
+      { id: 'interview_lan', name: 'Language of interview', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true },
+      { id: 'poverty_line', name: 'Poverty line', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Above poverty line', 'Below poverty line'] },
+      { id: 'migrant_work', name: 'Migrant worker identity', category: categories.DEMOGRAPHICS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Me', 'No-one, all live together', 'Other family', 'Spouse'] },
+  
     { id: 'land_decission', name: 'Land decision maker', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Decide together with others', 'Family/Friends without me', 'Me only'] },
     { id: 'land_owner', name: 'Land ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont own', 'Own by self', 'Own with others'] },
     { id: 'own_phone', name: 'Own a phone', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Dont own phone', 'Own phone'] },
