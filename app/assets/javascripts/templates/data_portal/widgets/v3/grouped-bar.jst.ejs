@@ -9,7 +9,7 @@
       "transform": [
         { "type": "joinaggregate", "as": ["count"] },
         {
-          "type": "filter", 
+          "type": "filter",
           "expr": "isDefined(datum.category) && isString(datum.category) && datum.category.length > 0"
         }
       ]
@@ -36,7 +36,7 @@
       "zero": false,
       "nice": true
     },
-    { 
+    {
       "name": "xscale",
       "type": "band",
       "domain": <%= preferedOrder !== null ? JSON.stringify(preferedOrder) : '{"data": "table", "field": "category"}' %>,
@@ -74,7 +74,7 @@
 
   "axes": [
     {
-      "orient": "left", 
+      "orient": "left",
       "scale": "yscale",
       "titleFontSize": 13,
       "labelFontSize": 13,
@@ -94,9 +94,9 @@
       "labelPadding": 10
     },
     {
-      "orient": "bottom", 
-      "scale": "xscale",  
-      "tickSize": 0, 
+      "orient": "bottom",
+      "scale": "xscale",
+      "tickSize": 0,
       "zindex": 1,
       "titleFontSize": 13,
       "labelFontSize": 13,
@@ -106,14 +106,13 @@
         "labels": {
           "update": {
             "align": {
-            "signal":
-                "data('table')[0].count > 10 ? 'right' : 'center'"
+              "signal": "data('table')[0].count > 4 ? 'right' : 'center'"
             },
             "baseline": {
-              "signal":  " data('table')[0].count > 10 ? 'middle' : 'top'"
+              "signal": "data('table')[0].count > 4 ? 'middle' : 'top'"
             },
             "angle": {
-              "signal": "data('table')[0].count > 10 ? -90 : 0"
+              "signal": "data('table')[0].count > 4 ? -90 : 0"
             }
           }
         }
