@@ -23,7 +23,7 @@
     { id: 'land_decission', name: 'Land decision maker', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Decide alone', 'Decide with others', 'Others decide without me', 'Don’t own land'] },
     { id: 'land_owner', name: 'Land ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Own by self', 'Own with others', 'Don’t own'] },
     { id: 'own_phone', name: 'Own a phone', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Own phone', 'Own phone/Business/Employer', 'Don’t own phone'] },
-    { id: 'who_phone', name: 'Phone ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Own phone/Business/Employer', 'Husband/Wives', 'Parent', 'Sibling', 'Children', 'Other man/Women', 'Don’t use mobile phone'] },
+    { id: 'who_phone', name: 'Phone ownership', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Own phone/Business/Employer', 'Own phone', 'Husband/Wives', 'Parent', 'Sibling', 'Children', 'Other man/Women', 'Don’t use mobile phone'] },
     { id: 'phone_use', name: 'Independent phone use', category: categories.OWNERSHIP_AND_CONTROL, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Yes', 'Somewhat', 'No'] },
 
     { id: 'saving_goal_deccision', name: 'Savings goal decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Self alone', 'Decide together', 'Others on behalf', 'No savings goal'] },
@@ -33,11 +33,11 @@
     { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Not at all possible', 'Not very possible', 'Somewhat possible', 'Very possible'] },
     { id: 'freq_inconme_spouse', name: 'Income frequency of spouse', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Daily', 'Weekly/Biweekly', 'Monthly', 'When they get work', 'Work unpaid', 'Don’t work', 'Don’t know', 'No spouse'] }, 
     { id: 'main_income_earned', name: 'Main income earner', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Respondent', 'Spouse', 'Earn equally', 'Other fam', 'Other', 'Don’t know'] },
-    { id: 'earning_freq', name: 'Earning frequency', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Daily', 'Weekly/Biweekly', 'Monthly', 'When I get work', 'Work unpaid', 'I don’t work']},
+    { id: 'earning_freq', name: 'Earning frequency', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Daily', 'Weekly/Biweekly', 'Monthly', 'Infrequently', 'When I get work', 'Work unpaid', 'I don’t work']},
 
     { id: 'allow_spouse_work', name: 'Allow spouse to work', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Yes', 'No', 'Not married', ] },
     { id: 'permission_work', name: 'Permission to work', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Already working', 'Yes', 'No'] },
-    { id: 'children_decission', name: 'Children decision maker', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Decide alone', 'Decide together', 'Spouse decides', 'We do not talk about it', 'Others decide', 'Not in relationship'] },
+    { id: 'children_decission', name: 'Children decision maker', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Decide alone', 'Decide together', 'Spouse decides', 'We do not talk about it', 'Others decide', 'Not married', 'Not in relationship'] },
     { id: 'bank_permission', name: 'Permission to open bank', category: categories.GENDER_NORMS, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Yes', 'No'] },
 
     { id: 'phone_use_financial', name: 'Informal financial usage', category: categories.FINANCIAL_INC, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Yes', 'No'] },
