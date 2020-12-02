@@ -28,7 +28,7 @@
 
     { id: 'saving_goal_deccision', name: 'Savings goal decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Self alone', 'Decide together', 'Others on behalf', 'No savings goal'] },
     { id: 'saving_goal_influence', name: 'Savings goal influence', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Always accepted', 'Sometimes accepted/Rejected', 'Always rejected', 'Don’t consult', 'No savings goal'] },
-    { id: 'spending_decission', name: 'Spending decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Fully on own', 'Help from someone else', 'Someone else decides for me'] },
+    { id: 'spending_decission', name: 'Spending decision maker', category: categories.AGENCY_AND_DECISION_MAKING, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Fully on own', 'Help from someone else', 'Someone else decides'] },
 
     { id: 'raise_gni', name: 'Possibility to raise 1/20 GNI (Gross National Income)', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, preferedOrder: ['Not at all possible', 'Not very possible', 'Somewhat possible', 'Very possible'] },
     { id: 'freq_inconme_spouse', name: 'Income frequency of spouse', category: categories.INCOME, defaultChart: 'grouped bar', visible: true, isFullWidth: true, preferedOrder: ['Daily', 'Weekly/Biweekly', 'Monthly', 'When they get work', 'Work unpaid', 'Don’t work', 'Don’t know', 'No spouse'] }, 
