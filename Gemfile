@@ -58,7 +58,7 @@ gem 'activeadmin-sortable'
 
 # File upload gems
 gem 'paperclip'
-gem "shrine", "~> 2.0"
+gem "shrine", "~> 3.3"
 gem "image_processing", "~> 1.0"
 
 # WYSIWYG
