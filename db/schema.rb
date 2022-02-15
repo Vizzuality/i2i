@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_114111) do
+ActiveRecord::Schema.define(version: 2020_04_15_154514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: :cascade do |t|
+  create_table "active_admin_comments", id: :serial, force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
     t.string "author_type"
-    t.bigint "author_id"
+    t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -46,13 +46,62 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "answer_region", id: :serial, force: :cascade do |t|
+    t.integer "row_id", null: false
+    t.string "indicator_id", limit: 255, null: false
+    t.integer "child_indicator_id"
+    t.integer "answer_id"
+    t.string "value", limit: 255
+    t.float "weight", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "region_4_year_id", null: false
+    t.integer "region4yearId"
+  end
+
+  create_table "answer_regions", force: :cascade do |t|
+    t.integer "row_id", null: false
+    t.string "indicator_id", null: false
+    t.integer "child_indicator_id"
+    t.integer "answer_id"
+    t.string "value"
+    t.float "weight", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "region_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_4_year_id"], name: "index_answer_regions_on_region_4_year_id"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "row_id", null: false
+    t.string "indicator_id", null: false
+    t.integer "child_indicator_id"
+    t.integer "answer_id"
+    t.string "value"
+    t.float "weight", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "country_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_4_year_id"], name: "index_answers_on_country_4_year_id"
+    t.index ["indicator_id"], name: "index_answers_on_indicator_id"
+    t.index ["iso"], name: "index_answers_on_iso"
+    t.index ["row_id"], name: "index_answers_on_row_id"
+    t.index ["year"], name: "index_answers_on_year"
+  end
+
   create_table "blogs", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "summary"
     t.text "content"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -63,8 +112,8 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "slug"
     t.boolean "published"
     t.string "custom_author"
-    t.string "record_type", default: "blog"
     t.integer "category_id"
+    t.string "record_type", default: "blog"
     t.boolean "is_featured", default: false
     t.integer "position"
   end
@@ -149,6 +198,12 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "short_iso"
     t.boolean "has_fsp_maps", default: false
     t.text "background_data"
+    t.string "map_url"
+    t.text "flag_data"
+    t.boolean "has_national_diaries", default: false
+    t.boolean "has_msme", default: false
+    t.boolean "has_finscope", default: false
+    t.text "logo_data"
   end
 
   create_table "countries_blogs", id: :serial, force: :cascade do |t|
@@ -185,6 +240,28 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_countries_news_on_country_id"
     t.index ["news_id"], name: "index_countries_news_on_news_id"
+  end
+
+  create_table "country4years", id: :serial, force: :cascade do |t|
+    t.integer "year"
+    t.float "total_msme"
+    t.float "total"
+    t.string "dataUrl", limit: 255
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "countryId"
+    t.integer "country_id", null: false
+  end
+
+  create_table "country_4_years", force: :cascade do |t|
+    t.integer "year"
+    t.float "total_msme"
+    t.float "total"
+    t.string "data_url"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_country_4_years_on_country_id"
   end
 
   create_table "country_partners", id: :serial, force: :cascade do |t|
@@ -233,7 +310,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "name"
     t.string "file_file_name"
     t.string "file_content_type"
-    t.bigint "file_file_size"
+    t.integer "file_file_size"
     t.datetime "file_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -245,7 +322,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.text "content"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -255,8 +332,8 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "slug"
     t.boolean "published"
     t.string "custom_author"
-    t.string "record_type", default: "event"
     t.integer "category_id"
+    t.string "record_type", default: "event"
     t.boolean "is_featured", default: false
     t.integer "position"
   end
@@ -495,7 +572,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.text "summary"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string "url_resource"
@@ -503,8 +580,8 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "issuu_link"
     t.string "slug"
     t.boolean "published"
-    t.string "record_type", default: "library"
     t.integer "category_id"
+    t.string "record_type", default: "library"
     t.boolean "is_featured", default: false
     t.integer "position"
     t.text "description"
@@ -558,13 +635,21 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.string "role"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.integer "order"
+  end
+
+  create_table "mobile_surveys_datasets", force: :cascade do |t|
+    t.integer "year"
+    t.text "iso_code"
+    t.text "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "news", id: :serial, force: :cascade do |t|
@@ -575,15 +660,15 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.text "content"
     t.string "image_file_name"
     t.string "image_content_type"
-    t.bigint "image_file_size"
+    t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "date"
     t.string "author"
     t.string "issuu_link"
     t.string "slug"
     t.boolean "published"
-    t.string "record_type", default: "news"
     t.integer "category_id"
+    t.string "record_type", default: "news"
     t.boolean "is_featured", default: false
     t.integer "position"
   end
@@ -595,6 +680,46 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.datetime "updated_at", null: false
     t.index ["news_id"], name: "index_news_regions_on_news_id"
     t.index ["region_id"], name: "index_news_regions_on_region_id"
+  end
+
+  create_table "original_answer", id: :serial, force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "country4yearId"
+    t.integer "country_4_year_id", null: false
+  end
+
+  create_table "original_answer_region", id: :serial, force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", limit: 255, null: false
+    t.integer "year", null: false
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "region_4_year_id", null: false
+    t.integer "region4yearId"
+  end
+
+  create_table "original_answer_regions", force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "region_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_4_year_id"], name: "index_original_answer_regions_on_region_4_year_id"
+  end
+
+  create_table "original_answers", force: :cascade do |t|
+    t.jsonb "answer", null: false
+    t.string "iso", null: false
+    t.integer "year", null: false
+    t.bigint "country_4_year_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_4_year_id"], name: "index_original_answers_on_country_4_year_id"
   end
 
   create_table "partners", id: :serial, force: :cascade do |t|
@@ -636,6 +761,26 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.text "custom_text"
   end
 
+  create_table "region4years", id: :serial, force: :cascade do |t|
+    t.integer "year"
+    t.float "total"
+    t.string "dataUrl", limit: 255
+    t.datetime "createdAt", null: false
+    t.datetime "updatedAt", null: false
+    t.integer "regionId"
+    t.integer "region_id", null: false
+  end
+
+  create_table "region_4_years", force: :cascade do |t|
+    t.integer "year"
+    t.float "total"
+    t.string "data_url"
+    t.bigint "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_region_4_years_on_region_id"
+  end
+
   create_table "region_partners", id: :serial, force: :cascade do |t|
     t.integer "region_id"
     t.integer "partner_id"
@@ -654,14 +799,16 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.text "flag_data"
     t.text "logo_data"
     t.text "background_data"
+    t.string "map_url"
     t.index ["slug"], name: "index_regions_on_slug", unique: true
   end
 
-  create_table "sessions", id: :serial, force: :cascade do |t|
+  create_table "sessions", id: false, force: :cascade do |t|
+    t.serial "id", null: false
     t.string "session_id", null: false
     t.text "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
@@ -710,4 +857,14 @@ ActiveRecord::Schema.define(version: 2019_10_29_114111) do
     t.index ["token"], name: "index_users_on_token"
   end
 
+  add_foreign_key "answer_region", "region4years", column: "region4yearId", name: "answer_region_region4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "answer_region", "region4years", column: "region_4_year_id", name: "answer_region_region_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "country4years", "countries", column: "countryId", name: "country4years_countryId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "country4years", "countries", name: "country4years_country_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "original_answer", "country4years", column: "country4yearId", name: "original_answer_country4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "original_answer", "country4years", column: "country_4_year_id", name: "original_answer_country_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "original_answer_region", "region4years", column: "region4yearId", name: "original_answer_region_region4yearId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "original_answer_region", "region4years", column: "region_4_year_id", name: "original_answer_region_region_4_year_id_fkey", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "region4years", "regions", column: "regionId", name: "region4years_regionId_fkey", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "region4years", "regions", name: "region4years_region_id_fkey", on_update: :cascade, on_delete: :cascade
 end

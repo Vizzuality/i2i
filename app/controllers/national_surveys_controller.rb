@@ -7,6 +7,7 @@ class NationalSurveysController < ApplicationController
       acc.push OpenStruct.new(
         name: country.name,
         iso: country.iso,
+        flag_url: country.flag&.dig(:original)&.url,
         link: data_portal_y_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
         has_dataset: true,
         icon: :national_surveys
@@ -20,6 +21,7 @@ class NationalSurveysController < ApplicationController
           acc[country_region.region_id].push OpenStruct.new(
             name: country.name,
             iso: country.iso,
+            flag_url: country.flag&.dig(:original)&.url,
             link: data_portal_y_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
             has_dataset: true,
             icon: :national_surveys
@@ -28,6 +30,7 @@ class NationalSurveysController < ApplicationController
           acc[country_region.region_id] = [OpenStruct.new(
             name: country.name,
             iso: country.iso,
+            flag_url: country.flag&.dig(:original)&.url,
             link: data_portal_y_path(country.iso, @finscope_countries.find { |finscope_hash| finscope_hash[:iso] == country.iso }[:latest_year]),
             has_dataset: true,
             icon: :national_surveys
