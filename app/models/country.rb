@@ -26,7 +26,6 @@ class Country < ApplicationRecord
   scope :all_except, ->(country) { where.not(id: country) }
   scope :ordered_by_name, -> { order(:name) }
 
-  attr_accessor :has_finscope
   attr_accessor :has_financial_diaries
   attr_accessor :bbox_raw
 
