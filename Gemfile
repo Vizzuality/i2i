@@ -59,7 +59,7 @@ gem 'activeadmin-sortable'
 # File upload gems
 gem 'paperclip'
 gem "shrine", "~> 2.0"
-gem "image_processing", "~> 1.0"
+gem "image_processing", "~> 1.12"
 
 # WYSIWYG
 gem 'ckeditor', '4.2.4'
